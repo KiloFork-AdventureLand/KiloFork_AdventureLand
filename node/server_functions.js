@@ -3540,13 +3540,14 @@ function xy_upush_logic(element) {
 
 // appengine_call removed - all calls replaced with direct MongoDB operations
 
-function discord_call(message) {
+function discord_call(message, character_name) {
 	if (gameplay == "hardcore" || gameplay == "test") {
 		return;
 	}
 	if (Dev) {
 		return server_log("Discord: " + message);
 	}
+	if (character_name) return discord_relay.chat(character_name, message);
 	return discord_relay.event(message);
 }
 

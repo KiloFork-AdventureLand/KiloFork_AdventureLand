@@ -111,37 +111,13 @@ The argument is a key from `servers` in `secretsandconfig/options.js`. The defau
 
 ### Discord chat (optional)
 
-The game server reuses `discord_token` from `secretsandconfig/keys.js` for event announcements and public chat. Set `discord_chat_channel` in `secretsandconfig/options.js` to the string ID of your `#game_chat` channel, and give the bot permission to view that channel and send messages. Use the same channel ID on every game server to combine their public chat. An empty setting disables chat forwarding; event and join announcements keep their existing channels.
+The game server reuses `discord_token` from `secretsandconfig/keys.js` for event announcements and public chat. Public chat defaults to Adventure Land's `#game_chat` channel. To use another channel, set `discord_chat_channel` in `secretsandconfig/options.js` to its string ID and give the bot permission to view it and send messages. Use the same channel ID on every game server to combine their public chat. An empty string disables chat forwarding; event and join announcements keep their existing channels.
 
 Messages include the realm and character name. Public chat is batched over ten seconds; party chat and private messages are excluded. The relay sends nothing back into the game and is disabled in development, test, and hardcore modes. It uses bounded memory, five-second request timeouts, and at most three attempts per batch. Messages expire after two minutes, so an outage or overload can drop chat. No extra Discord package or Gateway connection is needed.
 
 ## Seeding Game Data
 
-The database needs map data and game entities to function. You have two options:
-
-### Option A: Import from the RDBMS dump (recommended)
-
-The original AppEngine development database is available at:
-https://github.com/kaansoral/adventureland-appserver/blob/main/storage/db.rdbms
-
-This SQLite file contains users, characters, maps, and all game data from the development server.
-
-Use the migration scripts in `agentic/` to import this data into MongoDB:
-
-```sh
-# Set up Python environment
-cd agentic
-python3 -m venv .venv
-source .venv/bin/activate
-pip install pymongo
-
-# Run the RDBMS migration (reads db.rdbms, writes to MongoDB)
-python _migrate_rdbms.py
-```
-
-See `agentic/` for additional fix scripts that handle ID prefixing, repeated fields, and other migration edge cases. The scripts are documented in `CLAUDE.md`.
-
-### Option B: Start fresh
+### Start fresh
 
 The game will create entities as needed. You can sign up for a new account through the web UI. You'll need to populate map data for the game server to function — the BFS precomputation (`node/precompute_bfs.js`) depends on map geometry being in the database.
 
@@ -166,7 +142,6 @@ adventureland/
   css/                     # Stylesheets
   images/                  # Game art and tilesets
   sounds/                  # Sound effects and music
-  agentic/                 # Migration and data fix scripts
   common -> ../common      # Symlink to common_engine
   secretsandconfig -> ...  # Symlink to your config
 ```

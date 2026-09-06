@@ -31,7 +31,7 @@ const SocketIOServer = require("socket.io").Server;
 const msgpack_parser = require("./msgpack_parser");
 const discord_relay = require("./logic/discord")({
 	token: keys.discord_token,
-	chatChannel: options.discord_chat_channel,
+	chatChannel: options.discord_chat_channel === undefined ? "1546291317196324965" : options.discord_chat_channel,
 	realm: region + " " + server_name,
 	enabled: !Dev,
 });
@@ -4817,7 +4817,7 @@ function init_socket_io(socket_server) {
 			} else {
 				if (1) {
 					broadcast("chat_log", { owner: player.name, message: message, id: player.id, p: true });
-					if (gameplay !== "hardcore" && gameplay !== "test") discord_relay.chat(player.name, message);
+					discord_call(message, player.name);
 					var owners = {};
 					for (var id in players) {
 						var p = players[id];
