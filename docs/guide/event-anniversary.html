@@ -16,8 +16,9 @@
 		<div class="anniversary-gift-drops" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px"></div>
 	<div class="anniversary-guide-divider"></div>
 	<div style="color:#8B642E">Event details</div>
-		<p>Reachable, non-AFK players are chosen, with newer, lower-level characters favored. The featured player gets one Gift after their first visitor. Joining late gives no visit for that round; repeated kisses give no extra rewards. Replacing the featured player does not reset the five-minute timer.</p>
-		<p>Monsters can also drop slices and Gifts: separate 1-in-5,000 and 1-in-1,500 rolls, adjusted by reward share, not Luck.</p>
+		<p>Reachable, non-AFK players are chosen, with newer, lower-level characters favored. Each visitor who uses their Visit also gives the featured player one slice of their own flavor and one Gift. Joining late gives no Visit; repeated kisses give no extra rewards.</p>
+		<p>If the featured player disconnects or becomes unreachable, their place stays reserved until the round ends. They can return during the same five minutes. The timer does not restart.</p>
+		<p>Monsters also drop Gifts and your account's slice during the event. They use normal global-drop rolls, including monster HP, Luck and reward share. Inspect them with <span class="dlabel">show_json(G.drops.maps.global)</span>.</p>
 		<p>Crafting needs the listed unlocked ingredients, gold, and room for the result. Stay near Mira unless you have Computer access. Mira leaves when the event ends; your items and emotes stay.</p>
 		<p>Make a Wish's jar costs one cake + 250,000 gold at Mira. The emote uses 50 MP and has a four-minute cooldown. The rare I Kiss You jar unlocks kisses outside the event. Neither gives combat bonuses.</p>
 	<div class="anniversary-guide-divider"></div>
@@ -32,11 +33,12 @@
 		Date.now() >= ticket.expires || Date.now() >= round.expires) {
 		return game_log("No Anniversary Visit available right now");
 	}
+	if (round.available === false) return game_log("Waiting for " + round.target + " to return");
 
 	await smart_move({ map: round.map, x: round.x, y: round.y });
 	var current = server.status.anniversary;
 	ticket = character.s.anniversary_visit;
-	if (!current || !current.live || current.round !== round.round ||
+	if (!current || !current.active || !current.live || current.available === false || current.round !== round.round ||
 		current.id !== round.id || !ticket || ticket.ms &lt;= 0 ||
 		Date.now() >= ticket.expires || Date.now() >= current.expires) return;
 
@@ -101,6 +103,6 @@ open_anniversary_reward("sixcake").catch(show_json);
 	var mira = G.npcs.anniversary_baker;
 	$(".anniversary-guide-mira").html(sprite(mira.skin,{cx:clone(mira.cx || {}),width:54,height:72,scale:2}));
 	$(".anniversary-cake-drops").html(render_drop([1,"open","sixcake"],1,"#858B8E"));
-	$(".anniversary-cake-bonuses").html(render_drop([1,"anniversarygift",3],1,"#858B8E") + render_drop([1.0/100000,"cxjar",1,"ikissyou"],1,"#858B8E"));
+	$(".anniversary-cake-bonuses").html(G.drops.sixcake_bonus.map(function(drop) { return render_drop(drop,1,"#858B8E"); }).join(""));
 	$(".anniversary-gift-drops").html(render_drop([1,"open","anniversarygift"],1,"#858B8E"));
 </script>

@@ -87,7 +87,7 @@ function sprocess_game_data() {
 			D.drops.monsters[m].push([1.0 / 1000, "glitch"]);
 		}
 		for (var n in D.drops) {
-			if (!is_array(D.drops[n])) {
+			if (!is_array(D.drops[n]) || n.endsWith("_bonus")) {
 				continue;
 			}
 			var total = 0;
@@ -2154,33 +2154,6 @@ function anniversary_tick() {
 	}
 }
 
-function anniversary_craft(player, name) {
-	if (!player || player.user) return fail_response("cant_in_bank", "craft");
-	if (player.rip || player.dead) return fail_response("disabled", "craft");
-	if (!anniversary_is_active()) {
-		player.socket.emit("game_log", {
-			message: "Mira is away. Cake crafting returns during the anniversary.",
-			color: "gray",
-		});
-		return fail_response("craft_cant", "craft");
-	}
-	const recipe = typeof name === "string" && Object.prototype.hasOwnProperty.call(G.craft, name) && G.craft[name];
-	if (!recipe || recipe.quest !== "anniversary_baker") return fail_response("craft_cant", "craft");
-	const npc = npcs.anniversary_baker;
-	if (!npc || (!player.computer && distance(npc, player) > B.sell_dist)) return fail_response("distance", "craft");
-	const plan = anniversary_rules.planCraft(player, recipe);
-	if (plan.error) return fail_response(plan.error, "craft");
-	const output = recipe.output ? create_new_item(recipe.output.name) : create_new_item(name);
-	if (recipe.output && recipe.output.data) output.data = recipe.output.data;
-	if (!plan.take.some(([index, count]) => (player.items[index].q || 1) === count) && !can_add_item(player, output))
-		return fail_response("inventory_full", "craft");
-	player.gold -= plan.cost;
-	for (const [index, count] of plan.take) consume(player, index, count);
-	const num = add_item(player, output);
-	resend(player, "reopen+nc+inv");
-	success_response("craft", "craft", { num: num, name: output.name, cevent: true });
-}
-
 function event_loop() {
 	try {
 		anniversary_tick();
@@ -3665,6 +3638,7 @@ function exchange(player, name, args) {
 	var total = 0;
 	var current = 0;
 	var table = D.drops[name];
+	var bonus = !is_array(name) && D.drops[name + "_bonus"];
 	if (is_array(name)) {
 		table = name;
 		name = args.name;
@@ -3755,21 +3729,23 @@ function exchange(player, name, args) {
 	if (!done) {
 		socket.emit("game_log", "Didn't receive anything");
 	}
-	if (done && name === "sixcake") {
-		add_item(player, { name: "anniversarygift", q: 3 });
-		if (Math.random() < 1 / 100000) add_item(player, { name: "cxjar", q: 1, data: "ikissyou" });
-	}
+	if (done && bonus)
+		bonus.forEach(function (drop) {
+			if (Math.random() < drop[0]) exchange(player, [drop], { ...args, name });
+		});
 }
 
 function chest_exchange(chest, name) {
 	var done = false;
 	var total = 0;
 	var current = 0;
-	D.drops[name].forEach(function (drop) {
+	var table = is_array(name) ? name : D.drops[name];
+	var bonus = !is_array(name) && D.drops[name + "_bonus"];
+	table.forEach(function (drop) {
 		total += drop[0];
 	});
 	result = Math.random() * total;
-	D.drops[name].forEach(function (drop) {
+	table.forEach(function (drop) {
 		if (done) {
 			return;
 		}
@@ -3783,6 +3759,8 @@ function chest_exchange(chest, name) {
 			} else if (drop[1] == "empty") {
 			} else if (drop[1] == "open") {
 				chest_exchange(chest, drop[2]);
+			} else if (drop[1] == "cx") {
+				chest.items.push({ name: "cxjar", q: 1, data: drop[2] });
 			} else {
 				const item = create_new_item(drop[1], drop[2]);
 				if (drop[1] === "cxjar") item.data = drop[3];
@@ -3790,10 +3768,10 @@ function chest_exchange(chest, name) {
 			}
 		}
 	});
-	if (done && name === "sixcake") {
-		chest.items.push({ name: "anniversarygift", q: 3 });
-		if (Math.random() < 1 / 100000) chest.items.push({ name: "cxjar", q: 1, data: "ikissyou" });
-	}
+	if (done && bonus)
+		bonus.forEach(function (drop) {
+			if (Math.random() < drop[0]) chest_exchange(chest, [drop]);
+		});
 }
 
 var item_p_ignore = {

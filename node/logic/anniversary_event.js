@@ -22,30 +22,6 @@ function sliceForAccount(accountId) {
 	return SLICES[hash % SLICES.length];
 }
 
-function monsterRewards(accountId, monster, share = 1, random = Math.random) {
-	const slice = sliceForAccount(accountId);
-	if (
-		!slice ||
-		!monster ||
-		monster.pet ||
-		monster.trap ||
-		monster.summoned ||
-		monster.npc ||
-		monster["1hp"] ||
-		monster.max_hp <= 1 ||
-		monster.difficulty === 0 ||
-		!(monster.xp > 0) ||
-		!Number.isFinite(share) ||
-		share <= 0
-	)
-		return [];
-	const credit = Math.min(1, share),
-		result = [];
-	if (random() < credit / 5000) result.push(slice);
-	if (random() < credit / 1500) result.push("anniversarygift");
-	return result;
-}
-
 function createEvent({
 	now = Date.now,
 	random = Math.random,
@@ -137,27 +113,23 @@ function createEvent({
 							started: false,
 							target: null,
 							claims: new Set(),
-							hosts: new Set(),
 						}
 					: null;
 		}
 		if (round && time >= round.expires) round = null;
-		if (round && !eligible(round.target)) {
-			if (round.target) previous = round.target.id;
+		if (round && !round.started) {
 			round.target = select();
 			if (round.target) {
 				previous = round.target.id;
-				if (!round.started) {
-					round.started = true;
-					round.expires = time + WINDOW;
-					// One ticket for every other character online at selection, not on later ticks.
-					for (const p of players()) {
-						if (!online(p) || p.id === round.target.id) continue;
-						clearTicket(p);
-						addCondition(p, "anniversary_visit", { duration: WINDOW });
-						Object.assign(p.s.anniversary_visit, { round: round.id, realm, expires: round.expires });
-						resend(p, "u+cid");
-					}
+				round.started = true;
+				round.expires = time + WINDOW;
+				// One ticket for every other character online at selection, not on later ticks.
+				for (const p of players()) {
+					if (!online(p) || p.id === round.target.id) continue;
+					clearTicket(p);
+					addCondition(p, "anniversary_visit", { duration: WINDOW });
+					Object.assign(p.s.anniversary_visit, { round: round.id, realm, expires: round.expires });
+					resend(p, "u+cid");
 				}
 				clearTicket(round.target);
 			}
@@ -167,7 +139,7 @@ function createEvent({
 			else if (p.s && p.s.anniversary_visit)
 				p.s.anniversary_visit.ms = Math.min(p.s.anniversary_visit.ms, round.expires - time);
 		}
-		const target = round && round.target;
+		const target = currentTarget() || (round && round.target);
 		return {
 			active: true,
 			live: !!target,
@@ -178,6 +150,7 @@ function createEvent({
 						expires: round.expires,
 						target: target.name,
 						id: target.id,
+						available: isTarget(target),
 						skin: target.skin,
 						cx: JSON.parse(JSON.stringify(target.cx || {})),
 						map: target.map,
@@ -187,8 +160,16 @@ function createEvent({
 				: {}),
 		};
 	}
+	function currentTarget() {
+		if (!round || !round.target) return null;
+		// A new socket creates a new player object. Keep this character's place,
+		// invitation history and original deadline; never reroll on disconnect.
+		const target = players().find((p) => p.id === round.target.id && p.owner === round.target.owner && online(p));
+		if (target) round.target = target;
+		return target || null;
+	}
 	function isTarget(target) {
-		return !!(active() && round && now() < round.expires && round.target === target && eligible(target));
+		return !!(active() && round && now() < round.expires && currentTarget() === target && eligible(target));
 	}
 	function claim(visitor, target, deliver) {
 		if (
@@ -204,58 +185,17 @@ function createEvent({
 			distance(visitor, target) > 80
 		)
 			return false;
-		const slice = sliceForAccount(visitor.owner);
-		if (!slice || round.claims.has(visitor.id)) return false;
+		const slice = sliceForAccount(visitor.owner),
+			hostSlice = sliceForAccount(target.owner);
+		if (!slice || !hostSlice || round.claims.has(visitor.id)) return false;
 		// Synchronous delivery, reserved before any inventory side effects.
 		round.claims.add(visitor.id);
 		clearTicket(visitor);
 		deliver(visitor, [slice, "anniversarygift"]);
-		if (!round.hosts.has(target.id)) {
-			round.hosts.add(target.id);
-			deliver(target, ["anniversarygift"]);
-		}
+		deliver(target, [hostSlice, "anniversarygift"]);
 		return true;
 	}
 	return { tick, isTarget, canVisit, claim };
 }
 
-// Resolve a trusted recipe against inventory without accepting client slot or
-// quantity claims. Plan the whole operation before consuming anything.
-function planCraft(player, recipe) {
-	if (
-		!recipe ||
-		!Number.isFinite(recipe.cost) ||
-		recipe.cost < 0 ||
-		!Array.isArray(recipe.items) ||
-		recipe.items.length > 9
-	)
-		return { error: "craft_cant" };
-	if (!(player.gold >= recipe.cost)) return { error: "gold_not_enough" };
-	const take = new Map();
-	for (const [quantity, name, level] of recipe.items) {
-		if (!Number.isSafeInteger(quantity) || quantity <= 0) return { error: "craft_cant" };
-		let left = quantity;
-		for (let index = 0; index < player.items.length && left; index++) {
-			const item = player.items[index];
-			if (
-				!item ||
-				item.name !== name ||
-				item.l ||
-				item.b ||
-				item.giveaway ||
-				(level !== undefined && (item.level || 0) !== level)
-			)
-				continue;
-			const available = (item.q || 1) - (take.get(index) || 0);
-			const count = Math.min(left, Math.max(0, available));
-			if (count) {
-				take.set(index, (take.get(index) || 0) + count);
-				left -= count;
-			}
-		}
-		if (left) return { error: "craft_cant_quantity" };
-	}
-	return { cost: recipe.cost, take: [...take] };
-}
-
-module.exports = { SLICES, INTERVAL, WINDOW, sliceForAccount, monsterRewards, createEvent, planCraft };
+module.exports = { SLICES, INTERVAL, WINDOW, sliceForAccount, createEvent };

@@ -312,7 +312,8 @@ function anniversary_event_status_html() {
 		else html += "<div style='font-size:28px;line-height:30px'>Find <span style='color:#FFE2A0'>" + html_escape(String(state.target || "the featured player")) + "</span></div>";
 		html += "<div style='color:#AAA'>" + html_escape((map && map.name) || String(state.map || "")) + " (" + Math.round(state.x || 0) + ", " + Math.round(state.y || 0) + ")</div></div>";
 		html += "<div style='color:#F0B742'>" + (Number.isFinite(remaining) ? remaining + " minute" + (remaining == 1 ? "" : "s") + " left" : "Round in progress") + "</div></div>";
-		if (host) html += "<div style='margin-top:10px'>Stay nearby and welcome your visitors. Your first visitor brings you one Anniversary Gift.</div>";
+		if (state.available === false) html += "<div style='margin-top:10px;color:#AAA'>Waiting for " + html_escape(state.target) + " to return to a reachable spot. Their place is reserved; the five-minute timer keeps running.</div>";
+		else if (host) html += "<div style='margin-top:10px'>Stay nearby and welcome your visitors. Each visitor who uses their Visit brings you one slice of your own flavor and one Anniversary Gift.</div>";
 		else
 			html +=
 				"<div style='display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px'>" +
@@ -2421,7 +2422,7 @@ function render_item_help(container, name, level, pure) {
 			var tname = iname;
 			if (l) tname += l;
 			if (G.drops[tname]) {
-				var table = G.drops[tname];
+				var table = G.drops[tname].concat(G.drops[tname + "_bonus"] || []);
 				for (var i = 0; i < table.length; i++) {
 					if (table[i][1] == name) {
 						// || table[i][1]=="open" && in_arr(table[i][2],names)) # There was an objection to this and seems logical [18/07/22]
@@ -2735,10 +2736,11 @@ function render_monster_info(name) {
 function render_exchange_info(name, count) {
 	var html = "<div style='font-size: 24px'>";
 	html += render_drop([1, "open", name], 1, "#858B8E");
-	if (name == "sixcake") {
+	if (G.drops[name + "_bonus"]) {
 		html += "<div style='margin-top:12px;color:#AAA'>Also receive:</div>";
-		html += render_drop([1, "anniversarygift", 3], 1, "#858B8E");
-		html += render_drop([1.0 / 100000, "cxjar", 1, "ikissyou"], 1, "#858B8E");
+		G.drops[name + "_bonus"].forEach(function (drop) {
+			html += render_drop(drop, 1, "#858B8E");
+		});
 	}
 	html += "</div>";
 	show_modal(html, { wwidth: 240, styles: "max-width: 460px", hideinbackground: true });
@@ -4336,7 +4338,7 @@ function render_item(selector, args) {
 				if (!(i % 4)) html += "<div></div>";
 			});
 			if (recipe.cost) html += bold_prop_line("Cost", to_pretty_num(recipe.cost), "gold");
-			html += "<div class='clickable' onclick='" + (recipe.quest == "anniversary_baker" ? "anniversary_craft" : "auto_craft") + "(\"" + recipe_name + '")\' style="color: ' + ecolor + '">' + action + "</div>";
+			html += "<div class='clickable' onclick='auto_craft(\"" + recipe_name + '")\' style="color: ' + ecolor + '">' + action + "</div>";
 		}
 		if (args.dismantle) {
 			var i = 0;
@@ -5543,11 +5545,18 @@ function render_interaction(type, sub_type, args) {
 
 	if (type.auto) {
 		html += type.message;
-		if (type.button)
-			((interaction_onclick = type.onclick), (html += "<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='interaction_onclick()'>" + type.button + "</div></span>"));
-		if (type.button2)
-			((interaction_onclick2 = type.onclick2),
-				(html += "<span style='float: right; margin-top: 5px; margin-right: 5px'><div class='slimbutton' onclick='interaction_onclick2()'>" + type.button2 + "</div></span>"));
+		if (type.button || type.button2) {
+			html += "<div style='clear:both;text-align:right;margin-top:5px'>";
+			if (type.button2) {
+				interaction_onclick2 = type.onclick2;
+				html += "<div class='slimbutton' style='margin-right:5px' onclick='interaction_onclick2()'>" + type.button2 + "</div>";
+			}
+			if (type.button) {
+				interaction_onclick = type.onclick;
+				html += "<div class='slimbutton' onclick='interaction_onclick()'>" + type.button + "</div>";
+			}
+			html += "</div>";
+		}
 	} else if (type == "seashells") {
 		html += "Ah, I love the sea, so calming. As a kid, I loved spending time on the beach. Collecting seashells. If you happen to find some, I would love to add them to my collection.";
 		html += "<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_exchange_shrine(\"seashell\")'>I HAVE 20!</div></span>";

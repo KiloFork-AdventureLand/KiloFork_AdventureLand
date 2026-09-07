@@ -9,7 +9,11 @@ const rules = require("../logic/anniversary_event");
 const root = path.resolve(__dirname, "../..");
 const source = fs.readFileSync(path.join(root, "node/server.js"), "utf8");
 const functions = fs.readFileSync(path.join(root, "node/server_functions.js"), "utf8");
+const shared = fs.readFileSync(path.join(root, "js/old_common_functions.js"), "utf8");
 const plain = (value) => JSON.parse(JSON.stringify(value));
+const design = vm.createContext({ console: { log() {} } });
+for (const name of ["multipliers", "items", "npcs", "drops", "recipes"])
+	vm.runInContext(fs.readFileSync(path.join(root, "design", name + ".js"), "utf8"), design, { filename: name });
 
 test("seasonal tick follows the manual switch, preserves other NPCs and excludes PvP", () => {
 	const emitted = [],
@@ -212,43 +216,112 @@ test("anniversary defaults on and has no automatic date cutoff or reactivation",
 	assert.equal(design.events.anniversary.duration, undefined);
 	assert.doesNotMatch(definition(functions, "anniversary_is_active"), /Date|options|inEventWindow/);
 });
-test("kill rolls use contribution once and ignore loot multipliers", () => {
-	const monster = { xp: 10, max_hp: 100, luck: 100000, mult: 100000 };
+function dropHarness(roll = 0) {
+	const emitted = [],
+		p = player("Farmer", { luckm: 1, p: {} });
+	const monster = { type: "goo", map: "main", x: 20, y: 30, max_hp: 1000, mult: 1, luckx: 1, level: 1 };
+	const context = vm.createContext({
+		anniversary_rules: rules,
+		anniversary_is_active: () => true,
+		G: { items: design.items, monsters: { goo: { hp: 1000 } } },
+		D: {
+			drops: {
+				maps: { global: plain(design.drops.maps.global), global_static: [] },
+				monsters: {},
+				monsters_home_server: {},
+				gold: { base: 0, random: 0, x10: 0, x50: 0 },
+				konami: [],
+			},
+			monster_gold: { goo: 0 },
+		},
+		B: { global_drops: true, drop_table_multiplier: 1 },
+		mode: {},
+		chests: {},
+		Math: Object.assign(Object.create(Math), { random: () => roll }),
+		round: Math.round,
+		is_in_pvp: () => false,
+		achievement_logic_monster_kill() {},
+		randomStr: () => "chest",
+		has_home_server_bonus: () => false,
+		create_new_item: (name) => ({ name }),
+		can_stack: () => false,
+	});
+	p.socket.emit = (...args) => emitted.push(args);
+	for (const name of ["drop_item_logic", "drop_something"]) vm.runInContext(definition(source, name), context);
+	return {
+		context,
+		p,
+		monster,
+		emitted,
+		drop(share = 1) {
+			context.drop_something(p, monster, share);
+			return context.chests.chest?.items.map((item) => item.name) || [];
+		},
+	};
+}
+test("public global table supplies one normal chest with a Gift and only the credited account's flavor", () => {
+	const table = plain(design.drops.maps.global);
 	assert.deepEqual(
-		rules.monsterRewards("account", monster, 1, () => 0),
-		[rules.sliceForAccount("account"), "anniversarygift"],
+		table.find((row) => row[1] === "anniversarygift"),
+		[1 / 1500, "anniversarygift"],
 	);
-	assert.deepEqual(
-		rules.monsterRewards("account", monster, 0.5, () => 0.00011),
-		["anniversarygift"],
-	);
-	assert.deepEqual(
-		rules.monsterRewards("account", monster, 100, () => 0.001),
-		[],
-	);
-	assert.deepEqual(
-		rules.monsterRewards("account", monster, 1, () => 0.0002),
-		["anniversarygift"],
-	);
-	for (const patch of [
-		{ pet: true },
-		{ trap: true },
-		{ summoned: true },
-		{ npc: true },
-		{ "1hp": true },
-		{ max_hp: 1 },
-		{ difficulty: 0 },
-		{ xp: 0 },
-	])
+	for (const slice of rules.SLICES)
 		assert.deepEqual(
-			rules.monsterRewards("account", { ...monster, ...patch }, 1, () => 0),
-			[],
+			table.find((row) => row[1] === slice),
+			[1 / 5000, slice],
 		);
-	for (const share of [0, -1, NaN, Infinity])
-		assert.deepEqual(
-			rules.monsterRewards("account", monster, share, () => 0),
-			[],
-		);
+	for (let i = 0; i < 18; i++) {
+		const h = dropHarness();
+		h.p.owner = "account-" + i;
+		assert.deepEqual(plain(h.drop()).sort(), ["anniversarygift", rules.sliceForAccount(h.p.owner)].sort());
+		assert.equal(h.emitted.length, 1, "no extra event chest");
+		assert.deepEqual(plain(h.emitted[0][1].owners), [h.p.owner]);
+		assert.equal(h.emitted[0][1].x, h.monster.x);
+	}
+});
+test("anniversary global drops use the real HP, Luck, share and monster multiplier formula", () => {
+	for (const factors of [
+		[1000, 1, 1, 1, 1],
+		[2000, 3, 2, 4, 0.25],
+		[200, 2, 1, 1, 0.5],
+	]) {
+		const [hp, luck, luckx, mult, share] = factors;
+		for (const [rate, item] of [
+			[1 / 1500, "anniversarygift"],
+			[1 / 5000, rules.sliceForAccount("owner-Farmer")],
+		]) {
+			const probability = ((rate * hp) / 1000) * luck * luckx * mult * share;
+			for (const [factor, expected] of [
+				[0.999999, true],
+				[1.000001, false],
+			]) {
+				const h = dropHarness(probability * factor);
+				h.p.luckm = luck;
+				Object.assign(h.monster, { max_hp: hp, luckx, mult, level: 50 });
+				h.context.B.drop_table_multiplier = 100;
+				assert.equal(h.drop(share).includes(item), expected, JSON.stringify({ factors, item, factor }));
+			}
+		}
+	}
+});
+test("global guards stop event drops and never suppress ordinary drops", () => {
+	for (const change of [
+		(h) => (h.context.anniversary_is_active = () => false),
+		(h) => (h.context.B.global_drops = false),
+		(h) => (h.p.tskin = "konami"),
+		(h) => (h.monster.pet = true),
+		(h) => (h.monster.trap = true),
+	]) {
+		const h = dropHarness();
+		change(h);
+		assert.deepEqual(plain(h.drop()), []);
+	}
+	const h = dropHarness();
+	h.context.anniversary_is_active = () => false;
+	h.context.D.drops.maps.global.push([1, "gem0"]);
+	assert.deepEqual(plain(h.drop()), ["gem0"]);
+	assert.deepEqual(plain(dropHarness(0.5).drop()), []);
+	assert.deepEqual(plain(dropHarness().drop(0)), []);
 });
 test("no partial round replay; selection, expiry and shutdown are bounded", () => {
 	const h = eventHarness();
@@ -263,7 +336,7 @@ test("no partial round replay; selection, expiry and shutdown are bounded", () =
 	assert.equal(h.event.tick().live, false);
 });
 
-test("featured appearance is a public snapshot and follows cosmetic changes and replacement", () => {
+test("featured appearance is a public snapshot; becoming AFK reserves the same character", () => {
 	const h = eventHarness();
 	h.host.skin = "marmor6a";
 	h.host.cx = { head: "makeup117", hat: "aniv2", skin: ["armor", "head"] };
@@ -286,9 +359,9 @@ test("featured appearance is a public snapshot and follows cosmetic changes and 
 	h.visitor.skin = "mmage";
 	h.host.afk = true;
 	const replacement = h.event.tick();
-	assert.equal(replacement.id, h.visitor.id);
-	assert.equal(replacement.skin, "mmage");
-	assert.deepEqual(replacement.cx, {});
+	assert.equal(replacement.id, h.host.id);
+	assert.equal(replacement.skin, h.host.skin);
+	assert.equal(replacement.available, false);
 	h.time(rules.INTERVAL + rules.WINDOW);
 	const ended = h.event.tick();
 	assert.equal(ended.skin, undefined);
@@ -337,14 +410,14 @@ test("the five-minute deadline begins at actual selection and every ticket holde
 		assert.equal(p.s.anniversary_visit, undefined);
 		assert(!h.event.claim(p, h.host, h.deliver));
 	}
-	assert.equal(h.delivered.length, 51, "fifty visitor rewards and one host reward");
+	assert.equal(h.delivered.length, 100, "each of fifty visits rewards both players");
 	h.time(selectedAt + rules.WINDOW);
 	assert(!h.event.claim(h.visitor, h.host, h.deliver));
 	assert.equal(h.event.tick().live, false);
 	assert.equal(h.visitor.s.anniversary_visit, undefined);
 });
 
-test("retargeting, reconnecting and changing realms cannot reissue or replay a ticket", () => {
+test("disconnect and reconnect preserve the selected character, deadline and used tickets", () => {
 	const h = eventHarness();
 	const waiting = player("Waiting", { afk: true });
 	h.roster.push(waiting);
@@ -357,16 +430,47 @@ test("retargeting, reconnecting and changing realms cannot reissue or replay a t
 	assert.equal(h.visitor.s.anniversary_visit, undefined);
 	const replacement = player("Replacement");
 	h.roster.push(replacement);
-	h.host.afk = h.visitor.afk = true;
+	h.host.dc = true;
+	h.roster.splice(h.roster.indexOf(h.host), 1);
 	h.time(rules.INTERVAL + 60000);
-	assert.equal(h.event.tick().target, "Replacement");
+	assert.equal(h.event.tick().target, "Host");
+	assert.equal(h.event.tick().available, false);
+	assert(!h.event.claim(waiting, h.host, h.deliver));
 	assert.equal(h.event.tick().expires, expires);
 	assert.equal(waiting.s.anniversary_visit.ms, rules.WINDOW - 60000);
 	assert.equal(replacement.s.anniversary_visit, undefined);
+	const returning = player("Host", { owner: h.host.owner, x: 15 });
+	h.roster.push(returning);
+	assert(h.event.isTarget(returning), "a fresh socket is recognized even before the next tick");
+	assert.equal(h.event.tick().available, true);
+	assert.equal(h.event.tick().x, 15);
+	assert.equal(h.event.tick().expires, expires);
+	assert(!h.event.claim(h.visitor, returning, h.deliver));
 	waiting.s.anniversary_visit.realm = "TEST II";
-	assert(!h.event.claim(waiting, replacement, h.deliver));
+	assert(!h.event.claim(waiting, returning, h.deliver));
 	h.event.tick();
 	assert.equal(waiting.s.anniversary_visit, undefined);
+});
+test("an absent or unreachable host is never replaced, and late return cannot extend a round", () => {
+	for (const patch of [{ dc: true }, { afk: true }, { rip: true }, { in: "private" }, { blocked: true }]) {
+		const h = eventHarness();
+		const first = h.start();
+		Object.assign(h.host, patch);
+		h.time(rules.INTERVAL + 100000);
+		const waiting = h.event.tick();
+		assert.equal(waiting.id, first.id);
+		assert.equal(waiting.available, false);
+		assert.equal(waiting.expires, first.expires);
+		h.time(first.expires);
+		assert.equal(h.event.tick().live, false);
+		Object.assign(h.host, player("Host"));
+		assert(!h.event.isTarget(h.host));
+		assert(!h.event.claim(h.visitor, h.host, h.deliver));
+	}
+	const h = eventHarness();
+	h.start();
+	h.roster.splice(0, 1, player("Host", { owner: "different-account" }));
+	assert.equal(h.event.tick().available, false, "same name alone is not sufficient");
 });
 
 test("normal condition insertion and removal synchronize the client and do not change combat stats", () => {
@@ -436,7 +540,7 @@ test("newer lower-level hosts receive four lottery tickets, not exclusive select
 	h.roster.push(player("Newcomer"));
 	assert.equal(h.start().target, "Newcomer");
 });
-test("first kiss guarantees own flavor and Gift; repeats, reconnects and retargeting cannot duplicate", () => {
+test("every valid kiss gives both players their own flavor and Gift; repeats cannot duplicate", () => {
 	const h = eventHarness();
 	const second = player("Second", { owner: h.visitor.owner });
 	h.roster.push(second);
@@ -444,17 +548,18 @@ test("first kiss guarantees own flavor and Gift; repeats, reconnects and retarge
 	assert(h.event.claim(h.visitor, h.host, h.deliver));
 	assert.deepEqual(h.delivered, [
 		["Visitor", [rules.sliceForAccount(h.visitor.owner), "anniversarygift"]],
-		["Host", ["anniversarygift"]],
+		["Host", [rules.sliceForAccount(h.host.owner), "anniversarygift"]],
 	]);
 	assert(!h.event.claim({ ...h.visitor }, h.host, h.deliver));
 	assert(h.event.claim(second, h.host, h.deliver));
 	assert.equal(h.delivered[2][1][0], h.delivered[0][1][0]);
-	assert.equal(h.delivered.length, 3, "host receives only one Gift");
+	assert.equal(h.delivered.length, 4, "host receives a slice and Gift for each valid visit");
+	assert.deepEqual(h.delivered[3], h.delivered[1]);
 	h.host.afk = true;
 	h.visitor.afk = second.afk = true;
 	const replacement = player("Replacement");
 	h.roster.push(replacement);
-	assert.equal(h.event.tick().target, "Replacement");
+	assert.equal(h.event.tick().target, "Host");
 	assert(!h.event.claim(h.visitor, replacement, h.deliver));
 	h.time(2 * rules.INTERVAL);
 	h.event.tick();
@@ -480,118 +585,189 @@ test("wrong host, dead visitors and out-of-range kisses earn nothing", () => {
 	h.start();
 	assert(!h.event.claim(h.visitor, player("Other"), h.deliver));
 });
-test("craft plan combines partial stacks, excludes protected items, and never mutates inventory", () => {
-	const p = {
-		gold: 100,
-		items: [
-			{ name: "cake", q: 2 },
-			{ name: "cake", q: 3 },
-			{ name: "cake", q: 100, l: "l" },
-			{ name: "cake", q: 100, b: true },
-			{ name: "cake", q: 100, giveaway: true },
-			{ name: "amulet", level: 1 },
-			{ name: "amulet", level: 0 },
-		],
-	};
-	const before = structuredClone(p),
-		recipe = {
-			cost: 100,
-			items: [
-				[4, "cake"],
-				[1, "cake"],
-				[1, "amulet", 0],
-			],
-		};
-	assert.deepEqual(rules.planCraft(p, recipe), {
-		cost: 100,
-		take: [
-			[0, 2],
-			[1, 3],
-			[6, 1],
-		],
-	});
-	assert.deepEqual(p, before);
-	assert.equal(rules.planCraft(p, { ...recipe, cost: 101 }).error, "gold_not_enough");
-	assert.equal(rules.planCraft(p, { cost: 1, items: [[6, "cake"]] }).error, "craft_cant_quantity");
-	assert.equal(rules.planCraft(p, { cost: 1, items: [[-1, "cake"]] }).error, "craft_cant");
-});
-
-function craftHarness() {
+function craftHarness(name = "sixcake") {
 	const emitted = [],
 		failures = [];
+	let handler;
+	const recipe = design.craft[name];
 	const p = player("Crafter", {
-		gold: 100,
-		items: [{ name: "slice", q: 1 }],
+		gold: recipe.cost,
+		items: recipe.items.map(([q, name, level]) => ({ name, q, ...(level === undefined ? {} : { level }) })),
+		citems: [],
+		esize: 0,
 		socket: { emit: (...args) => emitted.push(args) },
 	});
 	const context = {
-		anniversary_rules: rules,
-		G: {
-			craft: {
-				cake: { quest: "anniversary_baker", cost: 100, items: [[1, "slice"]] },
-				jar: {
-					quest: "anniversary_baker",
-					cost: 100,
-					items: [[1, "slice"]],
-					output: { name: "cxjar", data: "makeawish" },
-				},
-			},
-		},
+		G: { craft: design.craft, items: design.items, titles: { shiny: {} } },
+		D: {},
+		socket: { id: "crafter", on: (name, callback) => (handler = callback) },
+		players: { crafter: p },
 		npcs: { anniversary_baker: player("Mira") },
 		B: { sell_dist: 100 },
 		anniversary_is_active: () => true,
-		distance: (a, b) => Math.hypot(a.x - b.x, a.y - b.y),
-		create_new_item: (name) => ({ name }),
-		can_add_item: () => false,
-		consume: (p, index, count) => {
-			if ((p.items[index].q || 1) === count) p.items[index] = null;
-			else p.items[index].q -= count;
-		},
-		add_item: (p, item) => {
-			const index = p.items.indexOf(null);
-			assert(index >= 0);
-			p.items[index] = item;
-			return index;
-		},
+		distance: (a, b) => (a.in !== b.in || a.map !== b.map ? 999999 : Math.hypot(a.x - b.x, a.y - b.y)),
+		simple_distance: (a, b) => Math.hypot(a.x - b.x, a.y - b.y),
+		get_npc_coords: () => player("Cole"),
+		random_one: (object) => Object.keys(object)[0],
+		cache_item: (item) => plain(item),
+		is_array: Array.isArray,
+		a_score: {},
+		Math: Object.assign(Object.create(Math), { random: () => 0.999999 }),
+		broadcast: (...args) => emitted.push(args),
+		item_to_phrase: (item) => item.name,
 		resend() {},
 		success_response: (...args) => emitted.push(args),
 		fail_response: (...args) => failures.push(args),
 	};
 	vm.createContext(context);
-	vm.runInContext(definition(functions, "anniversary_craft"), context);
-	return { p, context, emitted, failures, craft: (name) => context.anniversary_craft(p, name) };
+	for (const name of ["can_stack", "can_add_item"]) vm.runInContext(definition(shared, name), context);
+	for (const name of ["create_new_item", "consume", "add_item"]) vm.runInContext(definition(source, name), context);
+	const mapStart = functions.indexOf("D.craftmap = {};");
+	vm.runInContext(functions.slice(mapStart, functions.indexOf("process_game_data();", mapStart)), context);
+	const start = source.indexOf('socket.on("craft",');
+	vm.runInContext(source.slice(start, source.indexOf('socket.on("exchange",', start)), context);
+	return {
+		p,
+		context,
+		emitted,
+		failures,
+		request: (data) => handler(data),
+		craft: () => handler({ items: recipe.items.map((_, i) => [i, i]) }),
+	};
 }
-test("trusted crafting frees consumed slots and preserves CX Jar data", () => {
-	const h = craftHarness();
-	h.craft("jar");
+test("the real craft handler makes every anniversary recipe using its normal recipe map", () => {
+	for (const [name, recipe] of Object.entries(design.craft).filter(
+		([, recipe]) => recipe.quest === "anniversary_baker",
+	)) {
+		const h = craftHarness(name);
+		h.craft();
+		assert.deepEqual(h.failures, [], name);
+		assert.equal(h.p.gold, 0);
+		assert.equal(h.p.items.filter(Boolean).length, 1);
+		assert.equal(h.p.items[0].name, recipe.output?.name || name);
+		assert.equal(h.emitted.at(-1)[0], "craft");
+		assert.equal(h.emitted.at(-1)[1].name, recipe.output?.name || name);
+	}
+	const h = craftHarness("makeawishjar");
+	h.craft();
 	assert.equal(h.p.gold, 0);
-	assert.deepEqual(plain(h.p.items), [{ name: "cxjar", data: "makeawish" }]);
+	assert.deepEqual(plain(h.p.items), [{ name: "cxjar", q: 1, data: "makeawish", oo: "Crafter" }]);
 	assert.equal(h.failures.length, 0);
-	assert.equal(h.emitted.at(-1)[1], "craft");
+});
+test("native crafting stacks only matching CX Jars and retains leftover ingredients", () => {
+	const h = craftHarness("makeawishjar");
+	h.p.items = [
+		{ name: "sixcake", q: 2 },
+		{ name: "cxjar", q: 1, data: "ikissyou" },
+		{ name: "cxjar", q: 2, data: "makeawish" },
+	];
+	h.craft();
+	assert.deepEqual(h.failures, []);
+	assert.equal(h.p.items[0].q, 1);
+	assert.equal(h.p.items[1].q, 1);
+	assert.equal(h.p.items[2].q, 3);
+	assert.equal(h.p.esize, 0);
+	assert.equal(h.p.citems[2].q, 3);
+	const blocked = craftHarness("makeawishjar");
+	blocked.p.items = [
+		{ name: "sixcake", q: 2 },
+		{ name: "cxjar", q: 1, data: "ikissyou" },
+	];
+	const before = plain({ gold: blocked.p.gold, items: blocked.p.items });
+	blocked.craft();
+	assert.equal(blocked.failures[0][0], "inventory_full");
+	assert.deepEqual(plain({ gold: blocked.p.gold, items: blocked.p.items }), before);
 });
 test("craft failures cannot consume gold or ingredients", () => {
 	for (const alter of [
 		(h) => (h.context.anniversary_is_active = () => false),
 		(h) => (h.p.x = 101),
-		(h) => (h.p.gold = 99),
+		(h) => h.p.gold--,
 		(h) => (h.p.items[0].l = "l"),
-		(h) => (h.p.items[0].q = 2),
+		(h) => (h.p.items[0].b = true),
+		(h) => (h.p.items[0].giveaway = true),
+		(h) => h.p.items.forEach((item) => item.q++),
+		(h) => delete h.context.npcs.anniversary_baker,
+		(h) => (h.p.in = "private"),
+		(h) => (h.p.user = true),
 		(h) => (h.p.rip = true),
 	]) {
 		const h = craftHarness();
 		alter(h);
 		const before = plain({ gold: h.p.gold, items: h.p.items });
-		h.craft("cake");
+		h.craft();
 		assert.equal(h.failures.length, 1);
 		assert.deepEqual(plain({ gold: h.p.gold, items: h.p.items }), before);
 	}
 	const h = craftHarness();
-	h.craft("__proto__");
-	assert.equal(h.failures.length, 1);
 	h.p.computer = true;
 	h.p.x = 1000;
-	h.craft("cake");
+	h.craft();
 	assert.equal(h.p.gold, 0, "existing remote-computer crafting remains available");
+});
+test("ordinary crafting keeps nine-slot recipes, exact levels and inherited item properties", () => {
+	const h = craftHarness("basketofeggs");
+	h.craft();
+	assert.deepEqual(h.failures, []);
+	assert.equal(h.p.items[0].name, "basketofeggs");
+	const ordinary = Object.entries(design.craft).find(
+		([name, recipe]) => !recipe.quest && !recipe.output && name !== "basketofeggs",
+	);
+	const regular = craftHarness(ordinary[0]);
+	regular.context.anniversary_is_active = () => false;
+	regular.p.items[0].p = "shiny";
+	regular.craft();
+	assert.deepEqual(regular.failures, []);
+	assert.equal(regular.p.items[0].p, "shiny");
+	const leveled = craftHarness("candleward");
+	leveled.p.items[1].level = 1;
+	const before = plain(leveled.p.items);
+	leveled.craft();
+	assert.equal(leveled.failures[0][0], "craft_cant");
+	assert.deepEqual(plain(leveled.p.items), before);
+});
+test("existing non-anniversary recipes still use the ordinary crafting path", () => {
+	for (const [name, recipe] of Object.entries(design.craft).filter(
+		([, recipe]) => recipe.quest !== "anniversary_baker",
+	)) {
+		const h = craftHarness(name);
+		h.context.anniversary_is_active = () => false;
+		h.craft();
+		assert.deepEqual(h.failures, [], name);
+		assert.equal(h.p.gold, 0, name);
+		assert.equal(h.p.items[0].name, recipe.output?.name || name);
+	}
+});
+test("malformed or duplicate craft slots and insufficient quantities cannot spend inventory", () => {
+	for (const data of [
+		undefined,
+		{},
+		{ items: [] },
+		{ items: Array(10).fill([0, 0]) },
+		{ items: [[0, -1]] },
+		{ items: [[0, 99]] },
+		{ items: [null] },
+		{
+			items: [
+				[0, 0],
+				[1, 0],
+			],
+		},
+	]) {
+		const h = craftHarness();
+		const before = plain({ gold: h.p.gold, items: h.p.items });
+		h.request(data);
+		assert.equal(h.failures[0][0], "invalid");
+		assert.deepEqual(plain({ gold: h.p.gold, items: h.p.items }), before);
+	}
+	const h = craftHarness("reunionbow");
+	h.p.items[0].q = 1;
+	const before = plain({ gold: h.p.gold, items: h.p.items });
+	h.craft();
+	assert.equal(h.failures[0][0], "craft_cant_quantity");
+	assert.deepEqual(plain({ gold: h.p.gold, items: h.p.items }), before);
+	assert.doesNotMatch(source, /socket\.on\("anniversary_craft"/);
+	assert.doesNotMatch(functions, /function anniversary_craft\(/);
 });
 
 test("cakes exchange at Xyn or by Computer, not at Mira", () => {
@@ -731,7 +907,12 @@ function exchangeHarness(rolls) {
 	const items = [],
 		ctx = {
 			D: {
-				drops: { sixcake: [[1, "open", "equipment"]], equipment: [[1, "bow"]], gift: [[1, "cxjar", 1, "ikissyou"]] },
+				drops: {
+					sixcake: [[1, "open", "equipment"]],
+					sixcake_bonus: plain(design.drops.sixcake_bonus),
+					equipment: [[1, "bow"]],
+					gift: [[1, "cxjar", 1, "ikissyou"]],
+				},
 			},
 			G: { items: { bow: {} } },
 			Math: Object.assign(Object.create(Math), { random: () => rolls.shift() ?? 0.5 }),
@@ -747,7 +928,7 @@ function exchangeHarness(rolls) {
 }
 test("both exchange paths preserve jars and add cake bonuses without replacing gear", () => {
 	for (const chest of [false, true]) {
-		let h = exchangeHarness([0.5, 0.5, 0]);
+		let h = exchangeHarness([0.5, 0.5, 0.5, 0.5, 0]);
 		if (chest) h.ctx.chest_exchange(h.chest, "sixcake");
 		else h.ctx.exchange(h.p, "sixcake");
 		assert.deepEqual(plain(chest ? h.chest.items : h.items), [
@@ -760,6 +941,52 @@ test("both exchange paths preserve jars and add cake bonuses without replacing g
 		else h.ctx.exchange(h.p, "gift");
 		assert.deepEqual(plain(chest ? h.chest.items : h.items), [{ name: "cxjar", q: 1, data: "ikissyou" }]);
 	}
+});
+test("loaded cake rows award every equipment and cosmetic outcome, plus exactly three Gifts", () => {
+	const total = design.drops.sixcake.reduce((sum, row) => sum + row[0], 0);
+	let weight = 0;
+	for (const row of design.drops.sixcake) {
+		const roll = (weight + row[0] / 2) / total;
+		weight += row[0];
+		if (row[1] === "cx") assert.equal(row[0], 1 / 100, "cosmetic weights stay exactly as requested");
+		for (const chest of [false, true]) {
+			const h = exchangeHarness([roll]);
+			h.ctx.D.drops = plain(design.drops);
+			h.p.p = { acx: {} };
+			if (chest) h.ctx.chest_exchange(h.chest, "sixcake");
+			else h.ctx.exchange(h.p, "sixcake");
+			const awarded = plain(chest ? h.chest.items : h.items);
+			assert.deepEqual(
+				awarded.filter((item) => item.name === "anniversarygift"),
+				[{ name: "anniversarygift", q: 3 }],
+			);
+			if (row[1] === "cx") {
+				if (chest) assert(awarded.some((item) => item.name === "cxjar" && item.data === row[2]));
+				else assert.equal(h.p.p.acx[row[2]], 1);
+			} else assert.equal(awarded[0].name, row[1]);
+			assert(!awarded.some((item) => item.data === "ikissyou"));
+		}
+	}
+});
+test("cake bonuses use independent absolute probabilities and never apply to a nested prize twice", () => {
+	for (const rareRoll of [0.000009999, 0.000010001]) {
+		for (const chest of [false, true]) {
+			const h = exchangeHarness([0.5, 0.5, 0.5, 0.5, rareRoll]);
+			if (chest) h.ctx.chest_exchange(h.chest, "sixcake");
+			else h.ctx.exchange(h.p, "sixcake");
+			const awarded = plain(chest ? h.chest.items : h.items);
+			assert.equal(awarded.filter((item) => item.data === "ikissyou").length, rareRoll < 1 / 100000 ? 1 : 0);
+			assert.equal(awarded.filter((item) => item.name === "anniversarygift").length, 1);
+		}
+	}
+	const ctx = vm.createContext({ D: { drops: plain(design.drops) }, is_array: Array.isArray });
+	const start = functions.indexOf("for (var n in D.drops)");
+	vm.runInContext(functions.slice(start, functions.indexOf("for (var mname in G.maps)", start)), ctx);
+	assert.deepEqual(
+		plain(ctx.D.drops.sixcake_bonus),
+		plain(design.drops.sixcake_bonus),
+		"hardcore weight scaling cannot change bonus probabilities",
+	);
 });
 
 function skillHarness() {

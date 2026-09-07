@@ -2120,10 +2120,6 @@ function drop_something(player, monster, share) {
 	const is_pvp = is_in_pvp(player, 1);
 	achievement_logic_monster_kill(player, monster);
 	share = (share === undefined && 1) || share || 0;
-	if (anniversary_is_active() && B.global_drops && player.tskin !== "konami") {
-		const rewards = anniversary_rules.monsterRewards(player.owner, monster, share);
-		if (rewards.length) drop_one_thing(player, rewards, { x: monster.x, y: monster.y, map: monster.map });
-	}
 	// console.log("share: "+share);
 	var drop_id = randomStr(30);
 	var drop;
@@ -2183,7 +2179,12 @@ function drop_something(player, monster, share) {
 		});
 	}
 	if (D.drops.maps.global && player.tskin != "konami" && B.global_drops) {
+		const slice = anniversary_rules.sliceForAccount(player.owner);
 		D.drops.maps.global.forEach(function (item) {
+			const isSlice = anniversary_rules.SLICES.includes(item[1]);
+			if (item[1] === "anniversarygift" || isSlice) {
+				if (!anniversary_is_active() || (isSlice && item[1] !== slice)) return;
+			}
 			if (Math.random() / share / player.luckm / hp_mult / monster.luckx / global_mult < item[0] || mode.drop_all) {
 				drop_item_logic(drop, item, is_pvp);
 			}
@@ -4536,9 +4537,8 @@ function init_socket_io(socket_server) {
 						}
 						add_call_cost(add * data.to.length * mult, undefined, "cm_data");
 					} else {
-						const cost_method = method === "anniversary_craft" ? "craft" : method;
-						if (CC[cost_method]) {
-							add_call_cost(CC[cost_method] || 0);
+						if (CC[method]) {
+							add_call_cost(CC[method] || 0);
 						}
 					}
 					if (get_call_cost() > climit && method != "disconnect") {
@@ -6212,9 +6212,6 @@ function init_socket_io(socket_server) {
 			resend(player, "reopen+nc+inv");
 			success_response("dismantle", { name: item.name, cevent: true });
 		});
-		socket.on("anniversary_craft", function (data) {
-			anniversary_craft(players[socket.id], data && data.name);
-		});
 		socket.on("craft", function (data) {
 			var player = players[socket.id];
 			var check = true;
@@ -6227,10 +6224,22 @@ function init_socket_io(socket_server) {
 			if (!player || player.user) {
 				return fail_response("cant_in_bank");
 			}
+			if (player.rip || player.dead) return fail_response("disabled");
+			if (
+				!data ||
+				!Array.isArray(data.items) ||
+				!data.items.length ||
+				data.items.length > 9 ||
+				data.items.some(
+					(x) => !Array.isArray(x) || !Number.isInteger(x[1]) || x[1] < 0 || x[1] >= player.items.length,
+				) ||
+				new Set(data.items.map((x) => x[1])).size !== data.items.length
+			)
+				return fail_response("invalid");
 			data.items.forEach(function (x) {
 				if (!player.items[x[1]]) {
 					check = false;
-				} else if (player.items[x[1]].l || player.items[x[1]].b) {
+				} else if (player.items[x[1]].l || player.items[x[1]].b || player.items[x[1]].giveaway) {
 					check = false;
 					locked = true;
 				} else {
@@ -6260,7 +6269,9 @@ function init_socket_io(socket_server) {
 				return fail_response("craft_cant");
 			}
 			var name = D.craftmap[key];
-			if (G.craft[name].quest === "anniversary_baker") return anniversary_craft(player, name);
+			if (G.craft[name].quest === "anniversary_baker" && (!anniversary_is_active() || !npcs.anniversary_baker)) {
+				return fail_response("craft_cant");
+			}
 			var enough = true;
 			if (
 				!player.computer &&
@@ -6272,7 +6283,7 @@ function init_socket_io(socket_server) {
 			if (
 				!player.computer &&
 				G.craft[name].quest &&
-				simple_distance(get_npc_coords(G.craft[name].quest), player) > B.sell_dist
+				distance(npcs[G.craft[name].quest] || get_npc_coords(G.craft[name].quest), player) > B.sell_dist
 			) {
 				return fail_response("distance");
 			}
@@ -6287,7 +6298,10 @@ function init_socket_io(socket_server) {
 					space = true;
 				}
 			});
-			if (!space && !can_add_item(player, create_new_item(name))) {
+			var output = G.craft[name].output;
+			var crafted = create_new_item(output ? output.name : name);
+			if (output && output.data) crafted.data = output.data;
+			if (!space && !can_add_item(player, crafted)) {
 				return fail_response("inventory_full");
 			}
 			if (!enough) {
@@ -6297,9 +6311,9 @@ function init_socket_io(socket_server) {
 			G.craft[name].items.forEach(function (x) {
 				consume(player, place[x[1]], x[0]);
 			});
-			var i = add_item(player, name, { r: 1, p: Object.keys(p).length && random_one(p) });
+			var i = add_item(player, crafted, { r: 1, p: Object.keys(p).length && random_one(p) });
 			resend(player, "reopen+nc+inv");
-			success_response("craft", { num: i, name: name, cevent: true });
+			success_response("craft", { num: i, name: crafted.name, cevent: true });
 		});
 		socket.on("exchange", function (data) {
 			const player = players[socket.id];

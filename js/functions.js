@@ -3039,7 +3039,7 @@ function quantity(name, level) {
 
 function anniversary_live_event() {
 	var state = typeof S != "undefined" && S.anniversary;
-	return state && state.active && state.live && state.id ? state : null;
+	return state && state.active && state.live && state.id && Date.now() < state.expires ? state : null;
 }
 
 function anniversary_can_visit() {
@@ -3051,6 +3051,7 @@ function anniversary_can_visit() {
 function anniversary_kiss() {
 	var state = anniversary_live_event();
 	if (!state) return add_log("No player is featured right now.", "gray");
+	if (state.available === false) return add_log("Waiting for " + state.target + " to return. The round's timer is still running.", "gray");
 	if (!anniversary_can_visit() && !(character.acx && character.acx.ikissyou)) return add_log("You don't have an Anniversary Visit for this round.", "gray");
 	return use_skill("ikissyou", state.id);
 }
@@ -3058,6 +3059,7 @@ function anniversary_kiss() {
 function find_anniversary_player() {
 	var state = anniversary_live_event();
 	if (!state || !G.maps[state.map] || !Number.isFinite(state.x) || !Number.isFinite(state.y)) return add_log("No player is featured right now.", "gray");
+	if (state.available === false) return add_log("Waiting for " + state.target + " to return. The round's timer is still running.", "gray");
 	return call_code_function_f("smart_move", { map: state.map, x: state.x, y: state.y });
 }
 
@@ -3084,32 +3086,24 @@ function anniversary_recipe_state(name) {
 	return { recipe: recipe, rows: rows, ready: ready };
 }
 
-function anniversary_craft(name) {
-	var state = anniversary_recipe_state(name);
-	if (!state) return add_log("Mira can't make that item.", "gray");
-	if (!(typeof S != "undefined" && S.anniversary && S.anniversary.active)) return add_log("Mira's anniversary workshop is closed.", "gray");
-	if (!state.ready) return add_log("You need the listed ingredients and gold.", "gray");
-	var promise = push_deferred("craft");
-	socket.emit("anniversary_craft", { name: name });
-	return promise;
-}
-
 function auto_craft(name, code) {
 	var issue = null;
-	if (!G.craft[name]) issue = "recipe";
+	if (!Object.prototype.hasOwnProperty.call(G.craft, name)) issue = "recipe";
+	else if (G.craft[name].quest == "anniversary_baker" && !(typeof S != "undefined" && S.anniversary && S.anniversary.active)) issue = "season";
 	else if (G.craft[name].cost > character.gold) issue = "gold";
 	else {
 		G.craft[name].items.forEach(function (i) {
 			var enough = false;
 			for (var j = 0; j < character.items.length; j++) {
 				var item = character.items[j];
-				if (item && item.name == i[1] && (item.level || 0) == (i[2] || 0) && (item.q || 1) >= i[0]) enough = true;
+				if (item && !item.l && !item.b && !item.giveaway && item.name == i[1] && (item.level || 0) == (i[2] || 0) && (item.q || 1) >= i[0]) enough = true;
 			}
 			if (!enough) issue = "items";
 		});
 	}
 	if (issue) {
 		if (issue == "recipe") add_log("Can't craft that item", "gray");
+		else if (issue == "season") add_log("Mira's anniversary workshop is closed.", "gray");
 		else if (issue == "gold") add_log("Not enough gold", "gray");
 		else if (issue == "items") add_log("Don't have the required items", "gray");
 		if (code) return rejecting_promise({ reason: issue });
@@ -3118,7 +3112,8 @@ function auto_craft(name, code) {
 			k = 0;
 		G.craft[name].items.forEach(function (i) {
 			for (var j = 0; j < character.items.length; j++) {
-				if (character.items[j] && character.items[j].name == i[1] && (character.items[j].level || 0) == (i[2] || 0) && (character.items[j].q || 1) >= i[0]) {
+				var item = character.items[j];
+				if (item && !item.l && !item.b && !item.giveaway && item.name == i[1] && (item.level || 0) == (i[2] || 0) && (item.q || 1) >= i[0]) {
 					items.push([k++, j]);
 					break;
 				}

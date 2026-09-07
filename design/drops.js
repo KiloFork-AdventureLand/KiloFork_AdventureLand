@@ -20,6 +20,14 @@ var drops = {
 	maps: {
 		global_static: [],
 		global: [
+			// Anniversary only. A credited account rolls only its own slice flavor.
+			[1.0 / 1500, "anniversarygift"],
+			[1.0 / 5000, "slice_strawberry"],
+			[1.0 / 5000, "slice_citrus"],
+			[1.0 / 5000, "slice_honey"],
+			[1.0 / 5000, "slice_mint"],
+			[1.0 / 5000, "slice_blueberry"],
+			[1.0 / 5000, "slice_nightberry"],
 			//[0.000015,"goldenegg"], //originally 0.000005
 			//[0.0000001,"5bucks"],
 			//[0.0002,"gift0"],
@@ -1031,6 +1039,11 @@ var drops = {
 		[9900, "open", "anniversary_equipment"],
 		[99, "cxjar", 1, "makeawish"],
 		[1, "cxjar", 1, "ikissyou"],
+	],
+	// Independent extra rolls after opening a cake, not weights in its prize pool.
+	sixcake_bonus: [
+		[1, "anniversarygift", 3],
+		[1.0 / 100000, "cxjar", 1, "ikissyou"],
 	],
 	//thrash
 	thrash: [
