@@ -594,10 +594,11 @@ function object_sort(o,algorithm)
 	}
 	function gsort(x,y)
 	{
-		// console.log(x);
-		if(G.items[x[0]].g<G.items[y[0]].g) return -1;
-		else if(G.items[x[0]].g<G.items[y[0]].g && x[0]<y[0]) return -1;
-		return 1;
+		// A recipe ID can differ from the item it produces.
+		var xg=G.items[(x[1] && x[1].output && x[1].output.name)||x[0]].g;
+		var yg=G.items[(y[1] && y[1].output && y[1].output.name)||y[0]].g;
+		if(xg!=yg) return xg-yg;
+		return x[0]==y[0] ? 0:lexi(x,y);
 	}
 	function hpsort(x,y)
 	{
