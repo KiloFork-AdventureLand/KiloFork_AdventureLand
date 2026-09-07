@@ -1490,11 +1490,16 @@ var drops = {
 
 // Keep the established gift rewards intact; the anniversary opens that same pool.
 drops.anniversary_legacy = drops.gift1.map(function (entry) { return entry.slice(); });
-drops.sixcake = drops.anniversary_equipment.map(function (entry) { return entry.slice(); }).concat([
-	[1.0 / 100, "cx", "aniv0"],
-	[1.0 / 100, "cx", "aniv1"],
-	[1.0 / 100, "cx", "aniv2"],
-	[1.0 / 100, "cx", "aniv3"],
+// Equipment has 96% of the cake pool; each anniversary hat has an actual 1% chance.
+drops.sixcake = drops.anniversary_equipment.map(function (entry) {
+	var drop = entry.slice();
+	drop[0] *= 0.96;
+	return drop;
+}).concat([
+	[1, "cx", "aniv0"],
+	[1, "cx", "aniv1"],
+	[1, "cx", "aniv2"],
+	[1, "cx", "aniv3"],
 ]);
 
 // The elemental mage chain previously had no item drops. Void Thread gives

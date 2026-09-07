@@ -944,11 +944,30 @@ test("both exchange paths preserve jars and add cake bonuses without replacing g
 });
 test("loaded cake rows award every equipment and cosmetic outcome, plus exactly three Gifts", () => {
 	const total = design.drops.sixcake.reduce((sum, row) => sum + row[0], 0);
+	assert.ok(Math.abs(total - 100) < 1e-12);
+	assert.deepEqual(plain(design.drops.sixcake.filter((row) => row[1] === "cx").map((row) => row[2])), [
+		"aniv0",
+		"aniv1",
+		"aniv2",
+		"aniv3",
+	]);
+	assert.equal(
+		design.drops.anniversary_equipment.reduce((sum, row) => sum + row[0], 0),
+		100,
+	);
 	let weight = 0;
 	for (const row of design.drops.sixcake) {
 		const roll = (weight + row[0] / 2) / total;
 		weight += row[0];
-		if (row[1] === "cx") assert.equal(row[0], 1 / 100, "cosmetic weights stay exactly as requested");
+		if (row[1] === "cx") assert.ok(Math.abs(row[0] / total - 1 / 100) < 1e-12, "each hat has an actual 1% chance");
+		else {
+			const equipment = design.drops.anniversary_equipment.find((entry) => entry[1] === row[1]);
+			assert.equal(
+				row[0],
+				equipment[0] * 0.96,
+				"preserve relative gear odds without changing the Gift's equipment pool",
+			);
+		}
 		for (const chest of [false, true]) {
 			const h = exchangeHarness([roll]);
 			h.ctx.D.drops = plain(design.drops);
@@ -967,6 +986,20 @@ test("loaded cake rows award every equipment and cosmetic outcome, plus exactly 
 			assert(!awarded.some((item) => item.data === "ikissyou"));
 		}
 	}
+});
+test("the existing cake drop UI displays 1 / 100 for each anniversary hat", () => {
+	const context = vm.createContext({
+		G: { drops: design.drops, items: design.items },
+		round: Math.round,
+		item_container: (args, item) => item.name,
+		cx_sprite: (id) => id,
+	});
+	for (const name of ["to_pretty_num", "to_pretty_float"]) vm.runInContext(definition(shared, name), context);
+	const html = fs.readFileSync(path.join(root, "js/html.js"), "utf8");
+	vm.runInContext(definition(html, "render_drop"), context);
+	const rendered = context.render_drop([1, "open", "sixcake"], 1, "#858B8E");
+	for (const id of ["aniv0", "aniv1", "aniv2", "aniv3"])
+		assert.match(rendered, new RegExp(id + "<div[^>]*>1 / 100</div>"));
 });
 test("cake bonuses use independent absolute probabilities and never apply to a nested prize twice", () => {
 	for (const rareRoll of [0.000009999, 0.000010001]) {
