@@ -2147,6 +2147,7 @@ function anniversary_state() {
 			active: anniversary_is_active,
 			reachable: anniversary_reachable,
 			realm: region + " " + server_name,
+			homeRealm: region + server_name,
 			addCondition: add_condition,
 			resend,
 			distance,

@@ -1,6 +1,6 @@
 <div class="anniversary-guide" style="width:600px;max-width:100%;font-size:24px;line-height:1.3">
 	<div style="font-size:32px;color:#8B642E">10 Years of Adventure</div>
-	<p>Every <b>30 minutes</b>, a player is featured on each non-PvP server. Be online when the round starts to receive an <b>Anniversary Visit</b>. You have <b>five minutes</b> to find and kiss them.</p>
+	<p>Every <b>30 minutes</b>, a player is featured on each non-PvP server. Eligible players online when the round starts receive an <b>Anniversary Visit</b>. You have <b>five minutes</b> to find and kiss them.</p>
 	<div class="anniversary-guide-divider"></div>
 	<div style="color:#8B642E">How to Kiss</div>
 	<p><b>1. Equip the emote.</b> Open <b>SKILLS</b>. Drag <b>I Kiss You</b> from <b>EMOTES</b> onto a key slot under <b>MAPPING</b>, such as <b>1</b>. It appears while your Visit is active; no emote jar needed.</p>
@@ -9,7 +9,7 @@
 	<p>Your Visit is used up. You and the featured player each receive <b>one slice + one Gift</b>. Nearby players see the kiss in chat.</p>
 	<div class="anniversary-guide-divider"></div>
 	<div class="anniversary-guide-items"></div>
-	<p>Your account always finds the same flavor. Trade for the other five.</p>
+	<p>All your characters share one slice flavor. Kisses and monster drops use that flavor on every server. Trade for the other five.</p>
 	<div style="display:flex;align-items:center;gap:10px"><span class="anniversary-guide-mira"></span><div><b>Mira / Mainland (64, -88)</b><br><b>CAKE:</b> Combine six different slices + 100,000 gold.<br><b>CRAFT:</b> Pick an anniversary recipe, then press CRAFT.<br><b>EXCHANGE:</b> Directions to Xyn, who opens cakes and Gifts.</div></div>
 	<p>Use Xyn's normal exchange slot to open one cake or Gift. Click any item below for its details.</p>
 	<div class="anniversary-guide-divider"></div>
@@ -22,6 +22,7 @@
 		<div class="anniversary-gift-drops" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px"></div>
 	<div class="anniversary-guide-divider"></div>
 	<div style="color:#8B642E">Event details</div>
+		<p>Hop Sickness or Realm Fatigue prevents Anniversary Visits and kiss rewards. Merchants can take part only on their home server. These rules apply to the featured player too.</p>
 		<p>Reachable, non-AFK players are chosen, with newer, lower-level characters favored. Each visitor who uses their Visit also gives the featured player one slice of their own flavor and one Gift. Joining late gives no Visit; repeated kisses give no extra rewards.</p>
 		<p>If the featured player disconnects or becomes unreachable, their place stays reserved until the round ends. They can return during the same five minutes. The timer does not restart.</p>
 		<p>Monsters also drop Gifts and your account's slice during the event. They use normal global-drop rolls, including monster HP, Luck and reward share. Inspect them with <span class="dlabel">show_json(G.drops.maps.global)</span>.</p>
@@ -34,7 +35,8 @@
 <div class="code">async function visit_featured_player() {
 	var round = server.status.anniversary;
 	var ticket = character.s.anniversary_visit;
-	if (!round || !round.active || !round.live || !ticket ||
+	if (character.s.hopsickness || character.s.realmfatigue ||
+		!round || !round.active || !round.live || !ticket ||
 		ticket.ms &lt;= 0 || ticket.round !== round.round ||
 		ticket.realm !== server.region + " " + server.id ||
 		Date.now() >= ticket.expires || Date.now() >= round.expires) {
@@ -45,7 +47,8 @@
 	await smart_move({ map: round.map, x: round.x, y: round.y });
 	var current = server.status.anniversary;
 	ticket = character.s.anniversary_visit;
-	if (!current || !current.active || !current.live || current.available === false || current.round !== round.round ||
+	if (character.s.hopsickness || character.s.realmfatigue ||
+		!current || !current.active || !current.live || current.available === false || current.round !== round.round ||
 		current.id !== round.id || !ticket || ticket.ms &lt;= 0 ||
 		Date.now() >= ticket.expires || Date.now() >= current.expires) return;
 

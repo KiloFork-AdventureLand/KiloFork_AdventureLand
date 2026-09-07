@@ -163,6 +163,7 @@ function eventHarness(extra = {}) {
 		active: () => enabled,
 		reachable: (p) => !p.blocked,
 		realm: "TEST I",
+		homeRealm: "TESTI",
 		addCondition: (p, name, args) => {
 			p.s[name] = { ms: args.duration };
 		},
@@ -406,7 +407,7 @@ test("featured appearance is a public snapshot; becoming AFK reserves the same c
 	assert.equal(ended.cx, undefined);
 });
 
-test("every other connected character gets one ticket at selection, including AFK and same-account characters", () => {
+test("every other eligible connected character gets one ticket at selection, including AFK and same-account characters", () => {
 	const h = eventHarness();
 	const afk = player("Away", { afk: true }),
 		dead = player("Dead", { rip: true, hp: 0 }),
@@ -430,6 +431,69 @@ test("every other connected character gets one ticket at selection, including AF
 	assert(!h.event.claim(late, h.host, h.deliver));
 	assert(h.event.claim(sameAccount, h.host, h.deliver));
 	assert.equal(sameAccount.s.anniversary_visit, undefined);
+});
+
+test("Hop Sickness, Realm Fatigue and away merchants cannot be featured or receive a Visit", () => {
+	for (const patch of [
+		{ s: { hopsickness: { ms: 1000 } } },
+		{ s: { realmfatigue: { ms: 1000, until: rules.INTERVAL + 1000 } } },
+		{ type: "merchant", level: 1, p: { home: "TESTII" } },
+		{ type: "merchant", p: {} },
+	]) {
+		const h = eventHarness();
+		Object.assign(h.host, structuredClone(patch));
+		Object.assign(h.visitor, structuredClone(patch));
+		assert.equal(h.start().live, false);
+		assert(!h.host.s.anniversary_visit);
+		h.roster.push(player("EligibleHost"));
+		assert.equal(h.event.tick().target, "EligibleHost");
+		assert(!h.host.s.anniversary_visit);
+		assert(!h.visitor.s.anniversary_visit);
+	}
+});
+
+test("home merchants can host and visit; their home key is separate from the display realm", () => {
+	const h = eventHarness({ realm: "EU III", homeRealm: "EUIII" });
+	for (const p of h.roster) Object.assign(p, { type: "merchant", p: { home: "EUIII" } });
+	assert.equal(h.start().target, h.host.id);
+	assert(h.event.canVisit(h.visitor));
+	assert(h.event.claim(h.visitor, h.host, h.deliver));
+	assert.equal(h.delivered.length, 2);
+});
+
+test("reward delivery rechecks both participants after penalties or a merchant home change", () => {
+	for (const role of ["host", "visitor"])
+		for (const patch of [
+			{ s: { hopsickness: { ms: 1000 } } },
+			{ s: { realmfatigue: { ms: 1000, until: rules.INTERVAL + 1000 } } },
+			{ type: "merchant", p: { home: "TESTII" } },
+		]) {
+			const h = eventHarness();
+			h.start();
+			Object.assign(h[role], { ...patch, s: { ...h[role].s, ...patch.s } });
+			assert(!h.event.claim(h.visitor, h.host, h.deliver));
+			assert.equal(h.delivered.length, 0);
+			h.event.tick();
+			if (role === "visitor") assert(!h.visitor.s.anniversary_visit);
+			else assert.equal(h.event.tick().available, false);
+		}
+});
+
+test("same-realm reconnect keeps an unused invitation, but eligibility recovery gives no late ticket", () => {
+	const h = eventHarness();
+	h.start();
+	h.visitor.dc = true;
+	h.event.tick();
+	assert(h.visitor.s.anniversary_visit);
+	delete h.visitor.dc;
+	assert(h.event.claim(h.visitor, h.host, h.deliver));
+	const away = eventHarness();
+	Object.assign(away.visitor, { type: "merchant", p: { home: "TESTII" } });
+	away.start();
+	away.visitor.p.home = "TESTI";
+	away.event.tick();
+	assert(!away.event.canVisit(away.visitor));
+	assert(!away.event.claim(away.visitor, away.host, away.deliver));
 });
 
 test("the five-minute deadline begins at actual selection and every ticket holder can claim", () => {
@@ -602,6 +666,44 @@ test("every valid kiss gives both players their own flavor and Gift; repeats can
 	h.time(2 * rules.INTERVAL);
 	h.event.tick();
 	assert(h.event.claim(h.visitor, replacement, h.deliver));
+});
+
+test("slice flavor stays account-specific across characters, realms, rounds and both kiss roles", () => {
+	for (const owner of ["account-one", "account-two", "account-three"]) {
+		const flavor = rules.sliceForAccount(owner);
+		for (const realm of ["EU I", "US IV"])
+			for (const round of [1, 3])
+				for (const role of ["host", "visitor"]) {
+					const h = eventHarness({ realm });
+					h[role].owner = owner;
+					h[role].id += "-" + realm + "-" + round;
+					h.time(round * rules.INTERVAL);
+					h.event.tick();
+					assert(h.event.claim(h.visitor, h.host, h.deliver));
+					assert.deepEqual(h.delivered.find(([id]) => id === h[role].id)[1], [flavor, "anniversarygift"]);
+				}
+	}
+});
+
+test("slices have no unfiltered loot source and the cake requires all six flavors", () => {
+	const sources = [];
+	function visit(value, path = []) {
+		if (Array.isArray(value) && typeof value[0] === "number" && rules.SLICES.includes(value[1]))
+			sources.push([path.slice(0, -1).join("."), value[1]]);
+		else if (value && typeof value === "object")
+			for (const [key, child] of Object.entries(value)) visit(child, [...path, key]);
+	}
+	visit(design.drops);
+	assert.deepEqual(sources.sort(), rules.SLICES.map((id) => ["maps.global", id]).sort());
+	for (const id of rules.SLICES) {
+		assert(design.items[id].exclusive, id);
+		assert(!design.craft[id], id);
+		assert(!Object.values(design.craft).some((r) => r.item === id), id);
+	}
+	assert.deepEqual(
+		plain(design.craft.sixcake.items),
+		rules.SLICES.map((id) => [1, id]),
+	);
 });
 test("wrong host, dead visitors and out-of-range kisses earn nothing", () => {
 	for (const patch of [
@@ -1123,6 +1225,27 @@ test("real socket handler grants only the current host's temporary kiss and hono
 	h.ctx.now += 10000;
 	h.cast();
 	assert.equal(h.delivered.length, 2);
+});
+
+test("the real skill handler blocks ineligible rewards without disabling an owned cosmetic kiss", () => {
+	for (const role of ["host", "visitor"])
+		for (const patch of [
+			{ s: { hopsickness: { ms: 1000 } } },
+			{ s: { realmfatigue: { ms: 1000 } } },
+			{ type: "merchant", p: { home: "TESTII" } },
+		]) {
+			const h = skillHarness();
+			Object.assign(h[role], { ...patch, s: { ...h[role].s, ...patch.s }, p: { ...h[role].p, ...patch.p } });
+			h.cast();
+			assert.equal(h.failed.at(-1), "skill_cant_use");
+			assert.equal(h.delivered.length, 0);
+			h.failed.length = 0;
+			h.visitor.p.acx.ikissyou = 1;
+			h.cast();
+			assert.equal(h.failed.length, 0);
+			assert.equal(h.delivered.length, 0);
+			assert(h.emitted.some(([name]) => name === "emote"));
+		}
 });
 test("unlock, target, friendship and permanent cosmetic access remain separate", () => {
 	for (const patch of [{ x: 81 }, { npc: true }, { rip: true }, { hp: 0 }, { map: "winterland" }, { in: "other" }]) {

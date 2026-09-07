@@ -29,6 +29,7 @@ function createEvent({
 	active,
 	reachable,
 	realm,
+	homeRealm,
 	addCondition,
 	resend,
 	distance,
@@ -49,9 +50,18 @@ function createEvent({
 			!p.is_npc
 		);
 	}
+	function rewardEligible(p) {
+		return !!(
+			p &&
+			!p.s?.hopsickness &&
+			!p.s?.realmfatigue &&
+			(p.type !== "merchant" || (p.p?.home && p.p.home === homeRealm))
+		);
+	}
 	function eligible(p) {
 		return !!(
 			online(p) &&
+			rewardEligible(p) &&
 			!p.rip &&
 			!p.dead &&
 			p.hp > 0 &&
@@ -72,6 +82,7 @@ function createEvent({
 		const ticket = p && p.s && p.s.anniversary_visit;
 		return !!(
 			active() &&
+			rewardEligible(p) &&
 			round &&
 			round.started &&
 			ticket &&
@@ -123,9 +134,9 @@ function createEvent({
 				previous = round.target.id;
 				round.started = true;
 				round.expires = time + WINDOW;
-				// One ticket for every other character online at selection, not on later ticks.
+				// One ticket for every other eligible character online at selection, not on later ticks.
 				for (const p of players()) {
-					if (!online(p) || p.id === round.target.id) continue;
+					if (!online(p) || !rewardEligible(p) || p.id === round.target.id) continue;
 					clearTicket(p);
 					addCondition(p, "anniversary_visit", { duration: WINDOW });
 					Object.assign(p.s.anniversary_visit, { round: round.id, realm, expires: round.expires });
