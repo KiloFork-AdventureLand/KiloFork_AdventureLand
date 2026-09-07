@@ -344,7 +344,10 @@ var drops = {
 		],
 		bscorpion: [[1.0 / 20, "offeringp"]],
 		//"ghost":[[0.001,"candy0"]],
-		ghost: [[0.0002, "pmace"]], //0.001 was tooooo high
+		ghost: [
+			[0.0002, "pmace"], //0.001 was tooooo high
+			[1.0 / 20, "drapes"],
+		],
 		booboo: [
 			[0.005, "essenceofether"],
 			[5.0 / 100000, "ectoplasm"],
@@ -352,7 +355,9 @@ var drops = {
 		mummy: [
 			[1.0 / 4000, "open", "weaponofthedead"],
 			[1.0 / 500, "bandages"],
+			[1.0 / 20, "drapes"],
 		],
+		nerfedmummy: [[1.0 / 100, "drapes"]],
 		iceroamer: [
 			[0.0001, "essenceoffrost"],
 			[0.00001, "frozenkey"],

@@ -69,7 +69,7 @@ function setup(saved) {
 			},
 			css() {},
 		}),
-		G: { npcs: { upgrade: { name: "Upgrade" }, compound: { name: "Compound" } } },
+		G: { npcs: { upgrade: { name: "Upgrade", role: "newupgrade" }, compound: { name: "Compound", role: "compound" } } },
 		document: {
 			createElement: () => ({
 				style: {},
@@ -106,6 +106,43 @@ test("notices reach 300 units but still require a stand overlapping in front", (
 	c.entities.merchant.standed.worldTransform.tx = 300;
 	c.entities.merchant.stand = false;
 	assert.equal(c.obstructed_npcs().length, 0, "closed stand");
+});
+
+test("blocked citizens and non-service NPCs stay quiet while essential services retain notices", () => {
+	const c = setup(),
+		definitions = require("./helpers/design").npcs;
+	for (const [id, definition] of Object.entries(definitions)) {
+		if (
+			definition.role !== "citizen" &&
+			!["quest", "companion", "announcer", "lottery", "tavern"].includes(definition.role)
+		)
+			continue;
+		c.G.npcs[id] = definition;
+		c.entities.npc.npc = id;
+		assert.equal(c.obstructed_npcs().length, 0, id);
+	}
+	for (const id of [
+		"basics",
+		"scrolls",
+		"newupgrade",
+		"compound",
+		"exchange",
+		"craftsman",
+		"mcollector",
+		"anniversary_baker",
+		"items0",
+		"transporter",
+	]) {
+		assert(definitions[id], id);
+		c.G.npcs[id] = definitions[id];
+		c.entities.npc.npc = id;
+		assert.equal(c.obstructed_npcs().length, 1, id);
+	}
+	c.update_npc_obstruction_hint();
+	c.G.npcs.quiet = { role: "citizen", name: "Stewart" };
+	c.entities.npc.npc = "quiet";
+	c.update_npc_obstruction_hint();
+	assert.equal(c.npc_obstruction_hints[0].style.display, "none", "a previously visible notice is hidden");
 });
 
 test("a player without a stand covering Ernis triggers the notice and moving away clears it", () => {

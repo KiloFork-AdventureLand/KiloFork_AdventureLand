@@ -323,6 +323,44 @@ test("global guards stop event drops and never suppress ordinary drops", () => {
 	assert.deepEqual(plain(dropHarness(0.5).drop()), []);
 	assert.deepEqual(plain(dropHarness().drop(0)), []);
 });
+
+test("Drapes are additional normal monster drops, including when the anniversary is off", () => {
+	const loaded = require("./helpers/design");
+	assert.deepEqual(plain(design.drops.monsters.mummy).slice(0, 2), [
+		[1 / 4000, "open", "weaponofthedead"],
+		[1 / 500, "bandages"],
+	]);
+	assert.deepEqual(plain(design.drops.monsters.ghost)[0], [0.0002, "pmace"]);
+	for (const [name, rate] of [
+		["mummy", 1 / 20],
+		["ghost", 1 / 20],
+		["nerfedmummy", 1 / 100],
+	]) {
+		assert.deepEqual(
+			plain(design.drops.monsters[name]).filter((row) => row[1] === "drapes"),
+			[[rate, "drapes"]],
+		);
+		assert(!loaded.monsters[name].cooperative, "one intrinsic-table pass per credited kill");
+		for (const [luck, level, mult] of [
+			[1, 1, 1],
+			[2, 3, 1],
+			[1, 2, 2],
+		]) {
+			for (const [factor, expected] of [
+				[0.99999, true],
+				[1.00001, false],
+			]) {
+				const h = dropHarness(rate * luck * level * mult * factor);
+				h.context.G.monsters = loaded.monsters;
+				h.context.D.drops.monsters[name] = plain(design.drops.monsters[name]);
+				h.context.anniversary_is_active = () => false;
+				h.p.luckm = luck;
+				Object.assign(h.monster, { type: name, max_hp: loaded.monsters[name].hp, level, mult });
+				assert.equal(h.drop().includes("drapes"), expected, `${name}: ${luck}/${level}/${mult}`);
+			}
+		}
+	}
+});
 test("no partial round replay; selection, expiry and shutdown are bounded", () => {
 	const h = eventHarness();
 	assert.equal(h.event.tick().live, false);
