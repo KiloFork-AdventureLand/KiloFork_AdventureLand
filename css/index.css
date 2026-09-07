@@ -518,9 +518,9 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	align-items:center;
 	gap:8px;
 	width:100%;
-	min-height:96px;
+	min-height:76px;
 	margin:0 0 6px;
-	padding:8px 10px 8px 4px;
+	padding:6px 14px;
 	border:4px solid var(--event-color);
 	box-shadow:inset 0 -4px var(--event-accent);
 	background:#080B10;
@@ -533,12 +533,12 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 #event-announcements .event-announcement:last-child{margin-bottom:0}
 .event-announcement:hover{background:#161923!important}
 .event-announcement:focus-visible{outline:3px solid var(--event-accent);outline-offset:-7px}
-.event-announcement-sprite{position:relative;display:flex;align-items:center;justify-content:center;width:64px;height:72px;flex:none;pointer-events:none;image-rendering:crisp-edges;image-rendering:pixelated}
-.event-announcement-copy{position:relative;display:block;flex:1;min-width:0;padding:4px 0;background:#080B10}
-.event-announcement-copy small{display:block;color:var(--event-accent);font-size:16px;line-height:16px}
-.event-announcement-title{display:block;color:var(--event-color);font-size:28px;line-height:25px;margin:3px 0 5px}
-.event-announcement-description{display:block;font-size:19px;line-height:18px}
-.event-announcement-arrow{position:relative;flex:none;color:var(--event-accent);font-size:28px}
+.event-announcement-sprite{position:relative;display:flex;align-items:center;justify-content:center;width:48px;height:48px;flex:none;pointer-events:none;image-rendering:crisp-edges;image-rendering:pixelated}
+.event-announcement-copy{position:relative;display:block;flex:1;min-width:0;background:#080B10}
+.event-announcement-copy small{display:block;color:var(--event-accent);font-size:16px;line-height:14px}
+.event-announcement-title{display:block;color:var(--event-color);font-size:24px;line-height:22px;margin:2px 0}
+.event-announcement-description{display:block;font-size:18px;line-height:16px}
+.event-announcement-arrow{position:relative;flex:none;color:#69d6cf;font-size:40px;line-height:26px}
 .event-announcement-effects{position:absolute;inset:0;overflow:hidden;pointer-events:none;contain:strict}
 .event-announcement-effects i{position:absolute;width:4px;height:4px;background:var(--event-color);color:var(--event-color);opacity:0;animation:event-pixel-fall 3.6s steps(16,end) 4}
 .event-announcement-effects i:nth-child(even){background:var(--event-accent);color:var(--event-accent)}

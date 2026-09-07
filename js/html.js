@@ -485,7 +485,7 @@ function render_event_announcements() {
 			theme.accent +
 			"' onclick='pcs(event);open_event_announcement(\"" +
 			key +
-			"\")' aria-haspopup='dialog'>";
+			"\")' aria-haspopup='dialog'><span class='event-announcement-arrow' aria-hidden='true'>&lt;</span>";
 		if (!no_graphics) {
 			html += "<span class='event-announcement-effects' aria-hidden='true'>";
 			for (var i = 0; i < 12; i++) html += "<i style='left:" + (12 + i * 24) + "px;top:" + (8 + (i % 3) * 12) + "px;animation-delay:" + (i % 4) * -0.6 + "s'></i>";
@@ -493,15 +493,15 @@ function render_event_announcements() {
 		}
 		html += "<span class='event-announcement-sprite' aria-hidden='true'>";
 		if (!no_graphics)
-			html += item ? item_container({ skin: item.skin, size: 40, draggable: false }) : sprite(event.sprite, { scale: 2 - ((monster && monster.size && monster.size - 1) || 0), width: 64, height: 72 });
+			html += item ? item_container({ skin: item.skin, size: 40, draggable: false }) : sprite(event.sprite, { scale: 1 - ((monster && monster.size && monster.size - 1) || 0), width: 48, height: 48 });
 		html +=
 			"</span><span class='event-announcement-copy'><small>" +
 			(event.type == "seasonal" ? "SEASONAL EVENT" : "LIVE EVENT") +
 			"</small><span class='event-announcement-title'>" +
-			html_escape(event.name) +
+			html_escape(theme.title || event.name) +
 			"</span><span class='event-announcement-description'>" +
 			html_escape(theme.text) +
-			"</span></span><span class='event-announcement-arrow' aria-hidden='true'>&gt;</span></button>";
+			"</span></span></button>";
 	});
 	banner.html(html);
 	if (keys.length) banner.show();

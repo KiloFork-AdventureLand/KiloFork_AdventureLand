@@ -99,13 +99,13 @@ test("cards use only connected server state, including seasonal waiting rounds",
 	context.render_event_announcements();
 	assert.equal(banner.visible, true);
 	assert.equal((banner.content.match(/class='gamebutton event-announcement'/g) || []).length, 2);
-	assert.match(banner.content, /Ten Years of Adventure Land/);
+	assert.match(banner.content, /10 Years of Adventure/);
 	assert.match(banner.content, /Goo Brawl/);
 	assert.doesNotMatch(banner.content, /Franky|Halloween|Holiday Season/);
 	context.S = { icegolem: true };
 	context.render_event_announcements();
 	assert.match(banner.content, /Ice Golem/);
-	assert.doesNotMatch(banner.content, /Goo Brawl|Ten Years/);
+	assert.doesNotMatch(banner.content, /Goo Brawl|10 Years/);
 	context.socket.connected = false;
 	context.render_event_announcements();
 	assert.equal(banner.visible, false);
@@ -160,7 +160,7 @@ test("no-HTML returns before DOM work; no-graphics retains text without sprites 
 	context.render_event_announcements();
 	assert.equal(visuals.length, 0);
 	assert.equal(context.PIXI._no_graphics_warning_shown, undefined);
-	assert.match(banner.content, /Ten Years/);
+	assert.match(banner.content, /10 Years/);
 	assert.doesNotMatch(banner.content, /event-announcement-effects/);
 });
 
@@ -174,4 +174,16 @@ test("effects are bounded, stepped, and respect reduced motion", () => {
 	assert.match(css, /prefers-reduced-motion:reduce/);
 	assert.match(css, /max-height:min\(264px,32vh\)/);
 	assert(!source.includes("PIXI"));
+});
+
+test("compact cards put the Steam-style left chevron before the sprite", () => {
+	const { context, banner } = setup();
+	context.S = { anniversary: true };
+	context.render_event_announcements();
+	assert.match(banner.content, /event-announcement-arrow' aria-hidden='true'>&lt;<\/span>/);
+	assert(banner.content.indexOf("event-announcement-arrow") < banner.content.indexOf("event-announcement-sprite"));
+	assert.equal((banner.content.match(/event-announcement-arrow/g) || []).length, 1);
+	const css = fs.readFileSync(path.join(root, "css/index.css"), "utf8");
+	assert.match(css, /min-height:76px/);
+	assert.match(css, /\.event-announcement-arrow\{[^}]*color:#69d6cf;font-size:40px;line-height:26px/);
 });
