@@ -2101,7 +2101,7 @@ function anniversary_deliver(player, names) {
 	// add_item already retains overflow items; no reward is discarded for a full bag.
 	for (const item of items) add_item(player, item, { announce: false });
 	player.socket.emit("game_log", {
-		message: "Anniversary gift: " + names.map((name) => G.items[name].name).join(" + "),
+		message: "Received: " + names.map((name) => G.items[name].name).join(" + "),
 		color: "#E6AE3F",
 	});
 	resend(player, "reopen+nc+inv");
