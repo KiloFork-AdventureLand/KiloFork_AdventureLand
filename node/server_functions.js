@@ -2155,12 +2155,24 @@ function anniversary_state() {
 	return anniversary_controller;
 }
 
-function anniversary_deliver(player, names) {
-	const items = names.map((name) => create_new_item(name));
+function anniversary_deliver(player, names, bonus) {
+	const reward = { items: names.map((name) => create_new_item(name)) };
+	// Use the normal prize roller with base odds, unaffected by Luck or hardcore reweighting.
+	if (bonus) chest_exchange(reward, G.drops[bonus]);
 	// add_item already retains overflow items; no reward is discarded for a full bag.
-	for (const item of items) add_item(player, item, { announce: false });
+	for (const item of reward.items) add_item(player, item, { announce: false });
+	const jar = reward.items.find((item) => item.name === "cxjar" && item.data === "ikissyou");
+	const jarName = jar && G.skills.ikissyou.name + " " + G.items.cxjar.name;
+	if (jar && !player.stealth)
+		broadcast("server_message", {
+			message: player.name + " received an " + jarName + "!",
+			color: "#85C76B",
+			type: "server_received",
+			item: cache_item(jar),
+			name: player.name,
+		});
 	player.socket.emit("game_log", {
-		message: "Received: " + names.map((name) => G.items[name].name).join(" + "),
+		message: "Received: " + names.map((name) => G.items[name].name).join(" + ") + (jar ? " + " + jarName : ""),
 		color: "#E6AE3F",
 	});
 	resend(player, "reopen+nc+inv");

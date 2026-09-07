@@ -6,6 +6,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 const rules = require("../logic/anniversary_event");
+const { socketHandler } = require("./helpers/server_vm");
 const root = path.resolve(__dirname, "../..");
 const source = fs.readFileSync(path.join(root, "node/server.js"), "utf8");
 const functions = fs.readFileSync(path.join(root, "node/server_functions.js"), "utf8");
@@ -269,7 +270,7 @@ test("public global table supplies one normal chest with a Gift and only the cre
 	for (const slice of rules.SLICES)
 		assert.deepEqual(
 			table.find((row) => row[1] === slice),
-			[1 / 5000, slice],
+			[1 / 50000, slice],
 		);
 	for (let i = 0; i < 18; i++) {
 		const h = dropHarness();
@@ -289,7 +290,7 @@ test("anniversary global drops use the real HP, Luck, share and monster multipli
 		const [hp, luck, luckx, mult, share] = factors;
 		for (const [rate, item] of [
 			[1 / 1500, "anniversarygift"],
-			[1 / 5000, rules.sliceForAccount("owner-Farmer")],
+			[1 / 50000, rules.sliceForAccount("owner-Farmer")],
 		]) {
 			const probability = ((rate * hp) / 1000) * luck * luckx * mult * share;
 			for (const [factor, expected] of [
@@ -323,6 +324,136 @@ test("global guards stop event drops and never suppress ordinary drops", () => {
 	assert.deepEqual(plain(h.drop()), ["gem0"]);
 	assert.deepEqual(plain(dropHarness(0.5).drop()), []);
 	assert.deepEqual(plain(dropHarness().drop(0)), []);
+});
+
+test("the reduced slice rate no longer guarantees a slice from a baseline Ent kill", () => {
+	const hp = require("./helpers/design").monsters.ent.hp;
+	const rate = design.drops.maps.global.find((row) => row[1] === rules.SLICES[0])[0];
+	const chance = (hp / 1000) * rate;
+	assert(chance < 1);
+	for (const [factor, wins] of [
+		[0.999999, true],
+		[1.000001, false],
+	]) {
+		const h = dropHarness(chance * factor);
+		h.monster.max_hp = hp;
+		assert.equal(h.drop().includes(rules.sliceForAccount(h.p.owner)), wins);
+	}
+});
+
+function kissRewardHarness(roll) {
+	const h = eventHarness(),
+		announcements = [],
+		logs = [];
+	let rolls = 0;
+	for (const p of [h.host, h.visitor]) {
+		Object.assign(p, { items: Array(42).fill(null), citems: [], esize: 42, luckm: 100 });
+		p.socket.emit = (...args) => logs.push([p.id, ...args]);
+	}
+	const context = vm.createContext({
+		G: { items: design.items, drops: design.drops, skills: { ikissyou: { name: "I Kiss You" } } },
+		D: { drops: {} },
+		Math: Object.assign(Object.create(Math), {
+			random: () => {
+				rolls++;
+				return roll;
+			},
+		}),
+		is_array: Array.isArray,
+		cache_item: (item) => plain(item),
+		broadcast: (...args) => announcements.push(args),
+		resend() {},
+	});
+	vm.runInContext(definition(shared, "can_stack"), context);
+	for (const name of ["create_new_item", "add_item"]) vm.runInContext(definition(source, name), context);
+	for (const name of ["chest_exchange", "anniversary_deliver"]) vm.runInContext(definition(functions, name), context);
+	h.start();
+	return {
+		...h,
+		context,
+		announcements,
+		logs,
+		rolls: () => rolls,
+		claim: () => h.event.claim(h.visitor, h.host, context.anniversary_deliver),
+	};
+}
+
+test("a rewarded kiss uses the normal prize roller for exactly 0.1% and announces jar wins", () => {
+	assert.deepEqual(plain(design.drops.anniversary_kiss), [
+		[1, "cxjar", 1, "ikissyou"],
+		[999, "empty"],
+	]);
+	for (const roll of [0, 0.000999999, 0.001000001, 0.999999]) {
+		const h = kissRewardHarness(roll);
+		assert(h.claim());
+		const won = roll < 0.001;
+		assert.equal(h.visitor.items.filter((item) => item?.data === "ikissyou").length, Number(won));
+		assert(!h.host.items.some((item) => item?.data === "ikissyou"), "being kissed grants no extra rare roll");
+		for (const p of [h.visitor, h.host]) {
+			assert.equal(p.items.find((item) => item?.name === rules.sliceForAccount(p.owner)).q, 1);
+			assert.equal(p.items.find((item) => item?.name === "anniversarygift").q, 1);
+		}
+		assert.equal(h.rolls(), 1, "Luck and reweighted runtime tables cannot add rolls");
+		assert.equal(h.announcements.length, Number(won));
+		if (won) {
+			const [event, announcement] = h.announcements[0];
+			assert.equal(event, "server_message");
+			assert.equal(announcement.type, "server_received");
+			assert.equal(announcement.name, h.visitor.name);
+			assert.equal(announcement.item.data, "ikissyou");
+			assert.match(announcement.message, /Visitor received an I Kiss You CX Jar/);
+		}
+		assert(!h.claim());
+		assert.equal(h.rolls(), 1, "repeating the kiss cannot reroll");
+		assert(!h.logs.some(([, event]) => event === "drop"), "no extra chest is spawned");
+	}
+});
+
+test("kiss rewards stack through add_item, preserve full-bag overflow and respect stealth", () => {
+	const h = kissRewardHarness(0);
+	h.visitor.items = Array.from({ length: 42 }, () => ({ name: "gem0", q: 9999 }));
+	h.visitor.items[0] = { name: rules.sliceForAccount(h.visitor.owner), q: 7 };
+	h.visitor.items[1] = { name: "anniversarygift", q: 9 };
+	h.visitor.items[2] = { name: "cxjar", data: "makeawish", q: 2 };
+	h.visitor.esize = 0;
+	assert(h.claim());
+	assert.equal(h.visitor.items[0].q, 8);
+	assert.equal(h.visitor.items[1].q, 10);
+	assert.equal(h.visitor.items[2].q, 2, "different emotes cannot stack");
+	assert.equal(h.visitor.items[42].data, "ikissyou", "the jar is retained in normal overflow");
+	assert.equal(h.visitor.esize, -1);
+	const stacked = kissRewardHarness(0);
+	stacked.visitor.stealth = true;
+	stacked.visitor.items[0] = { name: "cxjar", data: "ikissyou", q: 2 };
+	assert(stacked.claim());
+	assert.equal(stacked.visitor.items[0].q, 3);
+	assert.deepEqual(stacked.announcements, []);
+});
+
+test("ineligible, late and disconnected visits cannot roll a rare reward", () => {
+	for (const alter of [
+		(h) => {
+			h.visitor.x = 81;
+		},
+		(h) => {
+			h.visitor.s.hopsickness = { ms: 1000 };
+		},
+		(h) => {
+			delete h.visitor.s.anniversary_visit;
+		},
+		(h) => {
+			h.roster.splice(h.roster.indexOf(h.host), 1);
+		},
+		(h) => {
+			h.time(rules.INTERVAL + rules.WINDOW);
+		},
+	]) {
+		const h = kissRewardHarness(0);
+		alter(h);
+		assert(!h.claim());
+		assert.equal(h.rolls(), 0);
+		assert.deepEqual(h.announcements, []);
+	}
 });
 
 test("Drapes are additional normal monster drops, including when the anniversary is off", () => {
@@ -705,6 +836,156 @@ test("slices have no unfiltered loot source and the cake requires all six flavor
 		rules.SLICES.map((id) => [1, id]),
 	);
 });
+
+function compoundHarness(name, level = 0, roll = 0.1) {
+	const G = require("./helpers/design");
+	const def = { ...G.items[name], igrade: G.calculate_item_grade(G.items[name]) };
+	const grade = G.calculate_item_grade(def, { level });
+	const emitted = [],
+		failures = [];
+	const p = player("Combiner", {
+		computer: true,
+		q: {},
+		p: { ograce: 0 },
+		esize: 0,
+		citems: [],
+		items: [...Array.from({ length: 3 }, () => ({ name, level })), { name: "cscroll" + Math.min(3, grade), q: 1 }],
+	});
+	const context = vm.createContext({
+		G: { items: { ...G.items, [name]: def }, maps: { main: { compound: {} } } },
+		D: { compounds: G.compounds },
+		players: { test: p },
+		socket: { id: "test", emit: (...args) => emitted.push(args) },
+		calculate_item_grade: G.calculate_item_grade,
+		cache_item: plain,
+		Math: Object.assign(Object.create(Math), { random: () => roll }),
+		min: Math.min,
+		max: Math.max,
+		gameplay: "normal",
+		server_log() {},
+		resend() {},
+		fail_response: (...args) => failures.push(args),
+		success_response: (...args) => emitted.push(args),
+	});
+	for (const name of ["consume", "consume_one"]) vm.runInContext(definition(source, name), context);
+	const handler = socketHandler(context, "compound");
+	return {
+		p,
+		context,
+		emitted,
+		failures,
+		run: (extra) => handler({ items: [0, 1, 2], scroll_num: 3, clevel: level, ...extra }),
+	};
+}
+
+test("every anniversary equipment item has exactly one native progression path", () => {
+	const G = require("./helpers/design");
+	for (const [, name] of G.drops.anniversary_equipment) {
+		const def = G.items[name];
+		assert.notEqual(Boolean(def.upgrade), Boolean(def.compound), name);
+		assert.equal(def.grades[3], def.compound ? 7 : 10, name);
+		assert(def.exclusive, "event gear cannot leak into Glitch boxes");
+	}
+	for (const name of ["guestbook", "keepsakependant"]) {
+		assert.deepEqual(plain(G.items[name].grades), [0, 2, 6, 7]);
+		assert(G.items[name].compound);
+		for (const level of [0, 3, 5, 7]) {
+			const prop = G.calculate_item_properties({ name, level });
+			assert.equal(prop.xp, 2, "XP does not scale");
+			assert.equal(prop.stresistance, name === "guestbook" ? 8 : 0, "status resistance does not scale");
+			assert.equal(G.calculate_item_grade(G.items[name], { level }), level === 7 ? 4 : level >= 2 ? 2 : 1);
+		}
+	}
+});
+
+test("new and previously level-less books and pendants combine through the real handler", () => {
+	for (const name of ["guestbook", "keepsakependant", "wbook1", "spookyamulet"]) {
+		for (const legacy of [false, true]) {
+			const h = compoundHarness(name);
+			if (legacy) for (const item of h.p.items.slice(0, 3)) delete item.level;
+			h.run();
+			assert.deepEqual(h.failures, [], name);
+			assert.deepEqual(h.emitted, [], name);
+			assert.equal(h.p.p.c_item.name, name);
+			assert.equal(h.p.p.c_item.level, 1);
+			assert.equal(h.p.q.compound.num, 0);
+			assert.equal(h.p.items[0].name, "placeholder");
+			assert.deepEqual(h.p.items.slice(1), [null, null, null], "three copies and one scroll are committed");
+		}
+		const failure = compoundHarness(name, 0, 0.999999);
+		failure.run();
+		assert.equal(failure.p.p.c_item, null, "normal failure consumes the inputs");
+		assert.equal(failure.p.p.c_itemx.name, name);
+	}
+});
+
+test("native compounds quote without spending and reject capped, mismatched, locked or duplicate inputs", () => {
+	for (const name of ["guestbook", "keepsakependant", "wbook1"]) {
+		const quote = compoundHarness(name);
+		const items = plain(quote.p.items);
+		quote.run({ calculate: true });
+		assert.equal(quote.emitted[0][0], "compound_chance");
+		assert.equal(quote.emitted[0][1].chance, 0.9);
+		assert.deepEqual(quote.p.items, items);
+		for (const alter of [
+			(h) => {
+				h.p.items[1].level = 1;
+			},
+			(h) => {
+				h.p.items[1].l = "l";
+			},
+			(h) => {
+				h.p.items[1] = h.p.items[0];
+			},
+			(h) => {
+				h.p.items[3].name = "cscroll0";
+			},
+		]) {
+			const h = compoundHarness(name);
+			alter(h);
+			const before = plain(h.p.items);
+			h.run();
+			assert.deepEqual(plain(h.p.items), before);
+			assert.equal(h.emitted.length, 1);
+			assert.equal(h.p.q.compound, undefined);
+		}
+		const capped = compoundHarness(name, 7);
+		const before = plain(capped.p.items);
+		capped.run();
+		assert.equal(capped.emitted[0][1].response, "max_level");
+		assert.equal(capped.emitted[0][1].level, 7);
+		assert.deepEqual(plain(capped.p.items), before);
+	}
+});
+
+test("anniversary progression preserves incumbent strengths at practical and apex levels", () => {
+	const G = require("./helpers/design");
+	const props = (name, level) => G.calculate_item_properties({ name, level });
+	for (const [fresh, incumbent] of [
+		["homecominghelm", "hhelmet"],
+		["homecomingcoat", "harmor"],
+		["homecomingcape", "bcape"],
+	]) {
+		for (const level of [0, 8, 9, 10])
+			for (const stat of ["armor", "resistance", "stat"])
+				assert(props(fresh, level)[stat] < props(incumbent, level)[stat], `${fresh} +${level} ${stat}`);
+	}
+	for (const level of [0, 3, 5, 7]) {
+		const book = props("guestbook", level),
+			secrets = props("wbook1", level),
+			cheer = props("wbookhs", level);
+		if (level >= 3) assert(book.int < secrets.int);
+		assert(book.vit < cheer.vit && book.resistance < cheer.resistance);
+		const pendant = props("keepsakependant", level),
+			mana = props("mpxamulet", level);
+		assert(pendant.mp_reduction < mana.mp_reduction && pendant.mp_cost > mana.mp_cost);
+		assert(pendant.xp < props("northstar", level).xp);
+	}
+	assert.equal(props("guestbook", 3).int, 29);
+	assert.equal(props("guestbook", 3).resistance, 90);
+	assert.equal(props("keepsakependant", 3).mp, 375);
+	assert.equal(props("keepsakependant", 3).mp_reduction, 8);
+});
 test("wrong host, dead visitors and out-of-range kisses earn nothing", () => {
 	for (const patch of [
 		{ id: "Host" },
@@ -1082,6 +1363,24 @@ test("both exchange paths preserve jars and add cake bonuses without replacing g
 		assert.deepEqual(plain(chest ? h.chest.items : h.items), [{ name: "cxjar", q: 1, data: "ikissyou" }]);
 	}
 });
+test("frequent Gifts keep old prizes but anniversary gear is only 0.099% of their pool", () => {
+	const table = plain(design.drops.anniversarygift);
+	const total = table.reduce((sum, row) => sum + row[0], 0);
+	assert.equal(total, 1000000);
+	assert.equal(table.find((row) => row[2] === "anniversary_equipment")[0] / total, 0.00099);
+	assert.equal(table.find((row) => row[2] === "anniversary_legacy")[0] / total, 0.19);
+	assert.equal(table.find((row) => row[3] === "ikissyou")[0] / total, 1 / 1000000);
+	assert.equal(table.find((row) => row[3] === "makeawish")[0] / total, 99 / 1000000);
+	for (const chest of [false, true]) {
+		// Walk into the equipment row using the same native weighted exchange as Gifts.
+		const previous = table.slice(0, 3).reduce((sum, row) => sum + row[0], 0);
+		const h = exchangeHarness([(previous + 495) / total, 0]);
+		h.ctx.D.drops = plain(design.drops);
+		if (chest) h.ctx.chest_exchange(h.chest, "anniversarygift");
+		else h.ctx.exchange(h.p, "anniversarygift");
+		assert.deepEqual(plain(chest ? h.chest.items : h.items), [{ name: "candleward" }]);
+	}
+});
 test("loaded cake rows award every equipment and cosmetic outcome, plus exactly three Gifts", () => {
 	const total = design.drops.sixcake.reduce((sum, row) => sum + row[0], 0);
 	assert.ok(Math.abs(total - 100) < 1e-12);
@@ -1127,11 +1426,11 @@ test("loaded cake rows award every equipment and cosmetic outcome, plus exactly 
 		}
 	}
 });
-test("the existing cake drop UI displays 1 / 100 for each anniversary hat", () => {
+test("the existing drop UI displays 1 / 100 for hats and 1 / 1,000 for a rewarded kiss jar", () => {
 	const context = vm.createContext({
 		G: { drops: design.drops, items: design.items },
 		round: Math.round,
-		item_container: (args, item) => item.name,
+		item_container: (args, item) => item?.name || "",
 		cx_sprite: (id) => id,
 	});
 	for (const name of ["to_pretty_num", "to_pretty_float"]) vm.runInContext(definition(shared, name), context);
@@ -1140,6 +1439,8 @@ test("the existing cake drop UI displays 1 / 100 for each anniversary hat", () =
 	const rendered = context.render_drop([1, "open", "sixcake"], 1, "#858B8E");
 	for (const id of ["aniv0", "aniv1", "aniv2", "aniv3"])
 		assert.match(rendered, new RegExp(id + "<div[^>]*>1 / 100</div>"));
+	const kiss = context.render_drop([1, "open", "anniversary_kiss"], 1, "#858B8E");
+	assert.match(kiss, /cxjar[\s\S]*?1 \/ 1,000<\/div>/);
 });
 test("cake bonuses use independent absolute probabilities and never apply to a nested prize twice", () => {
 	for (const rareRoll of [0.000009999, 0.000010001]) {

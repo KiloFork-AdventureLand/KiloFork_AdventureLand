@@ -289,7 +289,7 @@ function anniversary_event_html() {
 		html += "<div style='flex:1 1 280px;display:flex;align-items:center;gap:8px'><div style='flex:none'>";
 		html += item_container({ skin: G.skills[name].skin, size: 40, draggable: false, onclick: "pcs(event);render_item_info('cxjar',0,'" + name + "')" });
 		html += "</div><div style='font-size:22px;line-height:24px;color:#AAA'><span style='color:#E990AB'>" + (name == "makeawish" ? "Make a Wish" : "I Kiss You") + "</span><br>";
-		html += (name == "makeawish" ? "An emote to keep. Craft its jar with Mira, or find it in a Gift." : "Keep the kiss with a very rare jar from Cakes or Gifts.") + "</div></div>";
+		html += (name == "makeawish" ? "An emote to keep. Craft its jar with Mira, or find it in a Gift." : "Rewarded visits can drop its permanent jar. Cakes and Gifts can hold it too.") + "</div></div>";
 	});
 	html += "</div></div></div><div style='border-top:2px solid #555;margin-top:14px;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap'>";
 	html += "<span style='color:#AAA;font-size:22px'>Monsters can drop slices and Gifts, too.</span>";

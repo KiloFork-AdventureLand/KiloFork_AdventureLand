@@ -6606,7 +6606,7 @@ function init_socket_io(socket_server) {
 				if (grade == 4) {
 					return socket.emit("game_response", {
 						response: "max_level",
-						level: item.level || 0,
+						level: item0.level || 0,
 						place: "compound",
 						failed: true,
 					});

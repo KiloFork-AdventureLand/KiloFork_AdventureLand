@@ -7,11 +7,14 @@
 	<p><b>2. Select the player.</b> Close SKILLS. Use their red <b>KISS</b> portrait in the INFO row to find them, then click the player to select them.</p>
 	<p><b>3. Kiss!</b> Get within <b>80 range</b>, then click the emote on your skillbar or press its assigned key.</p>
 	<p>Your Visit is used up. You and the featured player each receive <b>one slice + one Gift</b>. Nearby players see the kiss in chat.</p>
+	<p>The visitor may also receive an <b>I Kiss You CX Jar</b> to keep the emote permanently. Lucky finds are announced to the server.</p>
+	<div class="anniversary-visit-drops"></div>
 	<div class="anniversary-guide-divider"></div>
 	<div class="anniversary-guide-items"></div>
 	<p>All your characters share one slice flavor. Kisses and monster drops use that flavor on every server. Trade for the other five.</p>
 	<div style="display:flex;align-items:center;gap:10px"><span class="anniversary-guide-mira"></span><div><b>Mira / Mainland (64, -88)</b><br><b>CAKE:</b> Combine six different slices + 100,000 gold.<br><b>CRAFT:</b> Pick an anniversary recipe, then press CRAFT.<br><b>EXCHANGE:</b> Directions to Xyn, who opens cakes and Gifts.</div></div>
 	<p>Use Xyn's normal exchange slot to open one cake or Gift. Click any item below for its details.</p>
+	<p>The Guestbook and Keepsake Pendant combine at the Compound Shrine: three matching copies of the same level + a compound scroll. The other anniversary equipment uses Upgrade Scrolls. Both shrines remain available after the event.</p>
 	<div class="anniversary-guide-divider"></div>
 	<div style="color:#8B642E">Cake drops — one prize</div>
 		<div class="anniversary-cake-drops" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px"></div>
@@ -82,6 +85,11 @@ craft_with_mira("sixcake").catch(show_json);
 // One cake + 250,000 gold; the result is a CX Jar:
 // craft_with_mira("makeawishjar").catch(show_json);</div>
 	<p>Inspect ingredients with <span class="dlabel">show_json(G.craft)</span>. Find Mira with <span class="dlabel">find_npc("anniversary_baker")</span>.</p>
+	<p>To combine Guestbooks or Pendants, visit the Compound Shrine. Put three matching +0 copies in inventory slots 0, 1 and 2, and a High Compound Scroll in slot 3:</p>
+<div class="code">// Preview only; nothing is spent:
+compound(0,1,2,3,null,true).then(show_json).catch(show_json);
+// To attempt the compound, consuming the three copies and scroll:
+// compound(0,1,2,3).then(show_json).catch(show_json);</div>
 	<div class="anniversary-guide-divider"></div>
 	<div style="color:#8B642E">CODE: Open a Cake or Gift</div>
 	<p>Opens one item. Leave inventory room and do not move it during the exchange.</p>
@@ -99,7 +107,7 @@ open_anniversary_reward("sixcake").catch(show_json);
 // To open a Gift instead:
 // open_anniversary_reward("anniversarygift").catch(show_json);</div>
 	<p>Check inventory, gold and cosmetics for your rewards; not all rewards appear in the returned result.</p>
-	<p>CODE reference: <span class="rlabel" onclick="render_function_reference($(this).html())">smart_move</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">exchange</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">use_skill</span>.</p>
+	<p>CODE reference: <span class="rlabel" onclick="render_function_reference($(this).html())">smart_move</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">exchange</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">compound</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">upgrade</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">use_skill</span>.</p>
 </div>
 <style>
 	.anniversary-guide-divider{height:4px;background:#A2A2A2;margin:16px -26px 12px}
@@ -112,6 +120,9 @@ open_anniversary_reward("sixcake").catch(show_json);
 	$(".anniversary-guide-items").html(anniversary_icons);
 	var mira = G.npcs.anniversary_baker;
 	$(".anniversary-guide-mira").html(sprite(mira.skin,{cx:clone(mira.cx || {}),width:54,height:72,scale:2}));
+	var kiss_drops = G.drops.anniversary_kiss || [];
+	var kiss_total = kiss_drops.reduce(function(total,drop) { return total + drop[0]; },0);
+	$(".anniversary-visit-drops").html(kiss_drops.filter(function(drop) { return drop[1] != "empty"; }).map(function(drop) { return render_drop(drop,1/kiss_total,"#858B8E"); }).join(""));
 	$(".anniversary-cake-drops").html(render_drop([1,"open","sixcake"],1,"#858B8E"));
 	$(".anniversary-cake-bonuses").html(G.drops.sixcake_bonus.map(function(drop) { return render_drop(drop,1,"#858B8E"); }).join(""));
 	$(".anniversary-gift-drops").html(render_drop([1,"open","anniversarygift"],1,"#858B8E"));

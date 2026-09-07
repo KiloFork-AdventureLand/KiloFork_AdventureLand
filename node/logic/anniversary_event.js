@@ -202,7 +202,7 @@ function createEvent({
 		// Synchronous delivery, reserved before any inventory side effects.
 		round.claims.add(visitor.id);
 		clearTicket(visitor);
-		deliver(visitor, [slice, "anniversarygift"]);
+		deliver(visitor, [slice, "anniversarygift"], "anniversary_kiss");
 		deliver(target, [hostSlice, "anniversarygift"]);
 		return true;
 	}

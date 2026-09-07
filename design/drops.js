@@ -22,12 +22,12 @@ var drops = {
 		global: [
 			// Anniversary only. A credited account rolls only its own slice flavor.
 			[1.0 / 1500, "anniversarygift"],
-			[1.0 / 5000, "slice_strawberry"],
-			[1.0 / 5000, "slice_citrus"],
-			[1.0 / 5000, "slice_honey"],
-			[1.0 / 5000, "slice_mint"],
-			[1.0 / 5000, "slice_blueberry"],
-			[1.0 / 5000, "slice_nightberry"],
+			[1.0 / 50000, "slice_strawberry"],
+			[1.0 / 50000, "slice_citrus"],
+			[1.0 / 50000, "slice_honey"],
+			[1.0 / 50000, "slice_mint"],
+			[1.0 / 50000, "slice_blueberry"],
+			[1.0 / 50000, "slice_nightberry"],
 			//[0.000015,"goldenegg"], //originally 0.000005
 			//[0.0000001,"5bucks"],
 			//[0.0002,"gift0"],
@@ -1038,12 +1038,16 @@ var drops = {
 		[8, "keepsakependant"],
 	],
 	anniversarygift: [
-		[600000, "gold", 5000],
+		[608910, "gold", 5000],
 		[200000, "gold", 20000],
 		[190000, "open", "anniversary_legacy"],
-		[9900, "open", "anniversary_equipment"],
+		[990, "open", "anniversary_equipment"],
 		[99, "cxjar", 1, "makeawish"],
 		[1, "cxjar", 1, "ikissyou"],
+	],
+	anniversary_kiss: [
+		[1, "cxjar", 1, "ikissyou"],
+		[999, "empty"],
 	],
 	// Independent extra rolls after opening a cake, not weights in its prize pool.
 	sixcake_bonus: [
