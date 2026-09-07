@@ -37,6 +37,7 @@ const discord_relay = require("./logic/discord")({
 });
 const anniversary_rules = require("./logic/anniversary_event");
 const market_patron_rules = require("./logic/market_patron")((a, b) => simple_distance(a, b));
+const server_information = require("./logic/server_information")("SR_" + region + server_name);
 var socket_cors = {
 	origin: "*",
 	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -375,6 +376,7 @@ async function init_game() {
 		Server.local_ip = server_def.local_ip;
 		Server.local_port = server_def.local_port;
 		Server.machine = server_def.machine;
+		server_information.restore(Server.info.recent_characters);
 
 		server_id = "SR_" + region + server_name;
 		server_auth = keys.SERVER_MASTER;
@@ -543,6 +545,7 @@ async function init_game() {
 		shuffle(hiding_places);
 		init_tavern();
 		init_server();
+		await pull_server_information();
 		server.started = true;
 		server.live = true;
 
@@ -551,6 +554,7 @@ async function init_game() {
 		Server.info.observers = Object.keys(observers).length;
 		Server.info.merchants = total_merchants;
 		Server.info.total_players = total_players;
+		Server.info.recent_characters = server_information.snapshot(players);
 		Server.online = true;
 		Server.info.secret = random_string(32);
 		Server.updated = new Date();
@@ -11167,6 +11171,7 @@ function init_socket_io(socket_server) {
 				socket.emit("disconnect_reason", "limits");
 				socket.disconnect();
 			} else {
+				server_information.remember(player);
 				var cdata = player_to_client(player);
 				player.ipass = cdata.ipass = randomStr(12);
 				player.last_ipass = new Date();
@@ -12207,6 +12212,7 @@ function init_socket_io(socket_server) {
 				delete sockets[socket.id];
 			} catch (e) {}
 			if (player) {
+				server_information.remember(player);
 				player.dc = true;
 				try {
 					defeat_player(player);
@@ -15892,9 +15898,13 @@ async function server_loop() {
 			Server.info.observers = Object.keys(observers).length;
 			Server.info.merchants = total_merchants;
 			Server.info.total_players = total_players;
+			Server.info.recent_characters = server_information.snapshot(players);
 			await save(Server);
+			await pull_server_information();
+			for (var id in players) if (!players[id].dc) realmfatigue_logic(players[id]);
 		} else if (server.started && !server.live && !server.stopped) {
 			Server.online = false;
+			Server.info.recent_characters = server_information.snapshot(players);
 			await new Promise((r) => setTimeout(r, 200));
 			await retried_save(Server);
 			await new Promise((r) => setTimeout(r, 200));

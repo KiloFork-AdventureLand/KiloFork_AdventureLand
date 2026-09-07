@@ -1084,7 +1084,7 @@ function serverhop_logic(player) {
 }
 
 function recent_character_server(character, minutes) {
-	if (!character || msince(character.last_online) >= minutes) {
+	if (!character || !character.last_online || msince(character.last_online) >= minutes) {
 		return "";
 	}
 	if (character.server) {
@@ -1095,24 +1095,82 @@ function recent_character_server(character, minutes) {
 }
 
 function realmfatigue_logic(player, characters) {
-	delete player.s.realmfatigue;
 	if (player.type == "merchant") {
+		delete player.s.realmfatigue;
 		return;
 	}
-	// Authentication already loaded every character; keep this check in memory.
-	characters = characters || [];
+	var now = Date.now(),
+		duration = G.conditions.realmfatigue.duration;
+	var condition = player.s.realmfatigue;
+	// Retain old saved countdowns on their first check; new conditions use a wall-clock deadline.
+	var until = (condition && (condition.until || now + condition.ms)) || 0;
+	var latest = server_information.foreign_activity(player.owner, player.real_id);
 	var current_server = region + server_name;
-	var fatigue_minutes = G.conditions.realmfatigue.duration / 60000;
-	for (var i = 0; i < characters.length; i++) {
+	// Only login supplies character records, already fetched by authentication. Periodic checks use the cache.
+	for (var i = 0; i < (characters || []).length; i++) {
 		var character = characters[i];
 		if (!character || get_id(character) == player.real_id || character.type == "merchant") {
 			continue;
 		}
-		var recent_server = recent_character_server(character, fatigue_minutes);
+		var recent_server = recent_character_server(character, duration / 60000);
 		if (recent_server && recent_server != current_server) {
-			add_condition(player, "realmfatigue");
-			return;
+			latest = Math.max(latest, +new Date(character.last_online));
 		}
+	}
+	if (latest && latest > now - duration) {
+		// A stale snapshot cannot restart thirty minutes on every refresh.
+		until = Math.max(until, latest + duration, characters && until <= now ? now + duration : 0);
+	}
+	if (until <= now) {
+		if (condition) {
+			delete player.s.realmfatigue;
+			player.u = true;
+			player.cid++;
+		}
+		return;
+	}
+	if (!condition) add_condition(player, "realmfatigue", { ms: until - now });
+	else if (condition.until != until) {
+		player.u = true;
+		player.cid++;
+	}
+	player.s.realmfatigue.ms = until - now;
+	player.s.realmfatigue.until = until;
+}
+
+async function pull_server_information() {
+	if (Date.now() < server_information.next_pull) return;
+	server_information.next_pull = Date.now() + 30000;
+	var ids = Object.values(options.servers).map(function (definition) {
+		return "SR_" + definition.region + definition.name;
+	});
+	try {
+		var snapshots = await db
+			.collection("server")
+			.find(
+				{ _id: { $in: ids } },
+				{
+					projection: {
+						_id: 1,
+						key: 1,
+						region: 1,
+						name: 1,
+						online: 1,
+						updated: 1,
+						"info.players": 1,
+						"info.observers": 1,
+						"info.merchants": 1,
+						"info.total_players": 1,
+						"info.recent_characters": 1,
+					},
+				},
+			)
+			.maxTimeMS(5000)
+			.toArray();
+		server_information.receive(snapshots);
+	} catch (e) {
+		// Retain the last snapshots on failure; their activity timestamps continue to age normally.
+		log_trace("server_information", e);
 	}
 }
 

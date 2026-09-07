@@ -609,7 +609,9 @@ async function get_domain(req, user) {
 
 var cached_servers = null;
 async function get_servers(no_cache) {
-	var servers = await db.collection("server").find({ online: true }).limit(500).toArray();
+	var servers = await db.collection("server")
+		.find({ online: true }, { projection: { "info.recent_characters": 0 } })
+		.limit(500).toArray();
 	post_process_query_results(servers);
 	servers.sort(function (a, b) {
 		var ra = (a.region === "EU" ? "1" : a.region === "US" ? "2" : "3") + a.name;

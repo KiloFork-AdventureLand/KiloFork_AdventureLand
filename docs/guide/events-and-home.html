@@ -40,8 +40,8 @@
 <div class="divider"></div>
 <div class="title mt15">Home and Blessings</div>
 <p>Speak with Bean while on the realm this character wants to call home. At home, your contribution against cooperative monsters grows five times faster before rewards are shared. Selected monsters can also carry extra home rewards.</p>
-<p>If another non-merchant character on your account visited a different server during the previous 30 minutes, you receive 30 minutes of Realm Fatigue when you enter. You can still fight and receive normal rewards, but the home contribution bonus and home-only drops wait until the condition ends. Switching again renews the condition. Merchants are ignored.</p>
-<div class="guide-note">Realm Fatigue limits quick event hopping without changing any character's home. Stay on one server for 30 minutes and its home rewards return.</div>
+<p>If another non-merchant character on your account recently visited a different server, you receive Realm Fatigue. It is checked when you enter and while you play; activity on another realm can take about a minute to reach you. Normal rewards continue, but the home contribution bonus and home-only drops wait until the condition ends. Reconnecting does not clear it. Merchants are ignored.</p>
+<div class="guide-note">Settle on one realm for 30 minutes to regain its home rewards. Keeping non-merchant characters active on different realms extends the wait. Your characters' home realms do not change.</div>
 <p>Changing home has a 36-hour cooldown, so read Bean's confirmation instead of using it as ordinary travel.</p>
 <p>Favoré's blessing is realm-wide and spends Shells. Her panel shows the exact current cost and remaining blessing time. This is separate from setting a home server.</p>
 
@@ -59,6 +59,8 @@
 
 report_live_events();
 show_json(server.status);</div>
+<div class="code">var fatigue = character.s.realmfatigue;
+if (fatigue) game_log("Realm Fatigue: " + Math.ceil(fatigue.ms / 60000) + " minutes remaining");</div>
 <div class="code">async function join_goobrawl_if_live() {
 	if (!server.status.goobrawl) return game_log("No Goo Brawl here");
 	await join("goobrawl");
