@@ -1199,7 +1199,7 @@ var imagesets = {
 		size: 20,
 		rows: 40,
 		columns: 20,
-		file: "/images/tiles/items/raw_items.png?v=15",
+		file: "/images/tiles/items/raw_items.png?v=16",
 		load: true,
 	},
 };
