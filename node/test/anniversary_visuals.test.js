@@ -125,6 +125,59 @@ test("anniversary emotes return before fake PIXI, sprites, audio or entity acces
 	context.clear_cosmetic_emote(player);
 });
 
+test("the emote socket logs kisses like Poke for nearby players and the recipient, including headless clients", () => {
+	for (const noGraphics of [false, true]) {
+		for (const viewer of ["Visitor", "Guest", "Observer"]) {
+			const { context, player, players } = harness();
+			player("Visitor");
+			player("Guest", 50);
+			context.character = players.get(viewer) || player(viewer);
+			context.no_graphics = noGraphics;
+			if (noGraphics) {
+				vm.runInContext(fs.readFileSync(path.join(root, "js/pixi/fake/pixi.min.js"), "utf8"), context);
+				context.PIXI = new Proxy(context.PIXI, {
+					get() {
+						throw Error("PIXI touched in headless mode");
+					},
+				});
+			}
+			context.G.skills = { ikissyou: { emote: "ikissyou" }, makeawish: { emote: "makeawish" } };
+			const chats = [],
+				logs = [],
+				draws = [];
+			let receive;
+			context.socket = {
+				on: (name, callback) => {
+					assert.equal(name, "emote");
+					receive = callback;
+				},
+			};
+			context.draw_trigger = (callback) => draws.push(callback);
+			context.add_chat = (...args) => chats.push(args);
+			context.add_log = (...args) => logs.push(args);
+			context.citizen_echo_emote = () => {};
+			const start = game.indexOf('socket.on("emote",');
+			vm.runInContext(game.slice(start, game.indexOf('socket.on("citizen",', start)), context);
+			const kiss = { name: "ikissyou", player: "Visitor", target: "Guest" };
+			receive(kiss);
+			assert.equal(chats.length, 0, "use the existing queued event path");
+			draws.shift()();
+			assert.deepEqual(chats, [["", "Visitor kissed Guest", "gray"]]);
+			assert.deepEqual(logs, viewer === "Guest" ? [["Visitor kissed you", "gray"]] : []);
+			for (const data of [
+				{ ...kiss, name: "makeawish" },
+				{ ...kiss, player: "Missing" },
+				{ ...kiss, target: "Missing" },
+			]) {
+				receive(data);
+				draws.shift()();
+			}
+			assert.equal(chats.length, 1, "other emotes and absent players do not produce kiss logs");
+			assert.equal(logs.length, viewer === "Guest" ? 1 : 0);
+		}
+	}
+});
+
 test("Make a Wish preserves its native sheet and expires at 2800 ms", () => {
 	const { context, player, advance } = harness();
 	const caster = player("wisher");

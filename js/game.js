@@ -2447,10 +2447,15 @@ function init_socket(args) {
 	});
 	socket.on("emote", function (data) {
 		draw_trigger(function () {
-			var player = get_player(data.player);
+			var player = get_player(data.player),
+				target = data.target && get_player(data.target);
 			var emote = data.name;
 			if (player && G.skills[emote] && G.skills[emote].emote) {
-				play_cosmetic_emote(player, emote, data.target && get_player(data.target), data);
+				if (emote == "ikissyou" && target) {
+					if (target == character) add_log(player.name + " kissed you", "gray");
+					add_chat("", player.name + " kissed " + target.name, "gray");
+				}
+				play_cosmetic_emote(player, emote, target, data);
 				citizen_echo_emote(player, emote, data);
 			}
 		});
