@@ -3094,6 +3094,16 @@ function anniversary_craft(name) {
 	return promise;
 }
 
+function anniversary_exchange() {
+	if (!character || (character.q && character.q.exchange)) return;
+	var num = character.items.findIndex(function (item) {
+		return item && item.name == "sixcake" && !item.l && !item.b && !item.giveaway;
+	});
+	if (num == -1) return add_log("You need an unlocked cake in your inventory.", "gray");
+	e_item = num;
+	return exchange();
+}
+
 function auto_craft(name, code) {
 	var issue = null;
 	if (!G.craft[name]) issue = "recipe";

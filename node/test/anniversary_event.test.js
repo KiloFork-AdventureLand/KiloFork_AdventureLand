@@ -594,6 +594,136 @@ test("craft failures cannot consume gold or ingredients", () => {
 	assert.equal(h.p.gold, 0, "existing remote-computer crafting remains available");
 });
 
+test("cake exchange accepts nearby Mira without changing normal exchange rules", () => {
+	function setup() {
+		const p = player("Opener", {
+			items: [{ name: "sixcake", q: 3 }],
+			q: {},
+			s: {},
+			esize: 2,
+			p: { stats: { exchanges: {} } },
+		});
+		const failed = [],
+			consumed = [],
+			replies = [];
+		let handler;
+		const ctx = {
+			players: { opener: p },
+			socket: {
+				id: "opener",
+				on: (name, fn) => {
+					handler = fn;
+				},
+			},
+			G: {
+				items: { sixcake: { e: 1 }, anniversarygift: { e: 1 } },
+				maps: { main: { exchange: player("Xyn", { x: 500 }) } },
+			},
+			D: { drops: { sixcake: [[1, "bow"]], anniversarygift: [[1, "gold", 5000]] } },
+			B: { sell_dist: 100 },
+			npcs: { anniversary_baker: player("Mira") },
+			anniversary_is_active: () => true,
+			distance: (a, b) => (a.map !== b.map || a.in !== b.in ? Infinity : Math.hypot(a.x - b.x, a.y - b.y)),
+			fail_response: (reason) => failed.push(reason),
+			success_response: (reply) => replies.push(reply),
+			consume: (player, num, q) => consumed.push({ num, q }),
+			add_item: () => 1,
+			resend() {},
+			gameplay: "normal",
+		};
+		const start = source.indexOf('socket.on("exchange",');
+		vm.runInNewContext(source.slice(start, source.indexOf('socket.on("exchange_buy",', start)), ctx);
+		return { p, ctx, failed, consumed, replies, open: () => handler({ item_num: 0, q: 3 }) };
+	}
+	for (const alter of [
+		() => {},
+		(h) => {
+			h.p.x = 500;
+			h.ctx.anniversary_is_active = () => false;
+		},
+		(h) => {
+			h.p.computer = true;
+			h.p.x = 1000;
+		},
+	]) {
+		const h = setup();
+		alter(h);
+		h.open();
+		assert.deepEqual(h.failed, []);
+		assert.deepEqual(h.consumed, [{ num: 0, q: 1 }], "opens one cake, not the stack");
+		assert.equal(h.p.q.exchange.id, "sixcake");
+		assert.equal(h.replies[0].in_progress, true);
+	}
+	for (const [reason, alter] of [
+		[
+			"distance",
+			(h) => {
+				h.p.x = 101;
+			},
+		],
+		[
+			"distance",
+			(h) => {
+				h.p.map = "winterland";
+			},
+		],
+		[
+			"distance",
+			(h) => {
+				h.p.in = "private";
+			},
+		],
+		[
+			"distance",
+			(h) => {
+				h.ctx.anniversary_is_active = () => false;
+			},
+		],
+		[
+			"distance",
+			(h) => {
+				delete h.ctx.npcs.anniversary_baker;
+			},
+		],
+		[
+			"distance",
+			(h) => {
+				h.p.items[0].name = "anniversarygift";
+			},
+		],
+		[
+			"item_locked",
+			(h) => {
+				h.p.items[0].l = "l";
+			},
+		],
+		[
+			"exchange_existing",
+			(h) => {
+				h.p.q.exchange = {};
+			},
+		],
+		[
+			"inventory_full",
+			(h) => {
+				h.p.esize = 0;
+			},
+		],
+		[
+			"cant_in_bank",
+			(h) => {
+				h.p.user = true;
+			},
+		],
+	]) {
+		const h = setup();
+		alter(h);
+		h.open();
+		assert.deepEqual(h.failed, [reason]);
+		assert.deepEqual(h.consumed, []);
+	}
+});
+
 function exchangeHarness(rolls) {
 	const items = [],
 		ctx = {

@@ -6332,7 +6332,8 @@ function init_socket_io(socket_server) {
 			}
 			if (!player.computer) {
 				const dist = distance(player, def.quest ? G.quests[def.quest] : G.maps.main.exchange);
-				if (dist > B.sell_dist) {
+				const mira = item.name === "sixcake" && anniversary_is_active() && npcs.anniversary_baker;
+				if (dist > B.sell_dist && !(mira && distance(player, mira) <= B.sell_dist)) {
 					return fail_response("distance");
 				}
 			}

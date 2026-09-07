@@ -20,7 +20,8 @@
 	<p><b>Choose a Gift</b> is the other tab in her workshop. Select an item, inspect its ingredients and gold cost, then choose <b>Make Gift</b>. These recipes spend cakes instead of opening them randomly. Make a Wish costs one cake and 250,000 gold and produces a permanent CX Jar unlock.</p>
 	<p>Mira's <b>INFO</b> button returns to this guide. She is available during the celebration on non-PvP realms.</p>
 	<div style="font-size:30px;color:#8B642E">Open a Cake or Gift</div>
-	<p>Take a Sixfold Cake or Anniversary Gift to <b>Xyn, the exchange NPC</b>. Place it in the exchange slot and start the exchange. Computer exchange access also works. Mira crafts; Xyn opens the finished rewards.</p>
+	<p>In Mira's <b>Combine Cake</b> tab, click <b>Open Cake</b> to exchange one unlocked cake from your inventory. This spends the cake for a random reward. To craft a specific item instead, use <b>Choose a Gift</b>.</p>
+	<p><b>Xyn, the exchange NPC</b>, still opens both cakes and Anniversary Gifts. Place one in the exchange slot and start the exchange. Computer exchange access also works. Leave inventory room for your rewards.</p>
 	<p>A cake gives <b>anniversary equipment or a rare anniversary cosmetic, plus three Gifts</b>. The four cosmetics are aniv0, aniv1, aniv2, and aniv3. Click any cake or Gift icon in this guide to open its regular item window, then click the icon under <b>Drop Table</b> to see the current drop rates.</p>
 	<p>Ordinary eligible monsters have separate 1-in-5,000 slice and 1-in-1,500 Gift rolls, adjusted by your reward share. These seasonal rolls do not use Luck or loot multipliers.</p>
 	<div style="font-size:30px;color:#8B642E">Inside the Gifts</div>
@@ -79,7 +80,8 @@ craft_with_mira("sixcake").catch(show_json);
 	<div style="font-size:30px;color:#8B642E">CODE: Exchange a Cake or Gift</div>
 	<p>This opens one item, not your entire stack. It waits for the normal exchange to finish. Leave inventory room and do not move the item while it is being exchanged.</p>
 <div class="code">async function open_anniversary_reward(name) {
-	await smart_move("exchange");
+	var event = server.status.anniversary;
+	await smart_move(name === "sixcake" &amp;&amp; event &amp;&amp; event.active ? "anniversary_baker" : "exchange");
 	var slot = locate_item(name);
 	if (slot === -1) return game_log("No " + name + " in your inventory");
 	if (character.items[slot].l || character.q.exchange) return;
