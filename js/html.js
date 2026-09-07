@@ -449,7 +449,14 @@ function set_proximity_guides(enabled) {
 function render_server() {
 	var html = "",
 		content = false,
+		featured = anniversary_live_event(),
 		contexts = proximity_guides ? (interaction_contexts.length ? interaction_contexts : interaction_context ? [interaction_context] : []) : [];
+	if (!no_html && featured && featured.skin) {
+		html += " <div class='gamebutton' title='" + html_escape(featured.target) + "' style='padding:6px 8px;font-size:24px;line-height:18px' onclick='pcs(event);render_anniversary_event()'>";
+		html += sprite(featured.skin, { cx: clone(featured.cx || {}), overflow: true });
+		html += "<div style='color:#E10029;margin-top:1px'>KISS</div></div>";
+		content = true;
+	}
 	for (var context_index = 0; context_index < contexts.length; context_index++) {
 		var context = contexts[context_index],
 			definition = context.definition,
@@ -577,7 +584,7 @@ function render_server() {
 	if (S.anniversary && S.anniversary.active) {
 		html += " <div class='gamebutton' style='padding:6px 8px;font-size:24px;line-height:18px' onclick='pcs(event);render_anniversary_event()'>";
 		html += "<div style='margin-top:-1px;margin-left:-3px;margin-right:-3px'>" + item_container({ skin: "anniversarygift", bcolor: "black", draggable: false }) + "</div>";
-		html += "<div style='color:#F0B742;margin-top:1px'>" + (anniversary_live_event() ? "KISS!" : "10 YEARS") + "</div></div>";
+		html += "<div style='color:#F0B742;margin-top:1px'>10 YEARS</div></div>";
 		content = true;
 	}
 	$("#serverinfo").html(html);

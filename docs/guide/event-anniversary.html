@@ -2,7 +2,7 @@
 	<div style="font-size:36px;color:#8B642E">Ten Years of Adventure Land</div>
 	<p>Find someone. Send a kiss. Bring home a slice.</p>
 	<div class="anniversary-guide-items"></div>
-	<p>Every 30 minutes during the celebration, each non-PvP realm picks a reachable, non-AFK player. Newer, lower-level characters are more likely to be chosen. Open the anniversary button to see who it is and where to go.</p>
+	<p>Every 30 minutes during the celebration, each non-PvP realm picks a reachable, non-AFK player. Newer, lower-level characters are more likely to be chosen. Their portrait appears first in the INFO row, with a red <b>KISS</b> label. Click it to see who they are and where to go.</p>
 	<p>When the player is selected, every other character already online on that realm receives an <b>Anniversary Visit</b> condition lasting five minutes. Get within 80 range and use <b>I Kiss You</b> on the featured player before it expires. Everyone who does this gets <b>one cake slice and one Anniversary Gift</b>, and their condition is used up.</p>
 	<p>Joining after selection does not give you a condition for that round. Repeating a kiss gives no extra rewards. If the featured player must be replaced, existing conditions keep their remaining time; no new conditions are given out.</p>
 	<p>The featured player gets one Gift after their first eligible visitor. There is no confirmation box, and you do not need to own the emote to take part.</p>
@@ -28,7 +28,7 @@
 	<p>A cake also has a separate 1-in-100,000 chance of an I Kiss You jar, on top of its other rewards. This unlock lets you kiss other players after the event. Make a Wish costs 50 MP and has a four-minute cooldown. Neither emote grants combat bonuses.</p>
 	<p>Mira leaves when the celebration ends. Your remaining cakes, Gifts, equipment, and unlocked emotes stay with you.</p>
 	<div style="font-size:30px;color:#8B642E">CODE: Find the Featured Player</div>
-	<p>The live round is in <span class="dlabel">server.status.anniversary</span>. Your invitation is <span class="dlabel">character.s.anniversary_visit</span>. This example visits the current location, checks the round again, and sends one kiss. If the player moves out of reach or is replaced, run it again before your invitation expires.</p>
+	<p>The live round is in <span class="dlabel">server.status.anniversary</span>, including the featured player's <span class="dlabel">skin</span> and <span class="dlabel">cx</span> cosmetics. Your invitation is <span class="dlabel">character.s.anniversary_visit</span>. This example visits the current location, checks the round again, and sends one kiss. If the player moves out of reach or is replaced, run it again before your invitation expires.</p>
 <div class="code">async function visit_featured_player() {
 	var round = server.status.anniversary;
 	var ticket = character.s.anniversary_visit;

@@ -178,6 +178,8 @@ function createEvent({
 						expires: round.expires,
 						target: target.name,
 						id: target.id,
+						skin: target.skin,
+						cx: JSON.parse(JSON.stringify(target.cx || {})),
 						map: target.map,
 						x: Math.round(target.x),
 						y: Math.round(target.y),

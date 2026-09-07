@@ -263,6 +263,38 @@ test("no partial round replay; selection, expiry and shutdown are bounded", () =
 	assert.equal(h.event.tick().live, false);
 });
 
+test("featured appearance is a public snapshot and follows cosmetic changes and replacement", () => {
+	const h = eventHarness();
+	h.host.skin = "marmor6a";
+	h.host.cx = { head: "makeup117", hat: "aniv2", skin: ["armor", "head"] };
+	const first = h.start();
+	assert.equal(first.skin, h.host.skin);
+	assert.deepEqual(first.cx, h.host.cx);
+	assert.notEqual(first.cx, h.host.cx);
+	assert.equal(first.owner, undefined);
+	h.host.cx.hat = "aniv3";
+	h.host.cx.skin[0] = "new_armor";
+	const changed = h.event.tick();
+	assert.equal(first.cx.hat, "aniv2");
+	assert.equal(first.cx.skin[0], "armor");
+	assert.equal(changed.cx.hat, "aniv3");
+	assert.notEqual(
+		JSON.stringify(first),
+		JSON.stringify(changed),
+		"appearance changes trigger the existing state broadcast",
+	);
+	h.visitor.skin = "mmage";
+	h.host.afk = true;
+	const replacement = h.event.tick();
+	assert.equal(replacement.id, h.visitor.id);
+	assert.equal(replacement.skin, "mmage");
+	assert.deepEqual(replacement.cx, {});
+	h.time(rules.INTERVAL + rules.WINDOW);
+	const ended = h.event.tick();
+	assert.equal(ended.skin, undefined);
+	assert.equal(ended.cx, undefined);
+});
+
 test("every other connected character gets one ticket at selection, including AFK and same-account characters", () => {
 	const h = eventHarness();
 	const afk = player("Away", { afk: true }),
