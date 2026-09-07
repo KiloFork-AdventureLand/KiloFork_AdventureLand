@@ -1,35 +1,27 @@
 <div style="width:600px;max-width:100%;font-size:24px;line-height:1.3">
-	<div style="font-size:36px;color:#8B642E">Ten Years of Adventure Land</div>
-	<p>Find someone. Send a kiss. Bring home a slice.</p>
+	<div style="font-size:32px;color:#8B642E">10 Years of Adventure</div>
+	<p>Every <b>30 minutes</b>, a player is featured on each non-PvP server. Click their red <b>KISS</b> portrait in the INFO row to find them.</p>
+	<p>Be online when the round starts to receive an <b>Anniversary Visit</b>. You have <b>five minutes</b> to get within 80 range and use <b>I Kiss You</b>. Your visit is used up and you receive <b>one slice + one Gift</b>. No emote jar needed.</p>
 	<div class="anniversary-guide-items"></div>
-	<p>Every 30 minutes during the celebration, each non-PvP realm picks a reachable, non-AFK player. Newer, lower-level characters are more likely to be chosen. Their portrait appears first in the INFO row, with a red <b>KISS</b> label. Click it to see who they are and where to go.</p>
-	<p>When the player is selected, every other character already online on that realm receives an <b>Anniversary Visit</b> condition lasting five minutes. Get within 80 range and use <b>I Kiss You</b> on the featured player before it expires. Everyone who does this gets <b>one cake slice and one Anniversary Gift</b>, and their condition is used up.</p>
-	<p>Joining after selection does not give you a condition for that round. Repeating a kiss gives no extra rewards. If the featured player must be replaced, existing conditions keep their remaining time; no new conditions are given out.</p>
-	<p>The featured player gets one Gift after their first eligible visitor. There is no confirmation box, and you do not need to own the emote to take part.</p>
-	<div style="font-size:30px;color:#8B642E">Six Flavors, One Cake</div>
-	<p>Your account always finds the same flavor, whichever character or realm you play. Trade slices with other players to collect all six.</p>
-	<div style="font-size:30px;color:#8B642E">Craft with Mira</div>
-	<div class="anniversary-guide-mira"></div>
-	<p><b>Mira stands on Mainland (map: main), at x: 64, y: -88.</b> She wears the blue anniversary hat. The event window's <b>Visit Mira</b> button takes you to her.</p>
-	<ol>
-		<li>Bring <b>one of each of the six flavors and 100,000 gold</b> in your inventory.</li>
-		<li>Walk up to Mira and click or tap her. Her workshop opens in the top-left corner.</li>
-		<li>Choose <b>Combine Cake</b>, then <b>Make Cake</b>. The panel selects your slices automatically; you do not need to fill a crafting grid.</li>
-	</ol>
-	<p>If Make Cake is dimmed, check the ingredient counts and gold shown above it. Locked, bound, and giveaway items cannot be used. Keep room for the result. You must be near Mira unless you have Computer crafting access.</p>
-	<p><b>Choose a Gift</b> is the other tab in her workshop. Select an item, inspect its ingredients and gold cost, then choose <b>Make Gift</b>. These recipes spend cakes instead of opening them randomly. Make a Wish costs one cake and 250,000 gold and produces a permanent CX Jar unlock.</p>
-	<p>Mira's <b>INFO</b> button returns to this guide. She is available during the celebration on non-PvP realms.</p>
-	<div style="font-size:30px;color:#8B642E">Open a Cake or Gift</div>
-	<p>In Mira's <b>Combine Cake</b> tab, click <b>Open Cake</b> to exchange one unlocked cake from your inventory. This spends the cake for a random reward. To craft a specific item instead, use <b>Choose a Gift</b>.</p>
-	<p><b>Xyn, the exchange NPC</b>, still opens both cakes and Anniversary Gifts. Place one in the exchange slot and start the exchange. Computer exchange access also works. Leave inventory room for your rewards.</p>
-	<p>A cake gives <b>anniversary equipment or a rare anniversary cosmetic, plus three Gifts</b>. The four cosmetics are aniv0, aniv1, aniv2, and aniv3. Click any cake or Gift icon in this guide to open its regular item window, then click the icon under <b>Drop Table</b> to see the current drop rates.</p>
-	<p>Ordinary eligible monsters have separate 1-in-5,000 slice and 1-in-1,500 Gift rolls, adjusted by your reward share. These seasonal rolls do not use Luck or loot multipliers.</p>
-	<div style="font-size:30px;color:#8B642E">Inside the Gifts</div>
-	<p>Each Gift gives one result: 60% for 5,000 gold, 20% for 20,000 gold, 19% for the original anniversary prize table, 0.99% for anniversary equipment, 0.0099% for a Make a Wish CX Jar, or 0.0001% for an I Kiss You CX Jar.</p>
-	<p>A cake also has a separate 1-in-100,000 chance of an I Kiss You jar, on top of its other rewards. This unlock lets you kiss other players after the event. Make a Wish costs 50 MP and has a four-minute cooldown. Neither emote grants combat bonuses.</p>
-	<p>Mira leaves when the celebration ends. Your remaining cakes, Gifts, equipment, and unlocked emotes stay with you.</p>
-	<div style="font-size:30px;color:#8B642E">CODE: Find the Featured Player</div>
-	<p>The live round is in <span class="dlabel">server.status.anniversary</span>, including the featured player's <span class="dlabel">skin</span> and <span class="dlabel">cx</span> cosmetics. Your invitation is <span class="dlabel">character.s.anniversary_visit</span>. This example visits the current location, checks the round again, and sends one kiss. If the player moves out of reach or is replaced, run it again before your invitation expires.</p>
+	<p>Your account always finds the same flavor. Trade for the other five.</p>
+	<div style="display:flex;align-items:center;gap:10px"><span class="anniversary-guide-mira"></span><div><b>Mira / Mainland (64, -88)</b><br>Bring all six slices + 100,000 gold. Click <b>Make Cake</b>.<br><b>Open Cake</b> gives a random reward. <b>Choose a Gift</b> shows recipes for specific items.</div></div>
+	<p>Xyn also opens cakes and Gifts. Click any item below for its details.</p>
+	<details open><summary style="cursor:pointer;color:#8B642E">Cake drops — one prize</summary>
+		<div class="anniversary-cake-drops" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px"></div>
+		<div style="margin-top:6px">Also receive:</div>
+		<div class="anniversary-cake-bonuses" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr))"></div>
+	</details>
+	<details><summary style="cursor:pointer;color:#8B642E">Gift drops — one prize</summary>
+		<div class="anniversary-gift-drops" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px"></div>
+	</details>
+	<details><summary style="cursor:pointer">More event details</summary>
+		<p>Reachable, non-AFK players are chosen, with newer, lower-level characters favored. The featured player gets one Gift after their first visitor. Joining late gives no visit for that round; repeated kisses give no extra rewards. Replacing the featured player does not reset the five-minute timer.</p>
+		<p>Monsters can also drop slices and Gifts: separate 1-in-5,000 and 1-in-1,500 rolls, adjusted by reward share, not Luck.</p>
+		<p>Crafting needs the listed unlocked ingredients, gold, and room for the result. Stay near Mira unless you have Computer access. Mira leaves when the event ends; your items and emotes stay.</p>
+		<p>Make a Wish's jar costs one cake + 250,000 gold at Mira. The emote uses 50 MP and has a four-minute cooldown. The rare I Kiss You jar unlocks kisses outside the event. Neither gives combat bonuses.</p>
+	</details>
+	<details><summary style="cursor:pointer">CODE: Find and kiss</summary>
+	<p>Uses <span class="dlabel">server.status.anniversary</span> and your Visit condition. If the player moves away, run it again.</p>
 <div class="code">async function visit_featured_player() {
 	var round = server.status.anniversary;
 	var ticket = character.s.anniversary_visit;
@@ -55,9 +47,9 @@
 }
 
 visit_featured_player().catch(show_json);</div>
-	<p>The server awards the slice and Gift and removes your invitation. Do not own the emote? Your valid invitation gives temporary access. There is no reward for repeated kisses or for kissing another player.</p>
-	<div style="font-size:30px;color:#8B642E">CODE: Craft with Mira</div>
-	<p>Use the existing <span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span> function. Bring the ingredients and gold first. Required quantities must be in suitable unlocked stacks for this automatic inventory selection.</p>
+	</details>
+	<details><summary style="cursor:pointer">CODE: Craft with Mira</summary>
+	<p>Bring the ingredients and gold. Required quantities must be in suitable unlocked stacks.</p>
 <div class="code">async function craft_with_mira(recipe) {
 	var event = server.status.anniversary;
 	if (!event || !event.active) return game_log("Mira's workshop is closed");
@@ -76,9 +68,10 @@ craft_with_mira("sixcake").catch(show_json);
 
 // One cake + 250,000 gold; the result is a CX Jar:
 // craft_with_mira("makeawishjar").catch(show_json);</div>
-	<p><span class="dlabel">find_npc("anniversary_baker")</span> returns Mira's coordinates while the event is active. <span class="dlabel">G.craft</span> contains every recipe, its exact ingredient levels, and its gold cost.</p>
-	<div style="font-size:30px;color:#8B642E">CODE: Exchange a Cake or Gift</div>
-	<p>This opens one item, not your entire stack. It waits for the normal exchange to finish. Leave inventory room and do not move the item while it is being exchanged.</p>
+	<p>Inspect ingredients with <span class="dlabel">show_json(G.craft)</span>. Find Mira with <span class="dlabel">find_npc("anniversary_baker")</span>.</p>
+	</details>
+	<details><summary style="cursor:pointer">CODE: Open a Cake or Gift</summary>
+	<p>Opens one item. Leave inventory room and do not move it during the exchange.</p>
 <div class="code">async function open_anniversary_reward(name) {
 	var event = server.status.anniversary;
 	await smart_move(name === "sixcake" &amp;&amp; event &amp;&amp; event.active ? "anniversary_baker" : "exchange");
@@ -93,8 +86,9 @@ craft_with_mira("sixcake").catch(show_json);
 open_anniversary_reward("sixcake").catch(show_json);
 // To open a Gift instead:
 // open_anniversary_reward("anniversarygift").catch(show_json);</div>
-	<p>Gold and cosmetic unlocks may not appear as <span class="dlabel">result.reward</span>; cake bonus Gifts arrive separately. Check your inventory, gold, and cosmetics after completion.</p>
-	<p>References: <span class="rlabel" onclick="render_function_reference($(this).html())">smart_move</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">find_npc</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">exchange</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">use_skill</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">get_player</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">locate_item</span>.</p>
+	<p>Check inventory, gold and cosmetics for your rewards; not all rewards appear in the returned result.</p>
+	</details>
+	<p>CODE reference: <span class="rlabel" onclick="render_function_reference($(this).html())">smart_move</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">exchange</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">use_skill</span>.</p>
 </div>
 <script>
 	var anniversary_icons = "";
@@ -103,5 +97,8 @@ open_anniversary_reward("sixcake").catch(show_json);
 	});
 	$(".anniversary-guide-items").html(anniversary_icons);
 	var mira = G.npcs.anniversary_baker;
-	$(".anniversary-guide-mira").html(sprite(mira.skin,{cx:clone(mira.cx || {}),width:81,height:144,scale:3}));
+	$(".anniversary-guide-mira").html(sprite(mira.skin,{cx:clone(mira.cx || {}),width:54,height:72,scale:2}));
+	$(".anniversary-cake-drops").html(render_drop([1,"open","sixcake"],1,"#858B8E"));
+	$(".anniversary-cake-bonuses").html(render_drop([1,"anniversarygift",3],1,"#858B8E") + render_drop([1.0/100000,"cxjar",1,"ikissyou"],1,"#858B8E"));
+	$(".anniversary-gift-drops").html(render_drop([1,"open","anniversarygift"],1,"#858B8E"));
 </script>

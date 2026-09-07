@@ -125,6 +125,29 @@ test("live updates do not restart animations unless the visible event list chang
 	assert.equal(banner.writes, writes + 1);
 });
 
+test("cards are menu-only, including game loading and returning to the menu", () => {
+	const { context, banner, visuals } = setup();
+	context.S = { anniversary: { active: true } };
+	context.inside = "selection";
+	context.render_event_announcements();
+	assert.equal(banner.visible, true);
+	const rendered = visuals.length;
+	context.inside = "game";
+	context.render_event_announcements();
+	assert.equal(banner.visible, false);
+	assert.equal(banner.content, "");
+	assert.equal(visuals.length, rendered, "no sprites or effects built while entering the game");
+	context.character = { name: "Visitor" };
+	context.render_event_announcements();
+	assert.equal(banner.visible, false);
+	context.inside = "selection";
+	context.render_event_announcements();
+	assert.equal(banner.visible, false, "an active character never sees menu banners");
+	context.character = null;
+	context.render_event_announcements();
+	assert.equal(banner.visible, true);
+});
+
 test("each card opens its own guide, with the anniversary window only after character selection", () => {
 	const { context, banner, opened } = setup();
 	for (const key of Object.keys(context.G.events)) context.S[key] = true;

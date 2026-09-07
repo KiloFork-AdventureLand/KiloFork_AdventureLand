@@ -456,7 +456,7 @@ function open_event_announcement(key) {
 function render_event_announcements() {
 	if (no_html) return;
 	var banner = $("#event-announcements"),
-		keys = Object.keys(G.events || {}).filter(function (key) {
+		keys = (character || (typeof inside != "undefined" && inside == "game") ? [] : Object.keys(G.events || {})).filter(function (key) {
 			var state = S[key],
 				event = G.events[key];
 			return typeof socket != "undefined" && socket && socket.connected && state && state.active !== false && (event.type == "seasonal" || state.live !== false) && event.announcement && event.modal;
@@ -1599,67 +1599,52 @@ function render_anniversary_baker(tab, selected_recipe) {
 	if (tab == "combine" || tab == "gifts") anniversary_baker_tab = tab;
 	if (selected_recipe && G.craft[selected_recipe] && G.craft[selected_recipe].quest == "anniversary_baker" && selected_recipe != "sixcake") anniversary_baker_recipe = selected_recipe;
 	var npc = G.npcs.anniversary_baker,
-		html =
-			"<div class='anniversary-baker' style='width:450px;max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);overflow-y:auto;box-sizing:border-box;background:black;border:5px solid gray;padding:8px;font-size:20px;line-height:20px;text-align:center'>";
-	topleft_npc = rendered_target = "anniversary_baker";
-	html += "<div style='display:flex;align-items:center;justify-content:center;gap:10px;text-align:left'>";
-	html += sprite(npc.skin, { cx: clone(npc.cx || {}), cosmetic_head_y: npc.cosmetic_head_y, width: 54, height: 72, scale: 2 });
-	html += "<div><div style='font-size:26px;color:#F0B742'>" + html_escape(npc.name) + "</div><div>One of each flavor.<br>I'll put the cake together.</div></div></div>";
-	html += "<div style='display:flex;justify-content:center;gap:6px;margin-bottom:6px'>";
-	html += anniversary_ui_button("Combine Cake", 'render_anniversary_baker("combine")', false, anniversary_baker_tab == "combine");
-	html += anniversary_ui_button("Choose a Gift", 'render_anniversary_baker("gifts")', false, anniversary_baker_tab == "gifts");
-	html += " " + anniversary_ui_button("INFO", 'open_interaction_guide("anniversary")') + "</div>";
-	var name = anniversary_baker_tab == "combine" ? "sixcake" : anniversary_baker_recipe,
-		state = anniversary_recipe_state(name);
+		name = anniversary_baker_tab == "combine" ? "sixcake" : anniversary_baker_recipe,
+		state = anniversary_recipe_state(name),
+		message = anniversary_baker_tab == "combine" ? "One of each flavor. I'll put the cake together." : "Something to remember the celebration? Pick a gift.";
+	message += "<div style='clear:both;text-align:right;padding-top:5px'>";
+	message += "<div class='slimbutton' onclick='render_anniversary_baker(\"" + (anniversary_baker_tab == "combine" ? "gifts" : "combine") + "\")'>" + (anniversary_baker_tab == "combine" ? "Choose a Gift" : "Combine Cake") + "</div> ";
+	message += "<div class='slimbutton' onclick='open_interaction_guide(\"anniversary\")'>INFO</div></div>";
 	if (anniversary_baker_tab == "gifts") {
-		html += "<div style='display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:6px'>";
+		message += "<div style='margin-top:5px'>";
 		Object.keys(G.craft).forEach(function (recipe_name) {
 			var recipe = G.craft[recipe_name];
 			if (recipe_name == "sixcake" || recipe.quest != "anniversary_baker" || !/^[a-z0-9_]+$/.test(recipe_name)) return;
 			var output = recipe.output || { name: recipe_name },
 				item = G.items[output.name];
 			if (!item) return;
-			html += "<div style='padding:3px;border:2px solid " + (recipe_name == name ? "#F0B742" : "#555") + "'>";
-			html += item_container({ skin: item.skin, size: 40, draggable: false, onclick: "pcs(event);render_anniversary_baker('gifts','" + recipe_name + "')" }, output);
-			html += "<div style='font-size:18px;line-height:20px;overflow-wrap:break-word'>" + html_escape(recipe_name == "makeawishjar" ? "Make a Wish Jar" : item.name) + "</div></div>";
+			message += item_container({ skin: item.skin, size: 40, draggable: false, bcolor: recipe_name == name ? "#F0B742" : "gray", onclick: "pcs(event);render_anniversary_baker('gifts','" + recipe_name + "')" }, output);
 		});
-		html += "</div>";
+		message += "</div>";
 	}
-	if (!state) html += "<div>Mira is getting ready.</div>";
-	else {
+	if (state) {
 		var output = state.recipe.output || { name: name },
 			item = G.items[output.name],
 			missing = state.rows.filter(function (row) {
 				return row.count < row.needed;
 			}).length;
-		if (anniversary_baker_tab == "gifts") html += "<div style='color:#FFE2A0;margin-bottom:8px'>" + html_escape(name == "makeawishjar" ? "Make a Wish Jar" : item.name) + "</div>";
-		html += "<div style='display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px'>";
+		if (anniversary_baker_tab == "gifts") message += "<div style='font-size:24px;margin-top:5px'>" + html_escape(name == "makeawishjar" ? "Make a Wish Jar" : item.name) + "</div>";
+		message += "<div style='font-size:20px;margin-top:5px'>";
 		state.rows.forEach(function (row) {
 			var definition = G.items[row.name],
 				enough = row.count >= row.needed;
-			html += "<div style='display:flex;align-items:center;justify-content:center;gap:4px;padding:4px 2px;border:2px solid " + (enough ? "#597F5B" : "#77504F") + "'>";
-			html += "<div style='flex:none'>" + item_container({ skin: definition.skin, size: 40, draggable: false, bcolor: enough ? "#597F5B" : "#77504F" }, { name: row.name, level: row.level }) + "</div>";
-			html += "<div style='min-width:0;font-size:18px;line-height:18px;overflow-wrap:break-word'>" + html_escape(definition.name) + (row.level !== undefined ? " +" + row.level : "");
-			html += "<div style='color:" + (enough ? "#9ACA87" : "#E98C83") + "'>" + to_pretty_num(row.count) + " / " + to_pretty_num(row.needed) + "</div></div></div>";
+			message += "<div style='display:inline-block;text-align:center;margin-right:4px'>";
+			message += item_container({ skin: definition.skin, size: 40, draggable: false, bcolor: enough ? "#597F5B" : "gray" }, { name: row.name, level: row.level });
+			message += "<div style='color:" + (enough ? "#216D25" : "#9D3535") + "'>" + to_pretty_num(row.count) + " / " + to_pretty_num(row.needed) + "</div></div>";
 		});
-		html += "</div>";
-		html += "<div style='display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px'>";
-		if (anniversary_baker_tab == "combine") html += item_container({ skin: item.skin, size: 40, draggable: false, onclick: "pcs(event);render_item_info('sixcake',0)" }, output);
-		html += "<div style='color:" + ((character.gold || 0) >= state.recipe.cost ? "#E8C66B" : "#E98C83") + "'>" + to_pretty_num(state.recipe.cost) + " Gold";
-		if (missing) html += "<div style='color:#E98C83;font-size:18px'>Missing " + missing + (anniversary_baker_tab == "combine" ? " flavor" : " ingredient") + (missing == 1 ? "" : "s") + "</div>";
-		html += "</div>" + anniversary_ui_button(anniversary_baker_tab == "combine" ? "Make Cake" : "Make Gift", 'anniversary_craft("' + name + '")', !state.ready) + "</div>";
-		if (anniversary_baker_tab == "combine") {
-			var cakes = anniversary_ingredient_count("sixcake"),
-				opening = !!(character.q && character.q.exchange);
-			html += "<div style='display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;padding-top:6px;border-top:2px solid #555'>";
-			html += "<div>" + to_pretty_num(cakes) + (cakes == 1 ? " cake" : " cakes") + " in your bag</div>";
-			html += anniversary_ui_button(opening ? "Exchanging..." : "Open Cake", "anniversary_exchange()", !cakes || opening) + "</div>";
-			html += "<div style='margin-top:6px;color:#BBB;font-size:18px;line-height:18px'>Open one cake for a random prize + three Gifts,<br>or keep it for Choose a Gift.</div>";
-		} else html += "<div style='margin-top:6px;color:#BBB;font-size:18px'>Only the listed +0 equipment and ingredients are used.</div>";
+		message += "</div>";
+		if (missing) message += "<div style='font-size:20px;color:#9D3535'>Missing " + missing + (anniversary_baker_tab == "combine" ? " flavor" : " ingredient") + (missing == 1 ? "" : "s") + "</div>";
 	}
-	if (!(S.anniversary && S.anniversary.active)) html += "<div style='margin-top:10px;color:#E98C83'>The anniversary workshop is closed.</div>";
-	html += "</div>";
-	$("#topleftcornerui").html(html);
+	if (anniversary_baker_tab == "combine") message += "<div style='font-size:20px;margin-top:5px'>" + item_container({ skin: G.items.sixcake.skin, size: 40, draggable: false, onclick: "pcs(event);render_item_info('sixcake',0)" }, { name: "sixcake" }) + " " + to_pretty_num(anniversary_ingredient_count("sixcake")) + " in your bag. Open one for a random prize.</div>";
+	if (!(S.anniversary && S.anniversary.active)) message += "<div style='font-size:20px;color:#9D3535'>The anniversary workshop is closed.</div>";
+	render_interaction({
+		auto: true, skin: npc.skin, cx: clone(npc.cx || {}), cosmetic_head_y: npc.cosmetic_head_y, message: message,
+		button: state && (anniversary_baker_tab == "combine" ? "Make Cake" : "Make Gift") + " [" + to_pretty_num(state.recipe.cost) + " Gold]",
+		onclick: function () { anniversary_craft(name); },
+		button2: anniversary_baker_tab == "combine" && (character.q && character.q.exchange ? "Exchanging..." : "Open Cake"),
+		onclick2: anniversary_exchange,
+	});
+	topleft_npc = rendered_target = "anniversary_baker";
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 }
 

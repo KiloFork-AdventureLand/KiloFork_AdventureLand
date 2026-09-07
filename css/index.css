@@ -539,7 +539,6 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 .event-announcement-title{display:block;color:var(--event-color);font-size:24px;line-height:22px;margin:2px 0}
 .event-announcement-description{display:block;font-size:18px;line-height:16px}
 .event-announcement-arrow{position:relative;flex:none;color:#69d6cf;font-size:40px;line-height:26px}
-.anniversary-baker .gamebutton{font-size:20px!important;line-height:20px!important;padding:4px 6px!important;border-width:4px}
 .event-announcement-effects{position:absolute;inset:0;overflow:hidden;pointer-events:none;contain:strict}
 .event-announcement-effects i{position:absolute;width:4px;height:4px;background:var(--event-color);color:var(--event-color);opacity:0;animation:event-pixel-fall 3.6s steps(16,end) 4}
 .event-announcement-effects i:nth-child(even){background:var(--event-accent);color:var(--event-accent)}
