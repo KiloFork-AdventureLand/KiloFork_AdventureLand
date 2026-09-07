@@ -3872,6 +3872,12 @@ function play_cosmetic_emote_sound(name, variation) {
 				cosmetic_emote_tone(context, output, start + i * 0.16, 0.32, frequency, frequency, "triangle", 0.04);
 			});
 			cosmetic_emote_tone(context, output, start + 0.54, 0.42, 1567.98, 1567.98, "sine", 0.025);
+		} else if (name == "ikissyou") {
+			// Pucker, then a lip smack as the kiss reaches the target at 480 ms.
+			cosmetic_emote_noise(context, output, start + 0.36, 0.1, 700, 0.05);
+			cosmetic_emote_tone(context, output, start + 0.36, 0.1, 500, 900, "sine", 0.05);
+			cosmetic_emote_noise(context, output, start + 0.48, 0.028, 2600, 0.23);
+			cosmetic_emote_tone(context, output, start + 0.48, 0.075, 1100, 280, "sine", 0.08);
 		} else if (name == "jump") {
 			cosmetic_emote_tone(context, output, start, 0.14, 270 * pitch, 700 * pitch, "square", 0.055);
 		} else if (name == "superjump") {
@@ -4707,7 +4713,7 @@ function citizen_behavior_logic(sprite) {
 function play_cosmetic_emote(player, name, target, data) {
 	if (no_graphics) return;
 	if (name == "makeawish" || name == "ikissyou") {
-		if (cosmetic_emote_sheet_start(player, name, target) && name == "makeawish" && !(data && data.silent)) play_cosmetic_emote_sound(name, 1);
+		if (cosmetic_emote_sheet_start(player, name, target) && !(data && data.silent)) play_cosmetic_emote_sound(name, 1);
 		return;
 	}
 	if (name == "drop_egg") {
