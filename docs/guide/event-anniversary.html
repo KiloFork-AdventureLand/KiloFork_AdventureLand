@@ -6,7 +6,7 @@
 	<p><b>1. Equip the emote.</b> Open <b>SKILLS</b>. Drag <b>I Kiss You</b> from <b>EMOTES</b> onto a key slot under <b>MAPPING</b>, such as <b>1</b>. It appears while your Visit is active; no emote jar needed.</p>
 	<p><b>2. Select the player.</b> Close SKILLS. Use their red <b>KISS</b> portrait in the INFO row to find them, then click the player to select them.</p>
 	<p><b>3. Kiss!</b> Get within <b>80 range</b>, then click the emote on your skillbar or press its assigned key.</p>
-	<p>Your Visit is used up. You and the featured player each receive <b>one slice + one Gift</b>. You also gain <b>10 Output for 20 minutes</b>; it does not stack. Nearby players see the kiss in chat.</p>
+	<p>Your Visit is used up. You and the featured player each receive <b>one slice + one Gift</b>. You also gain <b>10 Frequency and 6 Output for 20 minutes</b>; it does not stack. Nearby players see the kiss in chat.</p>
 	<p>The visitor may also receive an <b>I Kiss You CX Jar</b> to keep the emote permanently. Lucky finds are announced to the server.</p>
 	<div class="anniversary-visit-drops"></div>
 	<div class="anniversary-guide-divider"></div>
@@ -60,7 +60,7 @@
 		return game_log("The featured player moved. Find them again.");
 	}
 	await use_skill("ikissyou", player);
-	// A rewarded visit grants character.s.anniversary_kiss: +10 Output for 20 minutes.
+	// A rewarded visit grants character.s.anniversary_kiss: +10 Frequency and +6 Output for 20 minutes.
 }
 
 visit_featured_player().catch(show_json);</div>

@@ -9,11 +9,12 @@ var conditions = {
 	anniversary_kiss: {
 		name: "Anniversary Kiss",
 		skin: "emote_ikissyou",
-		output: 10,
+		frequency: 10,
+		output: 6,
 		duration: 20 * 60 * 1000,
 		buff: true,
 		ui: true,
-		explanation: "A warm welcome. Increases damage output for 20 minutes.",
+		explanation: "A warm welcome. Increases attack speed and damage output for 20 minutes.",
 	},
 	tangled: {
 		name: "Tangled",

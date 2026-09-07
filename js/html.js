@@ -330,7 +330,7 @@ function anniversary_event_status_html() {
 	}
 	if (!host)
 		html +=
-			"<div style='color:#9ACA87;margin-top:10px'>Use your Anniversary Visit: 1 Cake Slice + 1 Anniversary Gift, and +10 Output for 20 minutes.</div><div style='font-size:22px;line-height:24px;color:#AAA'>Find the featured player and send a kiss before your condition expires. The kiss uses it up. No jar needed.</div>";
+			"<div style='color:#9ACA87;margin-top:10px'>Use your Anniversary Visit: 1 Cake Slice + 1 Anniversary Gift, and +10 Frequency / +6 Output for 20 minutes.</div><div style='font-size:22px;line-height:24px;color:#AAA'>Find the featured player and send a kiss before your condition expires. The kiss uses it up. No jar needed.</div>";
 	if (live && !host && !anniversary_can_visit()) html += "<div style='color:#AAA;margin-top:8px'>No Anniversary Visit remaining for this round. Be online when the next player is selected.</div>";
 	return html;
 }

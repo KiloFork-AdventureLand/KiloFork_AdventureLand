@@ -746,7 +746,7 @@ test("normal condition insertion and removal synchronize the client and do not c
 	assert(h.roster.every((p) => !p.s.anniversary_visit));
 });
 
-test("the kiss buff uses native Output, refreshes without stacking, renders and expires after 20 minutes", () => {
+test("the kiss buff uses native Frequency and Output, refreshes without stacking and expires after 20 minutes", () => {
 	const G = require("./helpers/design"),
 		emitted = [],
 		sync = [];
@@ -759,6 +759,7 @@ test("the kiss buff uses native Output, refreshes without stacking, renders and 
 		floor: Math.floor,
 		character_slots: G.character_slots,
 		calculate_item_properties: G.calculate_item_properties,
+		mssince: G.mssince,
 		in_arr: G.in_arr,
 		goldm: 1,
 		luckm: 1,
@@ -790,6 +791,7 @@ test("the kiss buff uses native Output, refreshes without stacking, renders and 
 		items: [],
 		citems: [],
 		p: {},
+		last: { attack: new Date() },
 		slots: { mainhand: { name: "bow", level: 8 } },
 		damage_type: "physical",
 		targets_p: 0,
@@ -804,22 +806,23 @@ test("the kiss buff uses native Output, refreshes without stacking, renders and 
 	const def = G.conditions.anniversary_kiss;
 	assert.equal(def.buff, true);
 	assert.equal(def.ui, true);
-	assert.equal(def.output, 10);
-	assert.equal(def.frequency, undefined);
+	assert.equal(def.output, 6);
+	assert.equal(def.frequency, 10);
 	assert.equal(def.duration, 20 * 60 * 1000);
 	assert.equal(p.s.anniversary_kiss.ms, def.duration);
-	assert.equal(p.output, before.output + 10);
-	assert.equal(p.frequency, before.frequency);
+	assert.equal(p.output, before.output + 6);
+	assert(Math.abs(p.frequency - before.frequency - 0.1) < 1e-12);
 	assert(Math.abs(p.attack - before.attack * (p.output / before.output)) <= 1);
 	assert(p.hitchhikers.some(([, message]) => message.name === "anniversary_kiss" && message.duration === def.duration));
 	p.s.anniversary_kiss.ms = 50000;
 	context.add_condition(p, "anniversary_kiss");
 	context.calculate_player_stats(p);
 	assert.equal(p.s.anniversary_kiss.ms, def.duration);
-	assert.equal(p.output, before.output + 10, "refresh never adds a second bonus");
+	assert.equal(p.output, before.output + 6, "refresh never adds a second bonus");
+	assert(Math.abs(p.frequency - before.frequency - 0.1) < 1e-12, "Frequency cannot stack either");
 	context.add_condition(p, "darkblessing");
 	context.calculate_player_stats(p);
-	assert.equal(p.output, before.output + 10 + G.conditions.darkblessing.output, "Output bonuses add normally");
+	assert.equal(p.output, before.output + 6 + G.conditions.darkblessing.output, "Output bonuses add normally");
 	delete p.s.darkblessing;
 	let rendered = "";
 	context.$ = () => ({
@@ -846,6 +849,7 @@ test("the kiss buff uses native Output, refreshes without stacking, renders and 
 	vm.runInContext(tick, context);
 	assert.equal(p.s.anniversary_kiss, undefined);
 	assert.equal(p.output, before.output);
+	assert.equal(p.frequency, before.frequency);
 	assert.equal(p.attack, before.attack);
 	assert(emitted.some(([, message]) => message?.response === "ex_condition" && message.name === "anniversary_kiss"));
 	assert.equal(sync.at(-1), "u+cid");
