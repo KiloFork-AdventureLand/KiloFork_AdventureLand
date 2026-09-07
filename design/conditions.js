@@ -6,6 +6,15 @@ var conditions = {
 		duration: 5 * 60 * 1000,
 		explanation: "Find the featured player and send I Kiss You for a cake slice and an Anniversary Gift. Used up after one visit.",
 	},
+	anniversary_kiss: {
+		name: "Anniversary Kiss",
+		skin: "emote_ikissyou",
+		output: 10,
+		duration: 20 * 60 * 1000,
+		buff: true,
+		ui: true,
+		explanation: "A warm welcome. Increases damage output for 20 minutes.",
+	},
 	tangled: {
 		name: "Tangled",
 		skin: "condition_bad",

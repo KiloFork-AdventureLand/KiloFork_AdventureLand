@@ -201,6 +201,7 @@ function createEvent({
 		if (!slice || !hostSlice || round.claims.has(visitor.id)) return false;
 		// Synchronous delivery, reserved before any inventory side effects.
 		round.claims.add(visitor.id);
+		addCondition(visitor, "anniversary_kiss");
 		clearTicket(visitor);
 		deliver(visitor, [slice, "anniversarygift"], "anniversary_kiss");
 		deliver(target, [hostSlice, "anniversarygift"]);

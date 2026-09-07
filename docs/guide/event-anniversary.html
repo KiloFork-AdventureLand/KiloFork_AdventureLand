@@ -6,7 +6,7 @@
 	<p><b>1. Equip the emote.</b> Open <b>SKILLS</b>. Drag <b>I Kiss You</b> from <b>EMOTES</b> onto a key slot under <b>MAPPING</b>, such as <b>1</b>. It appears while your Visit is active; no emote jar needed.</p>
 	<p><b>2. Select the player.</b> Close SKILLS. Use their red <b>KISS</b> portrait in the INFO row to find them, then click the player to select them.</p>
 	<p><b>3. Kiss!</b> Get within <b>80 range</b>, then click the emote on your skillbar or press its assigned key.</p>
-	<p>Your Visit is used up. You and the featured player each receive <b>one slice + one Gift</b>. Nearby players see the kiss in chat.</p>
+	<p>Your Visit is used up. You and the featured player each receive <b>one slice + one Gift</b>. You also gain <b>10 Output for 20 minutes</b>; it does not stack. Nearby players see the kiss in chat.</p>
 	<p>The visitor may also receive an <b>I Kiss You CX Jar</b> to keep the emote permanently. Lucky finds are announced to the server.</p>
 	<div class="anniversary-visit-drops"></div>
 	<div class="anniversary-guide-divider"></div>
@@ -31,7 +31,7 @@
 		<p>Monsters also drop Gifts and your account's slice during the event. They use normal global-drop rolls, including monster HP, Luck and reward share. Inspect them with <span class="dlabel">show_json(G.drops.maps.global)</span>.</p>
 		<p>Crafting needs the listed unlocked ingredients, gold, and room for the result. Stay near Mira unless you have Computer access. Mira leaves when the event ends; your items and emotes stay.</p>
 		<p>Need Drapes for a recipe? Mummies and Ghosts drop them. Franky's Mummies carry them less often.</p>
-		<p>Make a Wish's jar costs one cake + 250,000 gold at Mira. The emote uses 50 MP and has a four-minute cooldown. The rare I Kiss You jar unlocks kisses outside the event. Neither gives combat bonuses.</p>
+		<p>Make a Wish's jar costs one cake + 250,000 gold at Mira. The emote uses 50 MP and has a four-minute cooldown. The rare I Kiss You jar unlocks kisses outside the event. Kisses without an Anniversary Visit give no rewards or buff.</p>
 	<div class="anniversary-guide-divider"></div>
 	<div style="color:#8B642E">CODE: Find and kiss</div>
 	<p>Uses <span class="dlabel">server.status.anniversary</span> and your Visit condition. If the player moves away, run it again.</p>
@@ -60,6 +60,7 @@
 		return game_log("The featured player moved. Find them again.");
 	}
 	await use_skill("ikissyou", player);
+	// A rewarded visit grants character.s.anniversary_kiss: +10 Output for 20 minutes.
 }
 
 visit_featured_player().catch(show_json);</div>

@@ -6,14 +6,14 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 const rules = require("../logic/anniversary_event");
-const { socketHandler } = require("./helpers/server_vm");
+const { socketHandler, load } = require("./helpers/server_vm");
 const root = path.resolve(__dirname, "../..");
 const source = fs.readFileSync(path.join(root, "node/server.js"), "utf8");
 const functions = fs.readFileSync(path.join(root, "node/server_functions.js"), "utf8");
 const shared = fs.readFileSync(path.join(root, "js/old_common_functions.js"), "utf8");
 const plain = (value) => JSON.parse(JSON.stringify(value));
 const design = vm.createContext({ console: { log() {} } });
-for (const name of ["multipliers", "items", "npcs", "drops", "recipes"])
+for (const name of ["multipliers", "conditions", "items", "npcs", "drops", "recipes"])
 	vm.runInContext(fs.readFileSync(path.join(root, "design", name + ".js"), "utf8"), design, { filename: name });
 
 test("seasonal tick follows the manual switch, preserves other NPCs and excludes PvP", () => {
@@ -165,8 +165,8 @@ function eventHarness(extra = {}) {
 		reachable: (p) => !p.blocked,
 		realm: "TEST I",
 		homeRealm: "TESTI",
-		addCondition: (p, name, args) => {
-			p.s[name] = { ms: args.duration };
+		addCondition: (p, name, args = {}) => {
+			p.s[name] = { ms: args.duration || design.conditions[name].duration };
 		},
 		resend() {},
 		distance: (a, b) => Math.hypot(a.x - b.x, a.y - b.y),
@@ -386,6 +386,8 @@ test("a rewarded kiss uses the normal prize roller for exactly 0.1% and announce
 	for (const roll of [0, 0.000999999, 0.001000001, 0.999999]) {
 		const h = kissRewardHarness(roll);
 		assert(h.claim());
+		assert.equal(h.visitor.s.anniversary_kiss.ms, 20 * 60 * 1000);
+		assert.equal(h.host.s.anniversary_kiss, undefined);
 		const won = roll < 0.001;
 		assert.equal(h.visitor.items.filter((item) => item?.data === "ikissyou").length, Number(won));
 		assert(!h.host.items.some((item) => item?.data === "ikissyou"), "being kissed grants no extra rare roll");
@@ -403,7 +405,9 @@ test("a rewarded kiss uses the normal prize roller for exactly 0.1% and announce
 			assert.equal(announcement.item.data, "ikissyou");
 			assert.match(announcement.message, /Visitor received an I Kiss You CX Jar/);
 		}
+		h.visitor.s.anniversary_kiss.ms = 60000;
 		assert(!h.claim());
+		assert.equal(h.visitor.s.anniversary_kiss.ms, 60000, "repeated kisses cannot refresh the buff");
 		assert.equal(h.rolls(), 1, "repeating the kiss cannot reroll");
 		assert(!h.logs.some(([, event]) => event === "drop"), "no extra chest is spawned");
 	}
@@ -453,6 +457,7 @@ test("ineligible, late and disconnected visits cannot roll a rare reward", () =>
 		assert(!h.claim());
 		assert.equal(h.rolls(), 0);
 		assert.deepEqual(h.announcements, []);
+		assert.equal(h.visitor.s.anniversary_kiss, undefined);
 	}
 });
 
@@ -739,6 +744,111 @@ test("normal condition insertion and removal synchronize the client and do not c
 	h.enabled(false);
 	h.event.tick();
 	assert(h.roster.every((p) => !p.s.anniversary_visit));
+});
+
+test("the kiss buff uses native Output, refreshes without stacking, renders and expires after 20 minutes", () => {
+	const G = require("./helpers/design"),
+		emitted = [],
+		sync = [];
+	const context = vm.createContext({
+		G,
+		Math,
+		min: Math.min,
+		max: Math.max,
+		round: Math.round,
+		floor: Math.floor,
+		character_slots: G.character_slots,
+		calculate_item_properties: G.calculate_item_properties,
+		in_arr: G.in_arr,
+		goldm: 1,
+		luckm: 1,
+		xpm: 1,
+		mode: {},
+		perfc: { cps: 0 },
+		server_log() {},
+		recalculate_vxy() {},
+	});
+	const mapStart = source.indexOf("var stat_to_attr =");
+	vm.runInContext(source.slice(mapStart, source.indexOf("function calculate_player_stats", mapStart)), context);
+	load(context, "node/server.js", ["calculate_player_stats", "calculate_common_stats"]);
+	load(context, "node/server_functions.js", ["add_condition"]);
+	context.resend = (p, flags) => {
+		sync.push(flags);
+		context.calculate_player_stats(p);
+	};
+	const h = eventHarness({
+		addCondition: context.add_condition,
+		resend: (p, flags) => {
+			if (p === context.player) context.resend(p, flags);
+		},
+	});
+	const p = (context.player = h.visitor);
+	Object.assign(p, {
+		type: "ranger",
+		level: 80,
+		xp: 0,
+		items: [],
+		citems: [],
+		p: {},
+		slots: { mainhand: { name: "bow", level: 8 } },
+		damage_type: "physical",
+		targets_p: 0,
+		targets_m: 0,
+		targets_u: 0,
+		socket: { emit: (...args) => emitted.push(args) },
+	});
+	context.calculate_player_stats(p);
+	const before = { output: p.output, attack: p.attack, frequency: p.frequency };
+	h.start();
+	assert(h.event.claim(p, h.host, h.deliver));
+	const def = G.conditions.anniversary_kiss;
+	assert.equal(def.buff, true);
+	assert.equal(def.ui, true);
+	assert.equal(def.output, 10);
+	assert.equal(def.frequency, undefined);
+	assert.equal(def.duration, 20 * 60 * 1000);
+	assert.equal(p.s.anniversary_kiss.ms, def.duration);
+	assert.equal(p.output, before.output + 10);
+	assert.equal(p.frequency, before.frequency);
+	assert(Math.abs(p.attack - before.attack * (p.output / before.output)) <= 1);
+	assert(p.hitchhikers.some(([, message]) => message.name === "anniversary_kiss" && message.duration === def.duration));
+	p.s.anniversary_kiss.ms = 50000;
+	context.add_condition(p, "anniversary_kiss");
+	context.calculate_player_stats(p);
+	assert.equal(p.s.anniversary_kiss.ms, def.duration);
+	assert.equal(p.output, before.output + 10, "refresh never adds a second bonus");
+	context.add_condition(p, "darkblessing");
+	context.calculate_player_stats(p);
+	assert.equal(p.output, before.output + 10 + G.conditions.darkblessing.output, "Output bonuses add normally");
+	delete p.s.darkblessing;
+	let rendered = "";
+	context.$ = () => ({
+		length: 0,
+		append: (html) => {
+			rendered = html;
+		},
+		remove() {},
+	});
+	context.item_container = (args) => args.skin + args.onclick;
+	load(context, "js/html.js", ["render_conditions"]);
+	context.render_conditions(p);
+	assert.match(rendered, /emote_ikissyoucondition_click\('anniversary_kiss'\)/);
+	// Execute the existing condition-timer block, including its expiry response and resend.
+	const anchor = source.indexOf('if (name == "guardians_oath" && !guardians_oath_source(player))');
+	const start = source.lastIndexOf("for (var name in player.s)", anchor);
+	const end = source.indexOf("for (var name in player.q)", anchor);
+	assert(start > 0 && end > start);
+	const tick = "(function(){" + source.slice(start, end) + "})()";
+	context.ms = def.duration - 1;
+	vm.runInContext(tick, context);
+	assert.equal(p.s.anniversary_kiss.ms, 1);
+	context.ms = 1;
+	vm.runInContext(tick, context);
+	assert.equal(p.s.anniversary_kiss, undefined);
+	assert.equal(p.output, before.output);
+	assert.equal(p.attack, before.attack);
+	assert(emitted.some(([, message]) => message?.response === "ex_condition" && message.name === "anniversary_kiss"));
+	assert.equal(sync.at(-1), "u+cid");
 });
 test("AFK strings, dead players, instances and inaccessible terrain never host", () => {
 	for (const patch of [
