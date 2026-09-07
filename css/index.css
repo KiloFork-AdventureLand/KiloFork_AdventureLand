@@ -504,11 +504,8 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 #event-announcements{
 	width:330px;
 	max-width:100vw;
-	max-height:min(264px,32vh);
-	overflow-y:auto;
-	overflow-x:hidden;
+	overflow:visible;
 	margin-bottom:8px;
-	scrollbar-width:thin;
 	text-align:left;
 }
 #event-announcements .event-announcement{
@@ -528,7 +525,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	font-family:Pixel;
 	text-align:left;
 	cursor:pointer;
-	overflow:hidden;
+	overflow:visible;
 }
 #event-announcements .event-announcement:last-child{margin-bottom:0}
 .event-announcement:hover{background:#161923!important}

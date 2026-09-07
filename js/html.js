@@ -456,11 +456,16 @@ function open_event_announcement(key) {
 function render_event_announcements() {
 	if (no_html) return;
 	var banner = $("#event-announcements"),
-		keys = (character || (typeof inside != "undefined" && inside == "game") ? [] : Object.keys(G.events || {})).filter(function (key) {
-			var state = S[key],
-				event = G.events[key];
-			return typeof socket != "undefined" && socket && socket.connected && state && state.active !== false && (event.type == "seasonal" || state.live !== false) && event.announcement && event.modal;
-		}),
+		keys = (character || (typeof inside != "undefined" && inside == "game") ? [] : Object.keys(G.events || {}))
+			.filter(function (key) {
+				var state = S[key],
+					event = G.events[key];
+				return typeof socket != "undefined" && socket && socket.connected && state && state.active !== false && (event.type == "seasonal" || state.live !== false) && event.announcement && event.modal;
+			})
+			.sort(function (a, b) {
+				return (G.events[b].type == "seasonal") - (G.events[a].type == "seasonal");
+			})
+			.slice(0, 2),
 		signature = JSON.stringify(
 			keys
 				.map(function (key) {
@@ -474,8 +479,7 @@ function render_event_announcements() {
 	keys.forEach(function (key) {
 		var event = G.events[key],
 			theme = event.announcement,
-			item = G.items[event.sprite],
-			monster = G.monsters[event.sprite];
+			item = G.items[event.sprite];
 		html +=
 			"<button type='button' class='gamebutton event-announcement' data-effect='" +
 			html_escape(theme.effect) +
@@ -492,8 +496,7 @@ function render_event_announcements() {
 			html += "</span>";
 		}
 		html += "<span class='event-announcement-sprite' aria-hidden='true'>";
-		if (!no_graphics)
-			html += item ? item_container({ skin: item.skin, size: 40, draggable: false }) : sprite(event.sprite, { scale: 1 - ((monster && monster.size && monster.size - 1) || 0), width: 48, height: 48 });
+		if (!no_graphics) html += item ? item_container({ skin: item.skin, size: 40, draggable: false }) : sprite(event.sprite, { width: 48, height: 48, overflow: true });
 		html +=
 			"</span><span class='event-announcement-copy'><small>" +
 			(event.type == "seasonal" ? "SEASONAL EVENT" : "LIVE EVENT") +

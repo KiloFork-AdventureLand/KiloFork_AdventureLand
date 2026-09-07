@@ -125,6 +125,29 @@ test("live updates do not restart animations unless the visible event list chang
 	assert.equal(banner.writes, writes + 1);
 });
 
+test("at most two cards are shown, with seasonal events before daily and nightly events", () => {
+	const { context, banner } = setup();
+	const cards = () => [...banner.content.matchAll(/open_event_announcement\("([^"]+)"\)/g)].map((match) => match[1]);
+	context.S = { goobrawl: true, franky: true, icegolem: true, halloween: true };
+	context.render_event_announcements();
+	assert.deepEqual(cards(), ["halloween", "goobrawl"]);
+	context.S.holidayseason = true;
+	context.render_event_announcements();
+	assert.deepEqual(cards(), ["holidayseason", "halloween"]);
+	context.S.anniversary = { active: true, live: false };
+	context.render_event_announcements();
+	assert.deepEqual(cards(), ["anniversary", "holidayseason"]);
+	const writes = banner.writes;
+	context.S.franky = false;
+	context.render_event_announcements();
+	assert.equal(banner.writes, writes, "hidden events cannot restart the visible cards");
+	context.S.anniversary.active = false;
+	context.S.holidayseason = false;
+	context.S.halloween = false;
+	context.render_event_announcements();
+	assert.deepEqual(cards(), ["goobrawl", "icegolem"], "vacated slots show the next active events");
+});
+
 test("cards are menu-only, including game loading and returning to the menu", () => {
 	const { context, banner, visuals } = setup();
 	context.S = { anniversary: { active: true } };
@@ -150,11 +173,13 @@ test("cards are menu-only, including game loading and returning to the menu", ()
 
 test("each card opens its own guide, with the anniversary window only after character selection", () => {
 	const { context, banner, opened } = setup();
-	for (const key of Object.keys(context.G.events)) context.S[key] = true;
-	context.render_event_announcements();
-	const handlers = [...banner.content.matchAll(/onclick='([^']+)'/g)];
-	assert.equal(handlers.length, 11);
-	for (const handler of handlers) vm.runInContext(handler[1], context);
+	for (const key of Object.keys(context.G.events)) {
+		context.S = { [key]: true };
+		context.render_event_announcements();
+		const handlers = [...banner.content.matchAll(/onclick='([^']+)'/g)];
+		assert.equal(handlers.length, 1);
+		vm.runInContext(handlers[0][1], context);
+	}
 	assert.deepEqual(
 		opened,
 		Object.values(context.G.events).map((event) => [event.modal, "/docs/ref/" + event.modal]),
@@ -195,8 +220,20 @@ test("effects are bounded, stepped, and respect reduced motion", () => {
 	const css = fs.readFileSync(path.join(root, "css/index.css"), "utf8");
 	assert.match(css, /event-pixel-fall 3\.6s steps\(16,end\) 4/);
 	assert.match(css, /prefers-reduced-motion:reduce/);
-	assert.match(css, /max-height:min\(264px,32vh\)/);
 	assert(!source.includes("PIXI"));
+});
+
+test("sprites use the INFO renderer's normal size and can overflow above their cards", () => {
+	const { context, visuals } = setup();
+	context.S = { franky: true };
+	context.render_event_announcements();
+	assert.equal(visuals[0][0], "franky");
+	assert.equal(visuals[0][1].scale, undefined, "do not shrink sprites below the INFO renderer's scale");
+	assert.equal(visuals[0][1].overflow, true);
+	const css = fs.readFileSync(path.join(root, "css/index.css"), "utf8");
+	assert.match(css, /#event-announcements\{[^}]*overflow:visible/);
+	assert.match(css, /#event-announcements \.event-announcement\{[^}]*overflow:visible/);
+	assert.match(css, /\.event-announcement-effects\{[^}]*overflow:hidden/, "particles stay inside their own card");
 });
 
 test("compact cards put the Steam-style left chevron before the sprite", () => {
