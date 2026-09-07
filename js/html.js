@@ -1609,7 +1609,7 @@ function render_anniversary_baker(service) {
 			skin: npc.skin,
 			cx: clone(npc.cx || {}),
 			cosmetic_head_y: npc.cosmetic_head_y,
-			message: "Xyn opens finished cakes and Gifts. Take yours to him for a surprise!",
+			message: "Cakes are for crafting here, or exchanging with Xyn. He opens Gifts too. It's all very confusing... and I'm the baker!",
 			button: "FIND XYN",
 			onclick: function () {
 				call_code_function_f("smart_move", "exchange");
@@ -6439,7 +6439,7 @@ function cx_sprite(name, args) {
 			if (!labels) labels += "<span style='color:gray'>X</span>";
 		}
 		html +=
-			"<div style='display: inline-block; margin-left: " + (args.mleft || 0) + "px; margin-right: " + (args.mright || 0) + "px; vertical-align: middle; margin-bottom: 4px; vertical-align: bottom'>";
+			"<div style='display: inline-block; margin-left: " + (args.mleft || 0) + "px; margin-right: " + (args.mright || 0) + "px; vertical-align: middle; margin-bottom: 4px; font-size: 0; line-height: normal'>";
 		html +=
 			"<div style='background-color: " +
 			(rargs.bg || "#504254") +
@@ -6460,7 +6460,7 @@ function cx_sprite(name, args) {
 			sprite(rargs.skin, { cx: rargs.cx, scale: rargs.scale, height: rargs.height * rargs.scale + 20 * rargs.scale, j: rargs.j, width: width, rip: rargs.rip }) +
 			"</div>";
 		html +=
-			"<div style='font-size: 16px; line-height: 14px; text-align: center; background: black; display: inline-block; border: 2px solid gray; position: absolute; bottom: -2px; left: -2px; right: -2px'>" +
+			"<div style='font-size: 16px; line-height: 14px; text-align: center; color: #C3C3C3; background: black; display: inline-block; border: 2px solid gray; position: absolute; bottom: -2px; left: -2px; right: -2px'>" +
 			(rargs.text || slot).toUpperCase() +
 			"</div>";
 		html += "</div>";
