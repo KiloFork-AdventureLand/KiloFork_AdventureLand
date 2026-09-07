@@ -1048,6 +1048,8 @@ function interaction_door_visual(door) {
 function normalize_interaction_contexts() {
 	interaction_contexts.sort(function (a, b) {
 		if (a.priority != b.priority) return b.priority - a.priority;
+		// Keep guide order fixed; distance only chooses between NPCs sharing a guide.
+		if (a.key != b.key) return a.key.localeCompare(b.key);
 		return a.distance - b.distance;
 	});
 	var unique = [],
