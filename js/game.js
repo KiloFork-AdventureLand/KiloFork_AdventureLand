@@ -385,6 +385,7 @@ function disconnect() {
 		try {
 			(socket.disconnect(), (socket = null));
 		} catch (e) {}
+	render_event_announcements();
 	var message = "DISCONNECTED",
 		title_m = "Disconnected";
 	game_loaded = false;
@@ -1393,6 +1394,7 @@ function init_socket(args) {
 	add_log("Connecting to the server.");
 	socket_ready = false;
 	socket_welcomed = false;
+	render_event_announcements();
 	observing = null;
 	$("#observeui").hide();
 	original_onevent = socket.onevent;

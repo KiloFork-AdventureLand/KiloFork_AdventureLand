@@ -446,7 +446,70 @@ function set_proximity_guides(enabled) {
 	render_server();
 }
 
+function open_event_announcement(key) {
+	var event = G.events[key];
+	if (!event || !event.modal || no_html) return;
+	if (key == "anniversary" && character) return render_anniversary_event();
+	open_guide(event.modal, "/docs/ref/" + event.modal);
+}
+
+function render_event_announcements() {
+	if (no_html) return;
+	var banner = $("#event-announcements"),
+		keys = Object.keys(G.events || {}).filter(function (key) {
+			var state = S[key],
+				event = G.events[key];
+			return typeof socket != "undefined" && socket && socket.connected && state && state.active !== false && (event.type == "seasonal" || state.live !== false) && event.announcement && event.modal;
+		}),
+		signature = JSON.stringify(
+			keys
+				.map(function (key) {
+					return [key, G.events[key]];
+				})
+				.concat([!!no_graphics]),
+		);
+	if (banner.data("events") === signature) return;
+	banner.data("events", signature);
+	var html = "";
+	keys.forEach(function (key) {
+		var event = G.events[key],
+			theme = event.announcement,
+			item = G.items[event.sprite],
+			monster = G.monsters[event.sprite];
+		html +=
+			"<button type='button' class='gamebutton event-announcement' data-effect='" +
+			html_escape(theme.effect) +
+			"' style='--event-color:" +
+			theme.color +
+			";--event-accent:" +
+			theme.accent +
+			"' onclick='pcs(event);open_event_announcement(\"" +
+			key +
+			"\")' aria-haspopup='dialog'>";
+		if (!no_graphics) {
+			html += "<span class='event-announcement-effects' aria-hidden='true'>";
+			for (var i = 0; i < 12; i++) html += "<i style='left:" + (12 + i * 24) + "px;top:" + (8 + (i % 3) * 12) + "px;animation-delay:" + (i % 4) * -0.6 + "s'></i>";
+			html += "</span>";
+		}
+		html += "<span class='event-announcement-sprite' aria-hidden='true'>";
+		if (!no_graphics)
+			html += item ? item_container({ skin: item.skin, size: 40, draggable: false }) : sprite(event.sprite, { scale: 2 - ((monster && monster.size && monster.size - 1) || 0), width: 64, height: 72 });
+		html +=
+			"</span><span class='event-announcement-copy'><small>" +
+			(event.type == "seasonal" ? "SEASONAL EVENT" : "LIVE EVENT") +
+			"</small><span class='event-announcement-title'>" +
+			html_escape(event.name) +
+			"</span><span class='event-announcement-description'>" +
+			html_escape(theme.text) +
+			"</span></span><span class='event-announcement-arrow' aria-hidden='true'>&gt;</span></button>";
+	});
+	banner.html(html);
+	if (keys.length) banner.show();
+	else banner.hide();
+}
+
 function render_server() {
+	render_event_announcements();
 	var html = "",
 		content = false,
 		featured = anniversary_live_event(),

@@ -1,6 +1,7 @@
 <div class="guide-kicker">THE WORLD KEEPS MOVING</div>
 <div class="guide-title">Events &amp; Home Servers</div>
 <p>The realm clock, event buttons, and live server state describe what is happening now. Each character chooses a home server for that realm's home rewards.</p>
+<p>Active events appear in colored cards above the game log. Click a card to open that event's guide or anniversary window. The cards follow the server you are connected to, including before you select a character; they disappear when the event ends or you disconnect.</p>
 
 <div class="guide-card-grid">
 	<div class="guide-card"><span class="guide-card-icon events-tracker"></span><b>Schedule</b>Open the clock to inspect planned events and their current realm timing.</div>
@@ -47,10 +48,11 @@
 <div class="divider"></div>
 <div class="title mt15">CODE: Read Before Acting</div>
 <div class="code">function report_live_events() {
-	for (var name in server.status) {
+	for (var name in G.events) {
 		var state = server.status[name];
-		if (state &amp;&amp; (state.live || state.spawn || state.end)) {
-			game_log(name + " is active or scheduled");
+		if (state &amp;&amp; state.active !== false &amp;&amp;
+			(G.events[name].type === "seasonal" || state.live !== false)) {
+			game_log(G.events[name].name + " is active here");
 		}
 	}
 }
