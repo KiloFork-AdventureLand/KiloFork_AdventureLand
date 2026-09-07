@@ -4350,6 +4350,7 @@ var weapons={
 		"tier":4,
 		"class":["priest"],
 		"skin":"worldrootcrook",
+		"cx":{"accent":"#F47A1F"},
 		"int":6,
 		"str":7,
 		"dex":16,

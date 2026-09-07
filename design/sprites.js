@@ -1192,14 +1192,14 @@ var imagesets = {
 		size: 20,
 		rows: 4,
 		columns: 10,
-		file: "/images/tiles/items/items_40_remastered.png?v=1",
+		file: "/images/tiles/items/items_40_remastered.png?v=2",
 		load: true,
 	},
 	rawitems: {
 		size: 20,
 		rows: 40,
 		columns: 20,
-		file: "/images/tiles/items/raw_items.png?v=14",
+		file: "/images/tiles/items/raw_items.png?v=15",
 		load: true,
 	},
 };
