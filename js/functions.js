@@ -3094,16 +3094,6 @@ function anniversary_craft(name) {
 	return promise;
 }
 
-function anniversary_exchange() {
-	if (!character || (character.q && character.q.exchange)) return;
-	var num = character.items.findIndex(function (item) {
-		return item && item.name == "sixcake" && !item.l && !item.b && !item.giveaway;
-	});
-	if (num == -1) return add_log("You need an unlocked cake in your inventory.", "gray");
-	e_item = num;
-	return exchange();
-}
-
 function auto_craft(name, code) {
 	var issue = null;
 	if (!G.craft[name]) issue = "recipe";
@@ -3418,7 +3408,6 @@ function reopen() {
 		else if (rendered_target == "gold") render_gold_npc();
 		else if (rendered_target == "items") render_items_npc();
 		else if (rendered_target == "craftsman") render_craftsman();
-		else if (rendered_target == "anniversary_baker") render_anniversary_baker();
 		else if (rendered_target == "dismantler") render_dismantler();
 		else if (rendered_target == "none") render_none_shrine();
 		else if (rendered_target == "locksmith") render_locksmith();

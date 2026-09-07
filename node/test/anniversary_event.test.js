@@ -594,7 +594,7 @@ test("craft failures cannot consume gold or ingredients", () => {
 	assert.equal(h.p.gold, 0, "existing remote-computer crafting remains available");
 });
 
-test("cake exchange accepts nearby Mira without changing normal exchange rules", () => {
+test("cakes exchange at Xyn or by Computer, not at Mira", () => {
 	function setup() {
 		const p = player("Opener", {
 			items: [{ name: "sixcake", q: 3 }],
@@ -636,7 +636,9 @@ test("cake exchange accepts nearby Mira without changing normal exchange rules",
 		return { p, ctx, failed, consumed, replies, open: () => handler({ item_num: 0, q: 3 }) };
 	}
 	for (const alter of [
-		() => {},
+		(h) => {
+			h.p.x = 500;
+		},
 		(h) => {
 			h.p.x = 500;
 			h.ctx.anniversary_is_active = () => false;
@@ -655,6 +657,7 @@ test("cake exchange accepts nearby Mira without changing normal exchange rules",
 		assert.equal(h.replies[0].in_progress, true);
 	}
 	for (const [reason, alter] of [
+		["distance", () => {}],
 		[
 			"distance",
 			(h) => {

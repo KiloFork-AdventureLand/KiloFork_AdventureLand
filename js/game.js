@@ -3391,7 +3391,7 @@ function npc_right_click(event) {
 		);
 	}
 	if (this.role == "anniversary_crafter") {
-		render_anniversary_baker("combine");
+		render_anniversary_baker();
 		if (event) event.stopPropagation();
 		return;
 	}

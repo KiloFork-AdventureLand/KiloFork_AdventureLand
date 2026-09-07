@@ -24,8 +24,13 @@ function menu() {
 		},
 		$: () => ({ html: (html) => (context.html = html) }),
 		show_modal: (html) => (context.html = html),
+		render_item: (selector, args) => {
+			context.recipe_item = args;
+			return args.name;
+		},
+		render_skill: (selector, name) => (context.skill = name),
 	});
-	load(context, "js/html.js", ["render_recipes", "render_all_recipes"]);
+	load(context, "js/html.js", ["render_recipes", "render_recipe", "render_all_recipes", "render_cx_info"]);
 	return { context, shown };
 }
 
@@ -59,4 +64,28 @@ test("the full recipe guide renders the Make a Wish jar with its cosmetic data",
 	context.render_all_recipes();
 	assert.ok(shown.some((item) => item.name === "cxjar" && item.data === "makeawish"));
 	assert.ok(context.html);
+});
+
+test("Mira's cake choice opens only the cake recipe in the standard browser", () => {
+	const { context, shown } = menu();
+	context.r_page.anniversary_baker = 2;
+	context.render_recipes("anniversary_baker", "sixcake");
+	context.render_recipe(true, "anniversary_baker", "sixcake");
+	assert.deepEqual(shown, [{ name: "sixcake" }]);
+	assert.equal(context.r_page.anniversary_baker, 0);
+	assert.equal(context.recipe_item.recipe, "sixcake");
+	assert.equal(context.recipe_item.craft, true);
+});
+
+test("Mira's craft browser preserves the jar output and its distinct recipe ID", () => {
+	const { context, shown } = menu();
+	context.render_recipes("anniversary_baker");
+	assert.equal(shown.length, Object.values(G.craft).filter((recipe) => recipe.quest === "anniversary_baker").length);
+	assert.ok(shown.some((item) => item.name === "cxjar" && item.data === "makeawish"));
+	context.render_recipe(true, "anniversary_baker", "makeawishjar");
+	assert.equal(context.recipe_item.name, "cxjar");
+	assert.equal(context.recipe_item.actual.data, "makeawish");
+	assert.equal(context.recipe_item.recipe, "makeawishjar");
+	context.render_cx_info("makeawish");
+	assert.equal(context.skill, "makeawish", "the jar contents open the existing skill details");
 });
