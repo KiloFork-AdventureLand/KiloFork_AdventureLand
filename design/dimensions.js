@@ -1107,7 +1107,7 @@ var positions={
 	"paladin_aura_warding":["rawitems",13,1],
 	"skill_aether_shield":["rawitems",17,1],
 	"skill_shield_slam":["rawitems",15,1],
-	"candleward":["rawitems",11,3],
+	"candleward":["rawitems",13,3],
 	"guestbook":["rawitems",19,1],
 	"paradequiver":["rawitems",0,2],
 	"homecominghelm":["rawitems",1,2],
