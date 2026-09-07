@@ -447,8 +447,13 @@ test("Merrit has separate proximity INFO and portrait dialogue; late replies can
 		last: { name: "Shop", at: Date.now(), shells: 1, reason: "Your shop stayed stocked and left the neighbors room." },
 	});
 	c.rendered_interaction.onclick();
-	assert.ok(c.rendered_interaction.message.includes("1 SHELL"));
-	assert.ok(c.rendered_interaction.message.includes("Your shop stayed stocked"));
+	assert.ok(c.rendered_interaction.message.includes("I left you a Market Parcel just now."));
+	assert.ok(c.rendered_interaction.message.includes("a SHELL for luck"));
+	c.merrit_status_received({
+		last: { name: "MERC", at: Date.now() - 2 * 86400000, shells: 0 },
+	});
+	assert.ok(c.rendered_interaction.message.includes("I left MERC a Market Parcel the other day."));
+	assert.ok(!c.rendered_interaction.message.includes("SHELL"));
 	dialogueVisible = false;
 	const previous = conversations;
 	c.merrit_status_received({ reasons: [] });

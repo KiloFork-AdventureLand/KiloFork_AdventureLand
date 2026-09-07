@@ -6783,15 +6783,22 @@ function merrit_status_html(status) {
 		: "<div style='color:#89C79F'>Ready for a parcel. Keep your stand open; Merrit must walk within 32px.</div>";
 }
 function merrit_receipt_html(receipt) {
-	if (!receipt)
-		return "No parcel yet. Keep your shop stocked for two minutes and leave your neighbors room.";
+	if (!receipt) return "I haven't left you a parcel yet. Keep a shop here for a little while. I'll come by!";
+	var recipient = character && receipt.name === character.name ? "you" : html_escape(receipt.name),
+		elapsed = Date.now() - new Date(receipt.at).getTime(),
+		when = "a while back";
+	if (elapsed < 120000) when = "just now";
+	else if (elapsed < 3600000) when = "a little while ago";
+	else if (elapsed < 86400000) when = "earlier";
+	else if (elapsed < 604800000) when = "the other day";
 	return (
-		"I brought you 1 Market Parcel" +
-		(receipt.shells ? " and 1 SHELL" : "") +
-		" on " +
-		html_escape(new Date(receipt.at).toLocaleString()) +
-		".<br><br>" +
-		html_escape(receipt.reason)
+		"I left " +
+		recipient +
+		" a Market Parcel " +
+		when +
+		"." +
+		(receipt.shells ? " And a SHELL for luck!" : "") +
+		"<br><br>A little thank-you for keeping a shop in the square and leaving room for the neighbors."
 	);
 }
 
@@ -6804,8 +6811,6 @@ function render_merrit_interaction(view) {
 	view = view || "greeting";
 	if (view === "receipt") {
 		message = merrit_receipt_html(receipt);
-		if (receipt && character && receipt.name !== character.name)
-			message = "My last delivery on your account was to " + html_escape(receipt.name) + ".<br><br>" + message;
 	} else {
 		message =
 			"Keep a stocked shop here for two minutes and leave the neighbors room. I bring parcels once an hour.";
