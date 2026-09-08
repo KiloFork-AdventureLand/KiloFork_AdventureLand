@@ -20,7 +20,7 @@ module.exports = {
 	"pages.comm.from": "From",
 	// htmls/comm.html:107; Page button prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.comm.hide": "HIDE",
-	// htmls/comm.html:130; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
+	// htmls/comm.html:130; Communicator spectator button sends o:home to center the view on the observed character's current position. It does not move the character or change their home realm.
 	"pages.comm.home-in": "HOME IN",
 	// htmls/comm.html:131; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.comm.inventory": "INVENTORY",

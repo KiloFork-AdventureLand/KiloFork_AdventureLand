@@ -1131,11 +1131,11 @@ module.exports = {
 	"interface.load_character_list.class": "Class",
 	// js/html.js load_character_list; authored interface text.
 	"interface.load_character_list.status": "Status",
-	// js/html.js load_character_list; authored interface text.
+	// js/html.js load_character_list; COM character-table heading and link that opens an offline owned character on the current server in a new tab. Means entering the game, not publishing software. Keep compact for a 120px column.
 	"interface.load_character_list.deploy": "Deploy",
 	// js/html.js load_character_list; authored interface text.
 	"interface.load_character_list.online": "ONLINE",
-	// js/html.js load_character_list; authored interface text.
+	// js/html.js load_character_list; inactive text replacing the Deploy link when that character is already online. Keep compact for a 120px column.
 	"interface.load_character_list.deployed": "Deployed",
 	// js/html.js load_character_list; authored interface text.
 	"interface.load_character_list.offline": "OFFLINE",
