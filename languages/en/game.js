@@ -48,7 +48,8 @@ module.exports = {
 	// js/game.js, add_log display.
 	"game.connected": "Connected!",
 	// js/game.js, add_log display.
-	"game.welcome.hardcore_tips": "Pro Tips: You can transport to anywhere from the Beach Cave, Water Spirits drop stat belts, 3 monsters drop 3 new unique items, 3 monsters drop 50 times the gold they usually do!",
+	"game.welcome.hardcore_tips":
+		"Pro Tips: You can transport to anywhere from the Beach Cave, Water Spirits drop stat belts, 3 monsters drop 3 new unique items, 3 monsters drop 50 times the gold they usually do!",
 	// js/game.js, add_log display.
 	"game.welcome.development_note": "Note: Game dynamics and drops aren't final, they are evolving with every update",
 	// js/game.js, add_chat display. Parameters: blessed_by.
@@ -636,11 +637,13 @@ module.exports = {
 	// js/game.js, add_log display. Parameters: c.
 	"game.clicks": "{c} clicks",
 	// js/game.js, message display. Parameters: home.
-	"npc.home.set_offer": "This is not your home server. You are a resident of {home}. Home realms offer stronger cooperative credit and special rewards; rapid non-merchant character switching pauses them for 30 minutes. Would you like to set this server as your home?",
+	"npc.home.set_offer":
+		"This is not your home server. You are a resident of {home}. Home realms offer stronger cooperative credit and special rewards; rapid non-merchant character switching pauses them for 30 minutes. Would you like to set this server as your home?",
 	// js/game.js, button display.
 	"npc.yes": "Yes!",
 	// js/game.js, message display.
-	"npc.home.current": "This is your home server. Your help against cooperative monsters counts for more here, and some monsters carry extra home rewards. Switching here after another non-merchant character visits a different server causes 30 minutes of Realm Fatigue. Normal rewards continue while you settle in.",
+	"npc.home.current":
+		"This is your home server. Your help against cooperative monsters counts for more here, and some monsters carry extra home rewards. Switching here after another non-merchant character visits a different server causes 30 minutes of Realm Fatigue. Normal rewards continue while you settle in.",
 	// js/game.js, message display.
 	"npc.bless_server.offer": "Would you like to bless the entire server for 3 days?",
 	// js/game.js, button display.
@@ -686,9 +689,9 @@ module.exports = {
 	// js/game.js, add_log display.
 	"game.get_closer": "Get closer",
 	// js/game.js, add_log display. Parameters: value.
-	"game.sign_reads": "Sign reads: \"{value}\"",
+	"game.sign_reads": 'Sign reads: "{value}"',
 	// js/game.js, add_log display. Parameters: value.
-	"game.note_reads": "Note reads: \"{value}\"",
+	"game.note_reads": 'Note reads: "{value}"',
 	// js/game.js, add_log display.
 	"game.an_invisible_statue": "An invisible statue!",
 	// Comm chat interface; authored label or status, never player chat.
@@ -767,7 +770,7 @@ module.exports = {
 	"chat.game_offline": "GAME OFFLINE",
 	// Comm character/server list or unread conversation badge.
 	"chat.unread": "NEW",
-	// Comm character list; compact level label.
+	// Comm character list and scaled monster names; compact level label appended beside the unchanged proper name.
 	"chat.character_level": "Lv.{level}",
 	// Merrit market reward log; preserve Merrit and Market Parcel names.
 	"npc.merrit.gift": "Merrit gave you 1 Market Parcel for keeping your shop on the square.",
@@ -778,11 +781,14 @@ module.exports = {
 	// Daisy offers a monster hunt in hardcore mode, including its price.
 	"npc.monsterhunt.offer_hardcore": "Would you like to go on a hunt? However, I have to warn you. It's not for the faint-hearted! [100 TOKENS!]",
 	// Lost-and-found goblin full greeting; xp is experience per donated gold.
-	"npc.lostandfound.reserve": "Hey there! I'm in charge of taking care of our gold reserve and making sure unlooted chests are 'recycled'! Donations are always welcome, merchants get {xp} XP for every gold they donate!",
+	"npc.lostandfound.reserve":
+		"Hey there! I'm in charge of taking care of our gold reserve and making sure unlooted chests are 'recycled'! Donations are always welcome, merchants get {xp} XP for every gold they donate!",
 	// Lost-and-found goblin full greeting with low gold reserves; xp is experience per donated gold.
-	"npc.lostandfound.reserve_low": "Hey there! I'm in charge of taking care of our gold reserve and making sure unlooted chests are 'recycled'! Currently the gold reserves are low, so I'm taking a small something out of every chest :] Donations are always welcome, merchants get {xp} XP for every gold they donate!",
+	"npc.lostandfound.reserve_low":
+		"Hey there! I'm in charge of taking care of our gold reserve and making sure unlooted chests are 'recycled'! Currently the gold reserves are low, so I'm taking a small something out of every chest :] Donations are always welcome, merchants get {xp} XP for every gold they donate!",
 	// Lost-and-found goblin full greeting with very low reserves; xp is experience per donated gold.
-	"npc.lostandfound.reserve_very_low": "Hey there! I'm in charge of taking care of our gold reserve and making sure unlooted chests are 'recycled'! Currently the gold reserves are low, so I'm taking a small something something out of every chest :] Donations are always welcome, merchants get {xp} XP for every gold they donate!",
+	"npc.lostandfound.reserve_very_low":
+		"Hey there! I'm in charge of taking care of our gold reserve and making sure unlooted chests are 'recycled'! Currently the gold reserves are low, so I'm taking a small something something out of every chest :] Donations are always welcome, merchants get {xp} XP for every gold they donate!",
 	// Item receipt log; item is the unchanged item name.
 	"response.add_item.single": "Received a {item}",
 	// Item receipt log; item is the unchanged item name and quantity is the stack size.
@@ -846,9 +852,11 @@ module.exports = {
 	// Decline entering the instance.
 	"game.door.cancel": "No!",
 	// Own-character inspection explanation. Preserve Adventure Land, PIXI.Sprite, PIXI, CODE, URL, and coordinate identifiers.
-	"game.character.sprite_explanation": "Hey Adventurer! This is your very own character that is a PIXI.Sprite Object. Adventure Land uses PIXI to draw things. You can learn more about it: https://www.pixijs.com/ and draw your own stuff via CODE! (Technical) Since your character is a special object, it doesn't get drawn like other entities, therefore your real character object has static x and y values. The character object in Code is an Object that mimics and extends your actual character Object. It's kinda complicated, but the only difference is that your real character object has different x and y values.",
+	"game.character.sprite_explanation":
+		"Hey Adventurer! This is your very own character that is a PIXI.Sprite Object. Adventure Land uses PIXI to draw things. You can learn more about it: https://www.pixijs.com/ and draw your own stuff via CODE! (Technical) Since your character is a special object, it doesn't get drawn like other entities, therefore your real character object has static x and y values. The character object in Code is an Object that mimics and extends your actual character Object. It's kinda complicated, but the only difference is that your real character object has different x and y values.",
 	// Help opened by clicking the loading percentage when no server is available. Preserve the existing line breaks and Discord name.
-	"game.loading.no_servers": "No servers found, 3 possible scenarios: <br /><br />(1) The game is being updated <br />(2) All existing servers are overloaded <br />(3) Someone found a bug that brought down all the servers<br /><br />Best to spend this time in our Discord to figure out what happened",
+	"game.loading.no_servers":
+		"No servers found, 3 possible scenarios: <br /><br />(1) The game is being updated <br />(2) All existing servers are overloaded <br />(3) Someone found a bug that brought down all the servers<br /><br />Best to spend this time in our Discord to figure out what happened",
 	// Loading-percentage help while assets are loading. Preserve line breaks and the support email address.
 	"game.loading.resources": "Game resources are loading<br /><br />This may take some time<br /><br />If the game got stuck at this stage, please email hello@adventure.land",
 	// Loading-percentage help after assets have loaded. Preserve line breaks and the support email address.

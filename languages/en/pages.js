@@ -516,7 +516,7 @@ module.exports = {
 	"pages.contents.hardcore_guide.you-have-to-be-within-10-levels-to": '<span style="color: #F4F4F4">&gt;</span> You have to be within 10 levels to engage in PVP',
 	// htmls/contents/keymap_guide.html:45; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.keymap_guide.advanced-usages": "Advanced Usages",
-	// htmls/contents/keymap_guide.html:47; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
+	// htmls/contents/keymap_guide.html:47; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only. The // prefix marks this visible explanatory label as a code comment; translate its prose while keeping ESC and the prefix. The executable example below remains unchanged.
 	"pages.contents.keymap_guide.example-code-that-overrides-esc": "<span class='label'>//Example code that overrides ESC</span>",
 	// htmls/contents/keymap_guide.html:38; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
 	"pages.contents.keymap_guide.items-can-be-mapped-manually-to-keys-or":
@@ -1833,7 +1833,7 @@ module.exports = {
 		"Created the first custom map animations, a small fire, iterated it, added a blue version too. Then tested some lava/fire pools. I love pixel animations, the game will be filled with them in the future.",
 	// htmls/logs.html:539; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
 	"pages.logs.created-the-first-example-code-https-github-com":
-		'Created the first example code: <a target="_blank" href="https://github.com/kaansoral/adventureland_mongodb/blob/master/examples/" class="cancela"><span class="devlink">https://github.com/kaansoral/adventureland_mongodb/blob/master/examples/simple_but_improved.js</a> It\'s simple, yet it covers most of the early player questions, has conservative potion usage, target and path checks.',
+		'Created the first example code: <a target="_blank" href="https://github.com/kaansoral/adventureland_mongodb/blob/master/examples/" class="cancela"><span class="devlink">https://github.com/kaansoral/adventureland_mongodb/blob/master/examples/simple_but_improved.js</span></a> It\'s simple, yet it covers most of the early player questions, has conservative potion usage, target and path checks.',
 	// htmls/logs.html:930; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.logs.created-the-first-live-npc-so-basically-a":
 		'Created the first "Live NPC" - so basically a NPC that is technically a player, the pvp blocker NPC will be live, he will move from the cave entrance to the revival zone when there are enough players for the pvp zone to unlock.',
@@ -2533,7 +2533,7 @@ module.exports = {
 		"Perfected the combo/aggro check routine, the logic is different for PVP/PVE, in PVE, you can't just get close to a stranger and get them killed, but in PVP, you might do that, not that it makes sense to do it.",
 	// htmls/logs.html:899; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.logs.perfected-the-drag-drop-and-right-click-routines":
-		"Perfected the drag/drop and right_click routines, another proud moment. Now drag/drop and right_click works everywhere, internally things are much simpler too. These routines are so robust now that I feel like I can utilise them when the time comes to build iOS, Android versions of the game.</pr>",
+		"Perfected the drag/drop and right_click routines, another proud moment. Now drag/drop and right_click works everywhere, internally things are much simpler too. These routines are so robust now that I feel like I can utilise them when the time comes to build iOS, Android versions of the game.",
 	// htmls/logs.html:1002; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.logs.perfected-the-standalone-version-of-the-game": "Perfected the standalone version of the game.",
 	// htmls/logs.html:380; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.

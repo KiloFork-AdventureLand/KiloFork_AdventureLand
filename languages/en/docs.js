@@ -3554,7 +3554,7 @@ module.exports = {
 	"docs.guide.basics.mouse-left-click": "Mouse Left Click",
 	// docs/guide/basics.html:7; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.basics.mouse-right-click": "Mouse Right Click",
-	// docs/guide/basics.html:4; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
+	// docs/guide/basics.html:4 movement heading, also used by js/html.js old_render_stepv1; the player's movement action. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"docs.guide.basics.move": "Move",
 	// docs/guide/basics.html:48; Documentation span prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.basics.note": "Note:",
@@ -5379,4 +5379,6 @@ module.exports = {
 		'<span class="rlabel" onclick="render_function_reference($(this).html())">upgrade</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">item_grade</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">lock_item</span>',
 	// docs/tutorial/upgrade.html:1; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Upgrading makes weapons and armor stronger. A failed attempt can destroy the item.",
+	// docs/articles/8-code-slots-and-files.html; section heading explaining shared modules. Translate Modules and keep the require_code function identifier unchanged. Locked inline code: ["require_code"].
+	"docs.articles.8-code-slots-and-files.modules-require-code": "Modules: require_code",
 };

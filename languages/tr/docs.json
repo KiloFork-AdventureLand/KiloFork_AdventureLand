@@ -2269,5 +2269,6 @@
 	"docs.tutorial.upgrade.the-item-s-current-grade-decides-which-scroll": "Eşyanın mevcut kalitesi gereken parşömeni belirler. Başarısızlıkta eşya ve parşömen tüketilir. Adaklar ve lütuf zor denemelere yardımcı olabilir; kilit, eşyanın yükseltilmesini tamamen engeller.",
 	"docs.tutorial.upgrade.this-selects-a-normal-grade-upgradeable-item-it": "Bu örnek normal kaliteli yükseltilebilir eşya seçer. Yükseltmeyi yalnızca onay satırını <span class=\"dlabel\">false</span> yerine <span class=\"dlabel\">true</span> yaptığında dener:",
 	"docs.tutorial.upgrade.upgrade-item-grade-lock-item": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">upgrade</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">item_grade</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">lock_item</span>",
-	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Yükseltme silah ve zırhları güçlendirir. Başarısız deneme eşyayı yok edebilir."
+	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Yükseltme silah ve zırhları güçlendirir. Başarısız deneme eşyayı yok edebilir.",
+	"docs.articles.8-code-slots-and-files.modules-require-code": "Modüller: require_code"
 }

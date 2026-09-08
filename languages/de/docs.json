@@ -2269,5 +2269,6 @@
 	"docs.tutorial.upgrade.the-item-s-current-grade-decides-which-scroll": "Die aktuelle Qualität des Gegenstands bestimmt die benötigte Schriftrolle. Bei einem Fehlschlag werden Gegenstand und Schriftrolle verbraucht. Opfergaben und Gnade können bei schwierigen Versuchen helfen; eine Sperre verhindert jede Verbesserung des Gegenstands.",
 	"docs.tutorial.upgrade.this-selects-a-normal-grade-upgradeable-item-it": "Dies wählt einen verbesserbaren Gegenstand der Qualität Normal. Es versucht die Verbesserung erst, nachdem du die Bestätigungszeile von <span class=\"dlabel\">false</span> auf <span class=\"dlabel\">true</span> geändert hast:",
 	"docs.tutorial.upgrade.upgrade-item-grade-lock-item": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">upgrade</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">item_grade</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">lock_item</span>",
-	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Verbessern macht Waffen und Rüstung stärker. Ein fehlgeschlagener Versuch kann den Gegenstand zerstören."
+	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Verbessern macht Waffen und Rüstung stärker. Ein fehlgeschlagener Versuch kann den Gegenstand zerstören.",
+	"docs.articles.8-code-slots-and-files.modules-require-code": "Module: require_code"
 }

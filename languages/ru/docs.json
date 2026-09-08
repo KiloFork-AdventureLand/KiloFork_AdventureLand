@@ -2269,5 +2269,6 @@
 	"docs.tutorial.upgrade.the-item-s-current-grade-decides-which-scroll": "Текущее качество предмета определяет нужный свиток. При неудаче предмет и свиток расходуются. Подношения и благодать помогают в сложных попытках; блокировка вообще не позволяет\n\t\tулучшать предмет.",
 	"docs.tutorial.upgrade.this-selects-a-normal-grade-upgradeable-item-it": "Этот код выбирает улучшаемый предмет обычного качества. Попытка состоится только после замены строки подтверждения с <span class=\"dlabel\">false</span> на <span class=\"dlabel\">true</span>:",
 	"docs.tutorial.upgrade.upgrade-item-grade-lock-item": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">upgrade</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">item_grade</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">lock_item</span>",
-	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Улучшение делает оружие и броню сильнее. Неудачная попытка может уничтожить предмет."
+	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Улучшение делает оружие и броню сильнее. Неудачная попытка может уничтожить предмет.",
+	"docs.articles.8-code-slots-and-files.modules-require-code": "Модули: require_code"
 }

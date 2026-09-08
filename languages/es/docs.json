@@ -2269,5 +2269,6 @@
 	"docs.tutorial.upgrade.the-item-s-current-grade-decides-which-scroll": "El grado actual del objeto decide qué pergamino necesita. El objeto y el pergamino se consumen si falla. Las ofrendas y la gracia pueden ayudar en los intentos difíciles; el bloqueo impide por completo mejorar un objeto.",
 	"docs.tutorial.upgrade.this-selects-a-normal-grade-upgradeable-item-it": "Esto selecciona un objeto mejorable de grado normal. Solo intentará mejorarlo después de que cambies la línea de confirmación de <span class=\"dlabel\">false</span> a <span class=\"dlabel\">true</span>:",
 	"docs.tutorial.upgrade.upgrade-item-grade-lock-item": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">upgrade</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">item_grade</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">lock_item</span>",
-	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Mejorar hace más potentes las armas y armaduras. Un intento fallido puede destruir el objeto."
+	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Mejorar hace más potentes las armas y armaduras. Un intento fallido puede destruir el objeto.",
+	"docs.articles.8-code-slots-and-files.modules-require-code": "Módulos: require_code"
 }

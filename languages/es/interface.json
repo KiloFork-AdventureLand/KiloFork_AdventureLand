@@ -815,5 +815,7 @@
 	"interface.gallery.exchange": "Objetos de intercambio",
 	"interface.gallery.key": "Llaves",
 	"interface.item.count_left.one": "Queda {count}",
-	"interface.merrit.reason_cooldown.one": "El siguiente paquete de tu cuenta puede llegar en {count} minuto, cuando pase Merrit."
+	"interface.merrit.reason_cooldown.one": "El siguiente paquete de tu cuenta puede llegar en {count} minuto, cuando pase Merrit.",
+	"interface.item.empty": "Vacío",
+	"interface.item.empty_description": "Nada de nada."
 }

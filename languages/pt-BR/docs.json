@@ -2269,5 +2269,6 @@
 	"docs.tutorial.upgrade.the-item-s-current-grade-decides-which-scroll": "O grau atual do item determina qual pergaminho ele precisa. O item e o pergaminho são consumidos em caso de falha. Oferendas e graça podem ajudar em tentativas difíceis; trancar impede qualquer aprimoramento do item.",
 	"docs.tutorial.upgrade.this-selects-a-normal-grade-upgradeable-item-it": "Isto seleciona um item aprimorável de grau normal. Só tentará aprimorá-lo depois que você mudar a linha de confirmação de <span class=\"dlabel\">false</span> para <span class=\"dlabel\">true</span>:",
 	"docs.tutorial.upgrade.upgrade-item-grade-lock-item": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">upgrade</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">item_grade</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">lock_item</span>",
-	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Aprimorar torna armas e armaduras mais fortes. Uma tentativa que falha pode destruir o item."
+	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Aprimorar torna armas e armaduras mais fortes. Uma tentativa que falha pode destruir o item.",
+	"docs.articles.8-code-slots-and-files.modules-require-code": "Módulos: require_code"
 }

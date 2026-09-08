@@ -1045,7 +1045,7 @@ function render_monster(monster) {
 		name = def.name;
 	var html = "<div style='background-color: black; border: 5px solid gray; padding: 20px; font-size: 24px; display: inline-block; vertical-align: top; " + styles + "' class='renderedinfo'>";
 	if (monster.dead) ((name += " X"), (monster.hp = 0));
-	if (monster.level > 1) name += " Lv." + monster.level;
+	if (monster.level > 1) name += " " + phrase("chat.character_level", { level: monster.level });
 	var hp = monster.hp,
 		max_hp = monster.max_hp,
 		xp = monster.xp;
@@ -1053,14 +1053,14 @@ function render_monster(monster) {
 	if (xp >= 1000000) xp = to_pretty_num(xp);
 	html += info_line({ line: name, color: "gray", onclick: "render_monster_info('" + monster.mtype + "')" });
 	html += info_line({
-		name: "HP",
+		name: phrase.html("stat.hp.name"),
 		color: colors.hp,
 		value: hp + "/" + max_hp,
 		cursed: monster.s.cursed,
 		stunned: !monster.attack && monster.s.stunned,
 		poisoned: !monster.attack && monster.s.poisoned,
 	});
-	html += info_line({ name: "XP", color: "green", value: xp });
+	html += info_line({ name: phrase.html("stat.xp.name"), color: "green", value: xp });
 	if (monster.attack)
 		html += info_line({ name: phrase.html("interface.monster.att"), color: "#316EE6", value: smart_num(monster.attack, 10000), stunned: monster.s.stunned, poisoned: monster.s.poisoned });
 	if (def.avoidance) html += info_line({ name: phrase.html("interface.monster.avoidance"), color: "gray", value: def.avoidance + "%" });
@@ -1209,8 +1209,8 @@ function render_character(player) {
 	});
 	html += "<div class='ihtml'>";
 	ihtml += info_line({ name: phrase.html("interface.character.level"), color: "orange", value: player.level, afk: player.afk });
-	ihtml += info_line({ name: "HP", color: colors.hp, value: player.hp + "/" + player.max_hp });
-	ihtml += info_line({ name: "MP", color: "#365DC5", value: player.mp + "/" + player.max_mp });
+	ihtml += info_line({ name: phrase.html("stat.hp.name"), color: colors.hp, value: player.hp + "/" + player.max_hp });
+	ihtml += info_line({ name: phrase.html("stat.mp.name"), color: "#365DC5", value: player.mp + "/" + player.max_mp });
 	if (player.heal) ihtml += info_line({ name: phrase.html("interface.character.heal"), color: "#CB83AC", value: round(player.heal) });
 	ihtml += info_line({ name: phrase.html("interface.character.att"), color: "green", value: round(player.attack), cursed: player.s.cursed });
 	ihtml += info_line({ name: phrase.html("interface.character.attspd"), color: "gray", value: round(player.frequency * 100), poisoned: player.s.poisoned });
@@ -2975,14 +2975,14 @@ function render_item_popup(name, level) {
 function render_item_info(name, level, data) {
 	var html = "<div style='font-size: 24px; max-width: 800px; text-align: center' onclick='hide_modal()'>";
 	if (name == "empty") {
-		html += render_item("html", { item: { name: "Empty", explanation: "Nothing, nada, zilch." }, prop: {} });
+		html += render_item("html", { item: { name: phrase.html("interface.item.empty"), explanation: phrase.html("interface.item.empty_description") }, prop: {} });
 	} else if (name == "shells") {
 		html += render_item("html", {
-			item: { name: "Shells", explanation: phrase.html("interface.currency.shells_description") },
+			item: { name: phrase.html("interface.inventory.shells"), explanation: phrase.html("interface.currency.shells_description") },
 			prop: {},
 		});
 	} else if (name == "gold") {
-		html += render_item("html", { item: { name: "Gold", explanation: phrase.html("interface.currency.gold_description") }, prop: {} });
+		html += render_item("html", { item: { name: phrase.html("interface.item.gold"), explanation: phrase.html("interface.currency.gold_description") }, prop: {} });
 	} else if (level !== undefined) {
 		html += render_item("html", { item: G.items[name], actual: { level: level, name: name, data: data }, guide: true });
 	} else if (G.items[name].compound) {
@@ -2998,7 +2998,7 @@ function render_item_info(name, level, data) {
 	} else {
 		html += render_item("html", { item: G.items[name], name: name, actual: { name: name }, guide: true });
 	}
-	html += "<div></div><div style='display: inline-block; margin: 5px'>" + render_item_help(null, name, level, true) + "</div>";
+	if (G.items[name]) html += "<div></div><div style='display: inline-block; margin: 5px'>" + render_item_help(null, name, level, true) + "</div>";
 	html += "</div>";
 	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/guide/all/items/" + name });
 }
@@ -3241,7 +3241,7 @@ function render_skill(selector, skill_name, args) {
 		html += "<div style='color: #4EB7DE; display: inline-block; border-bottom: 2px dashed gray; margin-bottom: 3px' class='cbold'>" + skill.name + "</div>";
 		if (skill.explanation) {
 			html += "<div style='color: #C3C3C3'>" + skill.explanation + "</div>";
-			if (skill.mp) html += bold_prop_line("MP", skill.mp, colors.mp);
+			if (skill.mp) html += bold_prop_line(phrase.html("stat.mp.name"), skill.mp, colors.mp);
 			if (skill.duration) html += bold_prop_line(phrase.html("interface.skill.duration"), phrase.html("interface.time.seconds", { count: skill.duration / 1000.0 }), "gray");
 			if (skill.cooldown && skill.cooldown / 1000.0) html += bold_prop_line(phrase.html("interface.skill.cooldown"), phrase.html("interface.time.seconds", { count: skill.cooldown / 1000.0 }), "gray");
 			if (skill.reuse_cooldown && skill.reuse_cooldown / 1000.0)
@@ -3389,7 +3389,7 @@ function old_render_gallery() {
 
 function old_render_stepv1(args) {
 	if (!args) args = {};
-	args.title = "[1/24] Move";
+	args.title = "[1/24] " + phrase("docs.guide.basics.move");
 	args.main = phrase.html("interface.tutorial.first_steps");
 	args.code = phrase.html("interface.tutorial.move_code");
 	var html = "";
@@ -4422,9 +4422,9 @@ function render_item(selector, args) {
 		}
 		if (prop.miss && item.type == "elixir") html += bold_prop_line(phrase.html("interface.item.alcohol"), prop.miss + "%", "#7CAAF6");
 		(item.gives || []).forEach(function (prop) {
-			if (prop[0] == "hp" && prop[1] < 0) html += bold_prop_line("HP", to_pretty_num(prop[1]), colors.hp);
-			else if (prop[0] == "hp") html += bold_prop_line("HP", "+" + to_pretty_num(prop[1]), colors.hp);
-			if (prop[0] == "mp") html += bold_prop_line("MP", "+" + to_pretty_num(prop[1]), colors.mp);
+			if (prop[0] == "hp" && prop[1] < 0) html += bold_prop_line(phrase.html("stat.hp.name"), to_pretty_num(prop[1]), colors.hp);
+			else if (prop[0] == "hp") html += bold_prop_line(phrase.html("stat.hp.name"), "+" + to_pretty_num(prop[1]), colors.hp);
+			if (prop[0] == "mp") html += bold_prop_line(phrase.html("stat.mp.name"), "+" + to_pretty_num(prop[1]), colors.mp);
 		});
 		if (item.debuff) html += bold_prop_line(phrase.html("interface.item.effect"), phrase.html("interface.item.debuff"), "#343792");
 		if (args.monster) {
@@ -4446,7 +4446,7 @@ function render_item(selector, args) {
 		}
 		if (prop.gold) html += bold_prop_line(phrase.html("interface.item.gold"), ((prop.gold > 0 && "+") || "") + prop.gold + "%", "gold");
 		if (prop.luck) html += bold_prop_line(phrase.html("interface.item.luck"), ((prop.luck > 0 && "+") || "") + prop.luck + "%", "#5DE376");
-		if (prop.xp) html += bold_prop_line("XP", ((!args.monster && prop.xp > 0 && "+") || "") + prop.xp + ((!args.monster && "%") || ""), "#1E73DE");
+		if (prop.xp) html += bold_prop_line(phrase.html("stat.xp.name"), ((!args.monster && prop.xp > 0 && "+") || "") + prop.xp + ((!args.monster && "%") || ""), "#1E73DE");
 		if (prop.lifesteal) html += bold_prop_line(phrase.html("interface.item.lifesteal"), to_pretty_float(prop.lifesteal) + "%", colors.lifesteal);
 		if (prop.manasteal) html += bold_prop_line(phrase.html("interface.item.manasteal"), to_pretty_float(prop.manasteal) + "%", colors.manasteal);
 		if (item.goldsteal) html += bold_prop_line(phrase.html("interface.item.goldsteal"), phrase.html("interface.item.dynamic"), "gold");
@@ -4464,13 +4464,13 @@ function render_item(selector, args) {
 			else if (item.damage_type == "physical") html += bold_prop_line(phrase.html("interface.item.type"), phrase.html("interface.item.physical"), "#93AB98");
 		}
 		if (prop.range) html += bold_prop_line(phrase.html("interface.item.range"), ((!args.monster && "+") || "") + prop.range, colors.range);
-		if (prop.hp) html += bold_prop_line("HP", prop.hp, colors.hp);
+		if (prop.hp) html += bold_prop_line(phrase.html("stat.hp.name"), prop.hp, colors.hp);
 		if (prop.str) html += bold_prop_line(phrase.html("interface.item.strength"), prop.str, colors.str);
 		if (prop["int"]) html += bold_prop_line(phrase.html("interface.item.intelligence"), prop["int"], colors["int"]);
 		if (prop.dex) html += bold_prop_line(phrase.html("interface.item.dexterity"), prop.dex, colors.dex);
 		if (prop.vit) html += bold_prop_line(phrase.html("interface.item.vitality"), prop.vit, colors.hp);
 		if (prop["for"]) html += bold_prop_line(phrase.html("interface.item.fortitude"), prop["for"], colors["for"]);
-		if (prop.mp) html += bold_prop_line("MP", prop.mp, colors.mp);
+		if (prop.mp) html += bold_prop_line(phrase.html("stat.mp.name"), prop.mp, colors.mp);
 		if (prop.mp_cost > 0) html += bold_prop_line(phrase.html("interface.item.attack_mp_cost"), "+" + prop.mp_cost, colors.mp);
 		else if (prop.mp_cost) html += bold_prop_line(phrase.html("interface.item.attack_mp_cost"), prop.mp_cost, colors.mp);
 		if (prop.mp_reduction > 0) html += bold_prop_line(phrase.html("interface.item.skill_mp_reduction"), "%" + prop.mp_reduction, colors.mp);
@@ -4641,7 +4641,7 @@ function render_item(selector, args) {
 		}
 		if (item.encouragement) {
 			if (prop.gold_multiplier) html += bold_prop_line(phrase.html("interface.item.gold"), prop.gold_multiplier + "×", "#E3BB62");
-			if (prop.xp_multiplier) html += bold_prop_line("XP", prop.xp_multiplier + "×", "#A88BC7");
+			if (prop.xp_multiplier) html += bold_prop_line(phrase.html("stat.xp.name"), prop.xp_multiplier + "×", "#A88BC7");
 			if (prop.luck_multiplier) html += bold_prop_line(phrase.html("interface.item.luck"), prop.luck_multiplier + "×", "#79B899");
 			if (prop.phase) {
 				html += prop_line(phrase.html("interface.item.stage"), phrase.html("interface.item.stage_progress", { stage: prop.phase }));

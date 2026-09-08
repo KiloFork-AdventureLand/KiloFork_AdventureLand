@@ -813,5 +813,7 @@
 	"interface.gallery.pot": "İksirler",
 	"interface.gallery.scroll": "Parşömenler",
 	"interface.gallery.exchange": "Takaslıklar",
-	"interface.gallery.key": "Anahtarlar"
+	"interface.gallery.key": "Anahtarlar",
+	"interface.item.empty": "Boş",
+	"interface.item.empty_description": "Hiçbir şey yok. Hem de hiç."
 }

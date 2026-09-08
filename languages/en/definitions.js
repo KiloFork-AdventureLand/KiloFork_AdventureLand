@@ -668,13 +668,13 @@ module.exports = {
 	"item.anchorbelt.explanation": "Heavy enough to keep both feet on the ground in any storm.",
 	// design/items.js; anniversarygift explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.anniversarygift.explanation": "Ten years, tied with a ribbon.",
-	// design/items.js; apiercingscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; apiercingscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.apiercingscroll.explanation": "Adds Armor Piercing to an armor with a Stat attribute.",
 	// design/items.js; apologybox explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.apologybox.explanation": "This box represents an official apology. Sorry.",
 	// design/items.js; armorbox explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.armorbox.explanation": "Can be exchanged for a random, rare armor.",
-	// design/items.js; armorscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; armorscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.armorscroll.explanation": "Adds Armor to an armor with a Stat attribute.",
 	// design/items.js; ashleaf explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.ashleaf.explanation": "A hardy leaf that refuses to burn completely.",
@@ -750,7 +750,7 @@ module.exports = {
 	"item.cosmo4.explanation": "Give this to NPC Haila to receive a unique accessory. Heads-up! It's random, you may or may-not like it. [Work in progress - Not functional yet.]",
 	// design/items.js; cosmo5 explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Haila"].
 	"item.cosmo5.explanation": "Give this to Haila for a curious new flourish. It may be an emote or a gravestone.",
-	// design/items.js; critscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; critscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.critscroll.explanation": "Adds Critical Hit to an armor with a Stat attribute.",
 	// design/items.js; cryptkey explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.cryptkey.explanation": "A key, imbued with magical energy.",
@@ -773,13 +773,13 @@ module.exports = {
 		"Don't let the looks fool you. It's a solid weapon with most components forged from gold. The barrel and trigger mechanism is a platinum alloy. Can shoot anything that fits its barrel, like actual gold.",
 	// design/items.js; dawnwardaegis explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.dawnwardaegis.explanation": "It catches the first light, even underground.",
-	// design/items.js; dexscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; dexscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.dexscroll.explanation": "Adds Dexterity to an armor with a Stat attribute.",
 	// design/items.js; dkey explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.dkey.explanation": "A key that unlocks any teller!",
 	// design/items.js; dragondagger explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.dragondagger.explanation": "Majestic",
-	// design/items.js; dreturnscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; dreturnscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.dreturnscroll.explanation": "Adds Damage Return to an armor with a Stat attribute.",
 	// design/items.js; duskweavehood explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.duskweavehood.explanation": "A quiet place to gather your thoughts.",
@@ -829,7 +829,7 @@ module.exports = {
 	"item.essenceoflife.explanation": "Full of life, literally.",
 	// design/items.js; essenceofnature explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.essenceofnature.explanation": "Earthly energy, waiting to spring",
-	// design/items.js; evasionscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; evasionscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Preserve Special Stat as distinct wording from Stat in this source description; do not imply that any armor with stats qualifies.
 	"item.evasionscroll.explanation": "Adds Evasion to an armor with a Special Stat attribute.",
 	// design/items.js; exoarm explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.exoarm.explanation": "It does more than just enhance your natural movements, almost like it has a mind of its own.",
@@ -845,9 +845,9 @@ module.exports = {
 	"item.firecrackers.explanation": "Scary but harmless",
 	// design/items.js; flute explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.flute.explanation": "The sound of each flute is unique and mesmerizing. Your pets will easily recognize the sound of yours and come to your call.",
-	// design/items.js; forscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; forscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.forscroll.explanation": "Adds Fortitude to an armor with a Stat attribute.",
-	// design/items.js; frequencyscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; frequencyscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.frequencyscroll.explanation": "Adds Attack Speed to an armor with a Stat attribute.",
 	// design/items.js; friendtoken explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.friendtoken.explanation": "A token representing friendship. Awarded each time a friend joins the adventure!",
@@ -895,7 +895,7 @@ module.exports = {
 	"item.goldingot.explanation": "Solid Gold",
 	// design/items.js; goldnugget explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.goldnugget.explanation": "Ideal for crafting",
-	// design/items.js; goldscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; goldscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.goldscroll.explanation": "Adds Gold bonus to an armor with a Stat attribute.",
 	// design/items.js; greenbomb explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.greenbomb.explanation": "It's a candy with very questionable ingredients, might be addictive.",
@@ -923,7 +923,7 @@ module.exports = {
 	"item.homecominghelm.explanation": "Dented, polished, and ready for another year.",
 	// design/items.js; hotchocolate explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.hotchocolate.explanation": "Fills your heart with warmth.",
-	// design/items.js; intscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; intscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.intscroll.explanation": "Adds Intelligence to an armor with a Stat attribute.",
 	// design/items.js; ironheelboots explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.ironheelboots.explanation": "The road leaves its mark on everything.",
@@ -949,7 +949,7 @@ module.exports = {
 	"item.ledgerlight.explanation": "Every debt finds its way home.",
 	// design/items.js; licence explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.licence.explanation": "With this licence, you gain a unique immunity for 7 minutes. No one can bother you for having too many comrades in this realm!",
-	// design/items.js; lifestealscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; lifestealscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.lifestealscroll.explanation": "Adds Lifesteal to an armor with a Stat attribute.",
 	// design/items.js; lmace explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.lmace.explanation": "Majestic",
@@ -957,9 +957,9 @@ module.exports = {
 	"item.lostearring.explanation": "Looks valuable",
 	// design/items.js; luckbooster explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.luckbooster.explanation": "Increases your chances of looting something from a monster.",
-	// design/items.js; luckscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; luckscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.luckscroll.explanation": "Adds Luck to an armor with a Stat attribute.",
-	// design/items.js; manastealscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; manastealscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.manastealscroll.explanation": "Adds Manasteal to an armor with a Stat attribute.",
 	// design/items.js; marketparcel explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Merrit","Xyn"].
 	"item.marketparcel.explanation": "Supplies from Merrit, for keeping a shop on the square. Exchange one with Xyn.",
@@ -1005,7 +1005,7 @@ module.exports = {
 	"item.mossheart.explanation": "It beats slowly, as if remembering the forest it came from.",
 	// design/items.js; mparmor explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.mparmor.explanation": "You served our realm well",
-	// design/items.js; mpcostscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; mpcostscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.mpcostscroll.explanation": "Adds MP Cost Reduction to an armor with a Stat attribute.",
 	// design/items.js; mpgloves explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.mpgloves.explanation": "You served our realm well",
@@ -1067,7 +1067,7 @@ module.exports = {
 	"item.oozingterror.explanation": "It drains the life energy of the user",
 	// design/items.js; ornament explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Winterland"].
 	"item.ornament.explanation": "A beautiful ornament. A bunch of these could decorate the trees of Winterland.",
-	// design/items.js; outputscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; outputscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.outputscroll.explanation": "Adds Output Increase to an armor with a Stat attribute.",
 	// design/items.js; paradequiver explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.paradequiver.explanation": "A little color for the long road.",
@@ -1113,9 +1113,9 @@ module.exports = {
 	"item.reefglass.explanation": "Sea-worn glass, smooth enough to hold without bleeding.",
 	// design/items.js; reefvest explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.reefvest.explanation": "Layer upon layer of reef glass, shaped smooth by the tide.",
-	// design/items.js; reflectionscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; reflectionscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.reflectionscroll.explanation": "Adds Reflection to an armor with a Stat attribute.",
-	// design/items.js; resistancescroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; resistancescroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.resistancescroll.explanation": "Adds Resistance to an armor with a Stat attribute.",
 	// design/items.js; resolutesallet explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.resolutesallet.explanation": "Fear finds no easy path through its narrow visor.",
@@ -1125,7 +1125,7 @@ module.exports = {
 	"item.rimeboots.explanation": "A thin coat of frost follows every step.",
 	// design/items.js; rimeknuckles explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.rimeknuckles.explanation": "Cold enough to make every punch sting twice.",
-	// design/items.js; rpiercingscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; rpiercingscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.rpiercingscroll.explanation": "Adds Resistance Piercing to an armor with a Stat attribute.",
 	// design/items.js; saffronloop explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.saffronloop.explanation": "A lucky loop for merchants who know that gold favors the prepared.",
@@ -1173,7 +1173,7 @@ module.exports = {
 	"item.solitaire.explanation": "The diamond is mesmerizing",
 	// design/items.js; spearofthedead explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.spearofthedead.explanation": "A deadly weapon",
-	// design/items.js; speedscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; speedscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.speedscroll.explanation": "Adds Speed to an armor with a Stat attribute.",
 	// design/items.js; spiderkey explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.spiderkey.explanation": "A key, imbued with magical energy.",
@@ -1201,8 +1201,8 @@ module.exports = {
 	"item.stormfeather.explanation": "It still carries the charge of the storm that shed it.",
 	// design/items.js; stormquiver explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.stormquiver.explanation": "The feathers inside tremble whenever a storm draws near.",
-	// design/items.js; strscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"item.strscroll.explanation": "Adds Stength to an armor with a Stat attribute.",
+	// design/items.js; strscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
+	"item.strscroll.explanation": "Adds Strength to an armor with a Stat attribute.",
 	// design/items.js; supercomputer explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["CODE"].
 	"item.supercomputer.explanation": "Networks you to NPCs, extends the CODE capabilities and tracks your encounters.",
 	// design/items.js; supermittens explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -1247,7 +1247,7 @@ module.exports = {
 	"item.venomband.explanation": "The green stone sweats whenever danger is close.",
 	// design/items.js; verdantcore explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.verdantcore.explanation": "It smells of rain, soil, and something newly alive.",
-	// design/items.js; vitscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; vitscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.vitscroll.explanation": "Adds Vitality to an armor with a Stat attribute.",
 	// design/items.js; voidthread explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.voidthread.explanation": "A thread so dark it seems to stitch shadows together.",
@@ -1289,7 +1289,7 @@ module.exports = {
 	"item.xmassweater.explanation": "Such a beautiful vest. But for some reason, every time you wear this, people seem to avoid you.",
 	// design/items.js; xpbooster explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.xpbooster.explanation": "Increases experience gain. Needs to be activated. Can be shifted into other boosters.",
-	// design/items.js; xpscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/items.js; xpscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.xpscroll.explanation": "Adds XP bonus to an armor with a Stat attribute.",
 	// design/items.js; xptome explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.xptome.explanation": "Significantly reduces experience loss on death. If the owner is defeated by another player, the victor receives 1,600,000 gold.",

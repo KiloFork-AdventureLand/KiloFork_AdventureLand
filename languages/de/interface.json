@@ -814,5 +814,7 @@
 	"interface.gallery.scroll": "Schriftrollen",
 	"interface.gallery.exchange": "Tauschgegenstände",
 	"interface.gallery.key": "Schlüssel",
-	"interface.merrit.reason_cooldown.one": "Das nächste Paket für dein Konto kann in {count} Minute bei Merrits Besuch eintreffen."
+	"interface.merrit.reason_cooldown.one": "Das nächste Paket für dein Konto kann in {count} Minute bei Merrits Besuch eintreffen.",
+	"interface.item.empty": "Leer",
+	"interface.item.empty_description": "Nichts. Rein gar nichts."
 }

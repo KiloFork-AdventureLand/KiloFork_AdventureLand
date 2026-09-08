@@ -826,5 +826,7 @@
 	"interface.time.minutes_left.other": "Осталось {count} минуты",
 	"interface.time.seconds.few": "{count} секунды",
 	"interface.time.seconds.many": "{count} секунд",
-	"interface.time.seconds.other": "{count} секунды"
+	"interface.time.seconds.other": "{count} секунды",
+	"interface.item.empty": "Пусто",
+	"interface.item.empty_description": "Ничегошеньки."
 }

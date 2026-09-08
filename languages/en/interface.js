@@ -1658,4 +1658,8 @@ module.exports = {
 	"interface.gallery.exchange": "Exchangeables",
 	// js/html.js render_all_items (key); gallery category heading. Translate the category, not the individual item or appearance names.
 	"interface.gallery.key": "Keys",
+	// js/html.js render_item_info('empty'); title of the existing empty-slot tooltip. It means the slot contains no item. This is a placeholder, not a proper item name. Keep brief.
+	"interface.item.empty": "Empty",
+	// Same empty-slot tooltip, playful one-line description beneath Empty. All three English words mean nothing; use natural brief local phrasing instead of a forced literal list. Not an error, missing data, or deleted item.
+	"interface.item.empty_description": "Nothing, nada, zilch.",
 };

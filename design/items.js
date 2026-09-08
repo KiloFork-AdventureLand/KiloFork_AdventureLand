@@ -5604,7 +5604,7 @@ var scrolls={
 		"skin":"strscroll",
 		"stat":"str",
 		"name":"Strength Scroll",
-		"explanation":"Adds Stength to an armor with a Stat attribute.",
+		"explanation":"Adds Strength to an armor with a Stat attribute.",
 		"multiplier":1,
 		"s":true,
 		"g":8000,
