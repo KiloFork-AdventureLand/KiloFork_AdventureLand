@@ -95,7 +95,7 @@
 	"client.say.command_not_found_suggestion_list": "Komut bulunamadı. Öneri: /list",
 	"client.anniversary_kiss.no_player_is_featured_right_now": "Şu anda öne çıkan oyuncu yok.",
 	"client.anniversary_kiss.waiting_for_to_return_the_round_s_timer_is_still": "{target} adlı oyuncunun dönmesi bekleniyor. Turun süresi işlemeye devam ediyor.",
-	"client.anniversary_kiss.you_don_t_have_an_anniversary_visit_for_this_round": "Bu tur için Anniversary Visit'in yok.",
+	"client.anniversary_kiss.you_don_t_have_an_anniversary_visit_for_this_round": "Bu tur için Yıl Dönümü Ziyareti hakkın yok.",
 	"client.find_anniversary_player.no_player_is_featured_right_now": "Şu anda öne çıkan oyuncu yok.",
 	"client.find_anniversary_player.waiting_for_to_return_the_round_s_timer_is_still": "{target} adlı oyuncunun dönmesi bekleniyor. Turun süresi işlemeye devam ediyor.",
 	"client.auto_craft.can_t_craft_that_item": "Bu eşya üretilemiyor",
