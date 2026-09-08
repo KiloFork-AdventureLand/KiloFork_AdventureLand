@@ -142,7 +142,7 @@
 <tr><td>get_api_info</td><td>None</td><td>Endpoints, versions, methods, and schemas.</td></tr>
 <tr><td>get_servers</td><td>None</td><td>Live realms, population, paths, and status.</td></tr>
 <tr><td>get_game_data</td><td>section?, name?</td><td>Sections, a complete section, or one exact definition.</td></tr>
-<tr><td>search_game_data</td><td>query, section?, limit?</td><td>Ranked matches across keys, descriptions, stats, ingredients, drops, map fields, and other nested definitions, with the fields that matched.</td></tr>
+<tr><td>search_game_data</td><td>query, match?, section?, limit?</td><td>Ranked matches across keys, descriptions, stats, ingredients, drops, map fields, and other nested definitions, with the fields that matched.</td></tr>
 <tr><td>list_docs</td><td>query?</td><td>Guide article names, titles, sections, and keywords.</td></tr>
 <tr><td>get_doc</td><td>name</td><td>One exact guide article as plain text.</td></tr>
 <tr><td>list_code_methods</td><td>query?, limit?</td><td>The public CODE method directory, or a semantic search across method documentation.</td></tr>
@@ -151,8 +151,13 @@
 
 <p>Use <span class="dlabel">search_game_data</span> to find a record, then <span class="dlabel">get_game_data</span> with its section and exact name to retrieve the complete definition.</p>
 
+<p>Search accepts up to 500 characters and 32 searchable terms, separated by spaces or commas. Matching ignores case, common words, and single-character terms. By default, all remaining terms must appear in one record. Set <span class="dlabel">"match":"any"</span> to find several separate keys or alternatives. Boolean operators and quoted phrases have no special meaning. Invalid queries return the limit or syntax issue in <span class="dlabel">details</span>, with an example request.</p>
+
 <pre class="api-example">POST /mcp_api/search_game_data
 {"token":"YOUR_TOKEN","query":"fire resistance","limit":10}
+
+POST /mcp_api/search_game_data
+{"token":"YOUR_TOKEN","query":"ikissyou anniversary_visit paladin_aura","match":"any"}
 
 POST /mcp_api/get_game_data
 {"token":"YOUR_TOKEN","section":"items","name":"fireblade"}</pre>

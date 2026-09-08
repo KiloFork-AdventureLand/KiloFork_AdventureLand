@@ -4,7 +4,7 @@ var MCP_API_TOKEN_PREFIX = "mcp_";
 var MCP_API_TOKEN_PATTERN = /^mcp_[A-Za-z0-9_-]{43}$/;
 var MCP_PROTOCOL_CURRENT = "2026-07-28";
 var MCP_PROTOCOL_LEGACY = "2025-11-25";
-var MCP_SERVER_INFO = { name: "adventure-land", version: "1.11.0", description: "Adventure Land game knowledge, progression context, and browser or Mainframe CODE control" };
+var MCP_SERVER_INFO = { name: "adventure-land", version: "1.12.0", description: "Adventure Land game knowledge, progression context, and browser or Mainframe CODE control" };
 var MCP_SOURCE_REPOSITORY = "https://github.com/kaansoral/adventureland_mongodb";
 var MCP_START_RESOURCE = "adventureland://guide/start-here";
 var MCP_CATALOG_RESOURCES = ["adventureland://catalog/docs", "adventureland://catalog/code-methods", "adventureland://catalog/game-data"];
@@ -81,6 +81,10 @@ var MCP_API_RATE_BUCKETS = new Map();
 var MCP_API_RATE_BUCKET_LIMIT = 5000;
 var MCP_GAME_SEARCH_INDEX = null;
 var MCP_GAME_SEARCH_INDEX_VERSION = null;
+var MCP_GAME_SEARCH_MAX_LENGTH = 500;
+var MCP_GAME_SEARCH_MAX_TERMS = 32;
+var MCP_GAME_SEARCH_SYNTAX =
+	"Case-insensitive words or keys separated by spaces or commas. Common words and single-character terms are ignored. All remaining terms must match one record by default; use match: any for separate keys or alternatives. No Boolean operators or quoted-phrase syntax.";
 var MCP_CODE_METHOD_INDEX = null;
 
 function mcp_api_hash_token(token) {
@@ -433,7 +437,7 @@ function mcp_api_game_search_index() {
 	return index;
 }
 
-function mcp_api_search_tokens(query) {
+function mcp_api_search_tokens(query, maximum) {
 	var stop_words = new Set([
 		"an",
 		"and",
@@ -468,28 +472,43 @@ function mcp_api_search_tokens(query) {
 		.filter(function (token) {
 			return token.length > 1 && !stop_words.has(token);
 		})
-		.slice(0, 12);
+		.slice(0, maximum || 12);
 }
 
 async function mcp_api_search_game_data(args) {
 	var query = args.query.trim().toLowerCase();
-	if (!query.length || query.length > 100) return { failed: true, reason: "invalid_query" };
+	var too_long = args.query.length > MCP_GAME_SEARCH_MAX_LENGTH;
+	var tokens = too_long ? [] : mcp_api_search_tokens(query, MCP_GAME_SEARCH_MAX_LENGTH);
+	if (too_long || !tokens.length || tokens.length > MCP_GAME_SEARCH_MAX_TERMS)
+		return {
+			failed: true,
+			reason: "invalid_query",
+			field: "query",
+			message: "Use 1 to " + MCP_GAME_SEARCH_MAX_LENGTH + " characters and 1 to " + MCP_GAME_SEARCH_MAX_TERMS + " searchable terms.",
+			details: {
+				code: too_long ? "query_too_long" : !tokens.length ? "no_search_terms" : "too_many_terms",
+				max_length: MCP_GAME_SEARCH_MAX_LENGTH,
+				received_length: args.query.length,
+				max_terms: MCP_GAME_SEARCH_MAX_TERMS,
+				received_terms: too_long ? null : tokens.length,
+			},
+			syntax: MCP_GAME_SEARCH_SYNTAX,
+			example: { query: "ikissyou anniversary_visit", match: "any" },
+		};
 	var limit = Math.max(1, Math.min(Number(args.limit) || 25, 50));
 	if (args.section && !MCP_API_SEARCH_SECTIONS.includes(args.section)) return { failed: true, reason: "invalid_section" };
-	var tokens = mcp_api_search_tokens(query);
-	if (!tokens.length) return { failed: true, reason: "invalid_query" };
+	var match_mode = args.match || "all";
+	if (!["all", "any"].includes(match_mode)) return { failed: true, reason: "invalid_field", field: "match", accepted_values: ["all", "any"] };
 	var matches = mcp_api_game_search_index()
 		.filter(function (entry) {
-			return (
-				(!args.section || entry.section === args.section) &&
-				tokens.every(function (token) {
-					return entry.search_text.includes(token);
-				})
-			);
+			if (args.section && entry.section !== args.section) return false;
+			return tokens[match_mode === "any" ? "some" : "every"](function (token) {
+				return entry.search_text.includes(token);
+			});
 		})
 		.map(function (entry) {
 			var name_text = (entry.name + " " + entry.label).toLowerCase();
-			var score = name_text.includes(query) ? 100 : 0;
+			var score = name_text.includes(query) || (match_mode === "any" && tokens.includes(entry.name.toLowerCase())) ? 100 : 0;
 			for (var i = 0; i < tokens.length; i++) score += name_text.includes(tokens[i]) ? 10 : 1;
 			return { entry: entry, score: score };
 		})
@@ -521,7 +540,7 @@ async function mcp_api_search_game_data(args) {
 			.slice(0, 5);
 		return result;
 	});
-	return { success: true, version: Version, query: args.query, tokens: tokens, count: results.length, limit: limit, results: results };
+	return { success: true, version: Version, query: args.query, match: match_mode, tokens: tokens, count: results.length, limit: limit, results: results };
 }
 
 function mcp_api_doc_entries() {
@@ -2004,7 +2023,8 @@ var MCP_API_REF = {
 	},
 	search_game_data: {
 		F: mcp_api_search_game_data,
-		query: { type: "string" },
+		query: { type: "string", minLength: 1, maxLength: MCP_GAME_SEARCH_MAX_LENGTH, description: MCP_GAME_SEARCH_SYNTAX + " Maximum " + MCP_GAME_SEARCH_MAX_TERMS + " searchable terms." },
+		match: { type: "enum", values: ["all", "any"], optional: true, description: "Default: all. Use any to search several separate keys in one query." },
 		section: { type: "enum", values: MCP_API_SEARCH_SECTIONS, optional: true },
 		limit: { type: "number", optional: true },
 	},
@@ -2113,7 +2133,7 @@ var MCP_TOOL_META = {
 	},
 	search_game_data: {
 		description:
-			"Search exact keys, names, descriptions, stats, recipe ingredients, drop tables, map fields, and other nested deployed game data. Use get_game_data for each complete matching record.",
+			"Search keys, names, descriptions, stats, ingredients, drops, and nested game definitions. Query accepts up to 500 characters and 32 searchable terms. Default match: all requires every term in one record; use match: any for several separate keys. Use get_game_data for complete records.",
 		readOnlyHint: true,
 	},
 	list_docs: { description: "List or search Adventure Land guide articles.", readOnlyHint: true },
@@ -2205,6 +2225,9 @@ function mcp_tool_schema(ref) {
 		if (field.type === "number") properties[name] = { type: "integer" };
 		else if (field.type === "enum") properties[name] = { type: "string", enum: field.values };
 		else properties[name] = { type: "string" };
+		["description", "minLength", "maxLength"].forEach(function (property) {
+			if (field[property] !== undefined) properties[name][property] = field[property];
+		});
 		if (!field.optional) required.push(name);
 	}
 	var schema = { type: "object", properties: properties, additionalProperties: false };

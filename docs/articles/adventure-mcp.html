@@ -237,6 +237,8 @@
 
 <p>Find exact names with <span class="dlabel">list_docs</span>, <span class="dlabel">list_code_methods</span>, <span class="dlabel">search_game_data</span>, <span class="dlabel">list_codes</span>, and <span class="dlabel">mainframe_get_dashboard</span>. Resource paths are validated and remain inside public or account-owned collections.</p>
 
+<p><span class="dlabel">search_game_data</span> accepts up to 500 characters and 32 searchable terms. Terms must all match one record by default; use <span class="dlabel">{"query":"ikissyou anniversary_visit paladin_aura","match":"any"}</span> to find separate keys. Matching ignores case, common words, and single-character terms. Separate terms with spaces or commas; Boolean operators and quoted phrases have no special meaning. Invalid queries include validation details and an example request.</p>
+
 <p><span class="dlabel">Guided prompts</span></p>
 
 <table style="width:100%; text-align:left; border-spacing:12px 7px">
