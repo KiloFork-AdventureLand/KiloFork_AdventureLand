@@ -521,7 +521,7 @@ module.exports = [
 	{ phrase: "update.21_02_24.when_fishing_or_mining_something_that_uses_open_keep",
 		deployed: "[21/02/24]",
 		date: "[21/02/24]",
-		note: "When Fishing or Mining something that uses open keep the phrase #84",
+		note: "Reward messages now correctly show when an item was fished or mined #84",
 	},
 	{ phrase: "update.21_02_24.fixed_url_in_github_link_101",
 		deployed: "[21/02/24]",

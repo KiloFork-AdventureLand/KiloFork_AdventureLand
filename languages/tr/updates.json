@@ -105,7 +105,7 @@
 	"update.21_03_24.move_xscorpion_spawn_so_it_is_inside_bounds_127": "xscorpion doğuş noktası sınırların içine taşındı #127",
 	"update.21_02_24.included_pr_s": "Dahil edilen PR'lar:",
 	"update.21_02_24.introduce_tags_for_some_debuffs_81": "Bazı zayıflatmalara etiketler eklendi #81",
-	"update.21_02_24.when_fishing_or_mining_something_that_uses_open_keep": "Balıkçılık veya madencilikte open kullanan eşyalarda ifade korunuyor #84",
+	"update.21_02_24.when_fishing_or_mining_something_that_uses_open_keep": "Ödül mesajları, eşyanın balıkçılıkla mı yoksa madencilikle mi elde edildiğini artık doğru gösteriyor #84",
 	"update.21_02_24.fixed_url_in_github_link_101": "GitHub bağlantısındaki URL düzeltildi #101",
 	"update.21_02_24.fix_small_bug_with_async_code_snippets_102": "Asenkron kod parçalarındaki küçük hata düzeltildi #102",
 	"update.21_02_24.mob_respawn_adjustment_through_grow_103": ".grow üzerinden canavar yeniden doğuş ayarı #103",

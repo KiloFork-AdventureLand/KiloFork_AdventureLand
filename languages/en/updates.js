@@ -212,8 +212,8 @@ module.exports = {
 	"update.21_02_24.included_pr_s": "Included PR's:",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
 	"update.21_02_24.introduce_tags_for_some_debuffs_81": "Introduce tags for some debuffs #81",
-	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
-	"update.21_02_24.when_fishing_or_mining_something_that_uses_open_keep": "When Fishing or Mining something that uses open keep the phrase #84",
+	// update_notes.js; historical PR #84 preserved the Fishing/Mining reward verb when an open drop recursively yielded another item. The note describes the reward message, not retaining player text or keeping an item closed.
+	"update.21_02_24.when_fishing_or_mining_something_that_uses_open_keep": "Reward messages now correctly show when an item was fished or mined #84",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
 	"update.21_02_24.fixed_url_in_github_link_101": "Fixed URL in GitHub link #101",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.

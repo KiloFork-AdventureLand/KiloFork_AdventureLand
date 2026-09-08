@@ -105,7 +105,7 @@
 	"update.21_03_24.move_xscorpion_spawn_so_it_is_inside_bounds_127": "Trasladar la aparición de xscorpion para que quede dentro de los límites #127",
 	"update.21_02_24.included_pr_s": "PR incluidas:",
 	"update.21_02_24.introduce_tags_for_some_debuffs_81": "Introducir etiquetas para algunos estados perjudiciales #81",
-	"update.21_02_24.when_fishing_or_mining_something_that_uses_open_keep": "Al pescar o extraer algo que usa open, mantener la frase #84",
+	"update.21_02_24.when_fishing_or_mining_something_that_uses_open_keep": "Los mensajes de recompensa ahora indican correctamente si el objeto se ha pescado o extraído mediante Minería #84",
 	"update.21_02_24.fixed_url_in_github_link_101": "Corregida la URL del enlace a GitHub #101",
 	"update.21_02_24.fix_small_bug_with_async_code_snippets_102": "Corregir un pequeño fallo con fragmentos de código asíncronos #102",
 	"update.21_02_24.mob_respawn_adjustment_through_grow_103": "Ajuste de reaparición de monstruos mediante .grow #103",

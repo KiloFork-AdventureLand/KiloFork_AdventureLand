@@ -105,7 +105,7 @@
 	"update.21_03_24.move_xscorpion_spawn_so_it_is_inside_bounds_127": "Точка появления xscorpion перенесена внутрь границ карты #127",
 	"update.21_02_24.included_pr_s": "Включённые PR:",
 	"update.21_02_24.introduce_tags_for_some_debuffs_81": "Добавлены метки для некоторых отрицательных эффектов #81",
-	"update.21_02_24.when_fishing_or_mining_something_that_uses_open_keep": "При рыбалке или добыче руды, использующих open, фраза теперь сохраняется #84",
+	"update.21_02_24.when_fishing_or_mining_something_that_uses_open_keep": "Сообщения о наградах теперь правильно указывают, получен ли предмет при рыбалке или добыче руды #84",
 	"update.21_02_24.fixed_url_in_github_link_101": "Исправлен URL ссылки на GitHub #101",
 	"update.21_02_24.fix_small_bug_with_async_code_snippets_102": "Исправлена небольшая ошибка в асинхронных примерах кода #102",
 	"update.21_02_24.mob_respawn_adjustment_through_grow_103": "Корректировка возрождения монстров через .grow #103",
