@@ -59,6 +59,8 @@ function harness() {
 		fail_response: (response, place) => events.push({ name: "failure", data: { response, place } }),
 	};
 	vm.createContext(context);
+	vm.runInContext(fs.readFileSync(path.join(root, "node/logic/encouragement.js"), "utf8"), context);
+	vm.runInContext(definition(source, "add_coop_points"), context);
 	for (const name of ["skill_offhand_matches", "commence_attack"]) vm.runInContext(definition(source, name), context);
 	for (const name of ["consume_mp", "consume_skill"]) vm.runInContext(definition(functions, name), context);
 	const start = source.indexOf('socket.on("skill",');

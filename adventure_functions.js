@@ -1235,11 +1235,12 @@ function server_url(server, api_method) {
 	return protocol + "://" + server.address + options.servers[server.key].api_path + api_method;
 }
 
-async function server_eval(server, code, data) {
+async function server_eval(server, code, data, timeout) {
 	if (!data) data = {};
 	try {
 		//console.log(server_url(server, "eval"));
 		var response = await fetch(server_url(server, "eval"), {
+			signal: timeout ? AbortSignal.timeout(timeout) : undefined,
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: new URLSearchParams({

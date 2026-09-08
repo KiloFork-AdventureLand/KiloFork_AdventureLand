@@ -621,6 +621,7 @@ docs = {
 		// 	]
 		// ],
 		["basics", "The Basics", "", "#97D058"],
+		["encouragement", "Encouragement Bonuses", "new,returning,lone wolf,bonus,contribution", "#7DBC88"],
 		["stats", "Attributes, Classes, Skills", "", "#33C9CC"],
 		["items", "Items, Upgrades, Crafting", "items", "#58ABFF"],
 		[

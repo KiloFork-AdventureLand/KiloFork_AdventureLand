@@ -333,6 +333,7 @@ test("damage-to-MP scales at each unlock, caps at missing MP, and ignores invali
 
 function damageContext() {
 	const context = guardianContext();
+	vm.runInContext(fs.readFileSync(path.join(root, "node/logic/encouragement.js"), "utf8"), context);
 	Object.assign(context, {
 		B: { heal_multiplier: 1, dps_tank_mult: 0.25 },
 		mode: { instant_monster_attacks: true },

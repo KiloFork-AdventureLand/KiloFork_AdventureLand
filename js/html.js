@@ -3071,6 +3071,7 @@ function render_tutorial(article, step, url) {
 }
 
 function render_learn_article(article, args) {
+	if (article.includes('id="encouragement-personal"')) article = article.replace('<div id="encouragement-personal"></div>', render_encouragement_info());
 	var html =
 		"<div style='background: #E5E5E5; color: #010805; border: 5px solid gray; min-width: 640px; max-width: 960px; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
 	html += article;
@@ -3083,6 +3084,21 @@ function render_learn_article(article, args) {
 	show_modal(html, { wrap: false, url: args && args.url });
 	$(".code").codemirror({ trim: true });
 	position_modals();
+}
+
+function render_encouragement_info() {
+	if (typeof character === "undefined" || !character || !character.encouragement) return "";
+	var state = character.encouragement, html = "<div class='divider'></div><div class='title'>Your Encouragement</div>";
+	var reasons = { checking: "Checking account activity.", character_limit: "Your linked accounts have 25 or more characters.", expired: "Your first 40 days have ended.", merchant: "Lone Wolf is for your non-merchant character.", another_character: "Another non-merchant character is running.", away: "Return after more than 60 days away to receive Welcome Back." };
+	for (var status of state.statuses) {
+		var condition = character.s[status.id], def = G.conditions[status.id];
+		if (!def) continue;
+		html += "<p><b>" + def.name + ": " + (condition ? "Active" : "Unavailable") + "</b><br>";
+		if (condition) html += condition.gold_multiplier + "× Gold · " + condition.xp_multiplier + "× XP · " + condition.luck_multiplier + "× Luck";
+		else html += reasons[status.reason] || "This bonus is not active.";
+		html += "</p>";
+	}
+	return html;
 }
 
 var render_function_html = "";
@@ -4030,6 +4046,18 @@ function render_item(selector, args) {
 		if (actual && item.charge && !actual.b) {
 			html += bold_prop_line("Charge", to_pretty_float(((actual.charges || 0) / item.charge) * 100) + "%", "#7433A7");
 		}
+		if (item.encouragement) {
+			if (prop.gold_multiplier) html += bold_prop_line("Gold", prop.gold_multiplier + "×", "#E3BB62");
+			if (prop.xp_multiplier) html += bold_prop_line("XP", prop.xp_multiplier + "×", "#A88BC7");
+			if (prop.luck_multiplier) html += bold_prop_line("Luck", prop.luck_multiplier + "×", "#79B899");
+			if (prop.phase) {
+				html += prop_line("Stage", prop.phase + " of 4");
+				if (prop.xp_multiplier === 1) html += "<div>New Player XP ended at level 80.</div>";
+				var next = item.phases && item.phases[prop.phase];
+				if (next) html += "<div>Next: " + next[0] + "× Gold, " + (prop.xp_multiplier === 1 ? 1 : next[1]) + "× XP, " + next[2] + "× Luck</div>";
+			}
+			html += "<div class='slimbutton' onclick='stpr(event); open_guide(\"encouragement\")'>INFO</div>";
+		}
 		if (item.explanation) {
 			html += "<div style='color: #C3C3C3'>" + item.explanation + "</div>";
 		} else if (item.type == "material") {
@@ -4450,6 +4478,7 @@ function render_condition(selector, name) {
 			def[p] = target.s[name][p];
 		}
 	}
+	if (def && def.encouragement && !(condition && condition.ms)) minutes = undefined;
 	render_item(selector, { skin: (condition && condition.skin) || (def && def.skin), item: def, prop: def, minutes: minutes, condition: condition });
 }
 

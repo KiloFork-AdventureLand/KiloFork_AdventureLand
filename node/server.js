@@ -81,6 +81,7 @@ var server_eval_direct = server_eval;
 eval("" + fs.readFileSync(path.resolve(__dirname, "../models.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "server_functions.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/market_patron_runtime.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/encouragement.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "../version.js")));
 var precomputed_bfs_path = path.resolve(__dirname, "precomputed_map_data.js");
 if (fs.existsSync(precomputed_bfs_path)) eval("" + fs.readFileSync(precomputed_bfs_path));
@@ -751,6 +752,8 @@ function player_to_server(player, place) {
 		}
 	}
 	if (place == "sync" && !Object.keys(player.q).length && player.type != "merchant") {
+		char.max_xp_multiplier = player.p.max_xp_multiplier || 1;
+		char.encouragement_reached80 = !!player.p.encouragement_reached80;
 		delete char.p;
 	} // ~20KB - too much [19/11/18]
 	return char;
@@ -847,6 +850,7 @@ function player_to_client(player, stranger) {
 			"goldm",
 			"xpm",
 			"luckm",
+			"encouragement",
 			"map",
 			"in",
 			"isize",
@@ -1200,11 +1204,19 @@ function calculate_player_stats(player) {
 		level_up = true;
 		player.xp -= player.max_xp;
 		player.level++;
+		player.p.max_xp_multiplier = 1;
+		if (player.level >= 80) player.p.encouragement_reached80 = true;
 		player.max_xp = G.levels[player.level + ""];
 		player.hp = 0;
 		achievement_logic_level(player);
 	}
 	if (level_up) {
+		if (player.encouragement) encouragement_update(player, true);
+		if (player.xp > 0)
+			player.p.max_xp_multiplier = max(
+				1,
+				(player.level >= 80 ? player.encouragement_xp_carry80 : player.encouragement_xp_carry) || 1,
+			);
 		if (player.level >= 80) {
 			realm_broadcast("server_message", { message: player.name + " is now level " + player.level, color: "#968CFA" });
 		} else if (player.level >= 70) {
@@ -1212,6 +1224,8 @@ function calculate_player_stats(player) {
 		}
 		xy_emit(player, "ui", { type: "level_up", name: player.name });
 	}
+	delete player.encouragement_xp_carry;
+	delete player.encouragement_xp_carry80;
 	//	disappearing_text(player.socket,player,"LEVEL UP!",{xy:1,size:"huge",color:"#724A8F"});
 	if (player.xp < 0) {
 		player.xp = 0;
@@ -2095,7 +2109,12 @@ function drop_one_thing(player, items, args) {
 	if (!is_array(items)) {
 		items = [items];
 	}
-	drop = chests[drop_id] = { items: [], cash: 0 };
+	var drop = (chests[drop_id] = args.reserved || { items: [], cash: 0 });
+	if (args.character) {
+		drop.character = args.character;
+		drop.owner = player.owner;
+		drop.group = args.group;
+	}
 	for (var i = 0; i < items.length; i++) {
 		if (is_string(items[i])) {
 			drop_item_logic(drop, [1, items[i]], is_in_pvp(player, 1));
@@ -2117,59 +2136,11 @@ function drop_one_thing(player, items, args) {
 	});
 }
 
-function drop_something(player, monster, share) {
-	if (monster.pet || monster.trap) {
-		return;
-	}
-	const is_pvp = is_in_pvp(player, 1);
-	achievement_logic_monster_kill(player, monster);
-	share = (share === undefined && 1) || share || 0;
-	// console.log("share: "+share);
-	var drop_id = randomStr(30);
-	var drop;
-	var chest = "chest3";
-	var hp_mult = 1;
-	var drop_norm = 1000;
-	var global_mult = monster.mult;
-	var monster_mult = monster.mult; // originally: G.maps[player.map] && G.maps[player.map].drop_norm [31/01/18]
-	var GOLD = D.monster_gold[monster.type];
-	if (B.use_pack_golds && monster.gold) {
-		GOLD = monster.gold;
-	}
-	if (drop_norm) {
-		hp_mult = monster.max_hp / drop_norm;
-	}
-
-	drop = chests[drop_id] = { items: [], cash: 0 };
-	drop.gold =
-		round(1 + GOLD * D.drops.gold.base * share + Math.random() * GOLD * D.drops.gold.random * share) *
-			monster.level *
-			monster.mult || 0; // previously 0.75
-	if (monster.extra_gold) {
-		drop.egold = (drop.egold || 0) + max(0, monster.extra_gold);
-	}
-	if (monster.outgoing) {
-		drop.egold =
-			(drop.egold || 0) +
-			min(
-				monster.outgoing * B.m_outgoing_gmult,
-				G.monsters[monster.type].hp * 0.048 * (gameplay == "hardcore" ? 50 : 1),
-			);
-	}
-	if (drop.egold) {
-		drop.egold *= share;
-	}
-	if (monster.difficulty === 0) {
-		drop.gold = drop.egold = 0;
-	}
-	drop.x = monster.x;
-	drop.y = monster.y;
-	drop.map = monster.map;
-	if (monster["global"]) {
-		drop.x = player.x;
-		drop.y = player.y;
-		drop.map = player.map;
-	}
+function roll_monster_drops(player, monster, drop, share, encouragement) {
+	var is_pvp = encouragement ? encouragement.pvp : is_in_pvp(player, 1);
+	var hp_mult = monster.max_hp / 1000;
+	var global_mult = monster.mult,
+		monster_mult = monster.mult;
 	// if(player.level<50 && mode.low49_20xglobal) global_mult=20; - Commented out after SpadarFaar discovered/used it [16/04/19]
 	// console.log(global_mult);
 	if (monster["1hp"]) {
@@ -2227,7 +2198,7 @@ function drop_something(player, monster, share) {
 	// if(player.level<50 && monster.type=="goo" && mode.low49_200xgoo) monster_mult=200;
 	if (D.drops.monsters[monster.type] && player.tskin != "konami") {
 		D.drops.monsters[monster.type].forEach(function (item) {
-			for (let d = 0; d < B.drop_table_multiplier; d++) {
+			for (let d = 0; d < (encouragement ? 1 : B.drop_table_multiplier); d++) {
 				let itemShouldDrop = shouldItemDrop(item);
 				if (itemShouldDrop || mode.drop_all) {
 					// /hp_mult - removed [13/07/18]
@@ -2246,7 +2217,11 @@ function drop_something(player, monster, share) {
 		});
 	}
 	// Home-server monster-specific drops
-	if (has_home_server_bonus(player) && D.drops.monsters_home_server[monster.type] && player.tskin != "konami") {
+	if (
+		(encouragement ? encouragement.home : has_home_server_bonus(player)) &&
+		D.drops.monsters_home_server[monster.type] &&
+		player.tskin != "konami"
+	) {
 		D.drops.monsters_home_server[monster.type].forEach(function (item) {
 			let itemShouldDrop = shouldItemDrop(item);
 			if (itemShouldDrop || mode.drop_all) {
@@ -2261,6 +2236,55 @@ function drop_something(player, monster, share) {
 			}
 		});
 	}
+}
+
+function drop_something(player, monster, share) {
+	if (monster.pet || monster.trap) {
+		return;
+	}
+	achievement_logic_monster_kill(player, monster);
+	share = (share === undefined && 1) || share || 0;
+	// console.log("share: "+share);
+	var drop_id = randomStr(30);
+	var drop;
+	var chest = "chest3";
+	var GOLD = D.monster_gold[monster.type];
+	if (B.use_pack_golds && monster.gold) {
+		GOLD = monster.gold;
+	}
+
+	drop = chests[drop_id] = { items: [], cash: 0 };
+	drop.gold =
+		round(1 + GOLD * D.drops.gold.base * share + Math.random() * GOLD * D.drops.gold.random * share) *
+			monster.level *
+			monster.mult || 0; // previously 0.75
+	if (monster.extra_gold) {
+		drop.egold = (drop.egold || 0) + max(0, monster.extra_gold);
+	}
+	if (monster.outgoing) {
+		drop.egold =
+			(drop.egold || 0) +
+			min(
+				monster.outgoing * B.m_outgoing_gmult,
+				G.monsters[monster.type].hp * 0.048 * (gameplay == "hardcore" ? 50 : 1),
+			);
+	}
+	if (drop.egold) {
+		drop.egold *= share;
+	}
+	if (monster.difficulty === 0) {
+		drop.gold = drop.egold = 0;
+	}
+	drop.x = monster.x;
+	drop.y = monster.y;
+	drop.map = monster.map;
+	if (monster["global"]) {
+		drop.x = player.x;
+		drop.y = player.y;
+		drop.map = player.map;
+	}
+	roll_monster_drops(player, monster, drop, share);
+	drop.encouragement_gold = drop.gold;
 	if (player.p.first && !player.p.first_drop) {
 		player.p.first_drop = true;
 		drop.gold += 100000;
@@ -2272,15 +2296,18 @@ function drop_something(player, monster, share) {
 	}
 	if (Math.random() < D.drops.gold.x10) {
 		drop.gold *= 10;
+		drop.encouragement_gold *= 10;
 		chest = "chest4";
 	} // previously 12
 	if (Math.random() < D.drops.gold.x50) {
 		drop.gold *= 50;
+		drop.encouragement_gold *= 50;
 		chest = "chest5";
 	} // previously 200
 	if (drop.items.length || drop.cash) {
 		chest = "chest6";
 	}
+	encouragement_chest(player, monster, drop, share);
 	drop.date = new Date();
 	if (player.party) {
 		var owners = [];
@@ -2595,9 +2622,10 @@ function issue_monster_awards(monster) {
 			if (current.type == "merchant") {
 				continue;
 			}
-			current.xp += round(monster.xp * share * current.xpm);
+			var cxp = encouragement_xp(current, monster, round(monster.xp * share * current.xpm), share);
+			current.xp += cxp;
 			if (current.t) {
-				current.t.xp += round(monster.xp * share * current.xpm);
+				current.t.xp += cxp;
 			}
 			delete current.s.coop;
 			resend(current, "u+cid");
@@ -2640,9 +2668,10 @@ function issue_monster_award(monster) {
 		if (player.type == "merchant") {
 			return;
 		}
-		player.xp += monster.xp * player.xpm * monster.mult;
+		var cxp = encouragement_xp(player, monster, monster.xp * player.xpm * monster.mult, 1);
+		player.xp += cxp;
 		if (player.t) {
-			player.t.xp += monster.xp * player.xpm * monster.mult;
+			player.t.xp += cxp;
 		}
 		player.cid++;
 		player.u = true;
@@ -2671,9 +2700,10 @@ function issue_monster_award(monster) {
 			if (current.type == "merchant") {
 				return;
 			}
-			current.xp += cxp * monster.mult;
+			cxp = encouragement_xp(current, monster, cxp * monster.mult, current.share);
+			current.xp += cxp;
 			if (current.t) {
-				current.t.xp += cxp * monster.mult;
+				current.t.xp += cxp;
 			}
 			current.cid++;
 			current.u = true;
@@ -2842,6 +2872,7 @@ function issue_player_award(attacker, target) {
 	}
 
 	target.gold -= lost_gold;
+	lost_xp = floor(lost_xp / max(1, (target.p && target.p.max_xp_multiplier) || 1));
 	target.xp -= lost_xp;
 	if (target.xp < 0) {
 		target.xp = 0;
@@ -3467,7 +3498,7 @@ function complete_attack(attacker, target, info) {
 	if (target.is_player && attack > 0 && !info.heal) {
 		add_pdps(target, attacker, attack * B.dps_tank_mult); // "tank"
 		if (attacker.cooperative) {
-			add_coop_points(attacker, target, attack * B.dps_tank_mult);
+			add_coop_points(attacker, target, attack * B.dps_tank_mult, 0);
 		}
 	}
 	if (attacker.is_monster && attack > 0 && !info.heal) {
@@ -3921,6 +3952,14 @@ function complete_attack(attacker, target, info) {
 		}
 		target.hp = min(target.hp - attack, target.max_hp); // both for damage and heal
 		var net = original - max(0, target.hp);
+		if (target.is_player && net > 0) {
+			if (attacker.is_monster) {
+				encouragement_points(attacker, target, net * B.dps_tank_mult);
+				encouragement_wound(target, attacker, net);
+			} else delete target.encouragement_wound;
+		} else if (target.is_player && net < 0) {
+			encouragement_heal(attacker, target, -net, target.max_hp - original);
+		}
 		if (!info.heal) def.damage = attack;
 		if (
 			!info.heal &&
@@ -3956,6 +3995,7 @@ function complete_attack(attacker, target, info) {
 				attacker.u = true;
 				attacker.cid++;
 			}
+			if (attacker.is_monster) encouragement_points(attacker, target, min(def.dreturn, attacker.hp));
 			attacker.hp = max(attacker.hp - def.dreturn, 0);
 		}
 
@@ -3985,8 +4025,8 @@ function complete_attack(attacker, target, info) {
 			if (target.master) {
 				m = instances[attacker.in].monsters[target.master];
 			}
-			if (m && m.is_monster && m.cooperative) {
-				add_coop_points(m, attacker, mnet);
+			if (m && m.is_monster) {
+				add_coop_points(m, attacker, mnet, net > 0 ? net : 0);
 			}
 		}
 
@@ -10661,6 +10701,15 @@ function init_socket_io(socket_server) {
 				return;
 			}
 			var r = { id: data.id, goldm: player.goldm, opener: player.name, items: [] };
+			if (chest && chest.character) {
+				if (
+					chest.character !== player.real_id ||
+					chest.owner !== player.owner ||
+					chest.group !== encouragement_identity(player).key
+				)
+					return fail_response("loot_failed");
+				r.goldm = 1;
+			}
 			if (chest && simple_distance(chest, player) > 400) {
 				r.goldm = 1;
 				r.dry = true;
@@ -10677,7 +10726,7 @@ function init_socket_io(socket_server) {
 					W.chest[player.owner] = new Date();
 					server_log("SEVERE - Cross Loot from " + player.name + " not from " + chest.owners.toString());
 				}
-				if (chest && !player.party) {
+				if (chest && (!player.party || chest.character)) {
 					var all_items = chest.items.slice(0);
 					all_items.concat(chest.pvp_items);
 					if (!can_add_items(player, all_items)) {
@@ -10747,6 +10796,7 @@ function init_socket_io(socket_server) {
 					}
 					resend(player, (reopen && "reopen+nc+inv") || "");
 					socket.emit("chest_opened", r);
+					encouragement_loot(chest, r.goldm);
 				} else if (chest) {
 					// var gold=round(chest.gold/parties[player.party].length);
 					r.party = true;
@@ -10883,6 +10933,7 @@ function init_socket_io(socket_server) {
 						resend(current, (reopen[current.id] && "reopen+nc+inv") || "");
 						current.socket.emit("chest_opened", r);
 					});
+					encouragement_loot(chest, r.goldm);
 				} else {
 					socket.emit("chest_opened", { id: data.id, gone: true });
 				}
@@ -10927,6 +10978,8 @@ function init_socket_io(socket_server) {
 					R.mainframe = true;
 				}
 				if (R.entity.server && msince(R.entity.last_sync) < 120) ex("ingame");
+				R.previous_online = R.entity.last_online;
+				R.entity.pid = R.entity.pid || R.owner.pid || "";
 				R.entity.server = A[1];
 				R.entity.online = true;
 				R.entity.last_sync = new Date();
@@ -11107,39 +11160,16 @@ function init_socket_io(socket_server) {
 			} //  || gameplay=="test"
 
 			init_player(player);
-			if (!observers[socket.id]) {
-				// observer hang up before "auth"
-				server_log("Abrupt stop for " + (entity.info.name || entity.name), 1);
-				if (gameplay != "hardcore" && gameplay != "test") {
-					dc_players[player.real_id] = player;
-				}
-				sync_loop();
-				return;
-			}
-			try {
-				delete_observer(socket);
-			} catch (e) {}
-
-			players[socket.id] = player;
-			resume_instance(instances[player.in]);
-			instances[player.in].players[player.id] = player;
-			pmap_add(player);
-
-			name_to_id[player.name] = socket.id;
-			id_to_id[player.id] = socket.id;
-
-			cache_player_items(player);
-			invincible_logic(player);
-			serverhop_logic(player);
-			realmfatigue_logic(player, characters);
-			calculate_player_stats(player);
-
 			if (data.epl == "mas" && data.receipt) {
 				player.platform = "mas";
 				verify_mas_receipt(player, data.receipt);
 			} else if (data.epl == "steam" && data.ticket) {
 				player.platform = "steam";
 				verify_steam_ticket(player, data.ticket);
+				if (player.p.steam_id && !(await persist_tauri_steam_install(owner, entity, data.auth, player.p.steam_id))) {
+					player.s.authfail = { ms: 900000 };
+				}
+				if (player.p.steam_id && !player.s.authfail) player.pid = player.p.steam_id;
 			} else if (data.epl == "tauri_steam") {
 				try {
 					await verify_tauri_steam_auth(player, owner, entity, data, socket);
@@ -11166,6 +11196,44 @@ function init_socket_io(socket_server) {
 					player.s.authfail = { ms: 100 };
 				}
 			}
+
+			if (!(await encouragement_login(player, R.previous_online))) {
+				socket.emit("game_error", "Could not confirm your other characters. Please try again.");
+				dc_players[player.real_id] = player;
+				sync_loop();
+				return;
+			}
+
+			if (!observers[socket.id]) {
+				// observer hang up before "auth"
+				server_log("Abrupt stop for " + (entity.info.name || entity.name), 1);
+				if (gameplay != "hardcore" && gameplay != "test") {
+					dc_players[player.real_id] = player;
+				}
+				sync_loop();
+				return;
+			}
+			try {
+				delete_observer(socket);
+			} catch (e) {}
+
+			players[socket.id] = player;
+			resume_instance(instances[player.in]);
+			instances[player.in].players[player.id] = player;
+			pmap_add(player);
+
+			name_to_id[player.name] = socket.id;
+			id_to_id[player.id] = socket.id;
+			for (var current of Object.values(players)) {
+				if (encouragement_identity(current).key === encouragement_identity(player).key)
+					encouragement_update(current, true);
+			}
+
+			cache_player_items(player);
+			invincible_logic(player);
+			serverhop_logic(player);
+			realmfatigue_logic(player, characters);
+			calculate_player_stats(player);
 
 			if (!is_player_allowed(player)) {
 				socket.emit("disconnect_reason", "limits");
@@ -12443,10 +12511,12 @@ function add_pdps(player, target, points) {
 	// console.log([player.pdps,pdps_mult]);
 }
 
-function add_coop_points(m, attacker, mnet) {
+function add_coop_points(m, attacker, mnet, contribution) {
 	if (!m) {
 		return;
 	}
+	encouragement_points(m, attacker, contribution === undefined ? mnet : contribution);
+	if (!m.cooperative) return;
 	if (m["1hp"]) {
 		mnet = 1;
 	}
@@ -12731,7 +12801,19 @@ function new_monster(instance, map_def, args) {
 		while (monster.level < args.last_state.level) {
 			level_monster(monster, { silent: true });
 		}
-		["hp", "level", "s", "temp", "points", "m", "extra_gold", "outgoing", "id"].forEach(function (p) {
+		[
+			"hp",
+			"level",
+			"s",
+			"temp",
+			"points",
+			"contributions",
+			"contribution_total",
+			"m",
+			"extra_gold",
+			"outgoing",
+			"id",
+		].forEach(function (p) {
 			if (args.last_state[p]) {
 				monster[p] = args.last_state[p];
 			}
@@ -12988,7 +13070,7 @@ function stop_pursuit(monster, args) {
 				instances[monster.in].monsters[monster.master] &&
 				instances[monster.in].monsters[monster.master].cooperative
 			) {
-				add_coop_points(instances[monster.in].monsters[monster.master], target, max(monster.hp, 300));
+				add_coop_points(instances[monster.in].monsters[monster.master], target, max(monster.hp, 300), 0);
 			}
 		}
 		reduce_targets(target, monster);
@@ -13170,6 +13252,7 @@ function update_instance(instance) {
 					}
 					if (name == "burned") {
 						var damage = ceil(ref.intensity / 5);
+						var contribution = min(monster.hp, damage);
 						//disappearing_text({},monster,"-"+damage,{color:"burn",xy:1});
 						monster.hp = max(0, monster.hp - damage);
 						xy_emit(monster, "hit", {
@@ -13183,9 +13266,7 @@ function update_instance(instance) {
 						var burner = get_player(ref.f);
 						if (burner) {
 							add_pdps(burner, monster, damage);
-							if (monster.cooperative) {
-								add_coop_points(monster, burner, damage);
-							}
+							add_coop_points(monster, burner, damage, contribution);
 						}
 						if (monster.hp <= 0) {
 							if (burner) {
@@ -13767,6 +13848,10 @@ function update_instance(instance) {
 		for (var name in player.s) {
 			var def = G.conditions[name];
 			var ref = player.s[name];
+			if (def && def.encouragement) {
+				encouragement_update(player);
+				continue;
+			}
 			if (name == "guardians_oath" && !guardians_oath_source(player)) player.s[name].ms = 0;
 			var value = player.s[name].ms;
 			player.s[name].ms -= ms;
@@ -15587,6 +15672,11 @@ function sync_entity(entity, data) {
 	entity.info.slots = data["slots"];
 	entity.info.rip = data.rip;
 	if (data.p) entity.info.p = data.p;
+	if (data.max_xp_multiplier !== undefined) {
+		entity.info.p = entity.info.p || {};
+		entity.info.p.max_xp_multiplier = data.max_xp_multiplier;
+		if (data.encouragement_reached80) entity.info.p.encouragement_reached80 = true;
+	}
 	entity.info.skin = data.skin;
 	entity.info.cx = data.cx || {};
 	entity.info.afk = data.afk;
@@ -15903,6 +15993,7 @@ async function server_loop() {
 			await save(Server);
 			await pull_server_information();
 			for (var id in players) if (!players[id].dc) realmfatigue_logic(players[id]);
+			encouragement_tick();
 		} else if (server.started && !server.live && !server.stopped) {
 			Server.online = false;
 			Server.info.recent_characters = server_information.snapshot(players);

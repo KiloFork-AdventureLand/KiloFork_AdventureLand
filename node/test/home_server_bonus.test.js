@@ -44,6 +44,7 @@ function loadHomeServerHelpers(clock = () => Date.now()) {
 		},
 	});
 	vm.runInContext(serverFunctions.slice(start, end), context);
+	vm.runInContext(fs.readFileSync(path.join(root, "node/logic/encouragement.js"), "utf8"), context);
 	load(context, "node/server_functions.js", ["add_condition"]);
 	return context;
 }
@@ -136,14 +137,14 @@ test("cached foreign activity affects already-online characters without extendin
 	const context = loadHomeServerHelpers(() => now);
 	load(context, "node/server.js", ["add_coop_points"]);
 	const current = player();
-	let monster = { id: "test", points: {} };
+	let monster = { id: "test", cooperative: true, points: {} };
 	context.add_coop_points(monster, current, 100);
 	assert.equal(monster.points.Current, 500);
 	foreignSnapshot(context, now - 60000);
 	context.realmfatigue_logic(current);
 	const until = now - 60000 + G.conditions.realmfatigue.duration;
 	assert.equal(current.s.realmfatigue.until, until);
-	monster = { id: "test", points: {} };
+	monster = { id: "test", cooperative: true, points: {} };
 	context.add_coop_points(monster, current, 100);
 	assert.equal(monster.points.Current, 100);
 	now += 30000;

@@ -237,6 +237,28 @@ var conditions = {
 		debuff: true,
 		explanation: "Burns the target with fire essence, dealing damage over time.",
 	},
+	encouragement_new: {
+		skin: "encouragement_new",
+		name: "New Player",
+		ui: true,
+		encouragement: true,
+		phases: [[5, 5, 5], [2, 4, 4], [2, 2, 3], [1.5, 1.5, 1.5]],
+		explanation: "A helping hand for your first 40 days. New Player XP ends at level 80. Extra rewards follow your contribution.",
+	},
+	encouragement_lonewolf: {
+		skin: "encouragement_lonewolf",
+		name: "Lone Wolf",
+		ui: true,
+		encouragement: true,
+		explanation: "3× Gold, XP and Luck while you run one non-merchant character. Merchants may stay online. Extra rewards follow your contribution.",
+	},
+	encouragement_returning: {
+		skin: "encouragement_returning",
+		name: "Welcome Back",
+		ui: true,
+		encouragement: true,
+		explanation: "Welcome back. There is more to discover. 3× Gold, XP and Luck below level 80; 2× from level 80. Extra rewards follow your contribution.",
+	},
 	newcomersblessing: {
 		skin: "newcomersblessing",
 		name: "Newcomers' Blessing",

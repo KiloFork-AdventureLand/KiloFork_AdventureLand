@@ -92,6 +92,7 @@ test("regular Server updates publish history and share one throttled projected p
 			savedVersions.push(entity.version);
 			entity.updated = new Date(now);
 		},
+		encouragement_tick() {},
 		realmfatigue_logic: (...args) => {
 			assert.equal(args.length, 1);
 			checks++;

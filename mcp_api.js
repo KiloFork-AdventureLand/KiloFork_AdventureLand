@@ -2264,6 +2264,14 @@ var MCP_RESOURCE_GUIDES = [
 		priority: 1,
 	},
 	{
+		uri: "adventureland://guide/encouragement",
+		name: "encouragement",
+		title: "Encouragement Bonuses",
+		description: "Automatic new-player, Lone Wolf and returning-player rewards, contribution rules, and CODE state.",
+		article: "encouragement",
+		priority: 0.8,
+	},
+	{
 		uri: "adventureland://guide/code-runtime",
 		name: "code-runtime",
 		title: "Character CODE runtime",

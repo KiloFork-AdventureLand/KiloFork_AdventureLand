@@ -1153,6 +1153,7 @@ async function pull_server_information() {
 					projection: {
 						_id: 1,
 						key: 1,
+						address: 1,
 						region: 1,
 						name: 1,
 						version: 1,

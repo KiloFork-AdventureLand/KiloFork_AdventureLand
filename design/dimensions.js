@@ -65,6 +65,9 @@ dimensions["goldenbat"]=dimensions["bat"];
 dimensions["pppompom"]=dimensions["minimush"]; dimensions["pppompom"][2]=-1;
 
 var positions={
+	"encouragement_new":["rawitems",14,3],
+	"encouragement_lonewolf":["rawitems",15,3],
+	"encouragement_returning":["rawitems",16,3],
 	//UI
 	"textures":["stone","stand0_texture","standx_texture","standg_texture","cstand_texture","wstand_texture","fstand_texture"], // these are loaded into textures{} in load_game [07/02/17]
 	"stone":["outside",672,104,16,20],

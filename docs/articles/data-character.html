@@ -126,6 +126,8 @@ show_json(character.s);</div>
 
 <p><span class="dlabel">s</span> contains active conditions, buffs, and debuffs. <span class="dlabel">c</span> contains cancellable channeling actions. <span class="dlabel">q</span> contains progressed item actions. Entries disappear when complete; test for their presence rather than retaining old references.</p>
 
+<p><span class="dlabel" data-field="encouragement">encouragement</span> reports your encouragement totals, eligibility and linked character count (capped at 25). The active conditions are <span class="dlabel">s.encouragement_new</span>, <span class="dlabel">s.encouragement_lonewolf</span> and <span class="dlabel">s.encouragement_returning</span>. Each has <span class="dlabel">gold_multiplier</span>, <span class="dlabel">xp_multiplier</span> and <span class="dlabel">luck_multiplier</span>. These factors apply to personal rewards after contribution, not your normal stats. See <span class="rlabel" onclick="open_guide('encouragement')">Encouragement Bonuses</span> for timers and a CODE example.</p>
+
 <p><span class="dlabel">Movement</span></p>
 
 <div class="code">{

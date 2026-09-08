@@ -249,7 +249,9 @@ function dropHarness(roll = 0) {
 		can_stack: () => false,
 	});
 	p.socket.emit = (...args) => emitted.push(args);
-	for (const name of ["drop_item_logic", "drop_something"]) vm.runInContext(definition(source, name), context);
+	vm.runInContext(fs.readFileSync(path.join(root, "node/logic/encouragement.js"), "utf8"), context);
+	for (const name of ["drop_item_logic", "roll_monster_drops", "drop_something"])
+		vm.runInContext(definition(source, name), context);
 	return {
 		context,
 		p,

@@ -1,0 +1,72 @@
+<div class="title">Encouragement Bonuses</div>
+<p>Adventure Land keeps going. If you are just starting, returning after a long break, or making your way with one character, these bonuses help you grow.</p>
+<p>Bonuses activate automatically and multiply together. Select your character and click a bonus condition to see its rates, then click INFO for this guide. You can also find it in GUIDE.</p>
+<div id="encouragement-personal"></div>
+
+<div class="divider"></div>
+<div class="title">New Players</div>
+<p>Everyone whose oldest character is less than 40 days old receives the New Player bonus. The clock starts when that character was created and keeps running while you are offline. Linked accounts share the same clock.</p>
+<table>
+	<tr><th>Age of your oldest character</th><th>Gold</th><th>XP</th><th>Luck</th></tr>
+	<tr><td>Under 10 days</td><td>5×</td><td>5×</td><td>5×</td></tr>
+	<tr><td>10–20 days</td><td>2×</td><td>4×</td><td>4×</td></tr>
+	<tr><td>20–30 days</td><td>2×</td><td>2×</td><td>3×</td></tr>
+	<tr><td>30–40 days</td><td>1.5×</td><td>1.5×</td><td>1.5×</td></tr>
+</table>
+<p>New Player XP ends when that character reaches level 80. Gold and Luck continue until the 40 days end.</p>
+
+<div class="divider"></div>
+<div class="title">Lone Wolf</div>
+<p><b>3× Gold · 3× XP · 3× Luck</b></p>
+<p>For those who bond with one adventurer. Lone Wolf applies to your only running non-merchant character. Merchants may stay online, but do not receive Lone Wolf.</p>
+<p>Another non-merchant on any linked account pauses it, even on another realm or in Mainframe. Log that character out to regain the bonus after activity updates. Parties with other players are fine.</p>
+
+<div class="divider"></div>
+<div class="title">Returning Players</div>
+<p>After more than 60 days away, Welcome Back lasts for half your time away, up to 90 days. All linked characters share the return window. An active merchant or CODE character counts as playing.</p>
+<p><b>Below level 80:</b> 3× Gold, XP and Luck.<br /><b>Level 80 and above:</b> 2× Gold, XP and Luck.</p>
+<p>For example, 120 days away gives 60 days of Welcome Back. The timer keeps running while you are offline.</p>
+
+<div class="divider"></div>
+<div class="title">Extra Rewards</div>
+<p>A new Lone Wolf starts with 15× Gold, XP and Luck. Your normal equipment, buffs, party shares and chest-opening rules still apply. Encouragement adds rewards for your own contribution to each monster: damage, tanking and useful healing.</p>
+<p>If you receive 100,000 gold from a 20% share but contributed 2%, a 5× Gold bonus adds:</p>
+<p>100,000 × 2 / 20 × (5 − 1) = 40,000 extra gold<br />Total: 140,000 gold</p>
+<p>Luck runs the eligible drop tables once more for you, scaled by your contribution and extra Luck. A guaranteed item can drop once normally and once more from this bonus, but a high multiplier does not repeat the bonus roll. Listed bundle quantities still apply.</p>
+<p>Loot normally. Extra items and gold go to the contributor, not the chest opener or party lottery. If your inventory is full, your extra rewards wait in a chest only that character can open. Stay connected to collect your rewards.</p>
+<p>Encouragement does not change the displayed XP, Gold or Luck stats. It does not multiply trading, selling, fixed prizes or PvP rewards.</p>
+
+<div class="divider"></div>
+<div class="title">Fair Play</div>
+<p>Linked accounts count together; another account on the same Steam ID does not restart New Player bonuses. At 25 characters or more, none of these bonuses apply. Merchants and offline characters count toward the limit.</p>
+<p>Last hits, chest openers and party changes cannot borrow another character's contribution. Overkill and overhealing add no credit. Deleting or transferring characters cannot restart your first 40 days or hide recent activity.</p>
+<p>The highest XP multiplier used at your level is saved. PvP XP loss and the winner's reward are divided by it. Leveling up resets the record; boosted XP carried into the new level is still protected. Reconnecting or losing a bonus does not clear it.</p>
+
+<div class="divider"></div>
+<div class="title">CODE: Read Your Bonuses</div>
+<p>Bonuses work automatically in CODE and Mainframe. Once your character has loaded:</p>
+<!-- prettier-ignore -->
+<div class="code" id="encouragement-code">var encouragement = { gold: 1, xp: 1, luck: 1 };
+var bonus_names = [
+    "encouragement_new",
+    "encouragement_lonewolf",
+    "encouragement_returning"
+];
+bonus_names.forEach(function (name) {
+    var bonus = character.s[name];
+    if (!bonus) return;
+    encouragement.gold *= bonus.gold_multiplier;
+    encouragement.xp *= bonus.xp_multiplier;
+    encouragement.luck *= bonus.luck_multiplier;
+});
+game_log("Encouragement: " + encouragement.gold + "x Gold, " +
+    encouragement.xp + "x XP, " + encouragement.luck + "x Luck");
+show_json(character.encouragement);</div>
+<p>These are encouragement factors before contribution is applied, not <span class="dlabel">xpm</span>, <span class="dlabel">goldm</span> or <span class="dlabel">luckm</span>. Active timed conditions include <span class="dlabel">ms</span> and <span class="dlabel">expires</span>; Lone Wolf has no expiry. Inactive conditions are absent. <span class="dlabel">character.encouragement</span> reports totals, eligibility and the character count (capped at 25). In Mainframe, <span class="dlabel">show_json</span> writes to the log.</p>
+<p>References: <span class="rlabel" onclick="render_function_reference('game_log')">game_log</span>, <span class="rlabel" onclick="render_function_reference('show_json')">show_json</span>, <span class="rlabel" onclick="open_article('data-character', '/docs/code/character/reference')">character</span>.</p>
+<style>
+	.title { color: #467956; font-size: 36px; margin-top: 15px; }
+	.divider { margin: 15px -26px 0; height: 5px; background-color: #a2a2a2; }
+	table { border-collapse: collapse; width: 100%; text-align: left; }
+	th, td { padding: 6px 12px 6px 0; border-bottom: 1px solid #b8b8b8; }
+</style>
