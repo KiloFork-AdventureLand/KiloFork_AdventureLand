@@ -664,6 +664,30 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	text-align: center;
 	color: white;
 }
+.theinventory{
+	position: relative;
+}
+.inventory-close{
+	position: absolute;
+	top: -29px;
+	right: -5px;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	width: 32px;
+	height: 32px;
+	padding: 0 0 2px 2px; /* Center the pixel font's visible X. */
+	border-radius: 0;
+	font-family: inherit;
+	font-size: 32px;
+	cursor: pointer;
+}
+.inventory-close:hover,.inventory-close:focus-visible{
+	border-color: #B5B5B5;
+	box-shadow: 0 0 6px gray !important;
+}
 .largerfont{
 	font-size: 32px;
 	line-height: 24px;

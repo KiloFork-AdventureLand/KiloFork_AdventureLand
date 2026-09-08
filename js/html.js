@@ -1465,6 +1465,9 @@ function render_inventory(reset) {
 		"<div style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; display: inline-block; vertical-align: bottom; " +
 		((is_comm && "margin-top: 40px; margin-bottom: 40px") || "") +
 		"' class='dcontain theinventory'>";
+	if (!is_comm)
+		html +=
+			"<button type='button' class='gamebutton inventory-close' title='Close inventory' aria-label='Close inventory' onpointerdown='stpr(event)' onclick='btc(event); render_inventory()'><span aria-hidden='true'>X</span></button>";
 	if (c_enabled) {
 		if (is_comm) {
 			html += "<div style='padding: 4px; display: inline-block;'>"; // '
