@@ -482,7 +482,7 @@
 	"interface.interaction.adventurer_i_can_upgrade_your_weapons_or_armors_combine_3": "¡Aventurero! Puedo mejorar tus armas y armaduras, y combinar 3 accesorios para crear uno más fuerte. Pero cuidado: el proceso no es perfecto. A veces los objetos... se pierden.",
 	"interface.interaction.upgrade": "MEJORAR",
 	"interface.interaction.combine": "COMBINAR",
-	"interface.interaction.lock_prevents_anything_that_can_destroy_an_item_selling_upgrading": "Bloquear: impide todo lo que pueda destruir un objeto, venderlo, mejorarlo... ¡lo que sea! Sellar: bloquea el objeto de modo que desbloquearlo tarde dos días. Desbloquear: lo libera. ¿Entendido? Bien. ¿El precio? 250 de los grandes.",
+	"interface.interaction.lock_prevents_anything_that_can_destroy_an_item_selling_upgrading": "Bloquear: impide todo lo que pueda destruir un objeto, venderlo, mejorarlo... ¡lo que sea! Sellar: bloquea el objeto de modo que desbloquearlo tarde dos días. Desbloquear: lo libera. ¿Entendido? Bien. ¿El precio? 250 mil de oro.",
 	"interface.interaction.lock": "BLOQUEAR",
 	"interface.interaction.seal": "SELLAR",
 	"interface.interaction.unlock": "DESBLOQUEAR",

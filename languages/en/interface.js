@@ -965,7 +965,7 @@ module.exports = {
 	"interface.interaction.upgrade": "UPGRADE",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.combine": "COMBINE",
-	// js/html.js render_interaction; authored interface text.
+	// js/html.js render_interaction; locksmith greeting. "250 big ones" means 250,000 gold, the fee charged by node/server.js locksmith operations. Use a clear equivalent amount, not 250 gold. Unsealing takes two days.
 	"interface.interaction.lock_prevents_anything_that_can_destroy_an_item_selling_upgrading": "Lock - Prevents anything that can destroy an item, selling, upgrading, you name it! Seal - Locks the item in a way that unlocking it takes two days. Unlock - Frees it. Got it? Good. Cost? 250 big ones.",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.lock": "LOCK",
