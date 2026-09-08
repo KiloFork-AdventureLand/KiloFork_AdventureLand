@@ -528,7 +528,6 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	overflow:visible;
 }
 #event-announcements .event-announcement:last-child{margin-bottom:0}
-.event-announcement:hover{background:#161923!important}
 .event-announcement:focus-visible{outline:3px solid var(--event-accent);outline-offset:-7px}
 .event-announcement-sprite{position:relative;display:flex;align-items:center;justify-content:center;width:48px;height:48px;flex:none;pointer-events:none;image-rendering:crisp-edges;image-rendering:pixelated}
 .event-announcement-copy{position:relative;display:block;flex:1;min-width:0;background:#080B10}
@@ -684,9 +683,70 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	font-size: 24px;
 	cursor: pointer;
 }
-.inventory-close:hover,.inventory-close:focus-visible{
-	border-color: #B5B5B5;
-	box-shadow: 0 0 6px gray !important;
+.ui-close-frame{
+	position: relative;
+}
+.ui-close-top{
+	margin-top: 26px;
+}
+.ui-close{
+	position: absolute;
+	top: -31px;
+	right: -5px;
+	z-index: 4;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	width: 32px;
+	height: 32px;
+	padding: 0 0 2px 2px;
+	border-radius: 0;
+	background: var(--ui-close-background, black);
+	color: var(--ui-close-color, white);
+	border-color: var(--ui-close-border, gray);
+	font-family: Pixel;
+	font-size: 24px;
+	line-height: 24px;
+	cursor: pointer;
+	pointer-events: auto;
+}
+.ui-close-word{
+	width: auto;
+	padding-left: 9px;
+	padding-right: 7px;
+}
+.ui-close-docs{
+	top: -30px;
+	right: -30px;
+	height: auto;
+	padding: 12px;
+	background: black;
+	color: white;
+}
+.ui-close-bottom{
+	top: auto;
+	right: -5px;
+	bottom: -5px;
+	transform: translate(50%, 50%);
+}
+.ui-close-skills{
+	top: auto;
+	bottom: 10px;
+	right: calc(100% - 4px);
+}
+.ui-code-close{
+	top: -5px;
+	right: -5px;
+	z-index: 200;
+}
+.ui-close-com{
+	top: -39px;
+	right: -15px;
+	width: 40px;
+	height: 40px;
+	font-size: 32px;
+	line-height: 32px;
 }
 .largerfont{
 	font-size: 32px;

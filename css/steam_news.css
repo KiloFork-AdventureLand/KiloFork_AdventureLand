@@ -35,10 +35,6 @@
 	color: #69d6cf;
 	font-size: 40px;
 }
-#steam-news-banner .steam-news-button:hover {
-	border-color: #69d6cf;
-	background: #141321;
-}
 .steam-news-button:focus-visible,
 .steam-news-dialog button:focus-visible,
 .steam-news-dialog a:focus-visible {

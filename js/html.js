@@ -14,6 +14,58 @@ var u_item = null,
 	ds_item = null;
 
 var settings_shown = 0;
+function add_ui_close(panel, action, options) {
+	if (window.no_html) return;
+	options = options || {};
+	panel = $(panel);
+	var existing = panel.find("button,a,[onclick],.clickable").filter(function () {
+		return this.hasAttribute("data-ui-dismiss") || /close|cancel/i.test(this.getAttribute("aria-label") || "") ||
+			(/^[<>\[\s]*(x|×|close|cancel|nope|no!?|back|go back|ok(?:ay)?|got it!?)[<>\]\s]*$/i.test($(this).text().trim()) &&
+			/\b(hide_modals?|close_chat_window|close_merchant|toggle_code|render_inventory)\s*\(|\.remove\s*\(|topleft_npc\s*=\s*false/.test(this.getAttribute("onclick") || ""));
+	});
+	if (!panel.length || panel.find(".ui-close,.inventory-close").length || existing.length) return;
+	var children = panel.children().not("script,style,[hidden]"), frame = panel,
+		bottom = panel.closest("#topleftcorner").length > 0;
+	if (!options.frame && (children.length == 1 || bottom)) frame = children.first();
+	var style = getComputedStyle(frame[0]);
+	frame.addClass("ui-close-frame");
+	frame[0].style.setProperty("--ui-close-background", style.backgroundColor == "rgba(0, 0, 0, 0)" ? "black" : style.backgroundColor);
+	frame[0].style.setProperty("--ui-close-color", style.color);
+	frame[0].style.setProperty("--ui-close-border", parseFloat(style.borderTopWidth) ? style.borderTopColor : "gray");
+	if (panel.is("#skills-item")) frame.addClass("ui-close-top");
+	var label = options.label || (frame.outerWidth() >= 600 ? "CLOSE" : "X");
+	var button = $("<button type='button' class='gamebutton ui-close' title='Close' aria-label='Close' onpointerdown='stpr(event)' onclick='btc(event); close_ui_panel(this)'><span aria-hidden='true'></span></button>");
+	button.attr("data-ui-close", action).data("panel", panel[0]).find("span").text(label);
+	if (options.corner) button.css({ top: -parseFloat(style.borderTopWidth), right: -parseFloat(style.borderRightWidth) });
+	else if (bottom) button.addClass("ui-close-bottom").css({ bottom: -parseFloat(style.borderBottomWidth), right: -parseFloat(style.borderRightWidth) });
+	else if (!options.classes && !parseFloat(style.borderTopWidth)) button.css({ top: parseFloat(style.paddingTop) - 26, right: parseFloat(style.paddingRight) });
+	if (label != "X") button.addClass("ui-close-word");
+	if (options.classes) button.addClass(options.classes);
+	frame.prepend(button);
+}
+
+function render_ui_panel(selector, html, action) {
+	var panel = $(selector).html(html);
+	add_ui_close(panel, action || (selector == "#topleftcornerui" ? "target" : "details"));
+	return panel;
+}
+
+function close_ui_panel(button) {
+	var action = button.getAttribute("data-ui-close");
+	if (action == "modal") return hide_modal();
+	if (action == "skills") return render_skills();
+	if (action == "target") {
+		topleft_npc = false;
+		ctarget = xtarget = rendered_target = dialogs_target = null;
+		$("#topleftcornerui").html('<div class="gamebutton">NO TARGET</div>');
+		$("#topleftcornerdialog").empty();
+		reset_inventory();
+	} else {
+		if (action == "stats") topright_npc = false;
+		$($(button).data("panel")).empty();
+	}
+}
+
 function show_settings() {
 	show_modal($(".basicsettings").html(), { wrap: false, styles: "width:600px", hideinbackground: true });
 }
@@ -759,7 +811,7 @@ function render_character_sheet() {
 		else html += "<div><span style='color:gray'>Luck:</span> " + round(character.luckm * 100) + "%</div>";
 	}
 	html += "</div>";
-	$("#rightcornerui").html(html);
+	render_ui_panel("#rightcornerui", html, "stats");
 	topright_npc = "character";
 }
 
@@ -848,7 +900,7 @@ function render_npc(npc) {
 	html += bold_prop_line("NPC", npc.name, "gray");
 	html += bold_prop_line("LEVEL", npc.level, "orange");
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 }
 
 function render_monster(monster) {
@@ -994,7 +1046,7 @@ function render_monster(monster) {
 	}
 	html += button_line({ name: "<span style='color:gray'>{}</span><span style='color:white'>:</span> INSPECT", onclick: "ui_inspect(xtarget||ctarget)", color: colors.inspect });
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	render_conditions(monster);
 }
 
@@ -1073,7 +1125,7 @@ function render_character(player) {
 	if (already) {
 		$(".ihtml").html(ihtml);
 		if (bid != cache_bid) $(".bhtml").html(bhtml);
-	} else $("#topleftcornerui").html(html);
+	} else render_ui_panel("#topleftcornerui", html);
 	render_conditions(player);
 	render_slots(player, { cx: true });
 	// if(ctoggled==player.name) $('.cmerchant').toggle();
@@ -1259,7 +1311,7 @@ function render_transports_npc() {
 		}
 	}
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 }
 
 function send_mainframe_command() {
@@ -1283,7 +1335,7 @@ function render_mainframe() {
 		"<div><span class='commander clickable' onclick='$(\".maincommand\").cfocus()'>mainframe&gt;</span> <div class='inline-block maincommand editable' contenteditable=true data-default='\u00a0'> </div></div>";
 	html += "<div class='clickable' onclick='socket.emit(\"leave\"); push_deferred(\"leave\")'>logout</div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	$(".maincommand").keydown(function (e) {
 		if (e.keyCode === 13) {
 			send_mainframe_command();
@@ -1312,7 +1364,7 @@ function render_gold_npc() {
 	if (options.bank_max) html += "<div class='gamebutton clickable mr5' onclick='$(\".npcgold\").html(max(character.bank.gold,character.gold))'>MAX</div>";
 	html += "<div class='gamebutton clickable mr5' onclick='deposit()'>DEPOSIT</div><div class='gamebutton clickable' onclick='withdraw()'>WITHDRAW</div></div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	cfocus(".npcgold");
 }
 
@@ -1355,7 +1407,7 @@ function render_items_npc(pack) {
 		html += "</div>";
 	}
 	html += "</div><div id='storage-item' class='rendercontainer' style='display: inline-block; vertical-align: top; margin-left: 5px'></div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	for (var i = 0; i < collection.length; i++) {
 		var entity = collection[i];
 		function item_click(entity) {
@@ -1595,7 +1647,7 @@ function render_craftsman() {
 		button +
 		"</div></div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 }
 
@@ -1660,7 +1712,7 @@ function render_dismantler() {
 		html+="</div>";*/
 	html += "<div style='margin-top: 12px'><div class='gamebutton clickable' onclick='dismantle()'>" + button + "</div></div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 }
 
@@ -1691,7 +1743,7 @@ function render_locksmith(mode) {
 		html+="</div>";*/
 	html += "<div style='margin-top: 12px'><div class='gamebutton clickable' onclick='" + f + "()'>" + button + "</div></div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 }
 
@@ -1717,7 +1769,7 @@ function render_scrollsmith() {
 		html+="</div>";*/
 	html += "<div style='margin-top: 12px'><div class='gamebutton clickable' onclick='" + f + "()'>" + button + "</div></div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 }
 
@@ -1730,7 +1782,7 @@ function render_recipe(element, type, name) {
 	} else {
 		html = render_item("html", { item: G.items[name], name: name, dismantle: true });
 	}
-	if (element) $("#recipe-item").html(html);
+	if (element) render_ui_panel("#recipe-item", html);
 	else show_modal(html, { wrap: false, hideinbackground: true });
 }
 
@@ -1781,7 +1833,7 @@ function render_recipes(type, only) {
 		((next_side_interaction && render_interaction(next_side_interaction, "return_html")) || " ") +
 		"</div>";
 	next_side_interaction = null;
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 }
 
 function render_recipes_old(quest) {
@@ -1808,7 +1860,7 @@ function render_recipes_old(quest) {
 		if (!(i % 6)) html += "<div></div>";
 	});
 	html += "</div><div id='recipe-item' style='display: inline-block; vertical-align: top; margin-left: 5px'></div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 }
 
 function render_exchange_shrine(type) {
@@ -1847,7 +1899,7 @@ function render_exchange_shrine(type) {
 	html += "<div><div class='gamebutton clickable' onclick='exchange()'>" + button + "</div></div>";
 	html += "</div>";
 	html += "<div id='exc-ui' class='rendercontainer' style='display: inline-block; vertical-align: top; margin-left: 5px'>" + "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 	return (!character.q.exchange && originals) || [];
 }
@@ -1878,7 +1930,7 @@ function render_pet_shrine() {
 	html += "</div>";
 	html += "<div><div class='gamebutton clickable' onclick='exchange()'>RELEASE</div></div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 	return (!character.q.exchange && originals) || [];
 }
@@ -1902,7 +1954,7 @@ function render_none_shrine(type) {
 	html += "</div>";
 	html += "<div><div class='gamebutton clickable' onclick='poof()'>" + button + "</div></div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 }
 
@@ -1920,7 +1972,7 @@ function render_shells_buyer() {
 		prefix = "<a href='https://adventure.land/shells' class='cancela' target='_blank'><span class='clickable' onclick='rendered_target=null;' style='color: #359ECF'>Buy With $</span></a> | ";
 	html += "<div>" + prefix + "<span class='clickable' onclick='topleft_npc=false;' style='color: #555556'>Nope</span></div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 }
 
@@ -1961,7 +2013,7 @@ function render_upgrade_shrine(explicit) {
 	html += "<div class='gamebutton clickable ml5' onclick='upgrade(u_item,u_scroll,u_offering);'>UPGRADE</div>";
 	html += "</div>";
 	if (already) $("#core").html(core);
-	else $("#topleftcornerui").html(html);
+	else render_ui_panel("#topleftcornerui", html);
 	if (character.q.upgrade) {
 		$(".loadertheuitem" + rid).css("opacity", 0.8);
 		add_tint(".loadertheuitem" + rid, { ms: character.q.upgrade.ms, start: future_ms(character.q.upgrade.ms - character.q.upgrade.len), type: "progress", upgrade: true });
@@ -2013,7 +2065,7 @@ function render_compound_shrine(explicit) {
 	html += "<div class='gamebutton clickable ml5' onclick=' compound(c_items[0],c_items[1],c_items[2],c_scroll,c_offering);'>COMBINE</div>";
 	html += "</div>";
 	if (already) $("#core").html(core);
-	else $("#topleftcornerui").html(html);
+	else render_ui_panel("#topleftcornerui", html);
 	if (character.q.compound) {
 		$(".loadertheuitem" + rid).css("opacity", 0.8);
 		add_tint(".loadertheuitem" + rid, { ms: character.q.compound.ms, start: future_ms(character.q.compound.ms - character.q.compound.len), type: "progress", compound: true });
@@ -2083,7 +2135,7 @@ function render_dice() {
 	html += "<div class='gamebutton clickable diceb' onclick='on_dice_bet()' style='width: 200px;'>BET <span class='gray dicexx'>FOR 2X</span></div>";
 	html += "</div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 	on_dice_change();
 }
@@ -2105,7 +2157,7 @@ function render_tavern_info(data) {
 	html += "<div><span class='gold'>" + to_pretty_num(data.max) + "</span></div>";
 	html += "</div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 }
 
@@ -2134,7 +2186,7 @@ function render_donate() {
 	html += "<div class='gamebutton clickable diceb' onclick='donate()' style='width: 160px; margin-top: 20px'>DONATE</div>";
 	html += "</div>";
 	html += "</div>";
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
 	on_donate_change();
 }
@@ -2172,7 +2224,7 @@ function render_merchant(npc, premium) {
 		((next_side_interaction && render_interaction(next_side_interaction, "return_html")) || " ") +
 		"</div>";
 	next_side_interaction = null;
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	for (var i = 0; i < collection.length; i++) {
 		var entity = collection[i];
 		function item_click(entity) {
@@ -2230,7 +2282,7 @@ function render_token_exchange(token) {
 		((next_side_interaction && render_interaction(next_side_interaction, "return_html")) || " ") +
 		"</div>";
 	next_side_interaction = null;
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 	for (var i = 0; i < collection.length; i++) {
 		var entity = collection[i];
 		function item_click(entity) {
@@ -2905,13 +2957,13 @@ function render_skill(selector, skill_name, args) {
 	}
 	html += "</div>";
 	if (modal_count) show_modal(html, { wrap: false });
-	else $(selector).html(html);
+	else render_ui_panel(selector, html);
 }
 
 function render_computer_network(selector, type, num) {
 	var html =
 		"<div style='background-color: black; border: 5px solid gray; font-size: 24px; display: inline-block; padding: 20px; line-height: 24px; max-width: 240px;' class='buyitem'><div class='computernx'></div></div>";
-	$(selector).html(html);
+	render_ui_panel(selector, html);
 	render_computer($(".computernx"), type, num);
 }
 
@@ -2958,7 +3010,7 @@ function render_secondhands(type) {
 		((next_side_interaction && render_interaction(next_side_interaction, "return_html")) || " ") +
 		"</div>";
 	next_side_interaction = null;
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 }
 
 function old_render_gallery() {
@@ -3065,7 +3117,7 @@ function render_tutorial(article, step, url) {
 		"</div></div>";
 	html += "</div>";
 
-	show_modal(html, { wrap: false, url: url });
+	show_modal(html, { wrap: false, url: url, close: { label: "Close", classes: "ui-close-docs" } });
 	update_tutorial_ui();
 	$(".code").codemirror({ trim: true });
 	position_modals();
@@ -3082,7 +3134,7 @@ function render_learn_article(article, args) {
 	if (args.next)
 		html += "<div class='gamebutton' style='position: absolute; bottom: -30px; right: -20px' onclick='hide_modal(); open_guide(\"" + args.next + '","/docs/guide/' + args.next + "\")'>Next &gt;</div>";
 	html += "</div>";
-	show_modal(html, { wrap: false, url: args && args.url });
+	show_modal(html, { wrap: false, url: args && args.url, close: { label: "Close", classes: "ui-close-docs" } });
 	$(".code").codemirror({ trim: true });
 	position_modals();
 }
@@ -3781,7 +3833,7 @@ function render_wishlist(num, page) {
 		html += "</div>";
 	}
 	html += "</div>";
-	$("#topleftcornerdialog").html(html);
+	render_ui_panel("#topleftcornerdialog", html);
 	dialogs_target = character;
 }
 
@@ -4402,7 +4454,7 @@ function render_item(selector, args) {
 	if (!args.pure) html += "</div>";
 	if (selector == "html") return html;
 	else if (modal_count) show_modal(html, { wrap: false });
-	else $(selector).html(html);
+	else render_ui_panel(selector, html);
 }
 
 function render_item_by_name(name) {
@@ -4438,7 +4490,7 @@ function render_wishlist_item(name, num) {
 	html += "<div><span class='clickable' onclick='wishlist_form(" + num + ',"' + name + "\")'>WISHLIST</span></div>";
 
 	html += "</div>";
-	$("#topleftcornerdialog").html(html);
+	render_ui_panel("#topleftcornerdialog", html);
 	dialogs_target = character;
 }
 
@@ -4463,7 +4515,7 @@ function render_set(name) {
 	}
 	html += "</div>";
 	if (modal_count) show_modal(html, { wrap: false, hideinbackground: true });
-	else $(selector).html(html);
+	else render_ui_panel(selector, html);
 }
 
 function render_condition(selector, name) {
@@ -5236,6 +5288,7 @@ function render_skills() {
 	$("body").append("<div id='theskills' style='position: fixed; z-index: 310; bottom: 0px; right: 0px; display: flex; align-items: flex-end' class='disableclicks bpclicks'></div>");
 	$(".skillsui").show();
 	$("#theskills").html(html);
+	add_ui_close($("#theskills"), "skills", { frame: true, label: "CLOSE", classes: "ui-close-skills" });
 	restart_skill_tints();
 }
 
@@ -5408,7 +5461,7 @@ function render_travel(the_map) {
 		});
 	}
 	html += "</div>";
-	if (!$(".cxmodalteleporter").length) show_modal(html, { wrap: false }); //true,styles:"background-color:#ABACB6",wwidth:420});
+	if (!$(".cxmodalteleporter").length) show_modal(html, { wrap: false, close: { label: "CLOSE", corner: true } });
 }
 
 function render_gtravel() {
@@ -5716,7 +5769,7 @@ function render_interaction(type, sub_type, args) {
 
 	html += "</div>";
 	if (sub_type == "return_html") return html;
-	$("#topleftcornerui").html(html);
+	render_ui_panel("#topleftcornerui", html);
 }
 
 function load_nearby(fallback) {
@@ -6200,7 +6253,7 @@ function render_com() {
 	html += "<div style='font-size: 16px; margin-top: 5px; color: gray; text-align: center'>NOTE: The Communicator is an evolving protoype</div>";
 	// html+="<div class='gamebutton mt5' style='display: block'>Refresh</div>";
 	html += "</div>";
-	show_modal(html, { wwidth: min(680, $(window).width() - 52) }); //styles:"background: #CACACA; border-color: #4C4C4C"
+	show_modal(html, { wwidth: min(680, $(window).width() - 52), close: { label: "X", classes: "ui-close-com" } });
 	load_nearby(1);
 }
 
@@ -6802,7 +6855,7 @@ function render_cosmetics(player, args) {
 	html += "</div>";
 	html += "</div>";
 	dialogs_target = xtarget || ctarget;
-	$("#topleftcornerdialog").html(html);
+	render_ui_panel("#topleftcornerdialog", html);
 }
 
 function load_class_info(name, look) {

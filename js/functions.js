@@ -396,6 +396,7 @@ function show_modal(mhtml, args) {
 	html += "</div>";
 	if ($(".modal:last").hasClass("hideinbackground")) $(".modal:last").hide();
 	$("body").append(html);
+	add_ui_close($(".imodal:last"), "modal", Object.assign({ frame: args.wrap }, args.close));
 	var iheight = $(".imodal:last").height();
 	if (height > iheight)
 		$(".imodal:last")
@@ -950,7 +951,7 @@ function show_confirm(text, ok, cancel, onclick) {
 	html += "<div style='width: 410px; text-align: right; font-size: 0px'>";
 	if (is_array(ok)) (color = ok[0]), (ok = ok[1]);
 	html += "<div class='gamebutton' style='border-color: " + color + "; margin: 6px 6px 6px 0px' onclick='sc_onclick[\"" + rid + "\"]();'>" + ok + "</div>";
-	html += "<div class='gamebutton' style='margin: 6px 0px 6px 6px' onclick='hide_modal();'>" + cancel + "</div>";
+	html += "<div class='gamebutton' data-ui-dismiss style='margin: 6px 0px 6px 6px' onclick='hide_modal();'>" + cancel + "</div>";
 	html += "</div>";
 	show_modal(html, { wrap: false });
 }
@@ -1618,7 +1619,7 @@ function transport_to(place, s) {
 }
 
 function show_transports() {
-	$("#rightcornerui").html($(".transports").html());
+	render_ui_panel("#rightcornerui", $(".transports").html(), "stats");
 	topright_npc = "transports";
 }
 
@@ -6052,6 +6053,11 @@ function sfx(type, x, y) {
 		if (type == "npc") sound = sounds.drop;
 		if (!sound && sounds[type]) sound = sounds[type];
 		if (sound) {
+			var event = window.event;
+			if (event && ui_click_target(event.target)) {
+				event.ui_sound_played = true;
+				if (event.ui_sound_press) event.ui_sound_press.played = true;
+			}
 			if (x === undefined) sound.play();
 			else {
 				if (mode.directional_sfx) {
@@ -6120,9 +6126,48 @@ function tut(name) {
 	}
 }
 
+var ui_sound_press = null;
+function ui_click_target(target) {
+	if (!target || !target.closest) return null;
+	if (target.closest(".disabled,.disable,[disabled],[aria-disabled='true']")) return null;
+	if (target.closest("textarea,[contenteditable],input:not([type='checkbox']):not([type='radio'])")) return null;
+	var control = target.closest("button,a[href],[role='button'],[onclick],[onmousedown],.clickable,.rclick,input[type='checkbox'],input[type='radio'],select");
+	while (control && control.matches(".modal,.imodal,.bpclicks,.destroy,.oncreate,[id^='chatw'],#bottomleftcorner2"))
+		control = control.parentElement && ui_click_target(control.parentElement);
+	return control;
+}
+
+function init_ui_click_sound() {
+	if (window.no_html || document.ui_click_sound_ready) return;
+	document.ui_click_sound_ready = true;
+	document.addEventListener("pointerdown", function (event) { event.ui_sound_press = ui_sound_press = { played: false }; }, true);
+	["mousedown", "touchstart", "click"].forEach(function (type) {
+		document.addEventListener(type, function (event) {
+			if (type != "click" || event.detail) event.ui_sound_press = ui_sound_press;
+			if (type == "click") ui_sound_press = null;
+			var control = ui_click_target(event.target);
+			// Some item controls act on mouse-down and replace themselves before click.
+			if (control && (type == "click" || (control.hasAttribute("on" + type) && (type == "touchstart" || (event.button == 0 && !control.hasAttribute("onclick")))))) {
+				// Let existing handlers play first, including the new volume preview.
+				setTimeout(function () { pcs(event); }, 0);
+			}
+		}, true);
+	});
+}
+
+if (typeof document != "undefined") {
+	if (document.readyState == "loading") document.addEventListener("DOMContentLoaded", init_ui_click_sound, { once: true });
+	else init_ui_click_sound();
+}
+
 function pcs(type) {
 	if (!window.sound_sfx) return;
+	var event = type && typeof type == "object" ? type.originalEvent || type : window.event;
+	if (type && typeof type == "object") type = undefined;
 	if (!type || type == 0) {
+		if (event && (event.ui_sound_played || (event.ui_sound_press && event.ui_sound_press.played))) return;
+		if (event) event.ui_sound_played = true;
+		if (event && event.ui_sound_press) event.ui_sound_press.played = true;
 		if (sounds.click) sounds.click.play();
 	}
 	if (type == "success" && sounds.success) sounds.success.play();
