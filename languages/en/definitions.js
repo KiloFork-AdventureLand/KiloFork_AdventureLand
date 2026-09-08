@@ -526,8 +526,8 @@ module.exports = {
 	"event.abtesting.announcement.text": "Join the team battle.",
 	// design/events.js; abtesting name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Test","A/B Testing"].
 	"event.abtesting.name": "A/B Testing",
-	// design/events.js; anniversary announcement, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Gift"].
-	"event.anniversary.announcement.text": "Find players for cake and Gifts.",
+	// design/events.js; anniversary announcement, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Anniversary Gift"].
+	"event.anniversary.announcement.text": "Find players for cake and Anniversary Gifts.",
 	// design/events.js; anniversary announcement, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"event.anniversary.announcement.title": "10 Years of Adventure",
 	// design/events.js; anniversary name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Adventure Land"].
@@ -2567,6 +2567,7 @@ module.exports = {
 	// design/skills.js; stack name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.stack.name": "Stacked Damage",
 	// design/skills.js; stomp explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// basher is the weapon category (wtype basher), including both Basher and Wooden Basher. Use the translated weapon_type.basher.name; do not require only the named Basher item.
 	"skill.stomp.explanation": "Use your basher to Stomp the ground to Stun enemies nearby!",
 	// design/skills.js; stomp name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.stomp.name": "Stomp",

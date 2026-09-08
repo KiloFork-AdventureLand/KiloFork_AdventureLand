@@ -1,1 +1,1 @@
-phrase.load("pl",{"desktop.loading":"LOADING","desktop.connection_help":"Adventure Land needs an internet connection. Check your connection and try reloading. If it still won't load, email hello@adventure.land.","desktop.apology":"Sorry about the wait :)"});
+phrase.load("pl",{"desktop.loading":"WCZYTYWANIE","desktop.connection_help":"Adventure Land wymaga połączenia z internetem. Sprawdź połączenie i spróbuj wczytać ponownie. Jeśli nadal się nie udaje, napisz na hello@adventure.land.","desktop.apology":"Przepraszamy za czekanie :)"});

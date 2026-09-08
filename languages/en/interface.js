@@ -1461,13 +1461,13 @@ module.exports = {
 	"interface.merrit.receipt.named.old": "I left {name} a Market Parcel a while back.",
 	// Merrit also delivered one SHELL.
 	"interface.merrit.receipt_shell": "And a SHELL for luck!",
-	// Merrit repeat greeting; name is an unchanged character name. Preserve Market Parcel and SHELL.
+	// Merrit repeat greeting; name is an unchanged character name. Preserve the item name Market Parcel; translate SHELL consistently with the locale's premium-currency label.
 	"interface.merrit.welcome.self.parcel": "Welcome back! I last brought you a Market Parcel. A stocked shop and room for the neighbors — that's worth a visit.",
-	// Merrit repeat greeting; name is an unchanged character name. Preserve Market Parcel and SHELL.
+	// Merrit repeat greeting; name is an unchanged character name. Preserve the item name Market Parcel; translate SHELL consistently with the locale's premium-currency label.
 	"interface.merrit.welcome.self.shell": "Welcome back! I last brought you a Market Parcel and 1 SHELL. A stocked shop and room for the neighbors — that's worth a visit.",
-	// Merrit repeat greeting; name is an unchanged character name. Preserve Market Parcel and SHELL.
+	// Merrit repeat greeting; name is an unchanged character name. Preserve the item name Market Parcel; translate SHELL consistently with the locale's premium-currency label.
 	"interface.merrit.welcome.named.parcel": "Welcome back! I last brought {name} a Market Parcel. A stocked shop and room for the neighbors — that's worth a visit.",
-	// Merrit repeat greeting; name is an unchanged character name. Preserve Market Parcel and SHELL.
+	// Merrit repeat greeting; name is an unchanged character name. Preserve the item name Market Parcel; translate SHELL consistently with the locale's premium-currency label.
 	"interface.merrit.welcome.named.shell": "Welcome back! I last brought {name} a Market Parcel and 1 SHELL. A stocked shop and room for the neighbors — that's worth a visit.",
 	// Monster tooltip spawning rule; preserve monster names. count is quantity, interval is milliseconds, percent is health percentage.
 	"interface.monster.spawns_interval": "{count} {monster} every {interval}ms",

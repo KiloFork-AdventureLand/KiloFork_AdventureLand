@@ -3860,8 +3860,9 @@ module.exports = {
 	"docs.guide.event-anniversary.code-craft-with-mira": "CODE: Craft with Mira",
 	// docs/guide/event-anniversary.html:36; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"].
 	"docs.guide.event-anniversary.code-find-and-kiss": "CODE: Find and kiss",
-	// docs/guide/event-anniversary.html:95; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE","Gift"].
-	"docs.guide.event-anniversary.code-open-a-cake-or-gift": "CODE: Open a Cake or Gift",
+	// docs/guide/event-anniversary.html:95; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE","Anniversary Gift"].
+	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
+	"docs.guide.event-anniversary.code-open-a-cake-or-gift": "CODE: Open a Cake or Anniversary Gift",
 	// docs/guide/event-anniversary.html:111; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["smart_move","auto_craft","exchange","compound","upgrade","use_skill"]. Keep names: ["CODE"].
 	"docs.guide.event-anniversary.code-reference-smart-move-auto-craft-exchange-compound":
 		'CODE reference: <span class="rlabel" onclick="render_function_reference($(this).html())">smart_move</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">exchange</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">compound</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">upgrade</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">use_skill</span>.',
@@ -3873,8 +3874,9 @@ module.exports = {
 	// docs/guide/event-anniversary.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.event-anniversary.every-30-minutes-a-player-is-featured-on":
 		"Every <b>30 minutes</b>, a player is featured on each non-PvP server. Eligible players online when the round starts receive an <b>Anniversary Visit</b>. You have <b>five minutes</b> to find and kiss them.",
-	// docs/guide/event-anniversary.html:24; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Gift"].
-	"docs.guide.event-anniversary.gift-drops-one-prize": "Gift drops — one prize",
+	// docs/guide/event-anniversary.html:24; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Anniversary Gift"].
+	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
+	"docs.guide.event-anniversary.gift-drops-one-prize": "Anniversary Gift drops — one prize",
 	// docs/guide/event-anniversary.html:28; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.event-anniversary.hop-sickness-or-realm-fatigue-prevents-anniversary-visits":
 		"Hop Sickness or Realm Fatigue prevents Anniversary Visits and kiss rewards. Merchants can take part only on their home server. These rules apply to the featured player too.",
@@ -3889,19 +3891,22 @@ module.exports = {
 	// docs/guide/event-anniversary.html:34; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Mira"].
 	"docs.guide.event-anniversary.make-a-wish-s-jar-costs-one-cake":
 		"Make a Wish's jar costs one cake + 250,000 gold at Mira. The emote uses 50 MP and has a four-minute cooldown. The rare I Kiss You jar unlocks kisses outside the event. Kisses without an Anniversary Visit give no rewards or buff.",
-	// docs/guide/event-anniversary.html:15; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Gift","Mira","Xyn","Mainland"].
+	// docs/guide/event-anniversary.html:15; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Anniversary Gift","Mira","Xyn","Mainland"].
+	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
 	"docs.guide.event-anniversary.mira-mainland-64-88-cake-combine-six-different":
-		"<b>Mira / Mainland (64, -88)</b><br><b>CAKE:</b> Combine six different slices + 100,000 gold.<br><b>CRAFT:</b> Pick an anniversary recipe, then press CRAFT.<br><b>EXCHANGE:</b> Directions to Xyn, who opens cakes and Gifts.",
-	// docs/guide/event-anniversary.html:31; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["show_json(G.drops.maps.global)"]. Keep names: ["Gift"].
+		"<b>Mira / Mainland (64, -88)</b><br><b>CAKE:</b> Combine six different slices + 100,000 gold.<br><b>CRAFT:</b> Pick an anniversary recipe, then press CRAFT.<br><b>EXCHANGE:</b> Directions to Xyn, who opens cakes and Anniversary Gifts.",
+	// docs/guide/event-anniversary.html:31; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["show_json(G.drops.maps.global)"]. Keep names: ["Anniversary Gift"].
+	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
 	"docs.guide.event-anniversary.monsters-also-drop-gifts-and-your-account-s":
-		'Monsters also drop Gifts and your account\'s slice during the event. They use normal global-drop rolls, including monster HP, Luck and reward share. Inspect them with <span class="dlabel">show_json(G.drops.maps.global)</span>.',
+		'Monsters also drop Anniversary Gifts and your account\'s slice during the event. They use normal global-drop rolls, including monster HP, Luck and reward share. Inspect them with <span class="dlabel">show_json(G.drops.maps.global)</span>.',
 	// docs/guide/event-anniversary.html:33; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Drapes","Ghost","Franky"].
 	"docs.guide.event-anniversary.need-drapes-for-a-recipe-mummies-and-ghosts": "Need Drapes for a recipe? Mummies and Ghosts drop them. Franky's Mummies carry them less often.",
 	// docs/guide/event-anniversary.html:96; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.event-anniversary.opens-one-item-leave-inventory-room-and-do": "Opens one item. Leave inventory room and do not move it during the exchange.",
-	// docs/guide/event-anniversary.html:29; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Gift"].
+	// docs/guide/event-anniversary.html:29; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Anniversary Gift"].
+	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
 	"docs.guide.event-anniversary.reachable-non-afk-players-are-chosen-with-newer":
-		"Reachable, non-AFK players are chosen, with newer, lower-level characters favored. Each visitor who uses their Visit also gives the featured player one slice of their own flavor and one Gift. Joining late gives no Visit; repeated kisses give no extra rewards.",
+		"Reachable, non-AFK players are chosen, with newer, lower-level characters favored. Each visitor who uses their Visit also gives the featured player one slice of their own flavor and one Anniversary Gift. Joining late gives no Visit; repeated kisses give no extra rewards.",
 	// docs/guide/event-anniversary.html:17; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Keepsake Pendant","The Guestbook","Upgrade Scroll"].
 	"docs.guide.event-anniversary.the-guestbook-and-keepsake-pendant-combine-at-the":
 		"The Guestbook and Keepsake Pendant combine at the Compound Shrine: three matching copies of the same level + a compound scroll. The other anniversary equipment uses Upgrade Scrolls. Both shrines remain available after the event.",
@@ -3911,14 +3916,16 @@ module.exports = {
 	// docs/guide/event-anniversary.html:89; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Compound Scroll","High Compound Scroll"].
 	"docs.guide.event-anniversary.to-combine-guestbooks-or-pendants-visit-the-compound":
 		"To combine Guestbooks or Pendants, visit the Compound Shrine. Put three matching +0 copies in inventory slots 0, 1 and 2, and a High Compound Scroll in slot 3:",
-	// docs/guide/event-anniversary.html:16; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Gift","Xyn"].
-	"docs.guide.event-anniversary.use-xyn-s-normal-exchange-slot-to-open": "Use Xyn's normal exchange slot to open one cake or Gift. Click any item below for its details.",
+	// docs/guide/event-anniversary.html:16; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Anniversary Gift","Xyn"].
+	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
+	"docs.guide.event-anniversary.use-xyn-s-normal-exchange-slot-to-open": "Use Xyn's normal exchange slot to open one cake or Anniversary Gift. Click any item below for its details.",
 	// docs/guide/event-anniversary.html:37; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["server.status.anniversary"].
 	"docs.guide.event-anniversary.uses-server-status-anniversary-and-your-visit-condition":
 		'Uses <span class="dlabel">server.status.anniversary</span> and your Visit condition. If the player moves away, run it again.',
-	// docs/guide/event-anniversary.html:9; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Gift"].
+	// docs/guide/event-anniversary.html:9; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Anniversary Gift"].
+	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
 	"docs.guide.event-anniversary.your-visit-is-used-up-you-and-the":
-		"Your Visit is used up. You and the featured player each receive <b>one slice + one Gift</b>. You also gain <b>10 Frequency and 6 Output for 20 minutes</b>; it does not stack. Nearby players see the kiss in chat.",
+		"Your Visit is used up. You and the featured player each receive <b>one slice + one Anniversary Gift</b>. You also gain <b>10 Frequency and 6 Output for 20 minutes</b>; it does not stack. Nearby players see the kiss in chat.",
 	// docs/guide/event-crabxx.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Giga Crab"].
 	"docs.guide.event-crabxx.giga-crab-beach-event": "Giga Crab Beach Event",
 	// docs/guide/event-crabxx.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Huge Crab","Giga Crab"].
@@ -4085,12 +4092,12 @@ module.exports = {
 		'<span class="guide-card-icon events-rgoo"></span><b>Live Event</b>An EVENT button, portal, creature, or NPC may appear when an activity is running.',
 	// docs/guide/events-and-home.html:16; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.events-and-home.open-event-guide": '<span class="guide-flow-icon events-rgoo"></span><span class="guide-flow-label">Open Event Guide</span>',
-	// docs/guide/events-and-home.html:39; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CX Jar","Sixfold Cake","Gift"].
+	// docs/guide/events-and-home.html:39; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CX Jar","Sixfold Cake","Anniversary Gift"].
 	"docs.guide.events-and-home.opening-a-sixfold-cake-gives-one-anniversary-equipment":
-		"Opening a Sixfold Cake gives one anniversary equipment item or hat, plus three Gifts, with a separate, extremely rare chance of an I Kiss You CX Jar. Gifts mainly contain gold, with chances for returning anniversary prizes, equipment, or emote jars. Make a Wish costs 50 MP and has a four-minute cooldown. Both jar unlocks are permanent; the permanent kiss remains usable on other players after the event.",
-	// docs/guide/events-and-home.html:40; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Gift","Mira"].
+		"Opening a Sixfold Cake gives one anniversary equipment item or hat, plus three Anniversary Gifts, with a separate, extremely rare chance of an I Kiss You CX Jar. Anniversary Gifts mainly contain gold, with chances for returning anniversary prizes, equipment, or emote jars. Make a Wish costs 50 MP and has a four-minute cooldown. Both jar unlocks are permanent; the permanent kiss remains usable on other players after the event.",
+	// docs/guide/events-and-home.html:40; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Anniversary Gift","Mira"].
 	"docs.guide.events-and-home.ordinary-eligible-monsters-also-drop-slices-and-gifts":
-		"Ordinary eligible monsters also drop slices and Gifts through normal global-drop rolls, including monster HP, Luck and reward share. Mira leaves when the event ends, but unopened cakes and Gifts remain usable.",
+		"Ordinary eligible monsters also drop slices and Anniversary Gifts through normal global-drop rolls, including monster HP, Luck and reward share. Mira leaves when the event ends, but unopened cakes and Anniversary Gifts remain usable.",
 	// docs/guide/events-and-home.html:26; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.events-and-home.portal-or-npc-seasonal-events-may-begin-through": "<b>Portal or NPC</b>Seasonal events may begin through a visible portal, turn-in, or local interaction.",
 	// docs/guide/events-and-home.html:14; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.

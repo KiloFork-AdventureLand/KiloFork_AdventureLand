@@ -48,8 +48,8 @@ Arabic uses scoped direction and font rules on guide/tutorial articles. Preserve
 | German | de | Complete |
 | Japanese | ja | Complete |
 | French | fr | Complete |
-| Polish | pl | In progress |
-| Korean | ko | Terminology ready |
+| Polish | pl | Complete |
+| Korean | ko | In progress |
 | Simplified Chinese | zh-Hans | Terminology ready |
 | Traditional Chinese | zh-Hant | Terminology ready |
 | Thai | th | Planned |

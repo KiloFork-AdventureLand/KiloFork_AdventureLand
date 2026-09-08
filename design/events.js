@@ -3,7 +3,7 @@ var events={
 		"name":"Ten Years of Adventure Land",
 		"modal":"event-anniversary",
 		"sprite":"sixcake",
-		"announcement":{"title":"10 Years of Adventure","color":"#F0B742","accent":"#ED86AB","effect":"confetti","text":"Find players for cake and Gifts."},
+		"announcement":{"title":"10 Years of Adventure","color":"#F0B742","accent":"#ED86AB","effect":"confetti","text":"Find players for cake and Anniversary Gifts."},
 		"type":"seasonal",
 	},
 	"abtesting":{
