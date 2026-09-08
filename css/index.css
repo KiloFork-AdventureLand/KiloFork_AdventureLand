@@ -42,7 +42,7 @@ html,body{
 	width: 100%;
 	height: 100%;
 	overflow: hidden; /* temporary solution [16/05/16]*/
-	font-family: pixel;
+	font-family: var(--pixel-font, pixel);
 	color: white;
 	word-wrap: break-word;
 
@@ -218,7 +218,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	height: 16px;
 	line-height: 16px;
 	font-size: 16px;
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 	margin-right: 5px;
 	display: inline-block;
 	border:0;
@@ -230,7 +230,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	height: 48px;
 	line-height: 36px;
 	font-size: 36px;
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 	display: inline-block;
 	border:0;
 	padding: 12px;
@@ -297,7 +297,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	width: 314px;
 	height: 30px;
 	font-size: 24px;
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 	display: inline-block;
 	background: #404040;
 	color: white;
@@ -308,7 +308,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	width: 314px;
 	height: 30px;
 	font-size: 24px;
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 	display: inline-block;
 	background: #404040;
 	color: white;
@@ -323,7 +323,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	padding: 5px 12px 5px 12px;
 	color: white;
 	font-size: 36px;
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 }
 .newmessage{
 	color: green;
@@ -522,7 +522,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	box-shadow:inset 0 -4px var(--event-accent);
 	background:#080B10;
 	color:#F3EDE3;
-	font-family:Pixel;
+	font-family:var(--pixel-font, pixel);
 	text-align:left;
 	cursor:pointer;
 	overflow:visible;
@@ -711,7 +711,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	background: var(--ui-close-background, black);
 	color: var(--ui-close-color, white);
 	border-color: var(--ui-close-border, gray);
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 	font-size: 24px;
 	line-height: 24px;
 	cursor: pointer;
@@ -916,7 +916,7 @@ a.gamebutton{
 .CodeMirror{
 	height: 100%;
 	width: 100%;
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 	font-size: 24px;
 	letter-spacing: 1px; /* more readable */
 }
@@ -996,23 +996,23 @@ a.gamebutton{
 	font-size: 32px;
 	padding: 4px;
 	margin-bottom: 2px;
-	font-family: pixel;
+	font-family: var(--pixel-font, pixel);
 	text-align: center;
 }
 .input,.button{
-	/*font-family: pixel;*/
+	/*font-family: var(--pixel-font, pixel);*/
 	border:none !important;
 }
 .selectioninput{
 	font-size: 24px;
 	padding: 2px;
-	font-family: pixel;
+	font-family: var(--pixel-font, pixel);
 	text-align: center;
 }
 .selectiontextarea{
 	font-size: 24px;
 	padding: 2px;
-	font-family: pixel;
+	font-family: var(--pixel-font, pixel);
 	text-align: left;
 }
 .chartype{

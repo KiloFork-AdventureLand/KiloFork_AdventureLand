@@ -10,6 +10,29 @@ const repository = path.resolve(__dirname, "../..");
 const fakePixiPath = path.join(repository, "js/pixi/fake/pixi.min.js");
 const gamePath = path.join(repository, "js/game.js");
 
+test("pixel font loading and text entry points do not touch fake PIXI in no-graphics mode", async () => {
+	const context = { no_graphics: true, mode: {}, console, document: { documentElement: { lang: "en" } } };
+	context.window = context;
+	vm.createContext(context);
+	vm.runInContext(fs.readFileSync(fakePixiPath, "utf8"), context);
+	const fakePixi = context.PIXI;
+	Object.defineProperty(context, "PIXI", {
+		get() {
+			throw new Error("Headless text touched PIXI");
+		},
+	});
+	vm.runInContext(fs.readFileSync(path.join(repository, "js/pixel_fonts.js"), "utf8"), context);
+	await context.pixel_fonts.load("مرحبا ผู้ใช้");
+	const source = fs.readFileSync(path.join(repository, "js/functions.js"), "utf8");
+	for (const name of ["add_name_tag", "add_name_tag_old", "test_bitmap", "d_text", "d_text_new"]) {
+		const start = source.indexOf("function " + name + "(");
+		const end = source.indexOf("\nfunction ", start + 1);
+		vm.runInContext(source.slice(start, end), context);
+		assert.doesNotThrow(() => context[name]("مرحبا ผู้ใช้", {}, {}), name);
+	}
+	assert.equal(fakePixi.Text.prototype.pixel_fonts, undefined);
+});
+
 test("asset loading shares one resource across animation aliases and asset groups", () => {
 	const source = fs.readFileSync(gamePath, "utf8");
 	const start = source.indexOf("loader = PIXI.loader;");

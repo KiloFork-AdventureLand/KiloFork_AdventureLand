@@ -53,13 +53,14 @@
 		{% if not domain.no_html %} <link href="/css/index.css?v={{domain.v}}" rel="stylesheet" type="text/css"/> {% endif %}
 		<link href="/css/common.css?v={{domain.v}}" rel="stylesheet" type="text/css"/>
 		{% include "htmls/base_script.html" %}
+		<script src="/js/pixel_fonts.js?v={{domain.v}}"></script>
 		<script src="/js/npc_obstruction_hint.js?v={{domain.v}}"></script>
 		{% if not domain.no_html %}<script src="/js/ios-drag-drop.js"></script> <!-- https://github.com/timruffles/ios-html5-drag-drop-shim -->{% endif %}
 		{% if domain.no_html %}
 			<style>
 				html,body{
 					color: white;
-					font-family: Pixel;
+					font-family: var(--pixel-font, pixel);
 					font-size: 24px;
 					overflow: hidden;
 					background-color: black;
@@ -154,7 +155,7 @@
 					<div style='display: inline-block; border-left: 4px solid gray; width: 0px; height: 40px; margin: -4px 0 -4px 0;'></div>
 					
 					<!--<div style='display: inline-block; padding: 4px; margin-top: 2px; margin-left: -2px; margin-right: -4px; vertical-align: top;'>Search</div>-->
-					<input placeholder="Search" class='codesearch' style='padding: 0px; background: transparent; border: none; font-size: 32px; color: white; font-family: Pixel; width: 200px; vertical-align: top; padding-top: 2px' />
+					<input placeholder="Search" class='codesearch' style='padding: 0px; background: transparent; border: none; font-size: 32px; color: white; font-family: var(--pixel-font, pixel); width: 200px; vertical-align: top; padding-top: 2px' />
 
 					<div style='display: inline-block; float: right; color:gray; padding: 4px; margin-left: 5px; color: #e8e44d' onclick="btc(event); render_code_docs();"class='clickable'>DOCS</div>
 					<div style='display: inline-block; border-left: 4px solid gray; width: 0px; height: 36px; float: right; margin-top: -2px'></div>

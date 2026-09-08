@@ -572,7 +572,7 @@ function map_click(event)
 
 function show_alert(x)
 {
-	show_modal("<div style='padding: 20px; text-align:center'><pre style='font-family: Pixel; font-size: 48px;'>"+x+"</pre></div>");
+	show_modal("<div style='padding: 20px; text-align:center'><pre style='font-family: var(--pixel-font, pixel); font-size: 48px;'>"+x+"</pre></div>");
 }
 
 function save(url)

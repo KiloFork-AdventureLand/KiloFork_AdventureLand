@@ -3775,7 +3775,7 @@ function render_code_docs() {
 	var html = "<div style='width:400px'>";
 	//html+="<div class='gamebutton' style='display: block; border-color: #EDF259; margin-bottom: 4px' onclick='render_code_articles()'>Learn [Basic to Advanced]</div>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #A79674;*/ margin-bottom: 4px'><span style='color:#37DBC1'>[SEARCH]</span> <input type='text' class='csearchi' style='font-family:Pixel; font-size:24px; margin-bottom: -8px; width: 150px; margin-left: 5px'></div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #A79674;*/ margin-bottom: 4px'><span style='color:#37DBC1'>[SEARCH]</span> <input type='text' class='csearchi' style='font-family:var(--pixel-font, pixel); font-size:24px; margin-bottom: -8px; width: 150px; margin-left: 5px'></div>";
 	html += "<div class='cdocssearch hidden'>";
 	html += "</div>";
 	html += "<div class='cdocsbuttons'>";

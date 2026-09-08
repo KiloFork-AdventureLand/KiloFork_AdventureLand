@@ -91,7 +91,7 @@ function update_npc_obstruction_hint() {
 			button.type = "button";
 			button.className = "gamebutton npc-obstruction-hint";
 			button.style.cssText =
-				"position:fixed;z-index:97;pointer-events:auto;font:24px/24px pixel,monospace;color:white;background:black;border:4px solid gray;padding:6px 10px;white-space:pre-line;cursor:pointer;touch-action:none";
+				"position:fixed;z-index:97;pointer-events:auto;font:24px/24px var(--pixel-font, pixel),monospace;color:white;background:black;border:4px solid gray;padding:6px 10px;white-space:pre-line;cursor:pointer;touch-action:none";
 			// Keep pointer input (including move-with-mouse) out of the game canvas.
 			["pointerdown", "pointerup", "pointermove", "mousedown", "mouseup", "touchstart", "touchend", "mousemove", "touchmove"].forEach(function (type) {
 				button.addEventListener(type, function (event) {

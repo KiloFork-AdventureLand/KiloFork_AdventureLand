@@ -19,7 +19,7 @@
 	width: 100%;
 	padding: 8px 14px;
 	border-color: #ba91ec;
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 	font-size: 32px;
 	line-height: 26px;
 	cursor: pointer;
@@ -81,7 +81,7 @@
 	border: 4px solid #ba91ec;
 	background: #08090f;
 	color: #e5e7ed;
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 	text-align: left;
 	overflow-y: auto;
 	overscroll-behavior: contain;
@@ -105,7 +105,7 @@
 	font-size: 24px;
 }
 .steam-news-dialog .steam-news-close {
-	font-family: Pixel;
+	font-family: var(--pixel-font, pixel);
 	padding: 4px 10px;
 	border-color: #696078;
 	cursor: pointer;

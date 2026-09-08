@@ -9,7 +9,7 @@
 		<style>
 			:root { color-scheme: dark; --bg:#080a0c; --panel:#11171b; --panel2:#182127; --line:#53616a; --text:#edf2f2; --muted:#9ba7ad; --green:#67c85c; --gold:#efc64c; --red:#e45d69; --blue:#55bdf0; }
 			* { box-sizing: border-box; }
-			html, body { min-height:100%; margin:0; background:var(--bg); color:var(--text); font-family:pixel, monospace; font-size:18px; line-height:1.4; }
+			html, body { min-height:100%; margin:0; background:var(--bg); color:var(--text); font-family:var(--pixel-font, pixel), monospace; font-size:18px; line-height:1.4; }
 			body { padding:24px; }
 			main { width:min(1180px, 100%); margin:0 auto; }
 			h1, h2, p { margin:0; }
@@ -46,8 +46,8 @@
 			.connect-steps li { margin:4px 0; }
 			.connection { display:grid; grid-template-columns:140px minmax(0,1fr); gap:1px; margin-top:14px; border:1px solid var(--line); background:var(--line); }
 			.connection > * { background:#060809; padding:9px; min-width:0; }
-			.connection code { color:var(--text); font-family:pixel; overflow-wrap:anywhere; user-select:all; }
-			#token-secret { display:none; margin-top:12px; padding:12px; white-space:pre-wrap; overflow-wrap:anywhere; border:1px solid var(--gold); background:#060809; color:var(--gold); font:14px/1.45 pixel; }
+			.connection code { color:var(--text); font-family:var(--pixel-font, pixel); overflow-wrap:anywhere; user-select:all; }
+			#token-secret { display:none; margin-top:12px; padding:12px; white-space:pre-wrap; overflow-wrap:anywhere; border:1px solid var(--gold); background:#060809; color:var(--gold); font:14px/1.45 var(--pixel-font, pixel); }
 			.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(350px, 1fr)); gap:16px; }
 			.card { border:1px solid var(--line); background:var(--panel); padding:17px; min-width:0; }
 			.card.running { border-color:var(--green); }
@@ -63,7 +63,7 @@
 			.actions button { flex:1 1 140px; }
 			.log-tab.active { border-color:var(--blue); color:var(--blue); }
 			.log-tab.alert { border-color:var(--red); color:#ff8f99; }
-			.logs { display:none; margin-top:12px; padding:10px; max-height:180px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; border:1px solid #303a40; background:#060809; font:14px/1.45 pixel; }
+			.logs { display:none; margin-top:12px; padding:10px; max-height:180px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere; border:1px solid #303a40; background:#060809; font:14px/1.45 var(--pixel-font, pixel); }
 			.mainframe-log-line + .mainframe-log-line { margin-top:6px; }
 			.mainframe-log-line.event-info { color:var(--text); }
 			.mainframe-log-line.event-warn { color:var(--gold); }

@@ -11,6 +11,7 @@
 		<link href="/css/common.css?v={{domain.v}}" rel="stylesheet" type="text/css" />
 		<script src="/data.js?v={{domain.v}}"></script>
 		<script src="/js/pixi/{{domain.pixi_version}}/pixi.min.js"></script>
+		<script src="/js/pixel_fonts.js?v={{domain.v}}"></script>
 		<style>
 			html {
 				background: black;
@@ -120,7 +121,7 @@
 				pointer-events: auto;
 			}
 			input {
-				font-family: "Pixel";
+				font-family: var(--pixel-font, pixel);
 				text-align: center;
 				font-size: 24px;
 				line-height: 24px;

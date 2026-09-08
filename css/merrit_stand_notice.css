@@ -8,7 +8,7 @@
 	max-width: min(440px, calc(100vw - 24px));
 	padding: 8px 44px 8px 12px;
 	font:
-		24px/24px pixel,
+		24px/24px var(--pixel-font, pixel),
 		monospace;
 	border: 4px solid gray;
 	background: black;

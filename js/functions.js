@@ -410,7 +410,7 @@ function show_modal(mhtml, args) {
 }
 
 function show_alert(x) {
-	show_modal("<div style='padding: 20px; text-align:center'><pre style='font-family: Pixel; font-size: 48px;'>" + x + "</pre></div>");
+	show_modal("<div style='padding: 20px; text-align:center'><pre style='font-family: var(--pixel-font, pixel); font-size: 48px;'>" + x + "</pre></div>");
 }
 
 function position_modals() {
@@ -4899,7 +4899,9 @@ function stop_name_tag(element) {
 }
 
 function add_name_tag_old(element) {
-	var ntag_cache = element.name + "|" + element.level;
+	if (no_graphics || element._destroyed) return;
+	if (pixel_fonts.defer(element.name + " Lv.0123456789", function () { add_name_tag_old(element); })) return;
+	var ntag_cache = element.name + "|" + element.level + "|" + pixel_fonts.family();
 	if (element.name_tag) {
 		if (element.ntag_cache == ntag_cache) return;
 		destroy_sprite(element.name_tag, "children");
@@ -4926,7 +4928,6 @@ function add_name_tag_old(element) {
 
 	var fp = { fontFamily: SZ.font, fontSize: 8 * multiplier, fill: "white", align: "center" }; //,dropShadow:true,dropShadowDistance:1
 	var name = new PIXI.Text(name, fp);
-	// var name=new PIXI.BitmapText(name,{font:"16px m5x7",align:"center"}); // tint:0xFFFFFF} // worse pixel issues [29/11/18]
 	// name.x=0; name.y=-round(element.aheight)-2;
 	name.roundPixels = false;
 	name.anchor.set(0.5, 0);
@@ -4961,6 +4962,13 @@ function add_name_tag_old(element) {
 }
 
 function add_name_tag(element) {
+	if (no_graphics || element._destroyed) return;
+	var font_key = pixel_fonts.family() + "|" + element.name;
+	if (element.pixel_name_font !== font_key && !pixel_fonts.ready(element.name)) {
+		pixel_fonts.load(element.name);
+		return;
+	}
+	element.pixel_name_font = font_key;
 	var bar = { hp: false, mp: false, color: "white", party: false, level: false, cl: false, focus: false, stand: false, online: false },
 		hp_mwidth = 32,
 		mp_mwidth = 24,
@@ -5020,7 +5028,7 @@ function add_name_tag(element) {
 		"|" +
 		(bar.stand && bsc) +
 		"|" +
-		bar.online;
+		bar.online + "|" + pixel_fonts.family();
 	if (element.name_tag) {
 		if (element.ntag_cache == ntag_cache) return;
 		destroy_sprite(element.name_tag, "children");
@@ -5368,7 +5376,9 @@ function calculate_difficulty(monster) {
 }
 
 function test_bitmap(x, y, size) {
-	var text = new PIXI.BitmapText("YAY BITMAPS!", { font: size + "px m5x7", align: "center" });
+	if (no_graphics) return;
+	if (pixel_fonts.defer("YAY BITMAPS!", function () { test_bitmap(x, y, size); })) return;
+	var text = new PIXI.Text("YAY BITMAPS!", { fontFamily: SZ.font, fontSize: size, align: "center" });
 	text.displayGroup = text_layer;
 	text.x = round(x);
 	text.y = round(y);
@@ -5461,6 +5471,8 @@ function shift_d_texts(entity, add) {
 }
 
 function d_text_new(message, entity, args) {
+	if (no_graphics || paused || entity._destroyed) return;
+	if (pixel_fonts.defer(message, function () { d_text_new(message, entity, args); })) return;
 	var x = 0,
 		y = -get_height(entity);
 	if (entity.name_tag || entity.hp_bar) y -= 12;
@@ -5538,6 +5550,8 @@ function d_text_new(message, entity, args) {
 function d_text(message, x, y, args) {
 	var sprite = null;
 	if (mode.dom_tests_pixi || no_graphics || paused) return;
+	if (x && x._destroyed) return;
+	if (pixel_fonts.defer(message, function () { d_text(message, x, y, args); })) return;
 	if (is_object(x)) {
 		if (x.type && mode.use_new_d_texts) return d_text_new(message, x, y);
 		sprite = x;

@@ -1286,8 +1286,6 @@ function the_game(demo) {
 
 	gprocess_game_data();
 
-	if (mode.bitmapfonts && (!loader.resources || !loader.resources["/css/fonts/m5x7.xml"])) loader.add("/css/fonts/m5x7.xml"); //,{xhrType:PIXI.loaders.Resource.XHR_RESPONSE_TYPE.DOCUMENT}
-
 	set_status("75% ->Server");
 
 	if (!demo) {
@@ -7073,6 +7071,7 @@ function calculate_fps() {
 }
 
 function load_game(c) {
+	if (!no_graphics && pixel_fonts.defer("A", function () { load_game(c); })) return;
 	loader.load(function (loader, resources) {
 		//PIXI.ticker.shared.autoStart = false;
 		//PIXI.ticker.shared.stop(); https://github.com/pixijs/pixi.js/issues/2843#issuecomment-241682589 no observable effect
@@ -7136,7 +7135,7 @@ function launch_game() {
 
 	if (!draws) draw();
 
-	if (!mode.dom_tests_pixi && inside != "payments" && !window.fps_counter) {
+	if (!no_graphics && !mode.dom_tests_pixi && inside != "payments" && !window.fps_counter) {
 		// fps_counter = new PIXI.Text("0",{fontFamily:"Arial",fontSize:32,fill:"green"});
 		fps_counter = new PIXI.Text("0", { fontFamily: "Pixel", fontSize: 40, fill: "green" });
 		fps_counter.position.set(10, 10);
