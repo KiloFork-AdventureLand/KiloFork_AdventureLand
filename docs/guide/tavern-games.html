@@ -1,37 +1,37 @@
-<div class="guide-kicker">GOLD IN, FORTUNE OUT</div>
-<div class="guide-title">Tavern Games</div>
-<p>The Tavern's dice table and slot machine spend gold on games of chance. Read the wager twice. The house has already read it once.</p>
+<div class="guide-kicker">{{ phrase("docs.guide.tavern-games.gold-in-fortune-out") }}</div>
+<div class="guide-title">{{ phrase("docs.guide.tavern-games.tavern-games") }}</div>
+<p>{{ phrase("docs.guide.tavern-games.the-tavern-s-dice-table-and-slot-machine") }}</p>
 
 <div class="guide-showcase" style="border-color:#AA7040">
 	<div class="guide-showcase-art"><span class="tavern-jaqk"></span><span class="tavern-die">55</span><span class="tavern-slots">777</span></div>
-	<div class="guide-showcase-copy"><b>Ask Jaqk for the current house</b>The tavern panel shows whether betting is open, its edge, and the largest win it can presently cover.</div>
+	<div class="guide-showcase-copy">{{ phrase_html("docs.guide.tavern-games.house_rules") }}</div>
 </div>
 
 <div class="divider"></div>
-<div class="title mt15">Dice</div>
+<div class="title mt15">{{ phrase("docs.guide.tavern-games.dice") }}</div>
 <div class="guide-flow" style="border-color:#AA7040" data-guide-visual="tavern-dice">
-	<div class="guide-flow-node"><span class="guide-flow-icon tavern-choice">DOWN</span><span class="guide-flow-label">Choose Direction</span></div>
-	<div class="guide-flow-node"><span class="guide-flow-icon tavern-die">55</span><span class="guide-flow-label">Choose Number</span></div>
-	<div class="guide-flow-node"><span class="guide-flow-icon tavern-gold">G</span><span class="guide-flow-label">Choose Wager</span></div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.down-choose-direction") }}</div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.55-choose-number") }}</div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.g-choose-wager") }}</div>
 	<div class="guide-flow-arrow">→</div>
-	<div class="guide-flow-node"><span class="guide-flow-icon tavern-roll">42</span><span class="guide-flow-label">Roll ≤ 55 Wins</span></div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.42-roll-55-wins") }}</div>
 </div>
-<p><b>Down</b> wins when the roll is at or below your chosen number. <b>Up</b> wins when the roll is at or above it. The displayed payout changes with that choice, the threshold, the wager, and the house edge.</p>
+<p>{{ phrase_html("docs.guide.tavern-games.down-wins-when-the-roll-is-at-or") }}</p>
 
 <div class="divider"></div>
-<div class="title mt15">Slots</div>
+<div class="title mt15">{{ phrase("docs.guide.tavern-games.slots") }}</div>
 <div class="guide-flow" style="border-color:#8B5B96" data-guide-visual="tavern-slots">
-	<div class="guide-flow-node"><span class="guide-flow-icon tavern-gold">G</span><span class="guide-flow-label">Fixed Cost Shown</span></div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.g-fixed-cost-shown") }}</div>
 	<div class="guide-flow-arrow">→</div>
-	<div class="guide-flow-node"><span class="guide-flow-icon tavern-slots">777</span><span class="guide-flow-label">Wait for One Spin</span></div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.777-wait-for-one-spin") }}</div>
 	<div class="guide-flow-arrow">→</div>
-	<div class="guide-flow-node"><span class="guide-flow-icon tavern-result">?</span><span class="guide-flow-label">Payout or No Luck</span></div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.payout-or-no-luck") }}</div>
 </div>
-<p>Each play spends the machine's shown cost and enters its short queue. Wait for the result before trying again. A machine offering only dialogue is not currently accepting a game.</p>
-<div class="guide-note">A completed losing wager is a valid result and fulfills its Promise with <span class="dlabel">won: false</span>. A rejected Promise means the wager or machine failed validation.</div>
+<p>{{ phrase("docs.guide.tavern-games.each-play-spends-the-machine-s-shown-cost") }}</p>
+<div class="guide-note">{{ phrase_html("docs.guide.tavern-games.a-completed-losing-wager-is-a-valid-result") }}</div>
 
 <div class="divider"></div>
-<div class="title mt15">CODE: Inspect the House</div>
+<div class="title mt15">{{ phrase("docs.guide.tavern-games.code-inspect-the-house") }}</div>
 <div class="code">async function inspect_tavern() {
 	var house = await get_tavern_info();
 	game_log("House edge: " + house.edge + "%");
@@ -41,7 +41,7 @@
 
 inspect_tavern().catch(show_json);</div>
 
-<div class="title mt15">CODE: Place One Deliberate Wager</div>
+<div class="title mt15">{{ phrase("docs.guide.tavern-games.code-place-one-deliberate-wager") }}</div>
 <div class="code">async function wager_once(direction, number, gold) {
 	var house = await get_tavern_info();
 	if (gold &gt; character.gold) return game_log("Not enough gold");
@@ -57,9 +57,9 @@ inspect_tavern().catch(show_json);</div>
 
 // Slots also spend gold and wait for the completed spin:
 // show_json(await play_slots());</div>
-<p>References: <span class="rlabel" onclick="render_function_reference($(this).html())">get_tavern_info</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_dice</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">play_slots</span>.</p>
+<p>{{ phrase_html("docs.guide.tavern-games.references-get-tavern-info-bet-dice-play-slots") }}</p>
 
-<div class="guide-related">For ordinary trade, see <span onclick="hide_modal(); open_guide('markets-and-trading',get_guide_url('markets-and-trading'))">Markets and Trading</span>.</div>
+<div class="guide-related">{{ phrase_html("docs.guide.tavern-games.for-ordinary-trade-see-markets-and-trading") }}</div>
 
 <script>
 	$(".tavern-jaqk").html(sprite(G.npcs.tavern.skin, { height: 62 }));

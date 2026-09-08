@@ -1,38 +1,35 @@
-<p><span class="dlabel">Communicator &amp; Chat</span></p>
+<p>{{ phrase_html("docs.articles.communicator.communicator-chat") }}</p>
 
-<p>Open <a href="/communicator">Communicator</a> to watch your characters and chat. CHAT starts open on the server you are viewing. You can read server chat before logging in.</p>
+<p>{{ phrase_html("docs.articles.communicator.open-communicator-to-watch-your-characters-and-chat") }}</p>
 
 <p>
-	The conversation list puts the most recent chats first. Select a server or a private conversation to read it. Use OLDER MESSAGES to read further back, or MORE CHATS to find older conversations. On a
-	small screen, CHATS opens the conversation list.
+	{{ phrase("docs.articles.communicator.the-conversation-list-puts-the-most-recent-chats") }}
 </p>
 
 <hr />
 
-<p><span class="dlabel">Sending messages</span></p>
+<p>{{ phrase_html("docs.articles.communicator.sending-messages") }}</p>
 
-<p>Log in, choose a character in the From field, then type your message and press Enter or SEND. For server chat, that character must be online on the selected server.</p>
+<p>{{ phrase("docs.articles.communicator.log-in-choose-a-character-in-the-from") }}</p>
 
 <p>
-	Choose NEW PM and enter the recipient's full character name to start a private chat. The sender must be online; the recipient can be on another server or offline. Replies use the same character that
-	was part of the conversation. If that character is offline, reconnect it to reply. You can still read its messages while it is offline.
+	{{ phrase("docs.articles.communicator.choose-new-pm-and-enter-the-recipient-s") }}
 </p>
 
-<p>Your draft stays in its conversation while you switch chats. HIDE closes the chat window; CHAT opens it again. Watching a character, HOME IN, INVENTORY, COMMAND, and Mainframe remain available.</p>
+<p>{{ phrase("docs.articles.communicator.your-draft-stays-in-its-conversation-while-you") }}</p>
 
 <hr />
 
-<p><span class="dlabel">CODE examples</span></p>
+<p>{{ phrase_html("docs.articles.communicator.code-examples") }}</p>
 
-<p>From an online character, use <span class="rlabel" onclick="render_function_reference('say')">say</span> for its server chat. Run this once when you want to greet the server:</p>
+<p>{{ phrase_html("docs.articles.communicator.from-an-online-character-use-say-for-its") }}</p>
 
 <div class="code">await say("Hello, everyone!");</div>
 
 <p>
-	Use <span class="rlabel" onclick="render_function_reference('pm')">pm</span> for a private message. Replace FriendName with an existing character name. The recipient can be offline. Run this
-	separately from the greeting; chat has a cooldown.
+	{{ phrase_html("docs.articles.communicator.use-pm-for-a-private-message-replace-friendname") }}
 </p>
 
 <div class="code">await pm("FriendName", "Want to hunt together?");</div>
 
-<p>Both functions also work in Mainframe. Mute and chat limits still apply.</p>
+<p>{{ phrase("docs.articles.communicator.both-functions-also-work-in-mainframe-mute-and") }}</p>

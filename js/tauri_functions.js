@@ -126,7 +126,7 @@ function tauri_auth_payload() {
 }
 
 function tauri_auth_error(response) {
-	var reason = (response && (response.reason || response.message)) || tauri_data.error || "Steam authentication failed.";
+	var reason = (response && (response.reason || response.message)) || tauri_data.error || phrase("services.tauri_functions.steam-authentication-failed");
 	tauri_debug(
 		"auth.socket.rejected",
 		{
@@ -136,8 +136,8 @@ function tauri_auth_error(response) {
 		},
 		"error",
 	);
-	if (reason == "steam_auth_failed") reason = "Steam authentication failed. Please restart Adventure Land through Steam.";
-	else if (reason == "steam_link_failed") reason = "Steam authentication worked, but the account could not be linked. Please try again.";
+	if (reason == "steam_auth_failed") reason = phrase("services.tauri_functions.steam-authentication-failed-please-restart-adventure-land-through-steam");
+	else if (reason == "steam_link_failed") reason = phrase("services.tauri_functions.steam-authentication-worked-but-the-account-could-not-be");
 	show_alert(reason);
 }
 
@@ -211,7 +211,7 @@ function tauri_native_reload(selection) {
 	return tauri_invoke("reload_game", { selection: !!selection }).catch(function (error) {
 		tauri_reload_pending = false;
 		console.error("[Tauri] Reload failed: " + error);
-		show_alert("Reload failed: " + error);
+		show_alert(phrase.html("services.tauri_functions.reload-failed", { error: error }));
 	});
 }
 
@@ -253,7 +253,7 @@ function tauri_fullscreen() {
 
 function tauri_create_subwindow() {
 	return tauri_invoke("create_subwindow").catch(function (error) {
-		show_alert("Couldn't open another game window: " + error);
+		show_alert(phrase.html("services.tauri_functions.window-failed", { error: error }));
 	});
 }
 

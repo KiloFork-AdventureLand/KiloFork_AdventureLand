@@ -6,13 +6,13 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 const rules = require("../logic/anniversary_event");
-const { socketHandler, load } = require("./helpers/server_vm");
+const { socketHandler, load, localize } = require("./helpers/server_vm");
 const root = path.resolve(__dirname, "../..");
 const source = fs.readFileSync(path.join(root, "node/server.js"), "utf8");
 const functions = fs.readFileSync(path.join(root, "node/server_functions.js"), "utf8");
 const shared = fs.readFileSync(path.join(root, "js/old_common_functions.js"), "utf8");
 const plain = (value) => JSON.parse(JSON.stringify(value));
-const design = vm.createContext({ console: { log() {} } });
+const design = localize(vm.createContext({ console: { log() {} } }));
 for (const name of ["multipliers", "conditions", "items", "npcs", "drops", "recipes"])
 	vm.runInContext(fs.readFileSync(path.join(root, "design", name + ".js"), "utf8"), design, { filename: name });
 
@@ -51,7 +51,7 @@ test("seasonal tick follows the manual switch, preserves other NPCs and excludes
 		broadcast() {},
 		broadcast_e() {},
 	};
-	vm.createContext(context);
+	localize(vm.createContext(context));
 	for (const name of [
 		"create_npc",
 		"anniversary_is_active",
@@ -111,7 +111,7 @@ test("reachability requires real map geometry, a public spawn and a clear bounde
 			return clear;
 		},
 	};
-	vm.createContext(context);
+	localize(vm.createContext(context));
 	vm.runInContext(definition(functions, "anniversary_reachable"), context);
 	const p = player("Host");
 	assert(context.anniversary_reachable(p));
@@ -204,7 +204,7 @@ test("anniversary defaults on and has no automatic date cutoff or reactivation",
 	const start = source.indexOf("var events = {");
 	assert(start >= 0);
 	const context = { is_pvp: false };
-	vm.createContext(context);
+	localize(vm.createContext(context));
 	vm.runInContext(source.slice(start, source.indexOf("\n};", start) + 3), context);
 	vm.runInContext(definition(functions, "anniversary_is_active"), context);
 	assert.equal(context.anniversary_is_active(), true, "no launch-date configuration is needed");
@@ -213,7 +213,7 @@ test("anniversary defaults on and has no automatic date cutoff or reactivation",
 	context.events.anniversary = false;
 	context.options.anniversary = { starts_at: "2000-01-01", ends_at: "2999-01-01" };
 	assert.equal(context.anniversary_is_active(), false, "dates cannot override a manual stop");
-	const design = vm.createContext({});
+	const design = localize(vm.createContext({}));
 	vm.runInContext(fs.readFileSync(path.join(root, "design/events.js"), "utf8"), design);
 	assert.equal(design.events.anniversary.duration, undefined);
 	assert.doesNotMatch(definition(functions, "anniversary_is_active"), /Date|options|inEventWindow/);
@@ -222,32 +222,34 @@ function dropHarness(roll = 0) {
 	const emitted = [],
 		p = player("Farmer", { luckm: 1, p: {} });
 	const monster = { type: "goo", map: "main", x: 20, y: 30, max_hp: 1000, mult: 1, luckx: 1, level: 1 };
-	const context = vm.createContext({
-		anniversary_rules: rules,
-		anniversary_is_active: () => true,
-		G: { items: design.items, monsters: { goo: { hp: 1000 } } },
-		D: {
-			drops: {
-				maps: { global: plain(design.drops.maps.global), global_static: [] },
-				monsters: {},
-				monsters_home_server: {},
-				gold: { base: 0, random: 0, x10: 0, x50: 0 },
-				konami: [],
+	const context = localize(
+		vm.createContext({
+			anniversary_rules: rules,
+			anniversary_is_active: () => true,
+			G: { items: design.items, monsters: { goo: { hp: 1000 } } },
+			D: {
+				drops: {
+					maps: { global: plain(design.drops.maps.global), global_static: [] },
+					monsters: {},
+					monsters_home_server: {},
+					gold: { base: 0, random: 0, x10: 0, x50: 0 },
+					konami: [],
+				},
+				monster_gold: { goo: 0 },
 			},
-			monster_gold: { goo: 0 },
-		},
-		B: { global_drops: true, drop_table_multiplier: 1 },
-		mode: {},
-		chests: {},
-		Math: Object.assign(Object.create(Math), { random: () => roll }),
-		round: Math.round,
-		is_in_pvp: () => false,
-		achievement_logic_monster_kill() {},
-		randomStr: () => "chest",
-		has_home_server_bonus: () => false,
-		create_new_item: (name) => ({ name }),
-		can_stack: () => false,
-	});
+			B: { global_drops: true, drop_table_multiplier: 1 },
+			mode: {},
+			chests: {},
+			Math: Object.assign(Object.create(Math), { random: () => roll }),
+			round: Math.round,
+			is_in_pvp: () => false,
+			achievement_logic_monster_kill() {},
+			randomStr: () => "chest",
+			has_home_server_bonus: () => false,
+			create_new_item: (name) => ({ name }),
+			can_stack: () => false,
+		}),
+	);
 	p.socket.emit = (...args) => emitted.push(args);
 	vm.runInContext(fs.readFileSync(path.join(root, "node/logic/encouragement.js"), "utf8"), context);
 	for (const name of ["drop_item_logic", "roll_monster_drops", "drop_something"])
@@ -352,20 +354,22 @@ function kissRewardHarness(roll) {
 		Object.assign(p, { items: Array(42).fill(null), citems: [], esize: 42, luckm: 100 });
 		p.socket.emit = (...args) => logs.push([p.id, ...args]);
 	}
-	const context = vm.createContext({
-		G: { items: design.items, drops: design.drops, skills: { ikissyou: { name: "I Kiss You" } } },
-		D: { drops: {} },
-		Math: Object.assign(Object.create(Math), {
-			random: () => {
-				rolls++;
-				return roll;
-			},
+	const context = localize(
+		vm.createContext({
+			G: { items: design.items, drops: design.drops, skills: { ikissyou: { name: "I Kiss You" } } },
+			D: { drops: {} },
+			Math: Object.assign(Object.create(Math), {
+				random: () => {
+					rolls++;
+					return roll;
+				},
+			}),
+			is_array: Array.isArray,
+			cache_item: (item) => plain(item),
+			broadcast: (...args) => announcements.push(args),
+			resend() {},
 		}),
-		is_array: Array.isArray,
-		cache_item: (item) => plain(item),
-		broadcast: (...args) => announcements.push(args),
-		resend() {},
-	});
+	);
 	vm.runInContext(definition(shared, "can_stack"), context);
 	for (const name of ["create_new_item", "add_item"]) vm.runInContext(definition(source, name), context);
 	for (const name of ["chest_exchange", "anniversary_deliver"]) vm.runInContext(definition(functions, name), context);
@@ -715,10 +719,10 @@ test("an absent or unreachable host is never replaced, and late return cannot ex
 
 test("normal condition insertion and removal synchronize the client and do not change combat stats", () => {
 	const definitionContext = {};
-	vm.createContext(definitionContext);
+	localize(vm.createContext(definitionContext));
 	vm.runInContext(fs.readFileSync(path.join(root, "design/conditions.js"), "utf8"), definitionContext);
 	const context = { G: { conditions: definitionContext.conditions }, max: Math.max, min: Math.min, server_log() {} };
-	vm.createContext(context);
+	localize(vm.createContext(context));
 	vm.runInContext(definition(functions, "add_condition"), context);
 	vm.runInContext(definition(functions, "decay_s"), context);
 	const sync = [];
@@ -752,25 +756,27 @@ test("the kiss buff uses native Frequency and Output, refreshes without stacking
 	const G = require("./helpers/design"),
 		emitted = [],
 		sync = [];
-	const context = vm.createContext({
-		G,
-		Math,
-		min: Math.min,
-		max: Math.max,
-		round: Math.round,
-		floor: Math.floor,
-		character_slots: G.character_slots,
-		calculate_item_properties: G.calculate_item_properties,
-		mssince: G.mssince,
-		in_arr: G.in_arr,
-		goldm: 1,
-		luckm: 1,
-		xpm: 1,
-		mode: {},
-		perfc: { cps: 0 },
-		server_log() {},
-		recalculate_vxy() {},
-	});
+	const context = localize(
+		vm.createContext({
+			G,
+			Math,
+			min: Math.min,
+			max: Math.max,
+			round: Math.round,
+			floor: Math.floor,
+			character_slots: G.character_slots,
+			calculate_item_properties: G.calculate_item_properties,
+			mssince: G.mssince,
+			in_arr: G.in_arr,
+			goldm: 1,
+			luckm: 1,
+			xpm: 1,
+			mode: {},
+			perfc: { cps: 0 },
+			server_log() {},
+			recalculate_vxy() {},
+		}),
+	);
 	const mapStart = source.indexOf("var stat_to_attr =");
 	vm.runInContext(source.slice(mapStart, source.indexOf("function calculate_player_stats", mapStart)), context);
 	load(context, "node/server.js", ["calculate_player_stats", "calculate_common_stats"]);
@@ -967,22 +973,24 @@ function compoundHarness(name, level = 0, roll = 0.1) {
 		citems: [],
 		items: [...Array.from({ length: 3 }, () => ({ name, level })), { name: "cscroll" + Math.min(3, grade), q: 1 }],
 	});
-	const context = vm.createContext({
-		G: { items: { ...G.items, [name]: def }, maps: { main: { compound: {} } } },
-		D: { compounds: G.compounds },
-		players: { test: p },
-		socket: { id: "test", emit: (...args) => emitted.push(args) },
-		calculate_item_grade: G.calculate_item_grade,
-		cache_item: plain,
-		Math: Object.assign(Object.create(Math), { random: () => roll }),
-		min: Math.min,
-		max: Math.max,
-		gameplay: "normal",
-		server_log() {},
-		resend() {},
-		fail_response: (...args) => failures.push(args),
-		success_response: (...args) => emitted.push(args),
-	});
+	const context = localize(
+		vm.createContext({
+			G: { items: { ...G.items, [name]: def }, maps: { main: { compound: {} } } },
+			D: { compounds: G.compounds },
+			players: { test: p },
+			socket: { id: "test", emit: (...args) => emitted.push(args) },
+			calculate_item_grade: G.calculate_item_grade,
+			cache_item: plain,
+			Math: Object.assign(Object.create(Math), { random: () => roll }),
+			min: Math.min,
+			max: Math.max,
+			gameplay: "normal",
+			server_log() {},
+			resend() {},
+			fail_response: (...args) => failures.push(args),
+			success_response: (...args) => emitted.push(args),
+		}),
+	);
 	for (const name of ["consume", "consume_one"]) vm.runInContext(definition(source, name), context);
 	const handler = socketHandler(context, "compound");
 	return {
@@ -1156,7 +1164,7 @@ function craftHarness(name = "sixcake") {
 		success_response: (...args) => emitted.push(args),
 		fail_response: (...args) => failures.push(args),
 	};
-	vm.createContext(context);
+	localize(vm.createContext(context));
 	for (const name of ["can_stack", "can_add_item"]) vm.runInContext(definition(shared, name), context);
 	for (const name of ["create_new_item", "consume", "add_item"]) vm.runInContext(definition(source, name), context);
 	const mapStart = functions.indexOf("D.craftmap = {};");
@@ -1451,7 +1459,7 @@ function exchangeHarness(rolls) {
 					gift: [[1, "cxjar", 1, "ikissyou"]],
 				},
 			},
-			G: { items: { bow: {} } },
+			G: { items: design.items },
 			Math: Object.assign(Object.create(Math), { random: () => rolls.shift() ?? 0.5 }),
 			is_array: Array.isArray,
 			create_new_item: (name, q) => ({ name, ...(q ? { q } : {}) }),
@@ -1459,7 +1467,7 @@ function exchangeHarness(rolls) {
 			item_to_phrase: (item) => item.name,
 			colors: { server_success: "white" },
 		};
-	vm.createContext(ctx);
+	localize(vm.createContext(ctx));
 	for (const name of ["exchange", "chest_exchange"]) vm.runInContext(definition(functions, name), ctx);
 	return { ctx, items, p: player("Opener"), chest: { items: [], gold: 0, cash: 0 } };
 }
@@ -1543,12 +1551,14 @@ test("loaded cake rows award every equipment and cosmetic outcome, plus exactly 
 	}
 });
 test("the existing drop UI displays 1 / 100 for hats and 1 / 1,000 for a rewarded kiss jar", () => {
-	const context = vm.createContext({
-		G: { drops: design.drops, items: design.items },
-		round: Math.round,
-		item_container: (args, item) => item?.name || "",
-		cx_sprite: (id) => id,
-	});
+	const context = localize(
+		vm.createContext({
+			G: { drops: design.drops, items: design.items },
+			round: Math.round,
+			item_container: (args, item) => item?.name || "",
+			cx_sprite: (id) => id,
+		}),
+	);
 	for (const name of ["to_pretty_num", "to_pretty_float"]) vm.runInContext(definition(shared, name), context);
 	const html = fs.readFileSync(path.join(root, "js/html.js"), "utf8");
 	vm.runInContext(definition(html, "render_drop"), context);
@@ -1569,7 +1579,7 @@ test("cake bonuses use independent absolute probabilities and never apply to a n
 			assert.equal(awarded.filter((item) => item.name === "anniversarygift").length, 1);
 		}
 	}
-	const ctx = vm.createContext({ D: { drops: plain(design.drops) }, is_array: Array.isArray });
+	const ctx = localize(vm.createContext({ D: { drops: plain(design.drops) }, is_array: Array.isArray }));
 	const start = functions.indexOf("for (var n in D.drops)");
 	vm.runInContext(functions.slice(start, functions.indexOf("for (var mname in G.maps)", start)), ctx);
 	assert.deepEqual(
@@ -1622,7 +1632,7 @@ function skillHarness() {
 	};
 	ctx.G.maps = { main: {} };
 	ctx.resend = () => {};
-	vm.createContext(ctx);
+	localize(vm.createContext(ctx));
 	const start = source.indexOf('socket.on("skill",');
 	vm.runInContext(source.slice(start, source.indexOf('socket.on("click",', start)), ctx);
 	return { ...h, ctx, emitted, failed, cast: (name = "ikissyou", id = "Host") => handler({ name, id }) };

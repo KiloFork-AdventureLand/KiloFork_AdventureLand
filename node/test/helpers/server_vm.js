@@ -2,6 +2,14 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
+const localization = require("../../../languages");
+const client_phrase = require("../../../js/phrases");
+client_phrase.load("en", localization.catalog("en"));
+const phrase = Object.assign(
+	(id, parameters, language) => localization.phrase(id, parameters, language),
+	client_phrase,
+);
+phrase.html = localization.phrase_html;
 
 const root = path.resolve(__dirname, "../../..");
 const read = (name) => fs.readFileSync(path.join(root, name), "utf8");
@@ -57,11 +65,29 @@ function extract(source, name) {
 	throw new Error("unterminated function " + name);
 }
 
+function localize(context) {
+	if (!context.localization) context.localization = localization;
+	if (!context.phrase) context.phrase = phrase;
+	if (!context.phrase_html) context.phrase_html = localization.phrase_html;
+	if (!context.is_array) context.is_array = Array.isArray;
+	if (!vm.runInContext("String.prototype.toTitleCase", context)) {
+		const source = read("common/js/common_functions.js"),
+			start = source.indexOf("String.prototype.toTitleCase =");
+		vm.runInContext(source.slice(start, source.indexOf("\n};", start) + 4), context);
+	}
+	if (!context.in_arr) vm.runInContext(extract(read("js/old_common_functions.js"), "in_arr"), context);
+	for (const name of ["startswith_an", "item_message", "kill_message"])
+		if (!context[name]) vm.runInContext(extract(read("node/server_functions.js"), name), context);
+	return context;
+}
+
 function load(context, file, names) {
+	localize(context);
 	vm.runInContext(names.map((name) => extract(read(file), name)).join("\n"), context);
 }
 
 function socketHandler(context, event) {
+	localize(context);
 	const source = read("node/server.js");
 	const start = source.indexOf('\t\tsocket.on("' + event + '",');
 	assert.notEqual(start, -1);
@@ -132,4 +158,4 @@ function transactions(context, documents, beforeCommit) {
 	return { records, stats };
 }
 
-module.exports = { root, read, extract, load, socketHandler, transactions };
+module.exports = { root, read, extract, load, localize, socketHandler, transactions };

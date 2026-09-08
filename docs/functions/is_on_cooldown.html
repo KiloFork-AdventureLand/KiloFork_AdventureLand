@@ -1,9 +1,9 @@
 <p><span class='dlabel'>is_on_cooldown(skill)</span></p>
-<p>Checks the local next-skill timestamp, following shared cooldown links in G.skills.</p>
-<p><b>Returns:</b> Boolean.</p>
-<p><b>Regeneration and potions:</b> <span class="dlabel">regen_hp</span>, <span class="dlabel">regen_mp</span>, <span class="dlabel">use_hp</span>, and <span class="dlabel">use_mp</span> share one cooldown. Regeneration blocks all four for 4 seconds; an ordinary potion blocks all four for 2 seconds. These skills declare <span class="dlabel">cooldown_group: "potion"</span> in <span class="dlabel">G.skills</span>. The check follows <span class="dlabel">share</span> to the timestamp updated by the game, rather than starting a new wait based on <span class="dlabel">cooldown_multiplier</span>.</p>
-<p>This is a local check, not a reservation. Another request can use the cooldown before yours reaches the server. A resolved <span class="dlabel">use_skill</span> Promise does not mean its cooldown has ended. See <span class="clickable" onclick="open_guide('7-using-skills',get_guide_url('7-using-skills'))">Using Skills</span> for a regeneration example and an explanation of the shared cooldown fields.</p>
-<p><b>Example:</b></p>
+<p>{{ phrase("docs.functions.is_on_cooldown.checks-the-local-next-skill-timestamp-following-shared") }}</p>
+<p>{{ phrase_html("docs.functions.is_on_cooldown.returns-boolean") }}</p>
+<p>{{ phrase_html("docs.functions.is_on_cooldown.regeneration-and-potions-regen-hp-regen-mp-use") }}</p>
+<p>{{ phrase_html("docs.functions.is_on_cooldown.this-is-a-local-check-not-a-reservation") }}</p>
+<p>{{ phrase_html("docs.functions.is_on_cooldown.example") }}</p>
 <div class='code'>if (!is_on_cooldown("attack")) attack(target);</div>
 
 <p></p>

@@ -1,40 +1,40 @@
 <div class="anniversary-guide" style="width:600px;max-width:100%;font-size:24px;line-height:1.3">
-	<div style="font-size:32px;color:#8B642E">10 Years of Adventure</div>
-	<p>Every <b>30 minutes</b>, a player is featured on each non-PvP server. Eligible players online when the round starts receive an <b>Anniversary Visit</b>. You have <b>five minutes</b> to find and kiss them.</p>
+	<div style="font-size:32px;color:#8B642E">{{ phrase("docs.guide.event-anniversary.10-years-of-adventure") }}</div>
+	<p>{{ phrase_html("docs.guide.event-anniversary.every-30-minutes-a-player-is-featured-on") }}</p>
 	<div class="anniversary-guide-divider"></div>
-	<div style="color:#8B642E">How to Kiss</div>
-	<p><b>1. Equip the emote.</b> Open <b>SKILLS</b>. Drag <b>I Kiss You</b> from <b>EMOTES</b> onto a key slot under <b>MAPPING</b>, such as <b>1</b>. It appears while your Visit is active; no emote jar needed.</p>
-	<p><b>2. Select the player.</b> Close SKILLS. Use their red <b>KISS</b> portrait in the INFO row to find them, then click the player to select them.</p>
-	<p><b>3. Kiss!</b> Get within <b>80 range</b>, then click the emote on your skillbar or press its assigned key.</p>
-	<p>Your Visit is used up. You and the featured player each receive <b>one slice + one Gift</b>. You also gain <b>10 Frequency and 6 Output for 20 minutes</b>; it does not stack. Nearby players see the kiss in chat.</p>
-	<p>The visitor may also receive an <b>I Kiss You CX Jar</b> to keep the emote permanently. Lucky finds are announced to the server.</p>
+	<div style="color:#8B642E">{{ phrase("docs.guide.event-anniversary.how-to-kiss") }}</div>
+	<p>{{ phrase_html("docs.guide.event-anniversary.1-equip-the-emote-open-skills-drag-i") }}</p>
+	<p>{{ phrase_html("docs.guide.event-anniversary.2-select-the-player-close-skills-use-their") }}</p>
+	<p>{{ phrase_html("docs.guide.event-anniversary.3-kiss-get-within-80-range-then-click") }}</p>
+	<p>{{ phrase_html("docs.guide.event-anniversary.your-visit-is-used-up-you-and-the") }}</p>
+	<p>{{ phrase_html("docs.guide.event-anniversary.the-visitor-may-also-receive-an-i-kiss") }}</p>
 	<div class="anniversary-visit-drops"></div>
 	<div class="anniversary-guide-divider"></div>
 	<div class="anniversary-guide-items"></div>
-	<p>All your characters share one slice flavor. Kisses and monster drops use that flavor on every server. Trade for the other five.</p>
-	<div style="display:flex;align-items:center;gap:10px"><span class="anniversary-guide-mira"></span><div><b>Mira / Mainland (64, -88)</b><br><b>CAKE:</b> Combine six different slices + 100,000 gold.<br><b>CRAFT:</b> Pick an anniversary recipe, then press CRAFT.<br><b>EXCHANGE:</b> Directions to Xyn, who opens cakes and Gifts.</div></div>
-	<p>Use Xyn's normal exchange slot to open one cake or Gift. Click any item below for its details.</p>
-	<p>The Guestbook and Keepsake Pendant combine at the Compound Shrine: three matching copies of the same level + a compound scroll. The other anniversary equipment uses Upgrade Scrolls. Both shrines remain available after the event.</p>
+	<p>{{ phrase("docs.guide.event-anniversary.all-your-characters-share-one-slice-flavor-kisses") }}</p>
+	<div style="display:flex;align-items:center;gap:10px"><span class="anniversary-guide-mira"></span><div>{{ phrase_html("docs.guide.event-anniversary.mira-mainland-64-88-cake-combine-six-different") }}</div></div>
+	<p>{{ phrase("docs.guide.event-anniversary.use-xyn-s-normal-exchange-slot-to-open") }}</p>
+	<p>{{ phrase("docs.guide.event-anniversary.the-guestbook-and-keepsake-pendant-combine-at-the") }}</p>
 	<div class="anniversary-guide-divider"></div>
-	<div style="color:#8B642E">Cake drops — one prize</div>
+	<div style="color:#8B642E">{{ phrase("docs.guide.event-anniversary.cake-drops-one-prize") }}</div>
 		<div class="anniversary-cake-drops" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px"></div>
-		<div style="margin-top:6px">Also receive:</div>
+		<div style="margin-top:6px">{{ phrase("docs.guide.event-anniversary.also-receive") }}</div>
 		<div class="anniversary-cake-bonuses" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr))"></div>
 	<div class="anniversary-guide-divider"></div>
-	<div style="color:#8B642E">Gift drops — one prize</div>
+	<div style="color:#8B642E">{{ phrase("docs.guide.event-anniversary.gift-drops-one-prize") }}</div>
 		<div class="anniversary-gift-drops" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px"></div>
 	<div class="anniversary-guide-divider"></div>
-	<div style="color:#8B642E">Event details</div>
-		<p>Hop Sickness or Realm Fatigue prevents Anniversary Visits and kiss rewards. Merchants can take part only on their home server. These rules apply to the featured player too.</p>
-		<p>Reachable, non-AFK players are chosen, with newer, lower-level characters favored. Each visitor who uses their Visit also gives the featured player one slice of their own flavor and one Gift. Joining late gives no Visit; repeated kisses give no extra rewards.</p>
-		<p>If the featured player disconnects or becomes unreachable, their place stays reserved until the round ends. They can return during the same five minutes. The timer does not restart.</p>
-		<p>Monsters also drop Gifts and your account's slice during the event. They use normal global-drop rolls, including monster HP, Luck and reward share. Inspect them with <span class="dlabel">show_json(G.drops.maps.global)</span>.</p>
-		<p>Crafting needs the listed unlocked ingredients, gold, and room for the result. Stay near Mira unless you have Computer access. Mira leaves when the event ends; your items and emotes stay.</p>
-		<p>Need Drapes for a recipe? Mummies and Ghosts drop them. Franky's Mummies carry them less often.</p>
-		<p>Make a Wish's jar costs one cake + 250,000 gold at Mira. The emote uses 50 MP and has a four-minute cooldown. The rare I Kiss You jar unlocks kisses outside the event. Kisses without an Anniversary Visit give no rewards or buff.</p>
+	<div style="color:#8B642E">{{ phrase("docs.guide.event-anniversary.event-details") }}</div>
+		<p>{{ phrase("docs.guide.event-anniversary.hop-sickness-or-realm-fatigue-prevents-anniversary-visits") }}</p>
+		<p>{{ phrase("docs.guide.event-anniversary.reachable-non-afk-players-are-chosen-with-newer") }}</p>
+		<p>{{ phrase("docs.guide.event-anniversary.if-the-featured-player-disconnects-or-becomes-unreachable") }}</p>
+		<p>{{ phrase_html("docs.guide.event-anniversary.monsters-also-drop-gifts-and-your-account-s") }}</p>
+		<p>{{ phrase("docs.guide.event-anniversary.crafting-needs-the-listed-unlocked-ingredients-gold-and") }}</p>
+		<p>{{ phrase("docs.guide.event-anniversary.need-drapes-for-a-recipe-mummies-and-ghosts") }}</p>
+		<p>{{ phrase("docs.guide.event-anniversary.make-a-wish-s-jar-costs-one-cake") }}</p>
 	<div class="anniversary-guide-divider"></div>
-	<div style="color:#8B642E">CODE: Find and kiss</div>
-	<p>Uses <span class="dlabel">server.status.anniversary</span> and your Visit condition. If the player moves away, run it again.</p>
+	<div style="color:#8B642E">{{ phrase("docs.guide.event-anniversary.code-find-and-kiss") }}</div>
+	<p>{{ phrase_html("docs.guide.event-anniversary.uses-server-status-anniversary-and-your-visit-condition") }}</p>
 <div class="code">async function visit_featured_player() {
 	var round = server.status.anniversary;
 	var ticket = character.s.anniversary_visit;
@@ -65,8 +65,8 @@
 
 visit_featured_player().catch(show_json);</div>
 	<div class="anniversary-guide-divider"></div>
-	<div style="color:#8B642E">CODE: Craft with Mira</div>
-	<p>Bring the ingredients and gold. Required quantities must be in suitable unlocked stacks.</p>
+	<div style="color:#8B642E">{{ phrase("docs.guide.event-anniversary.code-craft-with-mira") }}</div>
+	<p>{{ phrase("docs.guide.event-anniversary.bring-the-ingredients-and-gold-required-quantities-must") }}</p>
 <div class="code">async function craft_with_mira(recipe) {
 	var event = server.status.anniversary;
 	if (!event || !event.active) return game_log("Mira's workshop is closed");
@@ -85,15 +85,15 @@ craft_with_mira("sixcake").catch(show_json);
 
 // One cake + 250,000 gold; the result is a CX Jar:
 // craft_with_mira("makeawishjar").catch(show_json);</div>
-	<p>Inspect ingredients with <span class="dlabel">show_json(G.craft)</span>. Find Mira with <span class="dlabel">find_npc("anniversary_baker")</span>.</p>
-	<p>To combine Guestbooks or Pendants, visit the Compound Shrine. Put three matching +0 copies in inventory slots 0, 1 and 2, and a High Compound Scroll in slot 3:</p>
+	<p>{{ phrase_html("docs.guide.event-anniversary.inspect-ingredients-with-show-json-g-craft-find") }}</p>
+	<p>{{ phrase("docs.guide.event-anniversary.to-combine-guestbooks-or-pendants-visit-the-compound") }}</p>
 <div class="code">// Preview only; nothing is spent:
 compound(0,1,2,3,null,true).then(show_json).catch(show_json);
 // To attempt the compound, consuming the three copies and scroll:
 // compound(0,1,2,3).then(show_json).catch(show_json);</div>
 	<div class="anniversary-guide-divider"></div>
-	<div style="color:#8B642E">CODE: Open a Cake or Gift</div>
-	<p>Opens one item. Leave inventory room and do not move it during the exchange.</p>
+	<div style="color:#8B642E">{{ phrase("docs.guide.event-anniversary.code-open-a-cake-or-gift") }}</div>
+	<p>{{ phrase("docs.guide.event-anniversary.opens-one-item-leave-inventory-room-and-do") }}</p>
 <div class="code">async function open_anniversary_reward(name) {
 	await smart_move("exchange");
 	var slot = locate_item(name);
@@ -107,8 +107,8 @@ compound(0,1,2,3,null,true).then(show_json).catch(show_json);
 open_anniversary_reward("sixcake").catch(show_json);
 // To open a Gift instead:
 // open_anniversary_reward("anniversarygift").catch(show_json);</div>
-	<p>Check inventory, gold and cosmetics for your rewards; not all rewards appear in the returned result.</p>
-	<p>CODE reference: <span class="rlabel" onclick="render_function_reference($(this).html())">smart_move</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">exchange</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">compound</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">upgrade</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">use_skill</span>.</p>
+	<p>{{ phrase("docs.guide.event-anniversary.check-inventory-gold-and-cosmetics-for-your-rewards") }}</p>
+	<p>{{ phrase_html("docs.guide.event-anniversary.code-reference-smart-move-auto-craft-exchange-compound") }}</p>
 </div>
 <style>
 	.anniversary-guide-divider{height:4px;background:#A2A2A2;margin:16px -26px 12px}

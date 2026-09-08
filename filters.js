@@ -1,3 +1,11 @@
+env.addGlobal("phrase", function (id, params, language) {
+	return localization.phrase(id, params, language || (this && this.ctx && this.ctx.domain && this.ctx.domain.language));
+});
+
+env.addGlobal("phrase_html", function (id, params, language) {
+	return nunjucks.runtime.markSafe(localization.phrase_html(id, params, language || (this && this.ctx && this.ctx.domain && this.ctx.domain.language)));
+});
+
 env.addFilter("to_json", function (obj) {
 	try {
 		return JSON.stringify(obj);
@@ -73,10 +81,11 @@ env.addFilter("to_pretty_num", to_pretty_num);
 
 env.addGlobal("tutorial_data", function (key) {
 	for (var i = 0; i < docs.tutorial.length; i++) {
-		if (docs.tutorial[i].key === key) return docs.tutorial[i];
+		if (docs.tutorial[i].key === key)
+			return Object.assign({}, docs.tutorial[i], { title: localization.phrase("tutorial." + key + ".title", {}, this && this.ctx && this.ctx.domain && this.ctx.domain.language) });
 	}
 });
 
 env.addGlobal("task_name", function (key) {
-	return (docs.tasks && docs.tasks[key]) || key.charAt(0).toUpperCase() + key.slice(1);
+	return docs.tasks && docs.tasks[key] ? localization.phrase("tutorial.task." + key, {}, this && this.ctx && this.ctx.domain && this.ctx.domain.language) : key.charAt(0).toUpperCase() + key.slice(1);
 });

@@ -1,67 +1,67 @@
-<p><span class='dlabel'>CODE slots and files</span></p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.code-slots-and-files") }}</p>
 
-<p>Each character has a default CODE slot. When you run changed CODE in the in-game editor, the client saves that slot to the game server.</p>
+<p>{{ phrase("docs.articles.8-code-slots-and-files.each-character-has-a-default-code-slot-when") }}</p>
 
-<p>Your account also has numbered CODE slots from <span class='dlabel'>1</span> to <span class='dlabel'>100</span>. Use them for shared helpers, combat loops, merchant logic, or experiments that more than one character can load.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.your-account-also-has-numbered-code-slots-from") }}</p>
 
-<p>Character slots use the character's internal ID as their slot number. Numbered slots use the number you see in the editor.</p>
+<p>{{ phrase("docs.articles.8-code-slots-and-files.character-slots-use-the-character-s-internal-id") }}</p>
 
 <div class='code'>show_json(X.codes); // Slot names and IDs available to this account</div>
 
 <hr />
 
-<p><span class='dlabel'>Loading shared CODE</span></p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.loading-shared-code") }}</p>
 
-<p>Keep the character's default slot small when possible. Put reusable functions in numbered slots, then load them from the character slot.</p>
+<p>{{ phrase("docs.articles.8-code-slots-and-files.keep-the-character-s-default-slot-small-when") }}</p>
 
-<p>Both <span class='rlabel' onclick="render_function_reference($(this).html())">load_code</span> and <span class='rlabel' onclick="render_function_reference($(this).html())">require_code</span> run the file immediately and wait for its synchronous code to finish. Every call executes the file again, including calls made by other loaded files. Avoid loading files inside a repeating combat loop.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.both-load-code-and-require-code-run-the") }}</p>
 
-<p><span class='dlabel'>Global scripts: load_code</span></p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.global-scripts-load-code") }}</p>
 
-<p><span class='dlabel'>load_code</span> runs a file in the character's global CODE scope, even when called inside a function or a module. Its top-level declarations become available to other CODE in that character.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.load-code-runs-a-file-in-the-character") }}</p>
 
-<p>Loading the same file again can cause an <span class='dlabel'>Identifier has already been declared</span> error for top-level <span class='dlabel'>const</span>, <span class='dlabel'>let</span>, or <span class='dlabel'>class</span> declarations. Repeating <span class='dlabel'>var</span> declarations can reset values. Any initialization that runs again can also create duplicate timers or event listeners.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.loading-the-same-file-again-can-cause-an") }}</p>
 
-<p>For scripts that use globals, load dependencies once from the character slot, before the files that use them. For example, if saved slots named Constants, Combat, and Merchant define globals, start with:</p>
+<p>{{ phrase("docs.articles.8-code-slots-and-files.for-scripts-that-use-globals-load-dependencies-once") }}</p>
 
 <div class='code'>load_code("Constants");
 load_code("Combat");
 load_code("Merchant");</div>
 
-<p>In this arrangement, Combat and Merchant use the globals from Constants; they should not load Constants again.</p>
+<p>{{ phrase("docs.articles.8-code-slots-and-files.in-this-arrangement-combat-and-merchant-use-the") }}</p>
 
 <hr />
 
 <p><span class='dlabel'>Modules: require_code</span></p>
 
-<p><span class='dlabel'>require_code</span> gives the loaded file its own scope and returns <span class='dlabel'>module.exports</span>. Declare local variables with <span class='dlabel'>const</span>, <span class='dlabel'>let</span>, or <span class='dlabel'>var</span>, and explicitly export what callers need. Changing only <span class='dlabel'>load_code</span> to <span class='dlabel'>require_code</span> does not export existing declarations: a file with no exports returns an empty object.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.require-code-gives-the-loaded-file-its-own") }}</p>
 
-<p>Use <span class='dlabel'>module.exports = value</span> to return a value, or add properties such as <span class='dlabel'>exports.TARGET = "goo"</span>. Assigning a new object to <span class='dlabel'>exports</span> alone does not replace <span class='dlabel'>module.exports</span>. These loaders do not support JavaScript <span class='dlabel'>import</span> and <span class='dlabel'>export</span> declarations.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.use-module-exports-value-to-return-a-value") }}</p>
 
-<p><b>No module cache:</b> each call evaluates the file again. If two modules require Constants, Constants runs twice. Objects created by those executions are separate copies, and initialization runs twice too. If callers need the same object, require it once and pass the returned value to them.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.no-module-cache-each-call-evaluates-the-file") }}</p>
 
-<p><b>No circular dependencies:</b> a chain such as A requiring B, then B requiring A, keeps loading recursively until an error or execution limit stops it. Move shared values into a third module that does not require either caller.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.no-circular-dependencies-a-chain-such-as-a") }}</p>
 
-<p>These repeated-loading rules also apply on Mainframe. Module scope does not prevent a file from using existing game globals or deliberately changing global state.</p>
+<p>{{ phrase("docs.articles.8-code-slots-and-files.these-repeated-loading-rules-also-apply-on-mainframe") }}</p>
 
 <hr />
 
-<p><span class='dlabel'>VS Code sync</span></p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.vs-code-sync") }}</p>
 
-<p>Type <span class='hlabel clickable' onclick='say("/codes")'>/codes</span> in chat or open <a class='cancela' href='/vscode' target='_blank'>adventure.land/vscode</a>. The VS Code extension creates a local sync folder and uploads through your account token.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.type-codes-in-chat-or-open-adventure-land") }}</p>
 
-<p>Name local files with the slot number before <span class='dlabel'>.js</span>:</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.name-local-files-with-the-slot-number-before") }}</p>
 
 <div class='code'>Wizard.482008842.js // A character default slot
 Farming.12.js       // Account CODE slot 12</div>
 
-<p>Run <span class='dlabel'>Adventure Land: Activate Auto Sync Folder</span> once. It downloads your CODE slots, refreshes helper libraries, checks for remote changes, uploads safe offline edits, and uploads managed files when you save them.</p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.run-adventure-land-activate-auto-sync-folder-once") }}</p>
 
 <hr />
 
-<p><span class='dlabel'>CODE example: shared module dependencies</span></p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.code-example-shared-module-dependencies") }}</p>
 
-<p>Save Constants, Combat, and Merchant in three separate numbered slots. Put the final block in your character slot. This example uses modules; run it separately from the global example above.</p>
+<p>{{ phrase("docs.articles.8-code-slots-and-files.save-constants-combat-and-merchant-in-three-separate") }}</p>
 
 <p><span class='dlabel'>Constants</span></p>
 
@@ -82,7 +82,7 @@ module.exports = { target_type: constants.TARGET };</div>
 
 module.exports = { bank_map: constants.BANK_MAP };</div>
 
-<p><span class='dlabel'>Character slot</span></p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.character-slot") }}</p>
 
 <div class='code'>var combat = require_code("Combat");
 var merchant = require_code("Merchant");
@@ -90,9 +90,9 @@ var merchant = require_code("Merchant");
 game_log(combat.target_type); // goo
 game_log(merchant.bank_map);  // bank</div>
 
-<p>The character slot requires Combat and Merchant; each requires Constants. This works because Constants only declares and exports values. It still executes twice. Keep timers, listeners, and other startup work out of a repeatedly required constants module.</p>
+<p>{{ phrase("docs.articles.8-code-slots-and-files.the-character-slot-requires-combat-and-merchant-each") }}</p>
 
-<p><span class='dlabel'>Useful functions</span></p>
+<p>{{ phrase_html("docs.articles.8-code-slots-and-files.useful-functions") }}</p>
 
 <p><span class='rlabel' onclick="render_function_reference($(this).html())">load_code</span></p>
 <p><span class='rlabel' onclick="render_function_reference($(this).html())">require_code</span></p>

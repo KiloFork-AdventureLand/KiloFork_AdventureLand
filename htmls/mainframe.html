@@ -1,6 +1,7 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{domain.language or 'en'}}">
 	<head>
+		{% include "htmls/language.html" %}
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{{ domain.title }}</title>
@@ -77,26 +78,26 @@
 	<body>
 		<main>
 			<header class="top">
-				<div><h1>Mainframe</h1><p class="muted">Your characters keep running in Adventure Land.</p></div>
-				<nav class="nav" aria-label="Main navigation"><a href="/comm">COM</a><a href="/docs/guide/mainframe">Guide</a><a href="/">Game</a></nav>
+				<div><h1>Mainframe</h1><p class="muted">{{ phrase("pages.mainframe.your-characters-keep-running-in-adventure-land") }}</p></div>
+				<nav class="nav" aria-label="{{ phrase("pages.mainframe.label-main-navigation") }}">{{ phrase_html("pages.mainframe.com-guide-game") }}</nav>
 			</header>
 			{% if not user %}
-				<section class="notice" style="margin-top:24px"><h2>Sign in first</h2><p class="muted" style="margin-top:8px">Open Adventure Land, sign in, then return to Mainframe.</p><p style="margin-top:14px"><a href="/">Open Adventure Land</a></p></section>
+				<section class="notice" style="margin-top:24px"><h2>{{ phrase("pages.mainframe.sign-in-first") }}</h2><p class="muted" style="margin-top:8px">{{ phrase("pages.mainframe.open-adventure-land-sign-in-then-return-to") }}</p><p style="margin-top:14px">{{ phrase_html("pages.mainframe.open-adventure-land") }}</p></section>
 			{% else %}
-				<section id="mainframe-status" class="status offline"><div><span class="dot"></span><strong id="status-title">Connecting</strong></div><div id="status-detail" class="muted">Waiting for Mainframe.</div></section>
+				<section id="mainframe-status" class="status offline"><div>{{ phrase_html("pages.mainframe.connecting") }}</div><div id="status-detail" class="muted">{{ phrase("pages.mainframe.waiting-for-mainframe") }}</div></section>
 				<div id="mainframe-error" class="error"></div>
 				<section class="connect" aria-labelledby="connect-title">
-					<div class="connect-head"><div><h2 id="connect-title">Connect an AI</h2><p class="muted" style="margin-top:6px">Give an AI the game knowledge, CODE tools, and control of your owned Mainframe characters.</p></div><div class="token-state"><strong id="token-status" class="muted">Checking token…</strong><span id="token-status-detail" class="muted"></span></div></div>
-					<div class="connection"><span class="muted">Transport</span><code>Streamable HTTP</code><span class="muted">Server URL</span><code>https://adventure.land/mcp</code><span class="muted">First resource</span><code>adventureland://guide/start-here</code></div>
-					<div class="connect-actions"><button id="create-token" type="button" disabled>Create token</button><button id="reveal-token" type="button" style="display:none">Reveal token</button><button id="copy-token" type="button" style="display:none">Copy connection</button><button id="revoke-token" class="disconnect" type="button" disabled>Revoke token</button><a href="/docs/guide/adventure-mcp" style="padding:9px 12px">Setup guide</a></div>
+					<div class="connect-head"><div><h2 id="connect-title">{{ phrase("pages.mainframe.connect-an-ai") }}</h2><p class="muted" style="margin-top:6px">{{ phrase("pages.mainframe.give-an-ai-the-game-knowledge-code-tools") }}</p></div><div class="token-state">{{ phrase_html("pages.mainframe.checking-token") }}</div></div>
+					<div class="connection"><span class="muted">{{ phrase("pages.mainframe.transport") }}</span><code>Streamable HTTP</code><span class="muted">{{ phrase("pages.mainframe.server-url") }}</span><code>https://adventure.land/mcp</code><span class="muted">{{ phrase("pages.mainframe.first-resource") }}</span><code>adventureland://guide/start-here</code></div>
+					<div class="connect-actions">{{ phrase_html("pages.mainframe.create-token-reveal-token-copy-connection-revoke-token") }}</div>
 					<pre id="token-secret" aria-live="polite"></pre>
-					<ol class="connect-steps"><li>Create a token. Mainframe keeps it masked until you press <strong>Reveal token</strong>.</li><li>Add the server URL and Bearer token to your AI client's MCP settings.</li><li>Tell the AI to read the first resource and its CODE reading order, then inspect your Mainframe dashboard and exact game contracts.</li></ol>
-					<p class="muted" style="margin-top:10px">One token is active per account. It is encrypted at rest and returned only to the signed-in account. Treat it like a password. Rotating invalidates the old token immediately.</p>
+					<ol class="connect-steps"><li>{{ phrase_html("pages.mainframe.create-a-token-mainframe-keeps-it-masked-until") }}</li><li>{{ phrase("pages.mainframe.add-the-server-url-and-bearer-token-to") }}</li><li>{{ phrase("pages.mainframe.tell-the-ai-to-read-the-first-resource") }}</li></ol>
+					<p class="muted" style="margin-top:10px">{{ phrase("pages.mainframe.one-token-is-active-per-account-it-is") }}</p>
 				</section>
-				<section id="steam-time" class="steam-time" hidden><strong id="steam-time-hours"></strong><p>Your Steam time is shared by every Adventure Land account linked to the same Steam account. One free hour replaces one Shell at renewal. Included CODE workers shorten the next renewal period according to the active group size.</p></section>
-				<section class="summary"><div><span>Renewal cost</span><strong id="cost">1 Shell · 1=60m · 2=50m · 3=45m · 4=40m</strong></div><div><span>Your Shells</span><strong id="shells">—</strong></div><div><span>Running</span><strong id="running">—</strong></div></section>
-				<section id="mainframe-characters" class="grid" aria-live="polite"><div class="empty">Loading characters…</div></section>
-				<footer class="footer"><span id="billing-note">At renewal, 1 Shell buys 60m for 1 active character, 50m for 2, 45m for 3, or 40m for 4. Disconnect to stop future renewals; paid time is not refunded.</span><span>Direct runs are isolated; CODE can include up to three more characters in the same machine.</span></footer>
+				<section id="steam-time" class="steam-time" hidden><strong id="steam-time-hours"></strong><p>{{ phrase("pages.mainframe.your-steam-time-is-shared-by-every-adventure") }}</p></section>
+				<section class="summary"><div>{{ phrase_html("pages.mainframe.renewal-cost-1-shell-1-60m-2-50m") }}</div><div>{{ phrase_html("pages.mainframe.your-shells") }}</div><div>{{ phrase_html("pages.mainframe.running") }}</div></section>
+				<section id="mainframe-characters" class="grid" aria-live="polite"><div class="empty">{{ phrase("pages.mainframe.loading-characters") }}</div></section>
+				<footer class="footer">{{ phrase_html("pages.mainframe.at-renewal-1-shell-buys-60m-for-1") }}</footer>
 				<script src="/js/mainframe_ui.js?v={{ domain.v }}"></script>
 			{% endif %}
 		</main>

@@ -46,11 +46,11 @@ function render_characters() {
 			html += (char.name.length <= 8 && char.name) || char.name.substr(0, 8) + "..";
 			html += " <span style='color: #F3A05D'>[" + server_to_ui(char.server) + "]</span>";
 			html += "<br />";
-			html += "Lv." + char.level + " <span class='gray'>" + char.type.toTitleCase() + "</span>";
+			html += phrase.html("chat.character_level", { level: char.level }) + " <span class='gray'>" + phrase.definition("class", char.type, "name", char.type.toTitleCase()) + "</span>";
 			html += "</div>";
 		}
 	});
-	if (!html) html += "<div class='gamebutton mb5'>ALL OFFLINE</div>";
+	if (!html) html += "<div class='gamebutton mb5'>" + phrase.html("chat.all_offline") + "</div>";
 	$(".charactersuic").html(html);
 	touch_startify();
 }
@@ -69,7 +69,7 @@ function render_servers() {
 		html += server.region + " " + server.name + " <span style='color: #85C76B'>[" + server.players + "]</span>";
 		html += "</div>";
 	});
-	if (!html) html += "<div class='gamebutton mb5'>GAME OFFLINE</div>";
+	if (!html) html += "<div class='gamebutton mb5'>" + phrase.html("chat.game_offline") + "</div>";
 	$(".serversuic").html(html);
 	touch_startify();
 }
@@ -105,8 +105,8 @@ function comm_chat_remember(chat) {
 function comm_chat_time(date, day) {
 	var time = new Date(date);
 	if (!Number.isFinite(time.getTime())) return "";
-	if (day || time.toDateString() != new Date().toDateString()) return time.toLocaleDateString(undefined, { month: "short", day: "numeric" });
-	return time.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+	if (day || time.toDateString() != new Date().toDateString()) return time.toLocaleDateString(phrase.language, { month: "short", day: "numeric" });
+	return time.toLocaleTimeString(phrase.language, { hour: "2-digit", minute: "2-digit" });
 }
 
 function comm_chat_render_list() {
@@ -127,10 +127,10 @@ function comm_chat_render_list() {
 			if (latest) html += "<time datetime='" + comm_chat_escape(latest.date) + "'>" + comm_chat_escape(comm_chat_time(latest.date)) + "</time>";
 			html +=
 				"</span><span class='comm-chat-as'>" +
-				(chat.type == "server" ? "Server chat" : "as " + comm_chat_escape(chat.character)) +
-				(unread ? " <span class='comm-chat-unread'>NEW</span>" : "") +
+				(chat.type == "server" ? phrase.html("chat.server") : phrase.html("chat.sending_as", { character: chat.character })) +
+				(unread ? " <span class='comm-chat-unread'>" + phrase.html("chat.unread") + "</span>" : "") +
 				"</span>";
-			html += "<span class='comm-chat-preview'>" + (latest ? comm_chat_escape(latest.fro + ": " + latest.message) : "No messages yet.") + "</span></button>";
+			html += "<span class='comm-chat-preview'>" + (latest ? comm_chat_escape(latest.fro + ": " + latest.message) : phrase.html("chat.empty_preview")) + "</span></button>";
 			if (!chat.seen) chat.seen = latest ? latest.date : new Date().toISOString();
 		});
 	$("#comm-chat-list").html(html);
@@ -170,7 +170,7 @@ function comm_chat_render_sender() {
 			"'" +
 			(!allowed && chat.type != "private" ? " disabled" : "") +
 			">" +
-			comm_chat_escape(character.name + (character.online ? " · " + server_to_ui(character.server) : " · Offline")) +
+			comm_chat_escape(character.online ? character.name + " · " + server_to_ui(character.server) : phrase("chat.character_offline", { character: character.name })) +
 			"</option>";
 	});
 	if (
@@ -178,7 +178,7 @@ function comm_chat_render_sender() {
 			return character.name == selected;
 		})
 	)
-		html = "<option value=''>" + comm_chat_escape(chat.type == "private" ? chat.character + " · Unavailable" : "No character online") + "</option>" + html;
+		html = "<option value=''>" + comm_chat_escape(chat.type == "private" ? phrase("chat.character_unavailable", { character: chat.character }) : phrase("chat.no_character_online")) + "</option>" + html;
 	$("#comm-chat-from")
 		.html(html)
 		.val(selected || "")
@@ -195,14 +195,14 @@ function comm_chat_update_composer() {
 	$("#comm-chat-input").prop("disabled", !allowed || !!chat.sending);
 	$("#comm-chat-send").prop("disabled", !allowed || chat.sending || !$("#comm-chat-input").val().trim() || (chat.type == "new" && !$("#comm-chat-to").val().trim()));
 	$("#comm-chat-to").prop("disabled", !!chat.sending);
-	var status = !user_id ? "Log in to send messages and read your private chats." : chat.sending ? "Sending..." : chat.error || "";
+	var status = !user_id ? phrase("chat.login_required") : chat.sending ? phrase("chat.sending") : chat.error || "";
 	if (!status && !allowed)
 		status =
 			chat.type == "private"
-				? "Connect " + chat.character + " to reply."
+				? phrase("chat.connect_to_reply", { character: chat.character })
 				: chat.type == "server"
-					? "Connect a character to " + server_to_ui(chat.server) + " to send."
-					: "Connect a character to send a private message.";
+					? phrase("chat.connect_to_server", { server: server_to_ui(chat.server) })
+					: phrase("chat.connect_for_private");
 	$("#comm-chat-status").text(status);
 }
 
@@ -241,7 +241,7 @@ function comm_chat_render_messages(older) {
 				"<time datetime='" +
 				comm_chat_escape(message.date) +
 				"' title='" +
-				comm_chat_escape(new Date(message.date).toLocaleString()) +
+				comm_chat_escape(new Date(message.date).toLocaleString(phrase.language)) +
 				"'>" +
 				comm_chat_escape(comm_chat_time(message.date)) +
 				"</time><div" +
@@ -250,7 +250,7 @@ function comm_chat_render_messages(older) {
 				comm_chat_escape(message.message) +
 				"</div></div>";
 		});
-	if (!html) html = "<span class='gray'>" + (chat.type == "new" ? "Enter a character name to start a private chat." : chat.loaded ? "No messages yet. Say hello!" : "Loading chat...") + "</span>";
+	if (!html) html = "<span class='gray'>" + (chat.type == "new" ? phrase.html("chat.enter_recipient") : chat.loaded ? phrase.html("chat.empty_conversation") : phrase.html("chat.loading")) + "</span>";
 	$("#comm-chat-messages").html(html);
 	$("#comm-chat-older").toggleClass("hidden", !chat.cursor).prop("disabled", !!chat.loading);
 	if (older) history.scrollTop = top + history.scrollHeight - height;
@@ -268,7 +268,7 @@ function comm_chat_select(chat) {
 	comm_chat.active = chat;
 	chat.scroll_bottom = true;
 	$("#comm-chat").removeClass("comm-chat-show-list");
-	$("#comm-chat-title").text(chat.type == "server" ? server_to_ui(chat.server) + " · Server chat" : chat.type == "new" ? "New private message" : chat.to + " · Private");
+	$("#comm-chat-title").text(chat.type == "server" ? phrase("chat.server_title", { server: server_to_ui(chat.server) }) : chat.type == "new" ? phrase("chat.new_private_message") : phrase("chat.private_title", { character: chat.to }));
 	$("#comm-chat-recipient").toggleClass("hidden", chat.type != "new");
 	$("#comm-chat-to").val(chat.to || "");
 	$("#comm-chat-input").val(chat.draft);
@@ -319,21 +319,21 @@ function comm_chat_new(to) {
 function comm_chat_error(error) {
 	return (
 		{
-			not_logged_in: "Log in again to continue.",
-			not_owner: "That character no longer belongs to your account.",
-			character_not_in_game: "The sending character is offline. Reconnect it, then try again.",
-			wrong_server: "Choose a character connected to this server.",
-			server_not_found: "This server is offline.",
-			character_not_found: "No character has that name.",
-			message_self: "Choose another character to message.",
-			muted: "This character is muted.",
-			banned: "This account cannot send messages.",
-			chat_slowdown: "Wait a moment before sending another message.",
-			invalid_name: "Check the character name.",
-			invalid_message: "Enter a message of up to 1,200 characters.",
-			chat_unavailable: "Could not confirm the send. Check the chat before trying again.",
-			timeout: "Could not confirm the request. Check the chat before trying again.",
-		}[error && error.reason] || "Could not reach chat. Your draft is saved here; try again."
+			not_logged_in: phrase("chat.error.not_logged_in"),
+			not_owner: phrase("chat.error.not_owner"),
+			character_not_in_game: phrase("chat.error.character_not_in_game"),
+			wrong_server: phrase("chat.error.wrong_server"),
+			server_not_found: phrase("chat.error.server_not_found"),
+			character_not_found: phrase("chat.error.character_not_found"),
+			message_self: phrase("chat.error.message_self"),
+			muted: phrase("chat.error.muted"),
+			banned: phrase("chat.error.banned"),
+			chat_slowdown: phrase("chat.error.chat_slowdown"),
+			invalid_name: phrase("chat.error.invalid_name"),
+			invalid_message: phrase("chat.error.invalid_message"),
+			chat_unavailable: phrase("chat.error.chat_unavailable"),
+			timeout: phrase("chat.error.timeout"),
+		}[error && error.reason] || phrase("chat.error.unreachable")
 	);
 }
 
@@ -381,7 +381,7 @@ function comm_chat_pull(older) {
 		function (error) {
 			chat.loading = false;
 			if (comm_chat.active === chat) {
-				$("#comm-chat-status").text("Could not load messages. " + comm_chat_error(error));
+				$("#comm-chat-status").text(phrase("chat.messages_load_failed", { error: comm_chat_error(error) }));
 				$("#comm-chat-older").prop("disabled", false);
 			}
 		},
@@ -407,7 +407,7 @@ function comm_chat_pull_list(older) {
 		function (error) {
 			comm_chat.list_loading = false;
 			$("#comm-chat-more").prop("disabled", false);
-			$("#comm-chat-status").text("Could not load conversations. " + comm_chat_error(error));
+			$("#comm-chat-status").text(phrase("chat.conversations_load_failed", { error: comm_chat_error(error) }));
 		},
 	);
 }
@@ -517,8 +517,8 @@ function init_comm_chat() {
 	});
 	comm_chat_viewed_server();
 	if (!comm_chat.active) {
-		$("#comm-chat-title").text("Server chat");
-		$("#comm-chat-messages").text("No live server found.");
+		$("#comm-chat-title").text(phrase.html("chat.server"));
+		$("#comm-chat-messages").text(phrase("chat.no_live_server"));
 		$("#comm-chat-form").addClass("hidden");
 	}
 	comm_chat_render_list();

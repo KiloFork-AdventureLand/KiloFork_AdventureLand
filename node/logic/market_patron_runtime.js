@@ -137,7 +137,9 @@ async function market_patron_grant(npc, player) {
 				item: "marketparcel",
 				quantity: 1,
 				shells: shells,
-				reason: "Your shop stayed stocked for two minutes and left the neighbors room.",
+				reason: phrase("server.merrit.receipt", {}, "en"),
+				reason_phrase: "server.merrit.receipt",
+				reason_phrase_args: {},
 			};
 			data.p.merrit_receipt = R.receipt;
 			A.sync(entity, data);
@@ -208,7 +210,9 @@ function market_patron_finish(player, receipt, cash) {
 			disappearing_text(
 				player.socket,
 				npc,
-				receipt.shells ? "A parcel, and 1 SHELL. Good to see your shop!" : "A parcel for keeping a shop on the square.",
+				receipt.shells
+					? localization.message("server.floating.a_parcel_and_1_shell_good_to_see_your_shop", {})
+					: localization.message("server.floating.a_parcel_for_keeping_a_shop_on_the_square", {}),
 				{ color: "#DDB979" },
 			);
 	}

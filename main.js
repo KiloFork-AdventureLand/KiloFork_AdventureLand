@@ -3,11 +3,20 @@ var fs = require("fs"),
 var keys = require("./secretsandconfig/keys");
 var options = require("./secretsandconfig/options");
 var { get_seo_paths } = require("./seo_paths.js");
+var localization = require("./languages");
+var phrase = localization.phrase,
+	phrase_html = localization.phrase_html;
 
 eval("" + fs.readFileSync(path.resolve(__dirname, "common/init.js")));
 reinit_from_options();
 
 app.use("/sounds", express.static("./sounds", { maxAge: "30d" }));
+app.get("/phrases/:language.js", localization.serve);
+app.use(
+	localization.middleware(function (req) {
+		return get_user(req);
+	}),
+);
 
 // Override MongoDB connection from common/init.js with keys.mongodb_uri
 if (keys.mongodb_uri) {
@@ -129,7 +138,7 @@ app.get(["/comm", "/communicator"], async (req, res, next) => {
 app.get("/mainframe", async (req, res) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
-	domain.title = "Adventure Land Mainframe";
+	domain.title = phrase("server.page.adventure_land_mainframe");
 	return res
 		.status(200)
 		.set("Cache-Control", "no-store")
@@ -174,7 +183,7 @@ app.get("/codes", async (req, res) => {
 app.get("/vscode", async (req, res) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
-	domain.title = "Adventure Land for VS Code";
+	domain.title = phrase("server.page.adventure_land_for_vs_code");
 	return res
 		.status(200)
 		.set("Cache-Control", "no-store")
@@ -192,7 +201,7 @@ app.get("/character/:name", async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
 	var character = await get_character(req.params.name);
-	if (!character) return res.status(200).send(nunjucks.render("htmls/simple_message.html", { domain: domain, message: "Not Found" }));
+	if (!character) return res.status(200).send(nunjucks.render("htmls/simple_message.html", { domain: domain, message: phrase("server.page.not_found") }));
 	if (!user) {
 		var ref = character.private ? req.params.name : character.owner;
 		set_cookie(res, "referrer", ref, domain.domain);
@@ -209,7 +218,7 @@ app.get("/characters", async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
 	var characters = await db.collection("character").find({}).sort({ level: -1 }).limit(500).toArray();
-	domain.title = "Characters";
+	domain.title = phrase("server.page.characters");
 	res.status(200).send(nunjucks.render("htmls/player.html", { domain: domain, characters: characters }));
 });
 
@@ -218,9 +227,9 @@ app.get("/player/:name", async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
 	var character = await get_character(req.params.name);
-	if (!character) return res.status(200).send(nunjucks.render("htmls/simple_message.html", { domain: domain, message: "Not Found" }));
+	if (!character) return res.status(200).send(nunjucks.render("htmls/simple_message.html", { domain: domain, message: phrase("server.page.not_found") }));
 	var player = await get(character.owner);
-	if (!player) return res.status(200).send(nunjucks.render("htmls/simple_message.html", { domain: domain, message: "Not Found" }));
+	if (!player) return res.status(200).send(nunjucks.render("htmls/simple_message.html", { domain: domain, message: phrase("server.page.not_found") }));
 	if (!user) {
 		var ref = character.private ? req.params.name : get_id(player);
 		set_cookie(res, "referrer", ref, domain.domain);
@@ -259,7 +268,7 @@ app.get("/player/:name", async (req, res, next) => {
 app.get("/merchants", async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
-	domain.title = "All Online Merchants!";
+	domain.title = phrase("server.page.all_online_merchants");
 	var entities = await db.collection("character").find({ online: true, type: "merchant" }).toArray();
 	res.status(200).send(nunjucks.render("htmls/player.html", { domain: domain, characters: entities, merchants: true }));
 });
@@ -305,7 +314,7 @@ app.get("/server/:region/:sname", async (req, res, next) => {
 app.get("/ev/:uid/:v", async (req, res, next) => {
 	var domain = await get_domain(req);
 	var user = await get(normalize_user_id(req.params.uid));
-	var message = "Email Verification Failed";
+	var message = phrase("server.page.verification_failed");
 	if (user && !gf(user, "verified")) {
 		if (gf(user, "everification") === req.params.v) {
 			var R = await tx(
@@ -316,10 +325,10 @@ app.get("/ev/:uid/:v", async (req, res, next) => {
 				},
 				{ user: user },
 			);
-			if (!R.failed) message = "Your Email Is Now Verified";
+			if (!R.failed) message = phrase("server.page.verification_complete");
 		}
 	} else if (user) {
-		message = "Your Email Is Already Verified";
+		message = phrase("server.page.verification_already");
 	}
 	res.status(200).send(nunjucks.render("htmls/simple_message.html", { domain: domain, message: message }));
 });
@@ -331,7 +340,7 @@ app.get("/reset/:uid/:key", async (req, res, next) => {
 	if (user && gf(user, "password_key", "123") === req.params.key) {
 		res.status(200).send(nunjucks.render("htmls/contents/password_reset.html", { domain: domain, user: user, id: req.params.uid, key: req.params.key }));
 	} else {
-		res.status(200).send(nunjucks.render("htmls/simple_message.html", { domain: domain, message: "Invalid Password Reset URL" }));
+		res.status(200).send(nunjucks.render("htmls/simple_message.html", { domain: domain, message: phrase("server.page.invalid_password_reset_url") }));
 	}
 });
 
@@ -353,8 +362,16 @@ app.all("/code.js", async (req, res, next) => {
 					.send("" + code.info.code);
 		}
 	}
-	if (req.query.xrequire) res.status(200).set("Content-Type", "application/javascript").send("throw('xrequire: Code not found')");
-	else res.status(200).set("Content-Type", "application/javascript").send("game_log('load_code: Code not found',colors.code_error)");
+	if (req.query.xrequire)
+		res
+			.status(200)
+			.set("Content-Type", "application/javascript")
+			.send("throw(" + JSON.stringify(phrase("server.code.xrequire_not_found")) + ")");
+	else
+		res
+			.status(200)
+			.set("Content-Type", "application/javascript")
+			.send("game_log(" + JSON.stringify(phrase("server.code.load_not_found")) + ",colors.code_error)");
 });
 
 // Game data serving
@@ -486,7 +503,7 @@ app.post("/map/:name/:suffix?", async (req, res, next) => {
 // No POST handler intentionally: writes are not exposed here.
 app.get("/communitymaps/:name", async (req, res, next) => {
 	var name = req.params.name;
-	if (!name) return res.status(404).send("no map");
+	if (!name) return res.status(404).send(phrase("server.page.no_map"));
 	name = name.split("/")[0];
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
@@ -510,11 +527,11 @@ app.get("/editmap", async (req, res, next) => {
 
 app.get("/editmap/:name", async (req, res, next) => {
 	var name = req.params.name;
-	if (!name) return res.status(404).send("no map");
+	if (!name) return res.status(404).send(phrase("server.page.no_map"));
 	name = name.split("/")[0];
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
-	if (!user || (!gf(user, "map_editor") && !is_admin(user))) return res.status(403).send("Not Permitted!");
+	if (!user || (!gf(user, "map_editor") && !is_admin(user))) return res.status(403).send(phrase("server.page.not_permitted"));
 	var map = await get("MP_" + name);
 	res.status(200).send(
 		nunjucks.render("utility/htmls/map_editor.html", {
@@ -530,10 +547,10 @@ app.get("/editmap/:name", async (req, res, next) => {
 app.post("/editmap/:name", async (req, res, next) => {
 	var data = req.body.data;
 	var name = req.params.name;
-	if (!name) return res.status(404).send("no map");
+	if (!name) return res.status(404).send(phrase("server.page.no_map"));
 	name = name.split("/")[0];
 	var user = await get_user(req);
-	if (!user || (!gf(user, "map_editor") && !is_admin(user))) return res.status(403).send("Not Permitted!");
+	if (!user || (!gf(user, "map_editor") && !is_admin(user))) return res.status(403).send(phrase("server.page.not_permitted"));
 	var map = await get("MP_" + name);
 	if (!map) map = { _id: "MP_" + name, created: new Date(), info: {}, blobs: ["info"] };
 	if (typeof data === "string") data = JSON.parse(data);
@@ -712,7 +729,7 @@ app.get("/update-notes", function (req, res) {
 app.get("/steam-news", async function (req, res) {
 	var post = await latest_steam_news();
 	res.set("Cache-Control", "public, max-age=60");
-	res.status(post ? 200 : 503).send(post || { error: "Steam news unavailable" });
+	res.status(post ? 200 : 503).send(post || { error: phrase("server.page.steam_news_unavailable") });
 });
 app.get("/roadmap", async (req, res, next) => {
 	var user = await get_user(req),
@@ -723,7 +740,7 @@ app.get("/realm/:map?", async (req, res, next) => {
 	if (req.params.map && (!Object.prototype.hasOwnProperty.call(maps, req.params.map) || maps[req.params.map].ignore)) return next();
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
-	domain.title = "Realm Atlas | Adventure Land";
+	domain.title = phrase("server.page.realm_atlas_adventure_land");
 	res.set("Cache-Control", "no-store");
 	res.set("X-Robots-Tag", "noindex, nofollow");
 	res.status(200).send(nunjucks.render("htmls/realm.html", { domain: domain, user: user }));

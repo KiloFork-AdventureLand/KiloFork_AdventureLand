@@ -15,6 +15,7 @@ models = {
 		cash: 0,
 		worth: 0,
 		language: "en",
+		language_set: false,
 		platform: "",
 		pid: "",
 		guild: "",

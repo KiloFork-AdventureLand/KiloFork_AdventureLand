@@ -84,8 +84,8 @@
 			setTimeout(function(){
 				if(!character)
 				{
-					add_log("If the character doesn't connect","gray");
-					add_log("Reloading the page to retry in 40 seconds","gray");
+					add_log(phrase.html("page.connection.not_connected"),"gray");
+					add_log(phrase.html("page.connection.retry", {seconds:40}),"gray");
 					setTimeout(function(){
 						if(character) return;
 						location.reload();
@@ -96,8 +96,8 @@
 		else
 		{
 			setTimeout(function(){
-				add_log("Server not found","gray");
-				add_log("Reloading the page to retry in 10 seconds","gray");
+				add_log(phrase.html("page.connection.server_missing"),"gray");
+				add_log(phrase.html("page.connection.retry", {seconds:10}),"gray");
 				setTimeout(function(){
 					if(character) return;
 					location.reload();
@@ -204,7 +204,7 @@ X.codes={{(user_data and user_data.info.code_list or {})|to_json|safe}}
 		var access_master="{{domain.access_master}}";
 		function show_renderer()
 		{
-			var html="<textarea id='renderer'></textarea>"+snippet_actions("send_to_server()","EXECUTE","server-execute");
+			var html="<textarea id='renderer'></textarea>"+snippet_actions("send_to_server()",phrase("client.snippet.execute"),"server-execute");
 			show_modal(html);
 			window.codemirror_render2=CodeMirror(function(current){$("#renderer").replaceWith(current);},{
 				value:window.codemirror_render2 && codemirror_render2.getValue() || "",

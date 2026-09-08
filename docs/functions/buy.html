@@ -1,16 +1,16 @@
 <p>
-	Arguments:
-	<div>&nbsp;<b>*</b> String - An item key name from G.items</div>
-	<div>&nbsp;<b>*</b> Integer - (Optional) Quantity</div>
+	{{ phrase("docs.functions.buy.arguments") }}
+	<div>{{ phrase_html("docs.functions.buy.string-an-item-key-name-from-g-items") }}</div>
+	<div>{{ phrase_html("docs.functions.buy.integer-optional-quantity") }}</div>
 </p>
 <p>
-	Returns:
-	<div>&nbsp; <b>*</b> Promise</div>
+	{{ phrase("docs.functions.buy.returns") }}
+	<div>{{ phrase_html("docs.functions.buy.promise") }}</div>
 </p>
 
-<p>List of available key names: <span class="xlabel" onclick="code_eval($(this).html())">show_json(Object.keys(G.items))</span></p>
+<p>{{ phrase_html("docs.functions.buy.list-of-available-key-names-show-json-object") }}</p>
 
-<p>Example usages:</p>
+<p>{{ phrase("docs.functions.buy.example-usages") }}</p>
 
 <div class='code'>
 buy("shoes");
@@ -31,7 +31,7 @@ buy("shoes").then(
 );
 </div>
 
-<p>Promise Reference:</p>
+<p>{{ phrase("docs.functions.buy.promise-reference") }}</p>
 
 <span class='dlabel'>"resolve"</span>
 <div class='code'>

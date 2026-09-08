@@ -454,13 +454,21 @@ function encouragement_loot(chest, goldm) {
 		}
 		for (var item of drop.items) {
 			add_item(player, item, { found: 1, m: 1, v: B.v });
-			player.socket.emit("game_log", { message: "Found " + item_to_phrase(item), color: "#4BAEAA" });
+			player.socket.emit("game_log", item_message("server.item.found", item, {}, { color: "#4BAEAA" }));
 		}
 		if (drop.cash) add_shells(player, drop.cash, "chest", true, "override");
 		gold = server_tax(gold);
 		player.gold += gold;
 		if (player.t) player.t.cgold += gold;
-		if (gold) player.socket.emit("game_log", { message: to_pretty_num(gold) + " encouragement gold", color: "gold" });
+		if (gold)
+			player.socket.emit(
+				"game_log",
+				localization.message(
+					"server.game_log.encouragement_gold",
+					{ amount: String(to_pretty_num(gold)) },
+					{ color: "gold" },
+				),
+			);
 		if (gold || drop.items.length || drop.cash) resend(player, "reopen+nc+inv");
 	}
 }

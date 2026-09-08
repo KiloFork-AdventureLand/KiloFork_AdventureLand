@@ -86,20 +86,26 @@ async function signup_or_login_api(args) {
 			var R = await tx(
 				async () => {
 					R.user = await tx_get(A.user);
+					if (A.explicit_language || !localization.initialized(R.user)) {
+						R.user.language = A.language;
+						R.user.language_set = A.language_set;
+					}
 					R.auth = get_new_auth(R.user);
 					await tx_save(R.user);
 				},
-				{ user: existing },
+				Object.assign({ user: existing, explicit_language: localization.explicit_cookie(args.req) }, localization.preference_fields(args.req, existing)),
 			);
 			if (R.failed) return { failed: true, reason: R.reason || "login_failed" };
+			localization.bind_user(args.req, R.user);
+			domain = await get_domain(args.req, R.user);
 			set_cookie(args.res, options.cookie_key, get_id(R.user) + "-" + R.auth, domain.domain);
 			if (args.mobile) {
 				args.res.infs.push({ type: "refresh" });
-				return { success: true, user: get_id(R.user), auth: R.auth };
+				return { success: true, user: get_id(R.user), auth: R.auth, language: domain.language };
 			}
-			args.res.infs.push({ type: "message", message: "Logged In!" });
+			args.res.infs.push({ type: "message", message: phrase_html("server.api.logged_in") });
 			args.res.infs.push(await selection_info(args.req, R.user, domain));
-			return { success: true, user: get_id(R.user), auth: R.auth };
+			return { success: true, user: get_id(R.user), auth: R.auth, language: domain.language };
 		}
 		args.res.infs.push({ type: "eval", code: "$('.passwordui').show()" });
 		return { failed: true, reason: "wrong_password" };
@@ -134,7 +140,8 @@ async function signup_or_login_api(args) {
 				timezone: 0,
 				cash: 0,
 				worth: 0,
-				language: "en",
+				language: A.language,
+				language_set: A.language_set,
 				platform: "",
 				pid: "",
 				guild: "",
@@ -162,14 +169,26 @@ async function signup_or_login_api(args) {
 			await tx_save(R.user);
 			await tx_save({ _id: "MK_email-" + A.email, type: "email", phrase: A.email, owner: get_id(R.user), created: new Date() });
 		},
-		{ email: email, password: password, signupth: signupth, referrer: referrer, slots: domain.electron || domain.tauri ? 8 : 5, ip: get_ip(args.req), country: get_country(args.req) },
+		{
+			email: email,
+			password: password,
+			signupth: signupth,
+			referrer: referrer,
+			slots: domain.electron || domain.tauri ? 8 : 5,
+			ip: get_ip(args.req),
+			country: get_country(args.req),
+			language: domain.language,
+			language_set: localization.preference_fields(args.req).language_set,
+		},
 	);
 
 	if (R.failed) return { failed: true, reason: R.reason };
 
+	localization.bind_user(args.req, R.user);
+	domain = await get_domain(args.req, R.user);
 	set_cookie(args.res, options.cookie_key, get_id(R.user) + "-" + R.auth, domain.domain);
 	send_verification_email(domain, R.user);
-	args.res.infs.push({ type: "success", message: "Signup Complete!" });
+	args.res.infs.push({ type: "success", message: phrase_html("server.api.signup_complete") });
 	args.res.infs.push(await selection_info(args.req, R.user, domain));
 	add_event(R.user, "signup", ["new", "noteworthy"], { req: args.req, info: { message: "Signup " + R.user.info.email } });
 	increase_signupth();
@@ -182,10 +201,18 @@ async function signup_or_login_api(args) {
 		console.error("signup ip error", e);
 	}
 
-	return { success: true, user: get_id(R.user), auth: R.auth };
+	return { success: true, user: get_id(R.user), auth: R.auth, language: domain.language };
 }
 
 async function settings_api(args) {
+	if (args.setting === "language") {
+		var result = await localization.set_preference(db.collection("user"), args.user, args.value);
+		if (result.success) {
+			localization.bind_user(args.req, args.user);
+			localization.set_language(result.language);
+		}
+		return result;
+	}
 	var domain = await get_domain(args.req),
 		user = args.user;
 	if (user.server) return { failed: true, reason: "cant_make_changes_while_in_bank" };
@@ -201,7 +228,7 @@ async function settings_api(args) {
 		{ user: user, setting: args.setting, value: args.value },
 	);
 	if (R.failed) return { failed: true, reason: R.reason };
-	args.res.infs.push({ type: "success", message: "Setting changed!" });
+	args.res.infs.push({ type: "success", message: phrase_html("server.api.setting_changed") });
 	args.res.infs.push(await selection_info(args.req, R.user, domain));
 	return { success: true };
 }
@@ -242,7 +269,7 @@ async function change_email_api(args) {
 
 	if (R.failed) return { failed: true, reason: R.reason || "operation_failed" };
 	send_verification_email(domain, R.user);
-	args.res.infs.push({ type: "success", message: "Email changed! Verification email re-sent. Refresh the page." });
+	args.res.infs.push({ type: "success", message: phrase_html("server.api.email_changed_verification_email_re_sent_refresh_the_page") });
 	args.res.infs.push(await selection_info(args.req, R.user, domain));
 	return { success: true };
 }
@@ -265,7 +292,7 @@ async function change_password_api(args) {
 	);
 
 	if (R.failed) return { failed: true, reason: R.reason };
-	args.res.infs.push({ type: "success", message: "Password changed!" });
+	args.res.infs.push({ type: "success", message: phrase_html("server.api.password_changed") });
 	args.res.infs.push(await selection_info(args.req, R.user, domain));
 	return { success: true };
 }
@@ -288,7 +315,7 @@ async function reset_password_api(args) {
 	);
 
 	if (R.failed) return { failed: true, reason: R.reason };
-	args.res.infs.push({ type: "success", message: "New password set!" });
+	args.res.infs.push({ type: "success", message: phrase_html("server.api.new_password_set") });
 	return { success: true };
 }
 
@@ -317,13 +344,13 @@ async function password_reminder_api(args) {
 
 	if (R.failed) return { failed: true, reason: R.reason };
 	send_password_reminder_email(domain, R.user);
-	args.res.infs.push({ type: "success", message: "Emailed password reset instructions" });
+	args.res.infs.push({ type: "success", message: phrase_html("server.api.emailed_password_reset_instructions") });
 	return { success: true };
 }
 
 async function logout_api(args) {
 	delete_cookie(args.res, options.cookie_key, args.req.get ? args.req.get("host").split(":")[0] : "");
-	args.res.infs.push({ type: "message", message: "Logged Out" });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.logged_out") });
 	return { success: true };
 }
 
@@ -342,7 +369,7 @@ async function logout_everywhere_api(args) {
 
 	if (R.failed) return { failed: true, reason: R.reason };
 	delete_cookie(args.res, options.cookie_key, args.req.get ? args.req.get("host").split(":")[0] : "");
-	args.res.infs.push({ type: "message", message: "Logged Out Everywhere" });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.logged_out_everywhere") });
 	return { success: true };
 }
 
@@ -512,7 +539,7 @@ async function create_character_api(args) {
 		console.error("create_character ip error", e);
 	}
 
-	args.res.infs.push({ type: "success", message: name + " is alive!" });
+	args.res.infs.push({ type: "success", message: phrase_html("server.api.is_alive", { name: String(name) }) });
 	args.res.infs.push(await selection_info(args.req, R.owner, domain));
 	add_event(R.owner, "new_character", ["characters", "noteworthy"], { req: args.req, info: { message: "New Character " + name + " from " + user.info.email }, backup: true });
 	increase_characterth();
@@ -562,7 +589,7 @@ async function sort_characters_api(args) {
 	);
 
 	if (R.failed) return { failed: true, reason: R.reason || "something_went_wrong" };
-	args.res.infs.push({ type: "message", message: "Done!" });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.done") });
 	args.res.infs.push(await selection_info(args.req, R.owner, domain));
 	return { success: true };
 }
@@ -622,8 +649,8 @@ async function rename_character_api(args) {
 
 	if (R.failed) return { failed: true, reason: R.reason };
 	add_event(character, "rename_character", ["characters"], { req: args.req, info: { message: name + " renamed to " + nname }, backup: true });
-	args.res.infs.push({ type: "message", message: "Spent " + to_pretty_num(price) + " shells" });
-	args.res.infs.push({ type: "message", message: name + " renamed to " + nname });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.spent_shells", { amount: String(to_pretty_num(price)) }) });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.renamed_to", { name: String(name), nname: String(nname) }) });
 	args.res.infs.push(await selection_info(args.req, R.owner, domain));
 	return { success: true };
 }
@@ -704,7 +731,7 @@ async function transfer_character_api(args) {
 
 	if (R.failed) return { failed: true, reason: R.reason || "something_went_wrong" };
 	add_event(character, "transfer_character", ["characters"], { req: args.req, info: { message: user.name + " transferred " + name + " to " + id }, backup: true });
-	args.res.infs.push({ type: "message", message: name + " flew away ..." });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.flew_away", { name: String(name) }) });
 	args.res.infs.push(await selection_info(args.req, R.owner, domain));
 	return { success: true };
 }
@@ -751,7 +778,7 @@ async function delete_character_api(args) {
 	);
 
 	if (R.failed) return { failed: true, reason: R.reason || "something_went_wrong" };
-	args.res.infs.push({ type: "message", message: name + " is no more ..." });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.is_no_more", { name: String(name) }) });
 	args.res.infs.push(await selection_info(args.req, R.owner, domain));
 	return { success: true };
 }
@@ -776,12 +803,11 @@ async function edit_character_api(args) {
 	);
 
 	if (R.failed) return { failed: true, reason: R.reason || "something_went_wrong" };
-	var message = "Done!";
+	var message = phrase_html("server.api.done");
 	if (operation === "toggle_privacy") {
 		if (R.element.private) {
-			message = "Character is now private";
-			if (simplify_name(user.name) === R.element.name) message += " WARNING: SORT YOUR CHARACTERS ONCE TO AUTO-CHANGE YOUR ACCOUNT NAME";
-		} else message = "Character isn't private anymore";
+			message = simplify_name(user.name) === R.element.name ? phrase_html("server.api.character_private_rename") : phrase_html("server.api.character_private");
+		} else message = phrase_html("server.api.character_public");
 	}
 	args.res.infs.push({ type: "message", message: message });
 	args.res.infs.push(await selection_info(args.req, user, domain));
@@ -797,7 +823,7 @@ async function disconnect_character_api(args) {
 	if (character.owner !== get_id(user)) return { failed: true, reason: "not_owner" };
 	if (!is_in_game(character)) return { failed: true, reason: "character_not_in_game" };
 	await character_eval(character, "console.log('disconnect_character_api'); player.socket.disconnect()");
-	args.res.infs.push({ type: "message", message: "Sent the disconnect signal to the server" });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.sent_the_disconnect_signal_to_the_server") });
 	if (args.selection) args.res.infs.push(await selection_info(args.req, user, domain));
 	return { success: true };
 }
@@ -1194,7 +1220,7 @@ async function delete_mail_api(args) {
 	var mail = await get(args.mid);
 	if (!user || !mail || !mail.owner || mail.owner.indexOf(get_id(user)) === -1) return { failed: true, reason: "cant_delete" };
 	await remove(mail);
-	args.res.infs.push({ type: "message", message: "Mail deleted." });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.mail_deleted") });
 	return { success: true };
 }
 
@@ -1303,15 +1329,15 @@ async function save_code_api(args) {
 	if (name === "DELETE") {
 		args.res.infs.push({ type: "code_info", num: slot, delete: true });
 		if (!args.electron) args.res.infs.push({ type: "eval", code: "code_slot=0;code_change=false;" });
-		if (args.log) args.res.infs.push({ type: "message", message: "Deleted " + old_name + "." + slot + ".js", color: "gray" });
-		else args.res.infs.push({ type: "chat_message", message: "Deleted " + old_name + "." + slot + ".js", color: "gray" });
+		if (args.log) args.res.infs.push({ type: "message", message: phrase_html("server.api.deleted_js", { old_name: String(old_name), slot: String(slot) }), color: "gray" });
+		else args.res.infs.push({ type: "chat_message", message: phrase_html("server.api.deleted_js", { old_name: String(old_name), slot: String(slot) }), color: "gray" });
 	} else {
 		args.res.infs.push({ type: "code_info", num: slot, name: data.info.code_list[slot][0], v: data.info.code_list[slot][1] });
 		if (!args.electron) args.res.infs.push({ type: "eval", code: "code_slot=" + JSON.stringify("" + slot) + ";code_change=false;" });
-		if (args.log) args.res.infs.push({ type: "message", message: "Saved " + name + "." + slot + ".js", color: "#E13758" });
-		else if (args.auto && character) args.res.infs.push({ type: "message", message: "Auto-saved [" + character + "]", color: "#96E8A7" });
-		else if (args.auto) args.res.infs.push({ type: "message", message: "Auto-saved " + name + "." + slot + ".js", color: "#96E8A7" });
-		else args.res.infs.push({ type: "chat_message", message: "Saved " + name + "." + slot + ".js", color: "#E13758" });
+		if (args.log) args.res.infs.push({ type: "message", message: phrase_html("server.api.saved_js", { name: String(name), slot: String(slot) }), color: "#E13758" });
+		else if (args.auto && character) args.res.infs.push({ type: "message", message: phrase_html("server.api.auto_saved", { character: String(character) }), color: "#96E8A7" });
+		else if (args.auto) args.res.infs.push({ type: "message", message: phrase_html("server.api.auto_saved_js", { name: String(name), slot: String(slot) }), color: "#96E8A7" });
+		else args.res.infs.push({ type: "chat_message", message: phrase_html("server.api.saved_js", { name: String(name), slot: String(slot) }), color: "#E13758" });
 	}
 	return { success: true };
 }
@@ -1325,8 +1351,8 @@ async function load_code_api(args) {
 		var default_code = shtml("htmls/contents/codes/default_code.js");
 		if (args.pure) return { code: default_code };
 		args.res.infs.push({ type: "code", code: default_code, run: args.run, slot: 0, save: args.save });
-		if (args.log) args.res.infs.push({ type: "message", message: "Loaded the default code", color: "#32A3B0" });
-		else if (!args.save) args.res.infs.push({ type: "chat_message", message: "Loaded the default code", color: "#32A3B0" });
+		if (args.log) args.res.infs.push({ type: "message", message: phrase_html("server.api.loaded_the_default_code"), color: "#32A3B0" });
+		else if (!args.save) args.res.infs.push({ type: "chat_message", message: phrase_html("server.api.loaded_the_default_code"), color: "#32A3B0" });
 		return { success: true };
 	}
 
@@ -1340,13 +1366,13 @@ async function load_code_api(args) {
 		if (code_entity) {
 			if (args.pure) return { code: code_entity.info.code };
 			args.res.infs.push({ type: "code", code: code_entity.info.code, run: args.run, slot: slot, save: args.save, name: code_list[slot][0], v: code_list[slot][1] });
-			if (args.log) args.res.infs.push({ type: "message", message: "Loaded " + code_list[slot][0] + "." + slot + ".js", color: "#32A3B0" });
-			else if (!args.save) args.res.infs.push({ type: "chat_message", message: "Loaded " + code_list[slot][0] + "." + slot + ".js", color: "#32A3B0" });
+			if (args.log) args.res.infs.push({ type: "message", message: phrase_html("server.api.loaded_js", { value: String(code_list[slot][0]), slot: String(slot) }), color: "#32A3B0" });
+			else if (!args.save) args.res.infs.push({ type: "chat_message", message: phrase_html("server.api.loaded_js", { value: String(code_list[slot][0]), slot: String(slot) }), color: "#32A3B0" });
 			return { success: true };
 		}
 	}
 	if (args.pure) return { code: "say('Code not found'); set_status('Not Found')" };
-	args.res.infs.push({ type: "chat_message", message: "Not Found", color: "#AD3844" });
+	args.res.infs.push({ type: "chat_message", message: phrase_html("server.api.not_found"), color: "#AD3844" });
 	return { failed: true, reason: "not_found" };
 }
 
@@ -1383,11 +1409,11 @@ async function tutorial_api(args) {
 				if (valid_task && data.info.completed_tasks.indexOf(A.task) === -1) {
 					data.info.completed_tasks.push(A.task);
 					await tx_save(data);
-					R.result = ["Task '" + docs.tasks[A.task] + "' Complete!", "#85C76B", data, 1];
+					R.result = [phrase_html("server.tutorial.task_complete", { task: phrase("tutorial.task." + A.task) }), "#85C76B", data, 1];
 				} else {
-					if (valid_task) R.result = ["Task '" + docs.tasks[A.task] + "' Complete!", "gray", data, 0];
-					else if (docs.tasks && docs.tasks[A.task]) R.result = ["That task belongs to another lesson.", "gray", data, 0];
-					else R.result = ["Invalid task '" + A.task + "'", "gray", data, 0];
+					if (valid_task) R.result = [phrase_html("server.tutorial.task_complete", { task: phrase("tutorial.task." + A.task) }), "gray", data, 0];
+					else if (docs.tasks && docs.tasks[A.task]) R.result = [phrase_html("server.tutorial.other_lesson"), "gray", data, 0];
+					else R.result = [phrase_html("server.tutorial.invalid_task", { task: A.task }), "gray", data, 0];
 				}
 			} else {
 				var next = parseInt(A.step);
@@ -1398,11 +1424,11 @@ async function tutorial_api(args) {
 						if (data.info.completed_tasks.indexOf(current_lesson.tasks[i]) === -1) complete = false;
 					}
 				if (next !== current + 1 || next > docs.tutorial.length || !complete) {
-					R.result = ["Complete the current lesson before continuing.", "gray", data, 0];
+					R.result = [phrase_html("server.tutorial.complete_current"), "gray", data, 0];
 				} else {
 					data.info.tutorial_step = next;
 					await tx_save(data);
-					R.result = ["Lesson '" + current_lesson.title + "' Complete!", "#85C76B", data, 2];
+					R.result = [phrase_html("server.tutorial.lesson_complete", { lesson: phrase("tutorial." + current_lesson.key + ".title") }), "#85C76B", data, 2];
 				}
 			}
 		},
@@ -1439,7 +1465,7 @@ async function reset_tutorial_api(args) {
 	var info = data_to_tutorial(R.data);
 	info.type = "tutorial_data";
 	args.res.infs.push(info);
-	args.res.infs.push({ type: "message", message: "Tutorial Reset!", color: "#F7B32F" });
+	args.res.infs.push({ type: "message", message: phrase_html("server.api.tutorial_reset"), color: "#F7B32F" });
 	return { success: true };
 }
 
@@ -1447,6 +1473,12 @@ async function reset_tutorial_api(args) {
 
 var STEAM_SHELL_USD_AMOUNTS = [1, 10, 25, 100, 500];
 var STEAM_PURCHASE_COLLECTION = "steam_purchase";
+
+function steam_checkout_language(language) {
+	// Steam uses regional Web API codes. Its UI falls back to English for Arabic; Filipino has no Web API locale.
+	language = localization.normalize(language) || "en";
+	return { "zh-Hans": "zh-CN", "zh-Hant": "zh-TW", "pt-PT": "pt", ar: "en", fil: "en" }[language] || language;
+}
 
 function purchased_shells_for_usd(usd, event_bonus) {
 	var shells = usd === 1 ? 75 : usd * 80;
@@ -1634,7 +1666,7 @@ async function grant_steam_shell_purchase(purchase, args) {
 			});
 			update_characters(result.referrer, null, null, result.referrer_shells).catch(console.error);
 		}
-		args.res.infs.push({ type: "success", message: "You received " + result.shells + " SHELLS!" });
+		args.res.infs.push({ type: "success", message: phrase_html("server.api.you_received_shells", { amount: String(result.shells) }) });
 	}
 	return { success: true, cash: result.cash, shells: result.shells, already_delivered: result.already_delivered || false };
 }
@@ -1661,6 +1693,7 @@ async function steam_payment_start_api(args) {
 	}
 	if (!purchase) return { failed: true, reason: "purchase_creation_failed" };
 
+	var checkout_language = steam_checkout_language(domain.language);
 	var initialized = await steam_microtxn_request(
 		"POST",
 		"InitTxn/v3",
@@ -1670,12 +1703,12 @@ async function steam_payment_start_api(args) {
 			ipaddress: get_ip(args.req),
 			orderid: purchase._id,
 			itemcount: 1,
-			language: "en",
+			language: checkout_language,
 			currency: purchase.currency,
 			"itemid[0]": purchase.item_id,
 			"qty[0]": 1,
 			"amount[0]": purchase.amount,
-			"description[0]": purchase.shells + " Shells",
+			"description[0]": localization.phrase("server.payment.shells", { count: purchase.shells }, checkout_language),
 			"category[0]": "Shells",
 		},
 		sandbox,
@@ -1794,7 +1827,7 @@ async function stripe_payment_api(args) {
 
 		add_event(R.element, "shells", ["cashflow"], { req: args.req, info: { message: "STRIPE! " + user.name + " received " + shells + " SHELLS!", usd: usd, token: token } });
 		args.res.infs.push({ type: "func", func: "stripe_result", args: ["success", R.element.cash] });
-		args.res.infs.push({ type: "success", message: "You received " + shells + " SHELLS!" });
+		args.res.infs.push({ type: "success", message: phrase_html("server.api.you_received_shells", { amount: String(shells) }) });
 		update_characters(R.element, null, null, shells).catch(console.error);
 
 		// Referrer bonus: 10% of shells to the referrer
@@ -1853,9 +1886,9 @@ async function copy_map_api(args) {
 		var to_map = await get("MP_" + args.to);
 		if (to_map) await backup_entity(to_map);
 		await save({ _id: "MP_" + args.to, name: args.to, created: new Date(), updated: new Date(), info: { data: from_map.info.data }, blobs: ["info"] });
-		args.res.infs.push({ type: "success", message: "Done!" });
+		args.res.infs.push({ type: "success", message: phrase_html("server.api.done") });
 	} else {
-		args.res.infs.push({ type: "info", message: "Map didn't exist" });
+		args.res.infs.push({ type: "info", message: phrase_html("server.api.map_didn_t_exist") });
 	}
 	return { success: true };
 }
@@ -1870,9 +1903,9 @@ async function delete_map_api(args) {
 	if (map) {
 		await backup_entity(map);
 		await remove(map);
-		args.res.infs.push({ type: "success", message: "Deleted!" });
+		args.res.infs.push({ type: "success", message: phrase_html("server.api.deleted") });
 	} else {
-		args.res.infs.push({ type: "info", message: "Map didn't exist" });
+		args.res.infs.push({ type: "info", message: phrase_html("server.api.map_didn_t_exist") });
 	}
 	return { success: true };
 }
@@ -1909,7 +1942,7 @@ async function load_article_api(args) {
 			try {
 				args.res.infs.push({ type: "article", html: shtml("docs/articles/" + name + ".html"), url: args.url, prev: found && prev, next: found && next });
 			} catch (e2) {
-				args.res.infs.push({ type: "article", html: "Article not found: " + name, url: args.url });
+				args.res.infs.push({ type: "article", html: phrase_html("server.api.article_not_found", { name: name }), url: args.url });
 			}
 		}
 	} else if (args.func) {
@@ -1931,7 +1964,7 @@ async function load_gcode_api(args) {
 async function load_map_api(args) {
 	var map = await get("MP_" + args.key);
 	if (!map || !gf(map, "resort")) {
-		args.res.infs.push({ type: "message", message: "Deck not found", color: "#AE384D" });
+		args.res.infs.push({ type: "message", message: phrase_html("server.api.deck_not_found"), color: "#AE384D" });
 		return { failed: true };
 	}
 	args.res.infs.push({ type: "map", data: map.info.data });

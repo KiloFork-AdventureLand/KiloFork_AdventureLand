@@ -9,6 +9,9 @@ var server = {
 };
 var keys = require("./../secretsandconfig/keys");
 var options = require("./../secretsandconfig/options");
+var localization = require("../languages"),
+	phrase = localization.phrase,
+	phrase_html = localization.phrase_html;
 var server_key = process.argv[process.argv.length - 1];
 var server_def = options.servers[server_key];
 var region = server_def.region;
@@ -651,7 +654,7 @@ async function reload_server(to_broadcast, change) {
 			broadcast("reloaded", { change: change || "" });
 		}
 	} catch (e) {
-		broadcast("notice", { message: "Server Live Reload Failed" });
+		broadcast("notice", localization.message("server.notice.server_live_reload_failed", {}));
 		log_trace("#X live_reload", e);
 	}
 }
@@ -671,10 +674,14 @@ server_api.post("/cupdate", (req, res) => {
 		var player = players[id];
 		player.cash = req.body.cash;
 		if (req.body.ncash && req.body.ncash != "0") {
-			player.socket.emit("game_log", {
-				message: "Received " + req.body.ncash + " shells",
-				color: colors.cash,
-			});
+			player.socket.emit(
+				"game_log",
+				localization.message(
+					"server.game_log.received_shells",
+					{ amount: String(req.body.ncash) },
+					{ color: colors.cash },
+				),
+			);
 		}
 		resend(player, "reopen+nc");
 	}
@@ -1218,9 +1225,23 @@ function calculate_player_stats(player) {
 				(player.level >= 80 ? player.encouragement_xp_carry80 : player.encouragement_xp_carry) || 1,
 			);
 		if (player.level >= 80) {
-			realm_broadcast("server_message", { message: player.name + " is now level " + player.level, color: "#968CFA" });
+			realm_broadcast(
+				"server_message",
+				localization.message(
+					"server.server_message.is_now_level",
+					{ player: String(player.name), level: String(player.level) },
+					{ color: "#968CFA" },
+				),
+			);
 		} else if (player.level >= 70) {
-			broadcast("server_message", { message: player.name + " is now level " + player.level + "!", color: "#968CFA" });
+			broadcast(
+				"server_message",
+				localization.message(
+					"server.server_message.is_now_level_2",
+					{ player: String(player.name), level: String(player.level) },
+					{ color: "#968CFA" },
+				),
+			);
 		}
 		xy_emit(player, "ui", { type: "level_up", name: player.name });
 	}
@@ -1965,7 +1986,7 @@ function add_item(player, new_item, args) {
 			item.data = new_item.data;
 		} // "cxjar"
 		var num = add_item(mr, item, { m: 1 });
-		mr.socket.emit("game_log", { message: "Found " + item_to_phrase(item), color: "#64B867" });
+		mr.socket.emit("game_log", item_message("server.item.found", item, {}, { color: "#64B867" }));
 		xy_emit(mr, "ui", { type: "+M", name: mr.name, item: cache_item(item), num: num, cevent: "mluck", event: "mluck" });
 		resend(mr, "reopen+nc+inv");
 	}
@@ -1973,22 +1994,31 @@ function add_item(player, new_item, args) {
 		var event = G.items[new_item.name].event;
 		var e_type = "server_found";
 		var e_phrase = " found ";
+		var item_action = "found";
 		if (!args.found) {
 			e_type = "server_received";
 			e_phrase = " received ";
+			item_action = "received";
 		}
 		if (args.phrase) {
 			e_type = "server_received";
 			e_phrase = " " + args.phrase.toLowerCase() + " ";
+			item_action = { Fished: "fished", Mined: "mined", Glitched: "glitched" }[args.phrase];
 		}
-		broadcast("server_message", {
+		var item_notice = {
 			message: player.name + e_phrase + item_to_phrase(new_item),
 			color: "#85C76B",
 			type: e_type,
 			item: cache_item(new_item),
 			name: player.name,
 			event: event,
-		});
+		};
+		broadcast(
+			"server_message",
+			item_action
+				? item_message("server.item.named_" + item_action, new_item, { player: player.name }, item_notice)
+				: item_notice,
+		);
 		a_score[new_item.name] = (a_score[new_item.name] || 0) + 1.05;
 	}
 	if (args.log) {
@@ -2729,10 +2759,10 @@ function kill_monster(attacker, target) {
 	var no_decrease = false;
 	if (attacker) {
 		if (!attacker.party) {
-			attacker.socket.emit("game_log", "You " + killed_message(target.type));
+			attacker.socket.emit("game_log", kill_message(attacker.name, target.type, true));
 		} // tut("killagoo") on game.js
 		else {
-			party_emit(attacker.party, "game_log", attacker.name + " " + killed_message(target.type));
+			party_emit(attacker.party, "game_log", kill_message(attacker.name, target.type, false));
 		}
 		if (B.free_last_hits && target.target && target.target != attacker.name) {
 			stop_pursuit(target, { force: true, cause: "kill_monster call" });
@@ -2756,12 +2786,25 @@ function player_rip_logic(player) {
 function pwn_routine(victor, target) {
 	issue_player_award(victor, target);
 	rip(target);
-	instance_emit(target.in, "server_message", {
-		message: victor.name + " pwned " + target.name,
-		color: (victor.team && colors[victor.team]) || "gray",
-	});
+	instance_emit(
+		target.in,
+		"server_message",
+		localization.message(
+			"server.server_message.pwned",
+			{ victor: String(victor.name), target: String(target.name) },
+			{ color: (victor.team && colors[victor.team]) || "gray" },
+		),
+	);
 	if (target.map == "arena") {
-		xy_emit(npcs.pvp, "chat_log", { owner: npcs.pvp.name, message: victor.name + " pwned " + target.name, id: "pvp" });
+		xy_emit(
+			npcs.pvp,
+			"chat_log",
+			localization.message(
+				"server.chat_log.pwned",
+				{ victor: String(victor.name), target: String(target.name) },
+				{ owner: npcs.pvp.name, id: "pvp" },
+			),
+		);
 	}
 }
 
@@ -2855,7 +2898,10 @@ function issue_player_award(attacker, target) {
 	}
 	pwns[pend++ % 200] = [attacker.name, target.name];
 
-	target.socket.emit("game_log", { message: "Slain by " + attacker.name, color: "#F12F02" });
+	target.socket.emit(
+		"game_log",
+		localization.message("server.game_log.slain_by", { attacker: String(attacker.name) }, { color: "#F12F02" }),
+	);
 	var tome_gold = 0;
 	var psize = 1;
 	if (lost_xp) {
@@ -2865,7 +2911,10 @@ function issue_player_award(attacker, target) {
 				consume_one(target, i);
 				if (gameplay != "hardcore" && gameplay != "test") tome_gold = G.items.xptome.gold_reward;
 				target.to_reopen = true;
-				target.socket.emit("game_log", { message: "A tome fades away", color: "#B5C09C" });
+				target.socket.emit(
+					"game_log",
+					localization.message("server.game_log.a_tome_fades_away", {}, { color: "#B5C09C" }),
+				);
 				break;
 			}
 		}
@@ -2877,8 +2926,14 @@ function issue_player_award(attacker, target) {
 	if (target.xp < 0) {
 		target.xp = 0;
 	}
-	target.socket.emit("game_log", "Lost " + to_pretty_num(lost_gold) + " gold");
-	target.socket.emit("game_log", "Lost " + to_pretty_num(lost_xp) + " experience");
+	target.socket.emit(
+		"game_log",
+		localization.message("server.game_log.lost_gold", { amount: String(to_pretty_num(lost_gold)) }),
+	);
+	target.socket.emit(
+		"game_log",
+		localization.message("server.game_log.lost_experience", { amount: String(to_pretty_num(lost_xp)) }),
+	);
 	target.socket.emit("disappearing_text", {
 		message: "-" + lost_xp,
 		x: target.x,
@@ -2896,7 +2951,10 @@ function issue_player_award(attacker, target) {
 	// A consumed tome pays its bounty once to the victor, before ordinary party loot is divided.
 	if (tome_gold) {
 		attacker.gold += tome_gold;
-		attacker.socket.emit("game_log", "Received " + to_pretty_num(tome_gold) + " gold from the tome");
+		attacker.socket.emit(
+			"game_log",
+			localization.message("server.game_log.received_gold_from_the_tome", { amount: String(to_pretty_num(tome_gold)) }),
+		);
 	}
 
 	if (!attacker.party) {
@@ -2905,15 +2963,26 @@ function issue_player_award(attacker, target) {
 		}
 		attacker.gold += gain_gold;
 		attacker.xp += round(lost_xp * 0.95);
-		attacker.socket.emit("game_log", { message: "Pwned " + target.name, color: "#67C051" });
-		attacker.socket.emit("game_log", "Looted " + to_pretty_num(gain_gold) + " gold");
+		attacker.socket.emit(
+			"game_log",
+			localization.message("server.game_log.pwned", { target: String(target.name) }, { color: "#67C051" }),
+		);
+		attacker.socket.emit(
+			"game_log",
+			localization.message("server.game_log.looted_gold", { amount: String(to_pretty_num(gain_gold)) }),
+		);
 		attacker.socket.emit("disappearing_text", {
 			message: "+" + gain_gold,
 			x: target.x,
 			y: target.y - 40,
 			args: { color: "+gold", size: "large" },
 		});
-		attacker.socket.emit("game_log", "Gained " + to_pretty_num(round(lost_xp * 0.95)) + " experience");
+		attacker.socket.emit(
+			"game_log",
+			localization.message("server.game_log.gained_experience", {
+				amount: String(to_pretty_num(round(lost_xp * 0.95))),
+			}),
+		);
 		attacker.socket.emit("disappearing_text", {
 			message: "+" + lost_xp,
 			x: target.x,
@@ -2931,8 +3000,18 @@ function issue_player_award(attacker, target) {
 			if (attacker.type != "merchant") {
 				attacker.xp += lost_xp;
 			}
-			attacker.socket.emit("game_log", { message: name + " pwned " + target.name, color: "#67C051" });
-			attacker.socket.emit("game_log", "Looted " + to_pretty_num(gain_gold) + " gold");
+			attacker.socket.emit(
+				"game_log",
+				localization.message(
+					"server.game_log.pwned_2",
+					{ name: String(name), target: String(target.name) },
+					{ color: "#67C051" },
+				),
+			);
+			attacker.socket.emit(
+				"game_log",
+				localization.message("server.game_log.looted_gold", { amount: String(to_pretty_num(gain_gold)) }),
+			);
 			attacker.socket.emit("disappearing_text", {
 				message: "+" + gain_gold,
 				x: target.x,
@@ -2940,7 +3019,10 @@ function issue_player_award(attacker, target) {
 				args: { color: "+gold", size: "large" },
 			});
 			if (attacker.type != "merchant") {
-				attacker.socket.emit("game_log", "Gained " + to_pretty_num(lost_xp) + " experience");
+				attacker.socket.emit(
+					"game_log",
+					localization.message("server.game_log.gained_experience", { amount: String(to_pretty_num(lost_xp)) }),
+				);
 				attacker.socket.emit("disappearing_text", {
 					message: "+" + lost_xp,
 					x: target.x,
@@ -3208,7 +3290,12 @@ function commence_attack(attacker, target, atype) {
 	}
 
 	if (atype != "attack" && target.immune && (!G.skills[atype] || !G.skills[atype].pierces_immunity)) {
-		disappearing_text(target.socket, target, "IMMUNE!", { xy: 1, color: "evade", nv: 1, from: attacker.id });
+		disappearing_text(target.socket, target, localization.message("server.floating.immune", {}), {
+			xy: 1,
+			color: "evade",
+			nv: 1,
+			from: attacker.id,
+		});
 		return { failed: true, reason: "skill_immune", place: atype, id: target.id };
 	}
 
@@ -3845,12 +3932,22 @@ function complete_attack(attacker, target, info) {
 				if (info.procs && attacker.a.sugarrush && Math.random() < attacker.a.sugarrush.attr0 / 100) {
 					def.trigger = "sugarrush";
 					add_condition(attacker, "sugarrush");
-					disappearing_text(attacker.socket, attacker, "SUGAR RUSH!", { xy: 1, size: "huge", color: "sugar", nv: 1 }); //target.is_player&&"huge"||undefined
+					disappearing_text(attacker.socket, attacker, localization.message("server.floating.sugar_rush", {}), {
+						xy: 1,
+						size: "huge",
+						color: "sugar",
+						nv: 1,
+					}); //target.is_player&&"huge"||undefined
 				}
 				if (attacker.s.invis) {
 					// && target.is_player
 					def.sneak = true;
-					disappearing_text(target.socket, target, "SNEAK!", { xy: 1, size: "huge", color: "sneak", nv: 1 });
+					disappearing_text(target.socket, target, localization.message("server.floating.sneak", {}), {
+						xy: 1,
+						size: "huge",
+						color: "sneak",
+						nv: 1,
+					});
 				}
 				if (info.damage_type == "pure") {
 					attack = ceil(info.first_attack);
@@ -4043,7 +4140,12 @@ function complete_attack(attacker, target, info) {
 			if (target.hp <= 0 && !target.rip) {
 				if (target.a && target.a.secondchance && Math.random() * 100 < target.a.secondchance.attr0) {
 					target.hp = target.max_hp;
-					disappearing_text(target.socket, target, "SECOND CHANCE!", { xy: 1, size: "huge", color: "green", nv: 1 });
+					disappearing_text(target.socket, target, localization.message("server.floating.second_chance", {}), {
+						xy: 1,
+						size: "huge",
+						color: "green",
+						nv: 1,
+					});
 				} else {
 					if (target.s.block && get_player(target.s.block.f)) {
 						pwn_routine(get_player(target.s.block.f), target);
@@ -4106,7 +4208,12 @@ function complete_attack(attacker, target, info) {
 				}
 				if (target.a && target.a.secondchance && Math.random() * 100 < target.a.secondchance.attr0) {
 					target.hp = target.max_hp;
-					disappearing_text(target.socket, target, "SECOND CHANCE!", { xy: 1, size: "huge", color: "green", nv: 1 });
+					disappearing_text(target.socket, target, localization.message("server.floating.second_chance", {}), {
+						xy: 1,
+						size: "huge",
+						color: "green",
+						nv: 1,
+					});
 				} else {
 					var victor = attacker;
 					if (target.s.block && get_player(target.s.block.f)) {
@@ -4178,16 +4285,25 @@ function defeat_player(player) {
 		var attacker = players[name_to_id[player.s.block.f]];
 		if (attacker && attacker.name != player.name) {
 			issue_player_award(attacker, player);
-			instance_emit(attacker.in, "server_message", {
-				message: attacker.name + " defeated " + player.name,
-				color: "gray",
-			});
+			instance_emit(
+				attacker.in,
+				"server_message",
+				localization.message(
+					"server.server_message.defeated",
+					{ attacker: String(attacker.name), player: String(player.name) },
+					{ color: "gray" },
+				),
+			);
 			if (player.map == "arena") {
-				xy_emit(npcs.pvp, "chat_log", {
-					owner: npcs.pvp.name,
-					message: attacker.name + " defeated " + player.name,
-					id: "pvp",
-				});
+				xy_emit(
+					npcs.pvp,
+					"chat_log",
+					localization.message(
+						"server.chat_log.defeated",
+						{ attacker: String(attacker.name), player: String(player.name) },
+						{ owner: npcs.pvp.name, id: "pvp" },
+					),
+				);
 			}
 			rip(player);
 		}
@@ -4414,12 +4530,12 @@ function add_shells(player, amount, reason, announce, override) {
 	if (gameplay == "hardcore" || gameplay == "test") {
 		return;
 	}
-	var phrase = "Received";
-	if (reason == "xptome") {
-		phrase = "Earned";
-	}
+	var shells_message = reason == "xptome" ? "server.shells.earned" : "server.shells.received";
 	player.cash += amount;
-	player.socket.emit("game_log", { message: phrase + " " + to_pretty_num(amount) + " SHELLS", color: "green" });
+	player.socket.emit(
+		"game_log",
+		localization.message(shells_message, { amount: to_pretty_num(amount) }, { color: "green" }),
+	);
 	disappearing_text(player.socket, player, "+" + to_pretty_num(amount), {
 		color: colors.cash,
 		xy: 1,
@@ -4469,13 +4585,14 @@ function add_shells(player, amount, reason, announce, override) {
 		}
 	})();
 	if (announce) {
-		broadcast("server_message", {
-			message: player.name + " found " + to_pretty_num(amount) + " shells",
-			color: "#85C76B",
-			type: "server_found",
-			shells: amount,
-			name: player.name,
-		});
+		broadcast(
+			"server_message",
+			localization.message(
+				"server.server_message.found_shells",
+				{ player: String(player.name), amount: String(to_pretty_num(amount)) },
+				{ color: "#85C76B", type: "server_found", shells: amount, name: player.name },
+			),
+		);
 	}
 }
 
@@ -5096,27 +5213,44 @@ function init_socket_io(socket_server) {
 			var action = data.action;
 			if (action == "mute") {
 				if (!target) {
-					return socket.emit("game_log", "Player not found: " + data.id);
+					return socket.emit(
+						"game_log",
+						localization.message("server.game_log.player_not_found", { id: String(data.id) }),
+					);
 				}
 				if (!target.s.mute) {
 					target.s.mute = { ms: 48 * 60 * 60 * 1000 };
-					return socket.emit("game_chat", "Muted " + target.name);
+					return socket.emit(
+						"game_chat",
+						localization.message("server.game_chat.muted", { target: String(target.name) }),
+					);
 				} else {
 					target.s.mute = { ms: 0 };
-					return socket.emit("game_chat", "Unmuted " + target.name);
+					return socket.emit(
+						"game_chat",
+						localization.message("server.game_chat.unmuted", { target: String(target.name) }),
+					);
 				}
 			} else if (action == "jail") {
 				if (!target) {
-					return socket.emit("game_log", "Player not found: " + data.id);
+					return socket.emit(
+						"game_log",
+						localization.message("server.game_log.player_not_found", { id: String(data.id) }),
+					);
 				}
 				transport_player_to(target, "jail");
 			} else if (action == "ban") {
 				(async function () {
 					try {
 						var result = await block_account(data.id, 21, "GM Ban", true);
-						socket.emit("game_log", "Ban: " + (result || "No result"));
+						socket.emit(
+							"game_log",
+							result
+								? localization.message("server.admin.ban_result", { result: result })
+								: localization.message("server.admin.ban_no_result"),
+						);
 					} catch (e) {
-						socket.emit("game_log", "Ban error: " + e);
+						socket.emit("game_log", localization.message("server.game_log.ban_error", { e: String(e) }));
 					}
 				})();
 			} else if (action == "invincible") {
@@ -5124,7 +5258,10 @@ function init_socket_io(socket_server) {
 				resend(player, "u+cid");
 			} else if (action == "jump") {
 				if (!target) {
-					return socket.emit("game_log", "Player not found: " + data.id);
+					return socket.emit(
+						"game_log",
+						localization.message("server.game_log.player_not_found", { id: String(data.id) }),
+					);
 				}
 				var spot = safe_xy_nearby(target.map, target.x - 8, target.y - 6);
 				if (spot) {
@@ -5137,12 +5274,18 @@ function init_socket_io(socket_server) {
 					pulled.s.magiport.map = target.map;
 					resend(pulled, "u+cid");
 				} else {
-					return socket.emit("game_log", "No safe spot near: " + data.id);
+					return socket.emit(
+						"game_log",
+						localization.message("server.game_log.no_safe_spot_near", { id: String(data.id) }),
+					);
 				}
 			} else if (action == "mjump") {
 				target = get_monsters(data.monster)[0];
 				if (!target) {
-					return socket.emit("game_log", "Monster not found: " + data.monster);
+					return socket.emit(
+						"game_log",
+						localization.message("server.game_log.monster_not_found", { monster: String(data.monster) }),
+					);
 				}
 				var spot = safe_xy_nearby(target.map, target.x - 8, target.y - 6);
 				if (spot) {
@@ -5155,7 +5298,10 @@ function init_socket_io(socket_server) {
 					pulled.s.magiport.map = target.map;
 					resend(pulled, "u+cid");
 				} else {
-					return socket.emit("game_log", "No safe spot near: " + data.monster);
+					return socket.emit(
+						"game_log",
+						localization.message("server.game_log.no_safe_spot_near_2", { monster: String(data.monster) }),
+					);
 				}
 			} else if (action == "jump_list") {
 				var ids = [];
@@ -5852,7 +5998,15 @@ function init_socket_io(socket_server) {
 			} else if (data.place == "duelland") {
 				if (instances[data.name] && instances[data.name].map == "duelland") {
 					transport_player_to(player, data.name);
-					instance_emit(data.name, "game_log", { message: player.name + " is spectating the duel", color: "gray" });
+					instance_emit(
+						data.name,
+						"game_log",
+						localization.message(
+							"server.game_log.is_spectating_the_duel",
+							{ player: String(player.name) },
+							{ color: "gray" },
+						),
+					);
 				} else {
 					return fail_response("cant_enter");
 				}
@@ -6147,14 +6301,17 @@ function init_socket_io(socket_server) {
 					try {
 						var user = await get(player.owner);
 						if (!user) {
-							socket.emit("game_log", "Unlock Failed.");
+							socket.emit("game_log", localization.message("server.game_log.unlock_failed", {}));
 							player.unlocking_code = false;
 							return;
 						}
 						if (gf(user, "code_unlocked")) {
 							socket.emit(
 								"game_log",
-								"Your CODE slots are already unlocked. You can lend your Ancient Computer to a friend in need, that's why there are 2 charges :]",
+								localization.message(
+									"server.game_log.your_code_slots_are_already_unlocked_you_can_lend_your_ancient_computer",
+									{},
+								),
 							);
 							item.charges++;
 							player.unlocking_code = false;
@@ -6170,11 +6327,14 @@ function init_socket_io(socket_server) {
 						);
 						player.unlocking_code = false;
 						if (R.failed) {
-							socket.emit("game_log", "Unlock Failed. Email hello@adventure.land with a screenshot.");
+							socket.emit(
+								"game_log",
+								localization.message("server.game_log.unlock_failed_email_hello_adventure_land_with_a_screenshot", {}),
+							);
 							return;
 						}
 						server_log("user_operation_code: done", 1);
-						socket.emit("game_log", "CODE slots increased to 100!");
+						socket.emit("game_log", localization.message("server.game_log.code_slots_increased_to_100", {}));
 						resend(player, "reopen");
 					} catch (e) {
 						console.error("user_operation code_unlock error", e);
@@ -7355,7 +7515,10 @@ function init_socket_io(socket_server) {
 							player.slots.offhand &&
 							G.classes[player.type].doublehand[def.wtype]
 						)
-							socket.emit("game_log", "Unequip your offhand item to use this two-handed weapon.");
+							socket.emit(
+								"game_log",
+								localization.message("server.game_log.unequip_your_offhand_item_to_use_this_two_handed_weapon", {}),
+							);
 						resolve.push("cant_equip");
 						break;
 					}
@@ -7451,11 +7614,21 @@ function init_socket_io(socket_server) {
 					player.cslots[slot] = cache_item(player.slots[slot], true);
 					consume(player, data.num, data.q);
 					if (data.giveaway) {
-						socket.emit("game_log", "Listed " + data.q + " " + item_name(player.slots[slot]) + " to giveaway!");
+						socket.emit(
+							"game_log",
+							localization.message("server.game_log.listed_to_giveaway", {
+								q: String(data.q),
+								item: String(item_name(player.slots[slot])),
+							}),
+						);
 					} else {
 						socket.emit(
 							"game_log",
-							"Listed " + data.q + " " + item_name(player.slots[slot]) + " at " + to_pretty_num(price) + " gold each",
+							localization.message("server.game_log.listed_at_gold_each", {
+								q: String(data.q),
+								item: String(item_name(player.slots[slot])),
+								amount: String(to_pretty_num(price)),
+							}),
 						);
 					}
 				} else {
@@ -7471,11 +7644,19 @@ function init_socket_io(socket_server) {
 					player.items[data.num] = null;
 					player.citems[data.num] = null;
 					if (data.giveaway) {
-						socket.emit("game_log", "Listed " + item_name(player.slots[slot]) + " to giveaway!");
+						socket.emit(
+							"game_log",
+							localization.message("server.game_log.listed_to_giveaway_2", {
+								item: String(item_name(player.slots[slot])),
+							}),
+						);
 					} else {
 						socket.emit(
 							"game_log",
-							"Listed " + item_name(player.slots[slot]) + " at " + to_pretty_num(price) + " gold",
+							localization.message("server.game_log.listed_at_gold", {
+								item: String(item_name(player.slots[slot])),
+								amount: String(to_pretty_num(price)),
+							}),
 						);
 					}
 				}
@@ -7581,7 +7762,10 @@ function init_socket_io(socket_server) {
 						player.slots.offhand &&
 						G.classes[player.type].doublehand[def.wtype]
 					)
-						socket.emit("game_log", "Unequip your offhand item to use this two-handed weapon.");
+						socket.emit(
+							"game_log",
+							localization.message("server.game_log.unequip_your_offhand_item_to_use_this_two_handed_weapon", {}),
+						);
 					resend(player, "u+cid+reopen"); // if you drop something on an invalid slot, it stays there for a bit otherwise [29/08/22]
 					return fail_response("cant_equip");
 				}
@@ -7787,7 +7971,7 @@ function init_socket_io(socket_server) {
 			secondhands_logic(item, quantity); // In the end, so if this fails, the "sell" still succeeds - otherwise it could cause a infinite gold loophole [10/07/18]
 		});
 		socket.on("buy_shells", function (data) {
-			return socket.emit("game_log", "No longer possible");
+			return socket.emit("game_log", localization.message("server.game_log.no_longer_possible", {}));
 			var player = players[socket.id];
 			if (!player || player.user || gameplay == "hardcore" || gameplay == "test") {
 				return game_response("cant_in_bank");
@@ -7798,7 +7982,10 @@ function init_socket_io(socket_server) {
 			}
 			var shells = Math.floor(gold / G.multipliers.shells_to_gold);
 			player.gold -= gold;
-			socket.emit("game_log", "Gave " + to_pretty_num(gold) + " gold");
+			socket.emit(
+				"game_log",
+				localization.message("server.game_log.gave_gold", { amount: String(to_pretty_num(gold)) }),
+			);
 			// Dead code: buy_shells returns early above
 			(async function () {
 				try {
@@ -7814,11 +8001,14 @@ function init_socket_io(socket_server) {
 						{ user: user, amount: -shells },
 					);
 					if (R.failed) {
-						socket.emit("game_log", "Purchase failed");
+						socket.emit("game_log", localization.message("server.game_log.purchase_failed", {}));
 						return;
 					}
 					player.cash = R.element.cash;
-					socket.emit("game_log", "Received " + to_pretty_num(shells) + " shells");
+					socket.emit(
+						"game_log",
+						localization.message("server.game_log.received_shells", { amount: String(to_pretty_num(shells)) }),
+					);
 					resend(player, "reopen+nc");
 				} catch (e) {
 					console.error("buy_shells error", e);
@@ -7867,7 +8057,7 @@ function init_socket_io(socket_server) {
 				try {
 					var user = await get(player.owner);
 					if (!user) {
-						socket.emit("game_log", "Purchase failed");
+						socket.emit("game_log", localization.message("server.game_log.purchase_failed", {}));
 						finish_shell_purchase("shell_purchase_failed", { failed: true, reason: "nouser" });
 						return;
 					}
@@ -7884,7 +8074,7 @@ function init_socket_io(socket_server) {
 						{ user: user, amount: cost },
 					);
 					if (R.failed) {
-						socket.emit("game_log", "Purchase failed");
+						socket.emit("game_log", localization.message("server.game_log.purchase_failed", {}));
 						finish_shell_purchase("shell_purchase_failed", { failed: true, reason: R.reason || "purchase_failed" });
 						return;
 					}
@@ -7892,7 +8082,10 @@ function init_socket_io(socket_server) {
 					player.cash = R.element.cash;
 					var new_item = create_new_item(name, quantity);
 					add_item(player, new_item, { announce: false });
-					socket.emit("game_log", "Spent " + to_pretty_num(cost) + " shells");
+					socket.emit(
+						"game_log",
+						localization.message("server.game_log.spent_shells", { amount: String(to_pretty_num(cost)) }),
+					);
 					add_event(R.element, "bill", ["cashflow"], {
 						info: {
 							message: player.name + " [" + get_id(user) + "] spent " + cost + " shells for: " + data.name,
@@ -7942,7 +8135,7 @@ function init_socket_io(socket_server) {
 					var user = await get(player.owner);
 					if (!user) {
 						player.blessing = false;
-						socket.emit("game_log", "Purchase failed");
+						socket.emit("game_log", localization.message("server.game_log.purchase_failed", {}));
 						finish_bless("blessed_fail", { failed: true, reason: "nouser", cost: cost });
 						return;
 					}
@@ -7960,7 +8153,7 @@ function init_socket_io(socket_server) {
 					);
 					player.blessing = false;
 					if (R.failed) {
-						socket.emit("game_log", "Purchase failed");
+						socket.emit("game_log", localization.message("server.game_log.purchase_failed", {}));
 						finish_bless("blessed_fail", { failed: true, reason: R.reason || "purchase_failed", cost: cost });
 						return;
 					}
@@ -7970,7 +8163,10 @@ function init_socket_io(socket_server) {
 					S.blessed_minutes = 60 * 24 * 3;
 					S.blessed_by = player.name;
 
-					socket.emit("game_log", "Spent " + to_pretty_num(cost) + " shells");
+					socket.emit(
+						"game_log",
+						localization.message("server.game_log.spent_shells", { amount: String(to_pretty_num(cost)) }),
+					);
 					finish_bless("blessed", { success: true, cost: cost, blessed_by: player.name, minutes: S.blessed_minutes });
 
 					resend(player, "reopen+nc+inv");
@@ -7978,10 +8174,14 @@ function init_socket_io(socket_server) {
 
 					discord_call(player.name + " blessed " + region + " " + server_name);
 
-					realm_broadcast("server_message", {
-						message: player.name + " blessed " + region + " " + server_name,
-						color: "#8F70D8",
-					});
+					realm_broadcast(
+						"server_message",
+						localization.message(
+							"server.server_message.blessed",
+							{ player: String(player.name), region: String(region), server_name: String(server_name) },
+							{ color: "#8F70D8" },
+						),
+					);
 					add_event(R.element, "bill", ["cashflow"], {
 						info: {
 							message: player.name + " [" + get_id(user) + "] spent " + cost + " shells for: blessing",
@@ -8046,7 +8246,7 @@ function init_socket_io(socket_server) {
 					var item = c[i];
 					if (!can_add_item(player, c[i])) {
 						if (data.request_id) return fail_response("no_space", ev, { request_id: data.request_id, rid: data.rid });
-						return disappearing_text(socket, player, "NO SPACE");
+						return disappearing_text(socket, player, localization.message("server.floating.no_space", {}));
 					}
 					if (gold > player.gold) {
 						if (data.request_id)
@@ -8058,7 +8258,10 @@ function init_socket_io(socket_server) {
 					add_item(player, c[i], { announce: false });
 					c.splice(i, 1);
 					cc.splice(i, 1);
-					socket.emit("game_log", "Spent " + to_pretty_num(gold) + " gold");
+					socket.emit(
+						"game_log",
+						localization.message("server.game_log.spent_gold", { amount: String(to_pretty_num(gold)) }),
+					);
 					resend(player, "reopen+nc+inv");
 					socket.emit(ev, cc);
 					done = true;
@@ -8075,7 +8278,7 @@ function init_socket_io(socket_server) {
 			}
 			if (!done) {
 				if (data.request_id) return fail_response("item_gone", ev, { request_id: data.request_id, rid: data.rid });
-				return socket.emit("game_log", "Item gone");
+				return socket.emit("game_log", localization.message("server.game_log.item_gone", {}));
 			}
 		});
 		socket.on("buy", function (data) {
@@ -8390,13 +8593,15 @@ function init_socket_io(socket_server) {
 					const announce = !item.silent;
 
 					if (announce && !player.stealth) {
-						broadcast("server_message", {
-							message: player.name + " received " + item_to_phrase(item),
-							color: colors.server_success,
-							item: cache_item(item),
-							type: "server_usuccess",
-							name: player.name,
-						});
+						broadcast(
+							"server_message",
+							item_message(
+								"server.item.named_received",
+								item,
+								{ player: String(player.name) },
+								{ color: colors.server_success, item: cache_item(item), type: "server_usuccess", name: player.name },
+							),
+						);
 					}
 				}
 				xy_emit(G.maps.spookytown.ref.poof, "upgrade", { type: "poof", success: 1 });
@@ -8445,7 +8650,7 @@ function init_socket_io(socket_server) {
 			item.registry[player.auth_id] = player.name;
 			item.list = Object.values(item.registry);
 
-			socket.emit("game_log", "Joined the giveaway!");
+			socket.emit("game_log", localization.message("server.game_log.joined_the_giveaway", {}));
 			seller.socket.emit("game_response", {
 				response: "giveaway_join",
 				name: player.name,
@@ -8591,10 +8796,21 @@ function init_socket_io(socket_server) {
 
 			socket.emit(
 				"game_log",
-				"Sales tax " + to_pretty_num(price - round(price * (1 - player.tax))) + " gold [" + player.tax * 100 + "%]",
+				localization.message("server.game_log.sales_tax_gold", {
+					amount: String(to_pretty_num(price - round(price * (1 - player.tax)))),
+					value: String(player.tax * 100),
+				}),
 			);
-			socket.emit("game_log", "Received " + to_pretty_num(round(price * (1 - player.tax))) + " gold");
-			buyer.socket.emit("game_log", "Spent " + to_pretty_num(price) + " gold");
+			socket.emit(
+				"game_log",
+				localization.message("server.game_log.received_gold", {
+					amount: String(to_pretty_num(round(price * (1 - player.tax)))),
+				}),
+			);
+			buyer.socket.emit(
+				"game_log",
+				localization.message("server.game_log.spent_gold", { amount: String(to_pretty_num(price)) }),
+			);
 
 			xy_emit(buyer, "ui", {
 				type: "+$$",
@@ -8689,12 +8905,23 @@ function init_socket_io(socket_server) {
 				merchant_xp_logic(seller, player, price, price - round(price * (1 - seller.tax)));
 			}
 
-			socket.emit("game_log", "Spent " + to_pretty_num(price) + " gold");
+			socket.emit(
+				"game_log",
+				localization.message("server.game_log.spent_gold", { amount: String(to_pretty_num(price)) }),
+			);
 			seller.socket.emit(
 				"game_log",
-				"Sales tax " + to_pretty_num(price - round(price * (1 - seller.tax))) + " gold [" + seller.tax * 100 + "%]",
+				localization.message("server.game_log.sales_tax_gold", {
+					amount: String(to_pretty_num(price - round(price * (1 - seller.tax)))),
+					value: String(seller.tax * 100),
+				}),
 			);
-			seller.socket.emit("game_log", "Received " + to_pretty_num(round(price * (1 - seller.tax))) + " gold");
+			seller.socket.emit(
+				"game_log",
+				localization.message("server.game_log.received_gold", {
+					amount: String(to_pretty_num(round(price * (1 - seller.tax)))),
+				}),
+			);
 
 			xy_emit(seller, "ui", {
 				type: "+$$",
@@ -8860,7 +9087,7 @@ function init_socket_io(socket_server) {
 							var user = await get(player.owner);
 							if (!user) {
 								player["unlocking_" + data.pack] = false;
-								socket.emit("game_log", "Purchase failed");
+								socket.emit("game_log", localization.message("server.game_log.purchase_failed", {}));
 								finish_bank_pack("bank_new_pack_failed", { failed: true, reason: "nouser" });
 								return;
 							}
@@ -8877,7 +9104,7 @@ function init_socket_io(socket_server) {
 							);
 							player["unlocking_" + data.pack] = false;
 							if (R.failed) {
-								socket.emit("game_log", "Purchase failed");
+								socket.emit("game_log", localization.message("server.game_log.purchase_failed", {}));
 								finish_bank_pack("bank_new_pack_failed", { failed: true, reason: R.reason || "purchase_failed" });
 								return;
 							}
@@ -9087,7 +9314,7 @@ function init_socket_io(socket_server) {
 				return;
 			}
 			if (player.pokes >= 50) {
-				return socket.emit("game_log", "You are out of pokes!");
+				return socket.emit("game_log", localization.message("server.game_log.you_are_out_of_pokes", {}));
 			}
 			player.pokes = (player.pokes || 0) + 1;
 			if (player.slots.gloves.level >= 10) {
@@ -9943,7 +10170,7 @@ function init_socket_io(socket_server) {
 				player.to_resend = "u+cid";
 				if (!c_resolve) {
 					reject = { failed: true, place: data.name, reason: "no_target" };
-					disappearing_text(player.socket, player, "NO HITS");
+					disappearing_text(player.socket, player, localization.message("server.floating.no_hits", {}));
 				} else {
 					resolve = c_resolve;
 				}
@@ -10047,7 +10274,7 @@ function init_socket_io(socket_server) {
 				}
 				if (!c_resolve) {
 					reject = { failed: true, place: data.name, reason: "no_target" };
-					disappearing_text(player.socket, player, "NO HITS");
+					disappearing_text(player.socket, player, localization.message("server.floating.no_hits", {}));
 				} else {
 					resolve = c_resolve;
 				}
@@ -10147,7 +10374,12 @@ function init_socket_io(socket_server) {
 						if (target.immune) {
 							player.hitchhikers.push(["game_response", { response: "skill_immune", skill: data.name }]);
 							player.to_resend = "nc";
-							disappearing_text(target.socket, target, "IMMUNE!", { xy: 1, color: "evade", nv: 1, from: player.id });
+							disappearing_text(target.socket, target, localization.message("server.floating.immune", {}), {
+								xy: 1,
+								color: "evade",
+								nv: 1,
+								from: player.id,
+							});
 						} else if (add_condition(target, "stunned", { duration: G.skills.stomp.duration })) {
 							ids.push(id);
 							add_pdps(player, target, 500);
@@ -10181,7 +10413,12 @@ function init_socket_io(socket_server) {
 						if (target.immune) {
 							player.hitchhikers.push(["game_response", { response: "skill_immune", skill: "scare" }]);
 							player.to_resend = "nc";
-							disappearing_text(target.socket, target, "IMMUNE!", { xy: 1, color: "evade", nv: 1, from: player.id });
+							disappearing_text(target.socket, target, localization.message("server.floating.immune", {}), {
+								xy: 1,
+								color: "evade",
+								nv: 1,
+								from: player.id,
+							});
 						} else {
 							stop_pursuit(target, { force: true, cause: "scare" });
 							target.abs = true;
@@ -10465,7 +10702,7 @@ function init_socket_io(socket_server) {
 		});
 		socket.on("click", function (data) {
 			// You'll be missed 'click' method, the 'click' method was the first method on this server, it was used as an attack method up until [17/06/18] - at this date, there were 3 simple conditions left which checked for data.button=="right" - the game matured so that all interactions were handled client-side rather than processed server-side
-			socket.emit("game_log", "'click' method is deprecated.");
+			socket.emit("game_log", localization.message("server.game_log.click_method_is_deprecated", {}));
 		});
 		socket.on("attack", function (data) {
 			return socket.fs.skill({ name: "attack", id: data.id });
@@ -10511,7 +10748,7 @@ function init_socket_io(socket_server) {
 					return socket.emit("game_response", "distance");
 				}
 				if (player.last.citizen_route && mssince(player.last.citizen_route) < 10000) {
-					return socket.emit("game_log", "Rook is still reading the sands.");
+					return socket.emit("game_log", localization.message("server.game_log.rook_is_still_reading_the_sands", {}));
 				}
 				player.last.citizen_route = new Date();
 				player.socket.emit("citizen", {
@@ -10520,7 +10757,12 @@ function init_socket_io(socket_server) {
 					from: [rook.x, rook.y],
 					to: [destination.x, destination.y],
 				});
-				player.socket.emit("game_log", "Rook marks the first steps toward " + G.npcs[data.destination].name + ".");
+				player.socket.emit(
+					"game_log",
+					localization.message("server.game_log.rook_marks_the_first_steps_toward", {
+						G: String(G.npcs[data.destination].name),
+					}),
+				);
 				if (!rook.citizen_wayfinder && !rook.moving) {
 					var dx = destination.x - rook.x;
 					var dy = destination.y - rook.y;
@@ -10671,8 +10913,11 @@ function init_socket_io(socket_server) {
 							1,
 						);
 						appengine_log("violation", "move_line: " + player.name + " afk: " + player.afk + " code: " + player.code);
-						player.socket.emit("game_log", "Line violation detected");
-						player.socket.emit("game_log", "Make sure you only move with the built-in move function");
+						player.socket.emit("game_log", localization.message("server.game_log.line_violation_detected", {}));
+						player.socket.emit(
+							"game_log",
+							localization.message("server.game_log.make_sure_you_only_move_with_the_built_in_move_function", {}),
+						);
 						defeat_player(player);
 						transport_player_to(player, "jail");
 						return;
@@ -10745,13 +10990,17 @@ function init_socket_io(socket_server) {
 						return fail_response("loot_no_space");
 					}
 					if (chest && !chest.pvp && chest.gold > 100000000 && !player.stealth) {
-						broadcast("server_message", {
-							message:
-								player.name + " looted " + to_pretty_num(server_tax(round(chest.gold * r.goldm), true)) + " gold",
-							color: "gold",
-							type: "server_gold",
-							name: player.name,
-						});
+						broadcast(
+							"server_message",
+							localization.message(
+								"server.server_message.looted_gold",
+								{
+									player: String(player.name),
+									amount: String(to_pretty_num(server_tax(round(chest.gold * r.goldm), true))),
+								},
+								{ color: "gold", type: "server_gold", name: player.name },
+							),
+						);
 					}
 					delete chests[data.id]; // The add_shells routine was at the top, so when inventory was full, attempting to open the chest gave shells infinitely, repeated lesson, always remove before adding, or exceptions [11/07/18]
 					if (chest && chest.cash) {
@@ -10764,7 +11013,7 @@ function init_socket_io(socket_server) {
 						var ritem = cache_item(item);
 						ritem.looter = player.name;
 						r.items.push(ritem);
-						socket.emit("game_log", { message: "Found " + item_to_phrase(item), color: "#4BAEAA" });
+						socket.emit("game_log", item_message("server.item.found", item, {}, { color: "#4BAEAA" }));
 						if (player.t) {
 							player.t.dgold += round(G.items[item.name].g * 0.6);
 						}
@@ -10778,14 +11027,14 @@ function init_socket_io(socket_server) {
 							ritem.looter = player.name;
 							ritem.pvp_loot = true;
 							r.items.push(ritem);
-							socket.emit("game_log", { message: "Looted " + item_to_phrase(item), color: "#4BAEAA" });
+							socket.emit("game_log", item_message("server.item.looted", item, {}, { color: "#4BAEAA" }));
 						} else {
 							lostandfound_logic(item);
 							var ritem = cache_item(item);
 							ritem.looter = null;
 							ritem.lostandfound = true;
 							r.items.push(ritem);
-							socket.emit("game_log", { message: "Lost " + item_to_phrase(item), color: "#AB4E4F" });
+							socket.emit("game_log", item_message("server.item.lost", item, {}, { color: "#AB4E4F" }));
 						}
 					});
 					r.gold = round(chest.gold * r.goldm) + round(chest.egold || 0);
@@ -10795,7 +11044,14 @@ function init_socket_io(socket_server) {
 						player.t.cgold += r.gold;
 					}
 					if (r.gold) {
-						socket.emit("game_log", { message: to_pretty_num(r.gold) + " gold", color: "gold" });
+						socket.emit(
+							"game_log",
+							localization.message(
+								"server.game_log.gold",
+								{ amount: String(to_pretty_num(r.gold)) },
+								{ color: "gold" },
+							),
+						);
 					}
 					socket.emit("disappearing_text", {
 						message: "+" + r.gold,
@@ -10815,13 +11071,17 @@ function init_socket_io(socket_server) {
 					var chest = chests[data.id];
 					var reopen = {};
 					if (chest && !chest.pvp && chest.gold > 100000000 && !player.stealth) {
-						broadcast("server_message", {
-							message:
-								player.name + " looted " + to_pretty_num(server_tax(round(chest.gold * r.goldm), true)) + " gold",
-							color: "gold",
-							type: "server_gold",
-							name: player.name,
-						});
+						broadcast(
+							"server_message",
+							localization.message(
+								"server.server_message.looted_gold",
+								{
+									player: String(player.name),
+									amount: String(to_pretty_num(server_tax(round(chest.gold * r.goldm), true))),
+								},
+								{ color: "gold", type: "server_gold", name: player.name },
+							),
+						);
 					}
 					delete chests[data.id];
 					if (chest && chest.cash) {
@@ -10854,10 +11114,16 @@ function init_socket_io(socket_server) {
 									var ritem = cache_item(item);
 									ritem.looter = current.name;
 									r.items.push(ritem);
-									party_emit(player.party, "game_log", {
-										message: current.name + " found " + item_to_phrase(item),
-										color: "#4BAEAA",
-									});
+									party_emit(
+										player.party,
+										"game_log",
+										item_message(
+											"server.item.named_found",
+											item,
+											{ player: String(current.name) },
+											{ color: "#4BAEAA" },
+										),
+									);
 									if (current.t) {
 										current.t.dgold += round(G.items[item.name].g * 0.6);
 									}
@@ -10872,7 +11138,7 @@ function init_socket_io(socket_server) {
 							ritem.looter = null;
 							ritem.lostandfound = true;
 							r.items.push(ritem);
-							party_emit(player.party, "game_log", { message: "Lost " + item_to_phrase(item), color: "#AB4E4F" });
+							party_emit(player.party, "game_log", item_message("server.item.lost", item, {}, { color: "#AB4E4F" }));
 						}
 					});
 					(chest.pvp_items || []).forEach(function (item) {
@@ -10903,10 +11169,16 @@ function init_socket_io(socket_server) {
 									ritem.looter = current.name;
 									ritem.pvp_loot = true;
 									r.items.push(ritem);
-									party_emit(player.party, "game_log", {
-										message: current.name + " looted " + item_to_phrase(item),
-										color: "#4BAEAA",
-									});
+									party_emit(
+										player.party,
+										"game_log",
+										item_message(
+											"server.item.named_looted",
+											item,
+											{ player: String(current.name) },
+											{ color: "#4BAEAA" },
+										),
+									);
 								} else {
 									pool_current += current.share;
 								}
@@ -10919,7 +11191,7 @@ function init_socket_io(socket_server) {
 							ritem.pvp_loot = true;
 							ritem.lostandfound = true;
 							r.items.push(ritem);
-							party_emit(player.party, "game_log", { message: "Lost " + item_to_phrase(item), color: "#AB4E4F" });
+							party_emit(player.party, "game_log", item_message("server.item.lost", item, {}, { color: "#AB4E4F" }));
 						}
 					});
 					parties[player.party].forEach(function (name) {
@@ -10932,7 +11204,14 @@ function init_socket_io(socket_server) {
 							current.t.cgold += cgold;
 						}
 						if (cgold) {
-							current.socket.emit("game_log", { message: to_pretty_num(cgold) + " gold", color: "gold" });
+							current.socket.emit(
+								"game_log",
+								localization.message(
+									"server.game_log.gold",
+									{ amount: String(to_pretty_num(cgold)) },
+									{ color: "gold" },
+								),
+							);
 						}
 						if (current.in == player.in) {
 							current.socket.emit("disappearing_text", {
@@ -10959,13 +11238,13 @@ function init_socket_io(socket_server) {
 			if (data.user) data.user = normalize_user_id(data.user);
 			if (data.character && !data.character.startsWith("CH_")) data.character = "CH_" + data.character;
 			if (gameplay == "test" && data.passphrase != "potato salad") {
-				return socket.emit("game_log", "Wrong passphrase!");
+				return socket.emit("game_log", localization.message("server.game_log.wrong_passphrase", {}));
 			}
 			if (observers[socket.id] && observers[socket.id].auth_engaged) {
-				return socket.emit("game_log", "Authorization in progress.");
+				return socket.emit("game_log", localization.message("server.game_log.authorization_in_progress", {}));
 			}
 			if (dc_players[data.character]) {
-				return socket.emit("game_log", "Authorization in progress.");
+				return socket.emit("game_log", localization.message("server.game_log.authorization_in_progress", {}));
 			}
 			if (!server.live || !observers[socket.id] || players[socket.id]) {
 				return;
@@ -11500,10 +11779,10 @@ function init_socket_io(socket_server) {
 			if (data.event == "challenge") {
 				var invited = players[name_to_id[data.id || data.name]];
 				if (!invited || invited.id == player.id) {
-					return duel_failure("invalid", "Invalid");
+					return duel_failure("invalid", localization.message("server.game_log.invalid", {}));
 				}
 				if (invited.duel || player.duel) {
-					return duel_failure("already_dueling", "Already dueling");
+					return duel_failure("already_dueling", localization.message("server.game_log.already_dueling", {}));
 				}
 				invited.socket.emit("duel", { event: "chellenge", name: player.name });
 				if (data.request_id)
@@ -11514,13 +11793,16 @@ function init_socket_io(socket_server) {
 			} else if (data.event == "accept") {
 				var challenger = players[name_to_id[data.id || data.name]];
 				if (!challenger || challenges[challenger.name] != player.name) {
-					return duel_failure("challenge_expired", "Challenge expired");
+					return duel_failure("challenge_expired", localization.message("server.game_log.challenge_expired", {}));
 				}
 				if (challenger.duel || player.duel) {
-					return duel_failure("already_dueling", "Already dueling");
+					return duel_failure("already_dueling", localization.message("server.game_log.already_dueling", {}));
 				}
 				if (is_in_pvp(challenger) || is_in_pvp(player)) {
-					return duel_failure("pvp_zone", "Can't start a duel if any of the parties are already in a pvp zone");
+					return duel_failure(
+						"pvp_zone",
+						localization.message("server.game_log.can_t_start_a_duel_if_any_of_the_parties_are_already", {}),
+					);
 				}
 				delete challenges[challenger.name];
 				challenger.socket.emit("game_response", { response: "challenge_accepted", name: player.name });
@@ -11601,19 +11883,22 @@ function init_socket_io(socket_server) {
 				duel_completion("accepted", { id: name, challenger: challenger.name, vs: player.name });
 			} else if (data.event == "enter") {
 				if (is_in_pvp(player)) {
-					return duel_failure("pvp_zone", "Can't join the duel from a pvp zone!");
+					return duel_failure(
+						"pvp_zone",
+						localization.message("server.game_log.can_t_join_the_duel_from_a_pvp_zone", {}),
+					);
 				}
 				if (player.duel) {
-					return duel_failure("already_dueling", "Already in a duel!");
+					return duel_failure("already_dueling", localization.message("server.game_log.already_in_a_duel", {}));
 				}
 				if (!E.duels || !E.duels[data.id] || !instances[data.id]) {
-					return duel_failure("duel_expired", "Duel expired");
+					return duel_failure("duel_expired", localization.message("server.game_log.duel_expired", {}));
 				}
 				if (E.duels[data.id].active) {
-					return duel_failure("duel_started", "Duel already started");
+					return duel_failure("duel_started", localization.message("server.game_log.duel_already_started", {}));
 				}
 				if (!(E.duels[data.id].a.includes(player.name) || E.duels[data.id].b.includes(player.name))) {
-					return duel_failure("not_your_duel", "Not your duel");
+					return duel_failure("not_your_duel", localization.message("server.game_log.not_your_duel", {}));
 				}
 				clean_slate(player);
 
@@ -11636,7 +11921,11 @@ function init_socket_io(socket_server) {
 				player.s.stunned = { ms: 120000 };
 
 				resend(player, "u+cid");
-				instance_emit(data.id, "game_chat", { message: player.name + " joined the duel!" });
+				instance_emit(
+					data.id,
+					"game_chat",
+					localization.message("server.game_chat.joined_the_duel", { player: String(player.name) }),
+				);
 				duel_completion("entered", { id: data.id, team: player.team });
 			}
 		});
@@ -11659,7 +11948,10 @@ function init_socket_io(socket_server) {
 				}
 				// if(invited.party) { socket.emit("game_log",invited.name+" is already partying"); return; }
 				invited.socket.emit("invite", { name: player.name });
-				socket.emit("game_log", "Invited " + invited.name + " to party");
+				socket.emit(
+					"game_log",
+					localization.message("server.game_log.invited_to_party", { invited: String(invited.name) }),
+				);
 				if (!invitations[player.name]) {
 					invitations[player.name] = {};
 				}
@@ -11676,7 +11968,10 @@ function init_socket_io(socket_server) {
 				}
 				// if(!invited.party) { socket.emit("game_log",invited.name+" isn't partying"); return; }
 				invited.socket.emit("request", { name: player.name });
-				socket.emit("game_log", "Requested to join " + invited.name + "'s party");
+				socket.emit(
+					"game_log",
+					localization.message("server.game_log.requested_to_join_s_party", { invited: String(invited.name) }),
+				);
 				if (!requests[player.name]) {
 					requests[player.name] = {};
 				}
@@ -11704,7 +11999,7 @@ function init_socket_io(socket_server) {
 				if (player.party) {
 					leave_party(player.party, player);
 					socket.emit("party_update", {});
-					socket.emit("game_log", "Left your current party");
+					socket.emit("game_log", localization.message("server.game_log.left_your_current_party", {}));
 				}
 				invitations[inviter.name][player.id] = 0;
 				if (!inviter.party) {
@@ -11718,14 +12013,18 @@ function init_socket_io(socket_server) {
 				}
 				player.party = inviter.party;
 				parties[inviter.party].push(player.name);
-				party_emit(player.party, "party_update", {
-					list: parties[inviter.party],
-					party: party_to_client(inviter.party),
-					message:
-						player.name +
-						" joined the party" +
-						((inviter.party != inviter.name && " with " + inviter.name + "'s invite") || ""),
-				});
+				party_emit(
+					player.party,
+					"party_update",
+					localization.message(
+						inviter.party != inviter.name ? "server.party.joined_with_invite" : "server.party.joined",
+						{ player: player.name, inviter: inviter.name },
+						{
+							list: parties[inviter.party],
+							party: party_to_client(inviter.party),
+						},
+					),
+				);
 				resend(player, "nc+u+cid");
 				delete requests[player.name];
 				delete requests[inviter.name]; // optional
@@ -11748,7 +12047,7 @@ function init_socket_io(socket_server) {
 				if (requester.party) {
 					leave_party(requester.party, requester);
 					requester.socket.emit("party_update", {});
-					requester.socket.emit("game_log", "Left the party");
+					requester.socket.emit("game_log", localization.message("server.game_log.left_the_party", {}));
 					if (!players[name_to_id[data.name]]) {
 						return fail_response("player_gone", { name: data.name });
 					}
@@ -11762,11 +12061,18 @@ function init_socket_io(socket_server) {
 				}
 				requester.party = player.party;
 				parties[player.party].push(requester.name);
-				party_emit(requester.party, "party_update", {
-					list: parties[player.party],
-					party: party_to_client(player.party),
-					message: requester.name + " joined the party",
-				});
+				party_emit(
+					requester.party,
+					"party_update",
+					localization.message(
+						"server.party.joined",
+						{ player: requester.name },
+						{
+							list: parties[player.party],
+							party: party_to_client(player.party),
+						},
+					),
+				);
 				resend(requester, "nc+u+cid");
 				delete requests[requester.name];
 				delete requests[player.name]; // optional
@@ -11778,7 +12084,7 @@ function init_socket_io(socket_server) {
 				}
 				leave_party(player.party, player);
 				socket.emit("party_update", {});
-				socket.emit("game_log", "Left the party");
+				socket.emit("game_log", localization.message("server.game_log.left_the_party", {}));
 				resend(player, "nc+u+cid");
 			}
 			if (data.event == "kick") {
@@ -11799,10 +12105,17 @@ function init_socket_io(socket_server) {
 				}
 				leave_party(player.party, kicked);
 				if (player.party) {
-					party_emit(player.party, "game_log", player.name + " kicked " + kicked.name);
+					party_emit(
+						player.party,
+						"game_log",
+						localization.message("server.game_log.kicked", {
+							player: String(player.name),
+							kicked: String(kicked.name),
+						}),
+					);
 				}
 				kicked.socket.emit("party_update", {});
-				kicked.socket.emit("game_log", "You've been removed from the party");
+				kicked.socket.emit("game_log", localization.message("server.game_log.you_ve_been_removed_from_the_party", {}));
 				resend(kicked, "nc+u+cid");
 			}
 			success_response({});
@@ -12003,20 +12316,26 @@ function init_socket_io(socket_server) {
 					return;
 				}
 				if (tavern.roulette.state != "bets") {
-					socket.emit("game_log", "Not taking bets yet!");
+					socket.emit("game_log", localization.message("server.game_log.not_taking_bets_yet", {}));
 					return;
 				}
 				if (Object.keys(player.bets).length >= 5) {
-					socket.emit("game_log", "You already have 5 active bets");
+					socket.emit("game_log", localization.message("server.game_log.you_already_have_5_active_bets", {}));
 					return;
 				}
 				if (player.gold < data.gold) {
-					socket.emit("game_log", "Not enough gold");
+					socket.emit("game_log", localization.message("server.game_log.not_enough_gold", {}));
 					return;
 				}
 
-				socket.emit("game_log", { message: "Bet accepted on " + data.odds, color: "white" });
-				socket.emit("game_log", { message: to_pretty_num(data.gold) + " gold", color: "gray" });
+				socket.emit(
+					"game_log",
+					localization.message("server.game_log.bet_accepted_on", { odds: String(data.odds) }, { color: "white" }),
+				);
+				socket.emit(
+					"game_log",
+					localization.message("server.game_log.gold", { amount: String(to_pretty_num(data.gold)) }, { color: "gray" }),
+				);
 
 				var rid = randomStr(10);
 				player.gold -= data.gold;
@@ -12071,8 +12390,18 @@ function init_socket_io(socket_server) {
 				}
 				// if(Object.keys(player.bets).length>=5) return socket.emit("game_response","tavern_too_many_bets");
 				// socket.emit("game_log",{"message":"Bet accepted on "+num.toFixed(2)+" "+dir.toUpperCase(),"color":"white"});
-				socket.emit("game_log", { message: "Num: " + num.toFixed(2) + " " + dir.toUpperCase(), color: "white" });
-				socket.emit("game_log", { message: "Bet: " + to_pretty_num(gold) + " gold", color: "gray" });
+				socket.emit(
+					"game_log",
+					localization.message(
+						"server.game_log.num",
+						{ value: String(num.toFixed(2)), value2: String(dir.toUpperCase()) },
+						{ color: "white" },
+					),
+				);
+				socket.emit(
+					"game_log",
+					localization.message("server.game_log.bet_gold", { amount: String(to_pretty_num(gold)) }, { color: "gray" }),
+				);
 
 				var rid = randomStr(10);
 				player.gold -= gold;
@@ -12222,7 +12551,11 @@ function init_socket_io(socket_server) {
 			if (!player.rip) {
 				rip(player);
 			}
-			disappearing_text(player.socket, player, "SEPPUKU", { xy: 1, size: "huge", color: "#6F76A6" });
+			disappearing_text(player.socket, player, localization.message("server.floating.seppuku", {}), {
+				xy: 1,
+				size: "huge",
+				color: "#6F76A6",
+			});
 			resend(player, "u+cid");
 		});
 		socket.on("deepsea", function (data) {
@@ -12232,7 +12565,11 @@ function init_socket_io(socket_server) {
 				return;
 			}
 			player.tskin = "deepsea";
-			disappearing_text(player.socket, player, "ROARRRRRRR", { xy: 1, size: "huge", color: "#60A975" });
+			disappearing_text(player.socket, player, localization.message("server.floating.roarrrrrrr", {}), {
+				xy: 1,
+				size: "huge",
+				color: "#60A975",
+			});
 			resend(player, "u+cid");
 		});
 		socket.on("blend", function (data) {
@@ -12448,7 +12785,10 @@ function init_socket_io(socket_server) {
 				}
 				if (player.map != "cyberland" || player.rip) {
 					if (data.request_id) return fail_response("not_connected", "mainframe", mainframe_result);
-					return player.socket.emit("game_log", "Not connected to the mainframe");
+					return player.socket.emit(
+						"game_log",
+						localization.message("server.game_log.not_connected_to_the_mainframe", {}),
+					);
 				}
 				if (data.command == "hello") {
 					mainframe_reply("hi");
@@ -12852,17 +13192,23 @@ function new_monster(instance, map_def, args) {
 		new_monster(instance, map_def, { temp: 1 });
 	}
 	if (!args.last_state && monster_def.announce && server.live) {
-		broadcast("server_message", {
-			color: monster_def.announce,
-			message: monster_def.name + " spawned in " + G.maps[monster.map].name + "!",
-			discord: "orange",
-		});
+		broadcast(
+			"server_message",
+			localization.message(
+				"server.server_message.spawned_in",
+				{ monster_def: String(monster_def.name), map: String(G.maps[monster.map].name) },
+				{ color: monster_def.announce, discord: "orange" },
+			),
+		);
 		if (monster.cooperative) {
-			broadcast("server_message", {
-				color: monster_def.announce,
-				message: "Join the fight against " + monster_def.name + "!",
-				event: true,
-			});
+			broadcast(
+				"server_message",
+				localization.message(
+					"server.server_message.join_the_fight_against",
+					{ monster_def: String(monster_def.name) },
+					{ color: monster_def.announce, event: true },
+				),
+			);
 		}
 	}
 	if (Object.keys(monster.s).length) {
@@ -13113,13 +13459,16 @@ function defeated_by_a_monster(attacker, player) {
 		if (player.items[i] && player.items[i].name == "xptome") {
 			lost_xp = floor(lost_xp / 50);
 			consume_one(player, i);
-			player.socket.emit("game_log", { message: "A tome fades away", color: "#B5C09C" });
+			player.socket.emit(
+				"game_log",
+				localization.message("server.game_log.a_tome_fades_away", {}, { color: "#B5C09C" }),
+			);
 			break;
 		}
 	}
 	player.xp -= lost_xp;
 	if (gameplay == "hardcore") {
-		player.socket.emit("game_log", "Lost 1 level");
+		player.socket.emit("game_log", localization.message("server.game_log.lost_1_level", {}));
 	}
 	player.socket.emit("game_response", { response: "defeated_by_a_monster", xp: lost_xp, monster: attacker.type });
 	if (attacker.target) {
@@ -14048,13 +14397,15 @@ function update_instance(instance) {
 							},
 						]);
 						if (calculate_item_value(item) + (def.edge || 0) * 2000000 > 1800000 && !player.stealth) {
-							broadcast("server_message", {
-								message: player.name + " received " + item_to_phrase(item),
-								color: colors.server_success,
-								item: cache_item(item),
-								type: "server_csuccess",
-								name: player.name,
-							});
+							broadcast(
+								"server_message",
+								item_message(
+									"server.item.named_received",
+									item,
+									{ player: String(player.name) },
+									{ color: colors.server_success, item: cache_item(item), type: "server_csuccess", name: player.name },
+								),
+							);
 						}
 						xy_emit(G.maps.main.compound, "upgrade", { type: "compound", success: 1 });
 						if (player.items[ref.num] && player.items[ref.num].name == "placeholder") {
@@ -14070,13 +14421,15 @@ function update_instance(instance) {
 							{ response: "compound_fail", level: item.level, num: ref.num, stale: ref.stale },
 						]);
 						if (calculate_item_value(item) + (def.edge || 0) * 2000000 > 920000 && !player.stealth) {
-							broadcast("server_message", {
-								message: player.name + " lost " + item_to_phrase(item) + "'s",
-								color: colors.server_failure,
-								item: cache_item(item),
-								type: "server_cfail",
-								name: player.name,
-							});
+							broadcast(
+								"server_message",
+								item_message(
+									"server.item.named_lost_compound",
+									item,
+									{ player: String(player.name) },
+									{ color: colors.server_failure, item: cache_item(item), type: "server_cfail", name: player.name },
+								),
+							);
 						}
 						xy_emit(G.maps.main.compound, "upgrade", { type: "compound", success: 0 });
 						if (player.items[ref.num] && player.items[ref.num].name == "placeholder") {
@@ -14129,13 +14482,15 @@ function update_instance(instance) {
 							{ response: "upgrade_success", level: new_level, num: ref.num, stale: ref.stale },
 						]);
 						if (announce && calculate_item_value(item) > 4800000 && !player.stealth) {
-							broadcast("server_message", {
-								message: player.name + " received " + item_to_phrase(item),
-								color: colors.server_success,
-								item: cache_item(item),
-								type: "server_usuccess",
-								name: player.name,
-							});
+							broadcast(
+								"server_message",
+								item_message(
+									"server.item.named_received",
+									item,
+									{ player: String(player.name) },
+									{ color: colors.server_success, item: cache_item(item), type: "server_usuccess", name: player.name },
+								),
+							);
 						}
 						xy_emit((instances.main && G.maps.main.upgrade) || player, "upgrade", { type: "upgrade", success: 1 });
 						achievement_logic_upgrade_success(player, item);
@@ -14145,13 +14500,15 @@ function update_instance(instance) {
 							{ response: "upgrade_fail", level: new_level, num: ref.num, stale: ref.stale },
 						]);
 						if (announce && calculate_item_value(item) > 4800000 && !player.stealth) {
-							broadcast("server_message", {
-								message: player.name + " lost " + item_to_phrase(item),
-								color: colors.server_failure,
-								item: cache_item(item),
-								type: "server_ufail",
-								name: player.name,
-							});
+							broadcast(
+								"server_message",
+								item_message(
+									"server.item.named_lost",
+									item,
+									{ player: String(player.name) },
+									{ color: colors.server_failure, item: cache_item(item), type: "server_ufail", name: player.name },
+								),
+							);
 						}
 						xy_emit((instances.main && G.maps.main.upgrade) || player, "upgrade", { type: "upgrade", success: 0 });
 					}
@@ -14168,10 +14525,14 @@ function update_instance(instance) {
 						var gold = 500000000;
 						player.gold += gold;
 						S.gold -= gold;
-						broadcast("server_message", {
-							message: player.name + " received " + to_pretty_num(gold) + " gold",
-							color: "gold",
-						});
+						broadcast(
+							"server_message",
+							localization.message(
+								"server.server_message.received_gold",
+								{ player: String(player.name), amount: String(to_pretty_num(gold)) },
+								{ color: "gold" },
+							),
+						);
 						resend(player, "reopen+nc");
 						if (ref.request_id)
 							player.socket.emit("game_response", {
@@ -14185,7 +14546,14 @@ function update_instance(instance) {
 								net: gold - ref.cost,
 							});
 						else player.socket.emit("game_response", "slots_success");
-						player.socket.emit("game_log", { message: "Received " + to_pretty_num(gold) + " gold", color: "gold" });
+						player.socket.emit(
+							"game_log",
+							localization.message(
+								"server.game_log.received_gold",
+								{ amount: String(to_pretty_num(gold)) },
+								{ color: "gold" },
+							),
+						);
 					} else {
 						resend(player, "reopen+nc");
 						if (ref.request_id)
@@ -14276,7 +14644,7 @@ function update_instance(instance) {
 								player.cid++;
 								player.u = true;
 								player.cslots.mainhand = player.slots.mainhand = null;
-								player.socket.emit("game_log", "Your rod broke down ...");
+								player.socket.emit("game_log", localization.message("server.game_log.your_rod_broke_down", {}));
 								player.socket.emit("game_response", {
 									response: "data",
 									cevent: "item_break",
@@ -14313,7 +14681,7 @@ function update_instance(instance) {
 								player.cid++;
 								player.u = true;
 								player.cslots.mainhand = player.slots.mainhand = null;
-								player.socket.emit("game_log", "Your pickaxe broke down ...");
+								player.socket.emit("game_log", localization.message("server.game_log.your_pickaxe_broke_down", {}));
 								player.socket.emit("game_response", {
 									response: "data",
 									cevent: "item_break",
@@ -14351,7 +14719,7 @@ function update_instance(instance) {
 		if (player.slots.elixir && player.slots.elixir.expires && now_date > player.slots.elixir.expires) {
 			try {
 				var def = G.items[player.slots.elixir.name];
-				player.socket.emit("game_log", def.name + " wore off ...");
+				player.socket.emit("game_log", localization.message("server.game_log.wore_off", { def: String(def.name) }));
 				if (def.withdrawal) {
 					add_condition(player, def.withdrawal);
 				}
@@ -14376,8 +14744,11 @@ function update_instance(instance) {
 				if (player.red_zone > smap_edge) {
 					player.red_zone = 0;
 					player.hp -= parseInt(player.hp / 2 + 1000);
-					player.socket.emit("game_log", "Received a movement penalty");
-					player.socket.emit("game_log", "This might have happened if your network is too slow");
+					player.socket.emit("game_log", localization.message("server.game_log.received_a_movement_penalty", {}));
+					player.socket.emit(
+						"game_log",
+						localization.message("server.game_log.this_might_have_happened_if_your_network_is_too_slow", {}),
+					);
 					appengine_log("violation", "red_zone: " + player.name + " afk: " + player.afk + " code: " + player.code);
 					transport_player_to(player, player.map);
 					defeat_player(player);
@@ -15234,7 +15605,10 @@ setTimeout(
 						}
 						xp = parseInt(Math.round(xp));
 						player.xp += xp;
-						player.socket.emit("game_log", "Gained " + to_pretty_num(xp) + " marketing XP");
+						player.socket.emit(
+							"game_log",
+							localization.message("server.game_log.gained_marketing_xp", { amount: String(to_pretty_num(xp)) }),
+						);
 						player.socket.emit("disappearing_text", {
 							message: "+" + xp,
 							x: player.x,
@@ -15334,11 +15708,15 @@ setInterval(function () {
 								item.src = "gva";
 								var mitem = JSON.stringify(item);
 								add_to_trade_history(player, "giveaway", winner.name, cache_item(item, true));
-								xy_emit(player, "game_log", {
-									message: winner.name + " won " + player.name + "'s giveaway of " + G.items[item.name].name + "!",
-									color: "#42A0DC",
-									confetti: winner.name,
-								});
+								xy_emit(
+									player,
+									"game_log",
+									localization.message(
+										"server.game_log.won_s_giveaway_of",
+										{ winner: String(winner.name), player: String(player.name), item: String(G.items[item.name].name) },
+										{ color: "#42A0DC", confetti: winner.name },
+									),
+								);
 								// send giveaway mail with item
 								(async function () {
 									try {
@@ -15351,15 +15729,18 @@ setInterval(function () {
 										var user2 = await get(to_char.owner);
 										var user1 = player.owner ? await get(player.owner) : null;
 										var rid = randomStr(50);
-										var giveaway_msg =
-											"Congratulations, you won " +
-											player.name +
-											"'s giveaway. Participants were: " +
-											list
-												.map(function (e) {
-													return e.name;
-												})
-												.join(", ");
+										var giveaway_msg = phrase(
+											"server.mail.giveaway_message",
+											{
+												player: player.name,
+												participants: list
+													.map(function (entry) {
+														return entry.name;
+													})
+													.join(", "),
+											},
+											localization.normalize(user2.language) || "en",
+										);
 										await insert({
 											_id: "ML_" + rid,
 											created: new Date(),
@@ -15372,7 +15753,11 @@ setInterval(function () {
 											owner: [get_id(user1), get_id(user2)],
 											info: {
 												message: giveaway_msg,
-												subject: "You've won a giveaway!",
+												subject: phrase(
+													"server.mail.giveaway_subject",
+													{},
+													localization.normalize(user2.language) || "en",
+												),
 												sender: get_id(user1),
 												receiver: get_id(user2),
 												item: mitem,
@@ -15407,11 +15792,15 @@ setInterval(function () {
 								item.src = "gva";
 								add_item(winner, item);
 								add_to_trade_history(player, "giveaway", winner.name, cache_item(item, true));
-								xy_emit(player, "game_log", {
-									message: winner.name + " won " + player.name + "'s giveaway of " + G.items[item.name].name + "!",
-									color: "#42A0DC",
-									confetti: winner.name,
-								});
+								xy_emit(
+									player,
+									"game_log",
+									localization.message(
+										"server.game_log.won_s_giveaway_of",
+										{ winner: String(winner.name), player: String(player.name), item: String(G.items[item.name].name) },
+										{ color: "#42A0DC", confetti: winner.name },
+									),
+								);
 								resend(winner, "reopen");
 							}
 						}
@@ -15489,7 +15878,14 @@ setInterval(function () {
 				first_call(player);
 			}
 			if (player.p.first && !player.p.dt.first) {
-				realm_broadcast("server_message", { message: player.name + " joined Adventure Land!", color: "#24A2FA" });
+				realm_broadcast(
+					"server_message",
+					localization.message(
+						"server.server_message.joined_adventure_land",
+						{ player: String(player.name) },
+						{ color: "#24A2FA" },
+					),
+				);
 				player.p.dt.first = future_h(24 * 7);
 			} else if (player.p.dt.first && player.p.dt.first > c) {
 				player.paura = player.paura || {};
@@ -16075,7 +16471,14 @@ function shutdown_routine() {
 	for (var i = 0; i < seconds; i++) {
 		function m(x) {
 			return function () {
-				broadcast("server_message", { message: "Server shutdown in: " + x, color: "#DD1B50", nod: true, log: true });
+				broadcast(
+					"server_message",
+					localization.message(
+						"server.server_message.server_shutdown_in",
+						{ x: String(x) },
+						{ color: "#DD1B50", nod: true, log: true },
+					),
+				);
 			};
 		}
 		setTimeout(m(seconds - i), i * 1000);

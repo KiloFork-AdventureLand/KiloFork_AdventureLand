@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{domain.language or 'en'}}">
 	<head>
+		{% include "htmls/language.html" %}
 		<title>{{domain.title}}</title>
 		{% include "htmls/seo.html" %}
 		<link rel="apple-touch-icon-precomposed" href="{{favicon or '/images/favicon.png'}}" /> <!-- 152 -->

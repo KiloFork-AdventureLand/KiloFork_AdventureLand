@@ -148,7 +148,7 @@ function mainframe_clean_event(event) {
 	if (!event || typeof event !== "object" || Array.isArray(event)) return null;
 	var at = new Date(event.at);
 	if (!/^[0-9a-f]{24,64}$/.test(event.id || "") || !Number.isFinite(at.getTime()) || !["info", "warn", "error"].includes(event.level) || !/^[a-z][a-z0-9_]{2,63}$/.test(event.code || "")) return null;
-	return {
+	var clean = {
 		id: event.id,
 		assignment_id: /^[0-9a-f]{32}$/.test(event.assignment_id || "") ? event.assignment_id : null,
 		at: at.toISOString(),
@@ -164,6 +164,37 @@ function mainframe_clean_event(event) {
 						.replace(/[\r\n\t]+/g, " ")
 						.slice(0, 160),
 	};
+	// Only authored lifecycle phrases and their declared display arguments survive persistence.
+	var phrases = {
+		"mainframe.event.assignment_queued": ["assignment_queued", {}],
+		"mainframe.event.included_worker_queued": ["included_worker_queued", {}],
+		"mainframe.event.shared_with": ["included_worker_queued", { character: "name" }],
+		"mainframe.event.shared_with_root": ["included_worker_queued", {}],
+		"mainframe.event.explicit_disconnect": ["explicit_disconnect", {}],
+		"mainframe.event.renewed_free": ["access_renewed", { minutes: "number" }],
+		"mainframe.event.renewed_shell": ["access_renewed", { minutes: "number" }],
+		"mainframe.event.renewal_one": ["access_renewed", { count: "number", date: "date" }],
+		"mainframe.event.renewal_many": ["access_renewed", { count: "number", date: "date" }],
+		"mainframe.event.renewal_failed": ["renewal_failed", {}],
+		"mainframe.event.worker_failure": ["worker_failure", {}],
+		"mainframe.event.server_change": ["server_change", {}],
+	};
+	for (var field of ["phrase", "detail_phrase"]) {
+		var rule = phrases[event[field]], args = event[field + "_args"] || {}, values = {}, valid = !!rule && rule[0] === event.code;
+		if (!valid) continue;
+		for (var key of Object.keys(rule[1])) {
+			var value = args[key], type = rule[1][key];
+			if (type === "number" && typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 1000000) values[key] = value;
+			else if (type === "name" && typeof value === "string" && /^[A-Za-z0-9_]{1,32}$/.test(value)) values[key] = value;
+			else if (type === "date" && typeof value === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value) && Number.isFinite(new Date(value).getTime())) values[key] = value;
+			else valid = false;
+		}
+		if (valid) {
+			clean[field] = event[field];
+			clean[field + "_args"] = values;
+		}
+	}
+	return clean;
 }
 
 function mainframe_bound_events(events, now) {
@@ -182,8 +213,8 @@ function mainframe_bound_events(events, now) {
 	return result.slice(-MAINFRAME_EVENT_MAX_ENTRIES);
 }
 
-function mainframe_new_event(assignment_id, level, code, message, detail) {
-	return mainframe_clean_event({
+function mainframe_new_event(assignment_id, level, code, message, detail, display) {
+	return mainframe_clean_event(Object.assign({}, display, {
 		id: crypto.randomBytes(16).toString("hex"),
 		assignment_id: assignment_id || null,
 		at: new Date().toISOString(),
@@ -191,7 +222,7 @@ function mainframe_new_event(assignment_id, level, code, message, detail) {
 		code: code,
 		message: message,
 		detail: detail,
-	});
+	}));
 }
 
 async function mainframe_record_event(owner_id, character_id, event) {
@@ -502,7 +533,7 @@ async function mainframe_begin_assignment(user, character, request_id, options) 
 		await mainframe_record_event_quietly(
 			user_id,
 			character_id,
-			mainframe_new_event(R.assignment && R.assignment.session_id, "info", "assignment_queued", "Mainframe queued this character.", server.label + " · CODE " + code_slot),
+			mainframe_new_event(R.assignment && R.assignment.session_id, "info", "assignment_queued", "Mainframe queued this character.", server.label + " · CODE " + code_slot, { phrase: "mainframe.event.assignment_queued" }),
 		);
 	return {
 		success: true,
@@ -722,6 +753,7 @@ async function mainframe_begin_included_assignment(user, parent_source, characte
 				"included_worker_queued",
 				"Mainframe queued this included Worker.",
 				"Shared with " + String(R.assignment.group_root_name || "the root character"),
+				{ phrase: "mainframe.event.included_worker_queued", detail_phrase: R.assignment.group_root_name ? "mainframe.event.shared_with" : "mainframe.event.shared_with_root", detail_phrase_args: { character: R.assignment.group_root_name } },
 			),
 		);
 	return {
@@ -801,7 +833,7 @@ async function mainframe_stop_assignment(user, character) {
 	);
 	if (R.failed) return { failed: true, reason: R.reason || "disconnect_failed" };
 	for (var stopped of R.stopped || [])
-		await mainframe_record_event_quietly(get_id(user), stopped.character, mainframe_new_event(stopped.session_id, "info", "explicit_disconnect", "Disconnected by the account owner."));
+		await mainframe_record_event_quietly(get_id(user), stopped.character, mainframe_new_event(stopped.session_id, "info", "explicit_disconnect", "Disconnected by the account owner.", null, { phrase: "mainframe.event.explicit_disconnect" }));
 	return { success: true, assignment: mainframe_assignment_to_client(R.assignment) };
 }
 
@@ -1055,12 +1087,12 @@ async function mainframe_renew_assignment(source, now) {
 		var renewal_message = R.billing_source === "steam_time" ? "1 free Mainframe hour used for " + R.period_minutes + " minutes." : "1 Shell charged for " + R.period_minutes + " minutes.";
 		var renewal_detail = R.active_characters + (R.active_characters === 1 ? " character active" : " characters active") + " · Next renewal " + new Date(R.access.access_until).toISOString();
 		for (var renewal_member of R.renewal_members || [{ character: source.character, session_id: source.session_id }])
-			await mainframe_record_event_quietly(source.owner, renewal_member.character, mainframe_new_event(renewal_member.session_id, "info", "access_renewed", renewal_message, renewal_detail));
+			await mainframe_record_event_quietly(source.owner, renewal_member.character, mainframe_new_event(renewal_member.session_id, "info", "access_renewed", renewal_message, renewal_detail, { phrase: R.billing_source === "steam_time" ? "mainframe.event.renewed_free" : "mainframe.event.renewed_shell", phrase_args: { minutes: R.period_minutes }, detail_phrase: R.active_characters === 1 ? "mainframe.event.renewal_one" : "mainframe.event.renewal_many", detail_phrase_args: { count: R.active_characters, date: new Date(R.access.access_until).toISOString() } }));
 	} else if (R.state === "stopped")
 		await mainframe_record_event_quietly(
 			source.owner,
 			source.character,
-			mainframe_new_event(source.session_id, "error", "renewal_failed", "Mainframe stopped this character because no time remained."),
+			mainframe_new_event(source.session_id, "error", "renewal_failed", "Mainframe stopped this character because no time remained.", null, { phrase: "mainframe.event.renewal_failed" }),
 		);
 	return {
 		success: true,
@@ -1195,6 +1227,7 @@ async function mainframe_record_controller_failures(report, agent_id) {
 				level: "error",
 				code: "worker_failure",
 				message: "Mainframe detected a Worker failure and will retry it.",
+				phrase: "mainframe.event.worker_failure",
 				detail: bot.failure.reason || bot.failure.code,
 			});
 		}
@@ -1243,7 +1276,7 @@ async function mainframe_change_assignment_server(source, region, name) {
 	await mainframe_record_event_quietly(
 		source.owner,
 		source.character,
-		mainframe_new_event(R.assignment.session_id, "warn", "server_change", "Mainframe is reconnecting this character on another server.", server.label),
+		mainframe_new_event(R.assignment.session_id, "warn", "server_change", "Mainframe is reconnecting this character on another server.", server.label, { phrase: "mainframe.event.server_change" }),
 	);
 	return { success: true, assignment: mainframe_assignment_to_client(R.assignment), start_after: R.assignment.start_after.toISOString() };
 }

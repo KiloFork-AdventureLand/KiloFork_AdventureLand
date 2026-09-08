@@ -12,23 +12,23 @@
 					{%endif%}
 				</span>
 				<br />
-				Lv.{{characters[c].level}} <span class="gray" {%if characters[c].private%}style='text-decoration: underline #C7BAFF;'{%endif%}>{{characters[c].type|title}}</span>
+				{{ phrase("pages.contents.selection_characters.lv", {"level": characters[c].level}) }} <span class="gray" {%if characters[c].private%}style='text-decoration: underline #C7BAFF;'{%endif%}>{{ phrase("class." ~ characters[c].type ~ ".name") }}</span>
 			</div>
 		{% else %}
 			<div class="gamebutton mb5" onclick="if(bc(this)) return; $('.nchb').click()" style='text-align: left; width: 160px'>
 				<span class='cskin' data-skin="thehelmet" style="float:left; margin-right: 5px; margin-top: -5px; margin-left: -4px; margin-bottom: -5px"></span>
-				{%if c < user.info.slots %}<span style='color'>Free Slot</span>{%else%}<span style='color:gray'>Available Slot</span>{% endif %}
+				{%if c < user.info.slots %}<span style='color'>{{ phrase("pages.contents.selection_characters.free-slot") }}</span>{%else%}<span style='color:gray'>{{ phrase("pages.contents.selection_characters.available-slot") }}</span>{% endif %}
 				<br />
-				<span style='color:gray'>Unused</span>
+				<span style='color:gray'>{{ phrase("pages.contents.selection_characters.unused") }}</span>
 			</div>
 		{% endif %}
 	{% if c==5 or c==11 or c==17 %}</div>{%endif%}
 {% endfor %}
 <div class='mb5'>
-	<div class="gamebutton pgbt pgbt1" style='width: 62px' onclick="$('.page2').hide(); $('.page3').hide(); $('.page1').show(); $('.pgbt').css('color','gray'); $('.pgbt1').css('color','white');">Page 1</div>
-	<div class="gamebutton pgbt pgbt2" style='width: 61px; color: gray' onclick="$('.page1').hide(); $('.page3').hide(); $('.page2').show(); $('.pgbt').css('color','gray'); $('.pgbt2').css('color','white');">Page 2</div>
-	<div class="gamebutton pgbt pgbt3" style='width: 61px; color: gray' onclick="$('.page1').hide(); $('.page2').hide(); $('.page3').show(); $('.pgbt').css('color','gray'); $('.pgbt3').css('color','white');">Page 3</div>
-	<div class="gamebutton {%if not user.info.characters %}mt5{%endif%} mb5 nchb" style='text-align: center; width: 62px' {% if user.info.character|length < 18 %}onclick="pcs(); $('.menu').hide(); $('.salesui').hide(); $('.newcharacter').show(); load_class_info('rogue','male'); resize(); chartype='',gendertype='';"{% endif %}><span style='{% if user.info.character|length >= 18 %}color:gray{% endif %}'>New</span></div>
+	<div class="gamebutton pgbt pgbt1" style='width: 62px' onclick="$('.page2').hide(); $('.page3').hide(); $('.page1').show(); $('.pgbt').css('color','gray'); $('.pgbt1').css('color','white');">{{ phrase("pages.contents.selection_characters.page-1") }}</div>
+	<div class="gamebutton pgbt pgbt2" style='width: 61px; color: gray' onclick="$('.page1').hide(); $('.page3').hide(); $('.page2').show(); $('.pgbt').css('color','gray'); $('.pgbt2').css('color','white');">{{ phrase("pages.contents.selection_characters.page-2") }}</div>
+	<div class="gamebutton pgbt pgbt3" style='width: 61px; color: gray' onclick="$('.page1').hide(); $('.page2').hide(); $('.page3').show(); $('.pgbt').css('color','gray'); $('.pgbt3').css('color','white');">{{ phrase("pages.contents.selection_characters.page-3") }}</div>
+	<div class="gamebutton {%if not user.info.characters %}mt5{%endif%} mb5 nchb" style='text-align: center; width: 62px' {% if user.info.character|length < 18 %}onclick="pcs(); $('.menu').hide(); $('.salesui').hide(); $('.newcharacter').show(); load_class_info('rogue','male'); resize(); chartype='',gendertype='';"{% endif %}><span style='{% if user.info.character|length >= 18 %}color:gray{% endif %}'>{{ phrase("pages.contents.selection_characters.new") }}</span></div>
 </div>
 <script>
 	user_id="{{user and user._id or ''}}";

@@ -753,6 +753,68 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	box-sizing: border-box;
 	width: min(1018px, calc(100vw - 80px));
 }
+.language-icon{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	flex: 0 0 40px;
+	vertical-align: middle;
+	background-image: url('/images/languages.png');
+	background-size: 1280px 40px;
+	image-rendering: crisp-edges;
+	image-rendering: pixelated;
+}
+.language-picker{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+	gap: 6px;
+}
+.language-menu{
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	vertical-align: top;
+}
+.language-picker > div{
+	grid-column: 1 / -1;
+	font-size: 32px;
+}
+.language-choice{
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font: inherit;
+	font-size: 32px;
+	text-align: start;
+	margin: 0;
+}
+.language-choice[aria-pressed='true']{
+	border-color: #85C76B;
+}
+.language-choice[lang='ar'] > span:last-child{
+	font-family: Arial, sans-serif;
+	line-height: 1.4;
+}
+html:lang(ar) .guide-article{
+	direction: rtl;
+	text-align: start !important;
+	line-height: 1.4;
+}
+html:lang(ar) .guide-article p,
+html:lang(ar) .guide-article li,
+html:lang(ar) .guide-article .title{
+	text-align: start !important;
+}
+html:lang(ar) .guide-article .code,
+html:lang(ar) .guide-article .CodeMirror,
+html:lang(ar) .guide-article pre,
+html:lang(ar) .guide-article code,
+html:lang(ar) .guide-article .dlabel,
+html:lang(ar) .guide-article .rlabel{
+	direction: ltr;
+	text-align: left;
+	unicode-bidi: isolate;
+}
 .snippet-actions{
 	position: absolute;
 	top: calc(100% + 12px);

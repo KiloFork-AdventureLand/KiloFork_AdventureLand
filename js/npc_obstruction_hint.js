@@ -5,7 +5,7 @@ function set_npc_obstruction_hints(enabled, just_ui) {
 	npc_obstruction_hints_enabled = !!enabled;
 	if (!just_ui) storage_set("npc_obstruction_hints", enabled ? "on" : "off");
 	$(".npc-hints-state")
-		.text(enabled ? "ON" : "OFF")
+		.text(enabled ? phrase("services.npc_obstruction_hint.enabled") : phrase("services.npc_obstruction_hint.disabled"))
 		.css("color", enabled ? "green" : "#F54423");
 	if (!enabled)
 		npc_obstruction_hints.forEach(function (button) {
@@ -49,7 +49,12 @@ function obstructed_npcs() {
 	all.forEach(function (npc) {
 		if (!npc.npc || !npc.onrclick || !npc.parent || !npc.visible || !npc.worldAlpha || distance(npc, character) >= 300) return;
 		// Keep essential services reachable without adding notices over citizens or flavor NPCs.
-		if (!["merchant", "newupgrade", "shrine", "compound", "exchange", "craftsman", "mcollector", "anniversary_crafter", "items", "gold", "transport", "locksmith", "scrollsmith"].includes((G.npcs[npc.npc] || {}).role)) return;
+		if (
+			!["merchant", "newupgrade", "shrine", "compound", "exchange", "craftsman", "mcollector", "anniversary_crafter", "items", "gold", "transport", "locksmith", "scrollsmith"].includes(
+				(G.npcs[npc.npc] || {}).role,
+			)
+		)
+			return;
 		var body = npc_hint_bounds(npc);
 		if (!body) return;
 		var blocked = players.some(function (player) {
@@ -120,7 +125,7 @@ function update_npc_obstruction_hint() {
 		}
 		button.npc = target.npc;
 		var definition = G.npcs[target.npc.npc] || {},
-			label = (definition.name || target.npc.name || "NPC") + "\nPress F or Click";
+			label = phrase("services.npc_obstruction_hint.open-npc", { npc: definition.name || target.npc.name || phrase("services.npc_obstruction_hint.npc") });
 		if (button.textContent != label) button.textContent = label;
 		button.style.display = "block";
 		var w = button.offsetWidth,

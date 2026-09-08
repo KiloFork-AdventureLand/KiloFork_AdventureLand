@@ -48,7 +48,7 @@ Object.defineProperty(character, "x", {
 		return parent.character.real_x;
 	},
 	set: function () {
-		game_log("You can't set coordinates manually, use the move(x,y) function!");
+		game_log(parent.phrase("code.manual_coordinates"));
 	},
 	enumerable: true,
 });
@@ -57,7 +57,7 @@ Object.defineProperty(character, "y", {
 		return parent.character.real_y;
 	},
 	set: function () {
-		game_log("You can't set coordinates manually, use the move(x,y) function!");
+		game_log(parent.phrase("code.manual_coordinates"));
 	},
 	enumerable: true,
 });
@@ -780,7 +780,7 @@ function is_transporting(entity) {
 function attack(target) {
 	if (target == character) target = parent.character;
 	if (!target) {
-		game_log("Nothing to attack()", "gray");
+		game_log(parent.phrase("code.attack_no_target"), "gray");
 		return rejecting_promise({ reason: "not_found" });
 	}
 	if (target.type == "character") return parent.player_attack.call(target, null, true);
@@ -790,7 +790,7 @@ function attack(target) {
 function heal(target) {
 	if (target == character) target = parent.character; // Don't send the proxy object to parent [10/06/19]
 	if (!target) {
-		game_log("No one to heal()", "gray");
+		game_log(parent.phrase("code.heal_no_target"), "gray");
 		return rejecting_promise({ reason: "not_found" });
 	}
 	return parent.player_heal.call(target, null, true);
@@ -1057,17 +1057,17 @@ function consume(num) {
 
 function equip_batch(data) {
 	if (!Array.isArray(data)) {
-		game_log("Can't equip_batch non-array");
+		game_log(parent.phrase("code.equip_batch_array"));
 		return rejecting_promise({ reason: "invalid" });
 	}
 	if (data.length > 15) {
-		game_log("Can't equip_batch more than 15 items");
+		game_log(parent.phrase("code.equip_batch_limit"));
 		return rejecting_promise({ reason: "invalid" });
 	}
 	for (let i = 0; i < data.length; i++) {
 		let num = data[i].num;
 		if (num < 0) {
-			game_log("Can't equip " + num);
+			game_log(parent.phrase("code.equip_invalid", { slot: num }));
 			return rejecting_promise({ reason: "invalid" });
 		}
 	}
@@ -1079,7 +1079,7 @@ function equip_batch(data) {
 function equip(num, slot) {
 	// slot is optional
 	if (num < 0) {
-		game_log("Can't equip " + num);
+		game_log(parent.phrase("code.equip_invalid", { slot: num }));
 		return rejecting_promise({ reason: "invalid" });
 	} else {
 		var promise = parent.push_deferred("equip");
@@ -1324,8 +1324,8 @@ function get_nearest_monster(args) {
 
 	if (!args) args = {};
 	if (args && args.target && args.target.name) args.target = args.target.name;
-	if (args && args.type == "monster") game_log("get_nearest_monster: you used monster.type, which is always 'monster', use monster.mtype instead");
-	if (args && args.mtype) game_log("get_nearest_monster: you used 'mtype', you should use 'type'");
+	if (args && args.type == "monster") game_log(parent.phrase("code.monster_type"));
+	if (args && args.mtype) game_log(parent.phrase("code.monster_filter"));
 
 	for (id in parent.entities) {
 		var current = parent.entities[id];
@@ -1435,7 +1435,7 @@ function close_stand() {
 
 function send_gold(receiver, gold) {
 	if (!receiver) {
-		game_log("No receiver sent to send_gold");
+		game_log(parent.phrase("code.send_gold_receiver"));
 		return rejecting_promise({ reason: "no_target" });
 	}
 	if (receiver.name) receiver = receiver.name;
@@ -1446,7 +1446,7 @@ function send_gold(receiver, gold) {
 
 function send_item(receiver, num, quantity) {
 	if (!receiver) {
-		game_log("No receiver sent to send_item");
+		game_log(parent.phrase("code.send_item_receiver"));
 		return rejecting_promise({ reason: "no_target" });
 	}
 	if (receiver.name) receiver = receiver.name;
@@ -1458,7 +1458,7 @@ function send_item(receiver, num, quantity) {
 function send_cx(receiver, cx) {
 	// Sends cosmetics to one of your own characters
 	if (!receiver) {
-		game_log("No receiver sent to send_cx");
+		game_log(parent.phrase("code.send_cx_receiver"));
 		return rejecting_promise({ reason: "no_target" });
 	}
 	if (receiver.name) receiver = receiver.name;
@@ -1941,7 +1941,7 @@ character.trigger = function (event, args) {
 				if (l.event == "all") l.f(event, args);
 				else l.f(args, event);
 			} catch (e) {
-				game_log("Listener Exception (" + l.event + ") " + e, colors.code_error);
+				game_log(parent.phrase("code.listener_error", { event: l.event, error: String(e) }), colors.code_error);
 			}
 			if (l.once || (l.f && l.f.delete));
 			else new_listeners.push(l);
@@ -1983,7 +1983,7 @@ game.trigger = function (event, args) {
 				if (l.event == "all") l.f(event, args);
 				else l.f(args, event);
 			} catch (e) {
-				game_log("Listener Exception (" + l.event + ") " + e, colors.code_error);
+				game_log(parent.phrase("code.listener_error", { event: l.event, error: String(e) }), colors.code_error);
 			}
 			if (l.once || (l.f && l.f.delete));
 			else new_listeners.push(l);
@@ -2074,7 +2074,7 @@ for (var key in localStorage) {
 	if (key.startsWith("cm_" + character.name + "_")) {
 		var data = localStorage.getItem(key);
 		localStorage.removeItem(key);
-		game_log("Removed a stale code message from: " + JSON.parse(data)[0], "gray");
+		game_log(parent.phrase("code.stale_message", { name: JSON.parse(data)[0] }), "gray");
 	}
 }
 
@@ -2113,7 +2113,7 @@ function local_cm_logic() {
 		try {
 			character.trigger("cm", { name: cm[0], message: cm[1], date: cm[2], local: true });
 		} catch (e) {
-			game_log("CM Error, From: " + cm[0]);
+			game_log(parent.phrase("code.cm_error", { name: cm[0] }));
 			log(e);
 			log(e.stack);
 		}
@@ -2152,7 +2152,7 @@ function set(name, value) {
 		window.localStorage.setItem("cstore_" + name, JSON.stringify(value));
 		return true;
 	} catch (e) {
-		game_log("set() call failed for: " + name + " reason: " + e, colors.code_error);
+		game_log(parent.phrase("code.set_error", { name: name, error: String(e) }), colors.code_error);
 		return false;
 	}
 }
@@ -2186,7 +2186,7 @@ function load_code(name_or_slot, onerror) {
 	library.onerror =
 		onerror ||
 		function () {
-			game_log("load_code: Failed to load", colors.code_error);
+			game_log(parent.phrase("code.load_error"), colors.code_error);
 		};
 	document.getElementsByTagName("head")[0].appendChild(library);
 }
@@ -2402,7 +2402,7 @@ function smart_move(destination, on_done) {
 				if (parent.S[G.maps[destination.to || destination.map].event]) {
 					return smart_move_event(G.maps[destination.to || destination.map].event, on_done);
 				} else {
-					game_log("Path not found!", "#CF575F");
+					game_log(parent.phrase("code.path_missing"), "#CF575F");
 					smart.moving = false;
 					if (on_done) on_done(false);
 					return rejecting_promise({ reason: "event_not_live", event: G.maps[destination.to || destination.map].event });
@@ -2424,7 +2424,7 @@ function smart_move(destination, on_done) {
 		}
 	}
 	if (!smart.map) {
-		game_log("Unrecognized location", "#CF5B5B");
+		game_log(parent.phrase("code.location_unknown"), "#CF5B5B");
 		return rejecting_promise({ reason: "invalid" });
 	}
 	smart.moving = true;
@@ -2593,7 +2593,7 @@ function bfs() {
 
 	if (result === null) {
 		((result = best), (optimal = false));
-		game_log("Path not found!", "#CF575F");
+		game_log(parent.phrase("code.path_missing"), "#CF575F");
 		smart.moving = false;
 		smart.on_done(false, "failed");
 	} else {
@@ -2609,10 +2609,10 @@ function bfs() {
 		}
 		smart.found = true;
 		if (smart.prune.smooth) smooth_path();
-		if (optimal) game_log("Path found!", "#C882D1");
-		else game_log("Path found~", "#C882D1");
+		if (optimal) game_log(parent.phrase("code.path_found"), "#C882D1");
+		else game_log(parent.phrase("code.path_found_approximate"), "#C882D1");
 		// game_log(queue.length);
-		parent.d_text("Yes!", character, { color: "#58D685" });
+		parent.d_text(parent.phrase("code.path_yes"), character, { color: "#58D685" });
 	}
 }
 
@@ -2623,7 +2623,7 @@ function start_pathfinding() {
 	smart.start_y = character.real_y;
 	((queue = []), (visited = {}), (start = 0), (best = null));
 	qpush({ x: character.real_x, y: character.real_y, map: character.map, i: -1 });
-	game_log("Searching for a path...", "#89D4A2");
+	game_log(parent.phrase("code.path_searching"), "#89D4A2");
 	bfs();
 }
 
@@ -2639,7 +2639,7 @@ function smart_move_logic() {
 		if (Math.random() < 0.1) {
 			move(character.real_x + Math.random() * 0.0002 - 0.0001, character.real_y + Math.random() * 0.0002 - 0.0001);
 			parent.d_text(
-				shuffle(["Hmm", "...", "???", "Definitely left", "No right!", "Is it?", "I can do this!", "I think ...", "What If", "Should be", "I'm Sure", "Nope", "Wait a min!", "Oh my"])[0],
+				shuffle([parent.phrase("code.path_thought_hmm"), "...", "???", parent.phrase("code.path_thought_left"), parent.phrase("code.path_thought_right"), parent.phrase("code.path_thought_uncertain"), parent.phrase("code.path_thought_confidence"), parent.phrase("code.path_thought_thinking"), parent.phrase("code.path_thought_what_if"), parent.phrase("code.path_thought_should_be"), parent.phrase("code.path_thought_sure"), parent.phrase("code.path_thought_nope"), parent.phrase("code.path_thought_wait"), parent.phrase("code.path_thought_surprise")])[0],
 				character,
 				{ color: shuffle(["#68B3D1", "#D06F99", "#6ED5A3", "#D2CF5A"])[0] },
 			);
@@ -2664,7 +2664,7 @@ function smart_move_logic() {
 			// game_log("S "+current.x+" "+current.y);
 			move(current.x, current.y);
 		} else {
-			game_log("Lost the path...", "#CF5B5B");
+			game_log(parent.phrase("code.path_lost"), "#CF5B5B");
 			smart_move({ map: smart.map, x: smart.x, y: smart.y }, smart.on_done);
 		}
 	}
@@ -2684,7 +2684,7 @@ function proxy(name) {
 		set: function (value) {
 			delete this[name];
 			if (character.read_only.includes(name)) {
-				game_log("You attempted to change the character." + name + " value manually. You have to use the provided functions to control your character!", colors.code_error);
+				game_log(parent.phrase("code.readonly_character", { property: name }), colors.code_error);
 			} else {
 				parent.character[name] = value;
 			}

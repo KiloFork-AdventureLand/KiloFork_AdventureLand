@@ -2,19 +2,19 @@
 	<tr style="text-align: center">
 		<td style="vertical-align: middle; font-family: 'Palatino Linotype', 'Book Antiqua','Palatino','Times New Roman','Times';">
 			{% if purpose == "password" %}
-				To Reset Your Password Please Visit:<br /><br />
+				{{ phrase("pages.email.to-reset-your-password-please-visit") }}<br /><br />
 				<a href="{{url}}">{{url}}</a><br /><br />
-				<span style="font-size: 12px">If you haven't initiated this routine, please ignore this email.</span>
+				<span style="font-size: 12px">{{ phrase("pages.email.if-you-haven-t-initiated-this-routine-please") }}</span>
 			{% elif purpose == "verification" %}
-				<div style='margin-bottom: 8px'>To Verify Your Email</div>
+				<div style='margin-bottom: 8px'>{{ phrase("pages.email.to-verify-your-email") }}</div>
 				<a href="{{url}}" style="color: #F26EA7; text-decoration:none">{{url}}</a>
-				<div style='margin-bottom: 8px; margin-top: 12px'>Some Suggestions!</div>
+				<div style='margin-bottom: 8px; margin-top: 12px'>{{ phrase("pages.email.some-suggestions") }}</div>
 				<div style='max-width: 560px; display: inline-block'>
 					<div style='text-align: left; line-height: 20px'>
-						<div style='font-size: 16px; margin-bottom: 6px'>1) Check out the GUIDE, you can type /guide in chat</div>
-						<div style='font-size: 16px; margin-bottom: 6px'>2) Check out the CODE, you don't need to be a programmer to use CODE!</div>
-						<div style='font-size: 16px; margin-bottom: 6px'>3) Join us on <a href="{{domain.discord_url}}" style="color: #18C0F4; text-decoration:none">Discord</a>, the game is in active development, there is an active and helpful community on Discord, for gameplay, trade and coding help!</div>
-						<div style='font-size: 16px; margin-bottom: 6px'>4) You are able to play with multiple characters simultaneously, you can have 3 regular characters and a merchant, freely, for as long as you want!</div>
+						<div style='font-size: 16px; margin-bottom: 6px'>{{ phrase("pages.email.1-check-out-the-guide-you-can-type") }}</div>
+						<div style='font-size: 16px; margin-bottom: 6px'>{{ phrase("pages.email.2-check-out-the-code-you-don-t") }}</div>
+						<div style='font-size: 16px; margin-bottom: 6px'>{{ phrase_html("pages.email.3-join-us-on-discord-the-game-is", {"discord_url": domain.discord_url}) }}</div>
+						<div style='font-size: 16px; margin-bottom: 6px'>{{ phrase("pages.email.4-you-are-able-to-play-with-multiple") }}</div>
 					</div>
 				</div>
 			{% endif %}
