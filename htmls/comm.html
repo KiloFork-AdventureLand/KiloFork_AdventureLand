@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
 		<style>
 			body{
 				overflow: hidden;
@@ -9,7 +10,7 @@
 				background-color: black;
 			}
 		</style>
-		<title>{{domain.name}}</title>
+		<title>Communicator - {{domain.name}}</title>
 		{% if domain.electron and domain.no_html %}<script>require=parent.require;</script>{% endif %}
 
 		{# <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densityDpi=device-dpi" /> #}
@@ -48,6 +49,7 @@
 		{% if user.admin %}<script src="/js/admin.js?v={{domain.v}}"></script>{% endif %}
 		<link href="/css/index.css?v={{domain.v}}" rel="stylesheet" type="text/css"/>
 		<link href="/css/common.css?v={{domain.v}}" rel="stylesheet" type="text/css"/>
+		<link href="/css/comm.css?v={{domain.v}}" rel="stylesheet" type="text/css"/>
 		{% include "htmls/base_script.html" %}
 		<style>
 			body{
@@ -95,6 +97,33 @@
 		</style>
 	</head>
 	<body>
+		<section id="comm-chat" aria-label="Chat">
+			<div class="comm-chat-heading">
+				<span>CHAT</span>
+				<button type="button" class="gamebutton gamebutton-small comm-chat-back" onclick="comm_chat_list()">CHATS</button>
+				{% if user %}<button type="button" class="gamebutton gamebutton-small" onclick="comm_chat_new()">NEW PM</button>{% endif %}
+				<button type="button" class="gamebutton gamebutton-small" onclick="toggle_comm_chat()" aria-label="Hide chat">HIDE</button>
+			</div>
+			<div class="comm-chat-body">
+				<nav class="comm-chat-sidebar" aria-label="Conversations, newest first">
+					<div id="comm-chat-list"></div>
+					<button id="comm-chat-more" type="button" class="gamebutton gamebutton-small hidden" onclick="comm_chat_pull_list(true)">MORE CHATS</button>
+				</nav>
+				<div class="comm-chat-conversation">
+					<div id="comm-chat-title"></div>
+					<div id="comm-chat-history">
+						<button id="comm-chat-older" type="button" class="gamebutton gamebutton-small hidden" onclick="comm_chat_pull(true)">OLDER MESSAGES</button>
+						<div id="comm-chat-messages"></div>
+					</div>
+					<form id="comm-chat-form" autocomplete="off">
+						<div id="comm-chat-recipient" class="hidden"><label for="comm-chat-to">To</label><input id="comm-chat-to" class="selectioninput mprotected" maxlength="12" placeholder="Character name" aria-label="Recipient character"></div>
+						<div class="comm-chat-from"><label for="comm-chat-from">From</label><select id="comm-chat-from" class="selectioninput mprotected" aria-label="Sending character"></select></div>
+						<div class="comm-chat-compose"><input id="comm-chat-input" class="selectioninput mprotected" maxlength="1200" placeholder="Message" aria-label="Message"><button id="comm-chat-send" type="submit" class="gamebutton gamebutton-small">SEND</button></div>
+					</form>
+					<div id="comm-chat-status" role="status" aria-live="polite"></div>
+				</div>
+			</div>
+		</section>
 		<div id="observeui" class="hidden">
 			<div class="gamebutton block mb5" onclick="socket.emit('o:home')">HOME IN</div>
 			<div class="gamebutton block mb5" onclick="render_inventory()">INVENTORY</div>
@@ -111,11 +140,13 @@
 		<div id="bottom" class="{% if not user %}hidewithmodals{% endif %}">
 			{% if not user %}
 				<div class="serversui"></div>
+				<button type="button" id="comm-chat-toggle" class="gamebutton" onclick="toggle_comm_chat()" aria-expanded="true" aria-controls="comm-chat">CHAT</button>
 				<div class="gamebutton" style='min-width: 120px; max-width: 240px; margin-bottom: 8px' onclick="show_modal($('#login').html(),{wrap:false})">LOGIN</div>
 			{% else %}
 				<div class="serversui serversuic hidden"></div>
 				<div class="charactersui charactersuic"></div>
 				<div></div>
+				<button type="button" id="comm-chat-toggle" class="gamebutton" onclick="toggle_comm_chat()" aria-expanded="true" aria-controls="comm-chat">CHAT</button>
 				<a class="gamebutton" style='min-width: 120px; max-width: 240px; margin-right: 5px; text-decoration: none' href="/mainframe">MAINFRAME</a>
 				<div class="gamebutton" style='min-width: 120px; max-width: 240px' onclick="toggle_ui()">TOGGLE</div>
 			{% endif %}
@@ -167,9 +198,12 @@
 				setTimeout(function(){ $("#gamelog").scrollTop(0);},240);
 			}
 			$(function(){ //document.addEventListener("DOMContentLoaded", // now replaced $(document).on("ready") too [10/04/17]
+				init_comm_chat();
 				first_things_first();
+				comm_chat_bind_socket();
 			});
 			window.addEventListener("contextmenu", function(e) {
+				if($(e.target).closest("#comm-chat").length) return;
 				if(!block_right_clicks) return;
 				var custom=false,current=e.target||{};
 				if((current.className||"").substr(0,6)=="rclick") custom=true;

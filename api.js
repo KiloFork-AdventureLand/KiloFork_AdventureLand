@@ -922,6 +922,204 @@ async function pull_merchants_api(args) {
 
 // ==================== MAIL / MESSAGES ====================
 
+function chat_message_to_client(message) {
+	return {
+		id: get_id(message),
+		fro: message.fro || "",
+		to: Array.isArray(message.to) ? message.to : message.to ? [message.to] : [],
+		message: gf(message, "message", ""),
+		type: message.type,
+		server: message.server || "",
+		date: message.created.toISOString(),
+	};
+}
+
+function chat_cursor_query(cursor) {
+	if (!cursor) return {};
+	if (typeof cursor !== "string" || cursor.length > 100) return null;
+	var parts = cursor.split("|"),
+		date = new Date(parts[0]);
+	if (parts.length !== 2 || !Number.isFinite(date.getTime()) || !/^MS_[A-Za-z0-9]+$/.test(parts[1])) return null;
+	return { $or: [{ created: { $lt: date } }, { created: date, _id: { $lt: parts[1] } }] };
+}
+
+function chat_page(messages, page) {
+	var more = messages.length > page;
+	messages = messages.slice(0, page);
+	var last = messages[messages.length - 1];
+	return { success: true, messages: messages.map(chat_message_to_client), more: more, cursor: more && last ? last.created.toISOString() + "|" + get_id(last) : null };
+}
+
+async function pull_chat_api(args) {
+	var before = chat_cursor_query(args.cursor),
+		query;
+	if (!before) return { failed: true, reason: "invalid_cursor" };
+	if (args.server) {
+		var servers = await get_servers();
+		if (
+			!servers.some(function (server) {
+				return get_id(server) === args.server;
+			})
+		)
+			return { failed: true, reason: "server_not_found" };
+		query = { owner: "~" + args.server, type: "server" };
+	} else {
+		var user = await get_user(args.req);
+		if (!user) return { failed: true, reason: "not_logged_in" };
+		if (!is_name_xallowed(args.character || "") || !is_name_xallowed(args.to || "")) return { failed: true, reason: "invalid_name" };
+		var character = new RegExp("^" + args.character.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "$", "i");
+		var to = new RegExp("^" + args.to.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "$", "i");
+		query = {
+			owner: get_id(user),
+			type: "private",
+			$or: [
+				{ fro: character, to: to },
+				{ fro: to, to: character },
+			],
+		};
+	}
+	var messages = await db
+		.collection("message")
+		.find({ $and: [query, before] })
+		.sort({ created: -1, _id: -1 })
+		.limit(81)
+		.maxTimeMS(4000)
+		.toArray();
+	return chat_page(messages, 80);
+}
+
+async function pull_chats_api(args) {
+	var before = chat_cursor_query(args.cursor);
+	if (!before) return { failed: true, reason: "invalid_cursor" };
+	var user = args.user,
+		owner = get_id(user);
+	var characters = (await get_characters(user)).filter(function (character) {
+		return character.owner === owner;
+	});
+	var owned = {};
+	characters.forEach(function (character) {
+		owned[character.info.name.toLowerCase()] = character.info.name;
+	});
+	// Group both directions of each character pair. The owner match also covers
+	// conversations with characters that were renamed or transferred later.
+	var messages = await db
+		.collection("message")
+		.aggregate(
+			[
+				{ $match: { owner: owner, type: "private" } },
+				{ $sort: { created: -1, _id: -1 } },
+				{ $project: { fro: 1, to: 1, created: 1, author: 1, type: 1, server: 1, "info.message": 1 } },
+				{ $addFields: { first: { $toLower: "$fro" }, second: { $toLower: { $cond: [{ $isArray: "$to" }, { $arrayElemAt: ["$to", 0] }, "$to"] } } } },
+				{ $group: { _id: { $cond: [{ $lt: ["$first", "$second"] }, ["$first", "$second"], ["$second", "$first"]] }, latest: { $first: "$$ROOT" } } },
+				{ $replaceRoot: { newRoot: "$latest" } },
+				{ $match: before },
+				{ $sort: { created: -1, _id: -1 } },
+				{ $limit: 41 },
+			],
+			{ maxTimeMS: 4000 },
+		)
+		.toArray();
+	var page = chat_page(messages, 40);
+	var chats = messages.slice(0, 40).map(function (message) {
+		var latest = chat_message_to_client(message),
+			fro = latest.fro,
+			to = latest.to[0] || "";
+		var mine = owned[fro.toLowerCase()] ? fro : owned[to.toLowerCase()] ? to : message.author === owner ? fro : to;
+		if (owned[fro.toLowerCase()] && owned[to.toLowerCase()]) mine = fro.toLowerCase() < to.toLowerCase() ? fro : to;
+		return { type: "private", character: owned[mine.toLowerCase()] || mine, to: mine === fro ? to : fro, latest: latest };
+	});
+	if (!args.cursor) {
+		var servers = await get_servers();
+		var channels = await Promise.all(
+			servers.map(async function (server) {
+				var latest = await db
+					.collection("message")
+					.findOne(
+						{ owner: "~" + get_id(server), type: "server" },
+						{ sort: { created: -1, _id: -1 }, projection: { fro: 1, to: 1, created: 1, type: 1, server: 1, "info.message": 1 }, maxTimeMS: 4000 },
+					);
+				return { type: "server", server: get_id(server), latest: latest ? chat_message_to_client(latest) : null };
+			}),
+		);
+		chats = chats.concat(channels);
+	}
+	return {
+		success: true,
+		chats: chats,
+		more: page.more,
+		cursor: page.cursor,
+		characters: characters.map(function (character) {
+			return { name: character.info.name, online: !!character.online, server: character.server || "" };
+		}),
+	};
+}
+
+// Runs only through the existing authenticated server_eval integration. Invoke
+// the wrapped native handler so chat moderation, call costs, delivery and logs
+// stay the same. Its response belongs to this HTTP request, not running CODE.
+function communicator_say(data) {
+	var player = get_player(data.character);
+	if (!player || player.dc) return { failed: true, reason: "character_not_in_game" };
+	if (player.owner !== data.owner || player.real_id !== data.id) return { failed: true, reason: "not_owner" };
+	if (server_id !== data.server) return { failed: true, reason: "wrong_server" };
+	var handlers = player.socket.listeners("say");
+	if (handlers.length !== 1) return { failed: true, reason: "chat_unavailable" };
+	var emit = player.socket.emit,
+		previous_socket = current_socket,
+		previous_method = ls_method;
+	var result = { failed: true, reason: "message_not_sent" };
+	player.socket.emit = function (event, response) {
+		if (event === "game_response" && response && response.place === "say") {
+			result = response.failed ? { failed: true, reason: response.reason || response.response } : { success: true };
+			return this;
+		}
+		return emit.apply(this, arguments);
+	};
+	try {
+		handlers[0].call(player.socket, { message: data.message, name: data.to || undefined });
+	} finally {
+		player.socket.emit = emit;
+		current_socket = previous_socket;
+		ls_method = previous_method;
+	}
+	return result;
+}
+
+async function send_message_api(args) {
+	if (args.user.banned) return { failed: true, reason: "banned" };
+	if (typeof args.message !== "string" || !args.message.trim() || args.message.length > 1200) return { failed: true, reason: "invalid_message" };
+	if (!is_name_xallowed(args.character || "")) return { failed: true, reason: "invalid_name" };
+	var character = await get_character(args.character);
+	if (!character || character.owner !== get_id(args.user)) return { failed: true, reason: "not_owner" };
+	var to = null;
+	if (args.to) {
+		if (!is_name_xallowed(args.to) || args.server) return { failed: true, reason: "invalid_name" };
+		to = await get_character(args.to);
+		if (!to) return { failed: true, reason: "character_not_found" };
+		if (get_id(to) === get_id(character)) return { failed: true, reason: "message_self" };
+	} else if (!args.server || args.server !== character.server) return { failed: true, reason: "wrong_server" };
+	if (!character.online || !is_in_game(character)) return { failed: true, reason: "character_not_in_game" };
+	var servers = await get_servers(),
+		server = servers.find(function (server) {
+			return get_id(server) === character.server;
+		});
+	if (!server) return { failed: true, reason: "server_not_found" };
+	var result = await server_eval(
+		server,
+		"output=(" + communicator_say.toString() + ")(data);",
+		{
+			owner: get_id(args.user),
+			id: get_id(character),
+			character: character.info.name,
+			server: get_id(server),
+			to: to ? to.info.name : "",
+			message: args.message,
+		},
+		5000,
+	);
+	return result && (result.success || result.failed) ? result : { failed: true, reason: "chat_unavailable" };
+}
+
 async function read_mail_api(args) {
 	var user = args.user;
 	var user_data = await get_user_data(user);
@@ -1897,6 +2095,29 @@ var REF = {
 		U: true,
 		type: { type: "string", optional: true },
 		cursor: { type: "any", optional: true },
+	},
+	pull_chat: {
+		F: pull_chat_api,
+		P: true,
+		server: { type: "string", optional: true },
+		character: { type: "string", optional: true },
+		to: { type: "string", optional: true },
+		cursor: { type: "string", optional: true },
+	},
+	pull_chats: {
+		F: pull_chats_api,
+		P: true,
+		U: true,
+		cursor: { type: "string", optional: true },
+	},
+	send_message: {
+		F: send_message_api,
+		P: true,
+		U: true,
+		character: { type: "string" },
+		message: { type: "string" },
+		server: { type: "string", optional: true },
+		to: { type: "string", optional: true },
 	},
 	save_code: {
 		F: save_code_api,

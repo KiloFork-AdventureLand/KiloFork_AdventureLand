@@ -1,4 +1,4 @@
-const PUBLIC_PATHS = ["/", "/docs", "/linux", "/mainframe", "/vscode"];
+const PUBLIC_PATHS = ["/", "/docs", "/linux", "/mainframe", "/vscode", "/communicator"];
 
 const DOCS_PATHS = [
 	"/docs/code",
@@ -30,6 +30,7 @@ const DOCS_PATHS = [
 	"/docs/guide/advanced/adventure-api",
 	"/docs/guide/adventure-mcp",
 	"/docs/guide/mainframe",
+	"/docs/guide/communicator",
 	"/docs/tutorial",
 	"/docs/ref",
 	"/docs/ref/boosters",

@@ -1,5 +1,6 @@
 // Newest notes first. Add player-visible changes at the top with deployed: null.
 module.exports = [
+	{ deployed: null, date: "[08/09/26]", note: "Communicator now opens with server chat, keeps private conversations together, and lets you choose which online character speaks." },
 	{ deployed: null, date: "[08/09/26]", note: "New players, returning adventurers and Lone Wolves earn extra monster rewards for their contribution. Click a bonus condition or open GUIDE → Encouragement Bonuses for the rates and CODE example." },
 	{deployed:null,date:"[05/09/26]",note:"Merrit visits settled shops in Mainland with stackable Market Parcels and occasional SHELLS. Exchange parcels for supplies, four rare T3 armor pieces or a spear. Keep stands clear of fixed NPCs and neighboring shops; INFO explains her visits and rewards."},
 	{

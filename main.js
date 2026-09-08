@@ -95,7 +95,7 @@ app.get("/", async (req, res, next) => {
 });
 
 // Communication page
-app.get("/comm", async (req, res, next) => {
+app.get(["/comm", "/communicator"], async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
 	var servers = await get_servers();
@@ -110,6 +110,8 @@ app.get("/comm", async (req, res, next) => {
 		data = await get_user_data(user);
 	}
 	domain.servers = servers_to_client(domain, servers);
+	domain.characters = domain.characters || [];
+	res.set("Cache-Control", "no-store");
 	res.status(200).send(
 		nunjucks.render("htmls/comm.html", {
 			domain: domain,
