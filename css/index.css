@@ -666,22 +666,10 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 .theinventory{
 	position: relative;
 }
-.inventory-close{
-	position: absolute;
-	top: -27px;
-	right: -15px;
-	z-index: 2;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	box-sizing: border-box;
-	width: 32px;
-	height: 32px;
-	padding: 0 0 2px 2px; /* Center the pixel font's visible X. */
-	border-radius: 0;
-	font-family: inherit;
-	font-size: 24px;
-	cursor: pointer;
+.ui-close.inventory-close{
+	top: -32px;
+	right: -5px;
+	border-width: 5px;
 }
 .ui-close-frame{
 	position: relative;
@@ -743,6 +731,12 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	right: -5px;
 	bottom: -5px;
 	transform: translate(50%, 50%);
+}
+.ui-close-bottom.ui-close-word{
+	transform: none;
+}
+.ui-close-corner{
+	transform: translate(50%, -50%);
 }
 .ui-close-skills{
 	top: -32px;

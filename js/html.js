@@ -33,12 +33,14 @@ function add_ui_close(panel, action, options) {
 	frame[0].style.setProperty("--ui-close-color", style.color);
 	frame[0].style.setProperty("--ui-close-border", parseFloat(style.borderTopWidth) ? style.borderTopColor : "gray");
 	if (panel.is("#skills-item")) frame.addClass("ui-close-top");
-	var label = options.label || (action == "modal" || frame.outerWidth() >= 600 ? "CLOSE" : "X");
+	var label = options.label || (bottom || action == "modal" || frame.outerWidth() >= 600 ? "CLOSE" : "X");
 	var button = $("<button type='button' class='gamebutton ui-close' title='Close' aria-label='Close' onpointerdown='stpr(event)' onclick='btc(event); close_ui_panel(this)'><span aria-hidden='true'></span></button>");
 	button.attr("data-ui-close", action).data("panel", panel[0]).find("span").text(label);
 	if (options.corner) button.css({ top: -parseFloat(style.borderTopWidth), right: -parseFloat(style.borderRightWidth) });
-	else if (bottom) button.addClass("ui-close-bottom").css({ bottom: -parseFloat(style.borderBottomWidth), right: -parseFloat(style.borderRightWidth) });
-	else if (!options.classes) {
+	else if (bottom) {
+		button.addClass("ui-close-bottom").css({ bottom: label == "X" ? -parseFloat(style.borderBottomWidth) : -32, right: -parseFloat(style.borderRightWidth) });
+		if (label != "X") button.css("border-width", style.borderBottomWidth);
+	} else if (!options.classes) {
 		var edge = parseFloat(style.borderTopWidth), first = frame.children().first(),
 			border = edge || parseFloat(first.css("border-top-width")) || 4;
 		button.css({ top: edge ? -32 : parseFloat(style.paddingTop) + (parseFloat(first.css("margin-top")) || 0) + border - 32,
@@ -49,9 +51,9 @@ function add_ui_close(panel, action, options) {
 	frame.prepend(button);
 }
 
-function render_ui_panel(selector, html, action) {
+function render_ui_panel(selector, html, action, options) {
 	var panel = $(selector).html(html);
-	add_ui_close(panel, action || (selector == "#topleftcornerui" ? "target" : "details"));
+	add_ui_close(panel, action || (selector == "#topleftcornerui" ? "target" : "details"), options);
 	return panel;
 }
 
@@ -826,7 +828,7 @@ function render_character_sheet() {
 		else html += "<div><span style='color:gray'>Luck:</span> " + round(character.luckm * 100) + "%</div>";
 	}
 	html += "</div>";
-	render_ui_panel("#rightcornerui", html, "stats");
+	render_ui_panel("#rightcornerui", html, "stats", { label: "X", corner: true, classes: "ui-close-corner" });
 	topright_npc = "character";
 }
 
@@ -1535,7 +1537,7 @@ function render_inventory(reset) {
 		"' class='dcontain theinventory'>";
 	if (!is_comm)
 		html +=
-			"<button type='button' class='gamebutton inventory-close' title='Close inventory' aria-label='Close inventory' onpointerdown='stpr(event)' onclick='btc(event); render_inventory()'><span aria-hidden='true'>X</span></button>";
+			"<button type='button' class='gamebutton ui-close ui-close-word inventory-close' title='Close inventory' aria-label='Close inventory' onpointerdown='stpr(event)' onclick='btc(event); render_inventory()'><span aria-hidden='true'>CLOSE</span></button>";
 	if (c_enabled) {
 		if (is_comm) {
 			html += "<div style='padding: 4px; display: inline-block;'>"; // '
@@ -5784,7 +5786,7 @@ function render_interaction(type, sub_type, args) {
 
 	html += "</div>";
 	if (sub_type == "return_html") return html;
-	render_ui_panel("#topleftcornerui", html);
+	render_ui_panel("#topleftcornerui", html, "target", { label: "X" });
 }
 
 function load_nearby(fallback) {
