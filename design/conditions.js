@@ -679,7 +679,7 @@ var conditions = {
 		duration: 5000,
 		debuff: true,
 		// "defense":"bmresistance",
-		explanation: "Reduces damage output and speed by 20%. Increases damage taken by 20%.",
+		explanation: "Reduces damage output by 20% and movement speed by 20. Increases damage taken by 20%.",
 	},
 	dampened: {
 		name: "Dampened",

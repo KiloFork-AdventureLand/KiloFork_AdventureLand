@@ -609,4 +609,6 @@ module.exports = {
 	"server.page.steam_news_unavailable": "Steam news unavailable",
 	// Steam checkout item description. {count} is the purchased premium currency amount; fit within 128 characters.
 	"server.payment.shells": "{count} Shells",
+	// node/server.js calculate_player_stats; short rebuke sent before disconnection after repeated invalid XP. Uses the existing game_log display event.
+	"server.game_log.you_monster": "You monster!",
 };

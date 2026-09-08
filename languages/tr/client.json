@@ -181,5 +181,6 @@
 	"client.data.reloaded": "Oyun verileri yeniden yüklendi",
 	"client.json.tracktrix_hint": "Genel ganimetler dâhil tüm ganimet listesini görmek için Tracktrix eşyasını kullanın.",
 	"client.log.truncated": "- Kısaltıldı -",
-	"client.music.settings_reminder": "Müziği Ayarlar'dan kontrol edebilirsiniz."
+	"client.music.settings_reminder": "Müziği Ayarlar'dan kontrol edebilirsiniz.",
+	"client.on_skill.no_emotes": "YOK"
 }

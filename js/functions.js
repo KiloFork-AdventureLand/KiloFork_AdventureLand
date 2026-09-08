@@ -1160,7 +1160,7 @@ function on_skill(key, event) {
 			},
 		});
 		buttons.push({
-			button: "Ban",
+			button: phrase.html("client.on_skill.ban"),
 			onclick: function () {
 				hide_modal();
 				get_input({
@@ -1207,7 +1207,7 @@ function on_skill(key, event) {
 		}
 		if (skill.emotion && in_arr(skill.emotion, emotes)) use_skill(skill.emotion);
 		else if (emotes.length) use_skill(random_one(emotes));
-		else d_text("NO", character);
+		else d_text(phrase("client.on_skill.no_emotes"), character);
 	} else if (name == "eval" || name == "pure_eval") {
 		smart_eval(skill.code);
 	} else if (name == "magiport") {

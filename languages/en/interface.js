@@ -475,8 +475,8 @@ module.exports = {
 	"interface.skill.duration": "Duration",
 	// js/html.js render_skill; authored interface text.
 	"interface.skill.cooldown": "Cooldown",
-	// js/html.js render_skill; authored interface text.
-	"interface.skill.r_use_cooldown": "R.Use Cooldown",
+	// js/html.js render_skill; interval before a skill with reuse_cooldown can be used again. For Assassin's Smoke, it begins after reappearance. Describe the wait, not repeated casting or effect duration.
+	"interface.skill.r_use_cooldown": "Reuse Cooldown",
 	// js/html.js render_skill; authored interface text.
 	"interface.skill.range": "Range",
 	// js/html.js render_skill; authored interface text.

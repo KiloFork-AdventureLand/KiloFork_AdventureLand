@@ -365,4 +365,6 @@ module.exports = {
 	"client.log.truncated": "- Truncated -",
 	// Log reminder after the player enables holiday music. Settings is the existing configuration interface.
 	"client.music.settings_reminder": "You can control music in Settings.",
+	// js/functions.js on_skill; brief floating refusal when the generic emote key has no owned emote to play.
+	"client.on_skill.no_emotes": "NO",
 };

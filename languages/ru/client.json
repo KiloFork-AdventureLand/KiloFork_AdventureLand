@@ -181,5 +181,6 @@
 	"client.data.reloaded": "Данные игры перезагружены",
 	"client.json.tracktrix_hint": "Используйте Tracktrix, чтобы увидеть весь список добычи, включая общую.",
 	"client.log.truncated": "- Сокращено -",
-	"client.music.settings_reminder": "Музыкой можно управлять в настройках."
+	"client.music.settings_reminder": "Музыкой можно управлять в настройках.",
+	"client.on_skill.no_emotes": "НЕТ"
 }

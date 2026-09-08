@@ -125,7 +125,7 @@ module.exports = {
 	// design/conditions.js; charmed name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.charmed.name": "Charmed",
 	// design/conditions.js; cursed explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"condition.cursed.explanation": "Reduces damage output and speed by 20%. Increases damage taken by 20%.",
+	"condition.cursed.explanation": "Reduces damage output by 20% and movement speed by 20. Increases damage taken by 20%.",
 	// design/conditions.js; cursed name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.cursed.name": "Cursed",
 	// design/conditions.js; dampened explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -2092,36 +2092,20 @@ module.exports = {
 	"npc.wnpc.says": "Help",
 	// design/projectiles.js; mentalburst kill_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"projectile.mentalburst.kill_text.0": "POW!",
-	// design/projectiles.js; mentalburst kill_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"projectile.mentalburst.kill_text.1": "#4C9AE0",
 	// design/projectiles.js; poisonarrow hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"projectile.poisonarrow.hit_text.0": "POISONED!",
-	// design/projectiles.js; poisonarrow hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"projectile.poisonarrow.hit_text.1": "poison",
 	// design/projectiles.js; purify hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"projectile.purify.hit_text.0": "PURIFIED!",
-	// design/projectiles.js; purify hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"projectile.purify.hit_text.1": "#DDCC7B",
 	// design/projectiles.js; quickpunch hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"projectile.quickpunch.hit_text.0": "PUNCH!",
-	// design/projectiles.js; quickpunch hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"projectile.quickpunch.hit_text.1": "#41338B",
 	// design/projectiles.js; quickstab hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"projectile.quickstab.hit_text.0": "STAB!",
-	// design/projectiles.js; quickstab hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"projectile.quickstab.hit_text.1": "#41338B",
 	// design/projectiles.js; shield_slam hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"projectile.shield_slam.hit_text.0": "SLAM!",
-	// design/projectiles.js; shield_slam hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"projectile.shield_slam.hit_text.1": "#E5C36A",
 	// design/projectiles.js; smash hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"projectile.smash.hit_text.0": "SMASH!",
-	// design/projectiles.js; smash hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"projectile.smash.hit_text.1": "#CBB892",
 	// design/projectiles.js; supershot hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"projectile.supershot.hit_text.0": "SUPERSHOT!",
-	// design/projectiles.js; supershot hit_text, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"projectile.supershot.hit_text.1": "#9B172E",
 	// Shared role display label in item tooltips, class details, cosmetic and equipment slots. Never translate its internal identifier. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"role.admin.name": "Admin",
 	// Shared role display label in item tooltips, class details, cosmetic and equipment slots. Never translate its internal identifier. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.

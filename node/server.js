@@ -1253,7 +1253,7 @@ function calculate_player_stats(player) {
 		player.warnings = (player.warnings || 0) + 1;
 		if (player.warnings == 2) {
 			console.log("'Your monster!' logged out ->");
-			player.socket.emit("ui_log", "You monster!");
+			player.socket.emit("game_log", localization.message("server.game_log.you_monster"));
 			player.socket.disconnect();
 			return;
 		}

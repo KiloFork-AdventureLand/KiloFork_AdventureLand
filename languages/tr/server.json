@@ -302,5 +302,6 @@
 	"server.page.no_map": "harita yok",
 	"server.page.not_permitted": "İzin Verilmiyor!",
 	"server.page.steam_news_unavailable": "Steam haberleri kullanılamıyor",
-	"server.payment.shells": "{count} Deniz Kabuğu"
+	"server.payment.shells": "{count} Deniz Kabuğu",
+	"server.game_log.you_monster": "Seni canavar!"
 }
