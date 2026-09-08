@@ -51,7 +51,7 @@ Arabic uses scoped direction and font rules on guide/tutorial articles. Preserve
 | Polish | pl | Complete |
 | Korean | ko | Complete |
 | Simplified Chinese | zh-Hans | Complete |
-| Traditional Chinese | zh-Hant | In progress |
+| Traditional Chinese | zh-Hant | Complete |
 | Thai | th | Planned |
 | Spanish — Latin America | es-419 | Planned |
 | Ukrainian | uk | Planned |

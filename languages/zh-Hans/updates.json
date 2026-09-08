@@ -17,7 +17,7 @@
 	"update.25_08_26.corrected_armor_tier_progression_across_the_new_equipment_collection": "修正了新装备系列的护甲阶位成长。",
 	"update.25_08_26.drop_egg_and_rising_hearts_now_unlock_and_work": "下蛋和爱心升腾现在与其他表情一样解锁和使用。",
 	"update.24_08_26.released_the_new_steam_client_for_macos_with_in": "新版macOS Steam客户端已发布，支持客户端内购买贝壳、所有有效贝壳加赠活动、更流畅的重新加载，以及独立的音乐和音效音量控制。",
-	"update.24_08_26.added_the_new_misc_cosmetic_box_with_gravestones_and": "新增“新杂项”外观箱，包含墓碑和十一种可解锁表情：友好的小动作、对自己施放的口袋风暴，以及独舞的镜像迪斯科。跳跃不再带文字，摇头动作更轻微且支持完整角色外观，欢乐会绽放明亮的像素彩虹，各表情也配有对应音效。",
+	"update.24_08_26.added_the_new_misc_cosmetic_box_with_gravestones_and": "新增“New Misc.”外观箱，包含墓碑和十一种可解锁表情：友好的小动作、对自己施放的口袋风暴，以及独舞的镜像迪斯科。跳跃不再带文字，摇头动作更轻微且支持完整角色外观，欢乐会绽放明亮的像素彩虹，各表情也配有对应音效。",
 	"update.24_08_26.added_40_new_items_and_fan_of_knives_with": "新增40件物品和刀扇技能，并加入制作、商店、PvP Token、Ent及材料等获取途径。",
 	"update.24_08_26.added_the_worldroot_crook_a_priest_only_t4_staff": "新增Worldroot Crook：牧师专属T4法杖，由Harbringer +8和稀有材料制成，提供智力、力量和抗性穿透。",
 	"update.24_08_26.major_code_update_all_public_asynchronous_functions_now_settle": "CODE重大更新：所有公开异步函数现在都以真实服务器结果结束，配有完整文档、实时server.status数据，以及供自定义客户端选用的MessagePack传输。",

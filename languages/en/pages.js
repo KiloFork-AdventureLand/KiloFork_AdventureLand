@@ -1600,6 +1600,7 @@ module.exports = {
 	// htmls/logs.html:687; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.logs.added-the-ranger-class-the-bow-the-attack": "Added the Ranger class, the Bow, the attack animation, started playing and balancing a Ranger.",
 	// htmls/logs.html:198; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
+	// Reflection/Evasion scrolls refers to the named Reflection Scroll and Evasion Scroll items, not generic reflection/evasion stats. Preserve the item names in this historical entry.
 	"pages.logs.added-the-reflection-evasion-scrolls-they-have-custom":
 		'Added the Reflection/Evasion scrolls, they have custom/balanced multipliers. Added the "Band of Fury" head-slot item, very rare and very powerful. Originally, it was meant to be a Tier0 item.',
 	// htmls/logs.html:473; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
@@ -1608,6 +1609,7 @@ module.exports = {
 	// htmls/logs.html:626; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.logs.added-the-str-int-dex-amulets-improved-mr": 'Added the Str/Int/Dex amulets. Improved Mr. Pumpkin. Polishing the zone, monsters, drops. Added the "Ghost".',
 	// htmls/logs.html:194; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
+	// The historical seashells quest uses the Seashell item, not Shells currency. Keep Seashell identifiable and retain the historical claims.
 	"pages.logs.added-the-tavern-premium-items-npc-s-set":
 		"Added the Tavern/Premium-Items NPC's. Set the phoenix spawn points, improved the stats and drops of the Phoenix. Improved the seashells quest, enriching the new town.",
 	// htmls/logs.html:627; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.

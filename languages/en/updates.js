@@ -37,6 +37,7 @@ module.exports = {
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
 	"update.24_08_26.released_the_new_steam_client_for_macos_with_in": "Released the new Steam client for macOS with in-client Shells purchases, all active Shells bonuses, smoother reloads, and separate music and sound-effect volume controls.",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
+	// New Misc. is the exact cosmo5 item name, not a translated cosmetic category. Preserve it; emote display names follow the locale's shared terminology.
 	"update.24_08_26.added_the_new_misc_cosmetic_box_with_gravestones_and": "Added the New Misc. cosmetic box with gravestones and eleven unlockable emotes, including friendly flourishes, a self-cast Pocket Storm, and the solo Mirror Disco. Jumps are wordless, Head Wiggle is subtler and works on full character looks, Joy bursts into a bright pixel rainbow, and the emotes have matching sounds.",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
 	"update.24_08_26.added_40_new_items_and_fan_of_knives_with": "Added 40 new items and Fan of Knives, with new crafting, shop, PvP Token, Ent, and material acquisition paths.",
