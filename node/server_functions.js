@@ -1155,6 +1155,7 @@ async function pull_server_information() {
 						key: 1,
 						region: 1,
 						name: 1,
+						version: 1,
 						online: 1,
 						updated: 1,
 						"info.players": 1,

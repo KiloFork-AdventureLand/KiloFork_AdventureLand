@@ -364,11 +364,11 @@ async function init_game() {
 				realm: "main",
 				name: server_name,
 				region: region,
-				version: "" + Version,
 				info: { players: 0, observers: 0, total_players: 0, pvp: is_pvp || "", data: data },
 				blobs: ["info"],
 			};
 		}
+		Server.version = "" + Version;
 		Server.key = server_key;
 		Server.address = server_def.address;
 		Server.path = server_def.path;
@@ -15894,6 +15894,7 @@ async function server_loop() {
 	try {
 		if (server.live && ssince(Server.updated) > 15) {
 			Server.online = true;
+			Server.version = "" + Version;
 			Server.info.players = Object.keys(players).length;
 			Server.info.observers = Object.keys(observers).length;
 			Server.info.merchants = total_merchants;

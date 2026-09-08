@@ -72,14 +72,16 @@ test("regular Server updates publish history and share one throttled projected p
 		saves = 0,
 		checks = 0,
 		fail = false;
+	const savedVersions = [];
 	const information = createServerInformation("SR_EU1");
-	const remote = { _id: "SR_US1", online: true, info: { recent_characters: {} } };
+	const remote = { _id: "SR_US1", version: "9000", online: true, info: { recent_characters: {} } };
 	const context = vm.createContext({
 		Date: { now: () => now },
+		Version: 9001,
 		server_information: information,
 		options: { servers: { eu1: { region: "EU", name: "1" }, us1: { region: "US", name: "1" } } },
 		server: { live: true },
-		Server: { _id: "SR_EU1", updated: new Date(now - 16000), info: {} },
+		Server: { _id: "SR_EU1", version: "2030", updated: new Date(now - 16000), info: {} },
 		players: Object.fromEntries(Array.from({ length: 20 }, (_, i) => [i, character("CH_" + i)])),
 		observers: {},
 		total_merchants: 0,
@@ -87,6 +89,7 @@ test("regular Server updates publish history and share one throttled projected p
 		ssince: (date) => (now - +date) / 1000,
 		save: async (entity) => {
 			saves++;
+			savedVersions.push(entity.version);
 			entity.updated = new Date(now);
 		},
 		realmfatigue_logic: (...args) => {
@@ -104,6 +107,7 @@ test("regular Server updates publish history and share one throttled projected p
 						queries++;
 						assert.deepEqual(Array.from(filter._id.$in), ["SR_EU1", "SR_US1"]);
 						assert.equal(filter.online, undefined, "recently offline servers must still be pulled");
+						assert.equal(options.projection.version, 1);
 						assert.equal(options.projection["info.recent_characters"], 1);
 						assert.equal(options.projection["info.data"], undefined);
 						assert.equal(options.projection["info.secret"], undefined);
@@ -130,9 +134,17 @@ test("regular Server updates publish history and share one throttled projected p
 	assert.equal(saves, 1);
 	assert.equal(checks, 20);
 	assert.equal(Object.keys(context.Server.info.recent_characters).length, 20);
+	assert.deepEqual(savedVersions, ["9001"], "existing records publish the running version, not their creation version");
+	assert.equal(information.servers.SR_US1.version, "9000", "peers retain their own reported versions");
+
+	context.Version = 9002;
+	await context.server_loop();
+	assert.equal(saves, 1, "version reporting does not add writes between heartbeats");
+
 	now += 16000;
 	await context.server_loop();
 	assert.equal(queries, 1, "a second heartbeat does not add a second pull");
+	assert.deepEqual(savedVersions, ["9001", "9002"], "each heartbeat reads the current runtime version");
 	now += 16000;
 	fail = true;
 	await context.server_loop();
