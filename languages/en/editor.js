@@ -14,10 +14,10 @@ module.exports = {
 	"editor.map_editor.area": "Area",
 	// utility/htmls/map_editor.html:163; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"editor.map_editor.delay": "DELAY",
-	// utility/htmls/map_editor.html:139; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
+	// utility/htmls/map_editor.html:139; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only. The braced list gives visual examples, not parameters; translate its ordinary nouns and keep the braces.
 	"editor.map_editor.dynamic-animation-blends-with-characters-single-tile":
 		'Dynamic Animation <span class="ggreen">[Blends with Characters]</span> <span class="gray">[Single Tile]</span> <span class="gyellow">{Smokes, Floating, Animating Objects}</span>',
-	// utility/htmls/map_editor.html:136; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
+	// utility/htmls/map_editor.html:136; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only. The braced list gives visual examples, not parameters; translate its ordinary nouns and keep the braces.
 	"editor.map_editor.dynamic-regular-no-animations-multi-tiles":
 		'Dynamic Regular <span class="gray">[No Animations]</span> <span class="ggreen">[Multi Tiles]</span> <span class="gyellow">{Roofs, Signs, Furniture}</span>',
 	// utility/htmls/map_editor.html:159; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
@@ -38,7 +38,7 @@ module.exports = {
 	"editor.map_editor.rectangle-spawn-door-area": "Rectangle [Spawn, Door, Area]",
 	// utility/htmls/map_editor.html:153; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"editor.map_editor.save": "Save",
-	// utility/htmls/map_editor.html:142; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
+	// utility/htmls/map_editor.html:142; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only. The braced list gives visual examples, not parameters; translate its ordinary nouns and keep the braces.
 	"editor.map_editor.simple-animation-over-map-under-characters-single-tile":
 		'Simple Animation <span class="gray">[Over Map] [Under Characters] [Single Tile]</span> <span class="gyellow">{Waterfalls, Alien Flowers}</span>',
 	// utility/htmls/map_editor.html:149; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.

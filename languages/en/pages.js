@@ -97,7 +97,7 @@ module.exports = {
 		"If you haven't visited the game in a long time, a lot has changed, but the game is still the same! You can learn more about the event, Grinch, the Festive achievement, new items from the event information section in the top right corner.",
 	// htmls/contents/announcement_email.html:171; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.announcement_email.it-s-been-a-long-time-a-lot":
-		"It's been a long time, a lot has changed and so much has stayed the same. Biggest change that likely most old players haven't seen is the open sourcing of the same and community contributions. This Halloween the pumpkin bosses have new drops for characters that are in their home servers.",
+		"It's been a long time, a lot has changed and so much has stayed the same. Biggest change that likely most old players haven't seen is the open sourcing of the game and community contributions. This Halloween the pumpkin bosses have new drops for characters that are in their home servers.",
 	// htmls/contents/announcement_email.html:84; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.announcement_email.make-sure-to-visit-our-holiday-tree-outside": "Make sure to visit our Holiday Tree outside the Bank to receive your buff!",
 	// htmls/contents/announcement_email.html:61; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
@@ -988,7 +988,7 @@ module.exports = {
 	"pages.contents.selection_characters.free-slot": "Free Slot",
 	// htmls/contents/selection_characters.html:15; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Named parameters (preserve each token exactly): {"level":"characters[c].level"}.
 	"pages.contents.selection_characters.lv": "Lv.{level}",
-	// htmls/contents/selection_characters.html:31; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
+	// htmls/contents/selection_characters.html:31; Opens character creation. This button is only 62px wide; use a short native label such as New or Create that fits on one line.
 	"pages.contents.selection_characters.new": "New",
 	// htmls/contents/selection_characters.html:28; Compact fixed-width pagination button. Use a short native abbreviation for Page so the label stays on one line; keep 1.
 	"pages.contents.selection_characters.page-1": "Page 1",
@@ -1710,7 +1710,7 @@ module.exports = {
 		'Basher\'s speed reduction now shows up on stats, the speed reduction also decreases with upgrade. The "Slow" weapon speed is now a multiplier, currently 0.8 for Basher, but soon, all weapons will receive a Speed stat. Going to balance the dynamics once all weapons are designed. "Very Slow", "Slow", "Normal", "Fast", "Very Fast" are the options. Might simplify things and go with "Slow", "Normal", "Fast".',
 	// htmls/logs.html:147; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.logs.basically-i-work-only-weekdays-wake-up-at":
-		"Basically I work only weekdays, wake up at 7am, have a breakfast, brew a coffee until 8am, work from 8am to 12am, have a lunch, watch some TLC or sth, then work from 1pm to 5pm and leisure time afterwards. It's basically working wonders. No stress. No anxiety. But some energy issues due to waking up so early. In order to wake up early, one must prepare well before sleep, that part I didn't quite yet master.",
+		"Basically I work only weekdays, wake up at 7am, have a breakfast, brew a coffee until 8am, work from 8am to 12pm, have a lunch, watch some TLC or sth, then work from 1pm to 5pm and leisure time afterwards. It's basically working wonders. No stress. No anxiety. But some energy issues due to waking up so early. In order to wake up early, one must prepare well before sleep, that part I didn't quite yet master.",
 	// htmls/logs.html:840; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.logs.basically-when-you-get-hit-your-name-becomes":
 		"Basically, when you get hit, your name becomes red and the indicator fades away, you can't TOWN or Escape when you are hit, so the PVP is now more fun :]",

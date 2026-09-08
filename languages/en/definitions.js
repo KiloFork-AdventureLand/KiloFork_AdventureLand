@@ -2360,19 +2360,23 @@ module.exports = {
 	// design/skills.js; makeawish name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.makeawish.name": "Make a Wish",
 	// design/skills.js; massexchange explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"skill.massexchange.explanation": "Adds a 1-time use buff that speeds up the next exchange by 50%. The buff expires in 10 seconds if not used.",
+	// The server halves the next exchange duration and consumes this buff; this is a 50% time reduction, not a 1.5x speed multiplier.
+	"skill.massexchange.explanation": "Adds a 1-time use buff that reduces the time of your next exchange by 50%. The buff expires in 10 seconds if not used.",
 	// design/skills.js; massexchange name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.massexchange.name": "Mass Exchange",
 	// design/skills.js; massexchangepp explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"skill.massexchangepp.explanation": "Adds a 1-time use buff that speeds up the next exchange by 90%. The buff expires in 10 seconds if not used.",
+	// The server divides the next exchange duration by ten and consumes this buff; this is a 90% time reduction, not a 1.9x speed multiplier.
+	"skill.massexchangepp.explanation": "Adds a 1-time use buff that reduces the time of your next exchange by 90%. The buff expires in 10 seconds if not used.",
 	// design/skills.js; massexchangepp name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.massexchangepp.name": "Mass Exchange++",
 	// design/skills.js; massproduction explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"skill.massproduction.explanation": "Adds a 1-time use buff that speeds up the next upgrade or compound by 50%. The buff expires in 10 seconds if not used.",
+	// The server halves the next upgrade or compound duration and consumes this buff; this is a 50% time reduction, not a 1.5x speed multiplier.
+	"skill.massproduction.explanation": "Adds a 1-time use buff that reduces the time of your next upgrade or compound by 50%. The buff expires in 10 seconds if not used.",
 	// design/skills.js; massproduction name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.massproduction.name": "Mass Production",
 	// design/skills.js; massproductionpp explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"skill.massproductionpp.explanation": "Adds a 1-time use buff that speeds up the next upgrade or compound by 90%. The buff expires in 10 seconds if not used.",
+	// The server divides the next upgrade or compound duration by ten and consumes this buff; this is a 90% time reduction, not a 1.9x speed multiplier.
+	"skill.massproductionpp.explanation": "Adds a 1-time use buff that reduces the time of your next upgrade or compound by 90%. The buff expires in 10 seconds if not used.",
 	// design/skills.js; massproductionpp name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.massproductionpp.name": "Mass Production++",
 	// design/skills.js; mcourage explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.

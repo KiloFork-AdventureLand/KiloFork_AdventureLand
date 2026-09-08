@@ -3588,8 +3588,9 @@ module.exports = {
 	"docs.guide.compounding.2-match-the-scroll-use-a-compound-scroll":
 		'<span class="guide-step">2</span><b>Match the scroll</b><br />Use a compound scroll that supports the items\' current grade. A stronger scroll can improve the displayed chance.',
 	// docs/guide/compounding.html:27; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	// Copy floor when compounding from +0: 3^N is a minimum before failures, never a guarantee of success.
 	"docs.guide.compounding.3-count-the-copies-one-guaranteed-n-needs":
-		'<span class="guide-step">3</span><b>Count the copies</b><br />One guaranteed +N needs at least 3<sup>N</sup> base copies before failures: 3 for +1, 9 for +2, 27 for +3.',
+		'<span class="guide-step">3</span><b>Count the copies</b><br />One +N item needs at least 3<sup>N</sup> base copies before failures: 3 for +1, 9 for +2, 27 for +3.',
 	// docs/guide/compounding.html:28; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.compounding.4-check-every-slot-the-first-selected-item":
 		'<span class="guide-step">4</span><b>Check every slot</b><br />The first selected item is the survivor on success. Verify properties, locks, and level before combining.',
