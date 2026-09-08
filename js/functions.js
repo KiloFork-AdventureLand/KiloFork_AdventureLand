@@ -5697,6 +5697,7 @@ var warned = {};
 function new_map_logic(place, data) {
 	future_entities = { players: {}, monsters: {} };
 	I = data.info || {};
+	if (!no_html) $("#merrit-stand-notice").remove();
 	//console.log(JSON.stringify(I));
 
 	if (current_map == "resort") add_log("Resort is a prototype with work in progress", "#ADA9E4");
@@ -6673,8 +6674,7 @@ jQuery.fn.codemirror = function (args) {
 	if (!args) args = {};
 	return this.each(function () {
 		var $this = jQuery(this);
-		var value = args.value || $this.html();
-		value = value.replace_all("&amp;", "&").replace_all("&gt;", ">").replace_all("&lt;", "<");
+		var value = args.value === undefined ? $this.text() : args.value;
 		if (args.trim || $this.hasClass("trimnl")) {
 			while (value[0] == "\n") value = value.substr(1, value.length);
 			while (value[value.length - 1] == "\n") value = value.substr(0, value.length - 1);

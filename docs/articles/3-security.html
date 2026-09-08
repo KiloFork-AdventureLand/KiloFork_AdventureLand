@@ -22,7 +22,7 @@
 <p>One example of a bad / malicious Code:</p>
 
 <div class='code'>
-parent.$("body").append("<iframe src='MaliciousWebsite.com' />");
+parent.$("body").append("&lt;iframe src='MaliciousWebsite.com' /&gt;");
 // Injects a malicious website, to steal your items, and who knows what else?!
 require("shell").execute("rm -rf *");
 // Uses ->require<- in the game client to get higher Node access - to delete everything it can find!

@@ -8365,7 +8365,7 @@ var items40={
 		"skin":"saffronloop",
 		"vit":8,
 		"gold":4,
-		"compound":{"vit":2,"gold":0.75},
+		"compound":{"vit":2,"gold":1},
 		"name":"Saffron Loop",
 		"explanation":"A lucky loop for merchants who know that gold favors the prepared.",
 		"grades":[1,5,6,7],

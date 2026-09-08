@@ -7350,6 +7350,12 @@ function init_socket_io(socket_server) {
 					var slot = equip_def.slot || def.type;
 					var comp = can_equip_item(player, def, slot);
 					if (comp == "no") {
+						if (
+							in_arr(slot, ["weapon", "mainhand", "tool"]) &&
+							player.slots.offhand &&
+							G.classes[player.type].doublehand[def.wtype]
+						)
+							socket.emit("game_log", "Unequip your offhand item to use this two-handed weapon.");
 						resolve.push("cant_equip");
 						break;
 					}
@@ -7570,6 +7576,12 @@ function init_socket_io(socket_server) {
 				var existing;
 				var comp = can_equip_item(player, def, slot);
 				if (comp == "no") {
+					if (
+						in_arr(slot, ["weapon", "mainhand", "tool"]) &&
+						player.slots.offhand &&
+						G.classes[player.type].doublehand[def.wtype]
+					)
+						socket.emit("game_log", "Unequip your offhand item to use this two-handed weapon.");
 					resend(player, "u+cid+reopen"); // if you drop something on an invalid slot, it stays there for a bit otherwise [29/08/22]
 					return fail_response("cant_equip");
 				}

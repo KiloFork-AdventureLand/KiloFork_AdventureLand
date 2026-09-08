@@ -443,6 +443,7 @@ function set_proximity_guides(enabled) {
 		$(".guideson").hide();
 		$(".guidesoff").show();
 		Cookies.set("no_proximity_guides", "1", { expires: 12 * 365 });
+		$("#merrit-stand-notice").remove();
 	}
 	render_server();
 }

@@ -6,6 +6,7 @@ const DOCS_PATHS = [
 	"/docs/code/character/reference",
 	"/docs/code/data",
 	"/docs/code/functions",
+	"/docs/code/functions/equip",
 	"/docs/code/functions/is_on_cooldown",
 	"/docs/code/functions/use_skill",
 	"/docs/code/game/events",
