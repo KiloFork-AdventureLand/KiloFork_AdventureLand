@@ -1,4 +1,4 @@
-<div class="merrit-guide" style="width:640px;text-align:left">
+<div class="merrit-guide" style="text-align:left">
 	<p style="font-size:32px;text-decoration:underline dotted #C7C7B3">Merrit</p>
 	<div class="merrit-icon-text"><div class="merrit-portrait"></div><div>{{ phrase("docs.guide.npc-merrit.keep-a-shop-on-mainland-s-square-merrit") }}</div></div>
 
@@ -21,32 +21,33 @@
 	<p>{{ phrase("docs.guide.npc-merrit.distances-use-character-foot-positions-trading-still-works") }}</p>
 	<p>{{ phrase("docs.guide.npc-merrit.placement-notices-appear-only-on-mainland-while-guides") }}</p>
 
-	<details class="merrit-shop-status"><summary>{{ phrase("docs.guide.npc-merrit.your-shop") }}</summary><div class="merrit-status"></div></details>
-	<details><summary>{{ phrase("docs.guide.npc-merrit.where-she-walks") }}</summary>
-		<p>{{ phrase_html("docs.guide.npc-merrit.merrit-stays-within-600px-of-0-0-your") }}</p>
-		<div style="overflow-x:auto"><div style="position:relative;width:640px;height:640px"><img src="/images/guide/merrit-mainland.png?v=1" width="640" height="640" alt="{{ phrase("docs.guide.npc-merrit.label-mainland-square-and-its-southern-aisle") }}" style="image-rendering:pixelated"><svg width="640" height="640" style="position:absolute;left:0;top:0" aria-label="{{ phrase("docs.guide.npc-merrit.label-reward-area") }}"><path d="M80 120H560V384H408V600H232V384H80Z" fill="none" stroke="#73FFAC" stroke-width="2"/><circle cx="320" cy="240" r="4" fill="white"/></svg></div></div>
-		<p>{{ phrase("docs.guide.npc-merrit.white-dot-0-0-square-x-240-to") }}</p>
-	</details>
-	<details><summary>{{ phrase("docs.guide.npc-merrit.timing-stock-and-bag-space") }}</summary>
-		<p>{{ phrase("docs.guide.npc-merrit.moving-closing-or-reopening-disconnecting-leaving-the-area") }}</p>
-		<p>{{ phrase("docs.guide.npc-merrit.after-each-delivery-settle-for-two-minutes-again") }}</p>
-		<p>{{ phrase_html("docs.guide.npc-merrit.parcels-stack-up-to-9-999-keep-an") }}</p>
-	</details>
-	<details><summary>{{ phrase("docs.guide.npc-merrit.an-occasional-extra-1-shell") }}</summary>
-		<p>{{ phrase_html("docs.guide.npc-merrit.sometimes-merrit-adds-1-shell-directly-to-your") }}</p>
-		<table><thead><tr><th>{{ phrase("docs.guide.npc-merrit.shells-before-the-visit") }}</th><th>{{ phrase("docs.guide.npc-merrit.chance-of-1-shell") }}</th></tr></thead><tbody class="merrit-shell-odds"></tbody></table>
-		<p>{{ phrase_html("docs.guide.npc-merrit.the-chance-is-0-5-at-zero-shells") }}</p>
-	</details>
+	<div class="merrit-shop-status">
+		<div class="divider"></div>
+		<p style="font-size:32px;text-decoration:underline dotted #C7C7B3">{{ phrase("docs.guide.npc-merrit.your-shop") }}</p>
+		<div class="merrit-status"></div>
+	</div>
+	<div class="divider"></div>
+	<p style="font-size:32px;text-decoration:underline dotted #C7C7B3">{{ phrase("docs.guide.npc-merrit.where-she-walks") }}</p>
+	<p>{{ phrase_html("docs.guide.npc-merrit.merrit-stays-within-600px-of-0-0-your") }}</p>
+	<div style="overflow-x:auto"><div style="position:relative;width:640px;height:640px"><img src="/images/guide/merrit-mainland.png?v=1" width="640" height="640" alt="{{ phrase("docs.guide.npc-merrit.label-mainland-square-and-its-southern-aisle") }}" style="image-rendering:pixelated"><svg width="640" height="640" style="position:absolute;left:0;top:0" aria-label="{{ phrase("docs.guide.npc-merrit.label-reward-area") }}"><path d="M80 120H560V384H408V600H232V384H80Z" fill="none" stroke="#73FFAC" stroke-width="2"/><circle cx="320" cy="240" r="4" fill="white"/></svg></div></div>
+	<p>{{ phrase("docs.guide.npc-merrit.white-dot-0-0-square-x-240-to") }}</p>
+	<div class="divider"></div>
+	<p style="font-size:32px;text-decoration:underline dotted #C7C7B3">{{ phrase("docs.guide.npc-merrit.timing-stock-and-bag-space") }}</p>
+	<p>{{ phrase("docs.guide.npc-merrit.moving-closing-or-reopening-disconnecting-leaving-the-area") }}</p>
+	<p>{{ phrase("docs.guide.npc-merrit.after-each-delivery-settle-for-two-minutes-again") }}</p>
+	<p>{{ phrase_html("docs.guide.npc-merrit.parcels-stack-up-to-9-999-keep-an") }}</p>
+	<div class="divider"></div>
+	<p style="font-size:32px;text-decoration:underline dotted #C7C7B3">{{ phrase("docs.guide.npc-merrit.an-occasional-extra-1-shell") }}</p>
+	<p>{{ phrase_html("docs.guide.npc-merrit.sometimes-merrit-adds-1-shell-directly-to-your") }}</p>
+	<table><thead><tr><th>{{ phrase("docs.guide.npc-merrit.shells-before-the-visit") }}</th><th>{{ phrase("docs.guide.npc-merrit.chance-of-1-shell") }}</th></tr></thead><tbody class="merrit-shell-odds"></tbody></table>
+	<p>{{ phrase_html("docs.guide.npc-merrit.the-chance-is-0-5-at-zero-shells") }}</p>
 	<p>{{ phrase("docs.guide.npc-merrit.a-sparkle-and-a-coin-sound-mark-each") }}</p>
 </div>
 <style>
 	.merrit-guide .merrit-icon-text{display:flex;align-items:flex-start;gap:12px;margin:1em 0}
 	.merrit-guide .merrit-icon-text>div:first-child{flex:0 0 auto;line-height:0}
 	.merrit-guide .merrit-icon-text>div:last-child{flex:1;min-width:0}
-	.merrit-guide summary{list-style:none;cursor:pointer}
-	.merrit-guide summary::-webkit-details-marker{display:none}
-	.merrit-guide summary::before{content:">";display:inline-block;width:24px}
-	.merrit-guide details[open]>summary::before{content:"-"}
+	.merrit-guide .divider{margin:15px -26px 0;height:5px;background-color:#A2A2A2}
 </style>
 <script>
 	var merrit = G.npcs.citizen22;
@@ -54,6 +55,6 @@
 	$(".merrit-parcel-icon").html(merrit_item_preview("marketparcel",1));
 	$(".merrit-all-rewards").html(render_drop([1,"open","marketparcel"],1,"#858B8E"));
 	$(".merrit-shell-odds").html(merrit_shell_odds_html());
-	if(character){$(".merrit-status").html(merrit_status_html(character.merrit));request_merrit_status();}
+	if(window.character){$(".merrit-status").html(merrit_status_html(character.merrit));request_merrit_status();}
 	else $(".merrit-shop-status").hide();
 </script>

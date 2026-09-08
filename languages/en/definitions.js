@@ -61,7 +61,8 @@ module.exports = {
 	// Class display label only; the class ID remains English in CODE and requests. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Mage"].
 	"class.mage.name": "Mage",
 	// design/classes.js; merchant description, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"class.merchant.description": "While your main characters are out there adventuring, merchants can wait in town and market your loots. Server and character limits don't apply to merchants. They gain experience when they sell or buy something.",
+	"class.merchant.description":
+		"While your main characters are out there adventuring, merchants can wait in town and market your loots. Server and character limits don't apply to merchants. They gain experience when they sell or buy something.",
 	// Class display label only; the class ID remains English in CODE and requests. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"class.merchant.name": "Merchant",
 	// design/classes.js; paladin description, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -69,7 +70,8 @@ module.exports = {
 	// Class display label only; the class ID remains English in CODE and requests. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"class.paladin.name": "Paladin",
 	// design/classes.js; priest description, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"class.priest.description": "Priest's are the healers of the realm. They are not ideal for beginners or solo players. They can't inflict a lot of damage. Every serious party needs at least one priest.",
+	"class.priest.description":
+		"Priest's are the healers of the realm. They are not ideal for beginners or solo players. They can't inflict a lot of damage. Every serious party needs at least one priest.",
 	// Class display label only; the class ID remains English in CODE and requests. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"class.priest.name": "Priest",
 	// design/classes.js; ranger description, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -97,7 +99,8 @@ module.exports = {
 	// design/conditions.js; anniversary_visit name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.anniversary_visit.name": "Anniversary Visit",
 	// design/conditions.js; authfail explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"condition.authfail.explanation": "Your account has failed an internal authorization routine. This might've happened if you haven't logged on from Steam or Mac App Store since this new system was implemented. Just visit the bank with a game client and the issue should resolve. If it persists unexpectedly email hello@adventure.land.",
+	"condition.authfail.explanation":
+		"Your account has failed an internal authorization routine. This might've happened if you haven't logged on from Steam or Mac App Store since this new system was implemented. Just visit the bank with a game client and the issue should resolve. If it persists unexpectedly email hello@adventure.land.",
 	// design/conditions.js; authfail name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.authfail.name": "Authorization Failure",
 	// design/conditions.js; beacon_of_resolve explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -219,7 +222,8 @@ module.exports = {
 	// design/conditions.js; hopsickness name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.hopsickness.name": "Hop Sickness",
 	// design/conditions.js; invincible explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"condition.invincible.explanation": "When you spawn in a PVP area. This prevents you from receiving damage or marked as engaged in PVP. If you get attacked, disconnect before this runs out - or fight!",
+	"condition.invincible.explanation":
+		"When you spawn in a PVP area. This prevents you from receiving damage or marked as engaged in PVP. If you get attacked, disconnect before this runs out - or fight!",
 	// design/conditions.js; invincible name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.invincible.name": "Invincible",
 	// design/conditions.js; invis explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -765,7 +769,8 @@ module.exports = {
 	// design/items.js; daggerofthedead explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.daggerofthedead.explanation": "A deadly weapon",
 	// design/items.js; dartgun explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"item.dartgun.explanation": "Don't let the looks fool you. It's a solid weapon with most components forged from gold. The barrel and trigger mechanism is a platinum alloy. Can shoot anything that fits its barrel, like actual gold.",
+	"item.dartgun.explanation":
+		"Don't let the looks fool you. It's a solid weapon with most components forged from gold. The barrel and trigger mechanism is a platinum alloy. Can shoot anything that fits its barrel, like actual gold.",
 	// design/items.js; dawnwardaegis explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"item.dawnwardaegis.explanation": "It catches the first light, even underground.",
 	// design/items.js; dexscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -1579,7 +1584,8 @@ module.exports = {
 	// design/npcs.js; citizen13 interaction, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"npc.citizen13.interaction.0": "I am a firm believer that the dark arts would solve a lot of problems if it was acceptable to practice them.",
 	// design/npcs.js; citizen13 interaction, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Ms. Dracul","Dracul"].
-	"npc.citizen13.interaction.1": "Did you know that Ms. Dracul used to be a member of this village... before she transcended the limitations of mankind. I wish I had the courage to do the rituals required.",
+	"npc.citizen13.interaction.1":
+		"Did you know that Ms. Dracul used to be a member of this village... before she transcended the limitations of mankind. I wish I had the courage to do the rituals required.",
 	// design/npcs.js; citizen13 interaction, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Dracul"].
 	"npc.citizen13.interaction.2": "Dracul is a very well-known name around these parts. I wish I could be like them..",
 	// design/npcs.js; citizen13 interaction, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -1843,7 +1849,7 @@ module.exports = {
 	// design/npcs.js; citizen5 interaction, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"npc.citizen5.interaction.0": "It is pretty cold outside. I should invest in a hat.",
 	// design/npcs.js; citizen5 interaction, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Stompy"].
-	"npc.citizen5.interaction.1": "I came here to pursue a beast called \"Stompy\". I've heard this creature lives in the Ice Mountains nearby.",
+	"npc.citizen5.interaction.1": 'I came here to pursue a beast called "Stompy". I\'ve heard this creature lives in the Ice Mountains nearby.',
 	// design/npcs.js; citizen5 interaction, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"npc.citizen5.interaction.2": "I came here for adventure, but now I'm stuck in this bar due to the cold.",
 	// design/npcs.js; citizen5 says, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -1991,7 +1997,8 @@ module.exports = {
 	// design/npcs.js; fancypots says, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"npc.fancypots.says": "Woo. Hic.",
 	// design/npcs.js; fancypots side_interaction, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"npc.fancypots.side_interaction.message": "Hello there. Are you injured or in need of some potions? My family and I pride ourselves with having the best quality potions and elixirs around. Take as much as you need. *hic*",
+	"npc.fancypots.side_interaction.message":
+		"Hello there. Are you injured or in need of some potions? My family and I pride ourselves with having the best quality potions and elixirs around. Take as much as you need. *hic*",
 	// design/npcs.js; favors says, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"npc.favors.says": "Hi!",
 	// design/npcs.js; firstc says, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -2473,11 +2480,13 @@ module.exports = {
 	// design/skills.js; power name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.power.name": "Power",
 	// design/skills.js; pure_eval explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["CODE"].
-	"skill.pure_eval.explanation": "[Advanced] Maps a code snippet to be run directly inside the game, rather than using CODE. (Not to be confused with the text command, /eval, which evals inside the Code iframe)",
+	"skill.pure_eval.explanation":
+		"[Advanced] Maps a code snippet to be run directly inside the game, rather than using CODE. (Not to be confused with the text command, /eval, which evals inside the Code iframe)",
 	// design/skills.js; pure_eval name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.pure_eval.name": "Pure Eval",
 	// design/skills.js; purify explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"skill.purify.explanation": "Deals 2000 pure damage purifying the target, removes all buffs and debuffs dealing additional 400 damage for each and receive the Purifier buff if the target is defeated!",
+	"skill.purify.explanation":
+		"Deals 2000 pure damage purifying the target, removes all buffs and debuffs dealing additional 400 damage for each and receive the Purifier buff if the target is defeated!",
 	// design/skills.js; purify name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.purify.name": "Purify",
 	// design/skills.js; quickpunch explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -2529,7 +2538,8 @@ module.exports = {
 	// design/skills.js; shelter name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.shelter.name": "Shelter",
 	// design/skills.js; shield_slam explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"skill.shield_slam.explanation": "Drive your shield into an enemy. Deals physical damage equal to 3 times Attack plus 12 times Armor, counting up to 1,000 Armor. Cannot critically strike or trigger item effects.",
+	"skill.shield_slam.explanation":
+		"Drive your shield into an enemy. Deals physical damage equal to 3 times Attack plus 12 times Armor, counting up to 1,000 Armor. Cannot critically strike or trigger item effects.",
 	// design/skills.js; shield_slam name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Shield"].
 	"skill.shield_slam.name": "Shield Slam",
 	// design/skills.js; smash explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -2613,11 +2623,13 @@ module.exports = {
 	// design/skills.js; travel name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"skill.travel.name": "Travel!",
 	// design/skills.js; use_hp explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"skill.use_hp.explanation": "Use the last HP potion in your inventory. Shares a cooldown with MP potions and HP/MP regeneration. Ordinary potions make all four unavailable for 2 seconds. Without a potion, restore 50 HP and wait 4 seconds instead.",
+	"skill.use_hp.explanation":
+		"Use the last HP potion in your inventory. Shares a cooldown with MP potions and HP/MP regeneration. Ordinary potions make all four unavailable for 2 seconds. Without a potion, restore 50 HP and wait 4 seconds instead.",
 	// design/skills.js; use_hp name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["HP Potion"].
 	"skill.use_hp.name": "Use HP Potion",
 	// design/skills.js; use_mp explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"skill.use_mp.explanation": "Use the last MP potion in your inventory. Shares a cooldown with HP potions and HP/MP regeneration. Ordinary potions make all four unavailable for 2 seconds. Without a potion, restore 100 MP and wait 4 seconds instead.",
+	"skill.use_mp.explanation":
+		"Use the last MP potion in your inventory. Shares a cooldown with HP potions and HP/MP regeneration. Ordinary potions make all four unavailable for 2 seconds. Without a potion, restore 100 MP and wait 4 seconds instead.",
 	// design/skills.js; use_mp name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["MP Potion"].
 	"skill.use_mp.name": "Use MP Potion",
 	// design/skills.js; use_town explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -2870,8 +2882,8 @@ module.exports = {
 	"tutorial.skills-recovery.title": "Skills & Recovery",
 	// docs/directory.js; tutorial checklist task label; action key stays unchanged. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"tutorial.task.addstats": "Use Stat Scrolls",
-	// docs/directory.js; tutorial checklist task label; action key stays unchanged. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Ent"].
-	"tutorial.task.bank": "Enter the Bank",
+	// docs/directory.js; tutorial checklist task label for entering the named map The Bank. Translate the action, preserve the destination name and internal action key. Names: ["The Bank"].
+	"tutorial.task.bank": "Enter The Bank",
 	// docs/directory.js; tutorial checklist task label; action key stays unchanged. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"tutorial.task.buycscroll0": "Buy the Scroll",
 	// docs/directory.js; tutorial checklist task label; action key stays unchanged. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -3050,4 +3062,10 @@ module.exports = {
 	"item.dkey.action": "UNLOCK",
 	// Item tooltip action for Frozen Stone. Translate the button label; keep the item name and its request unchanged.
 	"item.frozenstone.action": "SHAKE",
+	// js/html.js cx_sprite; compact character appearance caption in the cosmetics gallery. Short for Character; not a character's proper name. Displayed uppercase.
+	"slot.char.name": "Char",
+	// js/html.js cx_sprite; compact gravestone appearance caption in the cosmetics gallery. Short for Gravestone; not an item name. Displayed uppercase.
+	"slot.stone.name": "Stone",
+	// js/html.js render_cosmetics and cx_sprite; compact special-effects appearance caption. Short for Special Effects; keep brief for the narrow slot tile. Displayed uppercase. Quote this same label in the Cosmetics guide.
+	"slot.special.name": "Sp. FX",
 };

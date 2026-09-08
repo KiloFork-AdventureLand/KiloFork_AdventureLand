@@ -1420,7 +1420,7 @@
 	"stat.vit.name": "VIT",
 	"stat.xp.name": "XP",
 	"stat.xp_multiplier.name": "Multiplicador de XP",
-	"tutorial.bank.title": "El banco",
+	"tutorial.bank.title": "The Bank",
 	"tutorial.compound.title": "Combinación",
 	"tutorial.crafting-exchanges.title": "Fabricación e intercambios",
 	"tutorial.events-status.title": "Eventos y estado del servidor",
@@ -1434,7 +1434,7 @@
 	"tutorial.shops.title": "Tiendas y ventas",
 	"tutorial.skills-recovery.title": "Habilidades y recuperación",
 	"tutorial.task.addstats": "Usa pergaminos de atributos",
-	"tutorial.task.bank": "Entra en el banco",
+	"tutorial.task.bank": "Entra en The Bank",
 	"tutorial.task.buycscroll0": "Compra el pergamino",
 	"tutorial.task.buyitem": "Compra un objeto",
 	"tutorial.task.buyscrolls": "Compra pergaminos",
@@ -1523,5 +1523,8 @@
 	"item.bkey.action": "DESBLOQUEAR",
 	"item.ukey.action": "DESBLOQUEAR",
 	"item.dkey.action": "DESBLOQUEAR",
-	"item.frozenstone.action": "AGITAR"
+	"item.frozenstone.action": "AGITAR",
+	"slot.char.name": "Pers.",
+	"slot.stone.name": "Lápida",
+	"slot.special.name": "Efectos"
 }

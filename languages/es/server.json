@@ -166,7 +166,7 @@
 	"server.server_message.a_b_testing_is_about_to_start": "¡La prueba A/B está a punto de empezar!",
 	"server.server_message.blessed": "{player} ha bendecido {region} {server_name}",
 	"server.server_message.defeated": "{attacker} ha derrotado a {player}",
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "¡Encuentra a {target} en {map}! Usa tu visita de aniversario para enviar un beso y recibir una porción y un Gift.",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "¡Encuentra a {target} en {map}! Usa tu visita de aniversario para enviar un beso y recibir una porción y un Anniversary Gift.",
 	"server.server_message.found_shells": "{player} ha encontrado {amount} conchas",
 	"server.server_message.is_now_level": "{player} ha alcanzado el nivel {level}",
 	"server.server_message.is_now_level_2": "¡{player} ha alcanzado el nivel {level}!",

@@ -753,11 +753,11 @@ module.exports = {
 	"docs.articles.adventure-mcp.responsibility": "Responsibility",
 	// docs/articles/adventure-mcp.html:356; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.articles.adventure-mcp.results-and-retries": '<span class="dlabel">Results and retries</span>',
-	// docs/articles/adventure-mcp.html:383; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Mainframe"].
+	// docs/articles/adventure-mcp.html:383; Documentation p prose block. Quote Replace token from services.mainframe_ui.replace-token and Revoke token from pages.mainframe.create-token-reveal-token-copy-connection-revoke-token. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Mainframe"].
 	"docs.articles.adventure-mcp.return-to-mainframe-s-connect-an-ai-panel":
-		"Return to <a href=\"/mainframe\">Mainframe's Connect an AI panel</a>. <strong>Rotate token</strong> creates a new secret and invalidates the old one in the same transaction. Update the AI client's Authorization header. <strong>Revoke token</strong> disables MCP and JSON API access for that token without changing game login sessions or running characters.",
+		"Return to <a href=\"/mainframe\">Mainframe's Connect an AI panel</a>. <strong>Replace token</strong> creates a new secret and invalidates the old one in the same transaction. Update the AI client's Authorization header. <strong>Revoke token</strong> disables MCP and JSON API access for that token without changing game login sessions or running characters.",
 	// docs/articles/adventure-mcp.html:381; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
-	"docs.articles.adventure-mcp.rotate-or-revoke": '<span class="dlabel">Rotate or revoke</span>',
+	"docs.articles.adventure-mcp.rotate-or-revoke": '<span class="dlabel">Replace or revoke</span>',
 	// docs/articles/adventure-mcp.html:147; Documentation td prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Adventure Land","CODE"].
 	"docs.articles.adventure-mcp.runs-a-separate-isolated-machine-for-each-direct":
 		"Runs a separate isolated machine for each direct link and supplies the Adventure Land CODE bridge. CODE can add up to three included workers to a shared machine. Machines have no browser page, DOM, or general network access.",
@@ -3086,9 +3086,9 @@ module.exports = {
 	"docs.functions.set_home.promise-failures-unless-a-function-specific-note-says":
 		"<b>Promise failures:</b> Unless a function-specific note says otherwise, failures reject with an object containing <span class='dlabel'>failed: true</span> and a <span class='dlabel'>reason</span>. After <span class='dlabel'>mode_resolve_all()</span>, the same failures fulfill instead.",
 	// docs/functions/set_home.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
-	"docs.functions.set_home.returns-promise-resolving-with-the-set-home-response": "<b>Returns:</b> Promise resolving with the set-home response, or rejecting with a structured failure object.",
-	// docs/functions/set_home.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.functions.set_home.sets-the-character-s-respawn-home-to-the": "Sets the character's respawn home to the current eligible location.",
+	"docs.functions.set_home.returns-promise-resolving-with-the-set-home-response": "<b>Returns:</b> Promise resolving with the home-server response, or rejecting with a structured failure object.",
+	// docs/functions/set_home.html:2; CODE reference. Sets home to the current server, not map coordinates or a respawn point. The server enforces a 36-hour cooldown; native CODE and Mainframe use the same result. Keep CODE symbols unchanged.
+	"docs.functions.set_home.sets-the-character-s-respawn-home-to-the": "Sets the character's home server to the current server. Can be changed once every 36 hours.",
 	// docs/functions/set_keymap.html:4; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.functions.set_keymap.example": "<b>Example:</b>",
 	// docs/functions/set_keymap.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -4372,12 +4372,12 @@ module.exports = {
 	// docs/guide/limits.html:3; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.limits.your-character-state-is-shared-among-all-servers":
 		"Your character state is shared among all servers. For example when you move from Europas I to Americas II, your character continues from the same location.",
-	// docs/guide/looks.html:15; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	// docs/guide/looks.html:15; Cosmetics guide with a direct link to the existing complete gallery. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.looks.click-an-owned-look-to-equip-it-choose":
-		'Click an owned look to equip it. Choose the red empty tile to clear that slot. The complete gallery is under <span class="hlabel">GUIDE</span> → <span class="hlabel">All Cosmetics</span>.',
-	// docs/guide/looks.html:13; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+		'Click an owned look to equip it. Choose the red empty tile to clear that slot. Browse the <a href="/docs/guide/all/cosmetics">complete cosmetics gallery</a> to see every look.',
+	// docs/guide/looks.html:13; Cosmetics guide. Quote actual localized captions: interface.character.cosmetics, slot.hair/hat/face/back/special.name, interface.cosmetics.attire/rip. Sp. FX means Special Effects. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.looks.click-your-character-then-cosmetics-pick-a-slot":
-		'Click your character, then <span class="hlabel">COSMETICS</span>. Pick a slot such as Hair, Hat, Face, Attire, Back, Special, or RIP. Owned choices appear first; gray choices show what is still out there.',
+		'Click your character, then <span class="hlabel">COSMETICS</span>. Pick a slot such as Hair, Hat, Face, Attire, Back, Sp. FX, or RIP. Owned choices appear first; gray choices show what is still out there.',
 	// docs/guide/looks.html:2; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.looks.cosmetics": "Cosmetics",
 	// docs/guide/looks.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -4553,7 +4553,7 @@ module.exports = {
 	// docs/guide/npc-merrit.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Merrit"].
 	"docs.guide.npc-merrit.after-each-delivery-settle-for-two-minutes-again":
 		"After each delivery, settle for two minutes again. The one-hour account cooldown runs at the same time. Time away never builds up parcels. Ready shops get priority, but delivery still waits for Merrit's visit.",
-	// docs/guide/npc-merrit.html:35; Documentation summary prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
+	// docs/guide/npc-merrit.html; Visible section heading for the optional Shell reward. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.npc-merrit.an-occasional-extra-1-shell": "An occasional extra: 1 SHELL",
 	// docs/guide/npc-merrit.html:37; Documentation th prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.npc-merrit.chance-of-1-shell": "Chance of +1 SHELL",
@@ -4609,14 +4609,14 @@ module.exports = {
 	// docs/guide/npc-merrit.html:38; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.npc-merrit.the-chance-is-0-5-at-zero-shells":
 		"The chance is <b>0.5%</b> at zero SHELLS and <b>0.001%</b> at 10 or more. Spending SHELLS can raise it again. Buying, trading or exchanging parcels gives no extra visit-bonus roll.",
-	// docs/guide/npc-merrit.html:30; Documentation summary prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
+	// docs/guide/npc-merrit.html; Visible section heading for visit timing and inventory requirements. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.npc-merrit.timing-stock-and-bag-space": "Timing, stock and bag space",
-	// docs/guide/npc-merrit.html:25; Documentation summary prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
+	// docs/guide/npc-merrit.html; Visible section heading above Merrit's route map. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.npc-merrit.where-she-walks": "Where she walks",
 	// docs/guide/npc-merrit.html:28; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.npc-merrit.white-dot-0-0-square-x-240-to":
 		"White dot: (0,0). Square: x −240 to 240, y −120 to 144. Southern aisle: x −88 to 88, y 144 to 360. Water, blocked ground and the spacing exclusions do not qualify.",
-	// docs/guide/npc-merrit.html:24; Documentation summary prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
+	// docs/guide/npc-merrit.html; Visible section heading for the current character's shop status. The whole section is absent outside the game. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.npc-merrit.your-shop": "Your shop",
 	// docs/guide/pvp.html:19; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.pvp.a-safe-room-can-still-exist-on-a":
@@ -4822,9 +4822,9 @@ module.exports = {
 	"docs.guide.stats.strength-increases-hp-armor": '<span style="color: #3A3B3B">Strength:</span> Increases HP, Armor. <!--Increases the attack of warriors.-->',
 	// docs/guide/stats.html:5; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.stats.vitality-increases-hp-proportional-to-level": '<span style="color: #3A3B3B">Vitality:</span> Increases HP proportional to level.',
-	// docs/guide/stats.html:27; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Mage"].
+	// docs/guide/stats.html:27; Class overview. Translate class names. Merchants can use dartguns and explicitly allowed skills; priest output starts at 40 but equipment and conditions can change it. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.stats.warriors-rogues-and-rangers-deal-physical-damage-while":
-		"Warriors, Rogues and Rangers deal physical damage while Mages and Priests deal magical damage. Merchants can't attack and they gain experience by buying and selling items from other players. Priests can heal other players but their damage is only 40% of their heal.",
+		"Warriors, Rogues, Rangers and Paladins deal physical damage; Mages and Priests deal magical damage. Merchants gain experience by trading with other players and can attack with a dartgun. Priests can heal other players. Their starting attack power is 40% of their healing power, before bonuses, conditions and target defenses.",
 	// docs/guide/tavern-games.html:17; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.tavern-games.42-roll-55-wins": '<span class="guide-flow-icon tavern-roll">42</span><span class="guide-flow-label">Roll ≤ 55 Wins</span>',
 	// docs/guide/tavern-games.html:14; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
@@ -5074,8 +5074,8 @@ module.exports = {
 	"docs.tutorial.compound.manual": "MANUAL",
 	// docs/tutorial/compound.html:37; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"].
 	"docs.tutorial.compound.optional-code": "OPTIONAL CODE",
-	// docs/tutorial/compound.html:38; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Compound Scroll"].
-	"docs.tutorial.compound.with-three-0-rings-of-joy-and-a": "With three +0 Rings of Joy and a Basic Compound Scroll in your bag:",
+	// docs/tutorial/compound.html:38; Requirements for the adjacent CODE example using ringsj and cscroll0. Keep the loaded item names Ring of Small Joys and Compound Scroll unchanged, including the singular item title after the quantity. Keep Adventure Land and CODE symbols unchanged.
+	"docs.tutorial.compound.with-three-0-rings-of-joy-and-a": "With three copies of Ring of Small Joys at +0 and one Compound Scroll in your bag:",
 	// docs/tutorial/crafting-exchanges.html:53; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["auto_craft","craft","dismantle","exchange"].
 	"docs.tutorial.crafting-exchanges.auto-craft-craft-dismantle-exchange":
 		'<span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">craft</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">dismantle</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">exchange</span>',
@@ -5174,8 +5174,9 @@ module.exports = {
 	// docs/tutorial/helloworld.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"].
 	"docs.tutorial.helloworld.you-can-play-every-part-of-the-game":
 		"You can play every part of the game by hand. CODE is an extra tool: use it when a repeated task stops being an adventure and starts becoming a chore.",
-	// docs/tutorial/interface.html:41; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
-	"docs.tutorial.interface.careful-lock-anything-precious-before-selling-upgrading-or": '<span class="hlabel">Careful:</span> Lock anything precious before selling, upgrading, or dismantling it.',
+	// docs/tutorial/interface.html:41; Protect items the player wants to keep before acting on other items. Locking blocks sale, upgrade and dismantling; this does not tell players to lock the item they intend to consume. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.tutorial.interface.careful-lock-anything-precious-before-selling-upgrading-or":
+		'<span class="hlabel">Careful:</span> Lock items you want to keep before selling, upgrading, or dismantling others.',
 	// docs/tutorial/interface.html:18; Documentation span prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.interface.done": "DONE",
 	// docs/tutorial/interface.html:24; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5350,7 +5351,7 @@ module.exports = {
 		"You can fight by hand, automate a loop, build a party, raise several characters, chase a live event, craft something rare, or simply wander until the map surprises you.",
 	// docs/tutorial/upgrade.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Upgrade Scroll","Cue"].
 	"docs.tutorial.upgrade.buy-one-basic-upgrade-scroll-take-a-cheap":
-		"Buy one Basic Upgrade Scroll. Take a cheap +0 weapon or armor piece to Cue, place both in the upgrade window, and read the chance before you commit.",
+		"Buy one Upgrade Scroll. Take a cheap +0 weapon or armor piece to Cue, place both in the upgrade window, and read the chance before you commit.",
 	// docs/tutorial/upgrade.html:63; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["CONFIRM_UPGRADE","true"].
 	"docs.tutorial.upgrade.calculation-mode-consumes-nothing-read-its-chance-then":
 		'Calculation mode consumes nothing. Read its chance, then change <span class="dlabel">CONFIRM_UPGRADE</span> to <span class="dlabel">true</span> only if you accept the risk.',

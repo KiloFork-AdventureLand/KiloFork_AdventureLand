@@ -43,12 +43,13 @@ module.exports = {
 	"interface.anniversary_event_html.want_a_particular_gift_keep_the_cake_for_mira_s": "Want a particular gift? Keep the cake for Mira's recipes instead.",
 	// js/html.js anniversary_event_html; authored interface text.
 	"interface.anniversary_event_html.inside_an_anniversary_gift": "Inside an Anniversary Gift",
-	// js/html.js anniversary_event_html; authored interface text.
-	"interface.anniversary_event_html.gold_returning_anniversary_items_or_a_lucky_surprise_click_the": "Gold, returning anniversary items, or a lucky surprise. Click the Gift for drop rates.",
-	// js/html.js anniversary_event_html; authored interface text.
-	"interface.anniversary_event_html.monsters_can_drop_slices_and_gifts_too": "Monsters can drop slices and Gifts, too.",
-	// js/html.js anniversary_event_status_html; authored interface text.
-	"interface.anniversary_event_status_html.the_anniversary_event_has_ended_you_can_still_open_your": "The anniversary event has ended. You can still open your Cakes and Gifts.",
+	// js/html.js anniversary_event_html; the clickable card shows anniversarygift. Preserve the full item name Anniversary Gift; Gift is a different item.
+	"interface.anniversary_event_html.gold_returning_anniversary_items_or_a_lucky_surprise_click_the":
+		"Gold, returning anniversary items, or a lucky surprise. Click the Anniversary Gift for drop rates.",
+	// js/html.js anniversary_event_html; event monster drops. Preserve the item name Anniversary Gift; slices is an ordinary noun for the six cake flavors.
+	"interface.anniversary_event_html.monsters_can_drop_slices_and_gifts_too": "Monsters can drop slices and Anniversary Gifts, too.",
+	// js/html.js anniversary_event_status_html; expired-event message. Preserve the item name Anniversary Gift; cakes is an ordinary category noun.
+	"interface.anniversary_event_status_html.the_anniversary_event_has_ended_you_can_still_open_your": "The anniversary event has ended. You can still open your cakes and Anniversary Gifts.",
 	// js/html.js anniversary_event_status_html; authored interface text.
 	"interface.anniversary_event_status_html.i_kiss_you": "I Kiss You",
 	// js/html.js anniversary_event_status_html; authored interface text.
@@ -56,19 +57,24 @@ module.exports = {
 	// js/html.js anniversary_event_status_html; authored interface text.
 	"interface.anniversary_event_status_html.find": "Find",
 	// js/html.js anniversary_event_status_html; authored interface text. Parameters: target.
-	"interface.anniversary_event_status_html.waiting_for_to_return_to_a_reachable_spot_their_place": "Waiting for {target} to return to a reachable spot. Their place is reserved; the five-minute timer keeps running.",
+	"interface.anniversary_event_status_html.waiting_for_to_return_to_a_reachable_spot_their_place":
+		"Waiting for {target} to return to a reachable spot. Their place is reserved; the five-minute timer keeps running.",
 	// js/html.js anniversary_event_status_html; authored interface text.
-	"interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses": "Stay nearby and welcome your visitors. Each visitor who uses their Visit brings you one slice of your own flavor and one Anniversary Gift.",
+	"interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses":
+		"Stay nearby and welcome your visitors. Each visitor who uses their Visit brings you one slice of your own flavor and one Anniversary Gift.",
 	// js/html.js anniversary_event_status_html; authored interface text.
 	"interface.anniversary_event_status_html.get_close_then_send_a_kiss": "Get close, then send a kiss.",
 	// js/html.js anniversary_event_status_html; authored interface text.
 	"interface.anniversary_event_status_html.who_will_we_visit_next": "Who will we visit next?",
 	// js/html.js anniversary_event_status_html; authored interface text.
-	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "Every 30 minutes, someone on this server is featured. Everyone else online gets an Anniversary Visit condition lasting five minutes.",
+	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone":
+		"Every 30 minutes, someone on this server is featured. Everyone else online gets an Anniversary Visit condition lasting five minutes.",
 	// js/html.js anniversary_event_status_html; authored interface text.
-	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "Use your Anniversary Visit: 1 Cake Slice + 1 Anniversary Gift, and +10 Frequency / +6 Output for 20 minutes.",
+	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift":
+		"Use your Anniversary Visit: 1 Cake Slice + 1 Anniversary Gift, and +10 Frequency / +6 Output for 20 minutes.",
 	// js/html.js anniversary_event_status_html; authored interface text.
-	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "Find the featured player and send a kiss before your condition expires. The kiss uses it up. No jar needed.",
+	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your":
+		"Find the featured player and send a kiss before your condition expires. The kiss uses it up. No jar needed.",
 	// js/html.js anniversary_event_status_html; authored interface text.
 	"interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when": "No Anniversary Visit remaining for this round. Be online when the next player is selected.",
 	// js/html.js anniversary_collection_html; authored interface text.
@@ -291,8 +297,9 @@ module.exports = {
 	"interface.craftsman.craft": "CRAFT",
 	// js/html.js render_craftsman; authored interface text.
 	"interface.craftsman.reset": "RESET",
-	// js/html.js render_anniversary_baker; authored interface text.
-	"interface.anniversary_baker.cakes_are_for_crafting_here_or_exchanging_with_xyn_he": "Cakes are for crafting here, or exchanging with Xyn. He opens Gifts too. It's all very confusing... and I'm the baker!",
+	// js/html.js render_anniversary_baker; Mira describes Xyn's general exchange service. Cakes and gifts are ordinary category nouns here, not specific item titles. Preserve Xyn.
+	"interface.anniversary_baker.cakes_are_for_crafting_here_or_exchanging_with_xyn_he":
+		"Cakes are for crafting here, or exchanging with Xyn. He opens gifts too. It's all very confusing... and I'm the baker!",
 	// js/html.js render_anniversary_baker; authored interface text.
 	"interface.anniversary_baker.find_xyn": "FIND XYN",
 	// js/html.js render_anniversary_baker; authored interface text.
@@ -558,7 +565,8 @@ module.exports = {
 	// js/html.js render_useful_links; authored interface text.
 	"interface.useful_links.code_academy_javascript": "Code Academy: Javascript",
 	// js/html.js render_useful_links; authored interface text.
-	"interface.useful_links.code_academy_s_javascript_course_if_you_want_to_learn": "Code Academy's Javascript course - If you want to learn Javascript properly first, Code Academy's refined course will hopefully be more helpful :]",
+	"interface.useful_links.code_academy_s_javascript_course_if_you_want_to_learn":
+		"Code Academy's Javascript course - If you want to learn Javascript properly first, Code Academy's refined course will hopefully be more helpful :]",
 	// js/html.js render_useful_links; authored interface text.
 	"interface.useful_links.adventure_land_s_github": "Adventure Land's Github",
 	// js/html.js render_useful_links; authored interface text.
@@ -842,7 +850,8 @@ module.exports = {
 	// js/html.js render_item; authored interface text.
 	"interface.item.you_can_find_shells_from_gems_monsters_in_future_from": "You can find SHELLS from gems, monsters. In future, from achievements.",
 	// js/html.js render_item; authored interface text.
-	"interface.item.you_can_find_shells_from_gems_monsters_in_future_from_2": "You can find SHELLS from gems, monsters. In future, from achievements. For the time being, to receive SHELLS and support our game:",
+	"interface.item.you_can_find_shells_from_gems_monsters_in_future_from_2":
+		"You can find SHELLS from gems, monsters. In future, from achievements. For the time being, to receive SHELLS and support our game:",
 	// js/html.js render_item; authored interface text.
 	"interface.item.buy_or_earn_shells": "BUY or EARN SHELLS",
 	// js/html.js render_item; authored interface text.
@@ -932,7 +941,8 @@ module.exports = {
 	// js/html.js render_travel; authored interface text.
 	"interface.travel.close": "CLOSE",
 	// js/html.js render_interaction; authored interface text.
-	"interface.interaction.ah_i_love_the_sea_so_calming_as_a_kid": "Ah, I love the sea, so calming. As a kid, I loved spending time on the beach. Collecting seashells. If you happen to find some, I would love to add them to my collection.",
+	"interface.interaction.ah_i_love_the_sea_so_calming_as_a_kid":
+		"Ah, I love the sea, so calming. As a kid, I loved spending time on the beach. Collecting seashells. If you happen to find some, I would love to add them to my collection.",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.i_have_20": "I HAVE 20!",
 	// js/html.js render_interaction; authored interface text.
@@ -956,17 +966,21 @@ module.exports = {
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.sign_me_up": "SIGN ME UP!",
 	// js/html.js render_interaction; authored interface text.
-	"interface.interaction.tavern_a_place_for_adventurers_to_relax_drink_unwind_play": "Tavern. A place for adventurers to relax, drink, unwind, play games, wager, challenge each other in friendly games. Currently under construction.",
+	"interface.interaction.tavern_a_place_for_adventurers_to_relax_drink_unwind_play":
+		"Tavern. A place for adventurers to relax, drink, unwind, play games, wager, challenge each other in friendly games. Currently under construction.",
 	// js/html.js render_interaction; authored interface text.
-	"interface.interaction.greetings_looking_for_a_good_deal_on_weapons_and_armor": "Greetings! Looking for a good deal on weapons and armor? Then you came to the right place! No one sells better gear than me!",
+	"interface.interaction.greetings_looking_for_a_good_deal_on_weapons_and_armor":
+		"Greetings! Looking for a good deal on weapons and armor? Then you came to the right place! No one sells better gear than me!",
 	// js/html.js render_interaction; authored interface text.
-	"interface.interaction.adventurer_i_can_upgrade_your_weapons_or_armors_combine_3": "Adventurer! I can upgrade your weapons or armors. Combine 3 accessories to make a stronger one! Tho, beware, the process isn't perfect. Sometimes the items are ... lost.",
+	"interface.interaction.adventurer_i_can_upgrade_your_weapons_or_armors_combine_3":
+		"Adventurer! I can upgrade your weapons or armors. Combine 3 accessories to make a stronger one! Tho, beware, the process isn't perfect. Sometimes the items are ... lost.",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.upgrade": "UPGRADE",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.combine": "COMBINE",
 	// js/html.js render_interaction; locksmith greeting. "250 big ones" means 250,000 gold, the fee charged by node/server.js locksmith operations. Use a clear equivalent amount, not 250 gold. Unsealing takes two days.
-	"interface.interaction.lock_prevents_anything_that_can_destroy_an_item_selling_upgrading": "Lock - Prevents anything that can destroy an item, selling, upgrading, you name it! Seal - Locks the item in a way that unlocking it takes two days. Unlock - Frees it. Got it? Good. Cost? 250 big ones.",
+	"interface.interaction.lock_prevents_anything_that_can_destroy_an_item_selling_upgrading":
+		"Lock - Prevents anything that can destroy an item, selling, upgrading, you name it! Seal - Locks the item in a way that unlocking it takes two days. Unlock - Frees it. Got it? Good. Cost? 250 big ones.",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.lock": "LOCK",
 	// js/html.js render_interaction; authored interface text.
@@ -974,7 +988,8 @@ module.exports = {
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.unlock": "UNLOCK",
 	// js/html.js render_interaction; authored interface text.
-	"interface.interaction.de_stat_an_item_give_you_back_the_scrolls_used": "De-stat an item. Give you back the scrolls used on the item, as though the item were level 0. Returns the item back to you along with scrolls. Got it? Good. Cost? Depends on the scroll. 10 times the value of the scrolls that will be returned to you.",
+	"interface.interaction.de_stat_an_item_give_you_back_the_scrolls_used":
+		"De-stat an item. Give you back the scrolls used on the item, as though the item were level 0. Returns the item back to you along with scrolls. Got it? Good. Cost? Depends on the scroll. 10 times the value of the scrolls that will be returned to you.",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.de_stat": "DE-STAT",
 	// js/html.js render_interaction; authored interface text.
@@ -988,9 +1003,11 @@ module.exports = {
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.dismantle": "DISMANTLE",
 	// js/html.js render_interaction; authored interface text.
-	"interface.interaction.well_hello_there_i_m_wizard_i_made_this_game": "Well, Hello there! I'm Wizard, I made this game. Hope you enjoy it. If you have any issues, suggestions, feel free to email me at hello@adventure.land!",
+	"interface.interaction.well_hello_there_i_m_wizard_i_made_this_game":
+		"Well, Hello there! I'm Wizard, I made this game. Hope you enjoy it. If you have any issues, suggestions, feel free to email me at hello@adventure.land!",
 	// js/html.js render_interaction; authored interface text.
-	"interface.interaction.happy_holidays_please_excuse_my_companion_he_is_a_bit": "Happy holidays! Please excuse my companion, he is a bit grumpy. If you happen to find any candy canes, that might cheer him up!",
+	"interface.interaction.happy_holidays_please_excuse_my_companion_he_is_a_bit":
+		"Happy holidays! Please excuse my companion, he is a bit grumpy. If you happen to find any candy canes, that might cheer him up!",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.i_have_one": "I HAVE ONE!",
 	// js/html.js render_interaction; authored interface text.
@@ -1012,19 +1029,23 @@ module.exports = {
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.haha_you_thought_i_was_going_to_give_you_a": "Haha! You thought I was going to give you a kiss?! You wish... Take this instead!",
 	// js/html.js render_interaction; authored interface text. Parameters: item.
-	"interface.interaction.hmm_we_should_decorate_these_trees_i_need_some_ornaments": "Hmm. We should decorate these trees. I need some Ornaments tho. If you happen to collect {item} of them, let me know!",
+	"interface.interaction.hmm_we_should_decorate_these_trees_i_need_some_ornaments":
+		"Hmm. We should decorate these trees. I need some Ornaments tho. If you happen to collect {item} of them, let me know!",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.you_got_it": "YOU GOT IT!",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.thank_you_here_s_something_in_return": "Thank you! Here's something in return.",
 	// js/html.js render_interaction; authored interface text.
-	"interface.interaction.bwahahahahah_cough_ehem_thanks_you_got_a_good_deal_keep": "Bwahahahahah *cough* Ehem.. Thanks! You got a good deal. Keep bringing these fragments to me, don't give them to anyone else.",
+	"interface.interaction.bwahahahahah_cough_ehem_thanks_you_got_a_good_deal_keep":
+		"Bwahahahahah *cough* Ehem.. Thanks! You got a good deal. Keep bringing these fragments to me, don't give them to anyone else.",
 	// js/html.js render_interaction; authored interface text. Parameters: item.
-	"interface.interaction.back_in_the_day_we_had_miners_then_came_the": "Back in the day we had miners, then came the moles, they work for free yet retrieving the gems is a challenge. Bring me {item} gem fragments and I can give you something exciting in return, no questions asked.",
+	"interface.interaction.back_in_the_day_we_had_miners_then_came_the":
+		"Back in the day we had miners, then came the moles, they work for free yet retrieving the gems is a challenge. Bring me {item} gem fragments and I can give you something exciting in return, no questions asked.",
 	// js/html.js render_interaction; authored interface text. Parameters: item.
 	"interface.interaction.i_got": "I GOT {item}!",
 	// js/html.js render_interaction; authored interface text. Parameters: item.
-	"interface.interaction.hey_hey_hey_what_brings_you_to_this_cold_land": "Hey, hey, hey! What brings you to this cold land? I personally love it here, ideal for my work. If you can bring me {item} Leathers, I can give you one of my products in return.",
+	"interface.interaction.hey_hey_hey_what_brings_you_to_this_cold_land":
+		"Hey, hey, hey! What brings you to this cold land? I personally love it here, ideal for my work. If you can bring me {item} Leathers, I can give you one of my products in return.",
 	// js/html.js render_interaction; authored interface text. Parameters: item.
 	"interface.interaction.i_have": "I HAVE {item}!",
 	// js/html.js render_interaction; authored interface text.
@@ -1038,11 +1059,13 @@ module.exports = {
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.hi_dear_the_lottery_tickets_for_this_week_haven_t": "Hi Dear! The lottery tickets for this week haven't arrived yet. Apologies :)",
 	// js/html.js render_interaction; authored interface text. Parameters: value.
-	"interface.interaction.hello_you_don_t_seem_to_have_an_account_open": "Hello! You don't seem to have an account open with me. Would you like to open one? It costs {value} Gold. We hold onto your items forever.",
+	"interface.interaction.hello_you_don_t_seem_to_have_an_account_open":
+		"Hello! You don't seem to have an account open with me. Would you like to open one? It costs {value} Gold. We hold onto your items forever.",
 	// js/html.js render_interaction; authored interface text. Parameters: value.
 	"interface.interaction.pay_gold": "PAY {value} GOLD",
 	// js/html.js render_interaction; authored interface text. Parameters: value, value2.
-	"interface.interaction.hello_you_don_t_seem_to_have_an_account_open_2": "Hello! You don't seem to have an account open with me. Would you like to open one? It costs {value} Gold or {value2} Shells. We hold onto your items forever.",
+	"interface.interaction.hello_you_don_t_seem_to_have_an_account_open_2":
+		"Hello! You don't seem to have an account open with me. Would you like to open one? It costs {value} Gold or {value2} Shells. We hold onto your items forever.",
 	// js/html.js render_interaction; authored interface text.
 	"interface.interaction.use_gold": "USE GOLD",
 	// js/html.js render_interaction; authored interface text.
@@ -1068,7 +1091,8 @@ module.exports = {
 	// js/html.js load_nearby; authored interface text.
 	"interface.load_nearby.there_is_no_one_nearby": "There is no one nearby.",
 	// js/html.js load_friends; authored interface text.
-	"interface.load_friends.you_don_t_have_any_friends_but_it_s_ok": "You don't have any friends but it's ok. Hang in there! Be kind to other players, get to know them, then friend them from the 'Nearby' tab. Afterwards, you can see when they are online and where they are.",
+	"interface.load_friends.you_don_t_have_any_friends_but_it_s_ok":
+		"You don't have any friends but it's ok. Hang in there! Be kind to other players, get to know them, then friend them from the 'Nearby' tab. Afterwards, you can see when they are online and where they are.",
 	// js/html.js load_friends; authored interface text.
 	"interface.load_friends.no_one_online": "No one online.",
 	// js/html.js load_friends; authored interface text.
@@ -1257,10 +1281,11 @@ module.exports = {
 	"interface.anniversary_event_html.make_a_wish": "Make a Wish",
 	// js/html.js anniversary_event_html; authored display label or status.
 	"interface.anniversary_event_html.i_kiss_you": "I Kiss You",
-	// js/html.js anniversary_event_html; authored display label or status.
-	"interface.anniversary_event_html.an_emote_to_keep_craft_its_jar_with_mira_or_find_it_in_a_gift": "An emote to keep. Craft its jar with Mira, or find it in a Gift.",
-	// js/html.js anniversary_event_html; authored display label or status.
-	"interface.anniversary_event_html.rewarded_visits_can_drop_its_permanent_jar_cakes_and_gifts_can_hold_it_too": "Rewarded visits can drop its permanent jar. Cakes and Gifts can hold it too.",
+	// js/html.js anniversary_event_html; Make a Wish jar acquisition. Preserve Mira and the full item name Anniversary Gift.
+	"interface.anniversary_event_html.an_emote_to_keep_craft_its_jar_with_mira_or_find_it_in_a_gift": "An emote to keep. Craft its jar with Mira, or find it in an Anniversary Gift.",
+	// js/html.js anniversary_event_html; I Kiss You jar acquisition. Preserve the item name Anniversary Gift; cakes is an ordinary category noun.
+	"interface.anniversary_event_html.rewarded_visits_can_drop_its_permanent_jar_cakes_and_gifts_can_hold_it_too":
+		"Rewarded visits can drop its permanent jar. Cakes and Anniversary Gifts can hold it too.",
 	// js/html.js anniversary_event_status_html; authored display label or status.
 	"interface.anniversary_event_status_html.the_featured_player": "the featured player",
 	// js/html.js anniversary_event_status_html; authored display label or status.
@@ -1360,7 +1385,8 @@ module.exports = {
 	// js/html.js load_coming_soon; authored display label or status.
 	"interface.load_coming_soon.planned_along_with_achievements_character_statistics_weekly_monthly_leaderboards": "Planned, along with achievements, character statistics, weekly, monthly leaderboards",
 	// js/html.js render_merrit_interaction; authored display label or status.
-	"interface.merrit_interaction.keep_a_stocked_shop_here_for_two_minutes_and_leave_the_neighbors_room_i_bring_parcels_once_an_hour": "Keep a stocked shop here for two minutes and leave the neighbors room. I bring parcels once an hour.",
+	"interface.merrit_interaction.keep_a_stocked_shop_here_for_two_minutes_and_leave_the_neighbors_room_i_bring_parcels_once_an_hour":
+		"Keep a stocked shop here for two minutes and leave the neighbors room. I bring parcels once an hour.",
 	// js/html.js render_merrit_interaction; authored display label or status.
 	"interface.merrit_interaction.back": "BACK",
 	// js/html.js render_merrit_interaction; authored display label or status.
@@ -1378,9 +1404,11 @@ module.exports = {
 	// Authored confirmation/dismiss button.
 	"interface.confirm.yes": "Yes",
 	// Jailer full greeting; preserve its playful in-world tone.
-	"interface.jailer.boy": "Tu-tu-tu. Have you been a bad boy? No worries. The lawmakers must see the potential in you, so instead of getting rid of you, they sent you here. You are free to leave whenever you want. But please don't repeat your mistake.",
+	"interface.jailer.boy":
+		"Tu-tu-tu. Have you been a bad boy? No worries. The lawmakers must see the potential in you, so instead of getting rid of you, they sent you here. You are free to leave whenever you want. But please don't repeat your mistake.",
 	// Jailer full greeting; preserve its playful in-world tone.
-	"interface.jailer.girl": "Tu-tu-tu. Have you been a bad girl? No worries. The lawmakers must see the potential in you, so instead of getting rid of you, they sent you here. You are free to leave whenever you want. But please don't repeat your mistake.",
+	"interface.jailer.girl":
+		"Tu-tu-tu. Have you been a bad girl? No worries. The lawmakers must see the potential in you, so instead of getting rid of you, they sent you here. You are free to leave whenever you want. But please don't repeat your mistake.",
 	// Merrit shop-placement feedback; preserve names and distances. name is a shop or NPC name; count is minutes.
 	"interface.merrit.another_shop": "another shop",
 	// Merrit shop-placement feedback; preserve names and distances. name is a shop or NPC name; count is minutes.
@@ -1488,7 +1516,8 @@ module.exports = {
 	// Authored interface sentence or label; names and CODE identifiers remain unchanged.
 	"interface.currency.gold_description": "Just gold",
 	// Authored interface sentence or label; names and CODE identifiers remain unchanged.
-	"interface.tutorial.first_steps": "Welcome to the first step of the tutorial. In this step, we are going to move! Now move your character near the green goos by clicking on the map and walking below the town!",
+	"interface.tutorial.first_steps":
+		"Welcome to the first step of the tutorial. In this step, we are going to move! Now move your character near the green goos by clicking on the map and walking below the town!",
 	// Authored interface sentence or label; names and CODE identifiers remain unchanged.
 	"interface.tutorial.move_code": "Using the CODE feature. You can use the `move` function, or, the more costly `smart_move` function.",
 	// Authored interface sentence or label; names and CODE identifiers remain unchanged.
@@ -1571,4 +1600,62 @@ module.exports = {
 	"interface.chat.private_message_short": "PM",
 	// Third SKILLS key-mapping tab, containing utility controls such as Escape, Inventory, chat and arrows. English U means Utility. Use a very short native label; the internal page ID U and actual keyboard keys stay unchanged.
 	"interface.skills.utility_tab": "U",
+	// js/html.js render_cosmetics; very short gravestone appearance selector caption, displayed uppercase. RIP means Rest in Peace; retain it if familiar or choose a compact local equivalent. Quote the same caption in the Cosmetics guide.
+	"interface.cosmetics.rip": "RIP",
+	// js/html.js render_all_cosmetics (hair); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.hair": "Hairs",
+	// js/html.js render_all_cosmetics (hat); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.hat": "Hats",
+	// js/html.js render_all_cosmetics (chin); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.chin": "Chins",
+	// js/html.js render_all_cosmetics (face); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.face": "Accents",
+	// js/html.js render_all_cosmetics (head); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.skin": "Skins",
+	// js/html.js render_all_cosmetics (armor) and render_all_items (chest); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.armor": "Armors",
+	// js/html.js render_all_cosmetics (body); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.body": "Bodies",
+	// js/html.js render_all_cosmetics (character); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.character": "Characters",
+	// js/html.js render_all_cosmetics (gravestone); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.gravestone": "Gravestones",
+	// js/html.js render_all_cosmetics () and render_all_items (); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.other": "Others",
+	// js/html.js render_all_items (helmet); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.helmet": "Helmets",
+	// js/html.js render_all_items (pants); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.pants": "Underarmors",
+	// js/html.js render_all_items (gloves); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.gloves": "Gloves",
+	// js/html.js render_all_items (shoes); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.shoes": "Shoes",
+	// js/html.js render_all_items (cape); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.cape": "Capes",
+	// js/html.js render_all_items (ring); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.ring": "Rings",
+	// js/html.js render_all_items (earring); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.earring": "Earrings",
+	// js/html.js render_all_items (amulet); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.amulet": "Amulets",
+	// js/html.js render_all_items (belt); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.belt": "Belts",
+	// js/html.js render_all_items (orb); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.orb": "Orbs",
+	// js/html.js render_all_items (weapon); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.weapon": "Weapons",
+	// js/html.js render_all_items (shield); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.shield": "Shields",
+	// js/html.js render_all_items (offhand); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.offhand": "Offhands",
+	// js/html.js render_all_items (elixir); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.elixir": "Elixirs",
+	// js/html.js render_all_items (pot); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.pot": "Potions",
+	// js/html.js render_all_items (scroll); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.scroll": "Scrolls",
+	// js/html.js render_all_items (exchange); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.exchange": "Exchangeables",
+	// js/html.js render_all_items (key); gallery category heading. Translate the category, not the individual item or appearance names.
+	"interface.gallery.key": "Keys",
 };

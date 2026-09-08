@@ -1434,7 +1434,7 @@
 	"tutorial.shops.title": "Магазины и продажа",
 	"tutorial.skills-recovery.title": "Умения и восстановление",
 	"tutorial.task.addstats": "Используйте свитки характеристик",
-	"tutorial.task.bank": "Войдите в банк",
+	"tutorial.task.bank": "Войдите в The Bank",
 	"tutorial.task.buycscroll0": "Купите свиток",
 	"tutorial.task.buyitem": "Купите предмет",
 	"tutorial.task.buyscrolls": "Купите свитки",
@@ -1523,5 +1523,8 @@
 	"item.bkey.action": "ОТПЕРЕТЬ",
 	"item.ukey.action": "ОТПЕРЕТЬ",
 	"item.dkey.action": "ОТПЕРЕТЬ",
-	"item.frozenstone.action": "ВСТРЯХНУТЬ"
+	"item.frozenstone.action": "ВСТРЯХНУТЬ",
+	"slot.char.name": "Перс.",
+	"slot.stone.name": "Плита",
+	"slot.special.name": "Эффект"
 }

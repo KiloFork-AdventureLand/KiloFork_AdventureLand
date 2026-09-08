@@ -335,8 +335,8 @@ module.exports = {
 	"server.server_message.blessed": "{player} blessed {region} {server_name}",
 	// node/server.js:4185; server_message authored display. Keep character, item, monster, map, and product names unchanged. Parameters: {attacker} = attacker.name; {player} = player.name.
 	"server.server_message.defeated": "{attacker} defeated {player}",
-	// node/server_functions.js:2218; server_message authored display. Keep character, item, monster, map, and product names unchanged. Parameters: {target} = next.target; {map} = G.maps[next.map].name.
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Find {target} in {map}! Use your Anniversary Visit to send a kiss for a slice and a Gift.",
+	// node/server_functions.js:2218; anniversary server announcement. Preserve the full reward item name Anniversary Gift, distinct from Gift. Keep character, monster, map, and product names unchanged. Parameters: {target} = next.target; {map} = G.maps[next.map].name.
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Find {target} in {map}! Use your Anniversary Visit to send a kiss for a slice and an Anniversary Gift.",
 	// node/server.js:4476; server_message authored display. Keep character, item, monster, map, and product names unchanged. Parameters: {player} = player.name; {amount} = to_pretty_num(amount).
 	"server.server_message.found_shells": "{player} found {amount} shells",
 	// node/server.js:1224; server_message authored display. Keep character, item, monster, map, and product names unchanged. Parameters: {player} = player.name; {level} = player.level.

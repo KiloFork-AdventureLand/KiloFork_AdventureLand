@@ -152,10 +152,10 @@ module.exports = {
 	// htmls/contents/announcement_email.html:59; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.announcement_email.there-are-various-new-xmas-themed-items-ornament": "There are various new Xmas themed items, Ornament Staff, Candy Cane Sword, Angel Wings to name a few.",
 	// htmls/contents/announcement_email.html:153; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
-	"pages.contents.announcement_email.turn-emails-on-off": '<a style="color: gray" href="http://adventure.land?section=email"><span style="color: gray">Turn Emails ON/OFF</a>',
+	"pages.contents.announcement_email.turn-emails-on-off": '<a style="color: gray" href="http://adventure.land?section=email"><span style="color: gray">Turn Emails ON/OFF</span></a>',
 	// htmls/contents/announcement_email.html:94; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
 	"pages.contents.announcement_email.turn-emails-on-off-you-have-to-login":
-		'<a style="color: gray" href="https://adventure.land?section=email"><span style="color: gray">Turn Emails ON/OFF (You have to login to make changes for the time being)</a>',
+		'<a style="color: gray" href="https://adventure.land?section=email"><span style="color: gray">Turn Emails ON/OFF (You have to login to make changes for the time being)</span></a>',
 	// htmls/contents/announcement_email.html:160; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.announcement_email.we-re-also-getting-close-to-a-steam": "We're also getting close to a Steam release.",
 	// htmls/contents/announcement_email.html:86; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
@@ -469,7 +469,7 @@ module.exports = {
 	// htmls/contents/hardcore_guide.html:11; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
 	"pages.contents.hardcore_guide.extreme-gold-luck-xp": '<span style="color: #F4F4F4">&gt;</span> Extreme Gold, Luck, XP',
 	// htmls/contents/hardcore_guide.html:4; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
-	"pages.contents.hardcore_guide.hardcore-mode": '<span style="color: #C01626">HARDCORE</spam> Mode',
+	"pages.contents.hardcore_guide.hardcore-mode": '<span style="color: #C01626">HARDCORE</span> Mode',
 	// htmls/contents/hardcore_guide.html:26; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
 	"pages.contents.hardcore_guide.hardcore-mode-is-experimental-there-is-no-long":
 		'<span style="color: #F4F4F4">&gt;</span> Hardcore Mode is experimental, there is no long term progress saving yet, no leaderboards, so if you want to save your progress, show off your achievements, do take screenshots!',
@@ -1009,8 +1009,8 @@ module.exports = {
 	"pages.contents.selection_features.things-to-look-forward-to": "Things to look forward to",
 	// htmls/contents/settings.html:57; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.settings.advanced-settings": "Advanced Settings",
-	// htmls/contents/settings.html:136; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
-	"pages.contents.settings.blocked-npc-notices-on": 'Blocked NPC notices: <span class="npc-hints-state" style="color: green">ON</span>',
+	// htmls/contents/settings.html:136; setting for notices when other players or merchant stands visually cover clickable NPCs. This is visibility, not blocked actions or permissions. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only; ON matches services.npc_obstruction_hint.enabled.
+	"pages.contents.settings.blocked-npc-notices-on": 'Notices for covered NPCs: <span class="npc-hints-state" style="color: green">ON</span>',
 	// htmls/contents/settings.html:119; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
 	"pages.contents.settings.close-buttons-off": 'Close Buttons: <span style="color: #F54423">OFF</span>',
 	// htmls/contents/settings.html:121; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
@@ -3504,5 +3504,6 @@ module.exports = {
 	// htmls/vscode.html:320; Page h2 prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.vscode.your-token": "Your token",
 	// Historical holiday email: complete postscript around its CODE-example link. Preserve the exact link, tags, styles and CODE label; translate the surrounding prose.
-	"pages.contents.announcement_email.holiday_code_example": 'Ps 3. Here\'s a <a style="color: #33BF6D" href="https://raw.githubusercontent.com/kaansoral/adventureland/master/examples/happy_holidays.js"><span style="color: #33BF6D">CODE</span></a> that automates the Xmas buff\n\t\t\t\t\tPs 4. There are some new things and new skills too!',
+	"pages.contents.announcement_email.holiday_code_example":
+		'Ps 3. Here\'s a <a style="color: #33BF6D" href="https://raw.githubusercontent.com/kaansoral/adventureland/master/examples/happy_holidays.js"><span style="color: #33BF6D">CODE</span></a> that automates the Xmas buff\n\t\t\t\t\tPs 4. There are some new things and new skills too!',
 };

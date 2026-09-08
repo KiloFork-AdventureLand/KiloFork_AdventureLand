@@ -166,7 +166,7 @@
 	"server.server_message.a_b_testing_is_about_to_start": "A/B Testing başlamak üzere!",
 	"server.server_message.blessed": "{player}, {region} {server_name} sunucusunu kutsadı",
 	"server.server_message.defeated": "{attacker}, {player} adlı oyuncuyu yendi",
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "{map} haritasında {target} adlı oyuncuyu bul! Yıl Dönümü Ziyareti hakkınla öpücük gönder, bir dilim ve bir Gift kazan.",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "{map} haritasında {target} adlı oyuncuyu bul! Yıl Dönümü Ziyareti hakkınla öpücük gönder, bir dilim ve bir Anniversary Gift kazan.",
 	"server.server_message.found_shells": "{player} {amount} deniz kabuğu buldu",
 	"server.server_message.is_now_level": "{player} artık {level}. seviyede",
 	"server.server_message.is_now_level_2": "{player} artık {level}. seviyede!",

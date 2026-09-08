@@ -19,12 +19,16 @@ function add_ui_close(panel, action, options) {
 	options = options || {};
 	panel = $(panel);
 	var existing = panel.find("button,a,[onclick],.clickable").filter(function () {
-		return this.hasAttribute("data-ui-dismiss") || /close|cancel/i.test(this.getAttribute("aria-label") || "") ||
+		return (
+			this.hasAttribute("data-ui-dismiss") ||
+			/close|cancel/i.test(this.getAttribute("aria-label") || "") ||
 			(/^[<>\[\s]*(x|×|close|cancel|nope|no!?|back|go back|ok(?:ay)?|got it!?)[<>\]\s]*$/i.test($(this).text().trim()) &&
-			/\b(hide_modals?|close_chat_window|close_merchant|toggle_code|render_inventory)\s*\(|\.remove\s*\(|topleft_npc\s*=\s*false/.test(this.getAttribute("onclick") || ""));
+				/\b(hide_modals?|close_chat_window|close_merchant|toggle_code|render_inventory)\s*\(|\.remove\s*\(|topleft_npc\s*=\s*false/.test(this.getAttribute("onclick") || ""))
+		);
 	});
 	if (!panel.length || panel.find(".ui-close,.inventory-close").length || existing.length) return;
-	var children = panel.children().not("script,style,[hidden]"), frame = panel,
+	var children = panel.children().not("script,style,[hidden]"),
+		frame = panel,
 		bottom = panel.closest("#topleftcorner").length > 0;
 	if (!options.frame && (children.length == 1 || bottom)) frame = children.first();
 	var style = getComputedStyle(frame[0]);
@@ -34,17 +38,27 @@ function add_ui_close(panel, action, options) {
 	frame[0].style.setProperty("--ui-close-border", parseFloat(style.borderTopWidth) ? style.borderTopColor : "gray");
 	if (panel.is("#skills-item")) frame.addClass("ui-close-top");
 	var label = options.label || (bottom || action == "modal" || frame.outerWidth() >= 600 ? phrase("interface.close.button") : "X");
-	var button = $("<button type='button' class='gamebutton ui-close' title='" + phrase.html("interface.close.accessible") + "' aria-label='" + phrase.html("interface.close.accessible") + "' onpointerdown='stpr(event)' onclick='btc(event); close_ui_panel(this)'><span aria-hidden='true'></span></button>");
+	var button = $(
+		"<button type='button' class='gamebutton ui-close' title='" +
+			phrase.html("interface.close.accessible") +
+			"' aria-label='" +
+			phrase.html("interface.close.accessible") +
+			"' onpointerdown='stpr(event)' onclick='btc(event); close_ui_panel(this)'><span aria-hidden='true'></span></button>",
+	);
 	button.attr("data-ui-close", action).data("panel", panel[0]).find("span").text(label);
 	if (options.corner) button.css({ top: -parseFloat(style.borderTopWidth), right: -parseFloat(style.borderRightWidth) });
 	else if (bottom) {
 		button.addClass("ui-close-bottom").css({ bottom: label == "X" ? -parseFloat(style.borderBottomWidth) : -32, right: -parseFloat(style.borderRightWidth) });
 		if (label != "X") button.css("border-width", style.borderBottomWidth);
 	} else if (!options.classes) {
-		var edge = parseFloat(style.borderTopWidth), first = frame.children().first(),
+		var edge = parseFloat(style.borderTopWidth),
+			first = frame.children().first(),
 			border = edge || parseFloat(first.css("border-top-width")) || 4;
-		button.css({ top: edge ? -32 : parseFloat(style.paddingTop) + (parseFloat(first.css("margin-top")) || 0) + border - 32,
-			right: edge ? -parseFloat(style.borderRightWidth) : parseFloat(style.paddingRight), borderWidth: border });
+		button.css({
+			top: edge ? -32 : parseFloat(style.paddingTop) + (parseFloat(first.css("margin-top")) || 0) + border - 32,
+			right: edge ? -parseFloat(style.borderRightWidth) : parseFloat(style.paddingRight),
+			borderWidth: border,
+		});
 	}
 	if (label != "X") button.addClass("ui-close-word");
 	if (options.classes) button.addClass(options.classes);
@@ -64,7 +78,7 @@ function close_ui_panel(button) {
 	if (action == "target") {
 		topleft_npc = false;
 		ctarget = xtarget = rendered_target = dialogs_target = null;
-		$("#topleftcornerui").html("<div class=\"gamebutton\">" + phrase.html("interface.close_ui_panel.no_target") + "</div>");
+		$("#topleftcornerui").html('<div class="gamebutton">' + phrase.html("interface.close_ui_panel.no_target") + "</div>");
 		$("#topleftcornerdialog").empty();
 		reset_inventory();
 	} else {
@@ -142,7 +156,27 @@ function open_chat_window(type, id, open) {
 	if (type == "party") ((name = "Party"), (onkeypress = 'last_say=\"' + cid + '\"; if(event.keyCode==13) party_say($(this).rfval())'));
 	var html = "<div style='position:fixed; bottom: 0px; left: 0px; background: black; border: 5px solid gray; z-index: " + zindex + "' id='chatw" + cid + "' onclick='last_say=\"" + cid + "\"'>";
 	html +=
-		"<div style='border-bottom: 5px solid gray; text-align: center; font-size: 24px; line-height: 24px; padding: 2px 6px 2px 6px;'><span style='float:left' class='clickable chatb" + (cid) + "'\t\t onclick='toggle_chat_window(\"" + (type) + "\",\"" + (id) + "\")'>+</span> <span id='chatt" + (cid) + "' onclick='chat_title_click(\"" + (type) + "\",\"" + (id) + "\")'>" + (name) + "</span> <span style='float: right' class='clickable' data-ui-dismiss onclick='close_chat_window(\"" + (type) + "\",\"" + (id) + "\")'>" + "x" + "</span></div>";
+		"<div style='border-bottom: 5px solid gray; text-align: center; font-size: 24px; line-height: 24px; padding: 2px 6px 2px 6px;'><span style='float:left' class='clickable chatb" +
+		cid +
+		"'\t\t onclick='toggle_chat_window(\"" +
+		type +
+		'","' +
+		id +
+		"\")'>+</span> <span id='chatt" +
+		cid +
+		"' onclick='chat_title_click(\"" +
+		type +
+		'","' +
+		id +
+		"\")'>" +
+		name +
+		"</span> <span style='float: right' class='clickable' data-ui-dismiss onclick='close_chat_window(\"" +
+		type +
+		'","' +
+		id +
+		"\")'>" +
+		"x" +
+		"</span></div>";
 	html += "<div id='chatd" + cid + "' class='chatlog'></div>";
 	html += "<div style=''><input type='text' class='chatinput' id='chati" + cid + "' onkeypress='" + onkeypress + "' autocomplete='nope'/></div>";
 	html += "</div>";
@@ -189,7 +223,7 @@ function render_party_old(list) {
 			html += "<div class='slimbutton block mt5' style='border-color:#703987' onclick='party_click(\"" + name + "\")'>" + name + "</div>";
 		});
 		html += "<div class='slimbutton block mt5'"; //style='border-color:#875045'
-		html += 'onclick=\'socket.emit("party",{event:"leave"})\'>' + phrase.html("interface.party_old.leave") + '</div>';
+		html += 'onclick=\'socket.emit("party",{event:"leave"})\'>' + phrase.html("interface.party_old.leave") + "</div>";
 	}
 	html += "</div>";
 	$("#partylist").html(html);
@@ -292,13 +326,30 @@ function render_map() {
 function wabbit_click() {
 	if (!S.wabbit.live) add_log(phrase.html("interface.wabbit_click.wabbit_spawns_in_minutes", { value: parseInt(round(-msince(new Date(S.wabbit.spawn)))) }));
 	else
-		add_log(phrase.html("interface.wabbit_click.engage_wabbit") + " " + "<span class='clickable' onclick='pcs(event); call_code_function_f(\"smart_move\",{x:S.wabbit.x,y:S.wabbit.y,map:S.wabbit.map});' style='color: #A78059'>" + phrase.html("interface.wabbit_click.go") + "</span>", "gray");
+		add_log(
+			phrase.html("interface.wabbit_click.engage_wabbit") +
+				" " +
+				"<span class='clickable' onclick='pcs(event); call_code_function_f(\"smart_move\",{x:S.wabbit.x,y:S.wabbit.y,map:S.wabbit.map});' style='color: #A78059'>" +
+				phrase.html("interface.wabbit_click.go") +
+				"</span>",
+			"gray",
+		);
 }
 
 function emonster_click(id) {
 	if (!S[id] || (!S[id].live && !S[id].spawn)) add_log(phrase.html("interface.emonster_click.hasn_t_spawned_yet", { monster: G.monsters[id].name }));
 	else if (!S[id].live) add_log(phrase.html("interface.emonster_click.spawns_in_minutes", { monster: G.monsters[id].name, value: parseInt(round(-msince(new Date(S[id].spawn)))) }));
-	else add_log(phrase.html("interface.emonster_click.engage", { monster: G.monsters[id].name }) + " " + "<span class='clickable' onclick='pcs(event); call_code_function_f(\"smart_move\",S." + (id) + ");' style='color: #A78059'>" + phrase.html("interface.emonster_click.go") + "</span>", "gray");
+	else
+		add_log(
+			phrase.html("interface.emonster_click.engage", { monster: G.monsters[id].name }) +
+				" " +
+				"<span class='clickable' onclick='pcs(event); call_code_function_f(\"smart_move\",S." +
+				id +
+				");' style='color: #A78059'>" +
+				phrase.html("interface.emonster_click.go") +
+				"</span>",
+			"gray",
+		);
 }
 
 function render_rewards() {
@@ -309,7 +360,12 @@ function anniversary_event_html() {
 	var html =
 		"<div style='width:860px;max-width:calc(100vw - 40px);max-height:calc(100vh - 40px);display:flex;flex-direction:column;box-sizing:border-box;background:black;border:5px solid gray;color:#E5E5E5;font-size:24px;line-height:26px'>";
 	html += "<div style='padding:14px 16px;border-bottom:4px solid gray;display:flex;flex-shrink:0;align-items:center;justify-content:space-between;gap:12px'>";
-	html += "<div><div style='color:#F0B742;font-size:32px;line-height:34px'>" + phrase.html("interface.anniversary_event_html.10_years_of_adventure") + "</div><div style='color:#AAA'>" + phrase.html("interface.anniversary_event_html.come_celebrate_with_everyone_on_your_server") + "</div></div>";
+	html +=
+		"<div><div style='color:#F0B742;font-size:32px;line-height:34px'>" +
+		phrase.html("interface.anniversary_event_html.10_years_of_adventure") +
+		"</div><div style='color:#AAA'>" +
+		phrase.html("interface.anniversary_event_html.come_celebrate_with_everyone_on_your_server") +
+		"</div></div>";
 	html += anniversary_ui_button(phrase("interface.close.titlecase"), "hide_modal()") + "</div>";
 	html += "<div id='anniversary-event-content' style='padding:16px;min-height:0;overflow-y:auto;box-sizing:border-box;overflow-wrap:break-word'>";
 	html += "<div id='anniversary-event-status'>" + anniversary_event_status_html() + "</div>";
@@ -318,7 +374,12 @@ function anniversary_event_html() {
 	html += "<div style='flex:1 1 310px;min-width:0;border-top:2px solid #555;padding-top:14px'>";
 	html += "<div style='display:flex;align-items:center;gap:10px'><div style='flex:none'>";
 	html += item_container({ skin: G.items.sixcake.skin, size: 40, draggable: false, onclick: "pcs(event);render_item_info('sixcake',0)" }, { name: "sixcake" });
-	html += "</div><div><div style='color:#F0B742'>" + phrase.html("interface.anniversary_event_html.inside_a_sixfold_cake") + "</div><div style='font-size:22px;line-height:24px'>" + phrase.html("interface.anniversary_event_html.equipment_or_a_rare_anniversary_cosmetic_plus_three_anniversary_gifts") + "</div></div></div>";
+	html +=
+		"</div><div><div style='color:#F0B742'>" +
+		phrase.html("interface.anniversary_event_html.inside_a_sixfold_cake") +
+		"</div><div style='font-size:22px;line-height:24px'>" +
+		phrase.html("interface.anniversary_event_html.equipment_or_a_rare_anniversary_cosmetic_plus_three_anniversary_gifts") +
+		"</div></div></div>";
 	html += "<div style='display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin:8px 0'>";
 	(G.drops.anniversary_equipment || []).forEach(function (drop) {
 		var name = drop[1],
@@ -333,13 +394,23 @@ function anniversary_event_html() {
 	html += "<div style='display:flex;align-items:center;gap:10px;margin-top:14px'><div style='flex:none'>";
 	html += item_container({ skin: G.items.anniversarygift.skin, size: 40, draggable: false, onclick: "pcs(event);render_item_info('anniversarygift',0)" }, { name: "anniversarygift" });
 	html +=
-		"</div><div><div style='color:#7CC7BB'>" + phrase.html("interface.anniversary_event_html.inside_an_anniversary_gift") + "</div><div style='font-size:22px;line-height:24px'>" + phrase.html("interface.anniversary_event_html.gold_returning_anniversary_items_or_a_lucky_surprise_click_the") + "</div></div></div>";
+		"</div><div><div style='color:#7CC7BB'>" +
+		phrase.html("interface.anniversary_event_html.inside_an_anniversary_gift") +
+		"</div><div style='font-size:22px;line-height:24px'>" +
+		phrase.html("interface.anniversary_event_html.gold_returning_anniversary_items_or_a_lucky_surprise_click_the") +
+		"</div></div></div>";
 	html += "<div style='display:flex;flex-wrap:wrap;gap:12px;margin-top:12px'>";
 	["makeawish", "ikissyou"].forEach(function (name) {
 		html += "<div style='flex:1 1 280px;display:flex;align-items:center;gap:8px'><div style='flex:none'>";
 		html += item_container({ skin: G.skills[name].skin, size: 40, draggable: false, onclick: "pcs(event);render_item_info('cxjar',0,'" + name + "')" });
-		html += "</div><div style='font-size:22px;line-height:24px;color:#AAA'><span style='color:#E990AB'>" + (name == "makeawish" ? phrase.html("interface.anniversary_event_html.make_a_wish") : phrase.html("interface.anniversary_event_html.i_kiss_you")) + "</span><br>";
-		html += (name == "makeawish" ? phrase.html("interface.anniversary_event_html.an_emote_to_keep_craft_its_jar_with_mira_or_find_it_in_a_gift") : phrase.html("interface.anniversary_event_html.rewarded_visits_can_drop_its_permanent_jar_cakes_and_gifts_can_hold_it_too")) + "</div></div>";
+		html +=
+			"</div><div style='font-size:22px;line-height:24px;color:#AAA'><span style='color:#E990AB'>" +
+			(name == "makeawish" ? phrase.html("interface.anniversary_event_html.make_a_wish") : phrase.html("interface.anniversary_event_html.i_kiss_you")) +
+			"</span><br>";
+		html +=
+			(name == "makeawish"
+				? phrase.html("interface.anniversary_event_html.an_emote_to_keep_craft_its_jar_with_mira_or_find_it_in_a_gift")
+				: phrase.html("interface.anniversary_event_html.rewarded_visits_can_drop_its_permanent_jar_cakes_and_gifts_can_hold_it_too")) + "</div></div>";
 	});
 	html += "</div></div></div><div style='border-top:2px solid #555;margin-top:14px;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap'>";
 	html += "<span style='color:#AAA;font-size:22px'>" + phrase.html("interface.anniversary_event_html.monsters_can_drop_slices_and_gifts_too") + "</span>";
@@ -359,26 +430,50 @@ function anniversary_event_status_html() {
 			host = character && (String(character.id) == String(state.id) || character.name == state.target),
 			remaining = Math.max(1, Math.ceil((Number(state.expires) - Date.now()) / 60000));
 		if (host) html += "<div style='color:#FFE2A0;font-size:28px;line-height:30px'>" + phrase.html("interface.anniversary_event_status_html.you_re_the_featured_player") + "</div>";
-		else html += "<div style='font-size:28px;line-height:30px'>" + phrase.html("interface.anniversary_event_status_html.find") + " " + "<span style='color:#FFE2A0'>" + (html_escape(String(state.target || phrase.html("interface.anniversary_event_status_html.the_featured_player")))) + "</span></div>";
+		else
+			html +=
+				"<div style='font-size:28px;line-height:30px'>" +
+				phrase.html("interface.anniversary_event_status_html.find") +
+				" " +
+				"<span style='color:#FFE2A0'>" +
+				html_escape(String(state.target || phrase.html("interface.anniversary_event_status_html.the_featured_player"))) +
+				"</span></div>";
 		html += "<div style='color:#AAA'>" + html_escape((map && map.name) || String(state.map || "")) + " (" + Math.round(state.x || 0) + ", " + Math.round(state.y || 0) + ")</div></div>";
-		html += "<div style='color:#F0B742'>" + (Number.isFinite(remaining) ? phrase.html("interface.time.minutes_left", { count: remaining }) : phrase.html("interface.anniversary_event_status_html.round_in_progress")) + "</div></div>";
-		if (state.available === false) html += "<div style='margin-top:10px;color:#AAA'>" + phrase.html("interface.anniversary_event_status_html.waiting_for_to_return_to_a_reachable_spot_their_place", { target: state.target }) + "</div>";
+		html +=
+			"<div style='color:#F0B742'>" +
+			(Number.isFinite(remaining) ? phrase.html("interface.time.minutes_left", { count: remaining }) : phrase.html("interface.anniversary_event_status_html.round_in_progress")) +
+			"</div></div>";
+		if (state.available === false)
+			html +=
+				"<div style='margin-top:10px;color:#AAA'>" + phrase.html("interface.anniversary_event_status_html.waiting_for_to_return_to_a_reachable_spot_their_place", { target: state.target }) + "</div>";
 		else if (host) html += "<div style='margin-top:10px'>" + phrase.html("interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses") + "</div>";
 		else
 			html +=
-				"<div style='display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px'>" + (anniversary_ui_button(phrase("interface.anniversary.find_player"), "find_anniversary_player()")) + (anniversary_ui_button(phrase("interface.anniversary.kiss"), "anniversary_kiss()", !anniversary_can_visit() && !(character.acx && character.acx.ikissyou))) + "<span style='color:#AAA'>" + phrase.html("interface.anniversary_event_status_html.get_close_then_send_a_kiss") + "</span></div>";
+				"<div style='display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px'>" +
+				anniversary_ui_button(phrase("interface.anniversary.find_player"), "find_anniversary_player()") +
+				anniversary_ui_button(phrase("interface.anniversary.kiss"), "anniversary_kiss()", !anniversary_can_visit() && !(character.acx && character.acx.ikissyou)) +
+				"<span style='color:#AAA'>" +
+				phrase.html("interface.anniversary_event_status_html.get_close_then_send_a_kiss") +
+				"</span></div>";
 	} else {
 		html += "<div style='font-size:28px;line-height:30px'>" + phrase.html("interface.anniversary_event_status_html.who_will_we_visit_next") + "</div></div>";
 		html +=
 			"<div style='color:#F0B742'>" +
-			(Number.isFinite(state.next) && state.next > Date.now() ? phrase.html("interface.anniversary.next_round", { count: Math.ceil((state.next - Date.now()) / 60000) }) : phrase.html("interface.anniversary_event_status_html.waiting_for_a_player")) +
+			(Number.isFinite(state.next) && state.next > Date.now()
+				? phrase.html("interface.anniversary.next_round", { count: Math.ceil((state.next - Date.now()) / 60000) })
+				: phrase.html("interface.anniversary_event_status_html.waiting_for_a_player")) +
 			"</div></div>";
 		html += "<div style='margin-top:10px'>" + phrase.html("interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone") + "</div>";
 	}
 	if (!host)
 		html +=
-			"<div style='color:#9ACA87;margin-top:10px'>" + phrase.html("interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift") + "</div><div style='font-size:22px;line-height:24px;color:#AAA'>" + phrase.html("interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your") + "</div>";
-	if (live && !host && !anniversary_can_visit()) html += "<div style='color:#AAA;margin-top:8px'>" + phrase.html("interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when") + "</div>";
+			"<div style='color:#9ACA87;margin-top:10px'>" +
+			phrase.html("interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift") +
+			"</div><div style='font-size:22px;line-height:24px;color:#AAA'>" +
+			phrase.html("interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your") +
+			"</div>";
+	if (live && !host && !anniversary_can_visit())
+		html += "<div style='color:#AAA;margin-top:8px'>" + phrase.html("interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when") + "</div>";
 	return html;
 }
 
@@ -390,8 +485,15 @@ function anniversary_collection_html() {
 		}).length,
 		npc = G.npcs.anniversary_baker,
 		html =
-			"<div style='display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap'><span style='color:#F0B742'>" + phrase.html("interface.anniversary_collection_html.put_the_cake_together") + "</span><span style='color:" + ((owned == 6 ? "#9ACA87" : "#AAA")) + "'>" + phrase.html("interface.anniversary_collection_html.6_flavors_in_your_bag", { owned: owned }) + "</span></div>";
-	html += "<div style='margin:6px 0 10px;font-size:22px;line-height:24px'>" + phrase.html("interface.anniversary_collection_html.your_account_always_finds_the_same_flavor_trade_your_spare") + "</div>";
+			"<div style='display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap'><span style='color:#F0B742'>" +
+			phrase.html("interface.anniversary_collection_html.put_the_cake_together") +
+			"</span><span style='color:" +
+			(owned == 6 ? "#9ACA87" : "#AAA") +
+			"'>" +
+			phrase.html("interface.anniversary_collection_html.6_flavors_in_your_bag", { owned: owned }) +
+			"</span></div>";
+	html +=
+		"<div style='margin:6px 0 10px;font-size:22px;line-height:24px'>" + phrase.html("interface.anniversary_collection_html.your_account_always_finds_the_same_flavor_trade_your_spare") + "</div>";
 	html += "<div style='display:flex;flex-wrap:wrap;justify-content:center;gap:8px'>";
 	rows.forEach(function (row) {
 		var item = G.items[row.name],
@@ -410,9 +512,19 @@ function anniversary_collection_html() {
 	html += "</div><div style='display:flex;align-items:center;gap:10px;margin-top:14px'>";
 	if (npc) html += "<div style='flex:none'>" + sprite(npc.skin, { cx: clone(npc.cx || {}), cosmetic_head_y: npc.cosmetic_head_y, width: 52, height: 72, scale: 2 }) + "</div>";
 	html +=
-		"<div style='flex:1;min-width:0'><span style='color:#FFE2A0'>" + phrase.html("interface.anniversary_collection_html.mira") + "</span> <span style='color:#AAA'>" + phrase.html("interface.anniversary_collection_html.mainland") + "</span><div style='font-size:22px;line-height:24px;margin:4px 0 8px'>" + phrase.html("interface.anniversary_collection_html.bring_all_six_slices") + " " + "<span style='color:#F0B742'>" + phrase.html("interface.anniversary_collection_html.gold", { cost: to_pretty_num(state ? state.recipe.cost : G.craft.sixcake.cost) }) + "</span>.</div>";
+		"<div style='flex:1;min-width:0'><span style='color:#FFE2A0'>" +
+		phrase.html("interface.anniversary_collection_html.mira") +
+		"</span> <span style='color:#AAA'>" +
+		phrase.html("interface.anniversary_collection_html.mainland") +
+		"</span><div style='font-size:22px;line-height:24px;margin:4px 0 8px'>" +
+		phrase.html("interface.anniversary_collection_html.bring_all_six_slices") +
+		" " +
+		"<span style='color:#F0B742'>" +
+		phrase.html("interface.anniversary_collection_html.gold", { cost: to_pretty_num(state ? state.recipe.cost : G.craft.sixcake.cost) }) +
+		"</span>.</div>";
 	html += anniversary_ui_button(phrase("interface.anniversary.visit_mira"), 'smart_smart_move("npc","anniversary_baker")', !(typeof S != "undefined" && S.anniversary && S.anniversary.active));
-	html += " " + anniversary_ui_button(phrase("interface.anniversary.combine_cake"), 'hide_modal();render_anniversary_baker("combine")', !(typeof S != "undefined" && S.anniversary && S.anniversary.active));
+	html +=
+		" " + anniversary_ui_button(phrase("interface.anniversary.combine_cake"), 'hide_modal();render_anniversary_baker("combine")', !(typeof S != "undefined" && S.anniversary && S.anniversary.active));
 	html += "<div style='font-size:20px;line-height:22px;color:#AAA;margin-top:6px'>" + phrase.html("interface.anniversary_collection_html.mira_is_at_64_88_choose_cake_to_combine_slices") + "</div>";
 	return html + "</div></div>";
 }
@@ -440,7 +552,9 @@ function render_anniversary_event(refresh) {
 
 function anniversary_ui_button(label, action, disabled, selected) {
 	return (
-		"<button type='button'" + (action == "hide_modal()" ? " data-ui-dismiss" : "") + " class='gamebutton' style='font-family:inherit;font-size:22px;line-height:24px;padding:6px 8px;border-color:" +
+		"<button type='button'" +
+		(action == "hide_modal()" ? " data-ui-dismiss" : "") +
+		" class='gamebutton' style='font-family:inherit;font-size:22px;line-height:24px;padding:6px 8px;border-color:" +
 		(selected ? "#F0B742" : "gray") +
 		";" +
 		(disabled ? "opacity:0.45;cursor:default;" : "") +
@@ -524,7 +638,17 @@ function render_event_announcements() {
 			theme = event.announcement,
 			item = G.items[event.sprite];
 		html +=
-			"<button type='button' class='gamebutton event-announcement' data-effect='" + (html_escape(theme.effect)) + "' style='--event-color:" + (theme.color) + ";--event-accent:" + (theme.accent) + "' onclick='pcs(event);open_event_announcement(\"" + (key) + "\")' aria-haspopup='dialog'><span class='event-announcement-arrow' aria-hidden='true'>" + "&lt;" + "</span>";
+			"<button type='button' class='gamebutton event-announcement' data-effect='" +
+			html_escape(theme.effect) +
+			"' style='--event-color:" +
+			theme.color +
+			";--event-accent:" +
+			theme.accent +
+			"' onclick='pcs(event);open_event_announcement(\"" +
+			key +
+			"\")' aria-haspopup='dialog'><span class='event-announcement-arrow' aria-hidden='true'>" +
+			"&lt;" +
+			"</span>";
 		if (!no_graphics) {
 			html += "<span class='event-announcement-effects' aria-hidden='true'>";
 			for (var i = 0; i < 12; i++) html += "<i style='left:" + (12 + i * 24) + "px;top:" + (8 + (i % 3) * 12) + "px;animation-delay:" + (i % 4) * -0.6 + "s'></i>";
@@ -564,7 +688,9 @@ function render_server() {
 			icon = definition.icon && G.items[definition.icon],
 			visual_icon = context.visual && G.items[context.visual.icon],
 			npc = context.npc,
-			context_title = ((npc && npc.name && npc.name + ": ") || "") + (definition.summary ? phrase.definition("interaction", context.key, "summary", definition.summary) : phrase.definition("interaction", context.key, "title", definition.title));
+			context_title =
+				((npc && npc.name && npc.name + ": ") || "") +
+				(definition.summary ? phrase.definition("interaction", context.key, "summary", definition.summary) : phrase.definition("interaction", context.key, "title", definition.title));
 		html +=
 			" <div class='gamebutton' title='" +
 			html_escape(context_title) +
@@ -640,8 +766,8 @@ function render_server() {
 			if (type == "grinch") ((scolor = colors.xmasgreen), (lcolor = colors.xmas), (lphrase = phrase("interface.server.beware")));
 			html += " <div class='gamebutton' style='padding: 6px 8px 6px 8px; font-size: 24px; line-height: 18px' onclick='pcs(event); emonster_click(\"" + type + "\")'>";
 			html += sprite(type, { overflow: true });
-			if (!S[type].live) html += "<div style='color:" + (scolor) + "; margin-top: 1px'>" + phrase.html("interface.server.m", { value: parseInt(round(-msince(new Date(S[type].spawn)))) }) + "</div>";
-			else if (S[type].target) html += "<div style='color:" + (lcolor) + "; margin-top: 1px'>" + phrase.html("interface.server.join") + "</div>";
+			if (!S[type].live) html += "<div style='color:" + scolor + "; margin-top: 1px'>" + phrase.html("interface.server.m", { value: parseInt(round(-msince(new Date(S[type].spawn)))) }) + "</div>";
+			else if (S[type].target) html += "<div style='color:" + lcolor + "; margin-top: 1px'>" + phrase.html("interface.server.join") + "</div>";
 			else html += "<div style='color:" + lcolor + "; margin-top: 1px'>" + lphrase + "</div>";
 			html += "</div>";
 			content = true;
@@ -702,62 +828,123 @@ function render_server() {
 
 function render_character_sheet() {
 	var html = "<div style='background-color: black; border: 5px solid gray; padding: 20px; font-size: 24px; display: inline-block; vertical-align: top; text-align: left' class='disableclicks'>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.class") + "</span> " + (to_title(character.ctype)) + "</div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.level") + "</span> " + (character.level) + "</div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.xp") + "</span> " + (to_pretty_num(character.xp)) + " / " + (to_pretty_num(character.max_xp)) + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.class") + "</span> " + to_title(character.ctype) + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.level") + "</span> " + character.level + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.xp") + "</span> " + to_pretty_num(character.xp) + " / " + to_pretty_num(character.max_xp) + "</div>";
 	var divider = 1,
 		disclaimer = "";
 	if (pvp && !(!is_pvp && G.maps[character.map].safe_pvp)) ((divider = 10), (disclaimer = "<span style='color:#605B85'>" + phrase.html("interface.character_sheet.pvp") + "</span>"));
 	var lost_xp = floor(min(max((character.max_xp * 0.01) / divider, (character.xp * 0.02) / divider), character.xp));
-	if (character.ctype != "merchant") html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.max_xp_loss") + "</span> " + (to_pretty_num(lost_xp)) + " " + (disclaimer) + "</div>";
+	if (character.ctype != "merchant")
+		html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.max_xp_loss") + "</span> " + to_pretty_num(lost_xp) + " " + disclaimer + "</div>";
 	if (character.party && party && party[character.name])
-		html += "<div><span style='color:" + (colors.party_xp) + "'>" + phrase.html("interface.character_sheet.party") + "</span> " + (round(party[character.name].share * 100)) + "% <span style='color:gray'>" + phrase.html("interface.character_sheet.your_share") + "</span></div>";
-	if (character.ctype == "merchant") html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.tax") + "</span> " + (character.tax * 100) + "%</div>";
+		html +=
+			"<div><span style='color:" +
+			colors.party_xp +
+			"'>" +
+			phrase.html("interface.character_sheet.party") +
+			"</span> " +
+			round(party[character.name].share * 100) +
+			"% <span style='color:gray'>" +
+			phrase.html("interface.character_sheet.your_share") +
+			"</span></div>";
+	if (character.ctype == "merchant") html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.tax") + "</span> " + character.tax * 100 + "%</div>";
 	if (character.ctype == "priest") {
-		html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.heal") + "</span> " + (character.heal) + "</div>";
+		html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.heal") + "</span> " + character.heal + "</div>";
 	}
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.attack") + "</span> " + (character.attack) + "</div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.attack_speed") + "</span> " + (round(character.frequency * 100)) + "</div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.strength") + "</span> " + (character.str) + "</div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.intelligence") + "</span> " + (character["int"]) + "</div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.dexterity") + "</span> " + (character.dex) + "</div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.vitality") + "</span> " + (character.vit) + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.attack") + "</span> " + character.attack + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.attack_speed") + "</span> " + round(character.frequency * 100) + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.strength") + "</span> " + character.str + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.intelligence") + "</span> " + character["int"] + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.dexterity") + "</span> " + character.dex + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.vitality") + "</span> " + character.vit + "</div>";
 	html +=
-		"<div><span style='color:gray'>" + phrase.html("interface.character_sheet.fortitude") + "</span> " + (character["for"]) + " <span style='color:gray'>(" + (parseInt((1 - damage_multiplier(character["for"] * 5)) * 10000.0) / 100.0) + "%)</span></div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.armor") + "</span> " + (character.armor) + " <span style='color:gray'>(" + (parseInt((1 - damage_multiplier(character.armor)) * 10000.0) / 100.0) + "%)</span></div>";
+		"<div><span style='color:gray'>" +
+		phrase.html("interface.character_sheet.fortitude") +
+		"</span> " +
+		character["for"] +
+		" <span style='color:gray'>(" +
+		parseInt((1 - damage_multiplier(character["for"] * 5)) * 10000.0) / 100.0 +
+		"%)</span></div>";
 	html +=
-		"<div><span style='color:gray'>" + phrase.html("interface.character_sheet.resistance") + "</span> " + (character.resistance) + " <span style='color:gray'>(" + (parseInt((1 - damage_multiplier(character.resistance)) * 10000.0) / 100.0) + "%)</span></div>";
+		"<div><span style='color:gray'>" +
+		phrase.html("interface.character_sheet.armor") +
+		"</span> " +
+		character.armor +
+		" <span style='color:gray'>(" +
+		parseInt((1 - damage_multiplier(character.armor)) * 10000.0) / 100.0 +
+		"%)</span></div>";
 	html +=
-		"<div><span style='color:gray'>" + phrase.html("interface.character_sheet.courage") + "</span> " + (character.courage) + " <span style='color:gray'>|</span> " + (character.mcourage) + " <span style='color:gray'>|</span> " + (character.pcourage) + "</div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.speed") + "</span> " + (character.speed) + "</div>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.mp_cost") + "</span> " + (character.mp_cost) + "</div>";
-	if (character.lifesteal) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.lifesteal") + "</span> " + (to_pretty_float(character.lifesteal)) + "%</div>";
-	if (character.manasteal) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.manasteal") + "</span> " + (to_pretty_float(character.manasteal)) + "%</div>";
-	if (character.dreturn) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.damage_return") + "</span> " + (to_pretty_float(character.dreturn)) + "%</div>";
-	if (character.reflection) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.reflection") + "</span> " + (to_pretty_float(character.reflection)) + "%</div>";
-	if (character.evasion) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.evasion") + "</span> " + (to_pretty_float(character.evasion)) + "%</div>";
-	if (character.miss) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.miss") + "</span> " + (to_pretty_float(character.miss)) + "%</div>";
-	if (character.crit) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.crit") + "</span> " + (to_pretty_float(character.crit)) + "%</div>";
-	if (character.critdamage) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.critical_damage") + "</span> " + (to_pretty_float(200 + character.critdamage)) + "%</div>";
-	if (character.apiercing) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.armor_piercing") + "</span> " + (character.apiercing) + "</div>";
-	if (character.rpiercing) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.resistance_piercing") + "</span> " + (character.rpiercing) + "</div>";
+		"<div><span style='color:gray'>" +
+		phrase.html("interface.character_sheet.resistance") +
+		"</span> " +
+		character.resistance +
+		" <span style='color:gray'>(" +
+		parseInt((1 - damage_multiplier(character.resistance)) * 10000.0) / 100.0 +
+		"%)</span></div>";
+	html +=
+		"<div><span style='color:gray'>" +
+		phrase.html("interface.character_sheet.courage") +
+		"</span> " +
+		character.courage +
+		" <span style='color:gray'>|</span> " +
+		character.mcourage +
+		" <span style='color:gray'>|</span> " +
+		character.pcourage +
+		"</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.speed") + "</span> " + character.speed + "</div>";
+	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.mp_cost") + "</span> " + character.mp_cost + "</div>";
+	if (character.lifesteal) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.lifesteal") + "</span> " + to_pretty_float(character.lifesteal) + "%</div>";
+	if (character.manasteal) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.manasteal") + "</span> " + to_pretty_float(character.manasteal) + "%</div>";
+	if (character.dreturn) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.damage_return") + "</span> " + to_pretty_float(character.dreturn) + "%</div>";
+	if (character.reflection) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.reflection") + "</span> " + to_pretty_float(character.reflection) + "%</div>";
+	if (character.evasion) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.evasion") + "</span> " + to_pretty_float(character.evasion) + "%</div>";
+	if (character.miss) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.miss") + "</span> " + to_pretty_float(character.miss) + "%</div>";
+	if (character.crit) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.crit") + "</span> " + to_pretty_float(character.crit) + "%</div>";
+	if (character.critdamage) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.critical_damage") + "</span> " + to_pretty_float(200 + character.critdamage) + "%</div>";
+	if (character.apiercing) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.armor_piercing") + "</span> " + character.apiercing + "</div>";
+	if (character.rpiercing) html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.resistance_piercing") + "</span> " + character.rpiercing + "</div>";
 	if (character.goldm != 1) {
 		if (character.party && party && party[character.name] && party[character.name].gold)
 			html +=
-				"<div><span style='color:gray'>" + phrase.html("interface.character_sheet.gold") + "</span> " + (round(character.goldm * 100 - party[character.name].gold)) + "% <span style='color:" + (colors.gold) + "'>+" + (party[character.name].gold) + "%</span></div>";
-		else html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.gold") + "</span> " + (round(character.goldm * 100)) + "%</div>";
+				"<div><span style='color:gray'>" +
+				phrase.html("interface.character_sheet.gold") +
+				"</span> " +
+				round(character.goldm * 100 - party[character.name].gold) +
+				"% <span style='color:" +
+				colors.gold +
+				"'>+" +
+				party[character.name].gold +
+				"%</span></div>";
+		else html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.gold") + "</span> " + round(character.goldm * 100) + "%</div>";
 	}
 	if (character.xpm != 1) {
 		if (character.party && party && party[character.name] && party[character.name].xp)
 			html +=
-				"<div><span style='color:gray'>" + phrase.html("interface.character_sheet.experience") + "</span> " + (round(character.xpm * 100 - party[character.name].xp)) + "% <span style='color:" + (colors.stat_xp) + "'>+" + (party[character.name].xp) + "%</span></div>";
-		else html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.experience") + "</span> " + (round(character.xpm * 100)) + "%</div>";
+				"<div><span style='color:gray'>" +
+				phrase.html("interface.character_sheet.experience") +
+				"</span> " +
+				round(character.xpm * 100 - party[character.name].xp) +
+				"% <span style='color:" +
+				colors.stat_xp +
+				"'>+" +
+				party[character.name].xp +
+				"%</span></div>";
+		else html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.experience") + "</span> " + round(character.xpm * 100) + "%</div>";
 	}
 	if (character.luckm != 1) {
 		if (character.party && party && party[character.name] && party[character.name].luck)
 			html +=
-				"<div><span style='color:gray'>" + phrase.html("interface.character_sheet.luck") + "</span> " + (round(character.luckm * 100 - party[character.name].luck)) + "% <span style='color:" + (colors.luck) + "'>+" + (party[character.name].luck) + "%</span></div>";
-		else html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.luck") + "</span> " + (round(character.luckm * 100)) + "%</div>";
+				"<div><span style='color:gray'>" +
+				phrase.html("interface.character_sheet.luck") +
+				"</span> " +
+				round(character.luckm * 100 - party[character.name].luck) +
+				"% <span style='color:" +
+				colors.luck +
+				"'>+" +
+				party[character.name].luck +
+				"%</span></div>";
+		else html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.luck") + "</span> " + round(character.luckm * 100) + "%</div>";
 	}
 	html += "</div>";
 	render_ui_panel("#rightcornerui", html, "stats", { label: "X", corner: true, classes: "ui-close-corner" });
@@ -874,7 +1061,8 @@ function render_monster(monster) {
 		poisoned: !monster.attack && monster.s.poisoned,
 	});
 	html += info_line({ name: "XP", color: "green", value: xp });
-	if (monster.attack) html += info_line({ name: phrase.html("interface.monster.att"), color: "#316EE6", value: smart_num(monster.attack, 10000), stunned: monster.s.stunned, poisoned: monster.s.poisoned });
+	if (monster.attack)
+		html += info_line({ name: phrase.html("interface.monster.att"), color: "#316EE6", value: smart_num(monster.attack, 10000), stunned: monster.s.stunned, poisoned: monster.s.poisoned });
 	if (def.avoidance) html += info_line({ name: phrase.html("interface.monster.avoidance"), color: "gray", value: def.avoidance + "%" });
 	if (def.evasion) html += info_line({ name: phrase.html("interface.monster.evasion"), color: "gray", value: def.evasion + "%" });
 	if (def.reflection) html += info_line({ name: phrase.html("interface.monster.reflect"), color: "gray", value: def.reflection + "%" });
@@ -993,7 +1181,11 @@ function render_monster(monster) {
 	if (def.explanation) {
 		html += info_line({ line: phrase.definition("monster", monster.mtype, "explanation", def.explanation), color: "gray" });
 	}
-	html += button_line({ name: "<span style='color:gray'>{}</span><span style='color:white'>:</span>" + " " + phrase.html("interface.monster.inspect"), onclick: "ui_inspect(xtarget||ctarget)", color: colors.inspect });
+	html += button_line({
+		name: "<span style='color:gray'>{}</span><span style='color:white'>:</span>" + " " + phrase.html("interface.monster.inspect"),
+		onclick: "ui_inspect(xtarget||ctarget)",
+		color: colors.inspect,
+	});
 	html += "</div>";
 	render_ui_panel("#topleftcornerui", html);
 	render_conditions(monster);
@@ -1032,7 +1224,11 @@ function render_character(player) {
 	html += ihtml;
 	html += "</div>";
 	html += "<div class='xhtml'>";
-	xhtml += button_line({ name: "<span style='color:gray'>{}</span><span style='color:white'>:</span>" + " " + phrase.html("interface.character.inspect"), onclick: "ui_inspect(xtarget||ctarget)", color: colors.inspect });
+	xhtml += button_line({
+		name: "<span style='color:gray'>{}</span><span style='color:white'>:</span>" + " " + phrase.html("interface.character.inspect"),
+		onclick: "ui_inspect(xtarget||ctarget)",
+		color: colors.inspect,
+	});
 	html += xhtml;
 	html += "</div>";
 	var bid = player.party + "|" + player.stand + "|" + (character.slots.trade1 !== undefined);
@@ -1056,8 +1252,10 @@ function render_character(player) {
 
 	if (player.me) bhtml += button_line({ name: phrase.html("interface.character.cosmetics"), onclick: "render_cosmetics(xtarget||ctarget,{toggle:true})", color: "#A99A5B" });
 
-	if (player.me && !character.stand && character.slots.trade1 !== undefined) bhtml += button_line({ name: phrase.html("interface.character.hide"), onclick: "socket.emit('trade',{event:'hide'});", color: "#A99A5B" });
-	if (player.me && !character.stand && character.slots.trade1 === undefined) bhtml += button_line({ name: phrase.html("interface.character.trade"), onclick: "socket.emit('trade',{event:'show'});", color: "#A99A5B" });
+	if (player.me && !character.stand && character.slots.trade1 !== undefined)
+		bhtml += button_line({ name: phrase.html("interface.character.hide"), onclick: "socket.emit('trade',{event:'hide'});", color: "#A99A5B" });
+	if (player.me && !character.stand && character.slots.trade1 === undefined)
+		bhtml += button_line({ name: phrase.html("interface.character.trade"), onclick: "socket.emit('trade',{event:'show'});", color: "#A99A5B" });
 	if (player.stand)
 		bhtml += button_line({
 			name: phrase.html("interface.character.toggle"),
@@ -1105,7 +1303,15 @@ function button_line(button, no_newline) {
 	var html = "",
 		color = button.color || "white";
 	html += "<span style='color: " + color + "' class='clickable tomimick cbold inline-block' onclick=\"" + button.onclick + '">' + button.name + "</span> ";
-	if (button.pm_onclick) html += " <span style='color: " + ("#A255BA" || "#276bc5" || color) + "' class='clickable tomimick cbold inline-block' onclick=\"" + button.pm_onclick + '">' + phrase.html("interface.chat.private_message_short") + '</span> ';
+	if (button.pm_onclick)
+		html +=
+			" <span style='color: " +
+			("#A255BA" || "#276bc5" || color) +
+			"' class='clickable tomimick cbold inline-block' onclick=\"" +
+			button.pm_onclick +
+			'">' +
+			phrase.html("interface.chat.private_message_short") +
+			"</span> ";
 	if (!no_newline) html += "<br />";
 	return html;
 }
@@ -1222,7 +1428,9 @@ function render_slots(player, args) {
 	// if(args.cx) html+="<div style='float: left; color: "+colors.inspect+"; font-size: 16px; line-height: 0px; margin-top: 7px; margin-bottom: -7px' class='clickable' onclick='show_json((xtarget||ctarget).slots)'>{}</div>"
 	if (args.cx && 0)
 		html +=
-			"<div style='float: right; font-size: 16px; line-height: 0px; margin-top: 7px; margin-bottom: -7px' class='clickable' onclick='render_cosmetics(xtarget||ctarget,{toggle:true})'>" + phrase.html("interface.slots.cosmetics") + "</div>";
+			"<div style='float: right; font-size: 16px; line-height: 0px; margin-top: 7px; margin-bottom: -7px' class='clickable' onclick='render_cosmetics(xtarget||ctarget,{toggle:true})'>" +
+			phrase.html("interface.slots.cosmetics") +
+			"</div>";
 	if (!args.pure) html += "</div>";
 	if (!args.pure && !already) {
 		if ($(".slots").length) $(".slots").replaceWith(html);
@@ -1250,7 +1458,20 @@ function render_transports_npc() {
 		for (var name in S.duels) {
 			var duel = S.duels[name];
 			html +=
-				"<div class='clickable' onclick='push_deferred(\"enter\"); socket.emit(\"enter\",{place:\"duelland\",name:\"" + (duel.instance) + "\"})'>" + phrase.html("interface.transports_npc.gt_duelland") + " " + "<span style='color:gray'>" + (duel.challenger) + "</span>" + " " + phrase.html("interface.transports_npc.vs") + " " + "<span style='color:gray'>" + (duel.vs) + "</span></div>";
+				'<div class=\'clickable\' onclick=\'push_deferred("enter"); socket.emit("enter",{place:"duelland",name:"' +
+				duel.instance +
+				"\"})'>" +
+				phrase.html("interface.transports_npc.gt_duelland") +
+				" " +
+				"<span style='color:gray'>" +
+				duel.challenger +
+				"</span>" +
+				" " +
+				phrase.html("interface.transports_npc.vs") +
+				" " +
+				"<span style='color:gray'>" +
+				duel.vs +
+				"</span></div>";
 		}
 	}
 	html += "</div>";
@@ -1275,7 +1496,9 @@ function render_mainframe() {
 	var html = "<div style='background-color: black; border: 5px solid gray; padding: 20px; font-size: 24px; display: inline-block; vertical-align: top;'>";
 	html += "<div>" + phrase.html("interface.mainframe.mainframe_gt_connected") + "</div>";
 	html +=
-		"<div><span class='commander clickable' onclick='$(\".maincommand\").cfocus()'>" + phrase.html("interface.mainframe.mainframe_gt") + "</span> <div class='inline-block maincommand editable' contenteditable=true data-default=' '> </div></div>";
+		"<div><span class='commander clickable' onclick='$(\".maincommand\").cfocus()'>" +
+		phrase.html("interface.mainframe.mainframe_gt") +
+		"</span> <div class='inline-block maincommand editable' contenteditable=true data-default=' '> </div></div>";
 	html += "<div class='clickable' onclick='socket.emit(\"leave\"); push_deferred(\"leave\")'>" + phrase.html("interface.mainframe.logout") + "</div>";
 	html += "</div>";
 	render_ui_panel("#topleftcornerui", html);
@@ -1298,12 +1521,23 @@ function render_gold_npc() {
 	var html =
 		"<div style='background-color: black; border: 5px solid gray; padding: 20px; font-size: 24px; display: inline-block; vertical-align: top; text-align: center' onclick='stpr(event); cfocus(\".npcgold\")'>";
 	html +=
-		"<div style='font-size: 36px; margin-bottom: 10px' class='clickable' onclick='$(\".npcgold\").html(to_pretty_num(max(character.bank.gold,character.gold)))'><span style='color:gold'>" + phrase.html("interface.gold_npc.gold") + "</span> " + (((character.user && to_pretty_num(character.user.gold)) || phrase.html("interface.gold_npc.unavailable"))) + "</div>";
+		"<div style='font-size: 36px; margin-bottom: 10px' class='clickable' onclick='$(\".npcgold\").html(to_pretty_num(max(character.bank.gold,character.gold)))'><span style='color:gold'>" +
+		phrase.html("interface.gold_npc.gold") +
+		"</span> " +
+		((character.user && to_pretty_num(character.user.gold)) || phrase.html("interface.gold_npc.unavailable")) +
+		"</div>";
 	html +=
-		"<div style='font-size: 36px; margin-bottom: 10px'><span class='gray clickable' onclick='$(\".npcgold\").cfocus()'>" + phrase.html("interface.gold_npc.amount") + "</span> <div contenteditable='true' class='npcgold inline-block' data-default='0'>0</div></div>";
+		"<div style='font-size: 36px; margin-bottom: 10px'><span class='gray clickable' onclick='$(\".npcgold\").cfocus()'>" +
+		phrase.html("interface.gold_npc.amount") +
+		"</span> <div contenteditable='true' class='npcgold inline-block' data-default='0'>0</div></div>";
 	html += "<div>";
 	if (options.bank_max) html += "<div class='gamebutton clickable mr5' onclick='$(\".npcgold\").html(max(character.bank.gold,character.gold))'>" + phrase.html("interface.gold_npc.max") + "</div>";
-	html += "<div class='gamebutton clickable mr5' onclick='deposit()'>" + phrase.html("interface.gold_npc.deposit") + "</div><div class='gamebutton clickable' onclick='withdraw()'>" + phrase.html("interface.gold_npc.withdraw") + "</div></div>";
+	html +=
+		"<div class='gamebutton clickable mr5' onclick='deposit()'>" +
+		phrase.html("interface.gold_npc.deposit") +
+		"</div><div class='gamebutton clickable' onclick='withdraw()'>" +
+		phrase.html("interface.gold_npc.withdraw") +
+		"</div></div>";
 	html += "</div>";
 	render_ui_panel("#topleftcornerui", html);
 	cfocus(".npcgold");
@@ -1453,7 +1687,9 @@ function render_inventory(reset) {
 	if (is_comm) character = observing;
 	if (!reset && !is_comm)
 		html +=
-			"<div style='background-color: black; border: 5px solid gray; margin-bottom: -5px; padding: 2px 16px 2px 16px; font-size: 24px; vertical-align: bottom; display: none; color: #FCB136' class='newchatui clickable' onclick='stpr(event); render_inventory()'>" + phrase.html("interface.inventory.12_new_chat_messages") + "</div><div></div>";
+			"<div style='background-color: black; border: 5px solid gray; margin-bottom: -5px; padding: 2px 16px 2px 16px; font-size: 24px; vertical-align: bottom; display: none; color: #FCB136' class='newchatui clickable' onclick='stpr(event); render_inventory()'>" +
+			phrase.html("interface.inventory.12_new_chat_messages") +
+			"</div><div></div>";
 	if (is_comm) html += "<div onclick='hide_modal()'>";
 	html +=
 		"<div style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; display: inline-block; vertical-align: bottom; " +
@@ -1461,29 +1697,69 @@ function render_inventory(reset) {
 		"' class='dcontain theinventory'>";
 	if (!is_comm)
 		html +=
-			"<button type='button' class='gamebutton ui-close ui-close-word inventory-close' title='" + phrase.html("interface.inventory.close_inventory") + "' aria-label='" + phrase.html("interface.inventory.close_inventory") + "' onpointerdown='stpr(event)' onclick='btc(event); render_inventory()'><span aria-hidden='true'>" + phrase.html("interface.inventory.close") + "</span></button>";
+			"<button type='button' class='gamebutton ui-close ui-close-word inventory-close' title='" +
+			phrase.html("interface.inventory.close_inventory") +
+			"' aria-label='" +
+			phrase.html("interface.inventory.close_inventory") +
+			"' onpointerdown='stpr(event)' onclick='btc(event); render_inventory()'><span aria-hidden='true'>" +
+			phrase.html("interface.inventory.close") +
+			"</span></button>";
 	if (c_enabled) {
 		if (is_comm) {
 			html += "<div style='padding: 4px; display: inline-block;'>"; // '
-			html += "<span class='cbold' style='color: " + (colors.cash) + "'>" + phrase.html("interface.inventory.shells") + "</span>: <span class='cashnum'>" + (to_pretty_num(character.cash || 0)) + "</span></div>";
+			html +=
+				"<span class='cbold' style='color: " +
+				colors.cash +
+				"'>" +
+				phrase.html("interface.inventory.shells") +
+				"</span>: <span class='cashnum'>" +
+				to_pretty_num(character.cash || 0) +
+				"</span></div>";
 			html += "<div style='border-bottom: 5px solid gray; margin-bottom: 2px; margin-left: -5px; margin-right: -5px'></div>";
 			right_style = "";
 		} else if (is_tauri) {
 			html += "<div style='padding: 4px; display: inline-block' class='clickable' onclick='pcs(event); shells_click()'>"; // '
-			html += "<span class='cbold' style='color: " + (colors.cash) + "'>" + phrase.html("interface.inventory.shells") + "</span>: <span class='cashnum'>" + (to_pretty_num(character.cash || 0)) + "</span></div>";
+			html +=
+				"<span class='cbold' style='color: " +
+				colors.cash +
+				"'>" +
+				phrase.html("interface.inventory.shells") +
+				"</span>: <span class='cashnum'>" +
+				to_pretty_num(character.cash || 0) +
+				"</span></div>";
 			right_style = " display: inline-block; float: right";
 		} else if (is_electron) {
 			html += "<div style='padding: 4px; display: inline-block' class='clickable' onclick='pcs(event); show_shells_info()'>"; // '
-			html += "<span class='cbold' style='color: " + (colors.cash) + "'>" + phrase.html("interface.inventory.shells") + "</span>: <span class='cashnum'>" + (to_pretty_num(character.cash || 0)) + "</span></div>";
+			html +=
+				"<span class='cbold' style='color: " +
+				colors.cash +
+				"'>" +
+				phrase.html("interface.inventory.shells") +
+				"</span>: <span class='cashnum'>" +
+				to_pretty_num(character.cash || 0) +
+				"</span></div>";
 			right_style = " display: inline-block; float: right";
 		} else {
 			html += "<div style='padding: 4px; display: inline-block' class='clickable'>"; // onclick='shells_click()'
 			html +=
-				"<a href='https://adventure.land/shells' class='cancela' target='_blank'><span class='cbold' style='color: " + (colors.cash) + "'>" + phrase.html("interface.inventory.shells") + "</span>: <span class='cashnum'>" + (to_pretty_num(character.cash || 0)) + "</span></a></div>";
+				"<a href='https://adventure.land/shells' class='cancela' target='_blank'><span class='cbold' style='color: " +
+				colors.cash +
+				"'>" +
+				phrase.html("interface.inventory.shells") +
+				"</span>: <span class='cashnum'>" +
+				to_pretty_num(character.cash || 0) +
+				"</span></a></div>";
 			right_style = " display: inline-block; float: right";
 		}
 	}
-	html += "<div style='padding: 4px;" + (right_style) + "'><span class='cbold' style='color: gold'>" + phrase.html("interface.inventory.gold") + "</span>: <span class='goldnum'>" + (to_pretty_num(character.gold)) + "</span></div>";
+	html +=
+		"<div style='padding: 4px;" +
+		right_style +
+		"'><span class='cbold' style='color: gold'>" +
+		phrase.html("interface.inventory.gold") +
+		"</span>: <span class='goldnum'>" +
+		to_pretty_num(character.gold) +
+		"</span></div>";
 	html += "<div style='border-bottom: 5px solid gray; margin-bottom: 2px; margin-left: -5px; margin-right: -5px'></div>";
 	for (var i = 0; i < Math.ceil(max(character.isize, character.items.length) / columns); i++) {
 		html += "<div>";
@@ -1580,7 +1856,11 @@ function render_craftsman() {
 			html+="</div>";
 		html+="</div>";*/
 	html +=
-		"<div><div class='gamebutton clickable' onclick='draw_trigger(function(){ render_craftsman(); reset_inventory(); });'>" + phrase.html("interface.craftsman.reset") + "</div> <div class='gamebutton clickable' onclick='craft()'>" + (button) + "</div></div>";
+		"<div><div class='gamebutton clickable' onclick='draw_trigger(function(){ render_craftsman(); reset_inventory(); });'>" +
+		phrase.html("interface.craftsman.reset") +
+		"</div> <div class='gamebutton clickable' onclick='craft()'>" +
+		button +
+		"</div></div>";
 	html += "</div>";
 	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
@@ -1617,7 +1897,16 @@ function render_anniversary_baker(service) {
 		cx: clone(npc.cx || {}),
 		cosmetic_head_y: npc.cosmetic_head_y,
 		message:
-			phrase.html("interface.anniversary_baker.welcome_i_combine_cake_slices_and_craft_anniversary_gifts_what") + "<span style='float:right;margin-top:5px'><div class='slimbutton' onclick='render_anniversary_baker(\"combine\")'>" + phrase.html("interface.anniversary_baker.cake") + "</div> <div class='slimbutton' onclick='render_anniversary_baker(\"exchange\")'>" + phrase.html("interface.anniversary_baker.exchange") + "</div> <div class='slimbutton' onclick='render_anniversary_baker(\"gifts\")'>" + phrase.html("interface.anniversary_baker.craft") + "</div> <div class='slimbutton' onclick='open_interaction_guide(\"anniversary\")'>" + phrase.html("interface.anniversary_baker.info") + "</div></span>",
+			phrase.html("interface.anniversary_baker.welcome_i_combine_cake_slices_and_craft_anniversary_gifts_what") +
+			"<span style='float:right;margin-top:5px'><div class='slimbutton' onclick='render_anniversary_baker(\"combine\")'>" +
+			phrase.html("interface.anniversary_baker.cake") +
+			"</div> <div class='slimbutton' onclick='render_anniversary_baker(\"exchange\")'>" +
+			phrase.html("interface.anniversary_baker.exchange") +
+			"</div> <div class='slimbutton' onclick='render_anniversary_baker(\"gifts\")'>" +
+			phrase.html("interface.anniversary_baker.craft") +
+			"</div> <div class='slimbutton' onclick='open_interaction_guide(\"anniversary\")'>" +
+			phrase.html("interface.anniversary_baker.info") +
+			"</div></span>",
 	});
 }
 
@@ -1893,14 +2182,44 @@ function render_shells_buyer() {
 	rendered_target = topleft_npc;
 	var html = "<div style='background-color: black; border: 5px solid gray; padding: 20px; font-size: 24px; display: inline-block; vertical-align: top; text-align: left'>",
 		prefix = "";
-	html += "<div><span style='color: #5DAC40'>10</span>" + " " + phrase.html("interface.shells_buyer.shells") + " " + "<span style='color: gold'>1,500,000</span> <span style='color: #71AF83' class='clickable' onclick='buy_shells(10)'>" + phrase.html("interface.shells_buyer.buy") + "</span></div>";
-	html += "<div><span style='color: #5DAC40'>100</span>" + " " + phrase.html("interface.shells_buyer.shells") + " " + "<span style='color: gold'>15,000,000</span> <span style='color: #71AF83' class='clickable' onclick='buy_shells(100)'>" + phrase.html("interface.shells_buyer.buy") + "</span></div>";
-	html += "<div><span style='color: #5DAC40'>500</span>" + " " + phrase.html("interface.shells_buyer.shells") + " " + "<span style='color: gold'>75,000,000</span> <span style='color: #71AF83' class='clickable' onclick='buy_shells(500)'>" + phrase.html("interface.shells_buyer.buy") + "</span></div>";
 	html +=
-		"<div><span style='color: #5DAC40'>1,000</span>" + " " + phrase.html("interface.shells_buyer.shells") + " " + "<span style='color: gold'>150,000,000</span> <span style='color: #71AF83' class='clickable' onclick='buy_shells(1000)'>" + phrase.html("interface.shells_buyer.buy") + "</span></div>";
+		"<div><span style='color: #5DAC40'>10</span>" +
+		" " +
+		phrase.html("interface.shells_buyer.shells") +
+		" " +
+		"<span style='color: gold'>1,500,000</span> <span style='color: #71AF83' class='clickable' onclick='buy_shells(10)'>" +
+		phrase.html("interface.shells_buyer.buy") +
+		"</span></div>";
+	html +=
+		"<div><span style='color: #5DAC40'>100</span>" +
+		" " +
+		phrase.html("interface.shells_buyer.shells") +
+		" " +
+		"<span style='color: gold'>15,000,000</span> <span style='color: #71AF83' class='clickable' onclick='buy_shells(100)'>" +
+		phrase.html("interface.shells_buyer.buy") +
+		"</span></div>";
+	html +=
+		"<div><span style='color: #5DAC40'>500</span>" +
+		" " +
+		phrase.html("interface.shells_buyer.shells") +
+		" " +
+		"<span style='color: gold'>75,000,000</span> <span style='color: #71AF83' class='clickable' onclick='buy_shells(500)'>" +
+		phrase.html("interface.shells_buyer.buy") +
+		"</span></div>";
+	html +=
+		"<div><span style='color: #5DAC40'>1,000</span>" +
+		" " +
+		phrase.html("interface.shells_buyer.shells") +
+		" " +
+		"<span style='color: gold'>150,000,000</span> <span style='color: #71AF83' class='clickable' onclick='buy_shells(1000)'>" +
+		phrase.html("interface.shells_buyer.buy") +
+		"</span></div>";
 	if (!is_electron && !is_tauri)
-		prefix = "<a href='https://adventure.land/shells' class='cancela' target='_blank'><span class='clickable' onclick='rendered_target=null;' style='color: #359ECF'>" + phrase.html("interface.shells_buyer.buy_with") + "</span></a> | ";
-	html += "<div>" + (prefix) + "<span class='clickable' onclick='topleft_npc=false;' style='color: #555556'>" + phrase.html("interface.shells_buyer.nope") + "</span></div>";
+		prefix =
+			"<a href='https://adventure.land/shells' class='cancela' target='_blank'><span class='clickable' onclick='rendered_target=null;' style='color: #359ECF'>" +
+			phrase.html("interface.shells_buyer.buy_with") +
+			"</span></a> | ";
+	html += "<div>" + prefix + "<span class='clickable' onclick='topleft_npc=false;' style='color: #555556'>" + phrase.html("interface.shells_buyer.nope") + "</span></div>";
 	html += "</div>";
 	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
@@ -2049,18 +2368,32 @@ function render_dice() {
 	var html = "<div style='background-color: black; border: 5px solid gray; padding: 20px; font-size: 32px; display: inline-block; vertical-align: top'>";
 	html += "<div class='mb5' align='center'>";
 	html +=
-		"<div><span class='gray clickable' onclick='$(\".dicenum\").cfocus()'>" + phrase.html("interface.dice.number") + "</span> <div class='inline-block dicenum' contenteditable=true onblur='on_dice_change()'>" + (num) + "</div></div>";
+		"<div><span class='gray clickable' onclick='$(\".dicenum\").cfocus()'>" +
+		phrase.html("interface.dice.number") +
+		"</span> <div class='inline-block dicenum' contenteditable=true onblur='on_dice_change()'>" +
+		num +
+		"</div></div>";
 	html += "</div>";
 	html += "<div class='mb5' align='center'>";
 	html +=
-		"<div><span class='gold clickable' onclick='$(\".dicegold\").cfocus()'>" + phrase.html("interface.dice.gold") + "</span> <div class='inline-block dicegold' contenteditable=true onblur='on_dice_change()'>" + (to_pretty_num(gold)) + "</div></div>";
+		"<div><span class='gold clickable' onclick='$(\".dicegold\").cfocus()'>" +
+		phrase.html("interface.dice.gold") +
+		"</span> <div class='inline-block dicegold' contenteditable=true onblur='on_dice_change()'>" +
+		to_pretty_num(gold) +
+		"</div></div>";
 	html += "</div>";
 	html += "<div class='mb5' align='center'>";
 	html += "<div class='gamebutton clickable diceup' onclick='dice_bet.dir=1; on_dice_change()' style='width: 64px;'>" + phrase.html("interface.dice.up") + "</div>";
 	html += "<div class='gamebutton clickable ml5 dicedown' onclick='dice_bet.dir=2; on_dice_change()' style='width: 64px'>" + phrase.html("interface.dice.down") + "</div>";
 	html += "</div>";
 	html += "<div class='mb5' align='center'>";
-	html += "<div class='gamebutton clickable diceb' onclick='on_dice_bet()' style='width: 200px;'>" + phrase.html("interface.dice.bet") + " " + "<span class='gray dicexx'>" + phrase.html("interface.dice.for_2x") + "</span></div>";
+	html +=
+		"<div class='gamebutton clickable diceb' onclick='on_dice_bet()' style='width: 200px;'>" +
+		phrase.html("interface.dice.bet") +
+		" " +
+		"<span class='gray dicexx'>" +
+		phrase.html("interface.dice.for_2x") +
+		"</span></div>";
 	html += "</div>";
 	html += "</div>";
 	render_ui_panel("#topleftcornerui", html);
@@ -2106,7 +2439,11 @@ function render_donate() {
 	var html = "<div style='background-color: black; border: 5px solid gray; padding: 20px; font-size: 32px; display: inline-block; vertical-align: top'>";
 	html += "<div class='mb5' align='center'>";
 	html +=
-		"<div><span class='gold clickable' onclick='$(\".dgold\").cfocus()'>" + phrase.html("interface.donate.gold") + "</span> <div class='inline-block dgold' contenteditable=true onblur='on_donate_change()'>" + (to_pretty_num(gold)) + "</div></div>";
+		"<div><span class='gold clickable' onclick='$(\".dgold\").cfocus()'>" +
+		phrase.html("interface.donate.gold") +
+		"</span> <div class='inline-block dgold' contenteditable=true onblur='on_donate_change()'>" +
+		to_pretty_num(gold) +
+		"</div></div>";
 	html += "</div>";
 	html += "<div class='mb5' align='center'>";
 	html += "<div class='gamebutton clickable diceb' onclick='donate()' style='width: 160px; margin-top: 20px'>" + phrase.html("interface.donate.donate") + "</div>";
@@ -2246,7 +2583,9 @@ function render_drop(def, mult, color) {
 		actual = { name: def[1], q: def[2], data: def[3] };
 	} else if (def[1] == "empty") {
 		html +=
-			"<div style='z-index: 1; background-color:#575983; border: 2px solid #9F9FB0; position: absolute; top: -2px; left: -2px; color:#C5C7E0; font-size: 16px; display: inline-block; padding: 1px 1px 1px 3px;'>" + phrase.html("interface.drop.zilch") + "</div>";
+			"<div style='z-index: 1; background-color:#575983; border: 2px solid #9F9FB0; position: absolute; top: -2px; left: -2px; color:#C5C7E0; font-size: 16px; display: inline-block; padding: 1px 1px 1px 3px;'>" +
+			phrase.html("interface.drop.zilch") +
+			"</div>";
 	} else if (def[1] == "shells") {
 		html +=
 			"<div style='z-index: 1; background-color:#575983; border: 2px solid #9F9FB0; position: absolute; top: -2px; left: -2px; color:#8DE33B; font-size: 16px; display: inline-block; padding: 1px 1px 1px 3px;'>" +
@@ -2291,7 +2630,9 @@ function smart_smart_move(type, id) {
 		show_confirm(phrase.html("interface.travel.confirm", { destination: npc.name }), phrase.html("interface.confirm.yes"), phrase.html("interface.close.cancel"), function () {
 			hide_modals();
 			if (id == "anniversary_baker") {
-				var entry = (G.maps.main.seasonal_npcs || []).find(function (entry) { return entry.id == id; });
+				var entry = (G.maps.main.seasonal_npcs || []).find(function (entry) {
+					return entry.id == id;
+				});
 				if (entry) return call_code_function_f("smart_move", { map: "main", x: entry.position[0], y: entry.position[1] });
 			}
 			call_code_function_f("smart_move", id);
@@ -2315,14 +2656,17 @@ function render_equip_info(name) {
 	var def = G.items[name],
 		html = "";
 	html += "<div style='background-color: black; border: 5px solid gray; font-size: 24px; display: inline-block; padding: 20px; line-height: 24px; max-width: 360px;' class='buyitem'>";
-	html += "<div style='padding: 4px; margin: 4px; text-align: center; color: #CDCAB7'>" + phrase.definition("weapon_type", def.wtype || def.type, "name", (weapon_types[def.wtype] || offhand_types[def.type] || def.wtype || def.type).toTitleCase()) + "</div>";
+	html +=
+		"<div style='padding: 4px; margin: 4px; text-align: center; color: #CDCAB7'>" +
+		phrase.definition("weapon_type", def.wtype || def.type, "name", (weapon_types[def.wtype] || offhand_types[def.type] || def.wtype || def.type).toTitleCase()) +
+		"</div>";
 	["ranger", "rogue", "warrior", "mage", "priest", "paladin", "merchant"].forEach(function (ctype) {
 		var color = "#DDDDDD";
 		if (window.character && character.ctype == ctype) color = "#36813A";
 		else if (window.character) color = "#666870";
 		if (G.classes[ctype].mainhand[def.wtype || def.type]) {
 			html += "<div style='border: 2px dotted gray; padding: 14px; margin: 4px'>";
-			html += "<div style='color:" + (color) + "'>" + phrase.html("interface.equip_info.mainhand", { value: phrase.definition("class", ctype, "name", ctype.toTitleCase()) }) + "</div>";
+			html += "<div style='color:" + color + "'>" + phrase.html("interface.equip_info.mainhand", { value: phrase.definition("class", ctype, "name", ctype.toTitleCase()) }) + "</div>";
 			var s = render_item("html", { item: {}, prop: G.classes[ctype].mainhand[def.wtype || def.type], pure: true });
 			if (!s) html += "<div style='color: #788783'>" + phrase.html("interface.equip_info.no_modifier") + "</div>";
 			else html += s;
@@ -2330,7 +2674,7 @@ function render_equip_info(name) {
 		}
 		if (G.classes[ctype].doublehand[def.wtype || def.type]) {
 			html += "<div style='border: 2px dotted gray; padding: 14px; margin: 4px'>";
-			html += "<div style='color:" + (color) + "'>" + phrase.html("interface.equip_info.doublehand", { value: phrase.definition("class", ctype, "name", ctype.toTitleCase()) }) + "</div>";
+			html += "<div style='color:" + color + "'>" + phrase.html("interface.equip_info.doublehand", { value: phrase.definition("class", ctype, "name", ctype.toTitleCase()) }) + "</div>";
 			var s = render_item("html", { item: {}, prop: G.classes[ctype].doublehand[def.wtype || def.type], pure: true });
 			if (!s) html += "<div style='color: #788783'>" + phrase.html("interface.equip_info.no_modifier") + "</div>";
 			else html += s;
@@ -2339,7 +2683,7 @@ function render_equip_info(name) {
 		}
 		if (G.classes[ctype].offhand[def.wtype || def.type]) {
 			html += "<div style='border: 2px dotted gray; padding: 14px; margin: 4px'>";
-			html += "<div style='color:" + (color) + "'>" + phrase.html("interface.equip_info.offhand", { value: phrase.definition("class", ctype, "name", ctype.toTitleCase()) }) + "</div>";
+			html += "<div style='color:" + color + "'>" + phrase.html("interface.equip_info.offhand", { value: phrase.definition("class", ctype, "name", ctype.toTitleCase()) }) + "</div>";
 			var s = render_item("html", { item: {}, prop: G.classes[ctype].offhand[def.wtype || def.type], pure: true });
 			if (!s) html += "<div style='color: #788783'>" + phrase.html("interface.equip_info.no_modifier") + "</div>";
 			else html += s;
@@ -2490,7 +2834,8 @@ function render_item_help(container, name, level, pure) {
 		var npc = G.npcs.exchange,
 			display_phrase = phrase.html("interface.item_help.exchange_from"),
 			id = "exchange";
-		for (var nname in G.npcs) if (G.items[name].quest && G.npcs[nname].quest == G.items[name].quest) ((npc = G.npcs[nname]), (display_phrase = phrase.html("interface.item_help.bring_to")), (id = nname));
+		for (var nname in G.npcs)
+			if (G.items[name].quest && G.npcs[nname].quest == G.items[name].quest) ((npc = G.npcs[nname]), (display_phrase = phrase.html("interface.item_help.bring_to")), (id = nname));
 		html += "<div style='color:#DDDDDD'>" + display_phrase + ":</div>";
 		html +=
 			"<div style='display:inline-block; text-align: center' class='clickable' onclick='smart_smart_move(\"npc\",\"" +
@@ -2551,9 +2896,12 @@ function render_item_help(container, name, level, pure) {
 			npc = G.npcs.craftsman,
 			id = "craftsman",
 			rphrase = phrase.html("interface.item_help.recipe");
-		if (G.craft[name].quest == "mcollector") ((display_phrase = phrase.html("interface.item_help.obtainable_from")), (npc = G.npcs.mcollector), (id = "mcollector"), (rphrase = phrase.html("interface.item_help.materials")));
-		if (G.craft[name].quest == "witch") ((display_phrase = phrase.html("interface.item_help.concocted_at")), (npc = G.npcs.witch), (id = "witch"), (rphrase = phrase.html("interface.item_help.materials")));
-		if (G.craft[name].quest == "anniversary_baker") ((display_phrase = phrase.html("interface.item_help.craftable_during_the_anniversary")), (npc = G.npcs.anniversary_baker), (id = "anniversary_baker"));
+		if (G.craft[name].quest == "mcollector")
+			((display_phrase = phrase.html("interface.item_help.obtainable_from")), (npc = G.npcs.mcollector), (id = "mcollector"), (rphrase = phrase.html("interface.item_help.materials")));
+		if (G.craft[name].quest == "witch")
+			((display_phrase = phrase.html("interface.item_help.concocted_at")), (npc = G.npcs.witch), (id = "witch"), (rphrase = phrase.html("interface.item_help.materials")));
+		if (G.craft[name].quest == "anniversary_baker")
+			((display_phrase = phrase.html("interface.item_help.craftable_during_the_anniversary")), (npc = G.npcs.anniversary_baker), (id = "anniversary_baker"));
 		html += "<div style='color:#DDDDDD'>" + display_phrase + ":</div>";
 		html +=
 			"<div style='display:inline-block; text-align: center' class='clickable' onclick='smart_smart_move(\"npc\",\"" +
@@ -2732,9 +3080,13 @@ function render_tracker() {
 	var html = "";
 	html += "<div style='font-size: 32px'>";
 	html +=
-		"<div style='background-color:#575983; border: 2px solid #9F9FB0; display: inline-block; margin: 2px; padding: 6px;' class='clickable' onclick='pcs(event); $(\".trackers\").hide(); $(\".trackerm\").show();'>" + phrase.html("interface.tracker.monsters") + "</div>";
+		"<div style='background-color:#575983; border: 2px solid #9F9FB0; display: inline-block; margin: 2px; padding: 6px;' class='clickable' onclick='pcs(event); $(\".trackers\").hide(); $(\".trackerm\").show();'>" +
+		phrase.html("interface.tracker.monsters") +
+		"</div>";
 	html +=
-		"<div style='background-color:#575983; border: 2px solid #9F9FB0; display: inline-block; margin: 2px; padding: 6px;' class='clickable' onclick='pcs(event); $(\".trackers\").hide(); $(\".trackere\").show();'>" + phrase.html("interface.tracker.exchanges_and_quests") + "</div>";
+		"<div style='background-color:#575983; border: 2px solid #9F9FB0; display: inline-block; margin: 2px; padding: 6px;' class='clickable' onclick='pcs(event); $(\".trackers\").hide(); $(\".trackere\").show();'>" +
+		phrase.html("interface.tracker.exchanges_and_quests") +
+		"</div>";
 	html += "</div>";
 	html += "<div class='trackers trackerm'>";
 	object_sort(G.monsters, "hpsort").forEach(function (e) {
@@ -2796,23 +3148,82 @@ function render_tracker() {
 
 function render_computer($element, type = "computer", slot = 0) {
 	var html = "";
-	html += "<div style=\"color: #32A3B0\">" + phrase.html("interface.computer.connected") + "</div>";
-	html += "<div onclick='socket.emit(\"trade_history\",{})' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.trade_history") + "</div>";
-	html += "<div onclick='toggle_merchant(\"" + (slot) + "\")' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.toggle_stand") + "</div>";
+	html += '<div style="color: #32A3B0">' + phrase.html("interface.computer.connected") + "</div>";
+	html +=
+		"<div onclick='socket.emit(\"trade_history\",{})' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" +
+		"&gt;" +
+		"</span>" +
+		" " +
+		phrase.html("interface.computer.trade_history") +
+		"</div>";
+	html +=
+		"<div onclick='toggle_merchant(\"" +
+		slot +
+		"\")' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" +
+		"&gt;" +
+		"</span>" +
+		" " +
+		phrase.html("interface.computer.toggle_stand") +
+		"</div>";
 	if (type == "supercomputer") {
-		html += "<div onclick=\"socket.emit('tracker')\" class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.tracker") + "</div>";
+		html +=
+			"<div onclick=\"socket.emit('tracker')\" class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" +
+			"&gt;" +
+			"</span>" +
+			" " +
+			phrase.html("interface.computer.tracker") +
+			"</div>";
 	}
 
-	html += "<div onclick='render_upgrade_shrine()' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.upgrade") + "</div>"; // style='color: #C3C3C3' style='color: #D6D6D6'
-	html += "<div onclick='render_compound_shrine()' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.compound") + "</div>";
-	html += "<div onclick='render_exchange_shrine()' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.exchange") + "</div>";
-	html += "<div onclick='render_interaction({auto:true,dialog:\"locksmith\",skin:\"asoldier\"});' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.locksmith") + "</div>";
-	html += "<div onclick='render_interaction(\"crafting\");' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.crafting") + "</div>";
-	html += "<div onclick='render_merchant(G.npcs.pots)' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.potions") + "</div>";
-	html += "<div onclick='render_merchant(G.npcs.scrolls)' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.scrolls") + "</div>";
-	html += "<div onclick='render_merchant(G.npcs.basics)' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.basics") + "</div>";
+	html +=
+		"<div onclick='render_upgrade_shrine()' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.upgrade") + "</div>"; // style='color: #C3C3C3' style='color: #D6D6D6'
+	html +=
+		"<div onclick='render_compound_shrine()' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.compound") + "</div>";
+	html +=
+		"<div onclick='render_exchange_shrine()' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.exchange") + "</div>";
+	html +=
+		"<div onclick='render_interaction({auto:true,dialog:\"locksmith\",skin:\"asoldier\"});' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" +
+		"&gt;" +
+		"</span>" +
+		" " +
+		phrase.html("interface.computer.locksmith") +
+		"</div>";
+	html +=
+		"<div onclick='render_interaction(\"crafting\");' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" +
+		"&gt;" +
+		"</span>" +
+		" " +
+		phrase.html("interface.computer.crafting") +
+		"</div>";
+	html +=
+		"<div onclick='render_merchant(G.npcs.pots)' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" +
+		"&gt;" +
+		"</span>" +
+		" " +
+		phrase.html("interface.computer.potions") +
+		"</div>";
+	html +=
+		"<div onclick='render_merchant(G.npcs.scrolls)' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" +
+		"&gt;" +
+		"</span>" +
+		" " +
+		phrase.html("interface.computer.scrolls") +
+		"</div>";
+	html +=
+		"<div onclick='render_merchant(G.npcs.basics)' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" +
+		"&gt;" +
+		"</span>" +
+		" " +
+		phrase.html("interface.computer.basics") +
+		"</div>";
 
-	html += "<div onclick='render_merchant(G.npcs.premium,false)' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" + "&gt;" + "</span>" + " " + phrase.html("interface.computer.premium") + "</div>";
+	html +=
+		"<div onclick='render_merchant(G.npcs.premium,false)' class='clickable' style='color: #E4E4E4'><span style='color: #BA61A4'>" +
+		"&gt;" +
+		"</span>" +
+		" " +
+		phrase.html("interface.computer.premium") +
+		"</div>";
 
 	$element.html(html);
 }
@@ -2822,7 +3233,8 @@ function render_skill(selector, skill_name, args) {
 	var actual = args.actual || {},
 		html = "";
 	var skill = G.skills[skill_name];
-	if (skill) skill = Object.assign({}, skill, { name: phrase.definition("skill", skill_name, "name", skill.name), explanation: phrase.definition("skill", skill_name, "explanation", skill.explanation) });
+	if (skill)
+		skill = Object.assign({}, skill, { name: phrase.definition("skill", skill_name, "name", skill.name), explanation: phrase.definition("skill", skill_name, "explanation", skill.explanation) });
 	html += "<div style='background-color: black; border: 5px solid gray; font-size: 24px; display: inline-block; padding: 20px; line-height: 24px; max-width: 240px; " + (args.styles || "") + "'>";
 	if (!skill) html += skill_name;
 	else {
@@ -2832,15 +3244,35 @@ function render_skill(selector, skill_name, args) {
 			if (skill.mp) html += bold_prop_line("MP", skill.mp, colors.mp);
 			if (skill.duration) html += bold_prop_line(phrase.html("interface.skill.duration"), phrase.html("interface.time.seconds", { count: skill.duration / 1000.0 }), "gray");
 			if (skill.cooldown && skill.cooldown / 1000.0) html += bold_prop_line(phrase.html("interface.skill.cooldown"), phrase.html("interface.time.seconds", { count: skill.cooldown / 1000.0 }), "gray");
-			if (skill.reuse_cooldown && skill.reuse_cooldown / 1000.0) html += bold_prop_line(phrase.html("interface.skill.r_use_cooldown"), phrase.html("interface.time.seconds", { count: skill.reuse_cooldown / 1000.0 }), "gray");
-			if (skill.share) html += bold_prop_line(phrase.html("interface.skill.cooldown"), phrase.html("interface.skill.shared_cooldown", { multiplier: to_pretty_float(skill.cooldown_multiplier || 1), skill: phrase.definition("skill", skill.share, "name", G.skills[skill.share].name) }), "gray");
+			if (skill.reuse_cooldown && skill.reuse_cooldown / 1000.0)
+				html += bold_prop_line(phrase.html("interface.skill.r_use_cooldown"), phrase.html("interface.time.seconds", { count: skill.reuse_cooldown / 1000.0 }), "gray");
+			if (skill.share)
+				html += bold_prop_line(
+					phrase.html("interface.skill.cooldown"),
+					phrase.html("interface.skill.shared_cooldown", {
+						multiplier: to_pretty_float(skill.cooldown_multiplier || 1),
+						skill: phrase.definition("skill", skill.share, "name", G.skills[skill.share].name),
+					}),
+					"gray",
+				);
 			if (skill.range) html += bold_prop_line(phrase.html("interface.skill.range"), skill.range, "gray");
 			if (skill.use_range) html += bold_prop_line(phrase.html("interface.skill.range"), phrase.html("interface.skill.character_range"), "gray");
 			if (skill.range_multiplier && skill.range_bonus) html += bold_prop_line(phrase.html("interface.skill.range"), to_pretty_float(skill.range_multiplier || 1) + "X + " + skill.range_bonus, "gray");
-			else if (skill.range_multiplier) html += bold_prop_line(phrase.html("interface.skill.range"), phrase.html("interface.skill.range_multiplier", { multiplier: to_pretty_float(skill.range_multiplier || 1) }), "gray");
+			else if (skill.range_multiplier)
+				html += bold_prop_line(phrase.html("interface.skill.range"), phrase.html("interface.skill.range_multiplier", { multiplier: to_pretty_float(skill.range_multiplier || 1) }), "gray");
 			if (skill.level) html += bold_prop_line(phrase.html("interface.skill.level_requirement"), skill.level, "gray");
-			if (skill.wtype) html += bold_prop_line(phrase.html("interface.skill.weapon_requirement"), (is_array(skill.wtype) ? skill.wtype : [skill.wtype]).map(function (type) { return '"' + phrase.escape(phrase.definition("weapon_type", type, "name", type)) + '"'; }).join(", "), "gray");
-			if (skill.offhand_type) html += bold_prop_line(phrase.html("interface.skill.offhand_requirement"), phrase.definition("weapon_type", skill.offhand_type, "name", skill.offhand_type.toTitleCase()), "gray");
+			if (skill.wtype)
+				html += bold_prop_line(
+					phrase.html("interface.skill.weapon_requirement"),
+					(is_array(skill.wtype) ? skill.wtype : [skill.wtype])
+						.map(function (type) {
+							return '"' + phrase.escape(phrase.definition("weapon_type", type, "name", type)) + '"';
+						})
+						.join(", "),
+					"gray",
+				);
+			if (skill.offhand_type)
+				html += bold_prop_line(phrase.html("interface.skill.offhand_requirement"), phrase.definition("weapon_type", skill.offhand_type, "name", skill.offhand_type.toTitleCase()), "gray");
 			if (skill.max) html += bold_prop_line(phrase.html("interface.skill.max"), skill.max, "gray");
 			if (skill.type == "passive") html += "<div><span style='color: #696C68;'>" + phrase.html("interface.skill.passive") + "</span></div>";
 			if (skill.damage_type) {
@@ -2873,7 +3305,15 @@ function render_skill(selector, skill_name, args) {
 				+"</div>";
 			}
 			html +=
-				"<div class='clickable' onclick='show_json(G.skills." + (skill_name) + ",{prefix:\"G.skills.\",name:\"" + (skill_name) + "\"})'><span style='color: #44A8D4;'>" + phrase.html("interface.skill.show") + "</span> <span style='color:gray'>G.skills.</span>" + (skill_name) + "</div>";
+				"<div class='clickable' onclick='show_json(G.skills." +
+				skill_name +
+				',{prefix:"G.skills.",name:"' +
+				skill_name +
+				"\"})'><span style='color: #44A8D4;'>" +
+				phrase.html("interface.skill.show") +
+				"</span> <span style='color:gray'>G.skills.</span>" +
+				skill_name +
+				"</div>";
 		}
 	}
 	html += "</div>";
@@ -3015,15 +3455,33 @@ function render_tutorial(article, step, url) {
 		cphrase = phrase.html("interface.tutorial.continue");
 	if (step == G.docs.tutorial.length - 1) cphrase = phrase.html("interface.tutorial.complete");
 
-	var html =
-		"<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
+	var html = "<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
 	html +=
-		"<div style='margin-bottom: 8px;'><span style='color:#2B9EC9'>" + (phrase.definition("tutorial", tutorial.key, "title", tutorial.title)) + "</span> <div style='float:right; color: #585859; color: #906CB4'>[" + ((step + 1)) + "/" + (G.docs.tutorial.length) + "] <span class='clickable' style='font-size:20px; color:#7A7A7A' onclick='render_tutorial_index()'>" + phrase.html("interface.tutorial.lessons") + "</span></div></div>";
+		"<div style='margin-bottom: 8px;'><span style='color:#2B9EC9'>" +
+		phrase.definition("tutorial", tutorial.key, "title", tutorial.title) +
+		"</span> <div style='float:right; color: #585859; color: #906CB4'>[" +
+		(step + 1) +
+		"/" +
+		G.docs.tutorial.length +
+		"] <span class='clickable' style='font-size:20px; color:#7A7A7A' onclick='render_tutorial_index()'>" +
+		phrase.html("interface.tutorial.lessons") +
+		"</span></div></div>";
 	html += "<div style='margin-left:-24px; margin-right: -24px; border-bottom: 5px solid gray'></div>";
 	html += article;
 	html += "<div style='margin-left:-24px; margin-right: -24px; border-bottom: 5px solid gray'></div>";
 	html +=
-		"<div style='margin-top: 8px; margin-bottom: -16px'><span style='color: #D67D23'>" + phrase.html("interface.tutorial.completion") + " " + "<span class='tutprogress'>" + (0) + "</span>%</span> <div style='float: right; color: #906CB4; display:none' class='tutreview'></div><div style='float: right; color: gray' class='tutincomplete'>" + phrase.html("interface.tutorial.incomplete") + "</div><div style='float: right; color: #73BD6D' class='clickable tutcontinue' onclick='btc(event); api_call(\"tutorial\",{step:" + ((step + 1)) + "}); hide_modal()'>" + (cphrase) + "</div></div>";
+		"<div style='margin-top: 8px; margin-bottom: -16px'><span style='color: #D67D23'>" +
+		phrase.html("interface.tutorial.completion") +
+		" " +
+		"<span class='tutprogress'>" +
+		0 +
+		"</span>%</span> <div style='float: right; color: #906CB4; display:none' class='tutreview'></div><div style='float: right; color: gray' class='tutincomplete'>" +
+		phrase.html("interface.tutorial.incomplete") +
+		"</div><div style='float: right; color: #73BD6D' class='clickable tutcontinue' onclick='btc(event); api_call(\"tutorial\",{step:" +
+		(step + 1) +
+		"}); hide_modal()'>" +
+		cphrase +
+		"</div></div>";
 	html += "</div>";
 
 	show_modal(html, { wrap: false, url: url, close: { label: "X", classes: "ui-close-tutorial", corner: true } });
@@ -3034,14 +3492,27 @@ function render_tutorial(article, step, url) {
 
 function render_learn_article(article, args) {
 	if (article.includes('id="encouragement-personal"')) article = article.replace('<div id="encouragement-personal"></div>', render_encouragement_info());
-	var html =
-		"<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
+	var html = "<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
 	html += article;
 	html += "<div style='margin-bottom:-15px'></div>";
 	if (args.prev)
-		html += "<div class='gamebutton' style='position: absolute; top: -30px; left: -30px' onclick='hide_modal(); open_guide(\"" + (args.prev) + "\",\"/docs/guide/" + (args.prev) + "\")'>" + phrase.html("interface.learn_article.lt_previous") + "</div>";
+		html +=
+			"<div class='gamebutton' style='position: absolute; top: -30px; left: -30px' onclick='hide_modal(); open_guide(\"" +
+			args.prev +
+			'","/docs/guide/' +
+			args.prev +
+			"\")'>" +
+			phrase.html("interface.learn_article.lt_previous") +
+			"</div>";
 	if (args.next)
-		html += "<div class='gamebutton' style='position: absolute; bottom: -30px; right: -20px' onclick='hide_modal(); open_guide(\"" + (args.next) + "\",\"/docs/guide/" + (args.next) + "\")'>" + phrase.html("interface.learn_article.next_gt") + "</div>";
+		html +=
+			"<div class='gamebutton' style='position: absolute; bottom: -30px; right: -20px' onclick='hide_modal(); open_guide(\"" +
+			args.next +
+			'","/docs/guide/' +
+			args.next +
+			"\")'>" +
+			phrase.html("interface.learn_article.next_gt") +
+			"</div>";
 	html += "</div>";
 	show_modal(html, { wrap: false, url: args && args.url, close: { label: phrase.html("interface.learn_article.close"), classes: "ui-close-docs" } });
 	$(".code").codemirror({ trim: true });
@@ -3050,13 +3521,32 @@ function render_learn_article(article, args) {
 
 function render_encouragement_info() {
 	if (typeof character === "undefined" || !character || !character.encouragement) return "";
-	var state = character.encouragement, html = "<div class='divider'></div><div class='title'>" + phrase.html("interface.encouragement_info.your_encouragement") + "</div>";
-	var reasons = { checking: phrase.html("interface.encouragement.checking"), character_limit: phrase.html("interface.encouragement.character_limit"), expired: phrase.html("interface.encouragement.expired"), merchant: phrase.html("interface.encouragement.merchant"), another_character: phrase.html("interface.encouragement.another_character"), away: phrase.html("interface.encouragement.away") };
+	var state = character.encouragement,
+		html = "<div class='divider'></div><div class='title'>" + phrase.html("interface.encouragement_info.your_encouragement") + "</div>";
+	var reasons = {
+		checking: phrase.html("interface.encouragement.checking"),
+		character_limit: phrase.html("interface.encouragement.character_limit"),
+		expired: phrase.html("interface.encouragement.expired"),
+		merchant: phrase.html("interface.encouragement.merchant"),
+		another_character: phrase.html("interface.encouragement.another_character"),
+		away: phrase.html("interface.encouragement.away"),
+	};
 	for (var status of state.statuses) {
-		var condition = character.s[status.id], def = G.conditions[status.id];
+		var condition = character.s[status.id],
+			def = G.conditions[status.id];
 		if (!def) continue;
-		html += "<p><b>" + phrase.definition("condition", status.id, "name", def.name) + ": " + (condition ? phrase.html("interface.encouragement_info.active") : phrase.html("interface.encouragement_info.unavailable")) + "</b><br>";
-		if (condition) html += phrase.html("interface.encouragement_info.gold_xp_luck", { gold_multiplier: condition.gold_multiplier, xp_multiplier: condition.xp_multiplier, luck_multiplier: condition.luck_multiplier });
+		html +=
+			"<p><b>" +
+			phrase.definition("condition", status.id, "name", def.name) +
+			": " +
+			(condition ? phrase.html("interface.encouragement_info.active") : phrase.html("interface.encouragement_info.unavailable")) +
+			"</b><br>";
+		if (condition)
+			html += phrase.html("interface.encouragement_info.gold_xp_luck", {
+				gold_multiplier: condition.gold_multiplier,
+				xp_multiplier: condition.xp_multiplier,
+				luck_multiplier: condition.luck_multiplier,
+			});
 		else html += reasons[status.reason] || phrase.html("interface.encouragement_info.this_bonus_is_not_active");
 		html += "</p>";
 	}
@@ -3168,7 +3658,19 @@ function render_cx_info(name) {
 	if (G.skills[name] && G.skills[name].emote) return render_skill("", name);
 	var html = "<div style='border: 5px solid gray; background-color: black; padding: 10px;'>";
 	html += "<div style='float:left; margin-right: 10px'>" + cx_sprite(name, { mleft: 4 }) + "</div>";
-	html += " <span class='gray'>" + phrase.html("interface.cx_info.id") + "</span> " + (name) + "<br /><span class='gray'>" + phrase.html("interface.cx_info.type") + "</span> " + (T[name]) + " <br /><span class='gray'>" + phrase.html("interface.cx_info.slot") + "</span> " + (cxtype_to_slot[T[name]]);
+	html +=
+		" <span class='gray'>" +
+		phrase.html("interface.cx_info.id") +
+		"</span> " +
+		name +
+		"<br /><span class='gray'>" +
+		phrase.html("interface.cx_info.type") +
+		"</span> " +
+		T[name] +
+		" <br /><span class='gray'>" +
+		phrase.html("interface.cx_info.slot") +
+		"</span> " +
+		cxtype_to_slot[T[name]];
 	html += "</div>";
 	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/guide/all/cosmetics" });
 }
@@ -3176,17 +3678,17 @@ function render_cx_info(name) {
 function render_all_cosmetics() {
 	precompute_image_positions();
 	var types = [
-		["hair", "Hairs", []],
-		["hat", "Hats", []],
-		["chin", "Chins", []],
-		["face", "Accents", []],
-		["head", "Skins", []],
-		["armor", "Armors", []],
-		["body", "Bodies", []],
-		["character", "Characters", []],
-		["back", "Back", []],
-		["gravestone", "Gravestones", []],
-		["", "Others", []],
+		["hair", phrase.html("interface.gallery.hair"), []],
+		["hat", phrase.html("interface.gallery.hat"), []],
+		["chin", phrase.html("interface.gallery.chin"), []],
+		["face", phrase.html("interface.gallery.face"), []],
+		["head", phrase.html("interface.gallery.skin"), []],
+		["armor", phrase.html("interface.gallery.armor"), []],
+		["body", phrase.html("interface.gallery.body"), []],
+		["character", phrase.html("interface.gallery.character"), []],
+		["back", phrase.definition("slot", "back", "name", "Back"), []],
+		["gravestone", phrase.html("interface.gallery.gravestone"), []],
+		["", phrase.html("interface.gallery.other"), []],
 	];
 	var visited = {},
 		html = "<div style='border: 5px solid gray; background-color: black; padding: 10px; width: 456px'>";
@@ -3221,27 +3723,27 @@ function render_all_cosmetics() {
 
 function render_all_items() {
 	var types = [
-		["helmet", "Helmets", []],
-		["chest", "Armors", []],
-		["pants", "Underarmors", []],
-		["gloves", "Gloves", []],
-		["shoes", "Shoes", []],
-		["cape", "Capes", []],
-		["ring", "Rings", []],
-		["earring", "Earrings", []],
-		["amulet", "Amulets", []],
-		["belt", "Belts", []],
-		["orb", "Orbs", []],
-		["weapon", "Weapons", []],
-		["shield", "Shields", []],
-		["offhand", "Offhands", []],
-		["elixir", "Elixirs", []],
-		["pot", "Potions", []],
-		["scroll", "Scrolls", []],
+		["helmet", phrase.html("interface.gallery.helmet"), []],
+		["chest", phrase.html("interface.gallery.armor"), []],
+		["pants", phrase.html("interface.gallery.pants"), []],
+		["gloves", phrase.html("interface.gallery.gloves"), []],
+		["shoes", phrase.html("interface.gallery.shoes"), []],
+		["cape", phrase.html("interface.gallery.cape"), []],
+		["ring", phrase.html("interface.gallery.ring"), []],
+		["earring", phrase.html("interface.gallery.earring"), []],
+		["amulet", phrase.html("interface.gallery.amulet"), []],
+		["belt", phrase.html("interface.gallery.belt"), []],
+		["orb", phrase.html("interface.gallery.orb"), []],
+		["weapon", phrase.html("interface.gallery.weapon"), []],
+		["shield", phrase.html("interface.gallery.shield"), []],
+		["offhand", phrase.html("interface.gallery.offhand"), []],
+		["elixir", phrase.html("interface.gallery.elixir"), []],
+		["pot", phrase.html("interface.gallery.pot"), []],
+		["scroll", phrase.html("interface.gallery.scroll"), []],
 		["material", phrase.html("interface.recipes.crafting_and_collecting"), []],
-		["exchange", "Exchangeables", []],
-		["key", "Keys", []],
-		["", "Others", []],
+		["exchange", phrase.html("interface.gallery.exchange"), []],
+		["key", phrase.html("interface.gallery.key"), []],
+		["", phrase.html("interface.gallery.other"), []],
 	];
 	var visited = {},
 		html = "<div style='border: 5px solid gray; background-color: black; padding: 10px; width: 434px'>";
@@ -3349,17 +3851,43 @@ function render_guide(path, title, color) {
 	var index = 0;
 	if (ref) {
 		html +=
-			"<div class='gamebutton block' style='margin-bottom: 4px; background-color: #E5E5E5; color: #010805' onclick='render_tutorial_index()'><span style='color:#906CB4'>" + "[T]" + "</span>" + " " + phrase.html("interface.guide.tutorial_lessons") + "</div>";
+			"<div class='gamebutton block' style='margin-bottom: 4px; background-color: #E5E5E5; color: #010805' onclick='render_tutorial_index()'><span style='color:#906CB4'>" +
+			"[T]" +
+			"</span>" +
+			" " +
+			phrase.html("interface.guide.tutorial_lessons") +
+			"</div>";
 		html += "<div style='margin-bottom: 4px; height: 56px'>";
-		html += "<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: left; width: 145px' onclick='render_all_items()'><span style='color: #328355'>" + "[I]" + "</span>" + " " + phrase.html("interface.guide.all_items") + "</div>";
 		html +=
-			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: right; width: 145px' onclick='render_all_monsters()'><span style='color: #7F2D2A'>" + "[M]" + "</span>" + " " + phrase.html("interface.guide.all_monsters") + "</div>";
+			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: left; width: 145px' onclick='render_all_items()'><span style='color: #328355'>" +
+			"[I]" +
+			"</span>" +
+			" " +
+			phrase.html("interface.guide.all_items") +
+			"</div>";
+		html +=
+			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: right; width: 145px' onclick='render_all_monsters()'><span style='color: #7F2D2A'>" +
+			"[M]" +
+			"</span>" +
+			" " +
+			phrase.html("interface.guide.all_monsters") +
+			"</div>";
 		html += "</div>";
 		html += "<div style='margin-bottom: 4px; height: 56px'>";
 		html +=
-			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: left; width: 145px' onclick='render_all_skills_and_conditions()'><span style='color: #2A98AD'>" + "[S]" + "</span>" + " " + phrase.html("interface.guide.all_skills_amp_c") + "</div>";
+			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: left; width: 145px' onclick='render_all_skills_and_conditions()'><span style='color: #2A98AD'>" +
+			"[S]" +
+			"</span>" +
+			" " +
+			phrase.html("interface.guide.all_skills_amp_c") +
+			"</div>";
 		html +=
-			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: right; width: 145px' onclick='render_all_recipes()'><span style='color: #ED8131'>" + "[C]" + "</span>" + " " + phrase.html("interface.guide.all_recipes") + "</div>";
+			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: right; width: 145px' onclick='render_all_recipes()'><span style='color: #ED8131'>" +
+			"[C]" +
+			"</span>" +
+			" " +
+			phrase.html("interface.guide.all_recipes") +
+			"</div>";
 		html += "</div>";
 	}
 	if (title) {
@@ -3408,7 +3936,12 @@ function render_guide(path, title, color) {
 	if (ref && inside != "docs") {
 		// html+="<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: left; width: 145px' onclick='hide_modal(); render_code_articles()'><span style='color: #4FB7E5'>[C]</span> Code Guide</div>";
 		html +=
-			"<div class='gamebutton' style='display: block; margin-bottom: 4px; background-color: #E5E5E5; color: #010805;' onclick='hide_modal(); render_code_docs()'><span style='color: #D8C14F'>" + "[X]" + "</span>" + " " + phrase.html("interface.guide.code_docs") + "</div>";
+			"<div class='gamebutton' style='display: block; margin-bottom: 4px; background-color: #E5E5E5; color: #010805;' onclick='hide_modal(); render_code_docs()'><span style='color: #D8C14F'>" +
+			"[X]" +
+			"</span>" +
+			" " +
+			phrase.html("interface.guide.code_docs") +
+			"</div>";
 	}
 	if (more) html += "<div class='gamebutton' style='display: block; margin-bottom: 4px; color: #85C76B'>" + phrase.html("interface.guide.guide_is_a_work_in_progress") + "</div>";
 	html += "</div>";
@@ -3486,7 +4019,8 @@ function render_objects_reference(docs) {
 	var html = "<div style='/*background-color: black; border: 5px solid gray; padding: 4px; */min-width: 320px'>";
 	var index = 0;
 	G.docs.objects.forEach(function (n) {
-		html += "<div class='gamebutton' style='display: block; margin-bottom: 4px' onclick='open_article(\"" + n[0] + "\")'>" + phrase.definition("directory", "objects", n[0] + ".title", n[1]) + "</div>";
+		html +=
+			"<div class='gamebutton' style='display: block; margin-bottom: 4px' onclick='open_article(\"" + n[0] + "\")'>" + phrase.definition("directory", "objects", n[0] + ".title", n[1]) + "</div>";
 		index++;
 	});
 	html += "<div class='gamebutton' style='display: block; margin-bottom: 4px; color: #85C76B'>" + phrase.html("interface.objects_reference.work_in_progress") + "</div>";
@@ -3497,16 +4031,25 @@ function render_objects_reference(docs) {
 function render_useful_links() {
 	// hide_modal();
 	var html = "<div style='/*background-color: black; border: 5px solid gray; padding: 4px; */width: 400px'>";
-	html += "<a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; border-color: #4B95B2' target='_blank' href='https://jsconsole.com'>" + phrase.html("interface.useful_links.jsconsole_com") + "</a>";
-	html += "<div class=\"mt4 blockbutton\" style=\"text-align: left; margin-bottom: 4px\">" + phrase.html("interface.useful_links.a_very_practical_website_to_play_with_javascript_in_a") + "</div>";
 	html +=
-		"<a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; border-color: #4B95B2' target='_blank' href='https://www.codecademy.com/learn/learn-javascript'>" + phrase.html("interface.useful_links.code_academy_javascript") + "</a>";
+		"<a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; border-color: #4B95B2' target='_blank' href='https://jsconsole.com'>" +
+		phrase.html("interface.useful_links.jsconsole_com") +
+		"</a>";
+	html += '<div class="mt4 blockbutton" style="text-align: left; margin-bottom: 4px">' + phrase.html("interface.useful_links.a_very_practical_website_to_play_with_javascript_in_a") + "</div>";
 	html +=
-		"<div class=\"mt4 blockbutton\" style=\"text-align: left; margin-bottom: 4px\">" + phrase.html("interface.useful_links.code_academy_s_javascript_course_if_you_want_to_learn") + "</div>";
+		"<a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; border-color: #4B95B2' target='_blank' href='https://www.codecademy.com/learn/learn-javascript'>" +
+		phrase.html("interface.useful_links.code_academy_javascript") +
+		"</a>";
+	html += '<div class="mt4 blockbutton" style="text-align: left; margin-bottom: 4px">' + phrase.html("interface.useful_links.code_academy_s_javascript_course_if_you_want_to_learn") + "</div>";
 	html +=
-		"<a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; border-color: #4B95B2' target='_blank' href='https://github.com/kaansoral/adventureland_mongodb'>" + phrase.html("interface.useful_links.adventure_land_s_github") + "</a>";
-	html += "<div class=\"mt4 blockbutton\" style=\"text-align: left; margin-bottom: 4px\">" + phrase.html("interface.useful_links.todo_create_a_gallery_of_player_s_github_repos") + "</div>";
-	html += "<a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; border-color: #4B95B2' target='_blank' href='https://discord.gg/X3QyCJd'>" + phrase.html("interface.useful_links.code_beginner_on_discord") + "</a>";
+		"<a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; border-color: #4B95B2' target='_blank' href='https://github.com/kaansoral/adventureland_mongodb'>" +
+		phrase.html("interface.useful_links.adventure_land_s_github") +
+		"</a>";
+	html += '<div class="mt4 blockbutton" style="text-align: left; margin-bottom: 4px">' + phrase.html("interface.useful_links.todo_create_a_gallery_of_player_s_github_repos") + "</div>";
+	html +=
+		"<a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; border-color: #4B95B2' target='_blank' href='https://discord.gg/X3QyCJd'>" +
+		phrase.html("interface.useful_links.code_beginner_on_discord") +
+		"</a>";
 
 	html += "</div>";
 	show_modal(html, { wrap: false, url: "/docs/code/links" });
@@ -3566,8 +4109,16 @@ function csearch_logic(place) {
 				one = true;
 				if (!place)
 					html +=
-						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='open_guide(\"" + (ref[0]) + "\",\"/docs/guide/" + (ref[0]) + "\")'><span style='color:#69BE86'>" + phrase.html("interface.csearch_logic.reference") + "</span> " + (ref[1]) + "</div>";
-				else html += "<div class='clickable' onclick='open_guide(\"" + (ref[0]) + "\",\"/docs/guide/" + (ref[0]) + "\")'><span style='color:#69BE86'>" + "[R]" + "</span> " + (ref[1]) + "</div>";
+						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='open_guide(\"" +
+						ref[0] +
+						'","/docs/guide/' +
+						ref[0] +
+						"\")'><span style='color:#69BE86'>" +
+						phrase.html("interface.csearch_logic.reference") +
+						"</span> " +
+						ref[1] +
+						"</div>";
+				else html += "<div class='clickable' onclick='open_guide(\"" + ref[0] + '","/docs/guide/' + ref[0] + "\")'><span style='color:#69BE86'>" + "[R]" + "</span> " + ref[1] + "</div>";
 			}
 		});
 		var articles = [];
@@ -3589,8 +4140,16 @@ function csearch_logic(place) {
 				one = true;
 				if (!place)
 					html +=
-						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='open_guide(\"" + (article[0]) + "\",\"/docs/guide/" + (article[0]) + "\")'><span style='color:#E78E4E'>" + phrase.html("interface.csearch_logic.article") + "</span> " + (article[1]) + "</div>";
-				else html += "<div class='clickable' onclick='open_guide(\"" + (article[0]) + "\",\"/docs/guide/" + (article[0]) + "\")'><span style='color:#E78E4E'>" + "[A]" + "</span> " + (article[1]) + "</div>";
+						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='open_guide(\"" +
+						article[0] +
+						'","/docs/guide/' +
+						article[0] +
+						"\")'><span style='color:#E78E4E'>" +
+						phrase.html("interface.csearch_logic.article") +
+						"</span> " +
+						article[1] +
+						"</div>";
+				else html += "<div class='clickable' onclick='open_guide(\"" + article[0] + '","/docs/guide/' + article[0] + "\")'><span style='color:#E78E4E'>" + "[A]" + "</span> " + article[1] + "</div>";
 			}
 		});
 		G.docs.javascript.forEach(function (ref) {
@@ -3598,8 +4157,14 @@ function csearch_logic(place) {
 				one = true;
 				if (!place)
 					html +=
-						"<div><a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; text-align: left' href='" + (ref[2]) + "' target='_blank'><span style='color:#A6B7C9'>" + phrase.html("interface.csearch_logic.mdn") + "</span> " + (ref[0]) + "</a></div>";
-				else html += "<div><a class='cancela eexternal' href='" + (ref[2]) + "' target='_blank'><span style='color:#A6B7C9'>" + "[J]" + "</span> " + (ref[0]) + "</a></div>";
+						"<div><a class='gamebutton eexternal' style='display: block; margin-bottom: 4px; text-align: left' href='" +
+						ref[2] +
+						"' target='_blank'><span style='color:#A6B7C9'>" +
+						phrase.html("interface.csearch_logic.mdn") +
+						"</span> " +
+						ref[0] +
+						"</a></div>";
+				else html += "<div><a class='cancela eexternal' href='" + ref[2] + "' target='_blank'><span style='color:#A6B7C9'>" + "[J]" + "</span> " + ref[0] + "</a></div>";
 			}
 		});
 		for (var name in G) {
@@ -3607,8 +4172,24 @@ function csearch_logic(place) {
 				one = true;
 				if (!place)
 					html +=
-						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='render_data_reference([],\"" + (name) + "\")'><span style='color:#8468BB'>" + phrase.html("interface.csearch_logic.gamedata") + "</span>" + " " + phrase.html("interface.csearch_logic.g", { name: name }) + "</div>";
-				else html += "<div class='clickable' onclick='render_data_reference([],\"" + (name) + "\")'><span style='color:#8468BB'>" + "[G]" + "</span>" + " " + phrase.html("interface.csearch_logic.g", { name: name }) + "</div>";
+						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='render_data_reference([],\"" +
+						name +
+						"\")'><span style='color:#8468BB'>" +
+						phrase.html("interface.csearch_logic.gamedata") +
+						"</span>" +
+						" " +
+						phrase.html("interface.csearch_logic.g", { name: name }) +
+						"</div>";
+				else
+					html +=
+						"<div class='clickable' onclick='render_data_reference([],\"" +
+						name +
+						"\")'><span style='color:#8468BB'>" +
+						"[G]" +
+						"</span>" +
+						" " +
+						phrase.html("interface.csearch_logic.g", { name: name }) +
+						"</div>";
 			}
 		}
 		G.docs.functions.forEach(function (n) {
@@ -3616,13 +4197,25 @@ function csearch_logic(place) {
 			if (in_arr(n, G.docs.documented)) {
 				if (!place)
 					html +=
-						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='api_call(\"load_article\",{name:\"" + (n) + "\",func:true});'><span style='color:#d6d135'>" + phrase.html("interface.csearch_logic.function") + "</span> " + (n) + "</div>";
-				else html += "<div class='clickable' onclick='api_call(\"load_article\",{name:\"" + (n) + "\",func:true});'><span style='color:#d6d135'>" + "[F]" + "</span> " + (n) + "</div>";
+						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='api_call(\"load_article\",{name:\"" +
+						n +
+						"\",func:true});'><span style='color:#d6d135'>" +
+						phrase.html("interface.csearch_logic.function") +
+						"</span> " +
+						n +
+						"</div>";
+				else html += "<div class='clickable' onclick='api_call(\"load_article\",{name:\"" + n + "\",func:true});'><span style='color:#d6d135'>" + "[F]" + "</span> " + n + "</div>";
 			} else {
 				if (!place)
 					html +=
-						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='render_function_reference(\"" + (n) + "\")'><span style='color:#d6d135'>" + phrase.html("interface.csearch_logic.function") + "</span> " + (n) + "</div>";
-				else html += "<div class='clickable' onclick='render_function_reference(\"" + (n) + "\")'><span style='color:#d6d135'>" + "[F]" + "</span> " + (n) + "</div>";
+						"<div class='gamebutton' style='display: block; margin-bottom: 4px; text-align: left' onclick='render_function_reference(\"" +
+						n +
+						"\")'><span style='color:#d6d135'>" +
+						phrase.html("interface.csearch_logic.function") +
+						"</span> " +
+						n +
+						"</div>";
+				else html += "<div class='clickable' onclick='render_function_reference(\"" + n + "\")'><span style='color:#d6d135'>" + "[F]" + "</span> " + n + "</div>";
 			}
 			one = true;
 		});
@@ -3645,29 +4238,71 @@ function render_code_docs() {
 	var html = "<div style='width:400px'>";
 	//html+="<div class='gamebutton' style='display: block; border-color: #EDF259; margin-bottom: 4px' onclick='render_code_articles()'>Learn [Basic to Advanced]</div>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #A79674;*/ margin-bottom: 4px'><span style='color:#37DBC1'>" + phrase.html("interface.code_docs.search") + "</span> <input type='text' class='csearchi' style='font-family:var(--pixel-font, pixel); font-size:24px; margin-bottom: -8px; width: 150px; margin-left: 5px'></div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #A79674;*/ margin-bottom: 4px'><span style='color:#37DBC1'>" +
+		phrase.html("interface.code_docs.search") +
+		"</span> <input type='text' class='csearchi' style='font-family:var(--pixel-font, pixel); font-size:24px; margin-bottom: -8px; width: 150px; margin-left: 5px'></div>";
 	html += "<div class='cdocssearch hidden'>";
 	html += "</div>";
 	html += "<div class='cdocsbuttons'>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #A79674;*/ margin-bottom: 4px' onclick='pcs(); $(\".csearchi\").val(\"[F]\"); csearch_logic();/*render_functions_directory()*/'><span style='color:#B7BE45'>" + "[F]" + "</span>" + " " + phrase.html("interface.code_docs.available_functions") + "</div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #A79674;*/ margin-bottom: 4px' onclick='pcs(); $(\".csearchi\").val(\"[F]\"); csearch_logic();/*render_functions_directory()*/'><span style='color:#B7BE45'>" +
+		"[F]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.code_docs.available_functions") +
+		"</div>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #0AAFF1;*/ margin-bottom: 4px' onclick='pcs(); $(\".csearchi\").val(\"[G]\"); csearch_logic();/*render_data_reference()*/'><span style='color:#8468BB'>" + "[G]" + "</span>" + " " + phrase.html("interface.code_docs.game_data") + "</div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #0AAFF1;*/ margin-bottom: 4px' onclick='pcs(); $(\".csearchi\").val(\"[G]\"); csearch_logic();/*render_data_reference()*/'><span style='color:#8468BB'>" +
+		"[G]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.code_docs.game_data") +
+		"</div>";
 	// html+="<div class='gamebutton' style='display: block; /*border-color: #EF688C;*/ margin-bottom: 4px' onclick='pcs(); render_objects_reference()'>Objects Reference <span style='color:#64B454'>[WIP]</span></div>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #EF688C;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"data-character\",\"/docs/code/character/reference\")'><span style='color:#64B454'>" + "[C]" + "</span>" + " " + phrase.html("interface.code_docs.character_reference") + "</div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #EF688C;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"data-character\",\"/docs/code/character/reference\")'><span style='color:#64B454'>" +
+		"[C]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.code_docs.character_reference") +
+		"</div>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #EF688C;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"data-monster\",\"/docs/code/monster/reference\")'><span style='color:#58A1B0'>" + "[M]" + "</span>" + " " + phrase.html("interface.code_docs.monster_reference") + "</div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #EF688C;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"data-monster\",\"/docs/code/monster/reference\")'><span style='color:#58A1B0'>" +
+		"[M]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.code_docs.monster_reference") +
+		"</div>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #EF688C;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"data-server-status\",\"/docs/code/server/status\")'><span style='color:#69BE86'>" + "[S]" + "</span>" + " " + phrase.html("interface.code_docs.server_status") + "</div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #EF688C;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"data-server-status\",\"/docs/code/server/status\")'><span style='color:#69BE86'>" +
+		"[S]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.code_docs.server_status") +
+		"</div>";
 	//html+="<div class='gamebutton' style='display: block; /*border-color: #F0924A;*/ margin-bottom: 4px' onclick='pcs(); add_log(\"Coming soon!\")'>Javascript Events <span style='color:gray'>[Soon]</span></div>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #F0924A;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"events-game\",\"/docs/code/game/events\")'><span style='color:#8468BB'>" + "[E]" + "</span>" + " " + phrase.html("interface.code_docs.game_events") + "</div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #F0924A;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"events-game\",\"/docs/code/game/events\")'><span style='color:#8468BB'>" +
+		"[E]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.code_docs.game_events") +
+		"</div>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #F0924A;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"events-character\",\"/docs/code/character/events\")'><span style='color:#E36B1A'>" + "[C]" + "</span>" + " " + phrase.html("interface.code_docs.character_events") + "</div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #F0924A;*/ margin-bottom: 4px' onclick='pcs(); open_article(\"events-character\",\"/docs/code/character/events\")'><span style='color:#E36B1A'>" +
+		"[C]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.code_docs.character_events") +
+		"</div>";
 	html +=
-		"<div class='gamebutton' style='display: block; /*border-color: #A5A5A5;*/ margin-bottom: 4px' onclick='pcs(); render_useful_links()'><span style='color:#B9495B'>" + "[U]" + "</span>" + " " + phrase.html("interface.code_docs.useful_links") + "</div>";
-	html += "<div class=\"mt4 blockbutton\" style=\"text-align: left\">" + phrase.html("interface.code_docs.note_code_documentation_is_a_work_in_progress_you_can") + "</div>";
+		"<div class='gamebutton' style='display: block; /*border-color: #A5A5A5;*/ margin-bottom: 4px' onclick='pcs(); render_useful_links()'><span style='color:#B9495B'>" +
+		"[U]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.code_docs.useful_links") +
+		"</div>";
+	html += '<div class="mt4 blockbutton" style="text-align: left">' + phrase.html("interface.code_docs.note_code_documentation_is_a_work_in_progress_you_can") + "</div>";
 	html += "</div>";
 	html += "</div>";
 	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/code" });
@@ -3681,11 +4316,24 @@ function render_others() {
 	//html+="<div class='gamebutton' style='display: block; border-color: #EDF259; margin-bottom: 4px' onclick='render_code_articles()'>Learn [Basic to Advanced]</div>";
 	html += "<div>";
 	html +=
-		"<div class='gamebutton' style='display: block; margin-bottom: 4px' onclick='pcs(); show_modal($(\"#keymapguide\").html(),{url:\"/docs/ref/keymapping\"})'><span style='color:#F96527'>" + "[S]" + "</span>" + " " + phrase.html("interface.others.skillbar_and_keymapping") + "</div>";
+		"<div class='gamebutton' style='display: block; margin-bottom: 4px' onclick='pcs(); show_modal($(\"#keymapguide\").html(),{url:\"/docs/ref/keymapping\"})'><span style='color:#F96527'>" +
+		"[S]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.others.skillbar_and_keymapping") +
+		"</div>";
 	html +=
-		"<div class='gamebutton' style='display: block; margin-bottom: 4px' onclick='pcs(); show_modal($(\"#boosterguide\").html(),{url:\"/docs/ref/boosters\"})'><span style='color:#52B3FC'>" + "[B]" + "</span>" + " " + phrase.html("interface.others.using_boosters") + "</div>";
+		"<div class='gamebutton' style='display: block; margin-bottom: 4px' onclick='pcs(); show_modal($(\"#boosterguide\").html(),{url:\"/docs/ref/boosters\"})'><span style='color:#52B3FC'>" +
+		"[B]" +
+		"</span>" +
+		" " +
+		phrase.html("interface.others.using_boosters") +
+		"</div>";
 	html +=
-		"<div class='gamebutton' style='display: block; margin-bottom: 4px' onclick='pcs(); show_modal($(\"#shellsinfo\").html(),{url:\"/docs/ref/shells\"})'><span style='color:#47BA4E'>[$]</span>" + " " + phrase.html("interface.others.about_shells") + "</div>";
+		"<div class='gamebutton' style='display: block; margin-bottom: 4px' onclick='pcs(); show_modal($(\"#shellsinfo\").html(),{url:\"/docs/ref/shells\"})'><span style='color:#47BA4E'>[$]</span>" +
+		" " +
+		phrase.html("interface.others.about_shells") +
+		"</div>";
 	html += "</div>";
 	html += "</div>";
 	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/ref" });
@@ -3693,7 +4341,8 @@ function render_others() {
 
 function render_wishlist(num, page) {
 	var html = "<div style='background-color: black; border: 5px solid gray; padding: 12px 20px 20px 20px; font-size: 24px; display: inline-block'>";
-	html += "<div style='color: #f1c054; border-bottom: 2px dashed #C7CACA; margin-bottom: 3px; margin-left: 3px; margin-right: 3px' class='cbold'>" + phrase.html("interface.wishlist.wishlist") + "</div>";
+	html +=
+		"<div style='color: #f1c054; border-bottom: 2px dashed #C7CACA; margin-bottom: 3px; margin-left: 3px; margin-right: 3px' class='cbold'>" + phrase.html("interface.wishlist.wishlist") + "</div>";
 	var items = [],
 		last = 0;
 	for (var name in G.items) if (!G.items[name].ignore) items.push([name, G.items[name], G.items[name].g || 0]);
@@ -3837,7 +4486,12 @@ function render_item(selector, args) {
 		if (prop.phresistance) html += bold_prop_line(phrase.html("interface.item.impact_res"), prop.phresistance, "#69B1B6");
 		if (prop.stresistance) html += bold_prop_line(phrase.html("interface.item.status_res"), prop.stresistance, "#9FA7B6");
 		if (item.wspeed) html += bold_prop_line(phrase.html("interface.item.speed"), phrase.definition("speed", item.wspeed, "name", item.wspeed.toTitleCase()), "gray");
-		if (prop.speed) html += bold_prop_line((item.wtype && phrase.html("interface.item.run_speed")) || phrase.html("interface.item.speed"), ((!args.monster && prop.speed > 0 && "+") || "") + prop.speed, colors.speed);
+		if (prop.speed)
+			html += bold_prop_line(
+				(item.wtype && phrase.html("interface.item.run_speed")) || phrase.html("interface.item.speed"),
+				((!args.monster && prop.speed > 0 && "+") || "") + prop.speed,
+				colors.speed,
+			);
 		if (prop.frequency || args.monster) html += bold_prop_line(phrase.html("interface.item.a_speed"), (prop.frequency || 1) * ((args.monster && 100) || 1), "#3BE681");
 		if (prop.output) html += bold_prop_line(phrase.html("interface.item.damage_output"), ((prop.output > 0 && "+") || "") + prop.output + "%", "#D93319");
 		if (prop.incdmgamp) html += bold_prop_line(phrase.html("interface.item.incoming_damage"), prop.incdmgamp + "%", "#D93319");
@@ -3857,7 +4511,7 @@ function render_item(selector, args) {
 		if (grade == 2 && item.type != "booster") html += bold_prop_line(phrase.html("interface.item.grade"), phrase.html("interface.item.rare"), "#6668AC");
 		if (grade == 3 && item.type != "booster") html += bold_prop_line(phrase.html("interface.item.grade"), phrase.html("interface.item.legendary"), "#39A868");
 		if (grade == 4 && item.type != "booster") html += bold_prop_line(phrase.html("interface.item.grade"), phrase.html("interface.item.exalted"), "#2875F9"); // gold: "#E5A818" purple: #8B3EE6" dark-pink: #e84664
-		if (prop.poisonous) html += "<div style='color: " + (colors.poison) + "'>" + phrase.html("interface.item.poisonous") + "</div>";
+		if (prop.poisonous) html += "<div style='color: " + colors.poison + "'>" + phrase.html("interface.item.poisonous") + "</div>";
 		if (prop.cooperative) html += "<div style='color: #aeaeae'>" + phrase.html("interface.item.cooperative") + "</div>";
 		if (prop.peaceful) html += "<div style='color: #54B25F'>" + phrase.html("interface.item.peaceful") + "</div>";
 		if (prop.supporter) html += "<div style='color: #CA5931'>" + phrase.html("interface.item.supporter") + "</div>";
@@ -3880,12 +4534,24 @@ function render_item(selector, args) {
 		for (var mname in G.maps)
 			if (item[mname]) {
 				html +=
-					"<div><span style='color: #7738E8;'>" + phrase.html("interface.item.bonus") + "</span>: <span class='clickable' onclick='stpr(event); show_json(" + (JSON.stringify(item[mname])) + ")'>" + phrase.html("interface.item.only", { map: G.maps[mname].name }) + "</span></div>";
+					"<div><span style='color: #7738E8;'>" +
+					phrase.html("interface.item.bonus") +
+					"</span>: <span class='clickable' onclick='stpr(event); show_json(" +
+					JSON.stringify(item[mname]) +
+					")'>" +
+					phrase.html("interface.item.only", { map: G.maps[mname].name }) +
+					"</span></div>";
 			}
 		for (var cname in G.classes)
 			if (item[cname]) {
 				html +=
-					"<div><span style='color: #7738E8;'>" + phrase.html("interface.item.bonus") + "</span>: <span class='clickable' onclick='stpr(event); show_json(" + (JSON.stringify(item[cname])) + ")'>" + phrase.html("interface.item.only_2", { value: phrase.definition("class", cname, "name", cname.toTitleCase()) }) + "</span></div>";
+					"<div><span style='color: #7738E8;'>" +
+					phrase.html("interface.item.bonus") +
+					"</span>: <span class='clickable' onclick='stpr(event); show_json(" +
+					JSON.stringify(item[cname]) +
+					")'>" +
+					phrase.html("interface.item.only_2", { value: phrase.definition("class", cname, "name", cname.toTitleCase()) }) +
+					"</span></div>";
 			}
 		if (args.count) html += bold_prop_line(phrase.html("interface.item.kills"), to_pretty_num(args.count), "#7D0C15");
 		if (args.score) html += bold_prop_line(phrase.html("interface.item.score"), to_pretty_num(args.score), "#C38737");
@@ -3981,7 +4647,7 @@ function render_item(selector, args) {
 				html += prop_line(phrase.html("interface.item.stage"), phrase.html("interface.item.stage_progress", { stage: prop.phase }));
 				if (prop.xp_multiplier === 1) html += "<div>" + phrase.html("interface.item.new_player_xp_ended_at_level_80") + "</div>";
 				var next = item.phases && item.phases[prop.phase];
-				if (next) html += "<div>" + phrase.html("interface.item.next_gold_xp_luck", { value: next[0], value2: (prop.xp_multiplier === 1 ? 1 : next[1]), value3: next[2] }) + "</div>";
+				if (next) html += "<div>" + phrase.html("interface.item.next_gold_xp_luck", { value: next[0], value2: prop.xp_multiplier === 1 ? 1 : next[1], value3: next[2] }) + "</div>";
 			}
 			html += "<div class='slimbutton' onclick='stpr(event); open_guide(\"encouragement\",get_guide_url(\"encouragement\"))'>" + phrase.html("interface.item.info") + "</div>";
 		}
@@ -3992,7 +4658,14 @@ function render_item(selector, args) {
 		}
 		if (item.multiplier && item.multiplier != 1) html += bold_prop_line(phrase.html("interface.item.multiplier"), item.multiplier, "gray");
 		if (prop.set) {
-			html += "<div><span style='color: #f1c054;'>" + phrase.html("interface.item.set") + "</span>: <span class='clickable' onclick='stpr(event); render_set(\"" + (prop.set) + "\")'>" + (G.sets[prop.set].name) + "</span></div>";
+			html +=
+				"<div><span style='color: #f1c054;'>" +
+				phrase.html("interface.item.set") +
+				"</span>: <span class='clickable' onclick='stpr(event); render_set(\"" +
+				prop.set +
+				"\")'>" +
+				G.sets[prop.set].name +
+				"</span></div>";
 		}
 		if (args.minutes !== undefined) {
 			html += prop_remains(args.minutes / 60.0);
@@ -4005,7 +4678,13 @@ function render_item(selector, args) {
 		}
 
 		if (actual && actual.acl) {
-			html += "<div style='color: #ADA68E'>" + phrase.html("interface.item.account_bound") + " " + "<span class='clickable' style='color: #C49F8D' onclick='show_alert(phrase.html(\"interface.item.unbind_soon\"))'>" + "[X]" + "</span></div>";
+			html +=
+				"<div style='color: #ADA68E'>" +
+				phrase.html("interface.item.account_bound") +
+				" " +
+				"<span class='clickable' style='color: #C49F8D' onclick='show_alert(phrase.html(\"interface.item.unbind_soon\"))'>" +
+				"[X]" +
+				"</span></div>";
 		}
 
 		if (!(args && args.prop)) {
@@ -4033,8 +4712,18 @@ function render_item(selector, args) {
 			if (item.type == "weapon" || offhand_types[item.type]) {
 				var t = "",
 					color = "#CC3837";
-				if (0 && parseInt(item.tier) < item.tier) t += "T" + parseInt(item.tier) + "+ " + phrase.definition("weapon_type", item.wtype || item.type, "name", (weapon_types[item.wtype] || offhand_types[item.wtype] || (item.wtype || item.type).toTitleCase()));
-				else t += "T" + to_pretty_float(item.tier) + " " + phrase.definition("weapon_type", item.wtype || item.type, "name", (weapon_types[item.wtype] || offhand_types[item.wtype] || (item.wtype || item.type).toTitleCase()));
+				if (0 && parseInt(item.tier) < item.tier)
+					t +=
+						"T" +
+						parseInt(item.tier) +
+						"+ " +
+						phrase.definition("weapon_type", item.wtype || item.type, "name", weapon_types[item.wtype] || offhand_types[item.wtype] || (item.wtype || item.type).toTitleCase());
+				else
+					t +=
+						"T" +
+						to_pretty_float(item.tier) +
+						" " +
+						phrase.definition("weapon_type", item.wtype || item.type, "name", weapon_types[item.wtype] || offhand_types[item.wtype] || (item.wtype || item.type).toTitleCase());
 
 				if (
 					!window.character ||
@@ -4045,10 +4734,26 @@ function render_item(selector, args) {
 					color = "#56A244";
 
 				html +=
-					"<div style='color: gray;' class='clickable' onclick='stpr(event); render_equip_info(\"" + (args.name) + "\")'>" + phrase.html("interface.item.type") + "<span style='color:white'>:</span><span style='color: " + (color) + ";'> " + (t) + "</span></div>";
+					"<div style='color: gray;' class='clickable' onclick='stpr(event); render_equip_info(\"" +
+					args.name +
+					"\")'>" +
+					phrase.html("interface.item.type") +
+					"<span style='color:white'>:</span><span style='color: " +
+					color +
+					";'> " +
+					t +
+					"</span></div>";
 			}
 			html +=
-				"<div style='color: gray;' class='clickable' onclick='stpr(event); render_item_help(this,\"" + (args.name) + "\"," + (((actual && actual.level) || 0)) + ")'>" + "[i]" + "<span style='color: white'>: " + (display_phrase) + "</span></div>";
+				"<div style='color: gray;' class='clickable' onclick='stpr(event); render_item_help(this,\"" +
+				args.name +
+				'",' +
+				((actual && actual.level) || 0) +
+				")'>" +
+				"[i]" +
+				"<span style='color: white'>: " +
+				display_phrase +
+				"</span></div>";
 		}
 		if (args.inventory_ui !== undefined) {
 			html += button_line({
@@ -4062,22 +4767,51 @@ function render_item(selector, args) {
 			var svalue = 2 * calculate_item_value(actual);
 			html += "<div style='margin-top: 5px'>";
 			if ((actual.q || 1) > 1) {
-				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block tradenum' contenteditable=true>" + (actual.q) + "</div></div>";
+				html +=
+					"<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" +
+					phrase.html("interface.item.quantity_short") +
+					"</span> <div class='inline-block tradenum' contenteditable=true>" +
+					actual.q +
+					"</div></div>";
 			}
-			html += "<div><span class='clickable' style='color:#35AD4B' onclick='$(\".sellmins\").focus()'>" + phrase.html("interface.item.minutes") + "</span> <div class='inline-block sellmins editable' contenteditable=true>20</div></div>";
-			html += "<div><span class='clickable' style='color:#EF5EA8' onclick='giveaway(\"" + (args.slot) + "\",\"" + (args.num) + "\",$(\".tradenum\").shtml(),$(\".sellmins\").shtml())'>" + phrase.html("interface.item.giveaway") + "</span></div>"; // style='color:#A99A5B'
+			html +=
+				"<div><span class='clickable' style='color:#35AD4B' onclick='$(\".sellmins\").focus()'>" +
+				phrase.html("interface.item.minutes") +
+				"</span> <div class='inline-block sellmins editable' contenteditable=true>20</div></div>";
+			html +=
+				"<div><span class='clickable' style='color:#EF5EA8' onclick='giveaway(\"" +
+				args.slot +
+				'","' +
+				args.num +
+				'",$(".tradenum").shtml(),$(".sellmins").shtml())\'>' +
+				phrase.html("interface.item.giveaway") +
+				"</span></div>"; // style='color:#A99A5B'
 			html += "</div>";
 		} else if (args.trade && actual) {
 			var svalue = 2 * calculate_item_value(actual);
 			html += "<div style='margin-top: 5px'>";
 			if ((actual.q || 1) > 1) {
-				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block tradenum' contenteditable=true>" + (actual.q) + "</div></div>";
+				html +=
+					"<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" +
+					phrase.html("interface.item.quantity_short") +
+					"</span> <div class='inline-block tradenum' contenteditable=true>" +
+					actual.q +
+					"</div></div>";
 			}
 			html +=
-				"<div><span class='gold clickable' onclick='$(\".sellprice\").focus()'>" + phrase.html((actual.q || 1) > 1 ? "interface.price.gold_each" : "interface.price.gold") + "</span> <div class='inline-block sellprice editable' contenteditable=true>" +
+				"<div><span class='gold clickable' onclick='$(\".sellprice\").focus()'>" +
+				phrase.html((actual.q || 1) > 1 ? "interface.price.gold_each" : "interface.price.gold") +
+				"</span> <div class='inline-block sellprice editable' contenteditable=true>" +
 				to_pretty_num(svalue) +
 				"</div></div>";
-			html += "<div><span class='clickable' onclick='trade(\"" + (args.slot) + "\",\"" + (args.num) + "\",$(\".sellprice\").shtml(),$(\".tradenum\").shtml())'>" + phrase.html("interface.item.put_up_for_sale") + "</span></div>"; // style='color:#A99A5B'
+			html +=
+				"<div><span class='clickable' onclick='trade(\"" +
+				args.slot +
+				'","' +
+				args.num +
+				'",$(".sellprice").shtml(),$(".tradenum").shtml())\'>' +
+				phrase.html("interface.item.put_up_for_sale") +
+				"</span></div>"; // style='color:#A99A5B'
 			html += "</div>";
 		}
 		if (actual && actual.name == "cxjar") {
@@ -4093,46 +4827,79 @@ function render_item(selector, args) {
 		if (in_arr(args.slot, trade_slots) && actual && actual.price && args.from_player && !actual.b && !actual.giveaway) {
 			trade_item = true;
 			if ((actual.q || 1) > 1) {
-				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block tradenum' contenteditable=true>1</div></div>";
+				html +=
+					"<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" +
+					phrase.html("interface.item.quantity_short") +
+					"</span> <div class='inline-block tradenum' contenteditable=true>1</div></div>";
 			}
 			html += "<div style='color: gold'>" + phrase.html((actual.q || 1) > 1 ? "interface.price.amount_each" : "interface.price.amount", { amount: to_pretty_num(actual.price) }) + "</div>";
-			html += "<div><span class='clickable itu' onclick='trade_buy(\"" + (args.slot) + "\",\"" + (args.from_player) + "\",\"" + ((actual.rid || "")) + "\",$(\".tradenum\").html())'>" + phrase.html("interface.item.buy") + "</span></div>";
+			html +=
+				"<div><span class='clickable itu' onclick='trade_buy(\"" +
+				args.slot +
+				'","' +
+				args.from_player +
+				'","' +
+				(actual.rid || "") +
+				'",$(".tradenum").html())\'>' +
+				phrase.html("interface.item.buy") +
+				"</span></div>";
 		}
 		if (in_arr(args.slot, trade_slots) && actual && args.from_player && actual.giveaway) {
 			trade_item = true;
 			if (actual.list.length) {
-				html += "<div><span style='color:#42A0DC'>" + phrase.html("interface.item.participants") + "</span> " + (actual.list.join(", ")) + "</div>";
+				html += "<div><span style='color:#42A0DC'>" + phrase.html("interface.item.participants") + "</span> " + actual.list.join(", ") + "</div>";
 			}
-			html += "<div><span class='clickable' style='color:#35AD4B' onclick='$(\".sellmins\").focus()'>" + phrase.html("interface.item.minutes") + "</span> " + (actual.giveaway) + "</div>";
-			html += "<div><span class='clickable itu' onclick='join_giveaway(\"" + (args.slot) + "\",\"" + (args.from_player) + "\",\"" + ((actual.rid || "")) + "\")'>" + phrase.html("interface.item.join") + "</span></div>";
+			html += "<div><span class='clickable' style='color:#35AD4B' onclick='$(\".sellmins\").focus()'>" + phrase.html("interface.item.minutes") + "</span> " + actual.giveaway + "</div>";
+			html +=
+				"<div><span class='clickable itu' onclick='join_giveaway(\"" +
+				args.slot +
+				'","' +
+				args.from_player +
+				'","' +
+				(actual.rid || "") +
+				"\")'>" +
+				phrase.html("interface.item.join") +
+				"</span></div>";
 		}
 		if (in_arr(args.slot, trade_slots) && actual && actual.price && args.from_player && actual.b) {
 			var q = false;
 			if ((actual.q || 1) > 1 && item.s) q = true;
 			trade_item = true;
 			if (q) {
-				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block tradenum' contenteditable=true>1</div></div>";
+				html +=
+					"<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" +
+					phrase.html("interface.item.quantity_short") +
+					"</span> <div class='inline-block tradenum' contenteditable=true>1</div></div>";
 			}
 			html += "<div style='color: gold'>" + phrase.html(q ? "interface.price.amount_each" : "interface.price.amount", { amount: to_pretty_num(actual.price) }) + "</div>";
-			html += "<div><span class='clickable ibu' onclick='trade_sell(\"" + (args.slot) + "\",\"" + (args.from_player) + "\",\"" + ((actual.rid || "")) + "\",$(\".tradenum\").html())'>" + phrase.html("interface.item.sell") + "</span></div>";
+			html +=
+				"<div><span class='clickable ibu' onclick='trade_sell(\"" +
+				args.slot +
+				'","' +
+				args.from_player +
+				'","' +
+				(actual.rid || "") +
+				'",$(".tradenum").html())\'>' +
+				phrase.html("interface.item.sell") +
+				"</span></div>";
 		}
 		if (args.secondhand) {
 			var mult = 2;
 			if (item.cash) mult = 3;
 			trade_item = true;
 			html += "<div style='color: gold'>" + phrase.html("interface.item.gold_2", { value: to_pretty_num(calculate_item_value(actual) * mult * (actual.q || 1)) }) + "</div>";
-			html += "<div><span class='clickable' onclick='secondhand_buy(\"" + ((actual.rid || "")) + "\")'>" + phrase.html("interface.item.buy") + "</span></div>";
+			html += "<div><span class='clickable' onclick='secondhand_buy(\"" + (actual.rid || "") + "\")'>" + phrase.html("interface.item.buy") + "</span></div>";
 		}
 		if (args.lostandfound) {
 			trade_item = true;
 			html += "<div style='color: gold'>" + phrase.html("interface.item.gold_2", { value: to_pretty_num(calculate_item_value(actual) * 4 * (actual.q || 1)) }) + "</div>";
-			html += "<div><span class='clickable' onclick='lostandfound_buy(\"" + ((actual.rid || "")) + "\")'>" + phrase.html("interface.item.buy") + "</span></div>";
+			html += "<div><span class='clickable' onclick='lostandfound_buy(\"" + (actual.rid || "") + "\")'>" + phrase.html("interface.item.buy") + "</span></div>";
 		}
 		if (value) {
 			var f = "buy_with_gold";
 			if (item.days) html += "<div style='color: #C3C3C3'>" + phrase.html("interface.item.lasts_30_days") + "</div>";
 
-			if (cash) ((html += "<div style='color: " + (colors.cash) + "'>" + phrase.html("interface.item.shells", { cash: to_pretty_num(item.cash) }) + "</div>"), (f = "buy_with_shells"));
+			if (cash) ((html += "<div style='color: " + colors.cash + "'>" + phrase.html("interface.item.shells", { cash: to_pretty_num(item.cash) }) + "</div>"), (f = "buy_with_shells"));
 			else html += "<div style='color: gold'>" + phrase.html("interface.item.gold_2", { value: to_pretty_num(value) }) + "</div>";
 			if (cash && character && item.cash >= character.cash) {
 				if (is_electron || is_tauri) {
@@ -4141,7 +4908,10 @@ function render_item(selector, args) {
 				} else {
 					html += "<div style='border-top: solid 2px gray; margin-bottom: 2px; margin-top: 3px; margin-left: -1px; margin-right: -1px'></div>";
 					html += "<div style='color: #C3C3C3'>" + phrase.html("interface.item.you_can_find_shells_from_gems_monsters_in_future_from_2") + "</div>";
-					html += "<a href='https://adventure.land/shells' class='cancela' target='_blank'><span class='clickable' style='color: #EB8D3F'>" + phrase.html("interface.item.buy_or_earn_shells") + "</span></a> "; // onclick='shells_click(); $(this).parent().remove()'
+					html +=
+						"<a href='https://adventure.land/shells' class='cancela' target='_blank'><span class='clickable' style='color: #EB8D3F'>" +
+						phrase.html("interface.item.buy_or_earn_shells") +
+						"</span></a> "; // onclick='shells_click(); $(this).parent().remove()'
 					// #EB8D3F  nice orange - #33BBD6 meh blue - #54C8C1 ok teal
 				}
 			} else {
@@ -4149,10 +4919,15 @@ function render_item(selector, args) {
 					var q = 1;
 					if (item.gives) q = 100;
 					html += "<div style='margin-top: 5px'><!--<input type='number' value='1' class='buynum itemnumi'/> -->";
-					html += "<span class='gray clickable' onclick='$(\".buynum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block buynum' contenteditable=true>" + (q) + "</div> <span class='gray'>|</span> ";
-					html += "<span class='clickable' onclick='" + (f) + "(\"" + (name) + "\",parseInt($(\".buynum\").html()))'>" + phrase.html("interface.item.buy") + "</span> ";
+					html +=
+						"<span class='gray clickable' onclick='$(\".buynum\").cfocus()'>" +
+						phrase.html("interface.item.quantity_short") +
+						"</span> <div class='inline-block buynum' contenteditable=true>" +
+						q +
+						"</div> <span class='gray'>|</span> ";
+					html += "<span class='clickable' onclick='" + f + '("' + name + '",parseInt($(".buynum").html()))\'>' + phrase.html("interface.item.buy") + "</span> ";
 					html += "</div>";
-				} else html += "<div><span class='clickable' onclick='" + (f) + "(\"" + (name) + "\")'>" + phrase.html("interface.item.buy") + "</span></div>";
+				} else html += "<div><span class='clickable' onclick='" + f + '("' + name + "\")'>" + phrase.html("interface.item.buy") + "</span></div>";
 			}
 		} else if (args.guide && actual) {
 			html += "<div style='color: gold'>" + phrase.html("interface.item.gold_2", { value: to_pretty_num(calculate_item_value(actual, 1)) }) + "</div>";
@@ -4169,10 +4944,38 @@ function render_item(selector, args) {
 			if (G.tokens[args.token][args.key] == 1) display_phrase = phrase.html("interface.item.token");
 			if (G.tokens[args.token][args.key] < 1)
 				html +=
-					"<div><span class='clickable' style='color: " + (color) + "' onclick='exchange_buy(\"" + (args.token) + "\",\"" + (args.key) + "\")'>" + phrase.html("interface.item.exchange", { value: 1 / G.tokens[args.token][args.key] }) + " " + "<span style='color:" + (text) + "'>" + phrase.html("interface.item.1_token") + "</span></span></div>";
+					"<div><span class='clickable' style='color: " +
+					color +
+					"' onclick='exchange_buy(\"" +
+					args.token +
+					'","' +
+					args.key +
+					"\")'>" +
+					phrase.html("interface.item.exchange", { value: 1 / G.tokens[args.token][args.key] }) +
+					" " +
+					"<span style='color:" +
+					text +
+					"'>" +
+					phrase.html("interface.item.1_token") +
+					"</span></span></div>";
 			else
 				html +=
-					"<div><span class='clickable' style='color: " + (color) + "' onclick='exchange_buy(\"" + (args.token) + "\",\"" + (args.key) + "\")'>" + phrase.html("interface.item.exchange_2") + " " + "<span style='color:" + (text) + "'>[" + (G.tokens[args.token][args.key]) + " " + (display_phrase) + "]</span></span></div>";
+					"<div><span class='clickable' style='color: " +
+					color +
+					"' onclick='exchange_buy(\"" +
+					args.token +
+					'","' +
+					args.key +
+					"\")'>" +
+					phrase.html("interface.item.exchange_2") +
+					" " +
+					"<span style='color:" +
+					text +
+					"'>[" +
+					G.tokens[args.token][args.key] +
+					" " +
+					display_phrase +
+					"]</span></span></div>";
 		}
 
 		if (args.sell && actual) {
@@ -4181,10 +4984,30 @@ function render_item(selector, args) {
 			if (item.s && actual.q) {
 				var q = actual.q;
 				html += "<div style='margin-top: 5px'>";
-				html += "<span class='gray clickable' onclick='$(\".sellnum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block sellnum' contenteditable=true>" + (q) + "</div> <span class='gray'>|</span> ";
-				html += "<span class='clickable' onclick='var inum=\"" + (args.num) + "\"; if(character.items[inum].name==\"" + (actual.name) + "\") sell(inum,parseInt($(\".sellnum\").html()))'>" + phrase.html("interface.item.sell") + "</span> ";
+				html +=
+					"<span class='gray clickable' onclick='$(\".sellnum\").cfocus()'>" +
+					phrase.html("interface.item.quantity_short") +
+					"</span> <div class='inline-block sellnum' contenteditable=true>" +
+					q +
+					"</div> <span class='gray'>|</span> ";
+				html +=
+					"<span class='clickable' onclick='var inum=\"" +
+					args.num +
+					'"; if(character.items[inum].name=="' +
+					actual.name +
+					'") sell(inum,parseInt($(".sellnum").html()))\'>' +
+					phrase.html("interface.item.sell") +
+					"</span> ";
 				html += "</div>";
-			} else html += "<div><span class='clickable' onclick='var inum=\"" + (args.num) + "\"; if(character.items[inum].name==\"" + (actual.name) + "\") sell(inum)'>" + phrase.html("interface.item.sell") + "</span></div>";
+			} else
+				html +=
+					"<div><span class='clickable' onclick='var inum=\"" +
+					args.num +
+					'"; if(character.items[inum].name=="' +
+					actual.name +
+					"\") sell(inum)'>" +
+					phrase.html("interface.item.sell") +
+					"</span></div>";
 		}
 		if (args.cancel) {
 			html += "<div class='clickable' data-ui-dismiss onclick='$(this).parent().remove()'>" + phrase.html("interface.item.close") + "</div>";
@@ -4199,7 +5022,16 @@ function render_item(selector, args) {
 		if (!value && !args.sell && actual && !trade_item && !args.trade && !args.npc) {
 			if (item.action) {
 				var id = (args && args.slot) || (args && args.num);
-				html += '<div><span data-id="' + id + '" class="clickable" style="color: ' + (item.acolor || color) + '" onclick="' + item.onclick + '"">' + phrase.definition("item", name, "action", item.action) + "</span></div>";
+				html +=
+					'<div><span data-id="' +
+					id +
+					'" class="clickable" style="color: ' +
+					(item.acolor || color) +
+					'" onclick="' +
+					item.onclick +
+					'"">' +
+					phrase.definition("item", name, "action", item.action) +
+					"</span></div>";
 			}
 			if (item.type == "computer") {
 				html += "<div class='clickable' onclick='add_log(phrase(\"interface.computer.beep\"))' style=\"color: #32A3B0\">" + phrase.html("interface.item.network") + "</div>";
@@ -4208,13 +5040,13 @@ function render_item(selector, args) {
 				html += "<div class='clickable' onclick='socket.emit(\"trade_history\",{}); $(this).parent().remove()' style=\"color: #44484F\">" + phrase.html("interface.item.trade_history") + "</div>";
 			}
 			if (0 && item.type == "computer" && (actual.charges === undefined || actual.charges) && gameplay == "normal") {
-				html += "<div class='clickable' onclick='socket.emit(\"unlock\",{name:\"code\",num:\"" + (args.num) + "\"});' style=\"color: #BA61A4\">" + phrase.html("interface.item.unlock") + "</div>";
+				html += '<div class=\'clickable\' onclick=\'socket.emit("unlock",{name:"code",num:"' + args.num + '"});\' style="color: #BA61A4">' + phrase.html("interface.item.unlock") + "</div>";
 			}
 			if (item.type == "computer") {
 				html += "<div class='clickable' onclick='render_computer($(this).parent())' style=\"color: #32A3B0\">" + phrase.html("interface.item.network") + "</div>";
 			}
 			if (item.type == "stand" && !character.stand) {
-				html += "<div class='clickable' onclick='open_merchant(\"" + (args.num) + "\"); $(this).parent().remove()' style=\"color: #8E5E2C\">" + phrase.html("interface.item.open") + "</div>";
+				html += "<div class='clickable' onclick='open_merchant(\"" + args.num + '"); $(this).parent().remove()\' style="color: #8E5E2C">' + phrase.html("interface.item.open") + "</div>";
 			}
 			if (item.type == "stand" && character.stand) {
 				html += "<div class='clickable' data-ui-dismiss onclick='close_merchant(); $(this).parent().remove()' style=\"color: #8E5E2C\">" + phrase.html("interface.item.close") + "</div>";
@@ -4222,19 +5054,33 @@ function render_item(selector, args) {
 			if (item.type == "elixir" && !args.from_player) {
 				var display_phrase = phrase.html("interface.item.drink");
 				if (item.eat) display_phrase = phrase.html("interface.item.eat");
-				html += "<div class='clickable' onclick='socket.emit(\"equip\",{num:\"" + args.num + '"}); push_deferred("equip"); $(this).parent().remove()\' style="color: #D86E89">' + display_phrase + "</div>";
+				html +=
+					"<div class='clickable' onclick='socket.emit(\"equip\",{num:\"" + args.num + '"}); push_deferred("equip"); $(this).parent().remove()\' style="color: #D86E89">' + display_phrase + "</div>";
 			}
 			if ((item.type == "licence" || item.type == "spawner") && !args.from_player) {
-				html += "<div class='clickable' onclick='socket.emit(\"equip\",{num:\"" + (args.num) + "\"}); push_deferred(\"equip\"); $(this).parent().remove()' style=\"color: #574F58\">" + phrase.html("interface.item.use") + "</div>";
+				html +=
+					"<div class='clickable' onclick='socket.emit(\"equip\",{num:\"" +
+					args.num +
+					'"}); push_deferred("equip"); $(this).parent().remove()\' style="color: #574F58">' +
+					phrase.html("interface.item.use") +
+					"</div>";
 			}
 			if (in_arr(actual.name, ["stoneofxp", "stoneofgold", "stoneofluck"])) {
-				html += "<div class='clickable' onclick='socket.emit(\"convert\",{num:\"" + (args.num) + "\"});' style=\"color: " + (colors.cash) + "\">" + phrase.html("interface.item.convert_to_shells") + "</div>";
+				html +=
+					"<div class='clickable' onclick='socket.emit(\"convert\",{num:\"" + args.num + '"});\' style="color: ' + colors.cash + '">' + phrase.html("interface.item.convert_to_shells") + "</div>";
 			}
 			if (in_arr(actual.name, booster_items)) {
 				if (actual.expires)
 					html +=
-						"<div class='clickable' onclick='shift(\"" + (args.num) + "\",\"" + (booster_items[(booster_items.indexOf(actual.name) + 1) % 3]) + "\"); $(this).parent().remove()' style=\"color: #438EE2\">" + phrase.html("interface.item.shift") + "</div>";
-				else html += "<div class='clickable' onclick='activate(\"" + (args.num) + "\",\"activate\"); $(this).parent().remove()' style=\"color: #438EE2\">" + phrase.html("interface.item.activate") + "</div>";
+						"<div class='clickable' onclick='shift(\"" +
+						args.num +
+						'","' +
+						booster_items[(booster_items.indexOf(actual.name) + 1) % 3] +
+						'"); $(this).parent().remove()\' style="color: #438EE2">' +
+						phrase.html("interface.item.shift") +
+						"</div>";
+				else
+					html += "<div class='clickable' onclick='activate(\"" + args.num + '","activate"); $(this).parent().remove()\' style="color: #438EE2">' + phrase.html("interface.item.activate") + "</div>";
 			}
 		}
 		if (args.craft) {
@@ -4261,7 +5107,7 @@ function render_item(selector, args) {
 		if (args.dismantle) {
 			var i = 0;
 			html += "<div style='margin-top: 5px'></div>";
-			html += "<div style='color: " + (color) + "; display: inline-block; border-bottom: 2px dashed gray; margin-bottom: 3px' class='cbold'>" + phrase.html("interface.item.dismantles_to") + "</div>";
+			html += "<div style='color: " + color + "; display: inline-block; border-bottom: 2px dashed gray; margin-bottom: 3px' class='cbold'>" + phrase.html("interface.item.dismantles_to") + "</div>";
 			html += "<div></div>";
 			G.dismantle[name].items.forEach(function (item) {
 				var q = undefined;
@@ -4306,20 +5152,28 @@ function render_wishlist_item(name, num) {
 	html += "<div style='background-color: black; border: 5px solid gray; font-size: 24px; display: inline-block; padding: 20px; line-height: 24px; max-width: 240px; min-width:200px;' class='buyitem'>";
 	html += "<div style='margin-left:-2px; display:inline-block; vertical-align:middle'>" + item_container({ skin: def.skin, def: def }) + "</div>";
 	html += "<div style='display:inline-block; vertical-align:top; margin-left: 4px'>";
-	html += "<div style='color: #f1c054; border-bottom: 2px dashed #C7CACA; margin-bottom: 3px; margin-left: 3px; margin-right: 3px; display: inline-block' class='cbold'>" + phrase.html("interface.wishlist_item.wishlist") + "</div>";
+	html +=
+		"<div style='color: #f1c054; border-bottom: 2px dashed #C7CACA; margin-bottom: 3px; margin-left: 3px; margin-right: 3px; display: inline-block' class='cbold'>" +
+		phrase.html("interface.wishlist_item.wishlist") +
+		"</div>";
 	html += "<div></div>";
 	html += "<div style='color: #E4E4E4; border-bottom: 2px dashed gray; margin-bottom: 3px; display: inline-block' class='cbold'>" + def.name + "</div>";
 	html += "</div>";
 
-	html += "<div><span class='gray clickable' onclick='$(\".wnumq\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block wnumq' contenteditable=true>1</div></div>";
 	html +=
-		"<div><span class='gold clickable' onclick='$(\".wprice\").cfocus()'>" + phrase.html(def.s ? "interface.price.gold_each" : "interface.price.gold") + "</span> <div class='inline-block wprice editable' contenteditable=true>" +
+		"<div><span class='gray clickable' onclick='$(\".wnumq\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block wnumq' contenteditable=true>1</div></div>";
+	html +=
+		"<div><span class='gold clickable' onclick='$(\".wprice\").cfocus()'>" +
+		phrase.html(def.s ? "interface.price.gold_each" : "interface.price.gold") +
+		"</span> <div class='inline-block wprice editable' contenteditable=true>" +
 		(calculate_item_value({ name: name }) + 1) +
 		"</div></div>";
 	if (def.compound || def.upgrade)
 		html +=
-			"<div><span style='color:#9E7BCA' class='clickable' onclick='$(\".wlevel\").cfocus()'>" + phrase.html("interface.wishlist_item.level") + "</span> <div class='inline-block wlevel editable' contenteditable=true data-default='0'>0</div></div>";
-	html += "<div><span class='clickable' onclick='wishlist_form(" + (num) + ",\"" + (name) + "\")'>" + phrase.html("interface.wishlist_item.wishlist_2") + "</span></div>";
+			"<div><span style='color:#9E7BCA' class='clickable' onclick='$(\".wlevel\").cfocus()'>" +
+			phrase.html("interface.wishlist_item.level") +
+			"</span> <div class='inline-block wlevel editable' contenteditable=true data-default='0'>0</div></div>";
+	html += "<div><span class='clickable' onclick='wishlist_form(" + num + ',"' + name + "\")'>" + phrase.html("interface.wishlist_item.wishlist_2") + "</span></div>";
 
 	html += "</div>";
 	render_ui_panel("#topleftcornerdialog", html);
@@ -4340,7 +5194,7 @@ function render_set(name) {
 		var rep = num;
 		if (num != set.items.length) rep = num + "+";
 		if (set[num] && Object.keys(set[num]).length)
-			html += "<div><span style='color:#8A8D8F'>" + phrase.html("interface.set.equipped", { rep: rep }) + "</span> " + (render_item("html", { pure: true, item: set[num], prop: set[num] })) + "</div>";
+			html += "<div><span style='color:#8A8D8F'>" + phrase.html("interface.set.equipped", { rep: rep }) + "</span> " + render_item("html", { pure: true, item: set[num], prop: set[num] }) + "</div>";
 	});
 	if (set.explanation) {
 		html += "<div style='color: #C3C3C3'>" + phrase.definition("set", name, "explanation", set.explanation) + "</div>";
@@ -5009,9 +5863,20 @@ function render_skills() {
 	var last = 0,
 		right_style = "text-align: right";
 	var html = "<div id='skills-item' class='rendercontainer' style='flex-shrink: 0; max-height: 100vh; overflow-y: auto; margin-right: 5px'></div>";
-	html += "<div id='skills-frame' style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; flex-shrink: 0'><div id='skills-panel' style='max-height: calc(100vh - 50px); overflow-y: auto'>";
 	html +=
-		"<div class='textbutton' style='margin-left: 5px'><span  onclick='btc(event); show_snippet()'>" + phrase.html("interface.skills.mapping") + "</span> <span style='color: " + (((skills_page == "I" && "#76BDE5") || "#7C7C7C")) + ";' class='clickable' onclick='btc(event); skills_page=\"I\"; render_skills(); render_skills();'>1</span> <span style='color: " + (((skills_page == "II" && "#E38241") || "#7C7C7C")) + ";' class='clickable' onclick='btc(event); skills_page=\"II\"; render_skills(); render_skills();'>2</span> <span style='color: " + (((skills_page == "U" && "#8FCE72") || "#7C7C7C")) + ";' class='clickable' onclick='btc(event); skills_page=\"U\"; render_skills(); render_skills();'>" + phrase.html("interface.skills.utility_tab") + "</span><!-- <span style='float:right; color: #7C7C7C; margin-right: 5px' class='clickable' onclick='btc(event); show_json(keymap)'><span style='color:#DECE31'>&gt;</span> DATA <span style='color:#DECE31'>&lt;</span></span>--></div>";
+		"<div id='skills-frame' style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; flex-shrink: 0'><div id='skills-panel' style='max-height: calc(100vh - 50px); overflow-y: auto'>";
+	html +=
+		"<div class='textbutton' style='margin-left: 5px'><span  onclick='btc(event); show_snippet()'>" +
+		phrase.html("interface.skills.mapping") +
+		"</span> <span style='color: " +
+		((skills_page == "I" && "#76BDE5") || "#7C7C7C") +
+		";' class='clickable' onclick='btc(event); skills_page=\"I\"; render_skills(); render_skills();'>1</span> <span style='color: " +
+		((skills_page == "II" && "#E38241") || "#7C7C7C") +
+		";' class='clickable' onclick='btc(event); skills_page=\"II\"; render_skills(); render_skills();'>2</span> <span style='color: " +
+		((skills_page == "U" && "#8FCE72") || "#7C7C7C") +
+		";' class='clickable' onclick='btc(event); skills_page=\"U\"; render_skills(); render_skills();'>" +
+		phrase.html("interface.skills.utility_tab") +
+		"</span><!-- <span style='float:right; color: #7C7C7C; margin-right: 5px' class='clickable' onclick='btc(event); show_json(keymap)'><span style='color:#DECE31'>&gt;</span> DATA <span style='color:#DECE31'>&lt;</span></span>--></div>";
 	var km1 = ["1", "2", "3", "4", "5", "6", "7"],
 		km2 = ["Q", "W", "E", "R", "X", "T", "B"];
 	if (skills_page == "II") ((km1 = ["8", "9", "0", "G", "H", "J", "K"]), (km2 = ["SHIFT", "Z", "V", "M", "P", "D", "BACK"]));
@@ -5037,7 +5902,9 @@ function render_skills() {
 	});
 	html += "</div>";
 	html +=
-		"<div class='textbutton' style='margin-left: 5px'><span class='clickable' onclick='btc(event); show_json(G.skills)'>" + phrase.html("interface.skills.skills") + "</span><!-- <span style='float:right; color: #7C7C7C; margin-right: 5px' class='clickable' onclick='btc(event); show_modal($(\"#keymapguide\").html())'><span style='color:#60B8C7'>&gt;</span> CONFIG <span style='color:#60B8C7'>&lt;</span></span>--></div>";
+		"<div class='textbutton' style='margin-left: 5px'><span class='clickable' onclick='btc(event); show_json(G.skills)'>" +
+		phrase.html("interface.skills.skills") +
+		"</span><!-- <span style='float:right; color: #7C7C7C; margin-right: 5px' class='clickable' onclick='btc(event); show_modal($(\"#keymapguide\").html())'><span style='color:#60B8C7'>&gt;</span> CONFIG <span style='color:#60B8C7'>&lt;</span></span>--></div>";
 	var s = [],
 		slast = 0,
 		e = [],
@@ -5120,7 +5987,10 @@ function render_skills() {
 }
 
 function show_condition(name) {
-	var def = Object.assign({}, G.conditions[name], { name: phrase.definition("condition", name, "name", G.conditions[name].name), explanation: phrase.definition("condition", name, "explanation", G.conditions[name].explanation) });
+	var def = Object.assign({}, G.conditions[name], {
+		name: phrase.definition("condition", name, "name", G.conditions[name].name),
+		explanation: phrase.definition("condition", name, "explanation", G.conditions[name].explanation),
+	});
 	show_modal(render_item("html", { skin: def.skin, item: def, prop: def }), { wrap: false });
 }
 
@@ -5252,7 +6122,8 @@ function render_travel(the_map) {
 		});
 	});
 	if (Object.keys(packs).length) {
-		html += "<div></div><div class='gamebutton' onclick='stpr(event);' style='cursor:inherit !important'>" + phrase.html("interface.travel.monsters_in", { map: G.maps[the_map].name }) + "</div><div></div>";
+		html +=
+			"<div></div><div class='gamebutton' onclick='stpr(event);' style='cursor:inherit !important'>" + phrase.html("interface.travel.monsters_in", { map: G.maps[the_map].name }) + "</div><div></div>";
 		html += "<div style='margin: 8px'>";
 		object_sort(packs, "hpsort").forEach(function (e) {
 			if ((G.monsters[e[0]].cute || G.monsters[e[0]].stationary) && !G.monsters[e[0]].achievements) return;
@@ -5498,20 +6369,36 @@ function render_interaction(type, sub_type, args) {
 	} else if (type == "newupgrade") {
 		html += phrase.html("interface.interaction.adventurer_i_can_upgrade_your_weapons_or_armors_combine_3");
 		html +=
-			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_upgrade_shrine(1)'>" + phrase.html("interface.interaction.upgrade") + "</div> <div class='slimbutton' onclick='render_compound_shrine(1)'>" + phrase.html("interface.interaction.combine") + "</div></span>";
+			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_upgrade_shrine(1)'>" +
+			phrase.html("interface.interaction.upgrade") +
+			"</div> <div class='slimbutton' onclick='render_compound_shrine(1)'>" +
+			phrase.html("interface.interaction.combine") +
+			"</div></span>";
 	} else if (type == "locksmith") {
+		html += phrase.html("interface.interaction.lock_prevents_anything_that_can_destroy_an_item_selling_upgrading");
 		html +=
-			phrase.html("interface.interaction.lock_prevents_anything_that_can_destroy_an_item_selling_upgrading");
-		html +=
-			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_locksmith(\"lock\")'>" + phrase.html("interface.interaction.lock") + "</div> <div class='slimbutton' onclick='render_locksmith(\"seal\")'>" + phrase.html("interface.interaction.seal") + "</div> <div class='slimbutton' onclick='render_locksmith(\"unlock\")'>" + phrase.html("interface.interaction.unlock") + "</div></span>";
+			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_locksmith(\"lock\")'>" +
+			phrase.html("interface.interaction.lock") +
+			"</div> <div class='slimbutton' onclick='render_locksmith(\"seal\")'>" +
+			phrase.html("interface.interaction.seal") +
+			"</div> <div class='slimbutton' onclick='render_locksmith(\"unlock\")'>" +
+			phrase.html("interface.interaction.unlock") +
+			"</div></span>";
 	} else if (type == "scrollsmith") {
-		html +=
-			phrase.html("interface.interaction.de_stat_an_item_give_you_back_the_scrolls_used");
+		html += phrase.html("interface.interaction.de_stat_an_item_give_you_back_the_scrolls_used");
 		html += "<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_scrollsmith()'>" + phrase.html("interface.interaction.de_stat") + "</div></span>";
 	} else if (type == "crafting") {
 		html += phrase.html("interface.interaction.i_can_craft_or_dismantle_items_for_you_price_differs");
 		html +=
-			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_recipes()'>" + phrase.html("interface.interaction.recipes") + "</div> <div class='slimbutton' onclick='render_recipes(\"dismantle\")'>" + phrase.html("interface.interaction.recycling") + "</div> <div class='slimbutton' onclick='render_craftsman()'>" + phrase.html("interface.interaction.craft") + "</div> <div class='slimbutton' onclick='render_dismantler()'>" + phrase.html("interface.interaction.dismantle") + "</div></span>";
+			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_recipes()'>" +
+			phrase.html("interface.interaction.recipes") +
+			"</div> <div class='slimbutton' onclick='render_recipes(\"dismantle\")'>" +
+			phrase.html("interface.interaction.recycling") +
+			"</div> <div class='slimbutton' onclick='render_craftsman()'>" +
+			phrase.html("interface.interaction.craft") +
+			"</div> <div class='slimbutton' onclick='render_dismantler()'>" +
+			phrase.html("interface.interaction.dismantle") +
+			"</div></span>";
 	} else if (type == "wizard") {
 		html += phrase.html("interface.interaction.well_hello_there_i_m_wizard_i_made_this_game");
 	} else if (type == "santa") {
@@ -5519,12 +6406,16 @@ function render_interaction(type, sub_type, args) {
 		html += "<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_exchange_shrine(\"candycane\")'>" + phrase.html("interface.interaction.i_have_one") + "</div></span>";
 	} else if (type == "standmerchant") {
 		html += phrase.html("interface.interaction.anyone_can_become_a_merchant_and_start_trading_you_only");
-		html += "<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_merchant(get_npc(\"standmerchant\"))'>" + phrase.html("interface.interaction.let_me_buy_one") + "</div></span>";
+		html +=
+			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_merchant(get_npc(\"standmerchant\"))'>" +
+			phrase.html("interface.interaction.let_me_buy_one") +
+			"</div></span>";
 	} else if (type == "candycane_success") {
 		html += phrase.html("interface.interaction.ah_thanks_for_cheering_him_up_here_s_something_for");
 	} else if (type == "lostearring") {
 		html += phrase.html("interface.interaction.ewww_ewww_ewww_these_wretched_things_ate_my_earrings_kill");
-		html += "<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_exchange_shrine(\"lostearring\")'>" + phrase.html("interface.interaction.as_you_wish") + "</div></span>";
+		html +=
+			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_exchange_shrine(\"lostearring\")'>" + phrase.html("interface.interaction.as_you_wish") + "</div></span>";
 	} else if (type == "lostearring_success") {
 		html += phrase.html("interface.interaction.you_did_well_here_s_something_left_from_one_of");
 	} else if (type == "mistletoe") {
@@ -5541,19 +6432,26 @@ function render_interaction(type, sub_type, args) {
 		html += phrase.html("interface.interaction.bwahahahahah_cough_ehem_thanks_you_got_a_good_deal_keep");
 		d_text("+1", get_npc("gemmerchant"), { color: "#E78295" });
 	} else if (type == "gemfragments") {
+		html += phrase.html("interface.interaction.back_in_the_day_we_had_miners_then_came_the", { item: G.items.gemfragment.e });
 		html +=
-			phrase.html("interface.interaction.back_in_the_day_we_had_miners_then_came_the", { item: G.items.gemfragment.e });
-		html += "<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_exchange_shrine(\"gemfragment\")'>" + phrase.html("interface.interaction.i_got", { item: G.items.gemfragment.e }) + "</div></span>";
+			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_exchange_shrine(\"gemfragment\")'>" +
+			phrase.html("interface.interaction.i_got", { item: G.items.gemfragment.e }) +
+			"</div></span>";
 	} else if (type == "leathers") {
+		html += phrase.html("interface.interaction.hey_hey_hey_what_brings_you_to_this_cold_land", { item: G.items.leather.e });
 		html +=
-			phrase.html("interface.interaction.hey_hey_hey_what_brings_you_to_this_cold_land", { item: G.items.leather.e });
-		html += "<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_exchange_shrine(\"leather\")'>" + phrase.html("interface.interaction.i_have", { item: G.items.leather.e }) + "</div></span>";
+			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='render_exchange_shrine(\"leather\")'>" +
+			phrase.html("interface.interaction.i_have", { item: G.items.leather.e }) +
+			"</div></span>";
 	} else if (type == "leather_success") {
 		html += phrase.html("interface.interaction.here_you_go_enjoy_keep_bringing_leathers_to_me_i");
 		d_text("+1", get_npc("leathermerchant"), { color: "#DFE9D9" });
 	} else if (type == "jailer") {
 		html += phrase.html(Math.random() < 0.5 ? "interface.jailer.boy" : "interface.jailer.girl");
-		html += "<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='pcs(); socket.emit(\"leave\"); push_deferred(\"leave\")'>" + phrase.html("interface.interaction.leave") + "</div></span>";
+		html +=
+			"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='pcs(); socket.emit(\"leave\"); push_deferred(\"leave\")'>" +
+			phrase.html("interface.interaction.leave") +
+			"</div></span>";
 	} else if (type == "blocker" || type == "guard") {
 		var roll = Math.random();
 		if (roll < 0.5) html += phrase.html("interface.interaction.hmm_hmm_hmm_can_t_let_you_pass_check_again");
@@ -5567,12 +6465,23 @@ function render_interaction(type, sub_type, args) {
 		if (is_electron || is_tauri) {
 			html += phrase.html("interface.interaction.hello_you_don_t_seem_to_have_an_account_open", { value: to_pretty_num(gold) });
 			html +=
-				"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='socket.emit(\"bank\",{operation:\"unlock\",gold:1,pack:\"" + (pack) + "\"}); push_deferred(\"bank\");' style='margin-right: 5px;'>" + phrase.html("interface.interaction.pay_gold", { value: to_pretty_num(gold) }) + "</div></span>";
+				"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='socket.emit(\"bank\",{operation:\"unlock\",gold:1,pack:\"" +
+				pack +
+				"\"}); push_deferred(\"bank\");' style='margin-right: 5px;'>" +
+				phrase.html("interface.interaction.pay_gold", { value: to_pretty_num(gold) }) +
+				"</div></span>";
 		} else {
+			html += phrase.html("interface.interaction.hello_you_don_t_seem_to_have_an_account_open_2", { value: to_pretty_num(gold), value2: to_pretty_num(shells) });
 			html +=
-				phrase.html("interface.interaction.hello_you_don_t_seem_to_have_an_account_open_2", { value: to_pretty_num(gold), value2: to_pretty_num(shells) });
-			html +=
-				"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='socket.emit(\"bank\",{operation:\"unlock\",gold:1,pack:\"" + (pack) + "\"}); push_deferred(\"bank\");' style='margin-right: 5px;'>" + phrase.html("interface.interaction.use_gold") + "</div><div class='slimbutton' onclick='socket.emit(\"bank\",{operation:\"unlock\",shells:1,pack:\"" + (pack) + "\"}); push_deferred(\"bank\");'>" + phrase.html("interface.interaction.use_shells") + "</div></span>";
+				"<span style='float: right; margin-top: 5px'><div class='slimbutton' onclick='socket.emit(\"bank\",{operation:\"unlock\",gold:1,pack:\"" +
+				pack +
+				"\"}); push_deferred(\"bank\");' style='margin-right: 5px;'>" +
+				phrase.html("interface.interaction.use_gold") +
+				'</div><div class=\'slimbutton\' onclick=\'socket.emit("bank",{operation:"unlock",shells:1,pack:"' +
+				pack +
+				'"}); push_deferred("bank");\'>' +
+				phrase.html("interface.interaction.use_shells") +
+				"</div></span>";
 		}
 	} else return;
 
@@ -5594,7 +6503,19 @@ function load_nearby(fallback) {
 	if (someone) {
 		html += "<table style='margin: 5px; text-align: center'>";
 		html +=
-			"<tr style='color: gray; text-decoration: underline'><th style='width: 100px'>" + phrase.html("interface.load_nearby.name") + "</th><th style='width: 60px'>" + phrase.html("interface.load_nearby.level") + "</th><th style='width: 100px'>" + phrase.html("interface.load_nearby.class") + "</th><th style='width: 60px'>" + phrase.html("interface.load_nearby.age") + "</th><th style='width: 100px'>" + phrase.html("interface.load_nearby.status") + "</th><th style='width: 120px'>" + phrase.html("interface.load_nearby.actions") + "</th></tr>";
+			"<tr style='color: gray; text-decoration: underline'><th style='width: 100px'>" +
+			phrase.html("interface.load_nearby.name") +
+			"</th><th style='width: 60px'>" +
+			phrase.html("interface.load_nearby.level") +
+			"</th><th style='width: 100px'>" +
+			phrase.html("interface.load_nearby.class") +
+			"</th><th style='width: 60px'>" +
+			phrase.html("interface.load_nearby.age") +
+			"</th><th style='width: 100px'>" +
+			phrase.html("interface.load_nearby.status") +
+			"</th><th style='width: 120px'>" +
+			phrase.html("interface.load_nearby.actions") +
+			"</th></tr>";
 		var l = Object.values(entities);
 		l.sort(function (a, b) {
 			if (!a.afk && b.afk) return -1;
@@ -5613,7 +6534,13 @@ function load_nearby(fallback) {
 			else if (player.afk == "bot") afk = "<span style='color: gray'>" + phrase.html("interface.presence.bot") + "</span>";
 			//if(!player.party) actions+=" <span style='color: #2799DD'>PM</span>";
 			if (player.owner && in_arr(player.owner, friends)) actions += " <span style='color: #EC82C4'>" + phrase.html("interface.load_nearby.friends") + "</span>";
-			else actions += " <span style='color: #2799DD' class='clickable' onclick='socket.emit(\"friend\",{event:\"request\",name:\"" + (player.name) + "\"}); push_deferred(\"friend\")'>" + phrase.html("interface.load_nearby.friend") + "</span>";
+			else
+				actions +=
+					" <span style='color: #2799DD' class='clickable' onclick='socket.emit(\"friend\",{event:\"request\",name:\"" +
+					player.name +
+					'"}); push_deferred("friend")\'>' +
+					phrase.html("interface.load_nearby.friend") +
+					"</span>";
 			if (!actions) actions = phrase.html("interface.load_nearby.none");
 			html +=
 				"<tr><td class='clickable' onclick='target_player(\"" +
@@ -5648,14 +6575,22 @@ function load_friends(info) {
 		if (friends_inside != "friends") return;
 		var html = "";
 		html += render_com_buttons();
-		if (!info.chars.length && !friends.length)
-			html +=
-				"<div style='margin-top: 8px'>" + phrase.html("interface.load_friends.you_don_t_have_any_friends_but_it_s_ok") + "</div>";
+		if (!info.chars.length && !friends.length) html += "<div style='margin-top: 8px'>" + phrase.html("interface.load_friends.you_don_t_have_any_friends_but_it_s_ok") + "</div>";
 		else if (!info.chars.length) html += "<div style='margin-top: 8px'>" + phrase.html("interface.load_friends.no_one_online") + "</div>";
 		else {
 			html += "<table style='margin: 5px; text-align: center'>";
 			html +=
-				"<tr style='color: gray; text-decoration: underline'><th style='width: 100px'>" + phrase.html("interface.load_friends.name") + "</th><th style='width: 60px'>" + phrase.html("interface.load_friends.level") + "</th><th style='width: 100px'>" + phrase.html("interface.load_friends.class") + "</th><th style='width: 100px'>" + phrase.html("interface.load_friends.status") + "</th><th style='width: 120px'>" + phrase.html("interface.load_friends.server") + "</th></tr>";
+				"<tr style='color: gray; text-decoration: underline'><th style='width: 100px'>" +
+				phrase.html("interface.load_friends.name") +
+				"</th><th style='width: 60px'>" +
+				phrase.html("interface.load_friends.level") +
+				"</th><th style='width: 100px'>" +
+				phrase.html("interface.load_friends.class") +
+				"</th><th style='width: 100px'>" +
+				phrase.html("interface.load_friends.status") +
+				"</th><th style='width: 120px'>" +
+				phrase.html("interface.load_friends.server") +
+				"</th></tr>";
 			info.chars.sort(function (a, b) {
 				if (!a.afk && b.afk) return -1;
 				if (a.afk && !b.afk) return 1;
@@ -5667,7 +6602,18 @@ function load_friends(info) {
 			info.chars.forEach(function (player) {
 				var afk = phrase.html("interface.presence.afk");
 				if (!player.afk) afk = "<span style='color: #34bf15'>" + phrase.html("interface.load_friends.active") + "</span>";
-				html += "<tr><td>" + player.name + "</td><td>" + player.level + "</td><td>" + phrase.definition("class", player.type, "name", player.type.toTitleCase()).toLocaleUpperCase(phrase.language) + "</td><td>" + afk + "</td><td>" + server_to_ui(player.server) + "</td></tr>";
+				html +=
+					"<tr><td>" +
+					player.name +
+					"</td><td>" +
+					player.level +
+					"</td><td>" +
+					phrase.definition("class", player.type, "name", player.type.toTitleCase()).toLocaleUpperCase(phrase.language) +
+					"</td><td>" +
+					afk +
+					"</td><td>" +
+					server_to_ui(player.server) +
+					"</td></tr>";
 			});
 			html += "</table>";
 		}
@@ -5692,7 +6638,19 @@ function load_server_list(info) {
 		else {
 			html += "<table style='margin: 5px; text-align: center'>";
 			html +=
-				"<tr style='color: gray; text-decoration: underline'><th style='width: 100px'>" + phrase.html("interface.load_server_list.name") + "</th><th style='width: 60px'>" + phrase.html("interface.load_server_list.level") + "</th><th style='width: 100px'>" + phrase.html("interface.load_server_list.class") + "</th><th style='width: 60px'>" + phrase.html("interface.load_server_list.age") + "</th><th style='width: 100px'>" + phrase.html("interface.load_server_list.status") + "</th><th style='width: 120px'>" + phrase.html("interface.load_server_list.party") + "</th>";
+				"<tr style='color: gray; text-decoration: underline'><th style='width: 100px'>" +
+				phrase.html("interface.load_server_list.name") +
+				"</th><th style='width: 60px'>" +
+				phrase.html("interface.load_server_list.level") +
+				"</th><th style='width: 100px'>" +
+				phrase.html("interface.load_server_list.class") +
+				"</th><th style='width: 60px'>" +
+				phrase.html("interface.load_server_list.age") +
+				"</th><th style='width: 100px'>" +
+				phrase.html("interface.load_server_list.status") +
+				"</th><th style='width: 120px'>" +
+				phrase.html("interface.load_server_list.party") +
+				"</th>";
 			if (is_pvp) html += "<th style='width: 120px'>" + phrase.html("interface.load_server_list.kills") + "</th>";
 			html += "</tr>";
 			info.sort(function (a, b) {
@@ -5711,7 +6669,12 @@ function load_server_list(info) {
 				else if (player.afk == "code") afk = "<span style='color: gray'>CODE</span>";
 				else if (player.afk == "bot") afk = "<span style='color: gray'>" + phrase.html("interface.presence.bot") + "</span>";
 				if (!player.party && player.name != character.name && player.name != "Hidden")
-					party = "<span style='color: #34BCAF' class='clickable' onclick='parent.socket.emit(\"party\",{event:\"invite\",name:\"" + (player.name) + "\"}); push_deferred(\"party\")'>" + phrase.html("interface.load_server_list.invite") + "</span>";
+					party =
+						"<span style='color: #34BCAF' class='clickable' onclick='parent.socket.emit(\"party\",{event:\"invite\",name:\"" +
+						player.name +
+						'"}); push_deferred("party")\'>' +
+						phrase.html("interface.load_server_list.invite") +
+						"</span>";
 				else if (player.name == "Hidden") party = "<span style='color: #999999'>" + phrase.html("interface.load_server_list.none") + "</span>";
 				else if (!player.party) party = "<span style='color: #999999'>" + phrase.html("interface.load_server_list.you") + "</span>";
 				else
@@ -5721,9 +6684,23 @@ function load_server_list(info) {
 						'"}); push_deferred("party")\'>' +
 						player.party +
 						"</span>";
-				if (player.name != character.name && player.name != "Hidden") party += " <span style='color: #A255BA' class='clickable' onclick='hide_modal(); cpm_window(\"" + player.name + "\");'>" + phrase.html("interface.chat.private_message_short") + "</span>";
+				if (player.name != character.name && player.name != "Hidden")
+					party += " <span style='color: #A255BA' class='clickable' onclick='hide_modal(); cpm_window(\"" + player.name + "\");'>" + phrase.html("interface.chat.private_message_short") + "</span>";
 				if (name == "Hidden") name = "<span style='color:gray'>" + phrase.html("interface.load_server_list.hidden") + "</span>";
-				html += "<tr><td>" + name + "</td><td>" + player.level + "</td><td>" + phrase.definition("class", player.type, "name", player.type.toTitleCase()).toLocaleUpperCase(phrase.language) + "</td><td>" + player.age + "</td><td>" + afk + "</td><td>" + party + "</td>";
+				html +=
+					"<tr><td>" +
+					name +
+					"</td><td>" +
+					player.level +
+					"</td><td>" +
+					phrase.definition("class", player.type, "name", player.type.toTitleCase()).toLocaleUpperCase(phrase.language) +
+					"</td><td>" +
+					player.age +
+					"</td><td>" +
+					afk +
+					"</td><td>" +
+					party +
+					"</td>";
 				if (is_pvp) html += "<td>" + to_pretty_num(player.kills) + "</td>";
 				html += "</tr>";
 			});
@@ -5786,14 +6763,32 @@ function load_servers_list(info) {
 	friends_inside = "servers";
 	var html = "<div style='text-align:center'><div style='width:240px; display:inline-block'>";
 	html += "<table style='margin: 5px; text-align: left' class='sslist'>";
-	html += "<tr style='color: gray; text-decoration: underline'><th style='width: 120px'>" + phrase.html("interface.load_servers_list.name") + "</th><th style='width: 40px'>#</th><th style='width: 60px'>" + phrase.html("interface.load_servers_list.action") + "</th>";
+	html +=
+		"<tr style='color: gray; text-decoration: underline'><th style='width: 120px'>" +
+		phrase.html("interface.load_servers_list.name") +
+		"</th><th style='width: 40px'>#</th><th style='width: 60px'>" +
+		phrase.html("interface.load_servers_list.action") +
+		"</th>";
 	html += "</tr>";
 	html +=
-		"<tr><td style='color: #B7587D'><span class='clickable' onclick='load_merchants()'>" + phrase.html("interface.load_servers_list.all_merchants") + "</span></td><td><span style='color:#929C99'>N</span></td><td style='color: #2699AF'><span class='clickable' onclick='load_merchants()'>" + phrase.html("interface.load_servers_list.show") + "</span></td></tr>";
+		"<tr><td style='color: #B7587D'><span class='clickable' onclick='load_merchants()'>" +
+		phrase.html("interface.load_servers_list.all_merchants") +
+		"</span></td><td><span style='color:#929C99'>N</span></td><td style='color: #2699AF'><span class='clickable' onclick='load_merchants()'>" +
+		phrase.html("interface.load_servers_list.show") +
+		"</span></td></tr>";
 	X.servers.forEach(function (server) {
 		var action = "<span style='color:gray'>" + phrase.html("interface.load_servers_list.here") + "</span>";
 		if (!(server_region == server.region && server.name == server_identifier))
-			action = "<a href='/character/" + (character.name) + "/in/" + (server.region) + "/" + (server.name) + "/' class='cancela' style='color: #4C9BC8'>" + phrase.html("interface.load_servers_list.switch") + "</span>";
+			action =
+				"<a href='/character/" +
+				character.name +
+				"/in/" +
+				server.region +
+				"/" +
+				server.name +
+				"/' class='cancela' style='color: #4C9BC8'>" +
+				phrase.html("interface.load_servers_list.switch") +
+				"</span>";
 		html +=
 			"<tr><td>" + server_regions[server.region] + " " + server.name + "</td><td><span style='color:" + colors.server_success + "'>" + server.players + "</span></td><td>" + action + "</td></tr>";
 	});
@@ -5809,20 +6804,51 @@ function load_character_list() {
 	var html = "";
 	html += "<table style='margin: 5px; text-align: center' class='cclist'>";
 	html +=
-		"<tr style='color: gray; text-decoration: underline'><th style='width: 140px'>" + phrase.html("interface.load_character_list.name") + "</th><th style='width: 70px'>" + phrase.html("interface.load_character_list.level") + "</th><th style='width: 120px'>" + phrase.html("interface.load_character_list.class") + "</th><th style='width: 120px'>" + phrase.html("interface.load_character_list.status") + "</th><th style='width: 120px'>" + phrase.html("interface.load_character_list.deploy") + "</th>";
+		"<tr style='color: gray; text-decoration: underline'><th style='width: 140px'>" +
+		phrase.html("interface.load_character_list.name") +
+		"</th><th style='width: 70px'>" +
+		phrase.html("interface.load_character_list.level") +
+		"</th><th style='width: 120px'>" +
+		phrase.html("interface.load_character_list.class") +
+		"</th><th style='width: 120px'>" +
+		phrase.html("interface.load_character_list.status") +
+		"</th><th style='width: 120px'>" +
+		phrase.html("interface.load_character_list.deploy") +
+		"</th>";
 	html += "</tr>";
 	X.characters.forEach(function (player) {
 		var afk = phrase.html("interface.presence.afk"),
 			party = player.party,
 			name = player.name,
 			online = false;
-		if (player.online) ((afk = "<span style='color: #34bf15'>" + phrase.html("interface.load_character_list.online") + "</span>"), (link = "<span class='gray'>" + phrase.html("interface.load_character_list.deployed") + "</span>"));
+		if (player.online)
+			((afk = "<span style='color: #34bf15'>" + phrase.html("interface.load_character_list.online") + "</span>"),
+				(link = "<span class='gray'>" + phrase.html("interface.load_character_list.deployed") + "</span>"));
 		else
 			((afk = "<span style='color: gray'>" + phrase.html("interface.load_character_list.offline") + "</span>"),
-				(link = "<a href='/character/" + (player.name) + "/in/" + (server_region) + "/" + (server_identifier) + "/' target='_blank' class='cancela' style='color: #4C9BC8'>" + phrase.html("interface.load_character_list.deploy") + "</span>"));
-		if (player.name != character.name && player.name != "Hidden") party += " <span style='color: #A255BA' class='clickable' onclick='hide_modal(); cpm_window(\"" + player.name + "\");'>" + phrase.html("interface.chat.private_message_short") + "</span>";
+				(link =
+					"<a href='/character/" +
+					player.name +
+					"/in/" +
+					server_region +
+					"/" +
+					server_identifier +
+					"/' target='_blank' class='cancela' style='color: #4C9BC8'>" +
+					phrase.html("interface.load_character_list.deploy") +
+					"</span>"));
+		if (player.name != character.name && player.name != "Hidden")
+			party += " <span style='color: #A255BA' class='clickable' onclick='hide_modal(); cpm_window(\"" + player.name + "\");'>" + phrase.html("interface.chat.private_message_short") + "</span>";
 		if (name == "Hidden") name = "<span style='color:gray'>" + phrase.html("interface.load_character_list.hidden") + "</span>";
-		html += "<tr><td>" + name + "</td><td>" + player.level + "</td><td>" + phrase.definition("class", player.type, "name", player.type.toTitleCase()).toLocaleUpperCase(phrase.language) + "</td><td>" + afk + "</td>";
+		html +=
+			"<tr><td>" +
+			name +
+			"</td><td>" +
+			player.level +
+			"</td><td>" +
+			phrase.definition("class", player.type, "name", player.type.toTitleCase()).toLocaleUpperCase(phrase.language) +
+			"</td><td>" +
+			afk +
+			"</td>";
 		html += "<td>" + link + "</td>";
 		html += "</tr>";
 	});
@@ -5844,13 +6870,23 @@ function load_mainframe_list(info) {
 			})
 			.catch(function (error) {
 				if (friends_inside != "mainframe") return;
-				$(".friendslist").html("<div style='margin-top: 8px; color: #E45D69'>" + phrase.html("interface.load_mainframe_list.mainframe", { value: phrase.error((error && error.reason) || "unavailable") }) + "</div>");
+				$(".friendslist").html(
+					"<div style='margin-top: 8px; color: #E45D69'>" + phrase.html("interface.load_mainframe_list.mainframe", { value: phrase.error((error && error.reason) || "unavailable") }) + "</div>",
+				);
 			});
 		return;
 	}
 	var html = "<div style='text-align:left; margin: 10px'>";
 	html +=
-		"<div style='margin-bottom: 12px'><span style='color:#5ED6A8'>" + ((info.online ? phrase.html("interface.load_mainframe_list.mainframe_online") : phrase.html("interface.load_mainframe_list.mainframe_offline"))) + "</span>" + " " + "&nbsp;" + " " + "<span style='color:gray'>" + phrase.html("interface.load_mainframe_list.shells", { value: to_pretty_num(info.shells || 0) }) + "</span></div>";
+		"<div style='margin-bottom: 12px'><span style='color:#5ED6A8'>" +
+		(info.online ? phrase.html("interface.load_mainframe_list.mainframe_online") : phrase.html("interface.load_mainframe_list.mainframe_offline")) +
+		"</span>" +
+		" " +
+		"&nbsp;" +
+		" " +
+		"<span style='color:gray'>" +
+		phrase.html("interface.load_mainframe_list.shells", { value: to_pretty_num(info.shells || 0) }) +
+		"</span></div>";
 	(info.characters || []).forEach(function (entry) {
 		var assignment = entry.assignment || {};
 		var runtime = entry.runtime || {};
@@ -5859,8 +6895,16 @@ function load_mainframe_list(info) {
 		var remaining = Math.max(0, Math.ceil(Number(access.remaining_seconds) || 0));
 		html += "<div style='padding: 8px; margin-bottom: 6px; border: 2px solid #4C4C4C'>";
 		html +=
-			"<span style='color:#F3A05D'>" + (html_escape(entry.character)) + "</span> <span style='color:gray'>" + phrase.html("interface.load_mainframe_list.lv", { value: to_pretty_num(entry.level || 0), value2: phrase.definition("class", entry.class, "name", entry.class || "").toLocaleUpperCase(phrase.language) }) + "</span>";
-		html += "<span style='float:right; color:" + (status == "running" ? "#67C85C" : "gray") + "'>" + html_escape(phrase.definition("mainframe_status", status, "name", status.toUpperCase())) + "</span>";
+			"<span style='color:#F3A05D'>" +
+			html_escape(entry.character) +
+			"</span> <span style='color:gray'>" +
+			phrase.html("interface.load_mainframe_list.lv", {
+				value: to_pretty_num(entry.level || 0),
+				value2: phrase.definition("class", entry.class, "name", entry.class || "").toLocaleUpperCase(phrase.language),
+			}) +
+			"</span>";
+		html +=
+			"<span style='float:right; color:" + (status == "running" ? "#67C85C" : "gray") + "'>" + html_escape(phrase.definition("mainframe_status", status, "name", status.toUpperCase())) + "</span>";
 		html +=
 			"<div style='font-size:18px; color:gray; margin-top:4px'>" +
 			html_escape(assignment.server || runtime.server || phrase.html("interface.load_mainframe_list.not_linked")) +
@@ -5870,7 +6914,8 @@ function load_mainframe_list(info) {
 		html += "</div>";
 	});
 	if (!(info.characters || []).length) html += "<div>" + phrase.html("interface.load_mainframe_list.you_don_t_have_any_characters_yet") + "</div>";
-	html += "<div style='text-align:center; margin-top: 12px'><a class='gamebutton cancela' href='/mainframe' target='_blank'>" + phrase.html("interface.load_mainframe_list.open_mainframe") + "</a></div>";
+	html +=
+		"<div style='text-align:center; margin-top: 12px'><a class='gamebutton cancela' href='/mainframe' target='_blank'>" + phrase.html("interface.load_mainframe_list.open_mainframe") + "</a></div>";
 	html += "</div>";
 	$(".friendslist").html(html);
 	$(".friendslist").parent().find(".active2").removeClass("active2");
@@ -5893,16 +6938,24 @@ function show_delete_mail(id) {
 function render_mail(id) {
 	var mail = window.mail[id];
 	var html = "<div style='font-size: 24px'>";
-	html += "<div class='clickable' style='color: #DB090A; float: right' onclick='show_delete_mail(\"" + (id) + "\");'>" + phrase.html("interface.mail.delete") + "</div>";
-	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.from") + "</span> " + (mail.fro) + "</div>";
-	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.to") + "</span> " + (mail.to) + "</div>";
-	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.subject") + "</span> " + (html_escape(mail.subject)) + "</div>";
+	html += "<div class='clickable' style='color: #DB090A; float: right' onclick='show_delete_mail(\"" + id + "\");'>" + phrase.html("interface.mail.delete") + "</div>";
+	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.from") + "</span> " + mail.fro + "</div>";
+	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.to") + "</span> " + mail.to + "</div>";
+	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.subject") + "</span> " + html_escape(mail.subject) + "</div>";
 	html += "<div class='mailsubject'>" + html_escape(mail.message).replace_all("\r\n", "<br />").replace_all("\n", "<br />").replace_all("\t", "&nbsp;&nbsp;") + "</div>";
 	if (mail.item) {
 		var item = JSON.parse(mail.item);
 		var take = "";
-		if (!mail.taken) take = " <span class='clickable takeitem' style='color: #6DAD47' onclick='parent.socket.emit(\"mail_take_item\",{id:\"" + (id) + "\"})'>" + " " + phrase.html("interface.mail.take") + " " + "</span>";
-		html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.item") + "</span> " + (item_container({ skin: G.items[item.name].skin, def: G.items[item.name], draggable: false }, item)) + (take) + "</div>";
+		if (!mail.taken)
+			take =
+				" <span class='clickable takeitem' style='color: #6DAD47' onclick='parent.socket.emit(\"mail_take_item\",{id:\"" + id + "\"})'>" + " " + phrase.html("interface.mail.take") + " " + "</span>";
+		html +=
+			"<div class='mailsubject'><span style='color: gray'>" +
+			phrase.html("interface.mail.item") +
+			"</span> " +
+			item_container({ skin: G.items[item.name].skin, def: G.items[item.name], draggable: false }, item) +
+			take +
+			"</div>";
 	}
 	html += "</div>";
 	show_modal(html);
@@ -5911,7 +6964,13 @@ function render_mail(id) {
 
 function load_mail(info) {
 	var html = "";
-	html += "<div class='gamebutton gamebutton-small' onclick='pcs(); show_mail_modal()'>" + phrase.html("interface.load_mail.send_mail") + " " + "<span style='color: gray'>" + phrase.html("interface.load_mail.cost") + "</span> <span style='color: gold'>48,000</span></div>";
+	html +=
+		"<div class='gamebutton gamebutton-small' onclick='pcs(); show_mail_modal()'>" +
+		phrase.html("interface.load_mail.send_mail") +
+		" " +
+		"<span style='color: gray'>" +
+		phrase.html("interface.load_mail.cost") +
+		"</span> <span style='color: gold'>48,000</span></div>";
 	if (info) {
 		if (friends_inside != "mail") return;
 		if (info.cursored) html += "<div style='margin-top: 8px; margin-bottom: 8px'>" + phrase.html("interface.load_mail.previous_emails_not_shown") + "</div>";
@@ -5928,11 +6987,26 @@ function load_mail(info) {
 					item_html += " <span style='color: #6DAD47'>" + phrase.html("interface.load_mail.item") + "</span> ";
 				}
 				html +=
-					"<div class='mailsubject clickable' onclick='pcs(); render_mail(\"" + (mail.id) + "\")'><span style='color: gray'>" + phrase.html("interface.load_mail.from") + "</span> " + (mail.fro) + " <span style='color: gray'>" + phrase.html("interface.load_mail.to") + "</span> " + (mail.to) + " <span style='color: gray'>" + phrase.html("interface.load_mail.subject") + "</span> " + (html_escape(mail.subject)) + (item_html) + "</div>";
+					"<div class='mailsubject clickable' onclick='pcs(); render_mail(\"" +
+					mail.id +
+					"\")'><span style='color: gray'>" +
+					phrase.html("interface.load_mail.from") +
+					"</span> " +
+					mail.fro +
+					" <span style='color: gray'>" +
+					phrase.html("interface.load_mail.to") +
+					"</span> " +
+					mail.to +
+					" <span style='color: gray'>" +
+					phrase.html("interface.load_mail.subject") +
+					"</span> " +
+					html_escape(mail.subject) +
+					item_html +
+					"</div>";
 			});
 			html += "</div>";
 			if (!(info.cursor && info.more)) html += "<div style='margin-top: 8px'>" + phrase.html("interface.load_mail.end_of_mail") + "</div>";
-			else html += "<div style='margin-top: 8px' class='clickable' onclick='api_call(\"pull_mail\",{cursor:\"" + (info.cursor) + "\"});'>" + phrase.html("interface.load_mail.load_more") + "</div>";
+			else html += "<div style='margin-top: 8px' class='clickable' onclick='api_call(\"pull_mail\",{cursor:\"" + info.cursor + "\"});'>" + phrase.html("interface.load_mail.load_more") + "</div>";
 		}
 		$(".friendslist").html(html);
 	} else {
@@ -5947,10 +7021,30 @@ function load_mail(info) {
 function load_chat(info, type) {
 	var html = "";
 	if (!type) type = "all";
-	html += "<div class='gamebutton gamebutton-small " + (((type == "global" && "gamebutton-active") || "")) + "' style='color: #CDD584' onclick='pcs(); load_chat(null,\"global\")'>" + phrase.html("interface.load_chat.global") + "</div> ";
-	html += "<div class='gamebutton gamebutton-small " + (((type == "party" && "gamebutton-active") || "")) + "' style='color: #3B8ED2' onclick='pcs(); load_chat(null,\"party\")'>" + phrase.html("interface.load_chat.party") + "</div> ";
-	html += "<div class='gamebutton gamebutton-small " + (((type == "private" && "gamebutton-active") || "")) + "' style='color: #D0598B' onclick='pcs(); load_chat(null,\"private\")'>" + phrase.html("interface.load_chat.private") + "</div> ";
-	html += "<div class='gamebutton gamebutton-small " + (((type == "all" && "gamebutton-active") || "")) + "' style='color: #717171' onclick='pcs(); load_chat(null)'>" + phrase.html("interface.load_chat.all_incoming") + "</div> ";
+	html +=
+		"<div class='gamebutton gamebutton-small " +
+		((type == "global" && "gamebutton-active") || "") +
+		"' style='color: #CDD584' onclick='pcs(); load_chat(null,\"global\")'>" +
+		phrase.html("interface.load_chat.global") +
+		"</div> ";
+	html +=
+		"<div class='gamebutton gamebutton-small " +
+		((type == "party" && "gamebutton-active") || "") +
+		"' style='color: #3B8ED2' onclick='pcs(); load_chat(null,\"party\")'>" +
+		phrase.html("interface.load_chat.party") +
+		"</div> ";
+	html +=
+		"<div class='gamebutton gamebutton-small " +
+		((type == "private" && "gamebutton-active") || "") +
+		"' style='color: #D0598B' onclick='pcs(); load_chat(null,\"private\")'>" +
+		phrase.html("interface.load_chat.private") +
+		"</div> ";
+	html +=
+		"<div class='gamebutton gamebutton-small " +
+		((type == "all" && "gamebutton-active") || "") +
+		"' style='color: #717171' onclick='pcs(); load_chat(null)'>" +
+		phrase.html("interface.load_chat.all_incoming") +
+		"</div> ";
 	X.servers.forEach(function (server) {
 		html +=
 			"<div class='gamebutton gamebutton-small " +
@@ -5984,7 +7078,7 @@ function load_chat(info, type) {
 			});
 			html += "</div>";
 			if (!(info.cursor && info.more)) html += "<div style='margin-top: 8px'>" + phrase.html("interface.load_chat.end_of_messages") + "</div>";
-			else html += "<div style='margin-top: 8px' class='clickable' onclick='api_call(\"pull_messages\",{cursor:\"" + (info.cursor) + "\"});'>" + phrase.html("interface.load_chat.load_more") + "</div>";
+			else html += "<div style='margin-top: 8px' class='clickable' onclick='api_call(\"pull_messages\",{cursor:\"" + info.cursor + "\"});'>" + phrase.html("interface.load_chat.load_more") + "</div>";
 		}
 		$(".friendslist").html(html);
 	} else {
@@ -6034,10 +7128,10 @@ function render_com() {
 	//html+=" <div class='gamebutton fserver' onclick='load_server_list();'>Server</div>";
 	html += " <div class='gamebutton ffriends fserver fnearby' onclick='load_server_list();'>" + phrase.html("interface.com.comrades") + "</div>";
 	html += " <div class='gamebutton fservers' onclick='load_servers_list();'>" + phrase.html("interface.com.realm") + "</div>";
-	html += " <div class='gamebutton fcharacters' onclick='load_character_list();'>" + phrase.html("interface.com.characters") + "<span class='ccount'>" + (c_count) + "</span>/4]</div>";
+	html += " <div class='gamebutton fcharacters' onclick='load_character_list();'>" + phrase.html("interface.com.characters") + "<span class='ccount'>" + c_count + "</span>/4]</div>";
 	html += " <div class='gamebutton fmainframe' onclick='load_mainframe_list();'>" + "Mainframe" + "</div>";
 	html += " <div class='gamebutton fchat' onclick='load_chat();'>" + phrase.html("interface.com.chat") + "</div>";
-	html += " <div class='gamebutton fmail' onclick='load_mail();'>" + phrase.html("interface.com.mail") + "<span class='mcount'>" + (((window.X && X.unread) || 0)) + "</span>]</div>";
+	html += " <div class='gamebutton fmail' onclick='load_mail();'>" + phrase.html("interface.com.mail") + "<span class='mcount'>" + ((window.X && X.unread) || 0) + "</span>]</div>";
 	// html+=" <div class='gamebutton fguild' onclick='load_coming_soon(2)'>Guild</div> <div class='gamebutton fmail' onclick='load_coming_soon(4)'>Mail</div> <div class='gamebutton fleaders' onclick='load_coming_soon(3)'>Leaderboards</div>";
 	html += "<div class='friendslist mt5' style='height: 400px; border: 5px solid gray; font-size: 24px; overflow: scroll; padding: 6px'></div>";
 	html += "<div style='font-size: 16px; margin-top: 5px; color: gray; text-align: center'>" + phrase.html("interface.com.note_the_communicator_is_an_evolving_protoype") + "</div>";
@@ -6324,7 +7418,11 @@ function cx_sprite(name, args) {
 			if (!labels) labels += "<span style='color:gray'>X</span>";
 		}
 		html +=
-			"<div style='display: inline-block; margin-left: " + (args.mleft || 0) + "px; margin-right: " + (args.mright || 0) + "px; vertical-align: middle; margin-bottom: 4px; font-size: 0; line-height: normal'>";
+			"<div style='display: inline-block; margin-left: " +
+			(args.mleft || 0) +
+			"px; margin-right: " +
+			(args.mright || 0) +
+			"px; vertical-align: middle; margin-bottom: 4px; font-size: 0; line-height: normal'>";
 		html +=
 			"<div style='background-color: " +
 			(rargs.bg || "#504254") +
@@ -6418,10 +7516,22 @@ function cx_move(x, y) {
 
 function insert_cx_tuners() {
 	var html = "<div style='left: " + $(window).width() / 2 + "px; top: " + $(window).height() / 2 + "px; width: 0px; height: 0px; position: fixed; z-index: 100; overflow: visible'>";
-	html += "<div style='position: absolute; top: -130px; left: -35px; text-align: center; width: 50px;' class='gamebutton gamebutton-small' onclick='cx_move(0,-1)'>" + phrase.html("interface.insert_cx_tuners.up") + "</div>";
-	html += "<div style='position: absolute; top: 20px; left: -35px; text-align: center; width: 50px;' class='gamebutton gamebutton-small'  onclick='cx_move(0,1)'>" + phrase.html("interface.insert_cx_tuners.down") + "</div>";
-	html += "<div style='position: absolute; top: -20px; left: -110px; text-align: center; width: 50px;' class='gamebutton gamebutton-small' onclick='cx_move(-1,0)'>" + phrase.html("interface.insert_cx_tuners.left") + "</div>";
-	html += "<div style='position: absolute; top: -20px; left: 40px; text-align: center; width: 50px;' class='gamebutton gamebutton-small' onclick='cx_move(1,0)'>" + phrase.html("interface.insert_cx_tuners.right") + "</div>";
+	html +=
+		"<div style='position: absolute; top: -130px; left: -35px; text-align: center; width: 50px;' class='gamebutton gamebutton-small' onclick='cx_move(0,-1)'>" +
+		phrase.html("interface.insert_cx_tuners.up") +
+		"</div>";
+	html +=
+		"<div style='position: absolute; top: 20px; left: -35px; text-align: center; width: 50px;' class='gamebutton gamebutton-small'  onclick='cx_move(0,1)'>" +
+		phrase.html("interface.insert_cx_tuners.down") +
+		"</div>";
+	html +=
+		"<div style='position: absolute; top: -20px; left: -110px; text-align: center; width: 50px;' class='gamebutton gamebutton-small' onclick='cx_move(-1,0)'>" +
+		phrase.html("interface.insert_cx_tuners.left") +
+		"</div>";
+	html +=
+		"<div style='position: absolute; top: -20px; left: 40px; text-align: center; width: 50px;' class='gamebutton gamebutton-small' onclick='cx_move(1,0)'>" +
+		phrase.html("interface.insert_cx_tuners.right") +
+		"</div>";
 	html += "</div>";
 	$("body").append(html);
 }
@@ -6534,10 +7644,17 @@ function render_cgallery(skin, cx, slot) {
 		});
 		show_modal(html, { wrap: false, styles: "max-width:400px" });
 	} else
-		show_modal("<div style='background-color: " + (bg) + "; border: 2px solid gray; vertical-align: top; overflow: hidden; text-align: center; padding: 12px; font-size: 32px'>" + phrase.html("interface.cgallery.no_alternatives") + "</div>", {
-			wrap: false,
-			styles: "max-width:400px",
-		});
+		show_modal(
+			"<div style='background-color: " +
+				bg +
+				"; border: 2px solid gray; vertical-align: top; overflow: hidden; text-align: center; padding: 12px; font-size: 32px'>" +
+				phrase.html("interface.cgallery.no_alternatives") +
+				"</div>",
+			{
+				wrap: false,
+				styles: "max-width:400px",
+			},
+		);
 }
 
 var last_cx = {},
@@ -6607,7 +7724,7 @@ function render_cosmetics(player, args) {
 	html += "<div style='display: inline-block; vertical-align: top'>";
 	html += "<div style='margin-top: -5px'>";
 	if (IID[player.skin][8] == "full") color = "#BB2242";
-	render_cosmetic("head", { text: "skin", top: -9, scale: 3, color: color, cx: { head: player.cx.head } });
+	render_cosmetic("head", { text: phrase.definition("slot", "skin", "name", "skin"), top: -9, scale: 3, color: color, cx: { head: player.cx.head } });
 	render_cosmetic("hair", { top: 6, scale: 3, mleft: 8, color: color, cx: { head: player.cx.head, hair: player.cx.hair || "bwhair" } });
 	color = "";
 	render_cosmetic("hat", { top: 12, scale: 3, mleft: 8, color: color, cx: { head: player.cx.head, hair: player.cx.hair, hat: player.cx.hat || "bwhat" } });
@@ -6626,7 +7743,7 @@ function render_cosmetics(player, args) {
 	html += "</div>";
 	html += "<div>";
 	render_cosmetic("chin", { top: -20, scale: 3, cx: { head: player.cx.head, hair: player.cx.hair, chin: player.cx.chin || "beard112" } });
-	render_cosmetic("special", { top: 10, text: "sp. fx", cx: player.cx, scale: 1, mleft: 8, bg: "#E3B245" });
+	render_cosmetic("special", { top: 10, cx: player.cx, scale: 1, mleft: 8, bg: "#E3B245" });
 	var cx = clone(player.cx);
 	delete cx.tail;
 	render_cosmetic("back", { top: -2, j: 3, scale: 1.5, mleft: 8, cx: cx });
@@ -6639,7 +7756,7 @@ function render_cosmetics(player, args) {
 	render_cosmetic("skin", { text: phrase("interface.cosmetics.looks"), cx: player.cx, size: "big", mleft: 8 });
 	html += "</div>";
 	html += "<div>";
-	render_cosmetic("gravestone", { text: "RIP", top: -16, scale: 1.75, mleft: 8, cx: cx, rip: true, bg: "#8cb0bb" });
+	render_cosmetic("gravestone", { text: phrase("interface.cosmetics.rip"), top: -16, scale: 1.75, mleft: 8, cx: cx, rip: true, bg: "#8cb0bb" });
 	render_emotes();
 	html += "</div>";
 	html += "</div>";
@@ -6660,11 +7777,37 @@ function load_class_info(name, look) {
 		"<div style='float: left; margin-right: 10px; margin-top: -10px; margin-bottom: -3px'>" +
 		sprite(G.classes[name].looks[look][0], { cx: G.classes[name].looks[look][1], scale: 2, height: 72, width: 52 }) +
 		"</div>";
-	html += "<div><span style='color: white'>" + phrase.html("interface.load_class_info.class") + "</span> <span style='color: " + (colors.male) + "'>" + (phrase.definition("class", name, "name", name.toTitleCase())) + "</span></div>";
-	html += "<div><span style='color: white'>" + phrase.html("interface.load_class_info.primary_attribute") + "</span> <span style='color: " + (colors[G.classes[name].main_stat]) + "'>" + (phrase.definition("stat", G.classes[name].main_stat, "name", G.classes[name].main_stat.toTitleCase())) + "</span></div>";
+	html +=
+		"<div><span style='color: white'>" +
+		phrase.html("interface.load_class_info.class") +
+		"</span> <span style='color: " +
+		colors.male +
+		"'>" +
+		phrase.definition("class", name, "name", name.toTitleCase()) +
+		"</span></div>";
+	html +=
+		"<div><span style='color: white'>" +
+		phrase.html("interface.load_class_info.primary_attribute") +
+		"</span> <span style='color: " +
+		colors[G.classes[name].main_stat] +
+		"'>" +
+		phrase.definition("stat", G.classes[name].main_stat, "name", G.classes[name].main_stat.toTitleCase()) +
+		"</span></div>";
 	if (G.classes[name].side_stat)
-		html += "<div><span style='color: white'>" + phrase.html("interface.load_class_info.secondary_attribute") + "</span> <span style='color: " + (colors[G.classes[name].side_stat]) + "'>" + (phrase.definition("stat", G.classes[name].side_stat, "name", G.classes[name].side_stat.toTitleCase())) + "</span></div>";
-	html += "<div><span style='color: white'>" + phrase.html("interface.load_class_info.description") + "</span> <span style='color: gray'>" + (phrase.definition("class", name, "description", G.classes[name].description)) + "</span></div>";
+		html +=
+			"<div><span style='color: white'>" +
+			phrase.html("interface.load_class_info.secondary_attribute") +
+			"</span> <span style='color: " +
+			colors[G.classes[name].side_stat] +
+			"'>" +
+			phrase.definition("stat", G.classes[name].side_stat, "name", G.classes[name].side_stat.toTitleCase()) +
+			"</span></div>";
+	html +=
+		"<div><span style='color: white'>" +
+		phrase.html("interface.load_class_info.description") +
+		"</span> <span style='color: gray'>" +
+		phrase.definition("class", name, "description", G.classes[name].description) +
+		"</span></div>";
 
 	$("#features").css("height", 208).html(html);
 	// $(".salesui").css("bottom",208+36);
@@ -6690,18 +7833,22 @@ function to_pretty_fraction(num) {
 }
 
 function merrit_reason_text(reason) {
- var name = reason.name || phrase("interface.merrit.another_shop"),
-  remaining = Math.max(1, Math.ceil((reason.remaining_ms || 0) / 60000));
- if (reason.code === "npc") return phrase.html("interface.merrit.reason_npc", { name: name });
- if (reason.code === "stand_close") return phrase.html("interface.merrit.reason_stand_close", { name: name });
- if (reason.code === "stand_front") return phrase.html("interface.merrit.reason_stand_front", { name: name });
- if (reason.code === "warming") return phrase.html("interface.merrit.reason_warming", { count: remaining });
- if (reason.code === "cooldown") return phrase.html("interface.merrit.reason_cooldown", { count: remaining });
- var reasons = {
-  area: "interface.merrit.reason_area", closed: "interface.merrit.reason_closed", listing: "interface.merrit.reason_listing",
-  inventory: "interface.merrit.reason_inventory", unreachable: "interface.merrit.reason_unreachable", unavailable: "interface.merrit.reason_unavailable"
- };
- return phrase.html(reasons[reason.code] || "interface.merrit.reason_waiting");
+	var name = reason.name || phrase("interface.merrit.another_shop"),
+		remaining = Math.max(1, Math.ceil((reason.remaining_ms || 0) / 60000));
+	if (reason.code === "npc") return phrase.html("interface.merrit.reason_npc", { name: name });
+	if (reason.code === "stand_close") return phrase.html("interface.merrit.reason_stand_close", { name: name });
+	if (reason.code === "stand_front") return phrase.html("interface.merrit.reason_stand_front", { name: name });
+	if (reason.code === "warming") return phrase.html("interface.merrit.reason_warming", { count: remaining });
+	if (reason.code === "cooldown") return phrase.html("interface.merrit.reason_cooldown", { count: remaining });
+	var reasons = {
+		area: "interface.merrit.reason_area",
+		closed: "interface.merrit.reason_closed",
+		listing: "interface.merrit.reason_listing",
+		inventory: "interface.merrit.reason_inventory",
+		unreachable: "interface.merrit.reason_unreachable",
+		unavailable: "interface.merrit.reason_unavailable",
+	};
+	return phrase.html(reasons[reason.code] || "interface.merrit.reason_waiting");
 }
 function merrit_status_html(status) {
 	if (!status) return "<div>" + phrase.html("interface.merrit_status_html.waiting_for_merrit_s_visit_information") + "</div>";
@@ -6714,13 +7861,16 @@ function merrit_status_html(status) {
 		: "<div style='color:#89C79F'>" + phrase.html("interface.merrit_status_html.ready_for_a_parcel_keep_your_stand_open_merrit_must") + "</div>";
 }
 function merrit_receipt_html(receipt) {
- if (!receipt) return phrase.html("interface.merrit.no_receipt");
- var elapsed = Date.now() - new Date(receipt.at).getTime(),
-  when = elapsed < 120000 ? "now" : elapsed < 3600000 ? "recent" : elapsed < 86400000 ? "today" : elapsed < 604800000 ? "days" : "old",
-  recipient = character && receipt.name === character.name ? "self" : "named";
- return phrase.html("interface.merrit.receipt." + recipient + "." + when, { name: receipt.name }) +
-  (receipt.shells ? " " + phrase.html("interface.merrit.receipt_shell") : "") + "<br><br>" +
-  phrase.html("interface.merrit_receipt_html.a_little_thank_you_for_keeping_a_shop_in_the");
+	if (!receipt) return phrase.html("interface.merrit.no_receipt");
+	var elapsed = Date.now() - new Date(receipt.at).getTime(),
+		when = elapsed < 120000 ? "now" : elapsed < 3600000 ? "recent" : elapsed < 86400000 ? "today" : elapsed < 604800000 ? "days" : "old",
+		recipient = character && receipt.name === character.name ? "self" : "named";
+	return (
+		phrase.html("interface.merrit.receipt." + recipient + "." + when, { name: receipt.name }) +
+		(receipt.shells ? " " + phrase.html("interface.merrit.receipt_shell") : "") +
+		"<br><br>" +
+		phrase.html("interface.merrit_receipt_html.a_little_thank_you_for_keeping_a_shop_in_the")
+	);
 }
 
 function render_merrit_interaction(view) {
@@ -6733,8 +7883,7 @@ function render_merrit_interaction(view) {
 	if (view === "receipt") {
 		message = merrit_receipt_html(receipt);
 	} else {
-		message =
-			phrase.html("interface.merrit_interaction.keep_a_stocked_shop_here_for_two_minutes_and_leave_the_neighbors_room_i_bring_parcels_once_an_hour");
+		message = phrase.html("interface.merrit_interaction.keep_a_stocked_shop_here_for_two_minutes_and_leave_the_neighbors_room_i_bring_parcels_once_an_hour");
 		if (receipt) message = phrase.html("interface.merrit.welcome." + (receipt.name === character.name ? "self" : "named") + (receipt.shells ? ".shell" : ".parcel"), { name: receipt.name });
 	}
 	render_interaction({
@@ -6762,8 +7911,7 @@ function merrit_status_received(data) {
 	if (no_html) return;
 	$(".merrit-status").html(merrit_status_html(character.merrit));
 	// A delayed status reply must never reopen a conversation or cover INFO.
-	if ($("#merrit-dialogue").length && rendered_interaction && rendered_interaction.merrit)
-		render_merrit_interaction(rendered_interaction.merrit);
+	if ($("#merrit-dialogue").length && rendered_interaction && rendered_interaction.merrit) render_merrit_interaction(rendered_interaction.merrit);
 }
 
 function request_merrit_info() {
@@ -6795,13 +7943,7 @@ function merrit_shell_odds_html() {
 		html = "";
 	for (var s = 0; s <= 10; s++) {
 		var chance = c.shell_floor + (c.shell_zero - c.shell_floor) * Math.pow((10 - s) / 10, 2);
-		html +=
-			"<tr><td>" +
-			s +
-			(s === 10 ? phrase.html("interface.merrit_shell_odds_html.or_more") : "") +
-			"</td><td>" +
-			(chance * 100).toFixed(5).replace(/0+$/, "").replace(/\.$/, "") +
-			"%</td></tr>";
+		html += "<tr><td>" + s + (s === 10 ? phrase.html("interface.merrit_shell_odds_html.or_more") : "") + "</td><td>" + (chance * 100).toFixed(5).replace(/0+$/, "").replace(/\.$/, "") + "%</td></tr>";
 	}
 	return html;
 }
