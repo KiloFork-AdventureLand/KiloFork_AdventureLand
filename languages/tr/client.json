@@ -178,5 +178,8 @@
 	"client.add_request.received": "<span style='color: white'>{name}</span> grubuna katılmak istiyor.",
 	"client.add_frequest.received": "<span style='color: white'>{name}</span> seninle arkadaş olmak istiyor.",
 	"client.duel.accepted": "<span style='color: white'>{player}</span>, {challenger} adlı oyuncunun düello teklifini kabul etti!",
-	"client.data.reloaded": "Oyun verileri yeniden yüklendi"
+	"client.data.reloaded": "Oyun verileri yeniden yüklendi",
+	"client.json.tracktrix_hint": "Genel ganimetler dâhil tüm ganimet listesini görmek için Tracktrix eşyasını kullanın.",
+	"client.log.truncated": "- Kısaltıldı -",
+	"client.music.settings_reminder": "Müziği Ayarlar'dan kontrol edebilirsiniz."
 }

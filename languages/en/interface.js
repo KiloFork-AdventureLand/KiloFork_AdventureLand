@@ -1245,8 +1245,8 @@ module.exports = {
 	"interface.load_class_info.secondary_attribute": "Secondary Attribute:",
 	// js/html.js load_class_info; authored interface text.
 	"interface.load_class_info.description": "Description:",
-	// js/html.js to_pretty_fraction; authored interface text.
-	"interface.to_pretty_fraction.impl": "IMPL",
+	// js/html.js to_pretty_fraction; compact fallback for a drop chance of at most one in a billion. Legacy English IMPL means practically impossible, not incredible. The chance can be nonzero; use a short native label for a negligible chance.
+	"interface.drop_chance.negligible": "IMPL",
 	// js/html.js merrit_status_html; authored interface text.
 	"interface.merrit_status_html.waiting_for_merrit_s_visit_information": "Waiting for Merrit's visit information.",
 	// js/html.js merrit_status_html; authored interface text.
@@ -1555,4 +1555,20 @@ module.exports = {
 	"interface.item.count_left": "{count} left",
 	// Playful computer sound displayed in the log when its network link is clicked.
 	"interface.computer.beep": "Beep. Boop.",
+	// Leave the current party through the legacy party widget. This is a party action, not an NPC goodbye.
+	"interface.party_old.leave": "LEAVE",
+	// Compact presence badge for an automated character. Keep the label short; its internal state remains bot.
+	"interface.presence.bot": "BOT",
+	// Compact presence badge meaning away from keyboard. A familiar native abbreviation or AFK is appropriate.
+	"interface.presence.afk": "AFK",
+	// Very short cursed-condition badge next to a character name. English uses the initial C.
+	"interface.presence.cursed_short": "C",
+	// Very short poisoned-condition badge next to a character name. English uses the initial P.
+	"interface.presence.poisoned_short": "P",
+	// Compact stunned-condition badge next to a character name.
+	"interface.presence.stunned_short": "STUN",
+	// Compact button for sending a private message. Choose a clear native abbreviation for Private Message.
+	"interface.chat.private_message_short": "PM",
+	// Third SKILLS key-mapping tab, containing utility controls such as Escape, Inventory, chat and arrows. English U means Utility. Use a very short native label; the internal page ID U and actual keyboard keys stay unchanged.
+	"interface.skills.utility_tab": "U",
 };

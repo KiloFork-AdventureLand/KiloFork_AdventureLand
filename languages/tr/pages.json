@@ -56,14 +56,12 @@
 	"pages.contents.announcement_email.ps-2-join-us-on-discord-if-you": "Not 2. Henüz katılmadıysanız Discord'a bekleriz :]",
 	"pages.contents.announcement_email.ps-2-just-reply-to-this-email-if": "Not 2. Sorunuz varsa bu e-postayı yanıtlamanız yeterli.",
 	"pages.contents.announcement_email.ps-2-we-re-releasing-on-steam-before": "Not 2. Noel'den önce Steam'de çıkıyoruz!",
-	"pages.contents.announcement_email.ps-3-here-s-a": "Not 3. İşte bir",
 	"pages.contents.announcement_email.ps-increased-the-ornament-drops": "Not. Süslerin düşme oranı artırıldı.",
 	"pages.contents.announcement_email.ps-there-is-a-new-npc-near-the": "Not. Goo'ların yakınında yeni bir NPC var :]",
 	"pages.contents.announcement_email.ps-there-s-a-new-interface-counts-down": "Not. Wabbit'ın ortaya çıkışına kalan dakikaları sayan, Franky/Snowman savaşlarını duyuran yeni bir arayüz var. smart_move ile sizi savaşlara da götürüyor!",
 	"pages.contents.announcement_email.ps-to-use-the-preview-ultimate-class-abilities": "Not. Deneme aşamasındaki nihai sınıf yeteneklerini kullanmak için R'ye basın :]",
 	"pages.contents.announcement_email.ps-you-can-freely-use-3-characters-simultaneously": "Not. Artık aynı anda 3 karakteri serbestçe kullanabilirsiniz.",
 	"pages.contents.announcement_email.red-envelope-s-are-global-drops-they-drop": "Red Envelope her yerde düşebilir ve yeni bir eşya türü olan Dragon Armor verir.",
-	"pages.contents.announcement_email.that-automates-the-xmas-buff-ps-4-there": "Noel güçlendirmesini otomatikleştirir\n\t\t\t\t\tNot 4. Yeni şeyler ve yeni yetenekler de var!",
 	"pages.contents.announcement_email.the-love-goo-is-back-too-for-the": "Love Goo da Sevgililer Günü için geri döndü.",
 	"pages.contents.announcement_email.the-new-zone-winterland-and-the-xmas-event": "Yeni Winterland bölgesi ve Noel etkinliği açıldı! Noel ganimetleri her yerde düşebilir; bunları Winterland'de takas edebilirsiniz! Bu güncelleme görevleri, ilk küreyi, gerçek pelerinleri ve ilk iksirimiz Eggnog'ı getiriyor! Oyun için yine heyecanlı günler.",
 	"pages.contents.announcement_email.there-are-a-lot-of-small-recent-changes": "Son zamanlarda pek çok küçük değişiklik oldu; örneğin kişisel grup payları olan yeni bir grup sistemi var. Phoenix, Mr. Pumpkin ve Mr. Green de artık ortaklaşa savaşılan boss'lar. Böylece herkes onları yenmeye katkıda bulunup güzel ganimetler alabilir!",
@@ -1474,5 +1472,6 @@
 	"pages.vscode.the-extension-downloads-every-code-slot-saving-a": "Eklenti tüm CODE yuvalarını indirir. Yönetilen bir dosyayı kaydetmek onu Adventure Land'e geri yükler.",
 	"pages.vscode.the-marketplace-page-is-not-live-yet-the": "Marketplace sayfası henüz yayında değil. Paket bu sunucuda hazır olduğunda doğrudan VSIX indirmesi burada görünecek.",
 	"pages.vscode.use-in-vs-code-or-cursor-it-replaces": "VS Code veya Cursor'da <span class=\"shell\">{id}</span> kullanın. Eski istemci klasör eşitlemesinin yerine API tabanlı otomatik eşitleme getirir; Steam, tarayıcı ve normal masaüstü editörleriyle çalışır.",
-	"pages.vscode.your-token": "Anahtarınız"
+	"pages.vscode.your-token": "Anahtarınız",
+	"pages.contents.announcement_email.holiday_code_example": "Not 3. Noel güçlendirmesini otomatikleştiren bir <a style=\"color: #33BF6D\" href=\"https://raw.githubusercontent.com/kaansoral/adventureland/master/examples/happy_holidays.js\"><span style=\"color: #33BF6D\">CODE</span></a> örneği.\n\t\t\t\t\tNot 4. Yeni şeyler ve yeni yetenekler de var!"
 }

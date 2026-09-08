@@ -310,7 +310,7 @@ module.exports = {
 	"condition.penalty_cd.explanation": "The remaining duration of this condition is added any skill you use. Teleporting adds 3s, magiporting adds around 800ms, some item operations add 100-200ms.",
 	// design/conditions.js; penalty_cd name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.penalty_cd.name": "Penalty Cooldown",
-	// design/conditions.js; phasedout explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
+	// design/conditions.js; phasedout tooltip. Both attack speed (frequency) and movement speed decrease; the attack damage stat does not decrease. Keep names and CODE symbols unchanged.
 	"condition.phasedout.explanation": "Decreases attack and movement speed but greatly increases evasion.",
 	// design/conditions.js; phasedout name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.phasedout.name": "Phased Out",

@@ -359,4 +359,10 @@ module.exports = {
 	"client.duel.accepted": "<span style='color: white'>{player}</span> accepted a duel from {challenger}!",
 	// Game-data refresh notification emitted by /data.js?reload. Display in the active client's language; preserve apply_backup behavior.
 	"client.data.reloaded": "Game data reloaded",
+	// Monster JSON drop viewer's informational hint. Tracktrix is an item name and stays unchanged.
+	"client.json.tracktrix_hint": "Use the item Tracktrix to see the entire drop list, including global drops.",
+	// Visual game-log boundary after older entries are discarded; player-authored log entries are unchanged.
+	"client.log.truncated": "- Truncated -",
+	// Log reminder after the player enables holiday music. Settings is the existing configuration interface.
+	"client.music.settings_reminder": "You can control music in Settings.",
 };

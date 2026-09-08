@@ -128,8 +128,6 @@ module.exports = {
 	"pages.contents.announcement_email.ps-2-just-reply-to-this-email-if": "Ps 2. Just reply to this email if you have any questions",
 	// htmls/contents/announcement_email.html:72; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.announcement_email.ps-2-we-re-releasing-on-steam-before": "Ps 2. We're releasing on Steam before Xmas!",
-	// htmls/contents/announcement_email.html:73; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
-	"pages.contents.announcement_email.ps-3-here-s-a": "Ps 3. Here's a",
 	// htmls/contents/announcement_email.html:52; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.announcement_email.ps-increased-the-ornament-drops": "Ps. Increased the ornament drops",
 	// htmls/contents/announcement_email.html:121; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
@@ -143,8 +141,6 @@ module.exports = {
 	"pages.contents.announcement_email.ps-you-can-freely-use-3-characters-simultaneously": "Ps. You can freely use 3 characters simultaneously now",
 	// htmls/contents/announcement_email.html:98; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.announcement_email.red-envelope-s-are-global-drops-they-drop": "Red Envelope's are global drops, they drop a new kind of item, the Dragon Armor.",
-	// htmls/contents/announcement_email.html:73; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
-	"pages.contents.announcement_email.that-automates-the-xmas-buff-ps-4-there": "that automates the Xmas buff\n\t\t\t\t\tPs 4. There are some new stuff and new skills too!",
 	// htmls/contents/announcement_email.html:100; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.announcement_email.the-love-goo-is-back-too-for-the": "The Love Goo is back too for the Valentine's Day.",
 	// htmls/contents/announcement_email.html:42; Page p prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
@@ -3507,4 +3503,6 @@ module.exports = {
 		'Use <span class="shell">{id}</span> in VS Code or Cursor. It replaces the old client folder sync with API-based autosync, so it works from Steam, browser, and normal desktop editors.',
 	// htmls/vscode.html:320; Page h2 prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.vscode.your-token": "Your token",
+	// Historical holiday email: complete postscript around its CODE-example link. Preserve the exact link, tags, styles and CODE label; translate the surrounding prose.
+	"pages.contents.announcement_email.holiday_code_example": 'Ps 3. Here\'s a <a style="color: #33BF6D" href="https://raw.githubusercontent.com/kaansoral/adventureland/master/examples/happy_holidays.js"><span style="color: #33BF6D">CODE</span></a> that automates the Xmas buff\n\t\t\t\t\tPs 4. There are some new things and new skills too!',
 };

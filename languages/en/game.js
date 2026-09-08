@@ -847,4 +847,16 @@ module.exports = {
 	"game.door.cancel": "No!",
 	// Own-character inspection explanation. Preserve Adventure Land, PIXI.Sprite, PIXI, CODE, URL, and coordinate identifiers.
 	"game.character.sprite_explanation": "Hey Adventurer! This is your very own character that is a PIXI.Sprite Object. Adventure Land uses PIXI to draw things. You can learn more about it: https://www.pixijs.com/ and draw your own stuff via CODE! (Technical) Since your character is a special object, it doesn't get drawn like other entities, therefore your real character object has static x and y values. The character object in Code is an Object that mimics and extends your actual character Object. It's kinda complicated, but the only difference is that your real character object has different x and y values.",
+	// Help opened by clicking the loading percentage when no server is available. Preserve the existing line breaks and Discord name.
+	"game.loading.no_servers": "No servers found, 3 possible scenarios: <br /><br />(1) The game is being updated <br />(2) All existing servers are overloaded <br />(3) Someone found a bug that brought down all the servers<br /><br />Best to spend this time in our Discord to figure out what happened",
+	// Loading-percentage help while assets are loading. Preserve line breaks and the support email address.
+	"game.loading.resources": "Game resources are loading<br /><br />This may take some time<br /><br />If the game got stuck at this stage, please email hello@adventure.land",
+	// Loading-percentage help after assets have loaded. Preserve line breaks and the support email address.
+	"game.loading.ready": "All game resources have been loaded<br /><br />If you can't sign in, please email hello@adventure.land",
+	// Trade-history purchase line. quantity is an optional formatted prefix such as "2x "; item and player are proper names; gold is already formatted.
+	"game.trade_history.bought": "- Bought {quantity}'{item}' from {player} for {gold} gold",
+	// Trade-history giveaway line. quantity is an optional formatted prefix; item and player are proper names.
+	"game.trade_history.gave_away": "- Gave away {quantity}'{item}' to {player}",
+	// Trade-history sale line. quantity is an optional formatted prefix; item and player are proper names; gold is already formatted.
+	"game.trade_history.sold": "- Sold {quantity}'{item}' to {player} for {gold} gold",
 };

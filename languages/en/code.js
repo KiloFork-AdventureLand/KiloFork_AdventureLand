@@ -74,4 +74,6 @@ module.exports = {
 	"code.path_thought_surprise": "Oh my",
 	// Browser CODE runner visible diagnostic or default message callback. Preserve function/property names, CODE syntax, and interpolated player content.
 	"code.cm_received": "Received a code message from: {name}",
+	// Default label for add_top_button/add_bottom_button when CODE omits its own value. Never translate the player's supplied label or button ID.
+	"code.button.default": "BUTTON",
 };

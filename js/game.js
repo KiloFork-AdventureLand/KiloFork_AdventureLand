@@ -1092,11 +1092,11 @@ function on_load_progress(loader, resource) {
 function loader_click() {
 	if (!server_address)
 		show_modal(
-			"<div style='font-size: 48px'>No servers found, 3 possible scenarios: <br /><br />(1) The game is being updated <br />(2) All existing servers overloaded <br />(3) Someone found a bug that brought down all the servers<br /><br />Best to spend this time in our Discord to figure out what happened</div>",
+			"<div style='font-size: 48px'>" + phrase.html("game.loading.no_servers") + "</div>",
 		);
 	else if ($("#progressui").html() != "100%")
-		show_modal("<div style='font-size: 48px'>Game resources are loading<br /><br />This may take some time<br /><br />If the game got stuck at this stage, please email hello@adventure.land</div>");
-	else show_modal("<div style='font-size: 48px'>All game resources have been loaded<br /><br />If you can't sign in, please email hello@adventure.land</div>");
+		show_modal("<div style='font-size: 48px'>" + phrase.html("game.loading.resources") + "</div>");
+	else show_modal("<div style='font-size: 48px'>" + phrase.html("game.loading.ready") + "</div>");
 }
 
 function init_interface() {
@@ -3271,11 +3271,11 @@ function init_socket(args) {
 			if (h[2].level) item += " +" + h[2].level;
 			if (h[2].q) prefix += "" + h[2].q + "x ";
 			if (h[0] == "buy") {
-				html += "<div>- Bought " + prefix + "'" + item + "' from " + h[1] + " for " + to_pretty_num(h[3]) + " gold</div>";
+				html += "<div>" + phrase.html("game.trade_history.bought", { quantity: prefix, item: item, player: h[1], gold: to_pretty_num(h[3]) }) + "</div>";
 			} else if (h[0] == "giveaway") {
-				html += "<div>- Gave away " + prefix + "'" + item + "' to " + h[1] + "</div>";
+				html += "<div>" + phrase.html("game.trade_history.gave_away", { quantity: prefix, item: item, player: h[1] }) + "</div>";
 			} else {
-				html += "<div>- Sold " + prefix + "'" + item + "' to " + h[1] + " for " + to_pretty_num(h[3]) + " gold</div>";
+				html += "<div>" + phrase.html("game.trade_history.sold", { quantity: prefix, item: item, player: h[1], gold: to_pretty_num(h[3]) }) + "</div>";
 			}
 		});
 		if (!data.length) add_log(phrase.html("game.no_trade_recorded_yet"), "gray");

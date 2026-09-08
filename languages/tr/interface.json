@@ -622,7 +622,7 @@
 	"interface.load_class_info.primary_attribute": "Birincil Özellik:",
 	"interface.load_class_info.secondary_attribute": "İkincil Özellik:",
 	"interface.load_class_info.description": "Açıklama:",
-	"interface.to_pretty_fraction.impl": "İMKÂNSIZ",
+	"interface.drop_chance.negligible": "ÇOK AZ",
 	"interface.merrit_status_html.waiting_for_merrit_s_visit_information": "Merrit'in ziyaret bilgisi bekleniyor.",
 	"interface.merrit_status_html.ready_for_a_parcel_keep_your_stand_open_merrit_must": "Paket almaya hazırsın. Tezgâhını açık tut; Merrit'in 32px yakınına gelmesi gerekiyor.",
 	"interface.merrit_receipt_html.a_little_thank_you_for_keeping_a_shop_in_the": "Meydanda dükkân açıp komşularına yer bıraktığın için küçük bir teşekkür.",
@@ -776,5 +776,13 @@
 	"interface.item.quantity_short": "Adet:",
 	"interface.item.unbind_soon": "Eşyanın bağını kaldır? [Yakında]",
 	"interface.item.count_left": "{count} kaldı",
-	"interface.computer.beep": "Bip. Bup."
+	"interface.computer.beep": "Bip. Bup.",
+	"interface.party_old.leave": "AYRIL",
+	"interface.presence.bot": "BOT",
+	"interface.presence.afk": "AFK",
+	"interface.presence.cursed_short": "L",
+	"interface.presence.poisoned_short": "Z",
+	"interface.presence.stunned_short": "SERSEM",
+	"interface.chat.private_message_short": "ÖM",
+	"interface.skills.utility_tab": "Y"
 }

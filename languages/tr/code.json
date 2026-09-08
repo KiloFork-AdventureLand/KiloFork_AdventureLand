@@ -35,5 +35,6 @@
 	"code.path_thought_nope": "Yok",
 	"code.path_thought_wait": "Bir dakika!",
 	"code.path_thought_surprise": "Aman",
-	"code.cm_received": "Kod mesajı alındı, gönderen: {name}"
+	"code.cm_received": "Kod mesajı alındı, gönderen: {name}",
+	"code.button.default": "DÜĞME"
 }

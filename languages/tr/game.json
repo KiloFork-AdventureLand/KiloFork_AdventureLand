@@ -422,5 +422,11 @@
 	"game.door.confirm_key": "{map} bölgesine girilsin mi? [Bir anahtar tüketir!]",
 	"game.door.accept": "Evet",
 	"game.door.cancel": "Hayır!",
-	"game.character.sprite_explanation": "Selam maceracı! Bu, sana ait olan karakter; bir PIXI.Sprite nesnesi. Adventure Land, çizimler için PIXI kullanır. https://www.pixijs.com/ adresinden daha fazla bilgi edinebilir ve CODE ile kendi çizimlerini yapabilirsin! (Teknik) Karakterin özel bir nesne olduğundan diğer varlıklar gibi çizilmez; bu yüzden gerçek karakter nesnenin x ve y değerleri sabittir. CODE içindeki karakter nesnesi, gerçek karakter nesneni taklit eden ve genişleten bir nesnedir. Biraz karmaşık, ama tek fark gerçek karakter nesnendeki x ve y değerlerinin farklı olmasıdır."
+	"game.character.sprite_explanation": "Selam maceracı! Bu, sana ait olan karakter; bir PIXI.Sprite nesnesi. Adventure Land, çizimler için PIXI kullanır. https://www.pixijs.com/ adresinden daha fazla bilgi edinebilir ve CODE ile kendi çizimlerini yapabilirsin! (Teknik) Karakterin özel bir nesne olduğundan diğer varlıklar gibi çizilmez; bu yüzden gerçek karakter nesnenin x ve y değerleri sabittir. CODE içindeki karakter nesnesi, gerçek karakter nesneni taklit eden ve genişleten bir nesnedir. Biraz karmaşık, ama tek fark gerçek karakter nesnendeki x ve y değerlerinin farklı olmasıdır.",
+	"game.loading.no_servers": "Sunucu bulunamadı, 3 olası neden var: <br /><br />(1) Oyun güncelleniyor <br />(2) Tüm sunucular aşırı yüklü <br />(3) Biri tüm sunucuları çökerten bir hata buldu<br /><br />Neler olduğunu öğrenmek için bu sırada Discord'umuza uğrayabilirsiniz",
+	"game.loading.resources": "Oyun kaynakları yükleniyor<br /><br />Bu biraz zaman alabilir<br /><br />Oyun bu aşamada takıldıysa lütfen hello@adventure.land adresine yazın",
+	"game.loading.ready": "Tüm oyun kaynakları yüklendi<br /><br />Giriş yapamıyorsanız lütfen hello@adventure.land adresine yazın",
+	"game.trade_history.bought": "- {player} adlı oyuncudan {gold} altın karşılığında {quantity}'{item}' alındı",
+	"game.trade_history.gave_away": "- {player} adlı oyuncuya {quantity}'{item}' hediye edildi",
+	"game.trade_history.sold": "- {player} adlı oyuncuya {gold} altın karşılığında {quantity}'{item}' satıldı"
 }

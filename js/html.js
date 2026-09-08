@@ -189,7 +189,7 @@ function render_party_old(list) {
 			html += "<div class='slimbutton block mt5' style='border-color:#703987' onclick='party_click(\"" + name + "\")'>" + name + "</div>";
 		});
 		html += "<div class='slimbutton block mt5'"; //style='border-color:#875045'
-		html += 'onclick=\'socket.emit("party",{event:"leave"})\'>LEAVE</div>';
+		html += 'onclick=\'socket.emit("party",{event:"leave"})\'>' + phrase.html("interface.party_old.leave") + '</div>';
 	}
 	html += "</div>";
 	$("#partylist").html(html);
@@ -1087,12 +1087,12 @@ function info_line(info) {
 		addition = "",
 		html = "";
 	if (info.onclick) info.value = "<span class='clickable tomimick inline-block' onclick=\"" + info.onclick + '" ontouchstart="' + info.onclick + '">' + info.value + "</span>";
-	if (info.afk && info.afk == "bot") addition = " <span class='gray'>[BOT]</span>";
+	if (info.afk && info.afk == "bot") addition = " <span class='gray'>[" + phrase.html("interface.presence.bot") + "]</span>";
 	else if (info.afk && info.afk == "code") addition = " <span class='gray'>[CODE]</span>";
-	else if (info.afk) addition = " <span class='gray'>[AFK]</span>";
-	if (info.cursed) addition = " <span style='color: #7D4DAA'>[C]</span>";
-	if (info.poisoned) addition = " <span style='color: #45993F'>[P]</span>";
-	if (info.stunned) addition = " <span style='color: #FF9601'>[STUN]</span>";
+	else if (info.afk) addition = " <span class='gray'>[" + phrase.html("interface.presence.afk") + "]</span>";
+	if (info.cursed) addition = " <span style='color: #7D4DAA'>[" + phrase.html("interface.presence.cursed_short") + "]</span>";
+	if (info.poisoned) addition = " <span style='color: #45993F'>[" + phrase.html("interface.presence.poisoned_short") + "]</span>";
+	if (info.stunned) addition = " <span style='color: #FF9601'>[" + phrase.html("interface.presence.stunned_short") + "]</span>";
 	if (info.line) {
 		if (info.onclick) info.line = "<span class='clickable tomimick inline-block' onclick=\"" + info.onclick + '" ontouchstart="' + info.onclick + '">' + info.line + "</span>";
 		html += "<span class='cbold' style='color: " + color + "'>" + info.line + "</span>" + addition + "<br />";
@@ -1105,7 +1105,7 @@ function button_line(button, no_newline) {
 	var html = "",
 		color = button.color || "white";
 	html += "<span style='color: " + color + "' class='clickable tomimick cbold inline-block' onclick=\"" + button.onclick + '">' + button.name + "</span> ";
-	if (button.pm_onclick) html += " <span style='color: " + ("#A255BA" || "#276bc5" || color) + "' class='clickable tomimick cbold inline-block' onclick=\"" + button.pm_onclick + '">PM</span> ';
+	if (button.pm_onclick) html += " <span style='color: " + ("#A255BA" || "#276bc5" || color) + "' class='clickable tomimick cbold inline-block' onclick=\"" + button.pm_onclick + '">' + phrase.html("interface.chat.private_message_short") + '</span> ';
 	if (!no_newline) html += "<br />";
 	return html;
 }
@@ -5011,7 +5011,7 @@ function render_skills() {
 	var html = "<div id='skills-item' class='rendercontainer' style='flex-shrink: 0; max-height: 100vh; overflow-y: auto; margin-right: 5px'></div>";
 	html += "<div id='skills-frame' style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; flex-shrink: 0'><div id='skills-panel' style='max-height: calc(100vh - 50px); overflow-y: auto'>";
 	html +=
-		"<div class='textbutton' style='margin-left: 5px'><span  onclick='btc(event); show_snippet()'>" + phrase.html("interface.skills.mapping") + "</span> <span style='color: " + (((skills_page == "I" && "#76BDE5") || "#7C7C7C")) + ";' class='clickable' onclick='btc(event); skills_page=\"I\"; render_skills(); render_skills();'>1</span> <span style='color: " + (((skills_page == "II" && "#E38241") || "#7C7C7C")) + ";' class='clickable' onclick='btc(event); skills_page=\"II\"; render_skills(); render_skills();'>2</span> <span style='color: " + (((skills_page == "U" && "#8FCE72") || "#7C7C7C")) + ";' class='clickable' onclick='btc(event); skills_page=\"U\"; render_skills(); render_skills();'>U</span><!-- <span style='float:right; color: #7C7C7C; margin-right: 5px' class='clickable' onclick='btc(event); show_json(keymap)'><span style='color:#DECE31'>&gt;</span> DATA <span style='color:#DECE31'>&lt;</span></span>--></div>";
+		"<div class='textbutton' style='margin-left: 5px'><span  onclick='btc(event); show_snippet()'>" + phrase.html("interface.skills.mapping") + "</span> <span style='color: " + (((skills_page == "I" && "#76BDE5") || "#7C7C7C")) + ";' class='clickable' onclick='btc(event); skills_page=\"I\"; render_skills(); render_skills();'>1</span> <span style='color: " + (((skills_page == "II" && "#E38241") || "#7C7C7C")) + ";' class='clickable' onclick='btc(event); skills_page=\"II\"; render_skills(); render_skills();'>2</span> <span style='color: " + (((skills_page == "U" && "#8FCE72") || "#7C7C7C")) + ";' class='clickable' onclick='btc(event); skills_page=\"U\"; render_skills(); render_skills();'>" + phrase.html("interface.skills.utility_tab") + "</span><!-- <span style='float:right; color: #7C7C7C; margin-right: 5px' class='clickable' onclick='btc(event); show_json(keymap)'><span style='color:#DECE31'>&gt;</span> DATA <span style='color:#DECE31'>&lt;</span></span>--></div>";
 	var km1 = ["1", "2", "3", "4", "5", "6", "7"],
 		km2 = ["Q", "W", "E", "R", "X", "T", "B"];
 	if (skills_page == "II") ((km1 = ["8", "9", "0", "G", "H", "J", "K"]), (km2 = ["SHIFT", "Z", "V", "M", "P", "D", "BACK"]));
@@ -5605,12 +5605,12 @@ function load_nearby(fallback) {
 			return 1;
 		});
 		l.forEach(function (player) {
-			var afk = "AFK",
+			var afk = phrase.html("interface.presence.afk"),
 				actions = "";
 			if (!is_player(player)) return;
 			if (!player.afk) afk = "<span style='color: #34bf15'>" + phrase.html("interface.load_nearby.active") + "</span>";
 			else if (player.afk == "code") afk = "<span style='color: gray'>CODE</span>";
-			else if (player.afk == "bot") afk = "<span style='color: gray'>BOT</span>";
+			else if (player.afk == "bot") afk = "<span style='color: gray'>" + phrase.html("interface.presence.bot") + "</span>";
 			//if(!player.party) actions+=" <span style='color: #2799DD'>PM</span>";
 			if (player.owner && in_arr(player.owner, friends)) actions += " <span style='color: #EC82C4'>" + phrase.html("interface.load_nearby.friends") + "</span>";
 			else actions += " <span style='color: #2799DD' class='clickable' onclick='socket.emit(\"friend\",{event:\"request\",name:\"" + (player.name) + "\"}); push_deferred(\"friend\")'>" + phrase.html("interface.load_nearby.friend") + "</span>";
@@ -5665,7 +5665,7 @@ function load_friends(info) {
 				return 1;
 			});
 			info.chars.forEach(function (player) {
-				var afk = "AFK";
+				var afk = phrase.html("interface.presence.afk");
 				if (!player.afk) afk = "<span style='color: #34bf15'>" + phrase.html("interface.load_friends.active") + "</span>";
 				html += "<tr><td>" + player.name + "</td><td>" + player.level + "</td><td>" + phrase.definition("class", player.type, "name", player.type.toTitleCase()).toLocaleUpperCase(phrase.language) + "</td><td>" + afk + "</td><td>" + server_to_ui(player.server) + "</td></tr>";
 			});
@@ -5704,12 +5704,12 @@ function load_server_list(info) {
 				return 1;
 			});
 			info.forEach(function (player) {
-				var afk = "AFK",
+				var afk = phrase.html("interface.presence.afk"),
 					party = player.party,
 					name = player.name;
 				if (!player.afk) afk = "<span style='color: #34bf15'>" + phrase.html("interface.load_server_list.active") + "</span>";
 				else if (player.afk == "code") afk = "<span style='color: gray'>CODE</span>";
-				else if (player.afk == "bot") afk = "<span style='color: gray'>BOT</span>";
+				else if (player.afk == "bot") afk = "<span style='color: gray'>" + phrase.html("interface.presence.bot") + "</span>";
 				if (!player.party && player.name != character.name && player.name != "Hidden")
 					party = "<span style='color: #34BCAF' class='clickable' onclick='parent.socket.emit(\"party\",{event:\"invite\",name:\"" + (player.name) + "\"}); push_deferred(\"party\")'>" + phrase.html("interface.load_server_list.invite") + "</span>";
 				else if (player.name == "Hidden") party = "<span style='color: #999999'>" + phrase.html("interface.load_server_list.none") + "</span>";
@@ -5721,7 +5721,7 @@ function load_server_list(info) {
 						'"}); push_deferred("party")\'>' +
 						player.party +
 						"</span>";
-				if (player.name != character.name && player.name != "Hidden") party += " <span style='color: #A255BA' class='clickable' onclick='hide_modal(); cpm_window(\"" + player.name + "\");'>PM</span>";
+				if (player.name != character.name && player.name != "Hidden") party += " <span style='color: #A255BA' class='clickable' onclick='hide_modal(); cpm_window(\"" + player.name + "\");'>" + phrase.html("interface.chat.private_message_short") + "</span>";
 				if (name == "Hidden") name = "<span style='color:gray'>" + phrase.html("interface.load_server_list.hidden") + "</span>";
 				html += "<tr><td>" + name + "</td><td>" + player.level + "</td><td>" + phrase.definition("class", player.type, "name", player.type.toTitleCase()).toLocaleUpperCase(phrase.language) + "</td><td>" + player.age + "</td><td>" + afk + "</td><td>" + party + "</td>";
 				if (is_pvp) html += "<td>" + to_pretty_num(player.kills) + "</td>";
@@ -5812,7 +5812,7 @@ function load_character_list() {
 		"<tr style='color: gray; text-decoration: underline'><th style='width: 140px'>" + phrase.html("interface.load_character_list.name") + "</th><th style='width: 70px'>" + phrase.html("interface.load_character_list.level") + "</th><th style='width: 120px'>" + phrase.html("interface.load_character_list.class") + "</th><th style='width: 120px'>" + phrase.html("interface.load_character_list.status") + "</th><th style='width: 120px'>" + phrase.html("interface.load_character_list.deploy") + "</th>";
 	html += "</tr>";
 	X.characters.forEach(function (player) {
-		var afk = "AFK",
+		var afk = phrase.html("interface.presence.afk"),
 			party = player.party,
 			name = player.name,
 			online = false;
@@ -5820,7 +5820,7 @@ function load_character_list() {
 		else
 			((afk = "<span style='color: gray'>" + phrase.html("interface.load_character_list.offline") + "</span>"),
 				(link = "<a href='/character/" + (player.name) + "/in/" + (server_region) + "/" + (server_identifier) + "/' target='_blank' class='cancela' style='color: #4C9BC8'>" + phrase.html("interface.load_character_list.deploy") + "</span>"));
-		if (player.name != character.name && player.name != "Hidden") party += " <span style='color: #A255BA' class='clickable' onclick='hide_modal(); cpm_window(\"" + player.name + "\");'>PM</span>";
+		if (player.name != character.name && player.name != "Hidden") party += " <span style='color: #A255BA' class='clickable' onclick='hide_modal(); cpm_window(\"" + player.name + "\");'>" + phrase.html("interface.chat.private_message_short") + "</span>";
 		if (name == "Hidden") name = "<span style='color:gray'>" + phrase.html("interface.load_character_list.hidden") + "</span>";
 		html += "<tr><td>" + name + "</td><td>" + player.level + "</td><td>" + phrase.definition("class", player.type, "name", player.type.toTitleCase()).toLocaleUpperCase(phrase.language) + "</td><td>" + afk + "</td>";
 		html += "<td>" + link + "</td>";
@@ -6671,7 +6671,7 @@ function load_class_info(name, look) {
 }
 
 function to_pretty_fraction(num) {
-	var html = phrase.html("interface.to_pretty_fraction.impl");
+	var html = phrase.html("interface.drop_chance.negligible");
 	[
 		[1000000000, "1B", "#B30000"],
 		[100000000, "100M", "#825CD5"],

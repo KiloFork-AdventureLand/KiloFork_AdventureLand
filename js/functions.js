@@ -461,7 +461,7 @@ function show_json(json, args) {
 		html += "<div class='gamebutton mt5' onclick='render_monster_info(\"" + (args.monster_ui) + "\")'><span style='color:#EE8E5B'>" + phrase.html("client.json.guide") + "</span>" + " " + phrase.html("client.json.info", { monster: G.monsters[args.monster_ui].name }) + "</div>";
 		html += "<div></div>";
 		html +=
-			"<div class='gamebutton mt5' onclick='show_json(G.drops.monsters[\"" + (args.monster_ui) + "\"],{name:\"G.drops.monsters." + (args.monster_ui) + "\",info:\"Use the item Tracktrix to see the entire drop list, including global drops.\"})'><span style='color:#B330EB'>" + phrase.html("client.json.drops") + "</span>" + " " + phrase.html("client.json.drops_2", { monster: G.monsters[args.monster_ui].name }) + "</div>";
+			"<div class='gamebutton mt5' onclick='show_json(G.drops.monsters[\"" + (args.monster_ui) + "\"],{name:\"G.drops.monsters." + (args.monster_ui) + "\",info:phrase(\"client.json.tracktrix_hint\")})'><span style='color:#B330EB'>" + phrase.html("client.json.drops") + "</span>" + " " + phrase.html("client.json.drops_2", { monster: G.monsters[args.monster_ui].name }) + "</div>";
 		html += "</div>";
 	} else if (args.inventory_ui !== undefined) {
 		args.name = args.inventory_ui;
@@ -616,7 +616,7 @@ function add_log(message, color) {
 	if (mode.dom_tests || inside == "payments" || no_html) return;
 	if (game_logs.length > 480) {
 		// previously 1000/720 [27/07/18]
-		var html = "<div class='gameentry' style='color: gray'>- Truncated -</div>";
+		var html = "<div class='gameentry' style='color: gray'>" + phrase.html("client.log.truncated") + "</div>";
 		game_logs = game_logs.slice(-160);
 		game_logs.forEach(function (log) {
 			html += "<div class='gameentry' style='color: " + (log[1] || "white") + "'>" + log[0] + "</div>";
@@ -632,7 +632,7 @@ function add_log(message, color) {
 function add_holiday_log() {
 	if (mode.dom_tests || inside == "payments" || no_html) return;
 	$("#gamelog").append(
-		"<div class='gameentry' style='color: white'>" + phrase.html("client.add_holiday_log.would_you_like_to_turn_on_the_holiday_tunes") + " " + "<span style='color: #C82F17' class='clickable' onclick='xmas_tunes=true; sound_music=\"1\"; init_music(); reflect_music();  $(\".musicoff\").hide(); $(\".musicon\").show(); add_log(\"As a reminder, you can control Music from CONF\",\"gray\"); $(this).parent().remove();'>" + phrase.html("client.add_holiday_log.yes") + "</span></div>",
+		"<div class='gameentry' style='color: white'>" + phrase.html("client.add_holiday_log.would_you_like_to_turn_on_the_holiday_tunes") + " " + "<span style='color: #C82F17' class='clickable' onclick='xmas_tunes=true; sound_music=\"1\"; init_music(); reflect_music();  $(\".musicoff\").hide(); $(\".musicon\").show(); add_log(phrase(\"client.music.settings_reminder\"),\"gray\"); $(this).parent().remove();'>" + phrase.html("client.add_holiday_log.yes") + "</span></div>",
 	);
 	var entity = $("#gamelog")[0];
 	$("#gamelog").scrollTop(entity && entity.scrollHeight);

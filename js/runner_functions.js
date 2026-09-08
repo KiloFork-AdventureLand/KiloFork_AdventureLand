@@ -1874,7 +1874,7 @@ function clear_drawings() {
 function add_top_button(id, value, fn) {
 	if (!buttons[id]) {
 		buttons[id] = { value: value, fn: function () {}, place: "top" };
-		parent.$(".codebuttons").append("<div class='gamebutton codebutton" + id + "' data-id='" + id + "' onclick='code_button_click(this)'>BUTTON</div> ");
+		parent.$(".codebuttons").append("<div class='gamebutton codebutton" + id + "' data-id='" + id + "' onclick='code_button_click(this)'>" + parent.phrase.html("code.button.default") + "</div> ");
 	}
 	if (fn) set_button_onclick(id, fn);
 	if (value) set_button_value(id, value);
@@ -1883,7 +1883,7 @@ function add_top_button(id, value, fn) {
 function add_bottom_button(id, value, fn) {
 	if (!buttons[id]) {
 		buttons[id] = { value: value, fn: function () {}, place: "bottom" };
-		parent.$(".codebbuttons").append("<div class='gamebutton gamebutton-small codebutton" + id + "' data-id='" + id + "' onclick='code_button_click(this)'>BUTTON</div> ");
+		parent.$(".codebbuttons").append("<div class='gamebutton gamebutton-small codebutton" + id + "' data-id='" + id + "' onclick='code_button_click(this)'>" + parent.phrase.html("code.button.default") + "</div> ");
 	}
 	if (fn) set_button_onclick(id, fn);
 	if (value) set_button_value(id, value);
