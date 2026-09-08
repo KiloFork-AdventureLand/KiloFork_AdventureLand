@@ -3040,4 +3040,30 @@ module.exports = {
 	"weapon_type.wand.name": "Wand",
 	// Shared weapon_type display label in item tooltips, class details, cosmetic and equipment slots. Never translate its internal identifier. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"weapon_type.wblade.name": "Magical Sword",
+	// Item tooltip action for Angel Wings. Translate the button label; keep the item name and its request unchanged.
+	"item.angelwings.action": "FLAP",
+	// Item tooltip action for Legacy Tri-Stone. Translate the button label; keep the item name and its request unchanged.
+	"item.tristone.action": "ACTIVATE!",
+	// Item tooltip action for Legacy Dark Tri-Stone. Translate the button label; keep the item name and its request unchanged.
+	"item.darktristone.action": "ACTIVATE!",
+	// Item tooltip action for White Egg. Translate the button label; keep the item name and its request unchanged.
+	"item.whiteegg.action": "THROW!",
+	// Item tooltip action for Tracktrix. Translate the button label; keep the item name and its request unchanged.
+	"item.tracker.action": "INTERFACE!",
+	// Item tooltip action for Pack of Confetti. Translate the button label; keep the item name and its request unchanged.
+	"item.confetti.action": "THROW!",
+	// Item tooltip action for Firecracker. Translate the button label; keep the item name and its request unchanged.
+	"item.firecrackers.action": "THROW!",
+	// Item tooltip action for Pouch of Poof. Translate the button label; keep the item name and its request unchanged.
+	"item.smoke.action": "THROW!",
+	// Item tooltip action for Terracota Army Figurine. Translate the button label; keep the item name and its request unchanged.
+	"item.figurine.action": "BREAK!",
+	// Item tooltip action for The Bank Key. Translate the button label; keep the item name and its request unchanged.
+	"item.bkey.action": "UNLOCK",
+	// Item tooltip action for The Bank Key. Translate the button label; keep the item name and its request unchanged.
+	"item.ukey.action": "UNLOCK",
+	// Item tooltip action for Diamond Key. Translate the button label; keep the item name and its request unchanged.
+	"item.dkey.action": "UNLOCK",
+	// Item tooltip action for Frozen Stone. Translate the button label; keep the item name and its request unchanged.
+	"item.frozenstone.action": "SHAKE",
 };

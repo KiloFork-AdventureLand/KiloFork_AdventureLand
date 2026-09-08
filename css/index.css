@@ -798,6 +798,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 html:lang(ar) .guide-article{
 	direction: rtl;
 	text-align: start !important;
+	font-family: Arial, sans-serif;
 	line-height: 1.4;
 }
 html:lang(ar) .guide-article p,

@@ -1541,4 +1541,18 @@ module.exports = {
 	"interface.cosmetics.attire": "ATTIRE",
 	// Authored event status or cosmetic section label.
 	"interface.cosmetics.looks": "looks",
+	// Skill tooltip duration and cooldown. count is seconds and may be fractional.
+	"interface.time.seconds": "{count} seconds",
+	// Skill tooltip duration and cooldown when exactly one second.
+	"interface.time.seconds.one": "{count} second",
+	// Skill tooltip progression checkpoint. value is a number or percentage; level is the required character level.
+	"interface.skill.value_at_level": "{value} (Lv. {level})",
+	// Item trade, buy, sell and wishlist quantity control. Keep this quantity abbreviation short.
+	"interface.item.quantity_short": "Q:",
+	// Informational placeholder shown when clicking the account-bound item's X; unbinding is not implemented.
+	"interface.item.unbind_soon": "Unbind the item? [Soon]",
+	// Condition tooltip showing how many uses or targets remain.
+	"interface.item.count_left": "{count} left",
+	// Playful computer sound displayed in the log when its network link is clicked.
+	"interface.computer.beep": "Beep. Boop.",
 };

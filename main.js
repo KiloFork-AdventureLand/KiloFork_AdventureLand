@@ -421,7 +421,7 @@ app.all("/data.js", async (req, res, next) => {
 		docs: docs,
 		drops: drops,
 	};
-	if (req.query.reload || (req.body && req.body.reload)) additional = "add_log('Game data reloaded','#32A3B0');\napply_backup()\n";
+	if (req.query.reload || (req.body && req.body.reload)) additional = "add_log(phrase('client.data.reloaded'),'#32A3B0');\napply_backup()\n";
 	res
 		.status(200)
 		.set("Content-Type", "application/javascript")

@@ -3563,10 +3563,6 @@ module.exports = {
 		'<span style="color: #909292">&gt;</span> Right click to equip and un-equip items. You can drag items within your inventory. When a merchant NPC is active, right click the item to see the item value\n\tand sell the item.',
 	// docs/guide/basics.html:37; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.basics.show-names-toggle": "Show Names [Toggle]",
-	// docs/guide/basics.html:49; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.guide.basics.skills": "SKILLS",
-	// docs/guide/basics.html:50; Documentation prose. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.guide.basics.system-the-skills-and-remapping-have-a-separate": "system. The SKILLS and remapping have a separate guide.",
 	// docs/guide/basics.html:5; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.basics.target": "Target",
 	// docs/guide/basics.html:25; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -3583,8 +3579,9 @@ module.exports = {
 	"docs.guide.basics.use-main-skill": "Use Main Skill",
 	// docs/guide/basics.html:19; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["MP Potion"].
 	"docs.guide.basics.use-mp-potion": "Use MP Potion",
-	// docs/guide/basics.html:48; Documentation prose. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.guide.basics.you-can-map-or-remap-any-key-from": "You can map or remap any key from the",
+	// docs/guide/basics.html; Complete skill-button sentence. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.guide.basics.key-remapping-guide":
+		'You can map or remap any key from the <div class="gamebutton gamebutton-small" onclick="btc(event); if(character){ hide_modal(); render_skills(); }">SKILLS</div> system. The SKILLS and remapping have a separate guide.',
 	// docs/guide/compounding.html:25; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.compounding.1-match-name-and-level-three-1-rings": '<span class="guide-step">1</span><b>Match name and level</b><br />Three +1 rings can become one +2 ring. A +0 copy cannot join them.',
 	// docs/guide/compounding.html:26; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
@@ -4793,9 +4790,9 @@ module.exports = {
 	"docs.guide.stats.damage-return-returns-melee-damage": '<span style="color: #3A3B3B">Damage Return:</span> Returns melee damage.',
 	// docs/guide/stats.html:4; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.stats.dexterity-increases-the-attack-speed-run-speed": '<span style="color: #3A3B3B">Dexterity:</span> Increases the attack speed, run speed.',
-	// docs/guide/stats.html:33; Documentation prose. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.guide.stats.each-class-have-it-s-own-skills-as":
-		"Each class have it's own skills. As the game is in development the skills are ever changing and improving. You can check out your class skills from the",
+	// docs/guide/stats.html; Complete skill-button sentence. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.guide.stats.class-skills-guide":
+		"Each class has its own skills. As the game develops, skills keep changing and improving. You can check your class skills from the <div class='gamebutton gamebutton-small' onclick=\"btc(event); if(character){ hide_modal(); render_skills(); }\">SKILLS</div> system.",
 	// docs/guide/stats.html:14; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.stats.evasion-evade-physical-attacks": '<span style="color: #3A3B3B">Evasion:</span> Evade physical attacks.',
 	// docs/guide/stats.html:6; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
@@ -4817,16 +4814,12 @@ module.exports = {
 		'<span style="color: #3A3B3B">Resistance:</span> 100 Resistance reduces incoming magical damage by 10%, diminishingly.',
 	// docs/guide/stats.html:31; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.stats.skills": "Skills",
-	// docs/guide/stats.html:33; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.guide.stats.skills-2": "SKILLS",
 	// docs/guide/stats.html:12; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.stats.speed-increases-the-run-speed": '<span style="color: #3A3B3B">Speed:</span> Increases the run speed.',
 	// docs/guide/stats.html:13; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.stats.stat-becomes-a-main-attribute-with-a-scroll": '<span style="color: #3A3B3B">Stat:</span> Becomes a main attribute with a scroll.',
 	// docs/guide/stats.html:2; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.stats.strength-increases-hp-armor": '<span style="color: #3A3B3B">Strength:</span> Increases HP, Armor. <!--Increases the attack of warriors.-->',
-	// docs/guide/stats.html:33; Documentation prose. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.guide.stats.system": "system.",
 	// docs/guide/stats.html:5; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.stats.vitality-increases-hp-proportional-to-level": '<span style="color: #3A3B3B">Vitality:</span> Increases HP proportional to level.',
 	// docs/guide/stats.html:27; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Mage"].
@@ -4842,8 +4835,7 @@ module.exports = {
 	"docs.guide.tavern-games.a-completed-losing-wager-is-a-valid-result":
 		'A completed losing wager is a valid result and fulfills its Promise with <span class="dlabel">won: false</span>. A rejected Promise means the wager or machine failed validation.',
 	// docs/guide/tavern-games.html:7; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Jaqk"].
-	"docs.guide.tavern-games.house_rules":
-		"<b>Ask Jaqk for the current house</b>The tavern panel shows whether betting is open, its edge, and the largest win it can presently cover.",
+	"docs.guide.tavern-games.house_rules": "<b>Ask Jaqk for the current house</b>The tavern panel shows whether betting is open, its edge, and the largest win it can presently cover.",
 	// docs/guide/tavern-games.html:34; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"].
 	"docs.guide.tavern-games.code-inspect-the-house": "CODE: Inspect the House",
 	// docs/guide/tavern-games.html:44; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"].

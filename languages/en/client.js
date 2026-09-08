@@ -357,4 +357,6 @@ module.exports = {
 	"client.add_frequest.received": "<span style='color: white'>{name}</span> wants to be your friend.",
 	// js/functions.js add_duel; complete duel invitation. Names remain unchanged; preserve the span and style.
 	"client.duel.accepted": "<span style='color: white'>{player}</span> accepted a duel from {challenger}!",
+	// Game-data refresh notification emitted by /data.js?reload. Display in the active client's language; preserve apply_backup behavior.
+	"client.data.reloaded": "Game data reloaded",
 };

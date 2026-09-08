@@ -2830,16 +2830,16 @@ function render_skill(selector, skill_name, args) {
 		if (skill.explanation) {
 			html += "<div style='color: #C3C3C3'>" + skill.explanation + "</div>";
 			if (skill.mp) html += bold_prop_line("MP", skill.mp, colors.mp);
-			if (skill.duration) html += bold_prop_line(phrase.html("interface.skill.duration"), skill.duration / 1000.0 + " seconds", "gray");
-			if (skill.cooldown && skill.cooldown / 1000.0) html += bold_prop_line(phrase.html("interface.skill.cooldown"), skill.cooldown / 1000.0 + " seconds", "gray");
-			if (skill.reuse_cooldown && skill.reuse_cooldown / 1000.0) html += bold_prop_line(phrase.html("interface.skill.r_use_cooldown"), skill.reuse_cooldown / 1000.0 + " seconds", "gray");
+			if (skill.duration) html += bold_prop_line(phrase.html("interface.skill.duration"), phrase.html("interface.time.seconds", { count: skill.duration / 1000.0 }), "gray");
+			if (skill.cooldown && skill.cooldown / 1000.0) html += bold_prop_line(phrase.html("interface.skill.cooldown"), phrase.html("interface.time.seconds", { count: skill.cooldown / 1000.0 }), "gray");
+			if (skill.reuse_cooldown && skill.reuse_cooldown / 1000.0) html += bold_prop_line(phrase.html("interface.skill.r_use_cooldown"), phrase.html("interface.time.seconds", { count: skill.reuse_cooldown / 1000.0 }), "gray");
 			if (skill.share) html += bold_prop_line(phrase.html("interface.skill.cooldown"), phrase.html("interface.skill.shared_cooldown", { multiplier: to_pretty_float(skill.cooldown_multiplier || 1), skill: phrase.definition("skill", skill.share, "name", G.skills[skill.share].name) }), "gray");
 			if (skill.range) html += bold_prop_line(phrase.html("interface.skill.range"), skill.range, "gray");
 			if (skill.use_range) html += bold_prop_line(phrase.html("interface.skill.range"), phrase.html("interface.skill.character_range"), "gray");
 			if (skill.range_multiplier && skill.range_bonus) html += bold_prop_line(phrase.html("interface.skill.range"), to_pretty_float(skill.range_multiplier || 1) + "X + " + skill.range_bonus, "gray");
 			else if (skill.range_multiplier) html += bold_prop_line(phrase.html("interface.skill.range"), phrase.html("interface.skill.range_multiplier", { multiplier: to_pretty_float(skill.range_multiplier || 1) }), "gray");
 			if (skill.level) html += bold_prop_line(phrase.html("interface.skill.level_requirement"), skill.level, "gray");
-			if (skill.wtype) html += bold_prop_line(phrase.html("interface.skill.weapon_requirement"), is_array(skill.wtype) ? `"${skill.wtype.join('", "')}"` : `"${skill.wtype}"`, "gray");
+			if (skill.wtype) html += bold_prop_line(phrase.html("interface.skill.weapon_requirement"), (is_array(skill.wtype) ? skill.wtype : [skill.wtype]).map(function (type) { return '"' + phrase.escape(phrase.definition("weapon_type", type, "name", type)) + '"'; }).join(", "), "gray");
 			if (skill.offhand_type) html += bold_prop_line(phrase.html("interface.skill.offhand_requirement"), phrase.definition("weapon_type", skill.offhand_type, "name", skill.offhand_type.toTitleCase()), "gray");
 			if (skill.max) html += bold_prop_line(phrase.html("interface.skill.max"), skill.max, "gray");
 			if (skill.type == "passive") html += "<div><span style='color: #696C68;'>" + phrase.html("interface.skill.passive") + "</span></div>";
@@ -2859,10 +2859,10 @@ function render_skill(selector, skill_name, args) {
 			(skill.levels || []).forEach(function (lv) {
 				var level = lv[0],
 					value = lv[1];
-				html += bold_prop_line(phrase.html("interface.skill.output"), value + (level > 0 && " (Lv. " + level + ")"), "gray");
+				html += bold_prop_line(phrase.html("interface.skill.output"), level > 0 ? phrase.html("interface.skill.value_at_level", { value: value, level: level }) : value, "gray");
 			});
 			(skill.mp_return_levels || []).forEach(function (lv) {
-				html += bold_prop_line(phrase.html("interface.skill.hp_loss_to_mp"), Math.round(lv[1] * 100) + "% (Lv. " + lv[0] + ")", colors.mp);
+				html += bold_prop_line(phrase.html("interface.skill.hp_loss_to_mp"), phrase.html("interface.skill.value_at_level", { value: Math.round(lv[1] * 100) + "%", level: lv[0] }), colors.mp);
 			});
 			for (var requirement in skill.requirements || {}) {
 				var amount = skill.requirements[requirement];
@@ -3922,9 +3922,8 @@ function render_item(selector, args) {
 			item.achievements.forEach(function (a) {
 				var acolor = "white";
 				if (max(args.score, args.mcount) >= a[0]) acolor = "#2EA436";
-				var an = a[2];
-				if (an == "frequency") an = "a.speed";
-				html += "<div><span style='color:" + acolor + "'>[" + to_pretty_num(a[0]) + "]</span> <span style='color:" + (colors[a[2]] || "gray") + "'>" + an.toUpperCase() + "</span> " + a[3] + "</div>";
+				var an = phrase.definition("stat", a[2], "name", a[2]).toLocaleUpperCase(phrase.language);
+				html += "<div><span style='color:" + acolor + "'>[" + to_pretty_num(a[0]) + "]</span> <span style='color:" + (colors[a[2]] || "gray") + "'>" + phrase.escape(an) + "</span> " + a[3] + "</div>";
 			});
 			if (args.count < 100 && 0) {
 				html += "<div style='margin-top: 5px; color:#848987'>" + phrase.html("interface.item.insight_locked") + "</div>";
@@ -4006,7 +4005,7 @@ function render_item(selector, args) {
 		}
 
 		if (actual && actual.acl) {
-			html += "<div style='color: #ADA68E'>" + phrase.html("interface.item.account_bound") + " " + "<span class='clickable' style='color: #C49F8D' onclick='show_alert(\"Unbind the item? [Soon]\")'>" + "[X]" + "</span></div>";
+			html += "<div style='color: #ADA68E'>" + phrase.html("interface.item.account_bound") + " " + "<span class='clickable' style='color: #C49F8D' onclick='show_alert(phrase.html(\"interface.item.unbind_soon\"))'>" + "[X]" + "</span></div>";
 		}
 
 		if (!(args && args.prop)) {
@@ -4063,7 +4062,7 @@ function render_item(selector, args) {
 			var svalue = 2 * calculate_item_value(actual);
 			html += "<div style='margin-top: 5px'>";
 			if ((actual.q || 1) > 1) {
-				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + "Q:" + "</span> <div class='inline-block tradenum' contenteditable=true>" + (actual.q) + "</div></div>";
+				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block tradenum' contenteditable=true>" + (actual.q) + "</div></div>";
 			}
 			html += "<div><span class='clickable' style='color:#35AD4B' onclick='$(\".sellmins\").focus()'>" + phrase.html("interface.item.minutes") + "</span> <div class='inline-block sellmins editable' contenteditable=true>20</div></div>";
 			html += "<div><span class='clickable' style='color:#EF5EA8' onclick='giveaway(\"" + (args.slot) + "\",\"" + (args.num) + "\",$(\".tradenum\").shtml(),$(\".sellmins\").shtml())'>" + phrase.html("interface.item.giveaway") + "</span></div>"; // style='color:#A99A5B'
@@ -4072,7 +4071,7 @@ function render_item(selector, args) {
 			var svalue = 2 * calculate_item_value(actual);
 			html += "<div style='margin-top: 5px'>";
 			if ((actual.q || 1) > 1) {
-				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + "Q:" + "</span> <div class='inline-block tradenum' contenteditable=true>" + (actual.q) + "</div></div>";
+				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block tradenum' contenteditable=true>" + (actual.q) + "</div></div>";
 			}
 			html +=
 				"<div><span class='gold clickable' onclick='$(\".sellprice\").focus()'>" + phrase.html((actual.q || 1) > 1 ? "interface.price.gold_each" : "interface.price.gold") + "</span> <div class='inline-block sellprice editable' contenteditable=true>" +
@@ -4094,7 +4093,7 @@ function render_item(selector, args) {
 		if (in_arr(args.slot, trade_slots) && actual && actual.price && args.from_player && !actual.b && !actual.giveaway) {
 			trade_item = true;
 			if ((actual.q || 1) > 1) {
-				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + "Q:" + "</span> <div class='inline-block tradenum' contenteditable=true>1</div></div>";
+				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block tradenum' contenteditable=true>1</div></div>";
 			}
 			html += "<div style='color: gold'>" + phrase.html((actual.q || 1) > 1 ? "interface.price.amount_each" : "interface.price.amount", { amount: to_pretty_num(actual.price) }) + "</div>";
 			html += "<div><span class='clickable itu' onclick='trade_buy(\"" + (args.slot) + "\",\"" + (args.from_player) + "\",\"" + ((actual.rid || "")) + "\",$(\".tradenum\").html())'>" + phrase.html("interface.item.buy") + "</span></div>";
@@ -4112,7 +4111,7 @@ function render_item(selector, args) {
 			if ((actual.q || 1) > 1 && item.s) q = true;
 			trade_item = true;
 			if (q) {
-				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + "Q:" + "</span> <div class='inline-block tradenum' contenteditable=true>1</div></div>";
+				html += "<div><span class='gray clickable' onclick='$(\".tradenum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block tradenum' contenteditable=true>1</div></div>";
 			}
 			html += "<div style='color: gold'>" + phrase.html(q ? "interface.price.amount_each" : "interface.price.amount", { amount: to_pretty_num(actual.price) }) + "</div>";
 			html += "<div><span class='clickable ibu' onclick='trade_sell(\"" + (args.slot) + "\",\"" + (args.from_player) + "\",\"" + ((actual.rid || "")) + "\",$(\".tradenum\").html())'>" + phrase.html("interface.item.sell") + "</span></div>";
@@ -4150,7 +4149,7 @@ function render_item(selector, args) {
 					var q = 1;
 					if (item.gives) q = 100;
 					html += "<div style='margin-top: 5px'><!--<input type='number' value='1' class='buynum itemnumi'/> -->";
-					html += "<span class='gray clickable' onclick='$(\".buynum\").cfocus()'>" + "Q:" + "</span> <div class='inline-block buynum' contenteditable=true>" + (q) + "</div> <span class='gray'>|</span> ";
+					html += "<span class='gray clickable' onclick='$(\".buynum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block buynum' contenteditable=true>" + (q) + "</div> <span class='gray'>|</span> ";
 					html += "<span class='clickable' onclick='" + (f) + "(\"" + (name) + "\",parseInt($(\".buynum\").html()))'>" + phrase.html("interface.item.buy") + "</span> ";
 					html += "</div>";
 				} else html += "<div><span class='clickable' onclick='" + (f) + "(\"" + (name) + "\")'>" + phrase.html("interface.item.buy") + "</span></div>";
@@ -4182,7 +4181,7 @@ function render_item(selector, args) {
 			if (item.s && actual.q) {
 				var q = actual.q;
 				html += "<div style='margin-top: 5px'>";
-				html += "<span class='gray clickable' onclick='$(\".sellnum\").cfocus()'>" + "Q:" + "</span> <div class='inline-block sellnum' contenteditable=true>" + (q) + "</div> <span class='gray'>|</span> ";
+				html += "<span class='gray clickable' onclick='$(\".sellnum\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block sellnum' contenteditable=true>" + (q) + "</div> <span class='gray'>|</span> ";
 				html += "<span class='clickable' onclick='var inum=\"" + (args.num) + "\"; if(character.items[inum].name==\"" + (actual.name) + "\") sell(inum,parseInt($(\".sellnum\").html()))'>" + phrase.html("interface.item.sell") + "</span> ";
 				html += "</div>";
 			} else html += "<div><span class='clickable' onclick='var inum=\"" + (args.num) + "\"; if(character.items[inum].name==\"" + (actual.name) + "\") sell(inum)'>" + phrase.html("interface.item.sell") + "</span></div>";
@@ -4200,10 +4199,10 @@ function render_item(selector, args) {
 		if (!value && !args.sell && actual && !trade_item && !args.trade && !args.npc) {
 			if (item.action) {
 				var id = (args && args.slot) || (args && args.num);
-				html += '<div><span data-id="' + id + '" class="clickable" style="color: ' + (item.acolor || color) + '" onclick="' + item.onclick + '"">' + item.action + "</span></div>";
+				html += '<div><span data-id="' + id + '" class="clickable" style="color: ' + (item.acolor || color) + '" onclick="' + item.onclick + '"">' + phrase.definition("item", name, "action", item.action) + "</span></div>";
 			}
 			if (item.type == "computer") {
-				html += "<div class='clickable' onclick='add_log(\"Beep. Boop.\")' style=\"color: #32A3B0\">" + phrase.html("interface.item.network") + "</div>";
+				html += "<div class='clickable' onclick='add_log(phrase(\"interface.computer.beep\"))' style=\"color: #32A3B0\">" + phrase.html("interface.item.network") + "</div>";
 			}
 			if (item.type == "stand") {
 				html += "<div class='clickable' onclick='socket.emit(\"trade_history\",{}); $(this).parent().remove()' style=\"color: #44484F\">" + phrase.html("interface.item.trade_history") + "</div>";
@@ -4275,7 +4274,7 @@ function render_item(selector, args) {
 		}
 		if (args.condition && args.condition.sn) html += bold_prop_line(phrase.html("interface.item.server"), args.condition.sn, "#BED4DE");
 		if (args.condition && args.condition.f) html += bold_prop_line(phrase.html("interface.item.from"), args.condition.f, "#BED4DE");
-		if (args.condition && args.condition.c) html += bold_prop_line(phrase.html("interface.item.count"), args.condition.c + " left", "#891C13");
+		if (args.condition && args.condition.c) html += bold_prop_line(phrase.html("interface.item.count"), phrase.html("interface.item.count_left", { count: args.condition.c }), "#891C13");
 		if (args.condition && args.condition.sn && args.condition.id) {
 			html +=
 				"<div style='background-color:#575983; border: 2px solid #9F9FB0; position: relative; display: inline-block; margin: 2px;' class='clickable' onclick='pcs(event); monster_x(\"" +
@@ -4312,7 +4311,7 @@ function render_wishlist_item(name, num) {
 	html += "<div style='color: #E4E4E4; border-bottom: 2px dashed gray; margin-bottom: 3px; display: inline-block' class='cbold'>" + def.name + "</div>";
 	html += "</div>";
 
-	html += "<div><span class='gray clickable' onclick='$(\".wnumq\").cfocus()'>" + "Q:" + "</span> <div class='inline-block wnumq' contenteditable=true>1</div></div>";
+	html += "<div><span class='gray clickable' onclick='$(\".wnumq\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block wnumq' contenteditable=true>1</div></div>";
 	html +=
 		"<div><span class='gold clickable' onclick='$(\".wprice\").cfocus()'>" + phrase.html(def.s ? "interface.price.gold_each" : "interface.price.gold") + "</span> <div class='inline-block wprice editable' contenteditable=true>" +
 		(calculate_item_value({ name: name }) + 1) +
