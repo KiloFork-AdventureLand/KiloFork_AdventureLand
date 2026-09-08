@@ -1,10 +1,19 @@
 <p><span class='dlabel'>require_code(name_or_slot)</span></p>
 <p>Synchronously evaluates a code slot or local code file in module scope and returns module.exports.</p>
 <p><b>Returns:</b> Exports object or any value assigned to module.exports.</p>
-<p><b>Notes:</b> The loaded file can use module.exports or exports. Use load_code when globals are intentional.</p>
+<p><b>Exports:</b> The loaded file must explicitly assign <span class='dlabel'>module.exports</span> or add properties to <span class='dlabel'>exports</span>. Local declarations alone are not exported. Assigning <span class='dlabel'>exports = value</span> does not replace <span class='dlabel'>module.exports</span>. JavaScript <span class='dlabel'>import</span> and <span class='dlabel'>export</span> declarations are not supported.</p>
+<p><b>No module cache:</b> Every call executes the file again, including nested calls from other modules. Objects created by separate executions are separate copies, and initialization can create duplicate timers or listeners. Require once and pass the returned value to callers that need the same object.</p>
+<p><b>No circular dependencies:</b> A requiring B while B requires A keeps loading recursively until an error or execution limit stops it. Put shared values in a module that does not require its callers.</p>
+<p>These rules also apply on Mainframe. Module scope still allows access to existing game globals. Use <span class='rlabel' onclick="render_function_reference($(this).html())">load_code</span> when global declarations are intentional. See <a href='/docs/guide/code/8-code-slots-and-files'>Code Slots and Files</a> for a complete dependency example.</p>
+<hr />
 <p><b>Example:</b></p>
-<div class='code'>var helpers = require_code("helpers");
-helpers.start();</div>
+<p>Save this in a numbered slot named Constants:</p>
+<div class='code'>const TARGET = "goo";
+module.exports = { TARGET };</div>
+
+<p>Run this from your character slot:</p>
+<div class='code'>var constants = require_code("Constants");
+game_log(constants.TARGET); // goo</div>
 
 <p></p>
 <span class='redlabel'>"source"</span>

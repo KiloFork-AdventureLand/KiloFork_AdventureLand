@@ -1,9 +1,14 @@
 <p><span class='dlabel'>load_code(name_or_slot, onerror)</span></p>
-<p>Synchronously loads a code slot or local code file into the current top-level CODE scope.</p>
+<p>Synchronously executes a code slot or local code file in the character's global CODE scope, even when called inside a function or module.</p>
 <p><b>Returns:</b> Nothing.</p>
-<p><b>Notes:</b> Loading is synchronous and the loaded declarations become globals. Use require_code for isolated module scope.</p>
+<p><b>Repeated calls:</b> Every call executes the file again. Repeated top-level <span class='dlabel'>const</span>, <span class='dlabel'>let</span>, or <span class='dlabel'>class</span> declarations can fail with an <span class='dlabel'>Identifier has already been declared</span> error. Repeated <span class='dlabel'>var</span> initializers can reset values; initialization can also create duplicate timers or listeners.</p>
+<p>Load shared dependencies once from the character slot, before the scripts that use them. Calling <span class='dlabel'>load_code</span> from each dependent file does not skip files that have already run. Circular loading chains are not detected.</p>
+<p><b>Errors:</b> The optional <span class='dlabel'>onerror</span> is a script-load error callback. Syntax or runtime errors inside a loaded browser script are reported globally; they do not call this callback or throw into the calling code, which can continue running.</p>
+<p>Use <span class='rlabel' onclick="render_function_reference($(this).html())">require_code</span> for module scope and explicit exports. It also executes on every call. See <a href='/docs/guide/code/8-code-slots-and-files'>Code Slots and Files</a> for both loading patterns and a complete module example.</p>
 <p><b>Example:</b></p>
-<div class='code'>load_code("helpers");</div>
+<p>Save Constants and Combat as slots that define globals. Combat can use Constants' globals without loading that slot again.</p>
+<div class='code'>load_code("Constants");
+load_code("Combat");</div>
 
 <p></p>
 <span class='redlabel'>"source"</span>

@@ -8,16 +8,43 @@
 
 <div class='code'>show_json(X.codes); // Slot names and IDs available to this account</div>
 
+<hr />
+
 <p><span class='dlabel'>Loading shared CODE</span></p>
 
 <p>Keep the character's default slot small when possible. Put reusable functions in numbered slots, then load them from the character slot.</p>
 
-<div class='code'>load_code("helpers");
+<p>Both <span class='rlabel' onclick="render_function_reference($(this).html())">load_code</span> and <span class='rlabel' onclick="render_function_reference($(this).html())">require_code</span> run the file immediately and wait for its synchronous code to finish. Every call executes the file again, including calls made by other loaded files. Avoid loading files inside a repeating combat loop.</p>
 
-// or, if the slot exports values:
-var helpers = require_code("helpers");</div>
+<p><span class='dlabel'>Global scripts: load_code</span></p>
 
-<p><span class='dlabel'>load_code</span> runs the target slot in the current CODE scope, similar to pasting that slot into the caller. <span class='dlabel'>require_code</span> runs the target slot as a module and returns its exports.</p>
+<p><span class='dlabel'>load_code</span> runs a file in the character's global CODE scope, even when called inside a function or a module. Its top-level declarations become available to other CODE in that character.</p>
+
+<p>Loading the same file again can cause an <span class='dlabel'>Identifier has already been declared</span> error for top-level <span class='dlabel'>const</span>, <span class='dlabel'>let</span>, or <span class='dlabel'>class</span> declarations. Repeating <span class='dlabel'>var</span> declarations can reset values. Any initialization that runs again can also create duplicate timers or event listeners.</p>
+
+<p>For scripts that use globals, load dependencies once from the character slot, before the files that use them. For example, if saved slots named Constants, Combat, and Merchant define globals, start with:</p>
+
+<div class='code'>load_code("Constants");
+load_code("Combat");
+load_code("Merchant");</div>
+
+<p>In this arrangement, Combat and Merchant use the globals from Constants; they should not load Constants again.</p>
+
+<hr />
+
+<p><span class='dlabel'>Modules: require_code</span></p>
+
+<p><span class='dlabel'>require_code</span> gives the loaded file its own scope and returns <span class='dlabel'>module.exports</span>. Declare local variables with <span class='dlabel'>const</span>, <span class='dlabel'>let</span>, or <span class='dlabel'>var</span>, and explicitly export what callers need. Changing only <span class='dlabel'>load_code</span> to <span class='dlabel'>require_code</span> does not export existing declarations: a file with no exports returns an empty object.</p>
+
+<p>Use <span class='dlabel'>module.exports = value</span> to return a value, or add properties such as <span class='dlabel'>exports.TARGET = "goo"</span>. Assigning a new object to <span class='dlabel'>exports</span> alone does not replace <span class='dlabel'>module.exports</span>. These loaders do not support JavaScript <span class='dlabel'>import</span> and <span class='dlabel'>export</span> declarations.</p>
+
+<p><b>No module cache:</b> each call evaluates the file again. If two modules require Constants, Constants runs twice. Objects created by those executions are separate copies, and initialization runs twice too. If callers need the same object, require it once and pass the returned value to them.</p>
+
+<p><b>No circular dependencies:</b> a chain such as A requiring B, then B requiring A, keeps loading recursively until an error or execution limit stops it. Move shared values into a third module that does not require either caller.</p>
+
+<p>These repeated-loading rules also apply on Mainframe. Module scope does not prevent a file from using existing game globals or deliberately changing global state.</p>
+
+<hr />
 
 <p><span class='dlabel'>VS Code sync</span></p>
 
@@ -29,6 +56,41 @@ var helpers = require_code("helpers");</div>
 Farming.12.js       // Account CODE slot 12</div>
 
 <p>Run <span class='dlabel'>Adventure Land: Activate Auto Sync Folder</span> once. It downloads your CODE slots, refreshes helper libraries, checks for remote changes, uploads safe offline edits, and uploads managed files when you save them.</p>
+
+<hr />
+
+<p><span class='dlabel'>CODE example: shared module dependencies</span></p>
+
+<p>Save Constants, Combat, and Merchant in three separate numbered slots. Put the final block in your character slot. This example uses modules; run it separately from the global example above.</p>
+
+<p><span class='dlabel'>Constants</span></p>
+
+<div class='code'>const TARGET = "goo";
+const BANK_MAP = "bank";
+
+module.exports = { TARGET, BANK_MAP };</div>
+
+<p><span class='dlabel'>Combat</span></p>
+
+<div class='code'>const constants = require_code("Constants");
+
+module.exports = { target_type: constants.TARGET };</div>
+
+<p><span class='dlabel'>Merchant</span></p>
+
+<div class='code'>const constants = require_code("Constants");
+
+module.exports = { bank_map: constants.BANK_MAP };</div>
+
+<p><span class='dlabel'>Character slot</span></p>
+
+<div class='code'>var combat = require_code("Combat");
+var merchant = require_code("Merchant");
+
+game_log(combat.target_type); // goo
+game_log(merchant.bank_map);  // bank</div>
+
+<p>The character slot requires Combat and Merchant; each requires Constants. This works because Constants only declares and exports values. It still executes twice. Keep timers, listeners, and other startup work out of a repeatedly required constants module.</p>
 
 <p><span class='dlabel'>Useful functions</span></p>
 

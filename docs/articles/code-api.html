@@ -86,6 +86,8 @@ var helpers = require_code("helpers");</div>
 
 <p><span class="dlabel">get/set</span> store JSON-serializable browser-local values. <span class="dlabel">pget/pset</span> use the platform's raw persistent string storage. <span class="dlabel">load_code</span> deliberately adds declarations to the current global scope; <span class="dlabel">require_code</span> isolates a module and returns its exports.</p>
 
+<p>Both loaders execute the file again on every call, including on Mainframe. Repeated <span class="dlabel">load_code</span> calls can redeclare globals or reset state. <span class="dlabel">require_code</span> needs explicit exports and has no module cache or circular-dependency handling. Either loader can repeat initialization and duplicate timers or listeners. See <a href="/docs/guide/code/8-code-slots-and-files">Code Slots and Files</a> for loading patterns and a complete dependency example.</p>
+
 <p><span class="dlabel">Low-level socket access</span></p>
 
 <p><span class="dlabel">get_socket()</span> is available for listening to low-level events. Prefer public action functions for requests: a raw socket emit does not register a CODE Promise, match the response to your call, or apply the normal client checks.</p>
