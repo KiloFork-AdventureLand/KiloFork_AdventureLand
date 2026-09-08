@@ -92,7 +92,11 @@ base_url: "http://adventure.test",
 
 Or just use `http://localhost` — the default config works without any hosts entry.
 
-### 7. Start the backend
+### 7. Seed the map data
+
+Before starting either server, follow [Seeding Game Data](#seeding-game-data) to load the bundled maps into a fresh local MongoDB database.
+
+### 8. Start the backend
 
 ```sh
 node main.js
@@ -100,7 +104,7 @@ node main.js
 
 The backend starts on port **8090** (configurable in `secretsandconfig/options.js`). Visit http://localhost:8090
 
-### 8. Start the game server
+### 9. Start the game server
 
 ```sh
 cd node
@@ -117,9 +121,25 @@ Messages include the realm and character name. Public chat is batched over ten s
 
 ## Seeding Game Data
 
-### Start fresh
+Run [scripts/seed_mongodb.js](scripts/seed_mongodb.js) once before starting the backend or game server. It includes the 49 map geometry records needed by `design/maps.js` and inserts them into MongoDB's `map` collection. No SQLite dump, Python setup, or production access is needed.
 
-The game will create entities as needed. You can sign up for a new account through the web UI. You'll need to populate map data for the game server to function — the BFS precomputation (`node/precompute_bfs.js`) depends on map geometry being in the database.
+Items, monsters, NPCs, and other game definitions already live in `design/`. Accounts, characters, and server records are created as you use the game; the seed contains no player data.
+
+Set `mongodb_name` in `secretsandconfig/keys.js` to a fresh database and point `mongodb_uri` at your local MongoDB instance. Keep both servers stopped while seeding. From the repository root, run:
+
+```sh
+# Check the local connection and confirm the database has no collections (read-only)
+node scripts/seed_mongodb.js --dry-run
+
+# Insert the maps; replace adventureland with your exact mongodb_name
+node scripts/seed_mongodb.js --confirm adventureland
+```
+
+Running without arguments only prints help and does not connect to MongoDB. The script accepts a single local address (`127.0.0.1`, `localhost`, or `::1`), refuses remote, SRV, and proxy connections, and is disabled when `NODE_ENV=production`. Use an actual local MongoDB instance, never a tunnel to an existing database. For a hosted installation, seed locally first and transfer that fresh database using your own deployment process.
+
+The database must have **no collections**, even empty ones. The script requires the exact database name before inserting and refuses repeat runs. It never overwrites or deletes records. If insertion is interrupted, it may leave partial map data and will refuse another attempt; inspect the target and use a new empty database for a fresh seed.
+
+After seeding, start both servers using the Quick Start steps and sign up through the web UI.
 
 ## Project Structure
 
@@ -142,6 +162,8 @@ adventureland/
   css/                     # Stylesheets
   images/                  # Game art and tilesets
   sounds/                  # Sound effects and music
+  scripts/
+    seed_mongodb.js       # Bundled map geometry and guarded local database seeding
   common -> ../common      # Symlink to common_engine
   secretsandconfig -> ...  # Symlink to your config
 ```
