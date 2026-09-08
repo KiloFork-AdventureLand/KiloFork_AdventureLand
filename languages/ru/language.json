@@ -1,0 +1,7 @@
+{
+	"language.choose": "Язык",
+	"language.select": "Выбрать {language}",
+	"language.save_failed": "Не удалось сохранить язык. Попробуйте ещё раз.",
+	"language.saving": "Сохранение…",
+	"navigation.communicator_short": "СВЯЗЬ"
+}

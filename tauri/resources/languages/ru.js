@@ -1,1 +1,1 @@
-phrase.load("ru",{"desktop.loading":"LOADING","desktop.connection_help":"Adventure Land needs an internet connection. Check your connection and try reloading. If it still won't load, email hello@adventure.land.","desktop.apology":"Sorry about the wait :)"});
+phrase.load("ru",{"desktop.loading":"ЗАГРУЗКА","desktop.connection_help":"Для Adventure Land нужен интернет. Проверьте подключение и повторите загрузку. Если игра по-прежнему не загружается, напишите на hello@adventure.land.","desktop.apology":"Простите за ожидание :)"});

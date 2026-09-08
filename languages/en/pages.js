@@ -982,7 +982,7 @@ module.exports = {
 	"pages.contents.selection.you-ve-reached-the-free-limit-of-8": "You've reached the free limit of 8 characters",
 	// htmls/contents/selection.html:208; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Named parameters (preserve each token exactly): {"referred":"user.info.referred or 0"}.
 	"pages.contents.selection.you-ve-recruited-so-far": "You've recruited {referred} so far.",
-	// htmls/contents/selection_characters.html:20; Page span prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
+	// htmls/contents/selection_characters.html:20; Empty character-slot card, beside a portrait. Use a compact availability label that fits on one short line.
 	"pages.contents.selection_characters.available-slot": "Available Slot",
 	// htmls/contents/selection_characters.html:20; Page span prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.selection_characters.free-slot": "Free Slot",
@@ -990,13 +990,13 @@ module.exports = {
 	"pages.contents.selection_characters.lv": "Lv.{level}",
 	// htmls/contents/selection_characters.html:31; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.selection_characters.new": "New",
-	// htmls/contents/selection_characters.html:28; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
+	// htmls/contents/selection_characters.html:28; Compact fixed-width pagination button. Use a short native abbreviation for Page so the label stays on one line; keep 1.
 	"pages.contents.selection_characters.page-1": "Page 1",
-	// htmls/contents/selection_characters.html:29; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
+	// htmls/contents/selection_characters.html:29; Compact pagination button. Match the short Page 1 label; keep 2.
 	"pages.contents.selection_characters.page-2": "Page 2",
-	// htmls/contents/selection_characters.html:30; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
+	// htmls/contents/selection_characters.html:30; Compact pagination button. Match the short Page 1 label; keep 3.
 	"pages.contents.selection_characters.page-3": "Page 3",
-	// htmls/contents/selection_characters.html:22; Page span prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
+	// htmls/contents/selection_characters.html:22; Second line of an empty character-slot card beside a portrait. Keep it very short; a native word meaning Empty is suitable.
 	"pages.contents.selection_characters.unused": "Unused",
 	// htmls/contents/selection_features.html:12; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.contents.selection_features.as-the-game-is-open-sourced-now-new": "As the game is open sourced now, new content and items from community can enrich our game.",
