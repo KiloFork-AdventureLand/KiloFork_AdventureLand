@@ -23,7 +23,9 @@ f.execs("rm -rf ~/deploy/" + folder + "");
 f.execs("mkdir ~/deploy/" + folder + "");
 // Package current local files, including uncommitted changes. Git ignores are not deployment filters.
 f.execs(
-	"rsync " + exclusions + " -r --whole-file --exclude=.electron --exclude=.git --exclude=node_modules --exclude=scripts --exclude=lib --exclude=python3 --exclude=stack --exclude=electron --exclude=tauri ~/adventureland/* ~/deploy/" + folder + "",
+	"rsync " + exclusions + " -r --whole-file --exclude=.electron --exclude=.git --exclude=node_modules --exclude=scripts --exclude=lib --exclude=python3 --exclude=stack --exclude=electron --exclude=tauri ~/adventureland/* ~/deploy/" +
+		folder +
+		"",
 );
 
 f.execs("rm -rf ~/deploy/" + folder + "/node/node_modules");
