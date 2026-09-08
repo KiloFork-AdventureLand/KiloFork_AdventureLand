@@ -14,6 +14,7 @@
 	var pro_mode='{% if not domain.newcomer_ui or 1 %}1{% endif %}';
 	var tutorial_ui='{% if domain.tutorial %}1{% endif %}';
 	var proximity_guides='{% if domain.proximity_guides %}1{% endif %}';
+	var close_buttons_enabled={% if domain.close_buttons == false %}false{% else %}true{% endif %};
 	var new_attacks='{% if domain.new_attacks %}1{% endif %}';
 	var recording_mode='{% if domain.recording_mode %}1{% endif %}';
 	var cached_map='{% if domain.fast_mode %}1{%endif%}',scale='{{domain.scale}}';
@@ -203,7 +204,7 @@ X.codes={{(user_data and user_data.info.code_list or {})|to_json|safe}}
 		var access_master="{{domain.access_master}}";
 		function show_renderer()
 		{
-			var html="<textarea id='renderer'></textarea><div class='gamebutton' style='position: absolute; bottom: -68px; right: -5px; border-color: #14561D' onclick='send_to_server()'>EXECUTE</div>";
+			var html="<textarea id='renderer'></textarea>"+snippet_actions("send_to_server()","EXECUTE","server-execute");
 			show_modal(html);
 			window.codemirror_render2=CodeMirror(function(current){$("#renderer").replaceWith(current);},{
 				value:window.codemirror_render2 && codemirror_render2.getValue() || "",
@@ -217,6 +218,7 @@ X.codes={{(user_data and user_data.info.code_list or {})|to_json|safe}}
 				cursorHeight:0.75,
 				/*,lineNumbers:true*/
 			});
+			position_modals();
 		}
 
 		function send_to_server()

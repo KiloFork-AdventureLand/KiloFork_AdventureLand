@@ -115,6 +115,11 @@
 	</div>
 </div>
 <div class='advancedsettings hidden'>
+	<div class="mt4 blockbutton closebuttonsoff {% if domain.close_buttons != false %}hidden{% endif %}"
+		onclick="btc(event); set_close_buttons(true)">Close Buttons: <span style="color: #F54423">OFF</span></div>
+	<div class="mt4 blockbutton closebuttonson {% if domain.close_buttons == false %}hidden{% endif %}"
+		onclick="btc(event); set_close_buttons(false)">Close Buttons: <span style="color: green">ON</span></div>
+
 	<div class="mt4 blockbutton tutoff {%if domain.tutorial %}hidden{% endif %}"
 		onclick="btc(event); $('.tutoff').hide(); $('.tuton').show(); tutorial_ui=true; update_tutorial_ui(); Cookies.set('no_tutorial','',{ expires:12*365});">Tutorial: <span style='color: #F54423'>OFF</span></div>
 	<div class="mt4 blockbutton tuton {%if not domain.tutorial %}hidden{% endif %}"

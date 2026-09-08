@@ -397,12 +397,8 @@ function show_modal(mhtml, args) {
 	if ($(".modal:last").hasClass("hideinbackground")) $(".modal:last").hide();
 	$("body").append(html);
 	add_ui_close($(".imodal:last"), "modal", Object.assign({ frame: args.wrap }, args.close));
-	var iheight = $(".imodal:last").height();
-	if (height > iheight)
-		$(".imodal:last")
-			.css("margin-bottom", "0px")
-			.css("margin-top", max(0, round(height / 2 - iheight / 2 - 5)));
 	if ($(".modal:last").find(".oncreate").length) eval($(".modal:last").find(".oncreate").attr("onclick"));
+	position_modals();
 	block_right_clicks = false;
 	$(".showwithmodals").show();
 	$(".hidewithmodals").hide();
@@ -418,11 +414,15 @@ function show_alert(x) {
 }
 
 function position_modals() {
-	$(".imodal").each(function () {
+	$(".imodal:visible").each(function () {
 		var $this = $(this),
-			iheight = $this.height();
-		if (height > iheight) $this.css("margin-bottom", "0px").css("margin-top", max(0, round(height / 2 - iheight / 2 - 5)));
-		else $this.css("margin-bottom", "40px").css("margin-top", "100px");
+			iheight = $this.outerHeight(), bounds = this.getBoundingClientRect(), above = 0, below = 0;
+		$this.find(".ui-close:visible,.snippet-actions:visible").each(function () {
+			var rect = this.getBoundingClientRect();
+			above = max(above, bounds.top - rect.top);
+			below = max(below, rect.bottom - bounds.bottom);
+		});
+		$this.css("margin-top", max(above + 8, round((height - iheight - below + above) / 2))).css("margin-bottom", below + 40);
 	});
 }
 
@@ -1648,9 +1648,13 @@ function command_snippet() {
 	if (code) socket.emit("o:command", code);
 }
 
+function snippet_actions(action, label, classes) {
+	return "<div class='snippet-actions'><div class='gamebutton ui-close-action' data-ui-dismiss onclick='btc(event); hide_modal()'>CLOSE</div><div class='gamebutton snippet-action " + (classes || "") + "' onclick='" + action + "'>" + (label || "EXECUTE") + "</div></div>";
+}
+
 function show_commander(fvalue) {
 	if ($(".snippetbtn").length) return;
-	var html = "<textarea id='rendererx'></textarea><div class='gamebutton snippetbtn' style='position: absolute; bottom: -68px; right: -5px' onclick='command_snippet()'>COMMAND</div>";
+	var html = "<textarea id='rendererx'></textarea>" + snippet_actions("command_snippet()", "COMMAND", "snippetbtn");
 	show_modal(html);
 	var value = "";
 	if (window.codemirror_render3) {
@@ -1675,11 +1679,12 @@ function show_commander(fvalue) {
 		},
 	);
 	codemirror_render3.focus();
+	position_modals();
 }
 
 function show_snippet(fvalue) {
 	if ($(".snippetbtn").length) return;
-	var html = "<textarea id='rendererx'></textarea><div class='gamebutton snippetbtn' style='position: absolute; bottom: -68px; right: -5px' onclick='tut(\"x\"); eval_snippet()'>EXECUTE</div>";
+	var html = "<textarea id='rendererx'></textarea>" + snippet_actions('tut("x"); eval_snippet()', "EXECUTE", "snippetbtn");
 	show_modal(html);
 	var value = "";
 	if (window.codemirror_render3) {
@@ -1704,6 +1709,7 @@ function show_snippet(fvalue) {
 		},
 	);
 	codemirror_render3.focus();
+	position_modals();
 }
 
 function eval_character_snippet(name) {
@@ -1715,7 +1721,7 @@ function show_character_snippet(name) {
 	var oname = name;
 	name = name.toLowerCase();
 	var html =
-		"<textarea id='renderer" + name + "'></textarea><div class='gamebutton' style='position: absolute; bottom: -68px; right: -5px' onclick='eval_character_snippet(\"" + name + "\")'>EXECUTE</div>";
+		"<textarea id='renderer" + name + "'></textarea>" + snippet_actions('eval_character_snippet("' + name + '")');
 	show_modal(html);
 	var value = "// " + oname + "\n";
 	if (window["codemirror_render" + name]) {
@@ -1739,6 +1745,7 @@ function show_character_snippet(name) {
 		},
 	);
 	window["codemirror_render" + name].focus();
+	position_modals();
 }
 
 function get_active_characters() {

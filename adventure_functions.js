@@ -539,6 +539,7 @@ async function get_domain(req, user) {
 	domain.purchase_mode = true;
 	domain.tutorial = true;
 	domain.proximity_guides = true;
+	domain.close_buttons = true;
 	domain.boost = 0;
 	if (user && is_admin(user)) {
 		domain.access_master = keys.ACCESS_MASTER;
@@ -590,6 +591,7 @@ async function get_domain(req, user) {
 		if (req.cookies.d_lines_off) domain.d_lines = false;
 		if (req.cookies.no_tutorial) domain.tutorial = false;
 		if (req.cookies.no_proximity_guides) domain.proximity_guides = false;
+		if (req.cookies.no_close_buttons) domain.close_buttons = false;
 		if (req.cookies.no_fast_mode) domain.fast_mode = false;
 		if (req.query.engine || req.cookies.engine_mode) domain.engine_mode = req.query.engine || req.cookies.engine_mode;
 		if (req.cookies.sd_lines_off) domain.sd_lines = false;

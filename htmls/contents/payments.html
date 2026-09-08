@@ -20,9 +20,9 @@
 		color: #6ecf28;
 	}
 </style>
-<div style="width: 600px; display: inline-block" class="{%if inside=='payments'%}modal imodal{%endif%}">
-	<div style="/*margin-top: 5px; */ text-align: left">
-		<div class="inline-block vtop">
+<div style="width: max-content; display: inline-block" class="{%if inside=='payments'%}modal imodal{%endif%}">
+	<div style="display: flex; gap: 5px; align-items: flex-start; text-align: left">
+		<div class="inline-block vtop" style="flex-shrink: 0">
 			{# Retained for payment testing; hidden from the website and in-game purchase UIs.
 			<div
 				class="gamebutton block mb5"
@@ -100,7 +100,7 @@
 			</div>
 			#}
 		</div>
-		<div class="inline-block vtop" style="width: 392px">
+		<div class="inline-block vtop" style="width: 436px; flex-shrink: 0">
 			{% if domain.tauri %}
 			<div style="padding: 20px; background: black; font-size: 32px; border: 4px solid #47867d; width: 388px" class="pui mainpui">
 				<div style="color: #66c0f4">Steam</div>

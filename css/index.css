@@ -687,7 +687,13 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	position: relative;
 }
 .ui-close-top{
-	margin-top: 26px;
+	margin-top: 27px;
+}
+.no-close-buttons .ui-close,.no-close-buttons .inventory-close,.no-close-buttons .ui-close-action{
+	display: none !important;
+}
+.no-close-buttons .ui-close-top{
+	margin-top: 0;
 }
 .ui-close{
 	position: absolute;
@@ -716,6 +722,14 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	padding-left: 9px;
 	padding-right: 7px;
 }
+.ui-close-row{
+	position: relative;
+	top: auto;
+	right: auto;
+	display: flex;
+	width: max-content;
+	margin: 0 0 6px auto;
+}
 .ui-close-docs{
 	top: -30px;
 	right: -30px;
@@ -731,9 +745,36 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	transform: translate(50%, 50%);
 }
 .ui-close-skills{
-	top: auto;
-	bottom: 10px;
-	right: calc(100% - 4px);
+	top: -32px;
+	left: -5px;
+	right: auto;
+	border-width: 5px;
+}
+.ui-close-tutorial{
+	transform: translate(50%, -50%);
+	background: black;
+	color: white;
+}
+.guide-article{
+	box-sizing: border-box;
+	width: min(1018px, calc(100vw - 80px));
+}
+.snippet-actions{
+	position: absolute;
+	top: calc(100% + 12px);
+	left: -5px;
+	right: -5px;
+	display: flex;
+	justify-content: space-between;
+}
+.snippet-actions .gamebutton{
+	min-width: 84px;
+}
+.snippet-actions .snippet-action{
+	margin-left: auto;
+}
+.snippet-actions .server-execute{
+	border-color: #14561D;
 }
 .ui-code-close{
 	top: -5px;

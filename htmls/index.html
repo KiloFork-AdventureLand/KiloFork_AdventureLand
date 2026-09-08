@@ -81,7 +81,7 @@
 			</style>
 		{% endif %}
 	</head>
-	<body>
+	<body{% if domain.close_buttons == false %} class="no-close-buttons"{% endif %}>
 		{% if domain.no_html %}
 			<div style="border: 2px solid gray; text-align: center; margin-bottom: 1px; color: gray" id="name">{{domain.character_name|upper}}</div>
 			<div id="status" style="text-align: center;">

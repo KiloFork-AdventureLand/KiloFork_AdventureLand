@@ -33,12 +33,17 @@ function add_ui_close(panel, action, options) {
 	frame[0].style.setProperty("--ui-close-color", style.color);
 	frame[0].style.setProperty("--ui-close-border", parseFloat(style.borderTopWidth) ? style.borderTopColor : "gray");
 	if (panel.is("#skills-item")) frame.addClass("ui-close-top");
-	var label = options.label || (frame.outerWidth() >= 600 ? "CLOSE" : "X");
+	var label = options.label || (action == "modal" || frame.outerWidth() >= 600 ? "CLOSE" : "X");
 	var button = $("<button type='button' class='gamebutton ui-close' title='Close' aria-label='Close' onpointerdown='stpr(event)' onclick='btc(event); close_ui_panel(this)'><span aria-hidden='true'></span></button>");
 	button.attr("data-ui-close", action).data("panel", panel[0]).find("span").text(label);
 	if (options.corner) button.css({ top: -parseFloat(style.borderTopWidth), right: -parseFloat(style.borderRightWidth) });
 	else if (bottom) button.addClass("ui-close-bottom").css({ bottom: -parseFloat(style.borderBottomWidth), right: -parseFloat(style.borderRightWidth) });
-	else if (!options.classes && !parseFloat(style.borderTopWidth)) button.css({ top: parseFloat(style.paddingTop) - 26, right: parseFloat(style.paddingRight) });
+	else if (!options.classes) {
+		var edge = parseFloat(style.borderTopWidth), first = frame.children().first(),
+			border = edge || parseFloat(first.css("border-top-width")) || 4;
+		button.css({ top: edge ? -32 : parseFloat(style.paddingTop) + (parseFloat(first.css("margin-top")) || 0) + border - 32,
+			right: edge ? -parseFloat(style.borderRightWidth) : parseFloat(style.paddingRight), borderWidth: border });
+	}
 	if (label != "X") button.addClass("ui-close-word");
 	if (options.classes) button.addClass(options.classes);
 	frame.prepend(button);
@@ -68,6 +73,16 @@ function close_ui_panel(button) {
 
 function show_settings() {
 	show_modal($(".basicsettings").html(), { wrap: false, styles: "width:600px", hideinbackground: true });
+}
+
+function set_close_buttons(enabled) {
+	if (window.no_html) return;
+	close_buttons_enabled = !!enabled;
+	$("body").toggleClass("no-close-buttons", !close_buttons_enabled);
+	$(".closebuttonson").toggle(close_buttons_enabled);
+	$(".closebuttonsoff").toggle(!close_buttons_enabled);
+	Cookies.set("no_close_buttons", close_buttons_enabled ? "" : "1", { expires: 12 * 365 });
+	position_modals();
 }
 
 var docked = [],
@@ -3095,7 +3110,7 @@ function render_tutorial(article, step, url) {
 	if (step == G.docs.tutorial.length - 1) cphrase = "COMPLETE";
 
 	var html =
-		"<div style='background: #E5E5E5; color: #010805; border: 5px solid gray; min-width: 640px; max-width: 960px; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
+		"<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
 	html +=
 		"<div style='margin-bottom: 8px;'><span style='color:#2B9EC9'>" +
 		tutorial.title +
@@ -3117,7 +3132,7 @@ function render_tutorial(article, step, url) {
 		"</div></div>";
 	html += "</div>";
 
-	show_modal(html, { wrap: false, url: url, close: { label: "Close", classes: "ui-close-docs" } });
+	show_modal(html, { wrap: false, url: url, close: { label: "X", classes: "ui-close-tutorial", corner: true } });
 	update_tutorial_ui();
 	$(".code").codemirror({ trim: true });
 	position_modals();
@@ -3126,7 +3141,7 @@ function render_tutorial(article, step, url) {
 function render_learn_article(article, args) {
 	if (article.includes('id="encouragement-personal"')) article = article.replace('<div id="encouragement-personal"></div>', render_encouragement_info());
 	var html =
-		"<div style='background: #E5E5E5; color: #010805; border: 5px solid gray; min-width: 640px; max-width: 960px; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
+		"<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
 	html += article;
 	html += "<div style='margin-bottom:-15px'></div>";
 	if (args.prev)
@@ -3382,7 +3397,7 @@ function render_all_monsters() {
 		html += "</div>";
 	});
 	html += "</div>";
-	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/guide/all/monsters" });
+	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/guide/all/monsters", close: { classes: "ui-close-row" } });
 }
 
 function render_all_events() {
@@ -5176,7 +5191,7 @@ function render_skills() {
 	var last = 0,
 		right_style = "text-align: right";
 	var html = "<div id='skills-item' class='rendercontainer' style='flex-shrink: 0; max-height: 100vh; overflow-y: auto; margin-right: 5px'></div>";
-	html += "<div id='skills-panel' style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; flex-shrink: 0'>";
+	html += "<div id='skills-frame' style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; flex-shrink: 0'><div id='skills-panel' style='max-height: calc(100vh - 50px); overflow-y: auto'>";
 	html +=
 		"<div class='textbutton' style='margin-left: 5px'><span  onclick='btc(event); show_snippet()'>MAPPING</span> <span style='color: " +
 		((skills_page == "I" && "#76BDE5") || "#7C7C7C") +
@@ -5282,13 +5297,13 @@ function render_skills() {
 		html += "</div>";
 		if (alast >= a.length) break;
 	}
-	html += "</div>";
+	html += "</div></div>";
 	skillsui = true;
 	render_skillbar(1);
 	$("body").append("<div id='theskills' style='position: fixed; z-index: 310; bottom: 0px; right: 0px; display: flex; align-items: flex-end' class='disableclicks bpclicks'></div>");
 	$(".skillsui").show();
 	$("#theskills").html(html);
-	add_ui_close($("#theskills"), "skills", { frame: true, label: "CLOSE", classes: "ui-close-skills" });
+	add_ui_close($("#skills-frame"), "skills", { frame: true, label: "CLOSE", classes: "ui-close-skills" });
 	restart_skill_tints();
 }
 
@@ -5375,7 +5390,7 @@ function render_teleporter() {
 		}
 	}
 	html += "</div>";
-	if (!$(".cxmodalteleporter").length) show_modal(html, { wrap: false });
+	if (!$(".cxmodalteleporter").length) show_modal(html, { wrap: false, close: { classes: "ui-close-row" } });
 }
 
 function render_travel(the_map) {
@@ -5475,7 +5490,7 @@ function render_gtravel() {
 		}
 	});
 	html += "</div>";
-	if (!$(".cxmodalteleporter").length) show_modal(html, { wrap: false });
+	if (!$(".cxmodalteleporter").length) show_modal(html, { wrap: false, close: { classes: "ui-close-row" } });
 }
 
 function render_gmonsters(t) {
@@ -5486,7 +5501,7 @@ function render_gmonsters(t) {
 			"<div class='gamebutton' style='margin-left: 5px; margin-bottom: 5px' onclick='hide_modal(); socket.emit(\"gm\",{action:\"mjump\",monster:\"" + id + "\"});'>" + G.monsters[id].name + "</div>";
 	});
 	html += "</div>";
-	show_modal(html, { wrap: false });
+	show_modal(html, { wrap: false, close: { classes: "ui-close-row" } });
 }
 
 function render_spawns(id) {
@@ -5497,7 +5512,7 @@ function render_spawns(id) {
 		i++;
 	});
 	html += "</div>";
-	show_modal(html, { wrap: false });
+	show_modal(html, { wrap: false, close: { classes: "ui-close-row" } });
 }
 
 function render_interaction(type, sub_type, args) {
