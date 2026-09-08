@@ -669,7 +669,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 }
 .inventory-close{
 	position: absolute;
-	top: -29px;
+	top: -27px;
 	right: -13px;
 	z-index: 2;
 	display: flex;
@@ -681,7 +681,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	padding: 0 0 2px 2px; /* Center the pixel font's visible X. */
 	border-radius: 0;
 	font-family: inherit;
-	font-size: 28px;
+	font-size: 26px;
 	cursor: pointer;
 }
 .inventory-close:hover,.inventory-close:focus-visible{
