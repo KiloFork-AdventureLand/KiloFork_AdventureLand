@@ -621,7 +621,6 @@ docs = {
 		// 	]
 		// ],
 		["basics", "The Basics", "", "#97D058"],
-		["encouragement", "Encouragement Bonuses", "new,returning,lone wolf,bonus,contribution", "#7DBC88"],
 		["stats", "Attributes, Classes, Skills", "", "#33C9CC"],
 		["items", "Items, Upgrades, Crafting", "items", "#58ABFF"],
 		[
@@ -630,6 +629,7 @@ docs = {
 			"upgrade,compound,craft,lock,seal,destat",
 			"#D88B45",
 			[
+				["encouragement", "Encouragement Bonuses", "new,returning,lone wolf,bonus,contribution,xp", "#7DBC88"],
 				["upgrading", "Upgrading", "upgrade,scroll,offering,grace,stat", "#E7A445"],
 				["compounding", "Compounding", "compound,combine,accessory,scroll,offering,grace", "#CE7C48"],
 				["crafting", "Crafting & Dismantling", "craft,recipe,dismantle,recycle", "#65B790"],

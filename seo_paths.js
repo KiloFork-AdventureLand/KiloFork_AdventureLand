@@ -15,7 +15,7 @@ const DOCS_PATHS = [
 	"/docs/code/npc/reference",
 	"/docs/code/server/status",
 	"/docs/guide",
-	"/docs/guide/encouragement",
+	"/docs/guide/progression/encouragement",
 	"/docs/guide/all/cosmetics",
 	"/docs/guide/all/events",
 	"/docs/guide/events-and-home",

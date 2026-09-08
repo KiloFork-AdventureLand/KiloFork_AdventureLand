@@ -32,6 +32,8 @@ function ui() {
 			throw Error("blocking dialog");
 		},
 	});
+	vm.runInContext(read("docs/directory.js"), c);
+	c.G = Object.assign({}, G, { docs: c.docs });
 	vm.runInContext(read("js/pixi/fake/pixi.min.js"), c);
 	c.PIXI = new Proxy(c.PIXI, {
 		get() {
@@ -42,6 +44,8 @@ function ui() {
 		"render_item",
 		"render_condition",
 		"render_encouragement_info",
+		"open_guide",
+		"get_guide_url",
 		"bold_prop_line",
 		"prop_line",
 		"prop_remains",
@@ -59,7 +63,19 @@ test("real condition renderer shows separate factors, a working INFO link and no
 	c.render_condition("#condition", "encouragement_lonewolf");
 	const html = rendered.at(-1);
 	assert.match(html, /3×/);
-	assert.match(html, /open_guide\("encouragement"\)/);
+	c.event = {};
+	c.stpr = () => {};
+	let request;
+	c.api_call = (method, args) => {
+		request = { method, ...args };
+	};
+	vm.runInContext(html.match(/onclick='([^']+)'>INFO/)[1], c);
+	assert.deepEqual(request, {
+		method: "load_article",
+		name: "encouragement",
+		guide: true,
+		url: "/docs/guide/progression/encouragement",
+	});
 	assert.doesNotMatch(html, /0 hours|0 minutes|Expires|Remaining|\+3%/);
 	c.character.s.encouragement_new = {
 		gold_multiplier: 5,
@@ -111,4 +127,21 @@ test("the exact documented CODE works with no graphics and reads condition remov
 	c.character.s = {};
 	vm.runInContext(example, c);
 	assert.equal(messages.at(-1), "Encouragement: 1x Gold, 1x XP, 1x Luck");
+});
+
+test("the guide hierarchy, URL resolver and SEO use the same progression route", () => {
+	const { c } = ui();
+	assert(!c.G.docs.guide.some((entry) => entry[0] === "encouragement"));
+	assert(c.G.docs.guide.find((entry) => entry[0] === "progression")[4].some((entry) => entry[0] === "encouragement"));
+	const url = c.get_guide_url("encouragement");
+	assert.equal(url, "/docs/guide/progression/encouragement");
+	const paths = require("../../seo_paths").get_seo_paths({
+		docs: c.G.docs,
+		guide_articles: ["encouragement"],
+		code_articles: [],
+		items: {},
+		monsters: {},
+	});
+	assert(paths.includes(url));
+	assert(!paths.includes("/docs/guide/encouragement"));
 });

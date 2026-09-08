@@ -4057,7 +4057,7 @@ function render_item(selector, args) {
 				var next = item.phases && item.phases[prop.phase];
 				if (next) html += "<div>Next: " + next[0] + "× Gold, " + (prop.xp_multiplier === 1 ? 1 : next[1]) + "× XP, " + next[2] + "× Luck</div>";
 			}
-			html += "<div class='slimbutton' onclick='stpr(event); open_guide(\"encouragement\")'>INFO</div>";
+			html += "<div class='slimbutton' onclick='stpr(event); open_guide(\"encouragement\",get_guide_url(\"encouragement\"))'>INFO</div>";
 		}
 		if (item.explanation) {
 			html += "<div style='color: #C3C3C3'>" + item.explanation + "</div>";
