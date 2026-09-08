@@ -1652,7 +1652,7 @@
 	"docs.guide.event-anniversary.monsters-also-drop-gifts-and-your-account-s": "イベント中は、モンスターもAnniversary Giftと自分のアカウントの味のひと切れを落とします。モンスターのHP、運、報酬分配を含む、通常の全域ドロップ判定を使います。<span class=\"dlabel\">show_json(G.drops.maps.global)</span>で確認できます。",
 	"docs.guide.event-anniversary.need-drapes-for-a-recipe-mummies-and-ghosts": "レシピにDrapesが必要ですか？ MummyとGhostが落とします。FrankyのMummyも持っていますが、落とす頻度は低めです。",
 	"docs.guide.event-anniversary.opens-one-item-leave-inventory-room-and-do": "アイテムを1個開けます。持ち物に空きを作り、交換中はそのアイテムを動かさないでください。",
-	"docs.guide.event-anniversary.reachable-non-afk-players-are-chosen-with-newer": "たどり着ける場所にいて離席していないプレイヤーから、新しくレベルの低いキャラクターを優先して選びます。訪問者が「記念日の訪問」を使うたびに、主役も訪問者の味のひと切れ1個とAnniversary Gift1個を受け取ります。途中参加では「記念日の訪問」はもらえず、キスを繰り返しても報酬は増えません。",
+	"docs.guide.event-anniversary.reachable-non-afk-players-are-chosen-with-newer": "たどり着ける場所にいて離席していないプレイヤーから、新しくレベルの低いキャラクターを優先して選びます。訪問者が「記念日の訪問」を使うたびに、主役も主役自身の味のひと切れ1個とAnniversary Gift1個を受け取ります。途中参加では「記念日の訪問」はもらえず、キスを繰り返しても報酬は増えません。",
 	"docs.guide.event-anniversary.the-guestbook-and-keepsake-pendant-combine-at-the": "The GuestbookとKeepsake Pendantは合成の祭壇で合成できます。同じレベルの同じ品3個と合成の巻物を使います。他の記念日装備にはUpgrade Scrollを使います。どちらの祭壇もイベント後に利用できます。",
 	"docs.guide.event-anniversary.the-visitor-may-also-receive-an-i-kiss": "訪問者は、エモートをずっと使えるようになる<b>I Kiss You CX Jar</b>を受け取ることもあります。幸運な発見はサーバー全体に告知されます。",
 	"docs.guide.event-anniversary.to-combine-guestbooks-or-pendants-visit-the-compound": "The GuestbookやKeepsake Pendantを合成するには、合成の祭壇へ行きます。同じ+0の品3個を持ち物の0、1、2番枠に置き、High Compound Scrollを3番枠に置いてください：",

@@ -1,1 +1,1 @@
-phrase.load("zh-Hans",{"desktop.loading":"LOADING","desktop.connection_help":"Adventure Land needs an internet connection. Check your connection and try reloading. If it still won't load, email hello@adventure.land.","desktop.apology":"Sorry about the wait :)"});
+phrase.load("zh-Hans",{"desktop.loading":"加载中","desktop.connection_help":"Adventure Land需要联网。请检查网络连接并尝试重新加载。如果仍无法加载，请发邮件至hello@adventure.land。","desktop.apology":"抱歉让你久等了 :)"});

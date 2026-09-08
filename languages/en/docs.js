@@ -3905,8 +3905,9 @@ module.exports = {
 	"docs.guide.event-anniversary.opens-one-item-leave-inventory-room-and-do": "Opens one item. Leave inventory room and do not move it during the exchange.",
 	// docs/guide/event-anniversary.html:29; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Anniversary Gift"].
 	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
+	// The featured player receives their own account's flavor, not the visitor's: claim() delivers hostSlice from sliceForAccount(target.owner). Each visitor separately receives the visitor account's flavor.
 	"docs.guide.event-anniversary.reachable-non-afk-players-are-chosen-with-newer":
-		"Reachable, non-AFK players are chosen, with newer, lower-level characters favored. Each visitor who uses their Visit also gives the featured player one slice of their own flavor and one Anniversary Gift. Joining late gives no Visit; repeated kisses give no extra rewards.",
+		"Reachable, non-AFK players are chosen, with newer, lower-level characters favored. Each visitor who uses their Visit also gives the featured player one slice in the featured player's own flavor and one Anniversary Gift. Joining late gives no Visit; repeated kisses give no extra rewards.",
 	// docs/guide/event-anniversary.html:17; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Keepsake Pendant","The Guestbook","Upgrade Scroll"].
 	"docs.guide.event-anniversary.the-guestbook-and-keepsake-pendant-combine-at-the":
 		"The Guestbook and Keepsake Pendant combine at the Compound Shrine: three matching copies of the same level + a compound scroll. The other anniversary equipment uses Upgrade Scrolls. Both shrines remain available after the event.",

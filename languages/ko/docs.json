@@ -1652,7 +1652,7 @@
 	"docs.guide.event-anniversary.monsters-also-drop-gifts-and-your-account-s": "이벤트 동안 몬스터도 Anniversary Gift와 계정에 정해진 맛의 조각을 드롭해요. 몬스터 HP, 행운, 보상 몫을 포함하는 일반 전역 드롭 추첨을 사용해요. <span class=\"dlabel\">show_json(G.drops.maps.global)</span>로 확인하세요.",
 	"docs.guide.event-anniversary.need-drapes-for-a-recipe-mummies-and-ghosts": "제작에 Drapes가 필요한가요? Mummy와 Ghost에게서 얻을 수 있어요. Franky의 Mummy는 더 드물게 가지고 있어요.",
 	"docs.guide.event-anniversary.opens-one-item-leave-inventory-room-and-do": "아이템 하나를 열어요. 가방에 공간을 남겨 두고 교환 중에는 해당 아이템을 옮기지 마세요.",
-	"docs.guide.event-anniversary.reachable-non-afk-players-are-chosen-with-newer": "찾아갈 수 있고 자리 비움 상태가 아닌 플레이어 중에서 선정하며, 새로 만든 낮은 레벨 캐릭터를 우선해요. 방문자가 기념일 방문을 사용할 때마다 선정된 플레이어도 그 방문자의 맛 조각 하나와 Anniversary Gift 하나를 받아요. 늦게 참가하면 기념일 방문을 받지 못하며, 입맞춤을 반복해도 추가 보상은 없어요.",
+	"docs.guide.event-anniversary.reachable-non-afk-players-are-chosen-with-newer": "찾아갈 수 있고 자리 비움 상태가 아닌 플레이어 중에서 선정하며, 새로 만든 낮은 레벨 캐릭터를 우선해요. 방문자가 기념일 방문을 사용할 때마다 선정된 플레이어도 선정된 플레이어 자신의 맛 조각 하나와 Anniversary Gift 하나를 받아요. 늦게 참가하면 기념일 방문을 받지 못하며, 입맞춤을 반복해도 추가 보상은 없어요.",
 	"docs.guide.event-anniversary.the-guestbook-and-keepsake-pendant-combine-at-the": "The Guestbook과 Keepsake Pendant는 합성 신단에서 합성해요. 이름과 레벨이 같은 세 개와 합성 주문서가 필요해요. 다른 기념일 장비에는 Upgrade Scroll을 사용해요. 두 신단은 이벤트 후에도 이용할 수 있어요.",
 	"docs.guide.event-anniversary.the-visitor-may-also-receive-an-i-kiss": "방문자는 감정 표현을 영구 소장할 수 있는 <b>입맞춤 CX Jar</b>도 얻을 수 있어요. 행운의 발견은 서버에 알려져요.",
 	"docs.guide.event-anniversary.to-combine-guestbooks-or-pendants-visit-the-compound": "The Guestbook이나 Keepsake Pendant를 합성하려면 합성 신단을 찾아가세요. 같은 +0 아이템 세 개를 가방 0, 1, 2번 슬롯에, High Compound Scroll을 3번 슬롯에 넣으세요:",

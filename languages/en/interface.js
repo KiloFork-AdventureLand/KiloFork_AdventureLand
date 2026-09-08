@@ -60,6 +60,7 @@ module.exports = {
 	"interface.anniversary_event_status_html.waiting_for_to_return_to_a_reachable_spot_their_place":
 		"Waiting for {target} to return to a reachable spot. Their place is reserved; the five-minute timer keeps running.",
 	// js/html.js anniversary_event_status_html; authored interface text.
+	// Shown only to the featured player. Your own flavor is the featured account's flavor; each visitor separately receives the visitor account's flavor.
 	"interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses":
 		"Stay nearby and welcome your visitors. Each visitor who uses their Visit brings you one slice of your own flavor and one Anniversary Gift.",
 	// js/html.js anniversary_event_status_html; authored interface text.

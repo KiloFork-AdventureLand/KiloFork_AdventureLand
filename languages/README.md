@@ -50,8 +50,8 @@ Arabic uses scoped direction and font rules on guide/tutorial articles. Preserve
 | French | fr | Complete |
 | Polish | pl | Complete |
 | Korean | ko | Complete |
-| Simplified Chinese | zh-Hans | In progress |
-| Traditional Chinese | zh-Hant | Terminology ready |
+| Simplified Chinese | zh-Hans | Complete |
+| Traditional Chinese | zh-Hant | In progress |
 | Thai | th | Planned |
 | Spanish — Latin America | es-419 | Planned |
 | Ukrainian | uk | Planned |
