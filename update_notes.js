@@ -2,7 +2,7 @@
 module.exports = [
 	{deployed:null,date:"[05/09/26]",note:"Merrit visits settled shops in Mainland with stackable Market Parcels and occasional SHELLS. Exchange parcels for supplies, four rare T3 armor pieces or a spear. Keep stands clear of fixed NPCs and neighboring shops; INFO explains her visits and rewards."},
 	{
-		deployed: null,
+		deployed: "[07/09/26]",
 		date: "[05/09/26]",
 		note: "Celebrate ten years of Adventure Land: find featured players, trade six cake flavors, and visit Mira for anniversary equipment, returning prizes, and two new emotes.",
 	},
