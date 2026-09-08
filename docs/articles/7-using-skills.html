@@ -27,6 +27,28 @@ use_skill("mluck", get_player("LuckyCharacter"));</div>
 
 <p>Reference functions: <span class='rlabel' onclick="render_function_reference($(this).html())">use_skill</span> <span class='rlabel' onclick="render_function_reference($(this).html())">is_in_range</span> <span class='rlabel' onclick="render_function_reference($(this).html())">is_on_cooldown</span></p>
 
+<p>Shared Cooldowns: Regeneration and Potions</p>
+<p><span class="dlabel">regen_hp</span>, <span class="dlabel">regen_mp</span>, <span class="dlabel">use_hp</span>, and <span class="dlabel">use_mp</span> all share one cooldown. Using either regeneration ability restores 50 HP or 100 MP immediately, then blocks all four for 4 seconds. An ordinary HP or MP potion blocks all four for 2 seconds. Special consumables can have their own cooldown duration.</p>
+<p>The action you use determines the wait: after HP regeneration, you must wait 4 seconds before using MP regeneration or a potion. After an ordinary potion, either regeneration ability becomes available after 2 seconds. If <span class="dlabel">use_hp</span> or <span class="dlabel">use_mp</span> finds no suitable potion, it regenerates instead and starts the 4-second cooldown.</p>
+<p>In <span class="dlabel">G.skills</span>, <span class="dlabel">share</span> names the skill whose cooldown timestamp is checked. <span class="dlabel">cooldown_multiplier</span> describes the duration relative to that skill's base cooldown: regeneration uses 2 × 2000ms = 4000ms. All four also declare <span class="dlabel">cooldown_group: "potion"</span> so CODE can identify the whole group. This field describes the existing behavior; use <span class="rlabel" onclick="render_function_reference($(this).html())">is_on_cooldown</span> to check whether an ability is ready.</p>
+<div class="code">async function regenerate_once() {
+	// Choose one resource to restore. HP and MP cannot regenerate together.
+	var skill;
+	if (character.hp &lt; character.max_hp) skill = "regen_hp";
+	else if (character.mp &lt; character.max_mp) skill = "regen_mp";
+	else return;
+	if (is_on_cooldown(skill)) return;
+
+	try {
+		await use_skill(skill);
+	} catch (error) {
+		game_log("Regeneration failed: " + error.reason);
+	}
+}
+
+regenerate_once();</div>
+<p>This example needs no potions and restores one resource once. The Promise confirms the action; it does not wait for the cooldown to end. Check the cooldown again before the next use, and avoid sending regeneration and potion requests in parallel.</p>
+
 <p>Special Usage: Paladin Aura</p>
 <p>To select an aura directly, pass its state as the second argument: <span class="dlabel">use_skill("paladin_aura", "zeal")</span>. Valid states are <span class="dlabel">"bulwark"</span>, <span class="dlabel">"sanctuary"</span>, <span class="dlabel">"zeal"</span>, and <span class="dlabel">"warding"</span>. This requires Paladin level 60, costs no MP, and has a 500ms switching cooldown. The selected aura applies passively; it does not need a refresh loop. A switch removes your previous state's contribution, so one Paladin cannot maintain all four states.</p>
 
