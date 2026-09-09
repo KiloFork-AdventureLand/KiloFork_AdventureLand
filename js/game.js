@@ -848,11 +848,13 @@ function reposition_ui() {
 
 function update_tutorial_ui() {
 	var completion = X.tutorial.progress,
-		reviewing = last_rendered_step != X.tutorial.step;
-	if (last_rendered_step > X.tutorial.step) {
+		reviewing = last_rendered_step != X.tutorial.step,
+		lesson = G.docs.tutorial[last_rendered_step],
+		completed = X.tutorial.completed_lessons ? lesson && X.tutorial.completed_lessons.indexOf(lesson.key) !== -1 : last_rendered_step < X.tutorial.step;
+	if (reviewing && !completed) {
 		completion = 0;
 	} else {
-		if (last_rendered_step < X.tutorial.step) {
+		if (reviewing && completed) {
 			completion = 100;
 			$(".tuttask").css("color", "#85C76B").css("font-size", "64px");
 			//$(".tutstask").show();
@@ -873,8 +875,8 @@ function update_tutorial_ui() {
 		$(".tutcontinue,.tutincomplete").hide();
 		$(".tutreview")
 			.show()
-			.html(phrase.html(last_rendered_step < X.tutorial.step ? "game.tutorial.completed" : "game.tutorial.upcoming"));
-	} else if (completion == 100) {
+			.html(phrase.html(completed ? "game.tutorial.completed" : "game.tutorial.upcoming"));
+	} else if (X.tutorial.can_continue || completion == 100) {
 		$(".tutcontinue").show();
 		$(".tutincomplete").hide();
 		$(".tutreview").hide();

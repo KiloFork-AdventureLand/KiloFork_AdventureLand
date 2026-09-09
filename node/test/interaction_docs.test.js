@@ -122,7 +122,10 @@ test("every tutorial lesson has finished content and valid tasks", () => {
 			/work in progress|\bWIP\b/i,
 			`${lesson.key} is still marked unfinished`,
 		);
-		for (const task of lesson.tasks) assert.ok(docs.tasks[task], `${lesson.key} references unknown task ${task}`);
+		assert.ok(lesson.tasks.length, `${lesson.key} needs a gameplay task or a Continue task`);
+		if (lesson.continue_task) assert.ok(lesson.tasks.includes(lesson.continue_task));
+		for (const task of lesson.tasks)
+			assert.ok(docs.tasks[task] || task === lesson.continue_task, `${lesson.key} references unknown task ${task}`);
 	}
 });
 
@@ -146,7 +149,8 @@ test("tutorial progress exposes every pending task and preserves the legacy next
 	const legacy = { info: { tutorial_step: 7, completed_tasks: [] } };
 	context.migrate_tutorial_data(legacy);
 	assert.equal(legacy.info.tutorial_step, 14);
-	assert.equal(legacy.info.tutorial_version, 2);
+	assert.equal(legacy.info.tutorial_version, 3);
+	assert.equal(legacy.info.tutorial_key, "theend");
 	assert.ok(legacy.info.completed_tasks.includes("events"));
 });
 

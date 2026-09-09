@@ -993,7 +993,7 @@ function process_user_data(user_id, data) {
 		data = {
 			_id: "IE_userdata-" + user_id,
 			created: new Date(),
-			info: { completed_tasks: [], tutorial_step: 0, tutorial_version: 2 },
+			info: { completed_tasks: [], tutorial_step: 0, tutorial_key: docs.tutorial[0].key, tutorial_version: 3 },
 		};
 	}
 	if (!data.info.completed_tasks) data.info.completed_tasks = [];
@@ -1004,7 +1004,7 @@ function process_user_data(user_id, data) {
 }
 
 function migrate_tutorial_data(user_data) {
-	if (user_data.info.tutorial_version) return;
+	if (user_data.info.tutorial_version >= 3) return;
 	var legacy_step = Math.max(0, Math.min(parseInt(user_data.info.tutorial_step) || 0, 8));
 	var step_map = [0, 1, 2, 5, 6, 7, 11, 14, 15];
 	function complete_new_tasks(tasks) {
@@ -1012,36 +1012,74 @@ function migrate_tutorial_data(user_data) {
 			if (user_data.info.completed_tasks.indexOf(tasks[i]) === -1) user_data.info.completed_tasks.push(tasks[i]);
 		}
 	}
-	if (legacy_step >= 3) complete_new_tasks(["equip", "usepotion", "useskill", "visitshop", "buyitem"]);
-	if (legacy_step >= 6) complete_new_tasks(["visitnpc", "recipes", "craftsman", "exchanger"]);
-	if (legacy_step >= 7) complete_new_tasks(["characters", "events"]);
-	user_data.info.tutorial_step = step_map[legacy_step];
-	user_data.info.tutorial_version = 2;
+	if (!user_data.info.tutorial_version) {
+		if (legacy_step >= 3) complete_new_tasks(["equip", "usepotion", "useskill", "visitshop", "buyitem"]);
+		if (legacy_step >= 6) complete_new_tasks(["visitnpc", "recipes", "craftsman", "exchanger"]);
+		if (legacy_step >= 7) complete_new_tasks(["characters", "events"]);
+		user_data.info.tutorial_step = step_map[legacy_step];
+	}
+	// Frozen version-2 order: new lessons must never receive credit from an old numeric position.
+	var previous_keys = [
+		"helloworld",
+		"learntofight",
+		"interface",
+		"skills-recovery",
+		"shops",
+		"upgrade",
+		"compound",
+		"bank",
+		"move",
+		"crafting-exchanges",
+		"parties-friends",
+		"hellocode",
+		"multiple-characters",
+		"events-status",
+		"theend",
+	];
+	var previous_step = Math.max(0, Math.min(parseInt(user_data.info.tutorial_step) || 0, previous_keys.length));
+	for (var i = 0; i < previous_step; i++) {
+		if (["helloworld", "hellocode", "theend"].indexOf(previous_keys[i]) !== -1) complete_new_tasks(["read_" + previous_keys[i]]);
+	}
+	user_data.info.tutorial_key = previous_keys[previous_step] || null;
+	user_data.info.tutorial_version = 3;
+}
+
+function tutorial_lesson_complete(user_data, lesson, continuing) {
+	return lesson.tasks.every(function (task) {
+		return (continuing && task === lesson.continue_task) || user_data.info.completed_tasks.indexOf(task) !== -1;
+	});
 }
 
 function calculate_tutorial_step(user_data) {
 	user_data.info.tutorial_step = parseInt(user_data.info.tutorial_step) || 0;
 	user_data.info.tutorial_step = Math.max(0, Math.min(user_data.info.tutorial_step, docs.tutorial.length));
-	var marked = {};
-	for (var i = 0; i < user_data.info.completed_tasks.length; i++) {
-		marked[user_data.info.completed_tasks[i]] = true;
+	if (user_data.info.tutorial_key !== undefined) {
+		var position = docs.tutorial.findIndex(function (lesson) {
+			return lesson.key === user_data.info.tutorial_key;
+		});
+		user_data.info.tutorial_step = position === -1 ? docs.tutorial.length : position;
 	}
-	for (var i = 0; i < docs.tutorial.length; i++) {
-		var done = true;
-		for (var j = 0; j < docs.tutorial[i].tasks.length; j++) {
-			if (!marked[docs.tutorial[i].tasks[j]]) done = false;
-		}
-		if (!done && user_data.info.tutorial_step > i) {
+	for (var i = 0; i < user_data.info.tutorial_step; i++) {
+		if (!tutorial_lesson_complete(user_data, docs.tutorial[i])) {
 			user_data.info.tutorial_step = i;
 			break;
 		}
 	}
+	user_data.info.tutorial_key = docs.tutorial[user_data.info.tutorial_step] ? docs.tutorial[user_data.info.tutorial_step].key : null;
 }
 
 function data_to_tutorial(user_data) {
 	try {
 		if (user_data) {
-			if (user_data.info.tutorial_step >= docs.tutorial.length) return { step: docs.tutorial.length, completed: [], pending: [], finished: true, task: false, progress: 100 };
+			var completed_lessons = docs.tutorial
+				.filter(function (lesson) {
+					return tutorial_lesson_complete(user_data, lesson);
+				})
+				.map(function (lesson) {
+					return lesson.key;
+				});
+			if (user_data.info.tutorial_step >= docs.tutorial.length)
+				return { step: docs.tutorial.length, completed: [], pending: [], completed_lessons: completed_lessons, finished: true, task: false, progress: 100 };
 			var arr = [],
 				pending = [],
 				task = false,
@@ -1053,7 +1091,15 @@ function data_to_tutorial(user_data) {
 			}
 			task = pending[0] || false; // Kept for older clients; new clients can complete pending tasks in any order.
 			if (task) percent = Math.round((100 * arr.length) / tasks.length);
-			return { step: user_data.info.tutorial_step, task: task, completed: arr, pending: pending, progress: percent };
+			return {
+				step: user_data.info.tutorial_step,
+				task: task,
+				completed: arr,
+				pending: pending,
+				progress: percent,
+				can_continue: tutorial_lesson_complete(user_data, docs.tutorial[user_data.info.tutorial_step], true),
+				completed_lessons: completed_lessons,
+			};
 		}
 	} catch (e) {
 		console.error("data_to_tutorial error", e);

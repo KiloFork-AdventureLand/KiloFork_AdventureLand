@@ -1429,11 +1429,12 @@ async function tutorial_api(args) {
 
 	var R = await tx(
 		async () => {
-			var data = await get_user_data(A.user);
+			var user_id = A.user._id || A.user;
+			var data = process_user_data(user_id, await tx_get("IE_userdata-" + user_id));
 			var current = data.info.tutorial_step;
 			if (A.task) {
 				var lesson = docs.tutorial[current];
-				var valid_task = docs.tasks && docs.tasks[A.task] && lesson && lesson.tasks.indexOf(A.task) !== -1;
+				var valid_task = docs.tasks && docs.tasks[A.task] && lesson && A.task !== lesson.continue_task && lesson.tasks.indexOf(A.task) !== -1;
 				if (valid_task && data.info.completed_tasks.indexOf(A.task) === -1) {
 					data.info.completed_tasks.push(A.task);
 					await tx_save(data);
@@ -1446,21 +1447,20 @@ async function tutorial_api(args) {
 			} else {
 				var next = parseInt(A.step);
 				var current_lesson = docs.tutorial[current];
-				var complete = !!current_lesson;
-				if (current_lesson)
-					for (var i = 0; i < current_lesson.tasks.length; i++) {
-						if (data.info.completed_tasks.indexOf(current_lesson.tasks[i]) === -1) complete = false;
-					}
+				var complete = current_lesson && (!A.lesson || A.lesson === current_lesson.key) && tutorial_lesson_complete(data, current_lesson, true);
 				if (next !== current + 1 || next > docs.tutorial.length || !complete) {
 					R.result = [phrase_html("server.tutorial.complete_current"), "gray", data, 0];
 				} else {
+					if (current_lesson.continue_task && data.info.completed_tasks.indexOf(current_lesson.continue_task) === -1) data.info.completed_tasks.push(current_lesson.continue_task);
+					while (next < docs.tutorial.length && tutorial_lesson_complete(data, docs.tutorial[next])) next++;
 					data.info.tutorial_step = next;
+					data.info.tutorial_key = docs.tutorial[next] ? docs.tutorial[next].key : null;
 					await tx_save(data);
 					R.result = [phrase_html("server.tutorial.lesson_complete", { lesson: phrase("tutorial." + current_lesson.key + ".title") }), "#85C76B", data, 2];
 				}
 			}
 		},
-		{ user: user, task: task, step: step },
+		{ user: user, task: task, step: step, lesson: args.lesson },
 	);
 
 	if (R.failed) return { failed: true, reason: "failed" };
@@ -1480,9 +1480,11 @@ async function reset_tutorial_api(args) {
 
 	var R = await tx(
 		async () => {
-			var data = await get_user_data(A.user);
+			var user_id = A.user._id || A.user;
+			var data = process_user_data(user_id, await tx_get("IE_userdata-" + user_id));
 			data.info.completed_tasks = [];
 			data.info.tutorial_step = 0;
+			data.info.tutorial_key = docs.tutorial[0].key;
 			await tx_save(data);
 			R.data = data;
 		},

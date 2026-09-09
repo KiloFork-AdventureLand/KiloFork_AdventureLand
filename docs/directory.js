@@ -217,9 +217,11 @@ docs = {
 		["Timeouts and Intervals", "setTimeout,setInterval", "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Timeouts_and_intervals"],
 	],
 	tutorial: [
+		// continue_task is recorded by Continue, not by a gameplay action. Keep task IDs stable when reordering lessons.
 		{
 			key: "helloworld",
-			tasks: [],
+			tasks: ["read_helloworld"],
+			continue_task: "read_helloworld",
 			title: "Welcome to Adventure Land",
 		},
 		{
@@ -274,7 +276,8 @@ docs = {
 		},
 		{
 			key: "hellocode",
-			tasks: [],
+			tasks: ["read_hellocode"],
+			continue_task: "read_hellocode",
 			title: "Hello CODE",
 		},
 		{
@@ -289,7 +292,8 @@ docs = {
 		},
 		{
 			key: "theend",
-			tasks: [],
+			tasks: ["read_theend"],
+			continue_task: "read_theend",
 			title: "The Road Is Yours",
 		},
 	],

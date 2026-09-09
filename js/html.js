@@ -3428,11 +3428,13 @@ function open_tutorial(step) {
 }
 
 function render_tutorial_index() {
-	var current_step = (window.X && X.tutorial && X.tutorial.step) || 0,
+	var progress = (window.X && X.tutorial) || {},
+		current_step = progress.step || 0,
 		html = "<div style='width: 520px; text-align: left'>";
 	html += "<div class='gamebutton block mb5' style='text-align:center'>" + phrase.html("interface.tutorial_index.tutorial_lessons") + "</div>";
 	G.docs.tutorial.forEach(function (lesson, step) {
-		var color = step < current_step ? "#73BD6D" : step == current_step ? "#D67D23" : "gray";
+		var completed = progress.completed_lessons ? progress.completed_lessons.indexOf(lesson.key) !== -1 : step < current_step;
+		var color = step == current_step ? "#D67D23" : completed ? "#73BD6D" : "gray";
 		html +=
 			"<div class='gamebutton block mb5' style='border-color:" +
 			color +
@@ -3482,7 +3484,9 @@ function render_tutorial(article, step, url) {
 		phrase.html("interface.tutorial.incomplete") +
 		"</div><div style='float: right; color: #73BD6D' class='clickable tutcontinue' onclick='btc(event); api_call(\"tutorial\",{step:" +
 		(step + 1) +
-		"}); hide_modal()'>" +
+		',lesson:"' +
+		tutorial.key +
+		"\"}); hide_modal()'>" +
 		cphrase +
 		"</div></div>";
 	html += "</div>";
