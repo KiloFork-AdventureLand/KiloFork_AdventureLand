@@ -3486,6 +3486,10 @@ function render_tutorial_items() {
 	if (window.no_graphics) return;
 	$(".tutorial-item").each(function () {
 		var name = $(this).attr("data-item");
+		if ($(this).attr("data-class-weapon") === "true") {
+			var type = window.character && G.classes[character.ctype], weapon = type && type.base_slots && type.base_slots.mainhand;
+			if (weapon && G.items[weapon.name]) name = weapon.name;
+		}
 		if (G.items[name]) $(this).css({ display: "inline-block", direction: "ltr" }).html(item_container({ skin: G.items[name].skin }, { name: name }));
 	});
 	$(".tutorial-npc").each(function () {

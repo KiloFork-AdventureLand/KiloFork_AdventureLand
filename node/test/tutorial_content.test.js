@@ -172,6 +172,36 @@ test("new visual entry points return before touching graphics in headless mode",
 	c.render_tutorial_comparison(comparisons, false);
 });
 
+test("farming shows each class's starter weapon, defaults to blade, and leaves other items alone", () => {
+	const G = require("./helpers/design");
+	for (const type of [...Object.keys(G.classes), "unknown", null]) {
+		const shown = [];
+		const c = vm.createContext({
+			G,
+			window: { character: type ? { ctype: type } : undefined },
+			character: { ctype: type },
+			item_container: (_, item) => {
+				shown.push(item.name);
+				return "item";
+			},
+			$: (selector) =>
+				typeof selector === "string"
+					? {
+							each: (callback) => {
+								if (selector === ".tutorial-item") {
+									callback.call({ item: "blade", weapon: "true" });
+									callback.call({ item: "hpot0" });
+								}
+							},
+						}
+					: { attr: (key) => (key === "data-item" ? selector.item : selector.weapon), css: () => ({ html() {} }) },
+		});
+		load(c, "js/html.js", ["render_tutorial_items"]);
+		c.render_tutorial_items();
+		assert.deepEqual(shown, [G.classes[type]?.base_slots?.mainhand?.name || "blade", "hpot0"]);
+	}
+});
+
 test("comic Skip and Continue credit only the current lore lesson; guide and completed reviews just close", () => {
 	for (const scenario of [
 		{ active: true, step: 0, ready: true, credit: true },
