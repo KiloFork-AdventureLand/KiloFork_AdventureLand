@@ -270,8 +270,9 @@ module.exports = {
 		'Direct links use separate machines and prepaid windows. A running character\'s CODE can call <span class="dlabel">start_character</span> to add up to three owned characters inside its shared machine. At renewal, one Shell or free Steam hour buys 60, 50, 45, or 40 minutes for 1, 2, 3, or 4 active characters. The count is checked only at renewal. Stopping one included child leaves the others running; disconnecting the root stops all included characters.',
 	// docs/articles/adventure-api.html:142; Documentation td prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.articles.adventure-api.endpoints-versions-methods-and-schemas": "Endpoints, versions, methods, and schemas.",
-	// docs/articles/adventure-api.html:169; Documentation td prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Every owned bank pack and the shared bank gold from the saved account snapshot. A mounted bank is marked stale.",
+	// JSON API and MCP bank docs, tool/resource descriptions, and response note. A mounted bank is held by a character in the game. Preserve stale, observed_at, and retrieved_at as API field names. No parameters.
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank":
+		"Saved bank items and gold, not live data. stale flags a mounted bank, not data age. Freshness is unverified; observed_at is unknown and retrieved_at is the read time.",
 	// docs/articles/adventure-api.html:196; Documentation td prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.articles.adventure-api.explicitly-stops-the-assignment-and-future-renewals-without": "Explicitly stops the assignment and future renewals without refunding remaining paid time.",
 	// docs/articles/adventure-api.html:121; Documentation li prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.

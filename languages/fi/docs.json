@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Tallennetut pankkiesineet ja kulta, eivät reaaliaikaisia tietoja. stale ilmaisee, että hahmo käyttää pankkia, ei tietojen ikää. Ajantasaisuutta ei ole vahvistettu; observed_at on tuntematon ja retrieved_at on lukuaika."
+}

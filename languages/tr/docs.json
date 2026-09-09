@@ -105,7 +105,7 @@
 	"docs.articles.adventure-api.deletes-one-owned-slot": "Sahip olunan bir yuvayı siler.",
 	"docs.articles.adventure-api.direct-links-use-separate-machines-and-prepaid-windows": "Doğrudan bağlantılar ayrı makineler ve ön ödemeli süreler kullanır. Çalışan karakterin CODE'u, ortak makinesine sahip olduğun en fazla üç karakter eklemek için <span class=\"dlabel\">start_character</span> çağırabilir. Yenilemede bir Deniz Kabuğu veya ücretsiz Steam saati; 1, 2, 3 veya 4 etkin karakter için sırasıyla 60, 50, 45 veya 40 dakika sağlar. Sayı yalnızca yenilemede kontrol edilir. Dahil edilen bir alt karakteri durdurmak diğerlerini durdurmaz; kök karakterin bağlantısını kesmek tüm dahil edilen karakterleri durdurur.",
 	"docs.articles.adventure-api.endpoints-versions-methods-and-schemas": "Uç noktalar, sürümler, metotlar ve şemalar.",
-	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Kayıtlı hesap görüntüsündeki sahip olunan tüm banka bölmeleri ve ortak banka altını. Açık banka eski veri olarak işaretlenir.",
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Bankadaki kayıtlı eşya ve altın verileri; canlı veri değildir. stale, verinin yaşını değil, bankanın bir karakter tarafından kullanıldığını belirtir. Güncellik doğrulanmamıştır; observed_at bilinmez, retrieved_at ise okuma zamanıdır.",
 	"docs.articles.adventure-api.explicitly-stops-the-assignment-and-future-renewals-without": "Kalan ödenmiş süreyi iade etmeden görevlendirmeyi ve sonraki yenilemeleri açıkça durdurur.",
 	"docs.articles.adventure-api.find-connect-an-ai": "<strong>Yapay zekâ bağla</strong> seçeneğini bul.",
 	"docs.articles.adventure-api.game-and-documentation": "<span class=\"dlabel\">Oyun ve belgeler</span>",

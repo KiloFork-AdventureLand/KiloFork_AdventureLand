@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Obiecte și aur salvate din bancă, nu date în timp real. stale indică faptul că un personaj folosește banca, nu vechimea datelor. Actualitatea nu este verificată; observed_at este necunoscut, iar retrieved_at este ora citirii."
+}

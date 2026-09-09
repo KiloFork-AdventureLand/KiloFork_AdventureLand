@@ -18,6 +18,7 @@ function loadSearch(data = { skills: design.skills, conditions: design.condition
 		URL,
 		crypto,
 		console,
+		phrase: require("../../languages").phrase,
 		Version: 1,
 		app: { get() {}, post() {} },
 	});

@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Збережені предмети й золото в банку, не дані в реальному часі. stale означає, що персонаж користується банком, а не вік даних. Актуальність не перевірена; observed_at невідомо, а retrieved_at — час читання."
+}

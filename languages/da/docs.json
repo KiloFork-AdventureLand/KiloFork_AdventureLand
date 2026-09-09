@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Gemte bankgenstande og guld, ikke livedata. stale viser, at en karakter bruger banken, ikke hvor gamle dataene er. Aktualiteten er ikke bekræftet; observed_at er ukendt, og retrieved_at er læsetidspunktet."
+}

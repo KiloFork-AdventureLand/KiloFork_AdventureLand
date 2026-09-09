@@ -105,7 +105,7 @@
 	"docs.articles.adventure-api.deletes-one-owned-slot": "删除一个自有栏位。",
 	"docs.articles.adventure-api.direct-links-use-separate-machines-and-prepaid-windows": "直接连接使用独立机器和预付时段。运行中角色的CODE可以调用<span class=\"dlabel\">start_character</span>，在其共享机器内添加最多三名自有角色。续费时，每个贝壳或每个Steam免费小时可为1、2、3或4名活跃角色分别购买60、50、45或40分钟。仅在续费时检查角色数量。停止一个包含在内的子角色不会影响其他角色；断开根角色会停止所有包含的角色。",
 	"docs.articles.adventure-api.endpoints-versions-methods-and-schemas": "端点、版本、方法与结构定义。",
-	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "已保存账号快照中的所有自有银行存储包及共享银行金币。已挂载的银行会标为数据可能过时。",
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "已保存的银行物品和金币，并非实时数据。stale 表示有角色正在使用银行，不代表数据的存续时间。数据是否最新尚未确认；observed_at 未知，retrieved_at 是读取时间。",
 	"docs.articles.adventure-api.explicitly-stops-the-assignment-and-future-renewals-without": "明确停止运行任务及后续自动续费，已付费的剩余时间不予退还。",
 	"docs.articles.adventure-api.find-connect-an-ai": "找到<strong>连接AI</strong>。",
 	"docs.articles.adventure-api.game-and-documentation": "<span class=\"dlabel\">游戏与文档</span>",

@@ -105,7 +105,7 @@
 	"docs.articles.adventure-api.deletes-one-owned-slot": "Usuwa jeden slot należący do konta.",
 	"docs.articles.adventure-api.direct-links-use-separate-machines-and-prepaid-windows": "Bezpośrednie połączenia używają osobnych maszyn i opłaconych z góry okresów. CODE uruchomionej postaci może wywołać <span class=\"dlabel\">start_character</span>, aby dodać do trzech własnych postaci do wspólnej maszyny. Przy odnowieniu jedna muszla lub darmowa godzina Steam daje 60, 50, 45 lub 40 minut dla 1, 2, 3 lub 4 aktywnych postaci. Liczba jest sprawdzana tylko przy odnowieniu. Zatrzymanie jednej dołączonej postaci nie zatrzymuje pozostałych; odłączenie głównej zatrzymuje wszystkie dołączone postacie.",
 	"docs.articles.adventure-api.endpoints-versions-methods-and-schemas": "Punkty końcowe, wersje, metody i schematy.",
-	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Wszystkie posiadane skrytki i wspólne złoto w banku z zapisanego obrazu konta. Otwarty bank jest oznaczony jako nieaktualny.",
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Zapisane przedmioty i złoto w banku, nie dane na żywo. stale wskazuje, że postać korzysta z banku, a nie wiek danych. Aktualność nie jest zweryfikowana; observed_at jest nieznane, a retrieved_at to czas odczytu.",
 	"docs.articles.adventure-api.explicitly-stops-the-assignment-and-future-renewals-without": "Jawnie zatrzymuje przydział i przyszłe odnowienia, bez zwrotu za pozostały opłacony czas.",
 	"docs.articles.adventure-api.find-connect-an-ai": "Znajdź <strong>Podłącz AI</strong>.",
 	"docs.articles.adventure-api.game-and-documentation": "<span class=\"dlabel\">Gra i dokumentacja</span>",

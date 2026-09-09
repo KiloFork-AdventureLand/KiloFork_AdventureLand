@@ -105,7 +105,7 @@
 	"docs.articles.adventure-api.deletes-one-owned-slot": "所有するスロットを1つ削除します。",
 	"docs.articles.adventure-api.direct-links-use-separate-machines-and-prepaid-windows": "直接接続したキャラクターは、それぞれ別のマシンと前払いの利用期間を使います。実行中のキャラクターのCODEから<span class=\"dlabel\">start_character</span>を呼ぶと、同じマシン内に所有キャラクターを最大3人追加できます。更新時に1シェルまたは無料のSteam利用時間1時間を使うと、実行中の人数が1、2、3、4人の場合、それぞれ60、50、45、40分利用できます。人数は更新時にだけ確認されます。同居する子キャラクターを1人停止してもほかは動き続けますが、親を切断すると全員停止します。",
 	"docs.articles.adventure-api.endpoints-versions-methods-and-schemas": "エンドポイント、バージョン、メソッド、スキーマ。",
-	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "保存されたアカウントのスナップショットから取得した、所有するすべての銀行パックと共有の銀行ゴールド。使用中の銀行には古いデータであることが示されます。",
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "保存された銀行のアイテムとゴールドであり、リアルタイムのデータではありません。stale はキャラクターが銀行を使用中であることを示し、データの古さは示しません。最新かどうかは未確認です。observed_at は不明で、retrieved_at は読み取った時刻です。",
 	"docs.articles.adventure-api.explicitly-stops-the-assignment-and-future-renewals-without": "割り当てと今後の更新を明示的に停止します。支払い済みの残り時間は返金されません。",
 	"docs.articles.adventure-api.find-connect-an-ai": "<strong>AIを接続</strong>を探します。",
 	"docs.articles.adventure-api.game-and-documentation": "<span class=\"dlabel\">ゲームとドキュメント</span>",

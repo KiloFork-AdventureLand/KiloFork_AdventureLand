@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Vật phẩm và vàng ngân hàng đã lưu, không phải dữ liệu trực tiếp. stale cho biết một nhân vật đang sử dụng ngân hàng, không phải độ cũ của dữ liệu. Chưa xác minh tính cập nhật; observed_at không xác định và retrieved_at là thời điểm đọc."
+}

@@ -105,7 +105,7 @@
 	"docs.articles.adventure-api.deletes-one-owned-slot": "刪除一個自有欄位。",
 	"docs.articles.adventure-api.direct-links-use-separate-machines-and-prepaid-windows": "直接連線使用獨立機器和預付時段。執行中角色的CODE可以呼叫<span class=\"dlabel\">start_character</span>，在其共用機器內新增最多三名自有角色。續費時，每個貝殼或每個Steam免費小時可為1、2、3或4名活躍角色分別購買60、50、45或40分鐘。僅在續費時檢查角色數量。停止一個包含在內的子角色不會影響其他角色；中斷根角色的連線會停止所有包含的角色。",
 	"docs.articles.adventure-api.endpoints-versions-methods-and-schemas": "端點、版本、方法與結構定義。",
-	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "已儲存帳號快照中的所有自有銀行儲存包及共用銀行金幣。已掛載的銀行會標為資料可能過時。",
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "已儲存的銀行物品和金幣，並非即時資料。stale 表示有角色正在使用銀行，不代表資料的存續時間。資料是否最新尚未確認；observed_at 未知，retrieved_at 是讀取時間。",
 	"docs.articles.adventure-api.explicitly-stops-the-assignment-and-future-renewals-without": "明確停止執行任務及後續自動續費，已付費的剩餘時間不予退還。",
 	"docs.articles.adventure-api.find-connect-an-ai": "找到<strong>連接AI</strong>。",
 	"docs.articles.adventure-api.game-and-documentation": "<span class=\"dlabel\">遊戲與文件</span>",

@@ -105,7 +105,7 @@
 	"docs.articles.adventure-api.deletes-one-owned-slot": "Exclui um espaço da conta.",
 	"docs.articles.adventure-api.direct-links-use-separate-machines-and-prepaid-windows": "Vínculos diretos usam máquinas separadas e períodos pré-pagos. O CODE de um personagem em execução pode chamar <span class=\"dlabel\">start_character</span> para adicionar até três personagens da conta à sua máquina compartilhada. Na renovação, uma concha ou hora gratuita do Steam compra 60, 50, 45 ou 40 minutos para 1, 2, 3 ou 4 personagens ativos. A contagem só é verificada na renovação. Parar um personagem secundário incluído mantém os demais em execução; desconectar o principal para todos os personagens incluídos.",
 	"docs.articles.adventure-api.endpoints-versions-methods-and-schemas": "Endpoints, versões, métodos e esquemas.",
-	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Todos os compartimentos do banco da conta e o ouro compartilhado do banco, obtidos do retrato salvo da conta. Um banco montado é marcado como desatualizado.",
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Itens e ouro salvos do banco, não dados ao vivo. stale indica que um personagem está usando o banco, não a idade dos dados. A atualização não foi verificada; observed_at é desconhecido e retrieved_at é o horário da leitura.",
 	"docs.articles.adventure-api.explicitly-stops-the-assignment-and-future-renewals-without": "Encerra explicitamente a alocação e futuras renovações, sem reembolsar o tempo pago restante.",
 	"docs.articles.adventure-api.find-connect-an-ai": "Encontre <strong>Conectar uma IA</strong>.",
 	"docs.articles.adventure-api.game-and-documentation": "<span class=\"dlabel\">Jogo e documentação</span>",

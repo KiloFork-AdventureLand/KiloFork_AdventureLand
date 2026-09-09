@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "العناصر والذهب المحفوظان في البنك، وليسا بيانات مباشرة. يشير stale إلى أن شخصية تستخدم البنك، لا إلى عمر البيانات. لم يتم التحقق من حداثتها؛ observed_at غير معروف وretrieved_at هو وقت القراءة."
+}

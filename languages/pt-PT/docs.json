@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Itens e ouro guardados do banco, não dados em tempo real. stale indica que uma personagem está a usar o banco, não a idade dos dados. A atualidade não foi verificada; observed_at é desconhecido e retrieved_at é a hora da leitura."
+}

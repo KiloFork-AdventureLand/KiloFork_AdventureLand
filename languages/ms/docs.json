@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Item dan emas bank yang disimpan, bukan data langsung. stale menandakan bank yang sedang digunakan oleh watak, bukan usia data. Kekinian belum disahkan; observed_at tidak diketahui dan retrieved_at ialah waktu bacaan."
+}

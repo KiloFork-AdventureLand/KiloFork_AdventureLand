@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Mentett banki tárgyak és arany, nem élő adatok. A stale azt jelzi, hogy egy karakter használja a bankot, nem az adatok korát. A frissesség nincs ellenőrizve; az observed_at ismeretlen, a retrieved_at az olvasás ideje."
+}

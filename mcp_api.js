@@ -4,7 +4,7 @@ var MCP_API_TOKEN_PREFIX = "mcp_";
 var MCP_API_TOKEN_PATTERN = /^mcp_[A-Za-z0-9_-]{43}$/;
 var MCP_PROTOCOL_CURRENT = "2026-07-28";
 var MCP_PROTOCOL_LEGACY = "2025-11-25";
-var MCP_SERVER_INFO = { name: "adventure-land", version: "1.12.0", description: "Adventure Land game knowledge, progression context, and browser or Mainframe CODE control" };
+var MCP_SERVER_INFO = { name: "adventure-land", version: "1.12.1", description: "Adventure Land game knowledge, progression context, and browser or Mainframe CODE control" };
 var MCP_SOURCE_REPOSITORY = "https://github.com/kaansoral/adventureland_mongodb";
 var MCP_START_RESOURCE = "adventureland://guide/start-here";
 var MCP_CATALOG_RESOURCES = ["adventureland://catalog/docs", "adventureland://catalog/code-methods", "adventureland://catalog/game-data"];
@@ -1154,6 +1154,7 @@ function mcp_api_owned_item(item) {
 
 function mcp_api_saved_bank(user) {
 	var info = (user && user.info) || {};
+	var mounted = !!(user && (user.server || user.mounted_to));
 	var packs = {};
 	for (var i = 0; i < 48; i++) {
 		var pack = "items" + i;
@@ -1165,11 +1166,16 @@ function mcp_api_saved_bank(user) {
 	return {
 		success: true,
 		source: "last_account_snapshot",
-		observed_at: info.last_sync || null,
-		stale: !!(user && user.server && user.mounted_to),
+		// Current bank saves do not maintain the legacy info.last_sync timestamp.
+		// Neither account.updated nor this read's time proves when the bank changed.
+		observed_at: null,
+		retrieved_at: new Date().toISOString(),
+		freshness: mounted ? "possibly_stale" : "unverified",
+		stale: mounted,
 		mounted_character_id: (user && user.mounted_to) || null,
 		gold: Math.max(0, Number(info.gold) || 0),
 		packs: packs,
+		note: phrase("docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank"),
 	};
 }
 
@@ -1776,8 +1782,11 @@ async function mcp_api_plan_character_progression(args) {
 			bank: {
 				source: bank.source,
 				observed_at: bank.observed_at,
+				retrieved_at: bank.retrieved_at,
+				freshness: bank.freshness,
 				stale: !!bank.stale,
 				candidate_count: bank_candidates.length,
+				note: bank.note,
 			},
 			policy: {
 				read_only: true,
@@ -2147,7 +2156,9 @@ var MCP_TOOL_META = {
 	get_code: { description: "Read one owned CODE slot.", readOnlyHint: true },
 	get_libraries: { description: "Read the standard local CODE helper files used by the old client sync folder.", readOnlyHint: true },
 	get_bank: {
-		description: "Read all account-owned bank packs and gold from the saved account snapshot. A mounted bank is marked stale and excluded from progression comparisons.",
+		get description() {
+			return phrase("docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank");
+		},
 		readOnlyHint: true,
 	},
 	plan_character_progression: {
@@ -2469,7 +2480,7 @@ function mcp_resources() {
 			uri: "adventureland://account/bank",
 			name: "account-bank",
 			title: "Owned bank items and gold",
-			description: "Authenticated saved account bank. A mounted snapshot is marked stale and excluded from progression comparisons.",
+			description: phrase("docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank"),
 			mimeType: "application/json",
 			annotations: mcp_resource_annotations(0.95),
 		},

@@ -105,7 +105,7 @@
 	"docs.articles.adventure-api.deletes-one-owned-slot": "Удаляет один ваш слот.",
 	"docs.articles.adventure-api.direct-links-use-separate-machines-and-prepaid-windows": "Прямые подключения используют отдельные машины и оплаченные периоды. CODE работающего персонажа может вызвать <span class=\"dlabel\">start_character</span>, чтобы добавить до трёх своих персонажей на общую машину. При продлении одна ракушка или бесплатный час Steam дают 60, 50, 45 или 40 минут для 1, 2, 3 или 4 активных персонажей. Их число проверяется только при продлении. Остановка одного включённого дочернего персонажа не останавливает остальных; отключение основного останавливает всех включённых персонажей.",
 	"docs.articles.adventure-api.endpoints-versions-methods-and-schemas": "Адреса API, версии, методы и схемы.",
-	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Все ваши банковские отделения и общее банковское золото из сохранённого снимка учётной записи. Открытый банк помечается как устаревший.",
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Сохранённые предметы и золото в банке, не данные в реальном времени. stale указывает, что банк открыт персонажем, а не на возраст данных. Актуальность не проверена; observed_at неизвестно, retrieved_at — время чтения.",
 	"docs.articles.adventure-api.explicitly-stops-the-assignment-and-future-renewals-without": "Явно останавливает назначение и дальнейшие продления без возврата оставшегося оплаченного времени.",
 	"docs.articles.adventure-api.find-connect-an-ai": "Найдите <strong>Подключить ИИ</strong>.",
 	"docs.articles.adventure-api.game-and-documentation": "<span class=\"dlabel\">Игра и документация</span>",

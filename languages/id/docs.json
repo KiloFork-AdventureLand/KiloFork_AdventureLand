@@ -1,0 +1,3 @@
+{
+	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Item dan emas bank tersimpan, bukan data langsung. stale menandai bank yang sedang digunakan karakter, bukan usia data. Kemutakhiran belum diverifikasi; observed_at tidak diketahui dan retrieved_at adalah waktu pembacaan."
+}
