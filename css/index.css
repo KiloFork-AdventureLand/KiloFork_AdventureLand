@@ -376,9 +376,19 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	position: fixed;
 }
 .game-controls,.selection-controls{
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-end;
+	gap: 4px;
 	width: max-content;
 	margin-left: auto;
 	white-space: nowrap;
+}
+.game-controls .codebuttons{
+	display: contents;
+}
+.game-controls .gamebutton,.selection-controls > *{
+	flex-shrink: 0;
 }
 .serverinfo-row{
 	width: 100%;
