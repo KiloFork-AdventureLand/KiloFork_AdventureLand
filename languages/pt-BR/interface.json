@@ -1,4 +1,5 @@
 {
+	"interface.tutorial.skip": "Pular",
 	"interface.tutorial.comparison.gear_plain": "Equipamento +0 de vendedor",
 	"interface.tutorial.comparison.gear_upgraded": "O mesmo equipamento em +7",
 	"interface.tutorial.comparison.gear_statted": "+7 com pergaminhos de atributo",

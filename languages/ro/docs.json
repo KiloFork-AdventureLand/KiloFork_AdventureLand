@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "Ai încredere doar în comenzile propriilor personaje. Verifică expeditorul înainte să acționezi pe baza unui mesaj CODE.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "GATA",
-	"docs.tutorial.new.lore_intro": "Citește povestea de cinci pagini sau alege Continuă pentru a începe să joci. O poți reciti din GUIDE.",
+	"docs.tutorial.new.lore_intro": "Bun venit în Adventure Land! Orice aventurier începe de undeva. Aventura ta începe cu un Goo vorbitor. Bucură-te de poveste — vom face primii pași împreună.",
 	"docs.tutorial.new.farming_intro": "Începe cu câte un Goo. Ține poțiunile pregătite și adună prada din fiecare cufăr. Primul obiectiv este o luptă repetabilă care îți aduce mai mult aur decât cheltuiești pe poțiuni.",
 	"docs.tutorial.new.farming_next": "Cumpără o armă și o armură pe care clasa ta le poate echipa. Îmbunătățește întâi o armă de rezervă, apoi armura. Folosește echipamentul vechi până când înlocuitorul este gata.",
 	"docs.tutorial.new.farming_goal": "Încearcă un monstru mai puternic doar când poți încheia mai multe lupte în siguranță. Dacă poțiunile costă mai mult decât câștigi din pradă sau mori mereu, revino la o țintă mai ușoară și îmbunătățește echipamentul.",

@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "Chỉ tin lệnh từ nhân vật của chính bạn. Kiểm tra người gửi trước khi làm theo tin nhắn CODE.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "XONG",
-	"docs.tutorial.new.lore_intro": "Đọc câu chuyện dài năm trang hoặc chọn Tiếp tục để bắt đầu chơi. Bạn có thể đọc lại trong GUIDE.",
+	"docs.tutorial.new.lore_intro": "Chào mừng đến với Adventure Land! Nhà thám hiểm nào cũng có khởi đầu. Chuyến phiêu lưu của bạn bắt đầu với một Goo biết nói. Hãy thưởng thức câu chuyện — chúng tôi sẽ đồng hành cùng bạn trong những bước đầu tiên.",
 	"docs.tutorial.new.farming_intro": "Bắt đầu bằng cách đánh từng Goo một. Chuẩn bị sẵn thuốc và nhặt đồ từ mọi rương. Mục tiêu đầu tiên là một trận đánh có thể lặp lại, kiếm được nhiều vàng hơn số bạn chi cho thuốc.",
 	"docs.tutorial.new.farming_next": "Mua vũ khí và giáp mà lớp nhân vật của bạn có thể trang bị. Nâng cấp một vũ khí dự phòng trước, rồi đến giáp. Tiếp tục dùng trang bị cũ cho đến khi món thay thế sẵn sàng.",
 	"docs.tutorial.new.farming_goal": "Chỉ thử quái mạnh hơn khi bạn có thể hoàn thành nhiều trận liên tiếp an toàn. Nếu tiền thuốc vượt tiền bán chiến lợi phẩm, hoặc bạn liên tục chết, hãy quay lại mục tiêu dễ hơn và cải thiện trang bị.",

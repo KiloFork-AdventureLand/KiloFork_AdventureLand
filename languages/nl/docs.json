@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "Vertrouw alleen opdrachten van je eigen personages. Controleer de afzender voordat je handelt naar een CODE-bericht.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "KLAAR",
-	"docs.tutorial.new.lore_intro": "Lees het verhaal van vijf pagina's of kies Doorgaan om te spelen. Je kunt het opnieuw lezen via GUIDE.",
+	"docs.tutorial.new.lore_intro": "Welkom in Adventure Land! Iedere avonturier begint ergens. Jouw avontuur begint met een pratende Goo. Geniet van het verhaal — je eerste stappen zetten we samen.",
 	"docs.tutorial.new.farming_intro": "Begin met één Goo tegelijk. Houd drankjes klaar en plunder elke kist. Je eerste doel is een herhaalbaar gevecht dat meer goud oplevert dan je aan drankjes uitgeeft.",
 	"docs.tutorial.new.farming_next": "Koop een wapen en pantser die je klasse kan dragen. Verbeter eerst een reservewapen en daarna je pantser. Gebruik je oude uitrusting totdat de vervanging klaar is.",
 	"docs.tutorial.new.farming_goal": "Probeer pas een sterker monster als je meerdere gevechten veilig kunt afronden. Kosten drankjes meer dan de buit oplevert, of ga je steeds dood? Ga terug naar een makkelijker doelwit en verbeter je uitrusting.",

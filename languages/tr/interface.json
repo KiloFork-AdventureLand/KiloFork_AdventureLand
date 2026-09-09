@@ -1,4 +1,5 @@
 {
+	"interface.tutorial.skip": "Atla",
 	"interface.tutorial.comparison.gear_plain": "Satıcıdan alınan +0 ekipman",
 	"interface.tutorial.comparison.gear_upgraded": "Aynı ekipman +7 seviyesinde",
 	"interface.tutorial.comparison.gear_statted": "Özellik parşömenleriyle +7",

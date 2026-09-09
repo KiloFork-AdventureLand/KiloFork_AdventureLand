@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "Доверявай се само на команди от собствените си герои. Проверявай подателя, преди да действаш по съобщение от CODE.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "ГОТОВО",
-	"docs.tutorial.new.lore_intro": "Прочети историята от пет страници или избери Продължи, за да започнеш да играеш. Можеш да я прочетеш отново от GUIDE.",
+	"docs.tutorial.new.lore_intro": "Добре дошъл в Adventure Land! Всеки приключенец започва отнякъде. Твоето приключение започва с говорещ Goo. Наслади се на историята — ще направим първите ти стъпки заедно.",
 	"docs.tutorial.new.farming_intro": "Започни с по едно Goo наведнъж. Дръж отвари готови и прибирай плячката от всеки сандък. Първата ти цел е повтаряема битка, която носи повече злато, отколкото харчиш за отвари.",
 	"docs.tutorial.new.farming_next": "Купи оръжие и броня, които класът ти може да използва. Подобри първо резервно оръжие, а после бронята си. Използвай старата екипировка, докато заместителят ѝ е готов.",
 	"docs.tutorial.new.farming_goal": "Опитай по-силно чудовище едва когато можеш да завършиш няколко битки безопасно. Ако отварите струват повече от приходите от плячката или постоянно умираш, върни се към по-лесна цел и подобри екипировката си.",

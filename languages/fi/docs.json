@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "Luota vain omien hahmojesi komentoihin. Tarkista lähettäjä ennen kuin toimit CODE-viestin perusteella.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "VALMIS",
-	"docs.tutorial.new.lore_intro": "Lue viisisivuinen tarina tai aloita pelaaminen valitsemalla Jatka. Voit lukea sen uudelleen GUIDE-valikosta.",
+	"docs.tutorial.new.lore_intro": "Tervetuloa Adventure Landiin! Jokainen seikkailija aloittaa jostakin. Sinun seikkailusi alkaa puhuvasta Goo-hahmosta. Nauti tarinasta — otamme ensimmäiset askeleesi yhdessä.",
 	"docs.tutorial.new.farming_intro": "Aloita taistelemalla yhtä Goo-olentoa vastaan kerrallaan. Pidä juomat valmiina ja kerää jokaisen arkun saalis. Ensimmäinen tavoitteesi on toistettava taistelu, josta saat enemmän kultaa kuin käytät juomiin.",
 	"docs.tutorial.new.farming_next": "Osta ase ja haarniska, joita luokkasi voi käyttää. Paranna ensin vara-asetta ja sitten haarniskaa. Käytä vanhoja varusteita, kunnes korvaavat ovat valmiit.",
 	"docs.tutorial.new.farming_goal": "Kokeile vahvempaa hirviötä vasta, kun selviät useasta taistelusta turvallisesti. Jos juomat maksavat enemmän kuin saalis tuottaa tai kuolet jatkuvasti, palaa helpompaan kohteeseen ja paranna varusteitasi.",

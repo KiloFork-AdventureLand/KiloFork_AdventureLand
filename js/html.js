@@ -3473,14 +3473,27 @@ function turn_tutorial_lore(direction) {
 	if (window.no_graphics) return;
 	var container = $(".tutorial-lore"), page = Math.max(1, Math.min(5, Number(container.attr("data-page")) + direction));
 	if (!container.length) return;
-	var available = Math.min(900, $(window).width() - 100), divisor = 2;
+	var available = viewport_width() - 60, divisor = 1;
 	while (1672 / divisor > available && divisor < 16) divisor *= 2;
+	container.closest(".guide-article").css("width", 1672 / divisor + 10);
 	container.attr("data-page", page);
 	container.find("img").attr("src", "/images/tutorial/lore/" + container.attr("data-language") + "/page-0" + page + ".jpg").attr("alt", container.find("img").attr("data-alt-" + page)).css({ width: 1672 / divisor, height: 944 / divisor });
-	container.find(".tutorial-lore-counter").text(page + " / 5");
-	container.find("button").first().prop("disabled", page === 1);
-	container.find("button").last().prop("disabled", page === 5);
+	container.find(".tutorial-lore-prev").css("visibility", page === 1 ? "hidden" : "visible");
+	container.find(".tutorial-lore-skip").css("visibility", page === 5 ? "hidden" : "visible");
+	container.find(".tutorial-lore-next").toggle(page < 5);
+	container.find(".tutorial-lore-finish").toggle(page === 5);
 	position_modals();
+}
+
+function render_tutorial_lore(article, url, tutorial) {
+	show_modal("<div class='guide-article' data-lore-tutorial='" + !!tutorial + "' style='background:#E5E5E5;color:#010805;border:5px solid gray;padding:0;font-size:26px;text-align:start'>" + article + "</div>", { wrap:false, url:url, close:{ label:"X", classes:"ui-close-tutorial", corner:true } });
+	turn_tutorial_lore(0);
+}
+
+function finish_tutorial_lore() {
+	var view = get_tutorial_view(last_rendered_track);
+	if ($(".tutorial-lore").closest(".guide-article").attr("data-lore-tutorial") === "true" && view.lessons[last_rendered_step] && view.lessons[last_rendered_step].key === "lore" && view.progress.step === last_rendered_step && view.progress.can_continue) continue_tutorial();
+	else hide_modal();
 }
 
 function render_tutorial_comparison(data, accessories) {
@@ -3553,6 +3566,7 @@ function render_tutorial(article, step, url, track) {
 	var view = get_tutorial_view(last_rendered_track), tutorial = view.lessons[step],
 		cphrase = phrase.html("interface.tutorial.continue");
 	if (step == view.lessons.length - 1) cphrase = phrase.html("interface.tutorial.complete");
+	if (tutorial.key === "lore") return render_tutorial_lore(article, url, true);
 
 	var html = "<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
 	html +=
@@ -3589,6 +3603,7 @@ function render_tutorial(article, step, url, track) {
 }
 
 function render_learn_article(article, args) {
+	if (article.includes('class="tutorial-lore"')) return render_tutorial_lore(article, args.url, false);
 	if (article.includes('id="encouragement-personal"')) article = article.replace('<div id="encouragement-personal"></div>', render_encouragement_info());
 	var html = "<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
 	html += article;

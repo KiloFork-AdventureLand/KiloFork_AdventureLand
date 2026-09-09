@@ -1,4 +1,5 @@
 {
+	"interface.tutorial.skip": "Пропустить",
 	"interface.tutorial.comparison.gear_plain": "Снаряжение +0 от продавца",
 	"interface.tutorial.comparison.gear_upgraded": "То же снаряжение +7",
 	"interface.tutorial.comparison.gear_statted": "Снаряжение +7 со свитками характеристик",

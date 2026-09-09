@@ -1,4 +1,3 @@
-<p>{{ phrase("docs.tutorial.new.lore_intro") }}</p>
 <div class="tutorial-lore" data-page="1" data-language="{{domain.language}}">
 	<img
 		class="tutorial-lore-page"
@@ -11,14 +10,17 @@
 		data-alt-5="{{ phrase('docs.lore.page5.alt')|e }}"
 		width="836"
 		height="472"
-		style="display: block; image-rendering: pixelated"
+		style="display: block; width:100%; height:auto; image-rendering: pixelated"
 	/>
-	<div style="text-align: center">
-		<button class="gamebutton gamebutton-small" style="font-family:inherit" onclick="turn_tutorial_lore(-1)">{{ phrase_html("interface.learn_article.lt_previous") }}</button>
-		<span class="tutorial-lore-counter">1 / 5</span>
-		<button class="gamebutton gamebutton-small" style="font-family:inherit" onclick="turn_tutorial_lore(1)">{{ phrase_html("interface.learn_article.next_gt") }}</button>
+	<div style="padding:20px 24px">
+		<p style="margin:0 0 20px">{{ phrase("docs.tutorial.new.lore_intro") }}</p>
+		<div style="display:grid; grid-template-columns:1fr 1fr 1fr; align-items:center; direction:ltr">
+			<div style="text-align:left"><button class="tutorial-lore-prev gamebutton gamebutton-small" style="font-family:inherit;visibility:hidden" onclick="turn_tutorial_lore(-1)">{{ phrase_html("interface.learn_article.lt_previous") }}</button></div>
+			<div style="text-align:center"><button class="tutorial-lore-skip gamebutton gamebutton-small" style="font-family:inherit" onclick="finish_tutorial_lore()">{{ phrase("interface.tutorial.skip") }}</button></div>
+			<div style="text-align:right">
+				<button class="tutorial-lore-next gamebutton gamebutton-small" style="font-family:inherit" onclick="turn_tutorial_lore(1)">{{ phrase_html("interface.learn_article.next_gt") }}</button>
+				<button class="tutorial-lore-finish gamebutton gamebutton-small" style="font-family:inherit;color:#73BD6D;display:none" onclick="finish_tutorial_lore()">{{ phrase("interface.tutorial.continue") }}</button>
+			</div>
+		</div>
 	</div>
 </div>
-<script>
-	turn_tutorial_lore(0);
-</script>

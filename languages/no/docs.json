@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "Stol bare på kommandoer fra dine egne figurer. Sjekk avsenderen før du handler på en CODE-melding.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "FERDIG",
-	"docs.tutorial.new.lore_intro": "Les historien på fem sider, eller velg Fortsett for å begynne å spille. Du kan lese den igjen fra GUIDE.",
+	"docs.tutorial.new.lore_intro": "Velkommen til Adventure Land! Alle eventyrere begynner et sted. Ditt eventyr begynner med en snakkende Goo. Kos deg med historien — vi tar de første skrittene sammen.",
 	"docs.tutorial.new.farming_intro": "Begynn med én Goo om gangen. Ha eliksirer klare og hent byttet fra hver kiste. Det første målet ditt er en kamp du kan gjenta, som gir mer gull enn du bruker på eliksirer.",
 	"docs.tutorial.new.farming_next": "Kjøp et våpen og rustning som klassen din kan bruke. Forbedre først et reservevåpen og deretter rustningen. Bruk det gamle utstyret til erstatningen er klar.",
 	"docs.tutorial.new.farming_goal": "Prøv et sterkere monster først når du klarer flere kamper trygt. Hvis eliksirene koster mer enn byttet gir, eller du stadig dør, gå tilbake til et lettere mål og forbedre utstyret.",

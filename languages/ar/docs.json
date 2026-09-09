@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "لا تثق إلا بالأوامر الآتية من شخصياتك. تحقق من المرسل قبل التصرف بناءً على رسالة CODE.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "تم",
-	"docs.tutorial.new.lore_intro": "اقرأ القصة المؤلفة من خمس صفحات، أو اختر متابعة لبدء اللعب. يمكنك قراءتها مجددًا من GUIDE.",
+	"docs.tutorial.new.lore_intro": "أهلًا بك في Adventure Land! لكل مغامر بداية، وبدايتك مع Goo يتكلم. استمتع بالقصة، وسنرافقك في خطواتك الأولى.",
 	"docs.tutorial.new.farming_intro": "ابدأ بمواجهة Goo واحد في كل مرة. جهّز الجرعات واجمع غنائم كل صندوق. هدفك الأول هو معركة قابلة للتكرار تكسبك ذهبًا أكثر مما تنفقه على الجرعات.",
 	"docs.tutorial.new.farming_next": "اشترِ سلاحًا ودرعًا يمكن لفئتك تجهيزهما. حسّن سلاحًا احتياطيًا أولًا، ثم درعك. واصل استخدام عتادك القديم حتى يصبح البديل جاهزًا.",
 	"docs.tutorial.new.farming_goal": "لا تجرّب وحشًا أقوى إلا حين تستطيع إكمال عدة معارك بأمان. إن تجاوزت كلفة الجرعات عائد الغنائم، أو كنت تموت باستمرار، فعد إلى هدف أسهل وحسّن عتادك.",

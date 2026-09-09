@@ -172,6 +172,34 @@ test("new visual entry points return before touching graphics in headless mode",
 	c.render_tutorial_comparison(comparisons, false);
 });
 
+test("comic Skip and Continue credit only the current lore lesson; guide and completed reviews just close", () => {
+	for (const scenario of [
+		{ active: true, step: 0, ready: true, credit: true },
+		{ active: false, step: 0, ready: true },
+		{ active: true, step: 1, ready: true },
+		{ active: true, step: 0, ready: false },
+	]) {
+		const calls = [];
+		const c = vm.createContext({
+			last_rendered_track: "",
+			last_rendered_step: 0,
+			get_tutorial_view: () => ({
+				lessons: [{ key: "lore" }],
+				progress: { step: scenario.step, can_continue: scenario.ready },
+			}),
+			$: () => ({ closest: () => ({ attr: () => String(scenario.active) }) }),
+			api_call: (name, args) => calls.push({ name, args }),
+			hide_modal: () => calls.push("close"),
+		});
+		load(c, "js/html.js", ["finish_tutorial_lore", "continue_tutorial"]);
+		c.finish_tutorial_lore();
+		assert.equal(calls.length, scenario.credit ? 2 : 1);
+		if (scenario.credit)
+			assert.deepEqual(JSON.parse(JSON.stringify(calls[0])), { name: "tutorial", args: { step: 1, lesson: "lore" } });
+		assert.equal(calls.at(-1), "close");
+	}
+});
+
 test("travel credit does not depend on whether a player packet already changed the rendered map", () => {
 	const source = read("js/game.js");
 	const start = source.indexOf('socket.on("new_map", function (data) {');

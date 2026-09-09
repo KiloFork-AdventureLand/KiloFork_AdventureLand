@@ -1,4 +1,6 @@
 module.exports = {
+	// Skip the opening comic and continue to the first gameplay lesson.
+	"interface.tutorial.skip": "Skip",
 	// Labels on the level-50 tutorial equipment comparisons.
 	"interface.tutorial.comparison.gear_plain": "+0 vendor equipment",
 	"interface.tutorial.comparison.gear_upgraded": "Same equipment at +7",

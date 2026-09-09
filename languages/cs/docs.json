@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "Důvěřuj jen příkazům od vlastních postav. Než podle zprávy CODE začneš jednat, zkontroluj odesílatele.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "HOTOVO",
-	"docs.tutorial.new.lore_intro": "Přečti si příběh na pěti stránkách nebo zvol Pokračovat a začni hrát. Znovu si ho můžeš přečíst přes GUIDE.",
+	"docs.tutorial.new.lore_intro": "Vítej v Adventure Land! Každý dobrodruh někde začíná. Tvoje dobrodružství začíná s mluvícím Goo. Užij si příběh — první kroky uděláme společně.",
 	"docs.tutorial.new.farming_intro": "Začni bojem s jedním Goo najednou. Měj připravené lektvary a vybírej každou truhlu. Prvním cílem je opakovatelný boj, který ti vydělá více zlata, než utratíš za lektvary.",
 	"docs.tutorial.new.farming_next": "Kup si zbraň a zbroj, které tvé povolání může nosit. Nejprve vylepši náhradní zbraň, pak zbroj. Používej staré vybavení, dokud není náhrada připravená.",
 	"docs.tutorial.new.farming_goal": "Silnější příšeru zkus až tehdy, když bezpečně zvládneš několik bojů za sebou. Pokud lektvary stojí víc, než vydělá kořist, nebo stále umíráš, vrať se k lehčímu cíli a vylepši vybavení.",

@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "Довіряй командам лише від власних персонажів. Перш ніж діяти за повідомленням CODE, перевір відправника.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "ГОТОВО",
-	"docs.tutorial.new.lore_intro": "Прочитайте історію на п'яти сторінках або виберіть «Далі», щоб почати грати. Її можна перечитати через GUIDE.",
+	"docs.tutorial.new.lore_intro": "Ласкаво просимо до Adventure Land! Кожен шукач пригод із чогось починає. Твоя пригода починається з балакучого Goo. Насолоджуйся історією — перші кроки ми зробимо разом.",
 	"docs.tutorial.new.farming_intro": "Почніть з одного Goo за раз. Тримайте зілля напоготові й забирайте здобич із кожної скрині. Перша мета — бій, який можна повторювати, отримуючи більше золота, ніж витрачаєте на зілля.",
 	"docs.tutorial.new.farming_next": "Купіть зброю та броню для свого класу. Спершу поліпшуйте запасну зброю, потім броню. Користуйтеся старим спорядженням, доки заміна не буде готова.",
 	"docs.tutorial.new.farming_goal": "Пробуйте сильнішого монстра лише тоді, коли можете безпечно завершити кілька боїв. Якщо зілля коштує більше, ніж приносить здобич, або ви часто гинете, поверніться до легшої цілі й поліпшіть спорядження.",

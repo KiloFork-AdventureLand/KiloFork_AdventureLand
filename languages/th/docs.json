@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "เชื่อถือเฉพาะคำสั่งจากตัวละครของคุณเอง ตรวจสอบผู้ส่งก่อนทำตามข้อความ CODE",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "เสร็จแล้ว",
-	"docs.tutorial.new.lore_intro": "อ่านเรื่องราวห้าหน้า หรือเลือกต่อไปเพื่อเริ่มเล่น คุณกลับมาอ่านอีกครั้งได้จาก GUIDE",
+	"docs.tutorial.new.lore_intro": "ยินดีต้อนรับสู่ Adventure Land! นักผจญภัยทุกคนมีจุดเริ่มต้น การผจญภัยของคุณเริ่มจาก Goo ที่พูดได้ สนุกกับเรื่องราวได้เลย แล้วเราจะก้าวแรกไปด้วยกัน",
 	"docs.tutorial.new.farming_intro": "เริ่มจากสู้กับ Goo ทีละตัว เตรียมยาให้พร้อมและเก็บของจากทุกหีบ เป้าหมายแรกคือการต่อสู้ที่ทำซ้ำได้และได้ทองมากกว่าค่ายาที่เสียไป",
 	"docs.tutorial.new.farming_next": "ซื้ออาวุธและเกราะที่คลาสของคุณสวมใส่ได้ อัปเกรดอาวุธสำรองก่อน แล้วจึงอัปเกรดเกราะ ใช้อุปกรณ์เดิมต่อไปจนกว่าชิ้นใหม่จะพร้อม",
 	"docs.tutorial.new.farming_goal": "ลองสู้กับมอนสเตอร์ที่แข็งแกร่งขึ้นเมื่อจบการต่อสู้หลายครั้งได้อย่างปลอดภัยแล้วเท่านั้น หากค่ายาสูงกว่ารายได้จากของที่ได้ หรือคุณตายบ่อย ให้กลับไปหาศัตรูที่ง่ายกว่าและพัฒนาอุปกรณ์",

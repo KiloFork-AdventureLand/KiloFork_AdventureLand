@@ -9,7 +9,7 @@
 	"docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check": "Lita bara på kommandon från dina egna karaktärer. Kontrollera avsändaren innan du agerar på ett CODE-meddelande.",
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character": "<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">start_character</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">send_cm</span> ·\n\t\t<span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">on_cm</span> · <span class=\"rlabel\" onclick=\"render_function_reference($(this).html())\">command_character</span>",
 	"docs.tutorial.upgrade.done": "KLART",
-	"docs.tutorial.new.lore_intro": "Läs berättelsen på fem sidor eller välj Fortsätt för att börja spela. Du kan läsa den igen via GUIDE.",
+	"docs.tutorial.new.lore_intro": "Välkommen till Adventure Land! Alla äventyrare börjar någonstans. Ditt äventyr börjar med en talande Goo. Njut av berättelsen — vi tar dina första steg tillsammans.",
 	"docs.tutorial.new.farming_intro": "Börja med en Goo åt gången. Ha drycker redo och plundra varje kista. Ditt första mål är en strid du kan upprepa och som ger mer guld än du lägger på drycker.",
 	"docs.tutorial.new.farming_next": "Köp ett vapen och rustning som din klass kan använda. Förbättra ett reservvapen först och sedan rustningen. Använd din gamla utrustning tills ersättningen är klar.",
 	"docs.tutorial.new.farming_goal": "Prova ett starkare monster först när du klarar flera strider säkert. Om dryckerna kostar mer än bytet ger, eller om du dör hela tiden, gå tillbaka till ett lättare mål och förbättra utrustningen.",
