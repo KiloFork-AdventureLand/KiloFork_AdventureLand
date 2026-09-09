@@ -2748,6 +2748,8 @@ module.exports = {
 	"docs.functions.log.writes-a-trusted-string-or-json-serialized-object": "Writes a trusted string or JSON-serialized object to the in-game log.",
 	// docs/functions/loot.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.functions.loot.example": "<b>Example:</b>",
+	// Loot reference and encouragement guide: the displayed gold and CODE loot result include the personal bonus. Keep CODE unchanged.
+	"docs.functions.loot.gold_total": "The gold shown in loot messages and CODE results includes your encouragement bonus.",
 	// docs/functions/loot.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.functions.loot.loots-a-specific-visible-chest-or-up-to": "Loots a specific visible chest or up to two eligible nearby chests.",
 	// docs/functions/loot.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["CODE"].

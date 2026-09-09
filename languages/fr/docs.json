@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "L’or affiché dans les messages de butin et les résultats de CODE inclut ton bonus d’encouragement.",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy se base sur le niveau le plus élevé parmi les personnages de ton compte. En dessous de 30, les chasses demandent de vaincre au plus 10 Goo. Du niveau 30 au niveau 59, des cibles plus difficiles et des chasses avec davantage de monstres se débloquent. À partir du niveau 60, les chasses normales s'appliquent.",
 	"docs.tutorial.tracktrix.achievements": "Les succès liés aux monstres accordent des bonus de caractéristiques tant que tu portes Tracktrix. Pour chaque monstre, seul le meilleur score de ton compte est retenu, pas la somme des scores de tes personnages.",
 	"docs.tutorial.tracktrix.goo_rewards": "Pour Goo, 10 points accordent +5 HP ; à 100 points, tu gagnes encore +10 HP.",

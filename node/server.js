@@ -10846,6 +10846,7 @@ function init_socket_io(socket_server) {
 					if (player.t) {
 						player.t.cgold += r.gold;
 					}
+					r.gold += encouragement_loot(chest, r.goldm, [player.name])[player.id] || 0;
 					if (r.gold) {
 						socket.emit(
 							"game_log",
@@ -10867,7 +10868,6 @@ function init_socket_io(socket_server) {
 					}
 					resend(player, (reopen && "reopen+nc+inv") || "");
 					socket.emit("chest_opened", r);
-					encouragement_loot(chest, r.goldm);
 				} else if (chest) {
 					// var gold=round(chest.gold/parties[player.party].length);
 					r.party = true;
@@ -10997,15 +10997,17 @@ function init_socket_io(socket_server) {
 							party_emit(player.party, "game_log", item_message("server.item.lost", item, {}, { color: "#AB4E4F" }));
 						}
 					});
+					var encouragement_gold = encouragement_loot(chest, r.goldm, parties[player.party]);
 					parties[player.party].forEach(function (name) {
 						var current = players[name_to_id[name]];
 						var cgold =
 							round(chest.gold * (current.share || 0) * r.goldm) + round((chest.egold || 0) * (current.share || 0));
-						r.gold = cgold = server_tax(cgold);
+						cgold = server_tax(cgold);
 						current.gold += cgold;
 						if (current.t) {
 							current.t.cgold += cgold;
 						}
+						r.gold = cgold += encouragement_gold[current.id] || 0;
 						if (cgold) {
 							current.socket.emit(
 								"game_log",
@@ -11027,7 +11029,6 @@ function init_socket_io(socket_server) {
 						resend(current, (reopen[current.id] && "reopen+nc+inv") || "");
 						current.socket.emit("chest_opened", r);
 					});
-					encouragement_loot(chest, r.goldm);
 				} else {
 					socket.emit("chest_opened", { id: data.id, gone: true });
 				}

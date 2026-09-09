@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "战利品消息和 CODE 结果中显示的金币已包含你的鼓励加成。",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy会以你账号中最高的角色等级为准。低于30级时，狩猎最多要求击败10只Goo。30至59级会逐步开放更强的目标和需要击败更多怪物的狩猎。达到60级后，恢复普通狩猎。",
 	"docs.tutorial.tracktrix.achievements": "携带 Tracktrix 时，怪物成就会提供属性加成。每种怪物按你账号内的最高分数计算，而不是把所有角色的分数相加。",
 	"docs.tutorial.tracktrix.goo_rewards": "Goo 达到10分时提供 +5 HP，达到100分时再增加 +10 HP。",

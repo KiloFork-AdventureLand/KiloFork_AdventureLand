@@ -562,6 +562,11 @@ test("one additional table pass permits two guaranteed drops, never fifteen or t
 	h.open(p, id);
 	assert.equal(h.inventory.get(p.real_id).filter((i) => i.name === "ringsj").length, 2);
 	assert.equal(p.gold, 15000);
+	assert.deepEqual(
+		h.events.filter((e) => e.name === p.name && e.data?.color === "gold").map((e) => e.data.message),
+		["15000 gold"],
+	);
+	assert.equal(h.events.find((e) => e.event === "chest_opened" && !e.data.gone).data.gold, 15000);
 });
 
 test("opener, party changes and forged conditions cannot steal a sealed personal roll", () => {
@@ -582,6 +587,13 @@ test("opener, party changes and forged conditions cannot steal a sealed personal
 	assert.equal(p.gold, 140000);
 	assert.equal(h.inventory.get(p.real_id).length, 1);
 	assert.equal(h.inventory.get(opener.real_id).length, 1);
+	assert.deepEqual(
+		h.events.filter((e) => e.event === "game_log" && e.data.color === "gold").map((e) => [e.name, e.data.message]),
+		[
+			[p.name, "140000 gold"],
+			[opener.name, "10000 gold"],
+		],
+	);
 });
 
 test("party gold uses the 100000 / 20% / 2% / 5x example and personal drops never enter its lottery", () => {
@@ -603,6 +615,72 @@ test("party gold uses the 100000 / 20% / 2% / 5x example and personal drops neve
 	h.open(other, Object.keys(h.c.chests)[0]);
 	assert.equal(p.gold, 140000);
 	assert.equal(other.gold, 400000);
+	for (const current of [p, other]) {
+		assert.equal(current.t.cgold, current.gold);
+		assert.deepEqual(
+			h.events
+				.filter((e) => e.name === current.name && e.event === "game_log" && e.data.color === "gold")
+				.map((e) => e.data.message),
+			[current.gold + " gold"],
+		);
+		assert.equal(h.events.find((e) => e.name === current.name && e.event === "chest_opened").data.gold, current.gold);
+		assert.equal(
+			h.events.find((e) => e.name === current.name && e.event === "disappearing_text").data.message,
+			"+" + current.gold,
+		);
+	}
+});
+
+test("combined gold announcements preserve separate tax rounding and ordinary loot", () => {
+	for (const bonus of [false, true]) {
+		const h = harness(),
+			p = h.player();
+		if (bonus) h.eligible(p, 100 * day);
+		h.c.S = { gold: 0 };
+		load(h.c, "node/server_functions.js", ["server_tax"]);
+		h.c.D.monster_gold.goo = 93;
+		const m = h.monster(p, { hp: 0 });
+		h.c.encouragement_points(m, p, 1000);
+		h.c.drop_something(p, m);
+		h.open(p, Object.keys(h.c.chests)[0]);
+		const gold = bonus ? 255 : 85;
+		assert.equal(p.gold, gold);
+		assert.equal(p.t.cgold, gold);
+		assert.equal(h.c.S.gold, bonus ? 27 : 9);
+		assert.deepEqual(
+			h.events.filter((e) => e.event === "game_log" && e.data.color === "gold").map((e) => e.data.message),
+			[gold + " gold"],
+		);
+		assert.equal(h.events.find((e) => e.event === "disappearing_text").data.message, "+" + gold);
+		assert.equal(h.events.find((e) => e.event === "chest_opened").data.gold, gold);
+	}
+});
+
+test("consecutive chests combine the screenshot's 82 + 163 and 58 + 115 rewards", () => {
+	const h = harness(),
+		p = h.player(),
+		other = h.player("Other");
+	h.eligible(p, 100 * day);
+	h.c.S = { gold: 0 };
+	load(h.c, "node/server_functions.js", ["server_tax"]);
+	for (const base of [90, 63]) {
+		h.c.D.monster_gold.goo = base;
+		const m = h.monster(p, { hp: 0 });
+		h.c.encouragement_points(m, other, 5);
+		h.c.encouragement_points(m, p, 995);
+		h.c.drop_something(p, m);
+		h.open(p, Object.keys(h.c.chests)[0]);
+	}
+	assert.deepEqual(
+		h.events.filter((e) => e.event === "game_log" && e.data.color === "gold").map((e) => e.data.message),
+		["245 gold", "173 gold"],
+	);
+	assert.deepEqual(
+		h.events.filter((e) => e.event === "chest_opened").map((e) => e.data.gold),
+		[245, 173],
+	);
+	assert.equal(p.gold, 418);
+	assert.equal(p.t.cgold, 418);
 });
 
 test("zero work, late login and rate changes do not grant retroactive encouragement", () => {
@@ -659,6 +737,12 @@ test("full inventory reserves one fixed result; another character and duplicate 
 	h.open(p, id);
 	assert.equal(p.gold, 14000);
 	assert.equal(h.inventory.get(p.real_id).length, 1);
+	assert.deepEqual(
+		h.events
+			.filter((e) => e.name === p.name && e.event === "game_log" && e.data.color === "gold")
+			.map((e) => e.data.message),
+		["14000 gold"],
+	);
 });
 
 test("PvP reduces both sides by the persistent XP maximum without awarding new encouragement", () => {

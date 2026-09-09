@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "Aurul afișat în mesajele de pradă și în rezultatele CODE include bonusul tău de încurajare.",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy ia în calcul cel mai mare nivel al unui personaj din contul tău. Sub nivelul 30, vânătorile cer să învingi cel mult 10 Goo. Între nivelurile 30 și 59 devin disponibile ținte mai dificile și vânători cu mai mulți monștri. De la nivelul 60 se aplică vânătorile obișnuite.",
 	"docs.tutorial.tracktrix.achievements": "Realizările pentru monștri oferă bonusuri la atribute cât timp ai Tracktrix la tine. Pentru fiecare monstru contează cel mai mare scor din contul tău, nu suma scorurilor personajelor tale.",
 	"docs.tutorial.tracktrix.goo_rewards": "Pentru Goo, 10 puncte oferă +5 HP, iar 100 de puncte adaugă încă +10 HP.",

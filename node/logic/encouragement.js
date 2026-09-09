@@ -425,8 +425,9 @@ function encouragement_chest(player, monster, chest, share) {
 		};
 }
 
-function encouragement_loot(chest, goldm) {
-	var receipts = chest.encouragement || [];
+function encouragement_loot(chest, goldm, looters) {
+	var receipts = chest.encouragement || [],
+		golds = {};
 	delete chest.encouragement;
 	for (var receipt of receipts) {
 		var player = players[name_to_id[receipt.name]];
@@ -461,15 +462,13 @@ function encouragement_loot(chest, goldm) {
 		gold = server_tax(gold);
 		player.gold += gold;
 		if (player.t) player.t.cgold += gold;
-		if (gold)
+		if (looters && in_arr(player.name, looters)) golds[player.id] = gold;
+		else if (gold)
 			player.socket.emit(
 				"game_log",
-				localization.message(
-					"server.game_log.encouragement_gold",
-					{ amount: String(to_pretty_num(gold)) },
-					{ color: "gold" },
-				),
+				localization.message("server.game_log.gold", { amount: String(to_pretty_num(gold)) }, { color: "gold" }),
 			);
 		if (gold || drop.items.length || drop.cash) resend(player, "reopen+nc+inv");
 	}
+	return golds;
 }

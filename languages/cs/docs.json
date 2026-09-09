@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "Zlato zobrazené ve zprávách o kořisti a výsledcích CODE zahrnuje tvůj povzbuzující bonus.",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy se řídí nejvyšší úrovní postavy na tvém účtu. Pokud je nižší než 30, lovy vyžadují porazit nejvýše 10 Goo. Od úrovně 30 do 59 se zpřístupňují obtížnější cíle a lovy na více nestvůr. Od úrovně 60 platí běžné lovy.",
 	"docs.tutorial.tracktrix.achievements": "Úspěchy za monstra dávají bonusy k atributům, dokud nosíš Tracktrix. U každého monstra se počítá nejvyšší skóre na tvém účtu, ne součet skóre tvých postav.",
 	"docs.tutorial.tracktrix.goo_rewards": "U Goo získáš za 10 bodů +5 HP; za 100 bodů dalších +10 HP.",

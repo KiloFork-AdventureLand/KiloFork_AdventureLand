@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "戦利品メッセージとCODEの結果に表示されるゴールドには、応援ボーナスが含まれています。",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisyはアカウント内で最も高いキャラクターレベルを基準にします。30未満なら、討伐対象は最大10体のGooです。30～59では、より手強い相手や討伐数の多い依頼が順に解放されます。60からは通常の討伐依頼になります。",
 	"docs.tutorial.tracktrix.achievements": "Tracktrixを持っている間は、モンスターの実績による能力値ボーナスが得られます。モンスターごとにアカウント内の最高スコアが使われ、各キャラクターのスコアは合算されません。",
 	"docs.tutorial.tracktrix.goo_rewards": "Gooでは10ポイントでHPが+5、100ポイントでさらにHPが+10されます。",

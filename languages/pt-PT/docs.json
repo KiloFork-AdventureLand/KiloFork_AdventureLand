@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "O ouro mostrado nas mensagens de saque e nos resultados de CODE inclui o teu bónus de incentivo.",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy considera o nível mais alto entre as personagens da tua conta. Abaixo de 30, as caças pedem no máximo 10 Goo. Do nível 30 ao 59, ficam disponíveis alvos mais difíceis e caças com mais monstros. A partir do 60, aplicam-se as caças normais.",
 	"docs.tutorial.tracktrix.achievements": "As conquistas de monstros concedem bónus de atributos enquanto transportas Tracktrix. Para cada monstro, conta a pontuação mais alta da tua conta, não a soma das pontuações das tuas personagens.",
 	"docs.tutorial.tracktrix.goo_rewards": "Para Goo, 10 pontos concedem +5 HP; 100 pontos acrescentam mais +10 HP.",

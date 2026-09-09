@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "전리품 메시지와 CODE 결과에 표시되는 골드에는 응원 보너스가 포함됩니다.",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy는 계정에서 가장 높은 캐릭터 레벨을 기준으로 삼습니다. 30 미만이면 사냥 목표는 최대 10마리의 Goo입니다. 30~59에서는 더 강한 대상과 더 많은 몬스터를 잡는 사냥이 차례로 열립니다. 60부터는 일반 사냥이 적용됩니다.",
 	"docs.tutorial.tracktrix.achievements": "Tracktrix를 소지하고 있으면 몬스터 업적으로 능력치 보너스를 받아요. 몬스터마다 계정 내 최고 점수를 사용하며, 캐릭터들의 점수를 합산하지는 않아요.",
 	"docs.tutorial.tracktrix.goo_rewards": "Goo는 10점에서 +5 HP를 주고, 100점에서는 +10 HP를 추가로 줘요.",

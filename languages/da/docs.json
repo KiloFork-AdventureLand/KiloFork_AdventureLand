@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "Guldet i byttemeddelelser og CODE-resultater inkluderer din opmuntringsbonus.",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy tager udgangspunkt i det højeste karakterniveau på din konto. Under niveau 30 kræver jagterne, at du besejrer højst 10 Goo. Fra niveau 30 til 59 bliver sværere mål og jagter med flere monstre tilgængelige. Fra niveau 60 gælder normale jagter.",
 	"docs.tutorial.tracktrix.achievements": "Monsterpræstationer giver bonusser til dine egenskaber, mens du bærer Tracktrix. For hvert monster tæller den højeste score på din konto, ikke summen af dine figurers scorer.",
 	"docs.tutorial.tracktrix.goo_rewards": "For Goo giver 10 point +5 HP; 100 point giver yderligere +10 HP.",

@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "Złoto wyświetlane w wiadomościach o łupach i wynikach CODE obejmuje twoją premię na zachętę.",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy bierze pod uwagę najwyższy poziom postaci na twoim koncie. Jeśli jest niższy niż 30, polowania wymagają pokonania najwyżej 10 Goo. Od poziomu 30 do 59 dostępne stają się trudniejsze cele i polowania na większą liczbę potworów. Od poziomu 60 obowiązują zwykłe polowania.",
 	"docs.tutorial.tracktrix.achievements": "Osiągnięcia związane z potworami dają premie do atrybutów, gdy nosisz przy sobie Tracktrix. Dla każdego potwora liczy się najwyższy wynik na twoim koncie, a nie suma wyników twoich postaci.",
 	"docs.tutorial.tracktrix.goo_rewards": "Za Goo 10 punktów daje +5 HP, a 100 punktów dodaje kolejne +10 HP.",

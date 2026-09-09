@@ -1,4 +1,5 @@
 {
+	"docs.functions.loot.gold_total": "L’oro mostrato nei messaggi di bottino e nei risultati di CODE include il tuo bonus di incoraggiamento.",
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy considera il livello più alto tra i personaggi del tuo account. Sotto il 30, le cacce richiedono di sconfiggere al massimo 10 Goo. Dal livello 30 al 59 si sbloccano bersagli più difficili e cacce con più mostri. Dal 60 si applicano le cacce normali.",
 	"docs.tutorial.tracktrix.achievements": "Gli obiettivi dei mostri conferiscono bonus agli attributi finché porti con te Tracktrix. Per ogni mostro conta il punteggio più alto del tuo account, non la somma dei punteggi dei tuoi personaggi.",
 	"docs.tutorial.tracktrix.goo_rewards": "Per Goo, 10 punti conferiscono +5 HP; 100 punti aggiungono altri +10 HP.",
