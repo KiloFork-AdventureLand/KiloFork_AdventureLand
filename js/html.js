@@ -4015,33 +4015,29 @@ function render_guide(path, title, color) {
 		html +=
 			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805' onclick='render_all_items()'><span class='guide-reference-label'><span style='color: #328355'>" +
 			"[I]" +
-			"</span>" +
-			" " +
+			"</span> <span class='guide-reference-text'>" +
 			phrase.html("interface.guide.all_items") +
-			"</span></div>";
+			"</span></span></div>";
 		html +=
 			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805' onclick='render_all_monsters()'><span class='guide-reference-label'><span style='color: #7F2D2A'>" +
 			"[M]" +
-			"</span>" +
-			" " +
+			"</span> <span class='guide-reference-text'>" +
 			phrase.html("interface.guide.all_monsters") +
-			"</span></div>";
+			"</span></span></div>";
 		html += "</div>";
 		html += "<div class='guide-reference-row'>";
 		html +=
 			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805' onclick='render_all_skills_and_conditions()'><span class='guide-reference-label'><span style='color: #2A98AD'>" +
 			"[S]" +
-			"</span>" +
-			" " +
+			"</span> <span class='guide-reference-text'>" +
 			phrase.html("interface.guide.all_skills_amp_c") +
-			"</span></div>";
+			"</span></span></div>";
 		html +=
 			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805' onclick='render_all_recipes()'><span class='guide-reference-label'><span style='color: #ED8131'>" +
 			"[C]" +
-			"</span>" +
-			" " +
+			"</span> <span class='guide-reference-text'>" +
 			phrase.html("interface.guide.all_recipes") +
-			"</span></div>";
+			"</span></span></div>";
 		html += "</div>";
 	}
 	if (title) {
@@ -4102,21 +4098,40 @@ function render_guide(path, title, color) {
 	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/guide" + suffix });
 	var buttons = $(".modal:last .guide-reference-row > .gamebutton").toArray();
 	if (!buttons.length) return;
+	var segmenter = typeof Intl != "undefined" && Intl.Segmenter ? new Intl.Segmenter(undefined, { granularity: "grapheme" }) : null;
+	var labels = buttons.map(function (button) {
+		var label = button.firstElementChild,
+			text = label.lastElementChild,
+			value = text.textContent;
+		button.title = label.textContent;
+		button.setAttribute("aria-label", button.title);
+		var letters = segmenter
+			? Array.from(segmenter.segment(value), function (part) {
+					return part.segment;
+				})
+			: Array.from(value);
+		return { button: button, label: label, text: text, value: value, letters: letters };
+	});
 	function fit_buttons() {
 		var visible = false;
-		buttons.forEach(function (button) {
+		labels.forEach(function (entry) {
+			var button = entry.button,
+				label = entry.label,
+				padding = 12;
 			if (!button.isConnected || !button.clientWidth) return;
 			visible = true;
-			var size = 24,
-				label = button.firstElementChild;
-			button.style.fontSize = size + "px";
-			button.style.whiteSpace = "nowrap";
-			while (size > 16 && label.scrollWidth > label.clientWidth) {
-				size -= 2;
-				button.style.fontSize = size + "px";
+			entry.text.textContent = entry.value;
+			button.style.padding = "12px";
+			while (padding > 2 && (label.scrollHeight > 48 || label.scrollWidth > label.clientWidth)) {
+				padding -= 2;
+				button.style.paddingLeft = button.style.paddingRight = padding + "px";
 			}
-			// Keep the full label readable if it still needs a second line.
-			button.style.whiteSpace = "";
+			var letters = entry.letters.slice();
+			while (letters.length && (label.scrollHeight > 48 || label.scrollWidth > label.clientWidth)) {
+				letters.pop();
+				entry.text.textContent = letters.join("").trimEnd() + ".";
+			}
+			button.style.paddingTop = button.style.paddingBottom = label.scrollHeight > 24 ? "0px" : "12px";
 		});
 		if (visible) position_modals();
 	}

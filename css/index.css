@@ -754,17 +754,25 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	width: min(1018px, calc(100vw * var(--browser-zoom-inverse, 1) - 80px));
 }
 .guide-reference-row{
-	display: flex;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 6px;
 	margin-bottom: 4px;
 }
 .guide-reference-row > .gamebutton{
-	flex: 1;
 	min-width: 0;
+	box-sizing: border-box;
+	height: 56px;
+	display: flex;
+	align-items: center;
 	overflow-wrap: anywhere;
 }
 .guide-reference-label{
 	display: block;
+	flex: 1;
+	min-width: 0;
+	max-height: 48px;
+	overflow: hidden;
 }
 .language-icon{
 	--language-icon-width: 36px;
