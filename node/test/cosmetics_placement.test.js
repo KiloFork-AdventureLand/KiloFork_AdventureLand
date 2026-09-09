@@ -15,6 +15,7 @@ function runtime() {
 		round: Math.round,
 		in_arr: (v, a) => a.includes(v),
 		is_string: (v) => typeof v === "string",
+		clone: (v) => JSON.parse(JSON.stringify(v)),
 		prune_cx() {},
 	});
 	function load(file, name) {
@@ -23,7 +24,8 @@ function runtime() {
 		assert(start >= 0, name);
 		vm.runInContext(text.slice(start, text.indexOf("\nfunction ", start + 1)), c);
 	}
-	for (const file of ["sprites", "cosmetics", "precomputed_images"]) vm.runInContext(read("design/" + file + ".js"), c);
+	for (const file of ["sprites", "cosmetics", "precomputed_images", "npcs"])
+		vm.runInContext(read("design/" + file + ".js"), c);
 	c.G = {
 		sprites: c.sprites,
 		cosmetics: c.cosmetics,
@@ -31,14 +33,18 @@ function runtime() {
 		dimensions: {},
 		items: {},
 		monsters: {},
+		classes: {},
+		maps: {},
+		npcs: c.npcs,
 	};
 	Object.assign(c, {
 		window: c,
-		T: { initialized: true },
+		T: {},
 		SS: {},
 		SSU: {},
 		IID: null,
 		FC: {},
+		FM: {},
 		XYWH: {},
 		C: {},
 		textures: {},
@@ -51,6 +57,7 @@ function runtime() {
 		CINF: 1e9,
 		last_cx_d: [0, 0],
 	});
+	load("js/old_common_functions.js", "process_game_data");
 	load("js/html.js", "precompute_image_positions");
 	c.precompute_image_positions();
 	for (const [id, d] of Object.entries(c.IID)) {
@@ -58,6 +65,12 @@ function runtime() {
 		c.FC[id] = d[7];
 		c.C[d[7]] = {};
 	}
+	for (const definition of Object.values(c.G.sprites))
+		definition.matrix.forEach((row, i) =>
+			row.forEach((id, j) => {
+				if (id && !definition.skip) c.FM[id] = [i, j];
+			}),
+		);
 	class Sprite {
 		constructor(texture) {
 			this.texture = texture;
@@ -85,6 +98,7 @@ function runtime() {
 	for (const name of ["generate_textures", "set_texture"]) load("js/functions.js", name);
 	load("js/game.js", "cosmetics_logic");
 	load("js/html.js", "sprite");
+	load("js/html.js", "sprite_image");
 	c.new_sprite = (skin, stype) => {
 		if (!c.textures[skin]) c.generate_textures(skin, stype);
 		return Object.assign(new Sprite(), { skin, stype, frames: 4 });
@@ -98,6 +112,88 @@ function runtime() {
 	};
 	return { c, actor, load };
 }
+
+test("HTML sprite metadata preserves every default and explicit game sprite type", () => {
+	const { c } = runtime();
+	const before = { ...c.T };
+	c.process_game_data();
+	for (const [id, type] of Object.entries(c.T)) {
+		assert.equal(before[id], type, id + " keeps its game type");
+		assert.equal(c.IID[id][8], type, id + " metadata type");
+	}
+	assert.equal(c.T.potiongirl, "full");
+	assert.equal(c.T.fancypots, "animation");
+});
+
+test("NPC portraits keep the right sheet crop before and after HTML previews initialize", () => {
+	const { c, load } = runtime();
+	load("js/html.js", "render_interaction");
+	c.process_game_data();
+	const portraits = Object.values(c.G.npcs)
+		.map((npc) => npc.side_interaction)
+		.filter((face) => face && face.auto);
+	const before = portraits.map((face) => c.render_interaction(face, "return_html"));
+	c.IID = null;
+	c.precompute_image_positions();
+	portraits.forEach((face, i) => assert.equal(c.render_interaction(face, "return_html"), before[i], face.skin));
+	const potion = c.render_interaction(c.G.npcs.fancypots.side_interaction, "return_html");
+	assert.match(potion, /margin-left: -416px; margin-top: -576px; width: 1248px; height: 1152px;/);
+	assert.match(potion, /src='\/images\/tiles\/characters\/custom2\.png\?v=4'/);
+	// The real animated shopkeeper must still use the animation portrait layout.
+	assert.match(
+		c.render_interaction({ auto: true, skin: "fancypots", message: "" }, "return_html"),
+		/width: 2256px; height: 1600px;/,
+	);
+});
+
+test("hooded upper costumes hide hair in both character rendering and HTML previews", () => {
+	const { c, actor } = runtime();
+	for (const [skin, upper, compatible] of [
+		["mabw", "marmor12c", true],
+		["mabw", "marmor12d", true],
+		["mabw", "marmor12a", true],
+		["sarmor1a", "marmor12c", false],
+	])
+		for (let j = 0; j < 4; j++) {
+			const s = actor(skin, { head: "makeup117", hair: "hairdo100", upper }, 1, j);
+			const hairVisible = !compatible || !(c.G.cosmetics.prop[upper] || []).includes("no_hair");
+			assert.equal(!!s.cxc[upper], compatible, upper + " costume compatibility");
+			assert.equal(!!s.cxc.hairdo100, hairVisible, upper + " game hair");
+			const layers = [];
+			c.sprite_image = (id) => {
+				layers.push(id);
+				return "";
+			};
+			c.sprite(s.skin, { cx: { ...s.cx }, j, scale: 1 });
+			assert.equal(layers.includes(upper), compatible);
+			assert.equal(layers.includes("hairdo100"), hairVisible, upper + " preview hair");
+		}
+});
+
+test("character-sheet NPC portraits use the sprite renderer instead of animation coordinates", () => {
+	const { c, load } = runtime();
+	load("js/html.js", "render_interaction");
+	const face = Object.values(c.G.npcs)
+		.map((npc) => npc.side_interaction)
+		.find((face) => face && c.T[face.skin] === "character");
+	assert(face, "a shipped character-sheet portrait exists");
+	assert.equal(face.skin, "xxschar2h");
+	const html = c.render_interaction(face, "return_html");
+	assert.match(html, /width: 1296px;/, "the 324px character sheet stays at integer 4x scale");
+	assert.doesNotMatch(html, /width: 2256px;/, "not the unrelated animation layout");
+	assert.match(html, /src='\/images\/all_characters\/xxschar2\.png'/);
+});
+
+test("cosmetic rendering stays harmless without graphics", () => {
+	const { c } = runtime();
+	c.no_graphics = true;
+	Object.defineProperty(c, "PIXI", {
+		get() {
+			assert.fail("Headless PIXI access");
+		},
+	});
+	c.cosmetics_logic({ skin: "mabw", cx: { head: "makeup117", hair: "hairdo100", upper: "marmor12c" } });
+});
 
 test("face layers stay on the eyes across body sizes, directions and walking frames", () => {
 	const { c, actor } = runtime();

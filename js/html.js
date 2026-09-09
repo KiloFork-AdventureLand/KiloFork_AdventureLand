@@ -6417,7 +6417,7 @@ function render_spawns(id) {
 
 function render_interaction(type, sub_type, args) {
 	if (!args) args = {};
-	var cosmetic_preview = type.auto && type.cx && Object.keys(type.cx).length;
+	var cosmetic_preview = type.auto && (T[type.skin] == "character" || (type.cx && Object.keys(type.cx).length));
 	var cosmetic_type = cosmetic_preview && type;
 	if (sub_type != "return_html") {
 		topleft_npc = "interaction";
@@ -6523,7 +6523,7 @@ function render_interaction(type, sub_type, args) {
 	else if (cosmetic_preview)
 		html +=
 			"<div style='float: left; margin-top: -20px; width: 104px; height: 98px; overflow: hidden'>" +
-			sprite(cosmetic_type.skin, { cx: clone(cosmetic_type.cx), cosmetic_head_y: cosmetic_type.cosmetic_head_y, width: 104, height: 144, scale: 4 }) +
+			sprite(cosmetic_type.skin, { cx: clone(cosmetic_type.cx || {}), cosmetic_head_y: cosmetic_type.cosmetic_head_y, width: 104, height: 144, scale: 4 }) +
 			"</div>";
 	else if (img_type == "normal" || img_type == "full")
 		html +=
@@ -7396,7 +7396,7 @@ function precompute_image_positions() {
 				if (!name) continue;
 				// 0 total-width,  1 total-height, 2 X-start, 3 Y-start, 4 width, 5 height, 6 col_num, 7 file, 8 type
 				IID[name] = [width, height, (j * width) / s_def.columns, (i * height) / s_def.rows, width / (s_def.columns * col_num), height / (s_def.rows * row_num), col_num, s_def.file, s_type];
-				T[name] = s_def.type;
+				T[name] = s_def.type || "full";
 				SSU[name] = SS[name] = s_def.size || "normal";
 				if (G.cosmetics.prop[name] && G.cosmetics.prop[name].includes("slender")) SSU[name] += "slender";
 				if (G.dimensions[name]) {
@@ -7505,7 +7505,11 @@ function sprite(name, args) {
 			rip = false,
 			cxs = [name],
 			cx_prop = {};
-		for (var n in args.cx) cxs.push(n);
+		for (var n in args.cx) {
+			var cid = args.cx[n];
+			if (n == "upper" && (in_arr(T[name], ["full", "character"]) || T[cid] != "armor" || SSU[cid] != SSU[name])) continue;
+			cxs.push(cid);
+		}
 		cxs.forEach(function (cid) {
 			if (G.cosmetics.prop[cid])
 				G.cosmetics.prop[cid].forEach(function (p) {

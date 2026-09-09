@@ -5649,7 +5649,11 @@ function cosmetics_logic(sprite) {
 		body_type = "full",
 		cx_prop = {},
 		cxs = [sprite.skin];
-	for (var n in sprite.cx) cxs.push(n);
+	for (var n in sprite.cx) {
+		var cid = sprite.cx[n];
+		if (n == "upper" && (in_arr(T[sprite.skin], ["full", "character"]) || T[cid] != "armor" || SSU[cid] != SSU[sprite.skin])) continue;
+		cxs.push(cid);
+	}
 
 	cxs.forEach(function (cid) {
 		if (G.cosmetics.prop[cid])
