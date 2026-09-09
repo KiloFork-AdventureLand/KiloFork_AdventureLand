@@ -4651,8 +4651,10 @@ function render_item(selector, args) {
 				if (next) html += "<div>" + phrase.html("interface.item.next_gold_xp_luck", { value: next[0], value2: prop.xp_multiplier === 1 ? 1 : next[1], value3: next[2] }) + "</div>";
 			}
 			html +=
-				"<div class='slimbutton' style='" +
-				(args.pure ? "" : "position: absolute; top: -5px; right: -5px; border-width: 5px; padding: 0 6px; font-size: 20px; line-height: 16px; ") +
+				"<div class='slimbutton" +
+				(args.pure ? "" : " ui-info") +
+				"' style='" +
+				(args.pure ? "" : "top: -5px; right: -5px; border-width: 5px; ") +
 				'\' onclick=\'stpr(event); open_guide("encouragement",get_guide_url("encouragement"))\'>' +
 				phrase.html("interface.item.info") +
 				"</div>";

@@ -683,7 +683,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 .no-close-buttons .ui-close-top{
 	margin-top: 0;
 }
-.ui-close{
+.ui-close,.ui-info{
 	position: absolute;
 	top: -31px;
 	right: -5px;
@@ -705,7 +705,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	cursor: pointer;
 	pointer-events: auto;
 }
-.ui-close-word{
+.ui-close-word,.ui-info{
 	width: auto;
 	padding-left: 9px;
 	padding-right: 7px;

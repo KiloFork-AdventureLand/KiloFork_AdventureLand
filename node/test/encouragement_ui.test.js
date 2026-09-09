@@ -82,7 +82,8 @@ test("real condition renderer shows separate factors, a working INFO link and no
 	])
 		assert(html.includes(c.bold_prop_line(label, "3×", color)));
 	assert.match(html, /max-width: 240px; position: relative;/);
-	assert.match(html, /top: -5px; right: -5px; border-width: 5px; padding: 0 6px; font-size: 20px; line-height: 16px;/);
+	assert.match(html, /class='slimbutton ui-info'/);
+	assert.match(html, /top: -5px; right: -5px; border-width: 5px;/);
 	c.event = {};
 	c.stpr = () => {};
 	let request;
