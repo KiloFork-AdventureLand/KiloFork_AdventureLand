@@ -533,6 +533,75 @@ test("real damage handler: 99% veteran damage plus an overkill last hit cannot l
 	assert.equal(p.gold, 1140);
 });
 
+test("99% damage survives the real disconnect and retarget handlers before a late 15x finisher", () => {
+	for (const [chance, roll, copies] of [
+		[1, 0.139, 2],
+		[1, 0.141, 1],
+		[0.1, 0.0139, 2],
+		[0.1, 0.0141, 1],
+	]) {
+		const h = harness(),
+			old = h.player("Veteran"),
+			m = h.monster(old);
+		Object.assign(h.c, {
+			sockets: { [old.id]: old.socket },
+			observers: {},
+			dc_players: {},
+			S: { gold: 0 },
+			Dev: false,
+			future_s: (seconds) => new Date(h.now() + seconds * 1000),
+			increase_targets() {},
+			reduce_targets() {},
+			calculate_monster_stats() {},
+			// Queue the normal logout without starting persistence or external services.
+			sync_loop() {},
+		});
+		load(h.c, "node/server.js", ["defeat_player", "restore_state", "stop_pursuit", "target_player"]);
+		load(h.c, "node/server_functions.js", ["pmap_remove", "server_tax"]);
+		h.c.D.drops.monsters.goo = [[chance, "ringsj"]];
+		h.hit(old, m, 990);
+		assert.equal(m.hp, 10);
+		h.c.socket = old.socket;
+		socketHandler(h.c, "disconnect")();
+		assert.equal(old.dc, true);
+		assert.equal(h.c.players[old.id], undefined);
+		assert.equal(h.c.instances.main.players[old.id], undefined);
+		assert.equal(h.c.dc_players[old.real_id], old);
+		assert.equal(m.contribution_total, 990);
+		assert.equal(m.contributions[old.real_id].points, 990);
+		h.c.stop_pursuit(m, { force: true });
+		assert.equal(m.target, null);
+		const p = h.player("New");
+		h.eligible(p);
+		assert.deepEqual(plain(p.encouragement.totals), { gold: 15, xp: 15, luck: 15 });
+		h.roll(0.05);
+		h.hit(p, m, 1000000);
+		assert.equal(m.target, p.name);
+		assert.equal(m.contributions[p.real_id].points, 10);
+		assert.equal(m.contribution_total, 1000);
+		assert.equal(p.xp, 1140);
+		const id = Object.keys(h.c.chests)[0],
+			chest = h.c.chests[id];
+		assert.equal(chest.encouragement.length, 1);
+		assert.equal(chest.encouragement[0].id, p.real_id);
+		assert.equal(chest.encouragement[0].gold, 0.14);
+		assert.equal(chest.encouragement[0].luck, 0.14);
+		h.roll(roll);
+		h.open(p, id);
+		h.open(p, id);
+		// Native 10% tax: normal 900 gold plus 126 bonus, not 13,500 gold.
+		assert.equal(p.gold, 1026);
+		assert.equal(p.t.cgold, 1026);
+		assert.equal(h.c.S.gold, 114);
+		assert.equal(h.inventory.get(p.real_id).length, copies);
+		assert.equal(h.events.find((event) => event.name === p.name && event.event === "chest_opened").data.gold, 1026);
+		assert.equal(old.gold, 0);
+		assert.equal(old.xp, 0);
+		assert.equal(h.queries.length, 0);
+		assert.equal(h.writes(), 0);
+	}
+});
+
 test("disconnected contributors remain in the denominator, missing history fails conservatively", () => {
 	const h = harness(),
 		old = h.player("Old"),
