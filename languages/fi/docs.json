@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Hirviösaavutukset antavat ominaisuusbonuksia, kun kannat Tracktrixia. Kunkin hirviön kohdalla lasketaan tilisi korkein pistemäärä, ei hahmojesi pisteiden summaa.",
+	"docs.tutorial.tracktrix.goo_rewards": "Goo antaa 10 pisteestä +5 HP ja 100 pisteestä vielä +10 HP lisää.",
+	"docs.tutorial.tracktrix.intro": "Metsästys voi tuoda muutakin kuin kultaa. Vaihda 4 Monster Tokenia Daisyn luona Tracktrixiin — oppaaseen, joka näyttää hirviöt, saaliit ja saavutustesi etenemisen.",
+	"docs.tutorial.tracktrix.manual": "Pidä Tracktrix tavaraluettelossasi. Napsauta sitä ja avaa se valitsemalla KÄYTTÖLIITTYMÄ! Valitse hirviö, niin näet sen saaliit ja saavutusten välitavoitteet. Voit suorittaa tämän oppitunnin ilman Tracktrixiäkin.",
+	"docs.tutorial.tracktrix.goal": "Aloita hirviöstä, jota voit metsästää turvallisesti yhä uudelleen, kuten Goo. Tarkista sen seuraava saavutuksen välitavoite ennen kuin valitset pidempiaikaisen metsästystavoitteen.",
+	"docs.tutorial.tracktrix.code": "Voit tutkia hirviötietoja CODElla jo ennen kuin omistat Tracktrixin. Tämä esimerkki näyttää Goon saavutusten välitavoitteet, ei omaa edistymistäsi.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; chat</span>",
   "docs.articles.hub.introduction": "Avaa <a href=\"/hub\">Hub</a> seurataksesi hahmojasi ja keskustellaksesi. CHAT avautuu katsomallesi palvelimelle. Voit lukea palvelimen chatia ennen kirjautumista.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Hahmoillasi on yhteinen tili, pankki ja halutessasi suunnitelma.",

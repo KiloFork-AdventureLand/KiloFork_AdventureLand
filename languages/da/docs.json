@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Monsterpræstationer giver bonusser til dine egenskaber, mens du bærer Tracktrix. For hvert monster tæller den højeste score på din konto, ikke summen af dine figurers scorer.",
+	"docs.tutorial.tracktrix.goo_rewards": "For Goo giver 10 point +5 HP; 100 point giver yderligere +10 HP.",
+	"docs.tutorial.tracktrix.intro": "Dine jagter kan give mere end guld. Byt 4 Monster Tokens hos Daisy for en Tracktrix — en guide til monstre, bytte og dine fremskridt med præstationer.",
+	"docs.tutorial.tracktrix.manual": "Hav Tracktrix i din rygsæk. Klik på den, og vælg ÅBN PANEL! for at åbne den. Vælg et monster for at se dets bytte og præstationsmilepæle. Du kan gennemføre denne lektion uden at eje en.",
+	"docs.tutorial.tracktrix.goal": "Start med et monster, du trygt kan jage igen og igen, såsom Goo. Se dets næste præstationsmilepæl, før du vælger et mere langsigtet jagtmål.",
+	"docs.tutorial.tracktrix.code": "Du kan undersøge monsterdata via CODE, allerede før du ejer en Tracktrix. Dette eksempel viser præstationsmilepælene for Goo; det viser ikke dine personlige fremskridt.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; chat</span>",
   "docs.articles.hub.introduction": "Åbn <a href=\"/hub\">Hub</a> for at følge dine figurer og chatte. CHAT er åben fra starten på den server, du ser. Du kan læse serverchat, før du logger ind.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Dine figurer deler en konto, en bank og, hvis du vil, en plan.",

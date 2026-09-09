@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Osiągnięcia związane z potworami dają premie do atrybutów, gdy nosisz przy sobie Tracktrix. Dla każdego potwora liczy się najwyższy wynik na twoim koncie, a nie suma wyników twoich postaci.",
+	"docs.tutorial.tracktrix.goo_rewards": "Za Goo 10 punktów daje +5 HP, a 100 punktów dodaje kolejne +10 HP.",
+	"docs.tutorial.tracktrix.intro": "Polowanie może przynieść ci więcej niż złoto. Wymień u Daisy 4 Monster Tokeny na Tracktrix — przewodnik po potworach, łupach i twoich postępach w osiągnięciach.",
+	"docs.tutorial.tracktrix.manual": "Trzymaj Tracktrix w ekwipunku. Kliknij go, a następnie wybierz INTERFEJS!, aby go otworzyć. Wybierz potwora, by sprawdzić jego łupy i progi osiągnięć. Możesz ukończyć tę lekcję bez posiadania Tracktrix.",
+	"docs.tutorial.tracktrix.goal": "Zacznij od potwora, którego możesz bezpiecznie pokonywać wielokrotnie, na przykład Goo. Sprawdź następny próg osiągnięcia, zanim wybierzesz długoterminowy cel polowania.",
+	"docs.tutorial.tracktrix.code": "Możesz sprawdzać dane potworów przez CODE, nawet zanim zdobędziesz Tracktrix. Ten przykład pokazuje progi osiągnięć Goo, a nie twoje osobiste postępy.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; czat</span>",
   "docs.articles.hub.introduction": "Otwórz <a href=\"/hub\">Hub</a>, aby obserwować postacie i rozmawiać. CZAT otwiera się na oglądanym serwerze. Możesz czytać czat serwera przed zalogowaniem.",
 	"docs.tutorial.new.lore_intro": "Witaj w Adventure Land! Każdy poszukiwacz przygód od czegoś zaczyna. Twoja przygoda zaczyna się od mówiącego Goo. Poznaj tę historię — pierwsze kroki postawimy razem.",

@@ -6,7 +6,7 @@ const path = require("node:path");
 const nunjucks = require("nunjucks");
 const localization = require("../../languages");
 const { read, load, transactions, root } = require("./helpers/server_vm");
-const { buildComparisons } = require("./helpers/tutorial_comparison");
+const { buildComparisons, averageHit } = require("./helpers/tutorial_comparison");
 const comparisons = require("../../docs/tutorial/comparisons.json");
 
 function context() {
@@ -26,11 +26,74 @@ function context() {
 
 test("all displayed build numbers match the real server stat calculation", () => {
 	assert.deepEqual(buildComparisons(), comparisons);
+	const G = require("./helpers/design");
+	assert.equal(comparisons.target, "boar");
 	for (const build of Object.values(comparisons.classes)) {
+		for (const row of build.rows) assert.ok(G.monsters[comparisons.target].hp > row.hit * 10);
 		for (let i = 1; i < build.rows.length; i++) assert.ok(build.rows[i].dps > build.rows[i - 1].dps);
 		for (const slot of ["mainhand", "helmet", "chest", "pants", "gloves", "shoes"])
 			assert.deepEqual(build.rows[2].slots[slot], build.rows[3].slots[slot]);
 	}
+});
+
+test("average hit includes both rounding stages from the real combat handler", () => {
+	const G = require("./helpers/design"),
+		source = read("node/server.js");
+	const start = source.indexOf("i_attack = attack = ceil(combo_m * attack");
+	const body = source.slice(start, source.indexOf("if (target.incdmgamp)", start));
+	for (const attack of [53, 200, 437])
+		for (const defense of [-50, 0, 100]) {
+			const low = attack * 0.9,
+				high = attack * 1.1;
+			let total = 0;
+			for (let roll = Math.ceil(low); roll <= Math.ceil(high); roll++) {
+				const left = Math.max(low, roll - 1),
+					right = Math.min(high, roll);
+				if (right <= left) continue;
+				const c = vm.createContext({
+					attack,
+					i_attack: 0,
+					combo_m: 1,
+					dmg_mult: 1,
+					ceil: Math.ceil,
+					Math: { random: () => ((left + right) / 2 / attack - 0.9) / 0.2 },
+					damage_multiplier: G.damage_multiplier,
+					target: { armor: defense },
+					attacker: {},
+					info: { apiercing: 0 },
+					defense: "armor",
+					pierce: "apiercing",
+				});
+				vm.runInContext(body, c);
+				total += (c.attack * (right - left)) / (high - low);
+			}
+			assert.ok(Math.abs(total - averageHit(attack, defense)) < 1e-9);
+		}
+});
+
+test("Tracktrix follows hunts and previously completed tutorials can continue without owning it", () => {
+	const G = require("./helpers/design");
+	assert.equal(G.tokens.monstertoken.tracker, 4);
+	assert.deepEqual(JSON.parse(JSON.stringify(G.monsters.goo.achievements.slice(0, 2))), [
+		[10, "stat", "hp", 5],
+		[100, "stat", "hp", 10],
+	]);
+	const c = context(),
+		lessons = c.docs.tutorial;
+	const index = lessons.findIndex((lesson) => lesson.key === "tracktrix");
+	assert.equal(lessons[index - 1].key, "hunting");
+	const data = c.process_user_data("US_tutorial", {
+		info: {
+			tutorial_version: 3,
+			tutorial_key: null,
+			tutorial_step: lessons.length - 1,
+			completed_tasks: lessons.filter((lesson) => lesson.key !== "tracktrix").flatMap((lesson) => lesson.tasks),
+		},
+	});
+	const progress = c.data_to_tutorial(data);
+	assert.equal(progress.step, index);
+	assert.equal(progress.can_continue, true);
+	assert.equal(progress.task, "read_tracktrix");
 });
 
 test("merchant lessons use their own progress and cannot complete or reset the adventurer tutorial", async () => {
@@ -115,10 +178,16 @@ test("every new article renders with translated phrases and each locale has five
 		"gear-comparison",
 		"accessory-comparison",
 		"hunting",
+		"tracktrix",
 		...c.docs.merchant_tutorial.map((lesson) => lesson.key),
 	]
 		.map((key) => "docs/tutorial/" + key + ".html")
-		.concat(["docs/guide/lore.html", "docs/guide/merchant.html", "docs/guide/first-goals.html"]);
+		.concat([
+			"docs/guide/lore.html",
+			"docs/guide/merchant.html",
+			"docs/guide/first-goals.html",
+			"docs/guide/tracktrix.html",
+		]);
 	const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(root));
 	env.addGlobal("tutorial_comparisons", () => comparisons);
 	env.addGlobal("task_name", (key) => key);
@@ -200,6 +269,44 @@ test("farming shows each class's starter weapon, defaults to blade, and leaves o
 		c.render_tutorial_items();
 		assert.deepEqual(shown, [G.classes[type]?.base_slots?.mainhand?.name || "blade", "hpot0"]);
 	}
+});
+
+test("comparison clicks preserve the exact item level and stat; stat scrolls match the preview class", () => {
+	const G = require("./helpers/design");
+	for (const type of [...Object.keys(comparisons.classes), undefined, "unknown"])
+		for (const accessories of [false, true]) {
+			const icons = [],
+				shown = [];
+			const c = vm.createContext({
+				G,
+				window: {},
+				phrase: { html: (s) => s, definition: (_, type) => type },
+				$: () => ({ html() {} }),
+				item_container: (options, actual) => {
+					icons.push({ options, actual });
+					return "icon";
+				},
+				render_item: (_, args) => {
+					shown.push(args.actual);
+					return "popup";
+				},
+				show_modal() {},
+				stpr() {},
+				event: {},
+			});
+			if (type) c.window.character = c.character = { ctype: type };
+			load(c, "js/html.js", ["render_tutorial_comparison", "render_item_popup"]);
+			c.render_tutorial_comparison(comparisons, accessories);
+			for (const icon of icons) {
+				assert.equal(icon.options.draggable, false);
+				vm.runInContext(icon.options.onclick, c);
+				const expected = { ...icon.actual };
+				if (expected.level === undefined) expected.level = 0;
+				assert.deepEqual(JSON.parse(JSON.stringify(shown.at(-1))), expected);
+			}
+			const build = comparisons.classes[type] || comparisons.classes.mage;
+			assert.equal(icons.filter(({ actual }) => actual.name === build.stat + "scroll").length, accessories ? 0 : 1);
+		}
 });
 
 test("comic Skip and Continue credit only the current lore lesson; guide and completed reviews just close", () => {

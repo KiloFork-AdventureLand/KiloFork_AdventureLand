@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "A szörnyekhez kötődő teljesítmények tulajdonságbónuszokat adnak, amíg nálad van a Tracktrix. Minden szörnynél a fiókod legmagasabb pontszáma számít, nem a karaktereid pontszámainak összege.",
+	"docs.tutorial.tracktrix.goo_rewards": "Goo esetén 10 pont +5 HP-t ad; 100 pont további +10 HP-t jelent.",
+	"docs.tutorial.tracktrix.intro": "A vadászattal az aranyon kívül mást is szerezhetsz. Cserélj be Daisynél 4 Monster Tokent egy Tracktrixre — ez megmutatja a szörnyeket, a zsákmányukat és a teljesítményeid állását.",
+	"docs.tutorial.tracktrix.manual": "Tartsd a Tracktrixet a táskádban. Kattints rá, majd válaszd a KEZELŐFELÜLET! lehetőséget a megnyitásához. Válassz egy szörnyet, hogy megnézd a zsákmányát és a teljesítményeinek mérföldköveit. Ezt a leckét Tracktrix nélkül is befejezheted.",
+	"docs.tutorial.tracktrix.goal": "Kezdj egy olyan szörnnyel, amelyre biztonságosan vadászhatsz újra és újra, például Goo-val. Nézd meg a következő teljesítménymérföldkövét, mielőtt hosszabb távú vadászati célt választasz.",
+	"docs.tutorial.tracktrix.code": "A szörnyek adatait CODE segítségével már azelőtt is megnézheted, hogy lenne Tracktrixed. Ez a példa Goo teljesítményeinek mérföldköveit mutatja, nem a saját előrehaladásodat.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; csevegés</span>",
   "docs.articles.hub.introduction": "Nyisd meg a <a href=\"/hub\">Hub</a> oldalt a karaktereid megfigyeléséhez és a csevegéshez. A CSEVEGÉS a megtekintett szerveren nyílik meg. A szervercsevegést bejelentkezés előtt is olvashatod.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "A karaktereidnek közös a fiókjuk, a bankjuk, és ha úgy döntesz, a tervük is.",

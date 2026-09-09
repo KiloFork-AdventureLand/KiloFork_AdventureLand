@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "As conquistas de monstros concedem bônus de atributos enquanto você carrega Tracktrix. Para cada monstro, vale a maior pontuação da sua conta, não a soma das pontuações dos seus personagens.",
+	"docs.tutorial.tracktrix.goo_rewards": "Para Goo, 10 pontos concedem +5 HP; 100 pontos acrescentam mais +10 HP.",
+	"docs.tutorial.tracktrix.intro": "Suas caçadas podem render mais do que ouro. Troque 4 Monster Tokens com Daisy por um Tracktrix — um guia de monstros, drops e seu progresso nas conquistas.",
+	"docs.tutorial.tracktrix.manual": "Mantenha o Tracktrix no inventário. Clique nele e escolha INTERFACE! para abri-lo. Selecione um monstro para ver seus drops e marcos de conquistas. Você pode concluir esta lição sem ter um Tracktrix.",
+	"docs.tutorial.tracktrix.goal": "Comece com um monstro que você possa caçar repetidamente com segurança, como Goo. Confira o próximo marco de conquista antes de escolher uma meta de caça de longo prazo.",
+	"docs.tutorial.tracktrix.code": "Você pode consultar dados de monstros pelo CODE mesmo antes de ter um Tracktrix. Este exemplo mostra os marcos de conquistas de Goo, mas não o seu progresso pessoal.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; Chat</span>",
   "docs.articles.hub.introduction": "Abra o <a href=\"/hub\">Hub</a> para acompanhar seus personagens e conversar. O CHAT começa aberto no servidor que você está vendo. Você pode ler o chat do servidor antes de entrar na conta.",
 	"docs.tutorial.new.lore_intro": "Boas-vindas a Adventure Land! Toda aventura tem um começo. A sua começa com um Goo que fala. Aproveite a história — vamos acompanhar seus primeiros passos.",

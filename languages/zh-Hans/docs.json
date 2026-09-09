@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "携带 Tracktrix 时，怪物成就会提供属性加成。每种怪物按你账号内的最高分数计算，而不是把所有角色的分数相加。",
+	"docs.tutorial.tracktrix.goo_rewards": "Goo 达到10分时提供 +5 HP，达到100分时再增加 +10 HP。",
+	"docs.tutorial.tracktrix.intro": "狩猎带来的不只是金币。用4个Monster Token向Daisy换取Tracktrix，查看怪物、掉落物品和你的成就进度。",
+	"docs.tutorial.tracktrix.manual": "将Tracktrix放在背包中。点击它，再选择“打开界面！”即可打开。选择一种怪物，查看它的掉落物品和各阶段成就要求。没有Tracktrix也能完成本课。",
+	"docs.tutorial.tracktrix.goal": "先选择一种你能安全反复猎杀的怪物，例如Goo。确定长期狩猎目标前，先查看下一阶段的成就要求。",
+	"docs.tutorial.tracktrix.code": "即使还没有Tracktrix，你也能通过CODE查看怪物数据。本例展示Goo各阶段的成就要求，不会显示你的个人进度。",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub&amp;聊天</span>",
   "docs.articles.hub.introduction": "打开<a href=\"/hub\">Hub</a>观看角色并聊天。“聊天”默认打开当前查看服务器的聊天内容。无需登录也可阅读服务器聊天。",
 	"docs.tutorial.new.lore_intro": "欢迎来到 Adventure Land！每位冒险者都有自己的起点，而你的冒险，将从一只会说话的 Goo 开始。先享受这段故事吧，接下来的第一步，我们陪你一起走。",

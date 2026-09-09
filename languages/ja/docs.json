@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Tracktrixを持っている間は、モンスターの実績による能力値ボーナスが得られます。モンスターごとにアカウント内の最高スコアが使われ、各キャラクターのスコアは合算されません。",
+	"docs.tutorial.tracktrix.goo_rewards": "Gooでは10ポイントでHPが+5、100ポイントでさらにHPが+10されます。",
+	"docs.tutorial.tracktrix.intro": "狩りで得られるのはゴールドだけではありません。DaisyにMonster Tokenを4個渡すと、モンスターやドロップ、実績の進捗を確認できるTracktrixと交換できます。",
+	"docs.tutorial.tracktrix.manual": "Tracktrixをインベントリに入れておきましょう。クリックして「画面を開く！」を選ぶと開けます。モンスターを選ぶと、ドロップや実績の達成条件を確認できます。Tracktrixを持っていなくても、このレッスンは完了できます。",
+	"docs.tutorial.tracktrix.goal": "まずはGooなど、安全に繰り返し倒せるモンスターを選びましょう。長期的な狩りの目標を決める前に、次の実績の達成条件を確認してください。",
+	"docs.tutorial.tracktrix.code": "Tracktrixを手に入れる前でも、CODEでモンスターのデータを確認できます。この例ではGooの実績の達成条件を表示します。あなた自身の進捗は表示しません。",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; チャット</span>",
   "docs.articles.hub.introduction": "<a href=\"/hub\">Hub</a>を開くと、キャラクターの様子を見たりチャットしたりできます。最初は表示中のサーバーの「チャット」が開きます。ログイン前でもサーバーチャットを読めます。",
 	"docs.tutorial.new.lore_intro": "Adventure Landへようこそ！どんな冒険者にも、はじまりがあります。あなたの冒険は、言葉を話すGooとの出会いから。まずは物語を楽しんでください。最初の一歩は、一緒に踏み出しましょう。",

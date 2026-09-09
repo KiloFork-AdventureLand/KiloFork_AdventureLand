@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "تمنحك إنجازات الوحوش زيادات في الصفات ما دمت تحمل Tracktrix. يُحتسب أعلى رصيد نقاط في حسابك لكل وحش، وليس مجموع نقاط شخصياتك.",
+	"docs.tutorial.tracktrix.goo_rewards": "بالنسبة إلى Goo، تمنحك 10 نقاط +5 HP، وتضيف 100 نقطة +10 HP أخرى.",
+	"docs.tutorial.tracktrix.intro": "يمكن أن تكسب من الصيد أكثر من الذهب. استبدل 4 Monster Tokens لدى Daisy لتحصل على Tracktrix، وهو دليل للوحوش وغنائمها وتقدمك في الإنجازات.",
+	"docs.tutorial.tracktrix.manual": "احتفظ بـ Tracktrix في حقيبتك. انقر عليه ثم اختر «الواجهة!» لفتحه. اختر وحشًا لتفحص غنائمه ومراحل إنجازاته. يمكنك إكمال هذا الدرس دون امتلاك Tracktrix.",
+	"docs.tutorial.tracktrix.goal": "ابدأ بوحش يمكنك صيده باستمرار وبأمان، مثل Goo. تفحّص مرحلة إنجازه التالية قبل اختيار هدف صيد طويل الأمد.",
+	"docs.tutorial.tracktrix.code": "يمكنك تفحّص بيانات الوحوش عبر CODE حتى قبل امتلاك Tracktrix. يعرض هذا المثال مراحل إنجازات Goo، ولا يعرض تقدمك الشخصي.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; الدردشة</span>",
   "docs.articles.hub.introduction": "افتح <a href=\"/hub\">Hub</a> لمشاهدة شخصياتك والدردشة. تُفتح الدردشة تلقائيا على الخادم الذي تشاهده. يمكنك قراءة دردشة الخادم قبل تسجيل الدخول.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "تتشارك شخصياتك حسابًا وبنكًا، وخطة أيضًا إن أردت.",

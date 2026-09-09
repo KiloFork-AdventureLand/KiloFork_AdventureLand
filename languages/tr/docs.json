@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Tracktrix taşıdığın sürece canavar başarıları özellik bonusları verir. Her canavar için hesabındaki en yüksek puan geçerlidir; karakterlerinin puanları toplanmaz.",
+	"docs.tutorial.tracktrix.goo_rewards": "Goo için 10 puan +5 HP verir; 100 puan buna +10 HP daha ekler.",
+	"docs.tutorial.tracktrix.intro": "Avlanarak altından fazlasını kazanabilirsin. Daisy'ye 4 Monster Token vererek canavarları, düşürdükleri eşyaları ve başarım ilerlemeni gösteren bir Tracktrix al.",
+	"docs.tutorial.tracktrix.manual": "Tracktrix'i envanterinde tut. Açmak için üzerine tıkla, ardından ARAYÜZ! seçeneğini seç. Düşürdüğü eşyaları ve başarım aşamalarını incelemek için bir canavar seç. Tracktrix'in olmadan da bu dersi tamamlayabilirsin.",
+	"docs.tutorial.tracktrix.goal": "Goo gibi güvenle avlayabileceğin bir canavarla başla. Uzun süreli bir av hedefi seçmeden önce sıradaki başarım aşamasına bak.",
+	"docs.tutorial.tracktrix.code": "Henüz bir Tracktrix'in olmasa bile canavar verilerini CODE üzerinden inceleyebilirsin. Bu örnek Goo'nun başarım aşamalarını gösterir; kişisel ilerlemeni göstermez.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; Sohbet</span>",
   "docs.articles.hub.introduction": "Karakterlerini izleyip sohbet etmek için <a href=\"/hub\">Hub</a> sayfasını aç. SOHBET, görüntülediğin sunucuda açık başlar. Giriş yapmadan sunucu sohbetini okuyabilirsin.",
 	"docs.tutorial.new.lore_intro": "Adventure Land'e hoş geldin! Her maceracının bir başlangıcı vardır. Seninki konuşan bir Goo ile başlıyor. Hikâyenin tadını çıkar; ilk adımlarını birlikte atacağız.",

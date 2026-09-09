@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Monster-Erfolge gewähren Attributboni, solange du Tracktrix bei dir trägst. Für jedes Monster zählt der höchste Punktestand auf deinem Konto, nicht die Summe der Punkte deiner Charaktere.",
+	"docs.tutorial.tracktrix.goo_rewards": "Bei Goo erhältst du für 10 Punkte +5 HP; bei 100 Punkten kommen weitere +10 HP hinzu.",
+	"docs.tutorial.tracktrix.intro": "Deine Jagden können dir mehr als Gold einbringen. Tausche bei Daisy 4 Monster Tokens gegen einen Tracktrix — einen Wegweiser zu Monstern, Beute und deinem Fortschritt bei Erfolgen.",
+	"docs.tutorial.tracktrix.manual": "Bewahre den Tracktrix in deinem Inventar auf. Klicke ihn an und wähle ÖFFNEN!, um ihn zu öffnen. Wähle ein Monster, um seine Beute und Erfolgsmeilensteine anzusehen. Du kannst diese Lektion auch ohne Tracktrix abschließen.",
+	"docs.tutorial.tracktrix.goal": "Beginne mit einem Monster, das du sicher wiederholt jagen kannst, etwa Goo. Schau dir seinen nächsten Erfolgsmeilenstein an, bevor du dir ein längerfristiges Jagdziel setzt.",
+	"docs.tutorial.tracktrix.code": "Du kannst Monsterdaten über CODE einsehen, auch wenn du noch keinen Tracktrix besitzt. Dieses Beispiel zeigt die Erfolgsmeilensteine für Goo, nicht deinen persönlichen Fortschritt.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; Chat</span>",
   "docs.articles.hub.introduction": "Öffne <a href=\"/hub\">Hub</a>, um deine Charaktere zu beobachten und zu chatten. CHAT öffnet sich mit dem Server, den du gerade ansiehst. Den Serverchat kannst du schon vor der Anmeldung lesen.",
 	"docs.tutorial.new.lore_intro": "Willkommen in Adventure Land! Jedes Abenteuer hat einen Anfang. Deines beginnt mit einem sprechenden Goo. Viel Spaß mit der Geschichte — die ersten Schritte gehen wir gemeinsam.",

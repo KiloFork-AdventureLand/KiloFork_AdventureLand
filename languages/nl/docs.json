@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Monsterprestaties geven attribuutbonussen zolang je Tracktrix bij je draagt. Per monster telt de hoogste score op je account, niet de som van de scores van je personages.",
+	"docs.tutorial.tracktrix.goo_rewards": "Voor Goo leveren 10 punten +5 HP op; bij 100 punten krijg je nog eens +10 HP.",
+	"docs.tutorial.tracktrix.intro": "Jagen levert meer op dan goud. Ruil bij Daisy 4 Monster Tokens voor een Tracktrix: een gids voor monsters, buit en je voortgang bij prestaties.",
+	"docs.tutorial.tracktrix.manual": "Bewaar Tracktrix in je inventaris. Klik erop en kies INTERFACE! om hem te openen. Selecteer een monster om de buit en prestatiemijlpalen te bekijken. Je kunt deze les voltooien zonder een Tracktrix te bezitten.",
+	"docs.tutorial.tracktrix.goal": "Begin met een monster dat je veilig steeds opnieuw kunt verslaan, zoals Goo. Bekijk de volgende prestatiemijlpaal voordat je een jachtdoel voor de langere termijn kiest.",
+	"docs.tutorial.tracktrix.code": "Je kunt monstergegevens via CODE bekijken, ook voordat je een Tracktrix hebt. Dit voorbeeld toont de prestatiemijlpalen van Goo, niet je persoonlijke voortgang.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; chat</span>",
   "docs.articles.hub.introduction": "Open <a href=\"/hub\">Hub</a> om je personages te bekijken en te chatten. CHAT opent op de server die je bekijkt. Je kunt de serverchat lezen voordat je inlogt.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Je personages delen een account, een bank en, als je wilt, een plan.",

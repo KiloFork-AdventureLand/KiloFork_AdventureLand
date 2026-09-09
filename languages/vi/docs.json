@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Thành tựu quái vật tăng chỉ số khi bạn mang theo Tracktrix. Với mỗi quái vật, hệ thống tính điểm cao nhất trong tài khoản, không cộng điểm của tất cả nhân vật.",
+	"docs.tutorial.tracktrix.goo_rewards": "Với Goo, 10 điểm cho +5 HP; 100 điểm cộng thêm +10 HP nữa.",
+	"docs.tutorial.tracktrix.intro": "Đi săn có thể mang lại nhiều hơn vàng. Đổi 4 Monster Token với Daisy để lấy Tracktrix — cẩm nang về quái vật, vật phẩm rơi ra và tiến độ thành tựu của bạn.",
+	"docs.tutorial.tracktrix.manual": "Giữ Tracktrix trong hành trang. Nhấp vào nó rồi chọn GIAO DIỆN! để mở. Chọn một quái vật để xem vật phẩm rơi ra và các mốc thành tựu của nó. Bạn có thể hoàn thành bài học này mà không cần sở hữu Tracktrix.",
+	"docs.tutorial.tracktrix.goal": "Hãy bắt đầu với quái vật bạn có thể săn lặp lại một cách an toàn, chẳng hạn Goo. Kiểm tra mốc thành tựu tiếp theo trước khi chọn mục tiêu săn lâu dài.",
+	"docs.tutorial.tracktrix.code": "Bạn có thể xem dữ liệu quái vật qua CODE ngay cả khi chưa có Tracktrix. Ví dụ này hiển thị các mốc thành tựu của Goo, không hiển thị tiến độ cá nhân của bạn.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; Trò chuyện</span>",
   "docs.articles.hub.introduction": "Mở <a href=\"/hub\">Hub</a> để theo dõi nhân vật và trò chuyện. TRÒ CHUYỆN mở sẵn ở máy chủ bạn đang xem. Bạn có thể đọc trò chuyện máy chủ trước khi đăng nhập.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Các nhân vật của bạn dùng chung tài khoản, ngân hàng và—nếu bạn muốn—một kế hoạch.",

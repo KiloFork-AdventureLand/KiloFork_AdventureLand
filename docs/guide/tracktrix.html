@@ -1,5 +1,10 @@
 <h4 style='color: #5461C3; margin-bottom: -25px; margin-top: 10px'>Tracktrix</h4>
-<p>{{ phrase("docs.guide.tracktrix.get-your-tracktrix-by-completing-4-monster-hunt") }}</p>
+<p>{{ phrase("docs.tutorial.tracktrix.intro") }}</p>
+<span class="tutorial-item" data-item="tracker"></span>
+<script>render_tutorial_items();</script>
+<p>{{ phrase("docs.tutorial.tracktrix.manual") }}</p>
+<p>{{ phrase("docs.tutorial.tracktrix.achievements") }}</p>
+<p>{{ phrase("docs.tutorial.tracktrix.goo_rewards") }}</p>
 
 <h4 style='color: #D99A2C; margin-bottom: -25px'>{{ phrase("docs.guide.tracktrix.scoring") }}</h4>
 <p>
@@ -15,6 +20,11 @@
 <p>
 	{{ phrase_html("docs.guide.tracktrix.merchants-in-a-party-only-get-half-the") }}
 </p>
+<div class="divider"></div>
+<div class="title mt15">CODE</div>
+<p>{{ phrase("docs.tutorial.tracktrix.code") }}</p>
+<div class="code">show_json(G.monsters.goo.achievements);</div>
+<p><span class="rref clickable" onclick="render_function_reference('show_json')">show_json</span> · <span class="clickable dlabel" onclick="load_documentation('G')">G</span></p>
 <!--
 <h4 style='color: #37BAC3; margin-bottom: -25px'>Alone</h4>
 <p>

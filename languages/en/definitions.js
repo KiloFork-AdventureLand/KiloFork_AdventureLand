@@ -1,5 +1,7 @@
 // English display text from loaded game definitions. Canonical G is not localized.
 module.exports = {
+	// Tutorial lesson about the Tracktrix item; keep its proper name unchanged.
+	"tutorial.tracktrix.title": "Tracktrix",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"tutorial.farming.title": "Your First Farming Goals",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.

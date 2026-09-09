@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Pencapaian raksasa memberikan bonus atribut selagi anda membawa Tracktrix. Bagi setiap raksasa, skor tertinggi dalam akaun anda dikira, bukan jumlah skor semua watak anda.",
+	"docs.tutorial.tracktrix.goo_rewards": "Bagi Goo, 10 mata memberikan +5 HP; 100 mata menambahkan +10 HP lagi.",
+	"docs.tutorial.tracktrix.intro": "Pemburuan boleh memberi anda lebih daripada emas. Tukarkan 4 Monster Token dengan Daisy untuk mendapatkan Tracktrix—panduan tentang raksasa, item guguran dan kemajuan pencapaian anda.",
+	"docs.tutorial.tracktrix.manual": "Simpan Tracktrix dalam inventori anda. Klik padanya, kemudian pilih ANTARAMUKA! untuk membukanya. Pilih raksasa untuk melihat item guguran dan sasaran pencapaiannya. Anda boleh menyelesaikan pelajaran ini tanpa memiliki Tracktrix.",
+	"docs.tutorial.tracktrix.goal": "Mulakan dengan raksasa yang boleh anda buru berulang kali dengan selamat, seperti Goo. Semak sasaran pencapaian seterusnya sebelum memilih matlamat pemburuan jangka panjang.",
+	"docs.tutorial.tracktrix.code": "Anda boleh menyemak data raksasa melalui CODE walaupun belum memiliki Tracktrix. Contoh ini menunjukkan sasaran pencapaian Goo; kemajuan peribadi anda tidak ditunjukkan.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; Sembang</span>",
   "docs.articles.hub.introduction": "Buka <a href=\"/hub\">Hub</a> untuk melihat watak anda dan bersembang. SEMBANG dibuka pada pelayan yang sedang anda lihat. Anda boleh membaca sembang pelayan sebelum log masuk.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Watak anda berkongsi akaun, bank dan—jika anda mahu—rancangan.",

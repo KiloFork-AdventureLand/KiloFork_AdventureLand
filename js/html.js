@@ -3026,9 +3026,10 @@ function render_item_help(container, name, level, pure) {
 	show_modal(html, { wrap: false, hideinbackground: true });
 }
 
-function render_item_popup(name, level) {
-	var html = "";
-	html += render_item("html", { item: G.items[name], actual: { name: name, level: level }, name: name });
+function render_item_popup(name, level, stat_type) {
+	var html = "", actual = { name: name, level: level };
+	if (stat_type) actual.stat_type = stat_type;
+	html += render_item("html", { item: G.items[name], actual: actual, name: name, readonly: !window.character });
 	show_modal(html, { wrap: false, hideinbackground: true });
 }
 
@@ -3490,11 +3491,17 @@ function render_tutorial_items() {
 			var type = window.character && G.classes[character.ctype], weapon = type && type.base_slots && type.base_slots.mainhand;
 			if (weapon && G.items[weapon.name]) name = weapon.name;
 		}
-		if (G.items[name]) $(this).css({ display: "inline-block", direction: "ltr" }).html(item_container({ skin: G.items[name].skin }, { name: name }));
+		var actual = { name: name }, quantity = parseInt($(this).attr("data-quantity"));
+		if (quantity > 1) actual.q = quantity;
+		if (G.items[name]) $(this).css({ display: "inline-block", direction: "ltr" }).html(item_container({ skin: G.items[name].skin, draggable: false, onclick: "stpr(event);render_item_popup('" + name + "',0)" }, actual));
 	});
 	$(".tutorial-npc").each(function () {
 		var npc = G.npcs[$(this).attr("data-npc")];
 		if (npc) $(this).css({ display: "inline-block", direction: "ltr" }).html(sprite(npc.skin, { height: 62, overflow: true }));
+	});
+	$(".tutorial-monster").each(function () {
+		var name = $(this).attr("data-monster");
+		if (G.monsters[name]) $(this).css({ display: "inline-block", direction: "ltr" }).html(sprite(name, { height: 62, overflow: true }));
 	});
 }
 
@@ -3537,9 +3544,14 @@ function render_tutorial_comparison(data, accessories) {
 		html += "<div class='guide-card'><b>" + phrase.html("interface.tutorial.comparison." + labels[i]) + "</b><div style='direction:ltr;text-align:left'>";
 		Object.keys(row.slots).forEach(function (slot) {
 			var item = row.slots[slot];
-			html += item_container({ skin: G.items[item.name].skin }, item);
+			html += item_container({ skin: G.items[item.name].skin, draggable: false, onclick: "stpr(event);render_item_popup('" + item.name + "'," + (item.level || 0) + ",'" + (item.stat_type || "") + "')" }, item);
 		});
-		html += "</div><p>" + phrase.html("interface.tutorial.comparison.hit") + ": <span class='dlabel'>" + row.hit + "</span><br>" + phrase.html("interface.tutorial.comparison.dps") + ": <span class='dlabel'>" + row.dps + "</span>";
+		html += "</div>";
+		if (!accessories && index === 2) {
+			var scroll = build.stat + "scroll";
+			if (G.items[scroll]) html += "<div class='mt5' style='direction:ltr;text-align:left'>" + item_container({ skin: G.items[scroll].skin, draggable: false, onclick: "stpr(event);render_item_popup('" + scroll + "',0)" }, { name: scroll }) + "</div>";
+		}
+		html += "<p>" + phrase.html("interface.tutorial.comparison.hit") + ": <span class='dlabel'>" + row.hit + "</span><br>" + phrase.html("interface.tutorial.comparison.dps") + ": <span class='dlabel'>" + row.dps + "</span>";
 		if (i) html += "<br>" + phrase.html("interface.tutorial.comparison.increase") + ": <span style='color:#387649'>+" + ((row.dps / build.rows[indices[i - 1]].dps - 1) * 100).toFixed(1) + "%</span>";
 		html += "</p></div>";
 	});
@@ -5202,7 +5214,7 @@ function render_item(selector, args) {
 			}
 			if (!args.sell) html += "<div class='clickable' onclick=\"btc(event); show_modal($('#boosterguide').html())\" style=\"color: #D86E89\">" + phrase.html("interface.item.how_to_use") + "</div>";
 		}
-		if (!value && !args.sell && actual && !trade_item && !args.trade && !args.npc) {
+		if (!value && !args.sell && actual && !trade_item && !args.trade && !args.npc && !args.readonly) {
 			if (item.action) {
 				var id = (args && args.slot) || (args && args.num);
 				html +=

@@ -1,5 +1,5 @@
 <p>{{ phrase("docs.tutorial.new.hunting_intro") }}</p>
-<p><span class="tutorial-npc" data-npc="monsterhunter"></span><span class="tutorial-item" data-item="monstertoken"></span></p>
+<p style="display:flex;align-items:center;gap:16px"><span class="tutorial-npc" data-npc="monsterhunter"></span><span class="tutorial-item" data-item="monstertoken"></span></p>
 <script>
 	render_tutorial_items();
 </script>
@@ -21,3 +21,4 @@ visit_daisy().catch(show_json);</div>
 	<span class="rref clickable" onclick="render_function_reference('interact')">interact</span>
 </p>
 <span class="clickable dlabel" onclick="open_guide('monster-hunts', get_guide_url('monster-hunts'))">{{ phrase("tutorial.hunting.title") }}</span>
+· <span class="clickable dlabel" onclick="open_guide('tracktrix', get_guide_url('tracktrix'))">Tracktrix</span>

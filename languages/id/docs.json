@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Pencapaian monster memberi bonus atribut selama kamu membawa Tracktrix. Untuk setiap monster, yang dihitung adalah skor tertinggi di akunmu, bukan jumlah skor semua karaktermu.",
+	"docs.tutorial.tracktrix.goo_rewards": "Untuk Goo, 10 poin memberi +5 HP; 100 poin menambahkan +10 HP lagi.",
+	"docs.tutorial.tracktrix.intro": "Berburu bisa memberimu lebih dari sekadar emas. Tukarkan 4 Monster Token kepada Daisy untuk mendapatkan Tracktrix — panduan monster, jarahan, dan progres pencapaianmu.",
+	"docs.tutorial.tracktrix.manual": "Simpan Tracktrix di inventorimu. Klik item itu, lalu pilih ANTARMUKA! untuk membukanya. Pilih monster untuk melihat jarahan dan tahapan pencapaiannya. Kamu bisa menyelesaikan pelajaran ini tanpa memiliki Tracktrix.",
+	"docs.tutorial.tracktrix.goal": "Mulailah dengan monster yang bisa kamu buru berulang kali dengan aman, seperti Goo. Periksa tahapan pencapaian berikutnya sebelum memilih target berburu jangka panjang.",
+	"docs.tutorial.tracktrix.code": "Kamu bisa memeriksa data monster melalui CODE bahkan sebelum memiliki Tracktrix. Contoh ini menampilkan tahapan pencapaian Goo, bukan progres pribadimu.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; Obrolan</span>",
   "docs.articles.hub.introduction": "Buka <a href=\"/hub\">Hub</a> untuk memantau karakter dan mengobrol. OBROLAN langsung terbuka pada server yang sedang kamu lihat. Obrolan server dapat dibaca sebelum masuk.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Karakter-karaktermu berbagi akun, bank, dan—jika kamu mau—rencana.",

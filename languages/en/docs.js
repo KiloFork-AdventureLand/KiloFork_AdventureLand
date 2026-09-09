@@ -1,5 +1,13 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Monster achievement stat bonuses require carrying Tracktrix; these are score thresholds, not raw kill counts.
+	"docs.tutorial.tracktrix.achievements": "Monster achievements grant stat bonuses while you carry Tracktrix. Your account's highest score for each monster counts—not the sum of your characters' scores.",
+	"docs.tutorial.tracktrix.goo_rewards": "For Goo, 10 points grant +5 HP; 100 points add another +10 HP.",
+	// Tracktrix tutorial: acquisition, inventory action, a first goal and the CODE example. Preserve proper names and CODE identifiers.
+	"docs.tutorial.tracktrix.intro": "Your hunts can earn more than gold. Trade 4 Monster Tokens with Daisy for a Tracktrix—a guide to monsters, drops, and your achievement progress.",
+	"docs.tutorial.tracktrix.manual": "Keep Tracktrix in your inventory. Click it, then choose INTERFACE! to open it. Select a monster to inspect its drops and achievement milestones. You can finish this lesson without owning one.",
+	"docs.tutorial.tracktrix.goal": "Start with a monster you can farm safely, such as Goo. Check its next achievement milestone before choosing a longer farming goal.",
+	"docs.tutorial.tracktrix.code": "You can inspect monster data through CODE even before you own a Tracktrix. This example shows Goo's achievement milestones; it does not show your personal progress.",
 	// docs/articles/hub.html: Article title. Keep Hub, the external chat and character-watching page name. Preserve the HTML.
 	"docs.articles.hub.title": '<span class="dlabel">Hub &amp; Chat</span>',
 	// docs/articles/hub.html: Opening directions. Preserve the /hub link and the CHAT control name.

@@ -1,6 +1,19 @@
 const vm = require("node:vm");
 const G = require("./design");
 const { load, read } = require("./server_vm");
+const targetName = "boar";
+
+// Ordinary attacks round up both the random roll and the defense-adjusted damage.
+function averageHit(attack, defense) {
+	const low = attack * 0.9,
+		high = attack * 1.1;
+	let average = 0;
+	for (let roll = Math.ceil(low); roll <= Math.ceil(high); roll++) {
+		const probability = Math.max(0, Math.min(high, roll) - Math.max(low, roll - 1)) / (high - low);
+		average += probability * Math.ceil(roll * G.damage_multiplier(defense));
+	}
+	return average;
+}
 
 // Execute the live stat calculation, not a second copy of the combat formula.
 function calculate(type, slots) {
@@ -37,12 +50,12 @@ function calculate(type, slots) {
 		damage_type: G.classes[type].damage_type,
 	};
 	context.calculate_player_stats(player);
-	const target = G.monsters.crab;
+	const target = G.monsters[targetName];
 	const defense =
 		player.damage_type === "physical"
 			? (target.armor || 0) - player.apiercing
 			: (target.resistance || 0) - player.rpiercing;
-	const hit = player.attack * G.damage_multiplier(defense);
+	const hit = averageHit(player.attack, defense);
 	return {
 		attack: player.attack,
 		hit: Math.round(hit * 100) / 100,
@@ -53,7 +66,7 @@ function calculate(type, slots) {
 }
 
 function buildComparisons() {
-	const result = { level: 50, target: "crab", classes: {} };
+	const result = { level: 50, target: targetName, classes: {} };
 	for (const [type, weapon] of Object.entries({
 		warrior: "blade",
 		paladin: "mace",
@@ -93,4 +106,4 @@ function buildComparisons() {
 	return result;
 }
 
-module.exports = { calculate, buildComparisons };
+module.exports = { calculate, buildComparisons, averageHit };

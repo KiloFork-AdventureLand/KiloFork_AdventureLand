@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Tracktrix를 소지하고 있으면 몬스터 업적으로 능력치 보너스를 받아요. 몬스터마다 계정 내 최고 점수를 사용하며, 캐릭터들의 점수를 합산하지는 않아요.",
+	"docs.tutorial.tracktrix.goo_rewards": "Goo는 10점에서 +5 HP를 주고, 100점에서는 +10 HP를 추가로 줘요.",
+	"docs.tutorial.tracktrix.intro": "사냥으로 얻는 것은 골드만이 아닙니다. Daisy에게 Monster Token 4개를 주고 Tracktrix로 교환하세요. 몬스터, 드롭 아이템, 업적 진행 상황을 확인할 수 있습니다.",
+	"docs.tutorial.tracktrix.manual": "Tracktrix를 인벤토리에 보관하세요. 클릭한 뒤 '화면 열기!'를 선택하면 열립니다. 몬스터를 선택해 드롭 아이템과 업적 달성 기준을 살펴보세요. Tracktrix가 없어도 이 수업을 완료할 수 있습니다.",
+	"docs.tutorial.tracktrix.goal": "Goo처럼 안전하게 반복 사냥할 수 있는 몬스터부터 시작하세요. 장기적인 사냥 목표를 정하기 전에 다음 업적 달성 기준을 확인하세요.",
+	"docs.tutorial.tracktrix.code": "Tracktrix를 얻기 전에도 CODE로 몬스터 데이터를 살펴볼 수 있습니다. 이 예제는 Goo의 업적 달성 기준을 보여 주며, 개인 진행 상황은 표시하지 않습니다.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; 채팅</span>",
   "docs.articles.hub.introduction": "<a href=\"/hub\">Hub</a>에서 캐릭터를 관찰하고 대화할 수 있어요. '채팅'은 보고 있는 서버의 대화가 열린 상태로 시작해요. 로그인 전에도 서버 채팅을 읽을 수 있어요.",
 	"docs.tutorial.new.lore_intro": "Adventure Land에 오신 것을 환영해요! 모든 모험가에게는 시작이 있죠. 여러분의 모험은 말을 하는 Goo와 함께 시작돼요. 이야기를 즐겨 주세요. 첫걸음은 함께 내디뎌요.",

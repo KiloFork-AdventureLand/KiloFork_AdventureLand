@@ -37,6 +37,7 @@ const DOCS_PATHS = [
 	"/docs/guide/mainframe",
 	"/docs/guide/hub",
 	"/docs/tutorial",
+	"/docs/tutorial/tracktrix",
 	"/docs/guide/lore",
 	"/docs/guide/first-goals",
 	"/docs/guide/merchant",

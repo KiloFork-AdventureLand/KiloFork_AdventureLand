@@ -1,6 +1,6 @@
 {
   "level": 50,
-  "target": "crab",
+  "target": "boar",
   "classes": {
     "warrior": {
       "stat": "str",
@@ -53,8 +53,8 @@
             }
           },
           "attack": 138,
-          "hit": 115.92,
-          "dps": 97.66,
+          "hit": 125.11,
+          "dps": 105.4,
           "interval": 1187,
           "attribute": 84
         },
@@ -106,8 +106,8 @@
             }
           },
           "attack": 289,
-          "hit": 242.76,
-          "dps": 204.52,
+          "hit": 261,
+          "dps": 219.88,
           "interval": 1187,
           "attribute": 84
         },
@@ -164,8 +164,8 @@
             }
           },
           "attack": 388,
-          "hit": 325.92,
-          "dps": 274.57,
+          "hit": 350.09,
+          "dps": 294.94,
           "interval": 1187,
           "attribute": 129
         },
@@ -222,8 +222,8 @@
             }
           },
           "attack": 436,
-          "hit": 366.24,
-          "dps": 308.54,
+          "hit": 393.31,
+          "dps": 331.35,
           "interval": 1187,
           "attribute": 151
         }
@@ -280,8 +280,8 @@
             }
           },
           "attack": 199,
-          "hit": 167.16,
-          "dps": 126.54,
+          "hit": 180,
+          "dps": 136.26,
           "interval": 1321,
           "attribute": 84
         },
@@ -333,8 +333,8 @@
             }
           },
           "attack": 401,
-          "hit": 336.84,
-          "dps": 254.99,
+          "hit": 361.8,
+          "dps": 273.88,
           "interval": 1321,
           "attribute": 84
         },
@@ -391,8 +391,8 @@
             }
           },
           "attack": 511,
-          "hit": 429.24,
-          "dps": 324.94,
+          "hit": 460.79,
+          "dps": 348.82,
           "interval": 1321,
           "attribute": 129
         },
@@ -449,8 +449,8 @@
             }
           },
           "attack": 565,
-          "hit": 474.6,
-          "dps": 359.27,
+          "hit": 509.39,
+          "dps": 385.61,
           "interval": 1321,
           "attribute": 151
         }
@@ -507,8 +507,8 @@
             }
           },
           "attack": 97,
-          "hit": 81.48,
-          "dps": 72.95,
+          "hit": 88.19,
+          "dps": 78.95,
           "interval": 1117,
           "attribute": 84
         },
@@ -560,8 +560,8 @@
             }
           },
           "attack": 211,
-          "hit": 177.24,
-          "dps": 158.68,
+          "hit": 190.78,
+          "dps": 170.8,
           "interval": 1117,
           "attribute": 84
         },
@@ -618,8 +618,8 @@
             }
           },
           "attack": 283,
-          "hit": 237.72,
-          "dps": 229.68,
+          "hit": 255.61,
+          "dps": 246.96,
           "interval": 1035,
           "attribute": 129
         },
@@ -676,8 +676,8 @@
             }
           },
           "attack": 319,
-          "hit": 267.96,
-          "dps": 267.96,
+          "hit": 288,
+          "dps": 288,
           "interval": 1000,
           "attribute": 151
         }
@@ -734,8 +734,8 @@
             }
           },
           "attack": 175,
-          "hit": 147,
-          "dps": 125.11,
+          "hit": 158.39,
+          "dps": 134.8,
           "interval": 1175,
           "attribute": 84
         },
@@ -787,8 +787,8 @@
             }
           },
           "attack": 362,
-          "hit": 304.08,
-          "dps": 258.79,
+          "hit": 326.71,
+          "dps": 278.05,
           "interval": 1175,
           "attribute": 84
         },
@@ -845,8 +845,8 @@
             }
           },
           "attack": 499,
-          "hit": 419.16,
-          "dps": 385.97,
+          "hit": 450,
+          "dps": 414.36,
           "interval": 1086,
           "attribute": 129
         },
@@ -903,8 +903,8 @@
             }
           },
           "attack": 567,
-          "hit": 476.28,
-          "dps": 454.9,
+          "hit": 511.19,
+          "dps": 488.25,
           "interval": 1047,
           "attribute": 151
         }
@@ -961,8 +961,8 @@
             }
           },
           "attack": 160,
-          "hit": 160,
-          "dps": 117.04,
+          "hit": 160.5,
+          "dps": 117.41,
           "interval": 1367,
           "attribute": 84
         },
@@ -1014,8 +1014,8 @@
             }
           },
           "attack": 347,
-          "hit": 347,
-          "dps": 253.84,
+          "hit": 347.5,
+          "dps": 254.21,
           "interval": 1367,
           "attribute": 84
         },
@@ -1072,8 +1072,8 @@
             }
           },
           "attack": 484,
-          "hit": 484,
-          "dps": 368.06,
+          "hit": 484.5,
+          "dps": 368.44,
           "interval": 1315,
           "attribute": 129
         },
@@ -1130,8 +1130,8 @@
             }
           },
           "attack": 552,
-          "hit": 552,
-          "dps": 427.24,
+          "hit": 552.5,
+          "dps": 427.63,
           "interval": 1292,
           "attribute": 151
         }
@@ -1188,8 +1188,8 @@
             }
           },
           "attack": 102,
-          "hit": 102,
-          "dps": 74.62,
+          "hit": 102.5,
+          "dps": 74.98,
           "interval": 1367,
           "attribute": 84
         },
@@ -1241,8 +1241,8 @@
             }
           },
           "attack": 222,
-          "hit": 222,
-          "dps": 162.4,
+          "hit": 222.5,
+          "dps": 162.77,
           "interval": 1367,
           "attribute": 84
         },
@@ -1299,8 +1299,8 @@
             }
           },
           "attack": 310,
-          "hit": 310,
-          "dps": 235.74,
+          "hit": 310.5,
+          "dps": 236.12,
           "interval": 1315,
           "attribute": 129
         },
@@ -1357,8 +1357,8 @@
             }
           },
           "attack": 353,
-          "hit": 353,
-          "dps": 273.22,
+          "hit": 353.5,
+          "dps": 273.61,
           "interval": 1292,
           "attribute": 151
         }

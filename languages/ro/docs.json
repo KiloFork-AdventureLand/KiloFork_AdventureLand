@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Realizările pentru monștri oferă bonusuri la atribute cât timp ai Tracktrix la tine. Pentru fiecare monstru contează cel mai mare scor din contul tău, nu suma scorurilor personajelor tale.",
+	"docs.tutorial.tracktrix.goo_rewards": "Pentru Goo, 10 puncte oferă +5 HP, iar 100 de puncte adaugă încă +10 HP.",
+	"docs.tutorial.tracktrix.intro": "Vânătoarea îți poate aduce mai mult decât aur. Schimbă 4 Monster Tokens la Daisy pentru un Tracktrix — un ghid despre monștri, prăzi și progresul realizărilor tale.",
+	"docs.tutorial.tracktrix.manual": "Păstrează Tracktrix în inventar. Dă clic pe el, apoi alege INTERFAȚĂ! pentru a-l deschide. Selectează un monstru pentru a vedea prăzile și pragurile realizărilor sale. Poți termina această lecție fără să deții un Tracktrix.",
+	"docs.tutorial.tracktrix.goal": "Începe cu un monstru pe care îl poți vâna în mod repetat și în siguranță, precum Goo. Verifică următorul prag de realizare înainte să alegi un obiectiv de vânătoare pe termen lung.",
+	"docs.tutorial.tracktrix.code": "Poți consulta datele monștrilor prin CODE chiar înainte să deții un Tracktrix. Acest exemplu arată pragurile realizărilor pentru Goo, nu progresul tău personal.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; Chat</span>",
   "docs.articles.hub.introduction": "Deschide <a href=\"/hub\">Hub</a> pentru a-ți urmări personajele și a conversa. CHAT se deschide pe serverul pe care îl urmărești. Poți citi chatul serverului înainte să te autentifici.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Personajele tale împart un cont, o bancă și, dacă vrei, un plan.",

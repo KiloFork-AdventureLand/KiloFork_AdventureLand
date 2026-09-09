@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Gli obiettivi dei mostri conferiscono bonus agli attributi finché porti con te Tracktrix. Per ogni mostro conta il punteggio più alto del tuo account, non la somma dei punteggi dei tuoi personaggi.",
+	"docs.tutorial.tracktrix.goo_rewards": "Per Goo, 10 punti conferiscono +5 HP; 100 punti aggiungono altri +10 HP.",
+	"docs.tutorial.tracktrix.intro": "Le tue cacce possono fruttarti più dell'oro. Scambia 4 Monster Tokens con Daisy per un Tracktrix: una guida ai mostri, ai bottini e ai tuoi progressi negli obiettivi.",
+	"docs.tutorial.tracktrix.manual": "Tieni il Tracktrix nell'inventario. Cliccaci sopra, poi scegli INTERFACCIA! per aprirlo. Seleziona un mostro per consultarne i bottini e le tappe degli obiettivi. Puoi completare questa lezione anche senza possederne uno.",
+	"docs.tutorial.tracktrix.goal": "Inizia con un mostro che puoi cacciare ripetutamente senza rischi, come Goo. Controlla la sua prossima tappa degli obiettivi prima di scegliere una meta di caccia a più lungo termine.",
+	"docs.tutorial.tracktrix.code": "Puoi consultare i dati dei mostri tramite CODE anche prima di possedere un Tracktrix. Questo esempio mostra le tappe degli obiettivi di Goo, non i tuoi progressi personali.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; chat</span>",
   "docs.articles.hub.introduction": "Apri <a href=\"/hub\">Hub</a> per osservare i tuoi personaggi e chattare. CHAT si apre sul server che stai visualizzando. Puoi leggere la chat del server prima di accedere.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "I tuoi personaggi condividono un account, una banca e, se vuoi, un piano.",

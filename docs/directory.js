@@ -270,6 +270,7 @@ docs = {
 			title: "Travel & NPCs",
 		},
 		{ key: "hunting", tasks: ["read_hunting"], continue_task: "read_hunting", title: "Your First Monster Hunt" },
+		{ key: "tracktrix", tasks: ["read_tracktrix"], continue_task: "read_tracktrix", title: "Tracktrix" },
 		{
 			key: "crafting-exchanges",
 			tasks: ["recipes", "craftsman", "exchanger"],

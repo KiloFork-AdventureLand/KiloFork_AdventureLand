@@ -1,4 +1,10 @@
 {
+	"docs.tutorial.tracktrix.achievements": "Úspěchy za monstra dávají bonusy k atributům, dokud nosíš Tracktrix. U každého monstra se počítá nejvyšší skóre na tvém účtu, ne součet skóre tvých postav.",
+	"docs.tutorial.tracktrix.goo_rewards": "U Goo získáš za 10 bodů +5 HP; za 100 bodů dalších +10 HP.",
+	"docs.tutorial.tracktrix.intro": "Lov ti může přinést víc než zlato. Vyměň u Daisy 4 Monster Tokens za Tracktrix — průvodce monstry, kořistí a tvým postupem v úspěších.",
+	"docs.tutorial.tracktrix.manual": "Měj Tracktrix v inventáři. Klikni na něj a zvol ROZHRANÍ!, čímž ho otevřeš. Vyber monstrum a prohlédni si jeho kořist a milníky úspěchů. Tuto lekci můžeš dokončit i bez Tracktrix.",
+	"docs.tutorial.tracktrix.goal": "Začni monstrem, které můžeš bezpečně lovit opakovaně, třeba Goo. Než si vybereš dlouhodobější cíl lovu, podívej se na jeho další milník úspěchu.",
+	"docs.tutorial.tracktrix.code": "Údaje o monstrech můžeš zkoumat přes CODE, i když ještě nemáš Tracktrix. Tento příklad ukazuje milníky úspěchů pro Goo, nikoli tvůj osobní postup.",
   "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; chat</span>",
   "docs.articles.hub.introduction": "Otevři <a href=\"/hub\">Hub</a> a sleduj své postavy nebo chatuj. CHAT se otevře na serveru, který právě sleduješ. Serverový chat můžeš číst i před přihlášením.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Tvoje postavy sdílejí účet, banku a pokud chceš, i plán.",
