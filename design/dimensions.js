@@ -1101,6 +1101,8 @@ var positions={
 	"emote_pocketstorm":["rawitems",18,0],
 	"emote_mirrordance":["rawitems",19,0],
 	"skill_arcane_needle":["rawitems",0,1],
+	"skill_mfrenzy":["rawitems",17,3],
+	"skill_pickpocket":["rawitems",18,3],
 	"vowkeepergloves":["rawitems",2,1],
 	"oathplate":["rawitems",16,1],
 	"concordmace":["rawitems",4,1],
