@@ -52,18 +52,22 @@
 		{% endif %}
 	</div>
 </div>
-<div class="menu disableclicks" style="position: fixed; top: 0px; right: 0px; z-index: 201">
-	<div class="gamebutton" style="text-align: center; border-color: green">{{ phrase("pages.contents.login.online", {"total": total}) }}</div>
-	<div class="language-controls">
-		{% set buttons="language"%} {% include "htmls/contents/section_buttons.html" %}
-		<div id="progressui" class="gamebutton loading" style="width: 40px; text-align: center" onclick='loader_click();'>0%</div>
+<div class="login-header disableclicks">
+	<div id="topleftcorner" class="login-navigation">
+		<div class="login-links">
+			{% set buttons="essentials"%} {% include "htmls/contents/section_buttons.html" %}
+			{% set buttons="musts"%} {% include "htmls/contents/section_buttons.html" %}
+			{% set buttons="music"%} {% include "htmls/contents/section_buttons.html" %}
+		</div>
+		{% include "htmls/contents/account_help.html" %}
 	</div>
-</div>
-<div id="topleftcorner" style="z-index: 201">
-	{% set buttons="essentials"%} {% include "htmls/contents/section_buttons.html" %}
-	{% set buttons="musts"%} {% include "htmls/contents/section_buttons.html" %}
-	{% set buttons="music"%} {% include "htmls/contents/section_buttons.html" %}
-	{% include "htmls/contents/account_help.html" %}
+	<div class="menu login-status">
+		<div class="gamebutton" style="text-align: center; border-color: green">{{ phrase("pages.contents.login.online", {"total": total}) }}</div>
+		<div class="language-controls">
+			{% set buttons="language"%} {% include "htmls/contents/section_buttons.html" %}
+			<div id="progressui" class="gamebutton loading" style="width: 40px; text-align: center" onclick='loader_click();'>0%</div>
+		</div>
+	</div>
 </div>
 {% if domain.electron or domain.tauri %}
 	{% include "htmls/contents/selection_features.html" %}

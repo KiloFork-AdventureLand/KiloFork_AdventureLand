@@ -4345,10 +4345,11 @@ function kill_message(name, type, first_person) {
 	var monster = G.monsters[type];
 	var article =
 		monster.prefix === "the" ? "the" : monster.prefix === "" ? "none" : startswith_an(monster.name) ? "an" : "a";
-	return localization.message("server.kill." + (first_person ? "you" : "player") + "." + article, {
-		player: name,
-		monster: monster.name,
-	});
+	return localization.message(
+		"server.kill." + (first_person ? "you" : "player") + "." + article,
+		{ player: name, monster: monster.name },
+		{ color: "gray" },
+	);
 }
 
 function killed_message(type) {
