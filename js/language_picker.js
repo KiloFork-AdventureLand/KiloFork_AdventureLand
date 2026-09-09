@@ -27,7 +27,7 @@ function choose_language(language, button) {
 }
 
 function language_icon(language) {
-	return "<span class='language-icon' aria-hidden='true' style='background-position:" + -language.icon * 40 + "px 0'></span>";
+	return "<span class='language-icon' aria-hidden='true' style='--language-icon:" + language.icon + "'></span>";
 }
 
 function show_languages() {

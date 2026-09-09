@@ -754,13 +754,17 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	width: min(1018px, calc(100vw - 80px));
 }
 .language-icon{
+	--language-icon-width: 36px;
+	--language-icon-height: 24px;
 	display: inline-block;
-	width: 40px;
-	height: 40px;
-	flex: 0 0 40px;
+	width: var(--language-icon-width);
+	height: var(--language-icon-height);
+	flex: 0 0 var(--language-icon-width);
 	vertical-align: middle;
-	background-image: url('/images/languages.png');
-	background-size: 1280px 40px;
+	background-image: url('/images/languages.png?v=20260909');
+	background-size: calc(var(--language-icon-width) * 32) var(--language-icon-height);
+	background-position: calc(var(--language-icon-width) * var(--language-icon, 0) * -1) 0;
+	background-repeat: no-repeat;
 	image-rendering: crisp-edges;
 	image-rendering: pixelated;
 }
@@ -769,11 +773,32 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
 	gap: 6px;
 }
+.language-controls{
+	display: inline-flex;
+	gap: 4px;
+	max-width: 100%;
+	vertical-align: top;
+}
+.language-controls > #progressui{
+	flex: 0 0 40px;
+}
 .language-menu{
 	display: inline-flex;
 	align-items: center;
-	gap: 6px;
+	gap: 8px;
+	box-sizing: border-box;
+	height: 56px;
+	min-width: 0;
+	max-width: calc(100vw - 80px);
+	font-family: inherit;
+	margin: 0;
 	vertical-align: top;
+}
+.language-menu > span:last-child{
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .language-picker > div{
 	grid-column: 1 / -1;
@@ -787,6 +812,15 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	font-size: 32px;
 	text-align: start;
 	margin: 0;
+	min-width: 0;
+}
+.language-choice .language-icon{
+	--language-icon-width: 72px;
+	--language-icon-height: 48px;
+}
+.language-choice > span:last-child{
+	min-width: 0;
+	overflow-wrap: anywhere;
 }
 .language-choice[aria-pressed='true']{
 	border-color: #85C76B;

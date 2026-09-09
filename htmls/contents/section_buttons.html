@@ -24,7 +24,9 @@
 #} {% else %}
 <a class="gamebutton" href="/" style="border-color: #46b465">{{ phrase("pages.contents.section_buttons.reload") }}</a>
 {% endif %}
+{% endif %}
+{% if buttons=="language" %}
 <button type="button" class="gamebutton language-menu" onclick="btc(event); show_languages()" title="{{phrase('language.choose')}}">
-	{% for language in domain.languages %}{% if language.code == domain.language %}<span class="language-icon" aria-hidden="true" style="background-position:{{language.icon * -40}}px 0"></span><span lang="{{language.code}}">{{language.name}}</span>{% endif %}{% endfor %}
+	{% for language in domain.languages %}{% if language.code == domain.language %}<span class="language-icon" aria-hidden="true" style="--language-icon:{{language.icon}}"></span><span lang="{{language.code}}" title="{{language.name}}">{{language.name}}</span>{% endif %}{% endfor %}
 </button>
 {% endif %}
