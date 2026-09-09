@@ -4,7 +4,7 @@ var MCP_API_TOKEN_PREFIX = "mcp_";
 var MCP_API_TOKEN_PATTERN = /^mcp_[A-Za-z0-9_-]{43}$/;
 var MCP_PROTOCOL_CURRENT = "2026-07-28";
 var MCP_PROTOCOL_LEGACY = "2025-11-25";
-var MCP_SERVER_INFO = { name: "adventure-land", version: "1.12.1", description: "Adventure Land game knowledge, progression context, and browser or Mainframe CODE control" };
+var MCP_SERVER_INFO = { name: "adventure-land", version: "1.12.2", description: "Adventure Land game knowledge, progression context, and browser or Mainframe CODE control" };
 var MCP_SOURCE_REPOSITORY = "https://github.com/kaansoral/adventureland_mongodb";
 var MCP_START_RESOURCE = "adventureland://guide/start-here";
 var MCP_CATALOG_RESOURCES = ["adventureland://catalog/docs", "adventureland://catalog/code-methods", "adventureland://catalog/game-data"];
@@ -3019,45 +3019,50 @@ async function handle_mcp_transport(req, res) {
 		if (message.method === "tools/call" && req.get("mcp-name") !== ((message.params && message.params.name) || ""))
 			return res.status(400).send(mcp_jsonrpc_error(message.id, -32600, "Mcp-Name header mismatch"));
 	}
+	function send_result(result) {
+		// The discriminator belongs to the MCP envelope, not the tool's JSON data.
+		if (modern || message.method === "server/discover" || (message.method === "initialize" && result.protocolVersion === MCP_PROTOCOL_CURRENT)) {
+			result = Object.assign({ resultType: "complete" }, result);
+			if (["server/discover", "tools/list", "resources/list", "resources/templates/list", "resources/read", "prompts/list"].includes(message.method))
+				result = Object.assign({ ttlMs: 0, cacheScope: "private" }, result);
+		}
+		return res.status(200).send(mcp_jsonrpc(message.id, result));
+	}
 	if (message.method === "notifications/initialized") return res.status(202).end();
 	if (message.id === undefined) return res.status(202).end();
-	if (message.method === "ping") return res.status(200).send(mcp_jsonrpc(message.id, {}));
+	if (message.method === "ping") return send_result({});
 	if (message.method === "server/discover") {
-		return res.status(200).send(
-			mcp_jsonrpc(message.id, {
-				supportedVersions: [MCP_PROTOCOL_CURRENT, MCP_PROTOCOL_LEGACY],
-				capabilities: mcp_capabilities(),
-				instructions: MCP_INSTRUCTIONS,
-				startResource: MCP_START_RESOURCE,
-				ttlMs: 3600000,
-				cacheScope: "global",
-				_meta: mcp_result_meta(),
-			}),
-		);
+		return send_result({
+			supportedVersions: [MCP_PROTOCOL_CURRENT, MCP_PROTOCOL_LEGACY],
+			capabilities: mcp_capabilities(),
+			instructions: MCP_INSTRUCTIONS,
+			startResource: MCP_START_RESOURCE,
+			ttlMs: 3600000,
+			cacheScope: "private",
+			_meta: mcp_result_meta(),
+		});
 	}
 	if (message.method === "initialize") {
 		var requested = message.params && message.params.protocolVersion;
 		var negotiated = [MCP_PROTOCOL_CURRENT, MCP_PROTOCOL_LEGACY, "2025-06-18", "2025-03-26"].includes(requested) ? requested : MCP_PROTOCOL_LEGACY;
-		return res.status(200).send(
-			mcp_jsonrpc(message.id, {
-				protocolVersion: negotiated,
-				capabilities: mcp_capabilities(),
-				serverInfo: MCP_SERVER_INFO,
-				instructions: MCP_INSTRUCTIONS,
-			}),
-		);
+		return send_result({
+			protocolVersion: negotiated,
+			capabilities: mcp_capabilities(),
+			serverInfo: MCP_SERVER_INFO,
+			instructions: MCP_INSTRUCTIONS,
+		});
 	}
 	if (message.method === "tools/list") {
 		if (message.params && message.params.cursor) return res.status(200).send(mcp_jsonrpc_error(message.id, -32602, "Invalid cursor"));
-		return res.status(200).send(mcp_jsonrpc(message.id, { tools: mcp_tools(), _meta: mcp_result_meta() }));
+		return send_result({ tools: mcp_tools(), _meta: mcp_result_meta() });
 	}
 	if (message.method === "resources/list") {
 		if (message.params && message.params.cursor) return res.status(200).send(mcp_jsonrpc_error(message.id, -32602, "Invalid cursor"));
-		return res.status(200).send(mcp_jsonrpc(message.id, { resources: mcp_resources(), _meta: mcp_result_meta() }));
+		return send_result({ resources: mcp_resources(), _meta: mcp_result_meta() });
 	}
 	if (message.method === "resources/templates/list") {
 		if (message.params && message.params.cursor) return res.status(200).send(mcp_jsonrpc_error(message.id, -32602, "Invalid cursor"));
-		return res.status(200).send(mcp_jsonrpc(message.id, { resourceTemplates: mcp_resource_templates(), _meta: mcp_result_meta() }));
+		return send_result({ resourceTemplates: mcp_resource_templates(), _meta: mcp_result_meta() });
 	}
 	if (message.method === "resources/read") {
 		var uri = message.params && message.params.uri;
@@ -3065,7 +3070,7 @@ async function handle_mcp_transport(req, res) {
 		try {
 			var content = await mcp_read_resource(uri, user);
 			if (!content) return res.status(200).send(mcp_jsonrpc_error(message.id, -32002, "Resource not found", { uri: uri }));
-			return res.status(200).send(mcp_jsonrpc(message.id, { contents: [content], _meta: mcp_result_meta() }));
+			return send_result({ contents: [content], _meta: mcp_result_meta() });
 		} catch (e) {
 			console.error("mcp resource read error", e);
 			return res.status(200).send(
@@ -3078,7 +3083,7 @@ async function handle_mcp_transport(req, res) {
 	}
 	if (message.method === "prompts/list") {
 		if (message.params && message.params.cursor) return res.status(200).send(mcp_jsonrpc_error(message.id, -32602, "Invalid cursor"));
-		return res.status(200).send(mcp_jsonrpc(message.id, { prompts: mcp_prompt_list(), _meta: mcp_result_meta() }));
+		return send_result({ prompts: mcp_prompt_list(), _meta: mcp_result_meta() });
 	}
 	if (message.method === "prompts/get") {
 		var prompt_name = message.params && message.params.name;
@@ -3086,7 +3091,7 @@ async function handle_mcp_transport(req, res) {
 		var prompt = await mcp_get_prompt(prompt_name, message.params.arguments, user);
 		if (prompt.error) return res.status(200).send(mcp_jsonrpc_error(message.id, -32602, prompt.error));
 		prompt._meta = mcp_result_meta();
-		return res.status(200).send(mcp_jsonrpc(message.id, prompt));
+		return send_result(prompt);
 	}
 	if (message.method === "tools/call") {
 		var name = message.params && message.params.name;
@@ -3105,17 +3110,15 @@ async function handle_mcp_transport(req, res) {
 				isError: result && result.failed === true,
 				_meta: mcp_result_meta(),
 			};
-			return res.status(200).send(mcp_jsonrpc(message.id, tool_result));
+			return send_result(tool_result);
 		} catch (e) {
 			console.error("mcp tool " + name + " error", e);
-			return res.status(200).send(
-				mcp_jsonrpc(message.id, {
-					content: [{ type: "text", text: JSON.stringify({ failed: true, reason: "exception" }) }],
-					structuredContent: { failed: true, reason: "exception" },
-					isError: true,
-					_meta: mcp_result_meta(),
-				}),
-			);
+			return send_result({
+				content: [{ type: "text", text: JSON.stringify({ failed: true, reason: "exception" }) }],
+				structuredContent: { failed: true, reason: "exception" },
+				isError: true,
+				_meta: mcp_result_meta(),
+			});
 		}
 	}
 	return res.status(200).send(mcp_jsonrpc_error(message.id, -32601, "Method not found"));
