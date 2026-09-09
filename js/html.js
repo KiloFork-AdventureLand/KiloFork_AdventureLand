@@ -3999,37 +3999,37 @@ function render_guide(path, title, color) {
 			" " +
 			phrase.html("interface.guide.tutorial_lessons") +
 			"</div>";
-		html += "<div style='margin-bottom: 4px; height: 56px'>";
+		html += "<div class='guide-reference-row'>";
 		html +=
-			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: left; width: 145px' onclick='render_all_items()'><span style='color: #328355'>" +
+			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805' onclick='render_all_items()'><span class='guide-reference-label'><span style='color: #328355'>" +
 			"[I]" +
 			"</span>" +
 			" " +
 			phrase.html("interface.guide.all_items") +
-			"</div>";
+			"</span></div>";
 		html +=
-			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: right; width: 145px' onclick='render_all_monsters()'><span style='color: #7F2D2A'>" +
+			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805' onclick='render_all_monsters()'><span class='guide-reference-label'><span style='color: #7F2D2A'>" +
 			"[M]" +
 			"</span>" +
 			" " +
 			phrase.html("interface.guide.all_monsters") +
-			"</div>";
+			"</span></div>";
 		html += "</div>";
-		html += "<div style='margin-bottom: 4px; height: 56px'>";
+		html += "<div class='guide-reference-row'>";
 		html +=
-			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: left; width: 145px' onclick='render_all_skills_and_conditions()'><span style='color: #2A98AD'>" +
+			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805' onclick='render_all_skills_and_conditions()'><span class='guide-reference-label'><span style='color: #2A98AD'>" +
 			"[S]" +
 			"</span>" +
 			" " +
 			phrase.html("interface.guide.all_skills_amp_c") +
-			"</div>";
+			"</span></div>";
 		html +=
-			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805; float: right; width: 145px' onclick='render_all_recipes()'><span style='color: #ED8131'>" +
+			"<div class='gamebutton' style='background-color: #E5E5E5; color: #010805' onclick='render_all_recipes()'><span class='guide-reference-label'><span style='color: #ED8131'>" +
 			"[C]" +
 			"</span>" +
 			" " +
 			phrase.html("interface.guide.all_recipes") +
-			"</div>";
+			"</span></div>";
 		html += "</div>";
 	}
 	if (title) {
@@ -4088,6 +4088,39 @@ function render_guide(path, title, color) {
 	if (more) html += "<div class='gamebutton' style='display: block; margin-bottom: 4px; color: #85C76B'>" + phrase.html("interface.guide.guide_is_a_work_in_progress") + "</div>";
 	html += "</div>";
 	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/guide" + suffix });
+	var buttons = $(".modal:last .guide-reference-row > .gamebutton").toArray();
+	if (!buttons.length) return;
+	function fit_buttons() {
+		var visible = false;
+		buttons.forEach(function (button) {
+			if (!button.isConnected || !button.clientWidth) return;
+			visible = true;
+			var size = 24,
+				label = button.firstElementChild;
+			button.style.fontSize = size + "px";
+			button.style.whiteSpace = "nowrap";
+			while (size > 16 && label.scrollWidth > label.clientWidth) {
+				size -= 2;
+				button.style.fontSize = size + "px";
+			}
+			// Keep the full label readable if it still needs a second line.
+			button.style.whiteSpace = "";
+		});
+		if (visible) position_modals();
+	}
+	fit_buttons();
+	if (document.fonts) document.fonts.ready.then(fit_buttons);
+	if (window.ResizeObserver) {
+		var observer = new ResizeObserver(function () {
+			buttons.forEach(function (button) {
+				if (!button.isConnected) observer.unobserve(button);
+			});
+			fit_buttons();
+		});
+		buttons.forEach(function (button) {
+			observer.observe(button);
+		});
+	}
 }
 
 function render_code_articles(path, title, color) {
