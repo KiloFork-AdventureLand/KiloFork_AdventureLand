@@ -693,7 +693,7 @@
 	"interface.merrit.another_shop": "einem anderen Laden",
 	"interface.merrit.reason_npc": "Zu nah an {name}: Halte mehr als 40px Abstand zu unbeweglichen NPCs.",
 	"interface.merrit.reason_stand_close": "Zu nah an {name}: Lass mehr als 10px zwischen offenen Ständen.",
-	"interface.merrit.reason_stand_front": "Du stehst vor {name}: Verlasse den Bereich 15px südlich und 10px seitlich dieses Standes.",
+	"interface.merrit.reason_stand_front": "Zu nah an {name}: Halte mehr als 15px senkrechten oder mehr als 10px seitlichen Abstand.",
 	"interface.merrit.reason_warming": "Lass diesen Laden noch {count} Minuten hier stehen.",
 	"interface.merrit.reason_warming.one": "Lass diesen Laden noch {count} Minute hier stehen.",
 	"interface.merrit.reason_cooldown": "Das nächste Paket für dein Konto kann in {count} Minuten bei Merrits Besuch eintreffen.",

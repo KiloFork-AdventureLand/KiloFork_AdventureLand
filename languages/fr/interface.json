@@ -693,7 +693,7 @@
 	"interface.merrit.another_shop": "une autre boutique",
 	"interface.merrit.reason_npc": "Trop près de {name} : reste à plus de 40 px des PNJ immobiles.",
 	"interface.merrit.reason_stand_close": "Trop près de {name} : laisse plus de 10 px entre les étals ouverts.",
-	"interface.merrit.reason_stand_front": "Devant {name} : sors de la zone qui s’étend à 15 px au sud et 10 px sur les côtés de cet étal.",
+	"interface.merrit.reason_stand_front": "Trop près de {name} : laisse plus de 15px à la verticale ou plus de 10px sur le côté.",
 	"interface.merrit.reason_warming": "Garde cette boutique en place encore {count} minutes.",
 	"interface.merrit.reason_warming.one": "Garde cette boutique en place encore {count} minute.",
 	"interface.merrit.reason_cooldown": "Le prochain colis de ton compte pourra arriver dans {count} minutes, lors du passage de Merrit.",

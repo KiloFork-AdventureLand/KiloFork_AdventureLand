@@ -1,4 +1,5 @@
 {
+	"npc.citizen22.market.spacing_text": "고정 NPC와 40px 넘게, 열린 노점과 10px 넘게 떨어지세요. 다른 노점과 좌우 거리가 10px 이내라면 위아래로 15px 넘게 떨어져야 해요. 먼저 연 상점이 자리를 유지해요.",
 	"achievement.1000boss.explanation": "보스 1,000마리 처치",
 	"achievement.1000boss.name": "1,000번째 보스",
 	"achievement.100boss.explanation": "보스 100마리 처치",

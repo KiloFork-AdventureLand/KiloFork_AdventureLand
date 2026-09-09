@@ -1,4 +1,5 @@
 {
+	"npc.citizen22.market.spacing_text": "Mantente a más de 40px de los NPC inmóviles, a más de 10px de los puestos abiertos y a más de 15px en vertical cuando la distancia lateral a otro puesto sea de 10px o menos. La tienda que se abrió primero conserva su sitio.",
 	"achievement.1000boss.explanation": "Derrota a 1.000 jefes",
 	"achievement.1000boss.name": "Jefe número 1000",
 	"achievement.100boss.explanation": "Derrota a 100 jefes",

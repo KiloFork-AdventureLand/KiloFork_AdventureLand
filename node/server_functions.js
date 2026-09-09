@@ -87,7 +87,8 @@ function sprocess_game_data() {
 			D.drops.monsters[m].push([1.0 / 1000, "glitch"]);
 		}
 		for (var n in D.drops) {
-			if (!is_array(D.drops[n]) || n.endsWith("_bonus")) {
+			// The anniversary kiss is a fixed-odds cosmetic roll, not a farming reward.
+			if (!is_array(D.drops[n]) || n.endsWith("_bonus") || n === "anniversary_kiss") {
 				continue;
 			}
 			var total = 0;
@@ -2197,7 +2198,7 @@ function anniversary_state() {
 function anniversary_deliver(player, names, bonus) {
 	const reward = { items: names.map((name) => create_new_item(name)) };
 	// Use the normal prize roller with base odds, unaffected by Luck or hardcore reweighting.
-	if (bonus) chest_exchange(reward, G.drops[bonus]);
+	if (bonus) chest_exchange(reward, D.drops[bonus]);
 	// add_item already retains overflow items; no reward is discarded for a full bag.
 	for (const item of reward.items) add_item(player, item, { announce: false });
 	const jar = reward.items.find((item) => item.name === "cxjar" && item.data === "ikissyou");

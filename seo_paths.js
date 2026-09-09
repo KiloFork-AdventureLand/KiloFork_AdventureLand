@@ -9,6 +9,7 @@ const DOCS_PATHS = [
 	"/docs/code/functions/equip",
 	"/docs/code/functions/is_on_cooldown",
 	"/docs/code/functions/load_code",
+	"/docs/code/functions/open_stand",
 	"/docs/code/functions/require_code",
 	"/docs/code/functions/use_skill",
 	"/docs/code/game/events",

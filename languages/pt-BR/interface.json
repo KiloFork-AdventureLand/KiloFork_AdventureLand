@@ -693,7 +693,7 @@
 	"interface.merrit.another_shop": "outra loja",
 	"interface.merrit.reason_npc": "Perto demais de {name}: fique a mais de 40px de NPCs parados.",
 	"interface.merrit.reason_stand_close": "Perto demais de {name}: deixe mais de 10px entre bancas abertas.",
-	"interface.merrit.reason_stand_front": "Em frente a {name}: saia da área de 15px ao sul e 10px para os lados dessa banca.",
+	"interface.merrit.reason_stand_front": "Perto demais de {name}: deixe mais de 15px na vertical ou mais de 10px na horizontal.",
 	"interface.merrit.reason_warming": "Mantenha esta loja no lugar por mais {count} minutos.",
 	"interface.merrit.reason_warming.one": "Mantenha esta loja no lugar por mais {count} minuto.",
 	"interface.merrit.reason_cooldown": "O próximo pacote da sua conta pode chegar em {count} minutos, quando Merrit visitar.",

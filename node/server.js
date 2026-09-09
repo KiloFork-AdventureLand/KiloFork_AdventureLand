@@ -5610,14 +5610,7 @@ function init_socket_io(socket_server) {
 						return;
 					}
 					try {
-						var ud2 = await get_user_data(user2);
-						var unread = await db
-							.collection("mail")
-							.find({ owner: get_id(user2), read: false })
-							.limit(100)
-							.toArray();
-						ud2.info.mail = unread.length;
-						await safe_save(ud2);
+						await update_mail_count(user2);
 					} catch (e) {
 						console.error("send_mail ud error", e);
 					}
@@ -8783,6 +8776,10 @@ function init_socket_io(socket_server) {
 			if (!player) {
 				return;
 			}
+			var item = data.num !== undefined && player.items[data.num],
+				definition = item && G.items[item.name];
+			if (data.num !== undefined && !(definition && definition.stand)) return fail_response("invalid");
+			if (!data.close && item && item.b === "stand" && player.p.stand === definition.stand) return success_response({});
 			market_patron_reset(player);
 			var initial = player.p.stand;
 			server_log("merchant: " + player.name);
@@ -8795,15 +8792,10 @@ function init_socket_io(socket_server) {
 				}
 			}
 			if (data.num !== undefined) {
-				var item = player.items[data.num];
-				if (item && G.items[item.name].stand) {
-					player.p.stand = G.items[item.name].stand;
-					item.b = "stand";
-				} else {
-					return fail_response("invalid");
-				}
+				player.p.stand = definition.stand;
+				item.b = "stand";
 			}
-			if (initial != player.p.stand) {
+			if (initial != player.p.stand || item) {
 				// All unneccessary causes of resend's should be patched [03/08/18]
 				reslot_player(player);
 				resend(player, "u+cid");
@@ -15599,14 +15591,7 @@ setInterval(function () {
 											blobs: ["info"],
 										});
 										try {
-											var ud2 = await get_user_data(user2);
-											var unread = await db
-												.collection("mail")
-												.find({ owner: get_id(user2), read: false })
-												.limit(100)
-												.toArray();
-											ud2.info.mail = unread.length;
-											await safe_save(ud2);
+											await update_mail_count(user2);
 										} catch (e) {
 											console.error("giveaway mail ud error", e);
 										}

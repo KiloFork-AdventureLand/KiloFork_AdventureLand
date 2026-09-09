@@ -1,4 +1,5 @@
 {
+	"npc.citizen22.market.spacing_text": "固定NPCから40pxを超える距離、営業中の露店から10pxを超える距離を空けてください。ほかの露店との横方向の距離が10px以内の場合、縦方向は15pxを超える距離が必要です。先に開いた店がその場所を使い続けられます。",
 	"achievement.1000boss.explanation": "ボスを1,000体倒す",
 	"achievement.1000boss.name": "1,000体目のボス",
 	"achievement.100boss.explanation": "ボスを100体倒す",

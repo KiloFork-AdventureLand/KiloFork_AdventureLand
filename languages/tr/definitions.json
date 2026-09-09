@@ -1,4 +1,5 @@
 {
+	"npc.citizen22.market.spacing_text": "Sabit NPC'lerden 40px'ten, açık tezgâhlardan 10px'ten fazla uzakta dur. Başka bir tezgâhla yatay mesafe 10px veya daha azsa dikey mesafe 15px'ten fazla olmalıdır. Önce açılan dükkân yerini korur.",
 	"achievement.1000boss.explanation": "1.000 bölüm sonu canavarını yen",
 	"achievement.1000boss.name": "1000. Bölüm Sonu Canavarı",
 	"achievement.100boss.explanation": "100 bölüm sonu canavarını yen",

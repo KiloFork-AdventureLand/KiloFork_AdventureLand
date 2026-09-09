@@ -1180,28 +1180,19 @@ async function send_message_api(args) {
 
 async function read_mail_api(args) {
 	var user = args.user;
-	var user_data = await get_user_data(user);
 
 	var R = await tx(
 		async () => {
-			var mail = await tx_get("ML_" + A.mail_id);
+			var mail = await tx_get(A.mail_id);
 			if (mail && !mail.read && gf(mail, "receiver") === get_id(A.user)) {
 				mail.read = true;
 				await tx_save(mail);
 			}
 		},
-		{ mail_id: args.mail, user: user },
+		{ mail_id: args.mail.startsWith("ML_") ? args.mail : "ML_" + args.mail, user: user },
 	);
-
-	var unread = await db
-		.collection("mail")
-		.find({ owner: get_id(user), read: false })
-		.limit(100)
-		.toArray();
-	var old = gf(user_data, "mail", -1);
-	user_data.info.mail = Math.max(0, unread.length - 1);
-	if (old !== user_data.info.mail) safe_save(user_data);
-	args.res.infs.push({ type: "unread", count: user_data.info.mail });
+	if (R.failed) return { failed: true, reason: R.reason };
+	args.res.infs.push({ type: "unread", count: await update_mail_count(user) });
 	return { success: true };
 }
 
@@ -1211,12 +1202,12 @@ async function pull_mail_api(args) {
 	var page = 40;
 
 	var query = { owner: get_id(user) };
-	var cursor_skip = args.cursor ? parseInt(args.cursor) || 0 : 0;
+	var cursor_skip = args.cursor ? Math.max(0, parseInt(args.cursor) || 0) : 0;
 	if (cursor_skip) data.cursored = true;
 	var mails = await db
 		.collection("mail")
 		.find(query)
-		.sort({ created: -1 })
+		.sort({ created: -1, _id: -1 })
 		.skip(cursor_skip)
 		.limit(page + 1)
 		.toArray();
@@ -1244,6 +1235,7 @@ async function pull_mail_api(args) {
 		data.mail.push(mail_data);
 	}
 	args.res.infs.push(data);
+	args.res.infs.push({ type: "unread", count: await update_mail_count(user) });
 	return { success: true };
 }
 
@@ -1252,6 +1244,10 @@ async function delete_mail_api(args) {
 	var mail = await get(args.mid);
 	if (!user || !mail || !mail.owner || mail.owner.indexOf(get_id(user)) === -1) return { failed: true, reason: "cant_delete" };
 	await remove(mail);
+	for (var owner of new Set(mail.owner)) {
+		var count = await update_mail_count(owner);
+		if (owner === get_id(user)) args.res.infs.push({ type: "unread", count: count });
+	}
 	args.res.infs.push({ type: "message", message: phrase_html("server.api.mail_deleted") });
 	return { success: true };
 }

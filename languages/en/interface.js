@@ -1417,7 +1417,7 @@ module.exports = {
 	// Merrit shop-placement feedback; preserve names and distances. name is a shop or NPC name; count is minutes.
 	"interface.merrit.reason_stand_close": "Too close to {name}: leave more than 10px between open stands.",
 	// Merrit shop-placement feedback; preserve names and distances. name is a shop or NPC name; count is minutes.
-	"interface.merrit.reason_stand_front": "In front of {name}: move out of the area 15px south and 10px sideways of that stand.",
+	"interface.merrit.reason_stand_front": "Too close to {name}: leave more than 15px vertically or 10px sideways.",
 	// Merrit shop-placement feedback; preserve names and distances. name is a shop or NPC name; count is minutes.
 	"interface.merrit.reason_warming": "Keep this shop in place for {count} more minutes.",
 	// Merrit shop-placement feedback; preserve names and distances. name is a shop or NPC name; count is minutes.

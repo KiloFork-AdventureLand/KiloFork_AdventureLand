@@ -1,5 +1,7 @@
 // English display text from loaded game definitions. Canonical G is not localized.
 module.exports = {
+	// Canonical G.npcs.citizen22.market.spacing_text; matching definition phrase for rule summaries. Distances exact; keep the established translation of NPC.
+	"npc.citizen22.market.spacing_text": "Stay more than 40px from fixed NPCs, more than 10px from open stands, and more than 15px vertically when within 10px sideways of another stand. The shop set up first keeps its place.",
 	// design/achievements.js; 1000boss explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"achievement.1000boss.explanation": "Defeat 1,000 Bosses",
 	// design/achievements.js; 1000boss name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.

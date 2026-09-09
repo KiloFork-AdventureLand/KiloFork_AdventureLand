@@ -700,7 +700,7 @@ var npcs={
 			"shell_zero":0.005,
 			"areas":[[-240,-120,240,144],[-88,144,88,360]],
 			"stops":[[0,0],[-96,0],[-192,104],[0,120],[0,320],[32,200],[96,104]],
-			"spacing_text":"No parcels within 40px of a stationary NPC or within 10px of another open stand. A stand directly in front of another, up to 15px south and 10px sideways, also receives no parcel.",
+			"spacing_text":"Stay more than 40px from fixed NPCs, more than 10px from open stands, and more than 15px vertically when within 10px sideways of another stand. The shop set up first keeps its place.",
 		},
 		"says":["Fresh stock? Let me have a look.","Good to see the square busy.","Leave your neighbors some room."],
 		"interaction":["Keep a stocked shop here for two minutes and leave the neighbors room. I bring parcels once an hour."],

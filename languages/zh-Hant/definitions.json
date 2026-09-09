@@ -1,4 +1,5 @@
 {
+	"npc.citizen22.market.spacing_text": "與固定NPC的距離須超過40px，與開放攤位的距離須超過10px；若與另一攤位的橫向距離在10px以內，縱向距離須超過15px。先開張的攤位保留原位。",
 	"achievement.1000boss.explanation": "擊敗1,000個首領",
 	"achievement.1000boss.name": "第1,000個首領",
 	"achievement.100boss.explanation": "擊敗100個首領",

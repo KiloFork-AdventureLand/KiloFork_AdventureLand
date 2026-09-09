@@ -2697,19 +2697,24 @@ function render_equip_info(name) {
 
 function render_item_help(container, name, level, pure) {
 	var html = "",
-		names = [name];
+		names = [name],
+		parents = Object.create(null);
 	html += "<div style='background-color: black; border: 5px solid gray; font-size: 24px; display: inline-block; padding: 20px; line-height: 24px; max-width: 240px;' class='buyitem'>";
-	for (var depth = 0; depth < 3; depth++) {
-		for (var dname in G.drops) {
-			if (in_arr(dname, names) || dname == "glitch" || dname == "lglitch") continue;
-			var table = G.drops[dname];
-			for (var i = 0; i < table.length; i++) {
-				if (in_arr(table[i][1], names)) {
-					names.push(dname);
-				}
-			}
-		}
+	// Follow each source once. Nested tables and their independent bonuses can
+	// lead to the same item; cycles must not duplicate sources or loop forever.
+	for (var dname in G.drops) {
+		if (!is_array(G.drops[dname]) || dname == "glitch" || dname == "lglitch" || dname.endsWith("_bonus")) continue;
+		G.drops[dname].concat(G.drops[dname + "_bonus"] || []).forEach(function (drop) {
+			if (!(drop[0] > 0)) return;
+			var child = drop[1] == "open" ? drop[2] : drop[1];
+			if (!parents[child]) parents[child] = [];
+			parents[child].push(dname);
+		});
 	}
+	for (var i = 0; i < names.length; i++)
+		(parents[names[i]] || []).forEach(function (parent) {
+			if (!in_arr(parent, names)) names.push(parent);
+		});
 	var npcs = [];
 	for (var nname in G.npcs) {
 		var done = false;
@@ -2721,7 +2726,7 @@ function render_item_help(container, name, level, pure) {
 	for (var mname in G.drops.monsters) {
 		var table = G.drops.monsters[mname];
 		for (var i = 0; i < table.length; i++) {
-			if (table[i][1] == name || (table[i][1] == "open" && in_arr(table[i][2], names))) {
+			if (table[i][0] > 0 && (table[i][1] == name || (table[i][1] == "open" && in_arr(table[i][2], names)))) {
 				monsters.push([mname, table[i][1] != "open" && table[i][0]]);
 				break;
 			}
@@ -2732,7 +2737,7 @@ function render_item_help(container, name, level, pure) {
 		var table = G.drops.maps[mname];
 		if (mname != "global" && (!G.maps[mname] || G.maps[mname].ignore)) continue;
 		for (var i = 0; i < table.length; i++) {
-			if (table[i][1] == name || (table[i][1] == "open" && in_arr(table[i][2], names))) {
+			if (table[i][0] > 0 && (table[i][1] == name || (table[i][1] == "open" && in_arr(table[i][2], names)))) {
 				maps.push(mname);
 				break;
 			}
@@ -2745,13 +2750,11 @@ function render_item_help(container, name, level, pure) {
 			item = G.items[iname];
 		if (item.upgrade || item.compound) levels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 		for (var l = 0; l < levels.length; l++) {
-			var tname = iname;
-			if (l) tname += l;
+			var tname = iname + (item.upgrade || item.compound ? levels[l] : "");
 			if (G.drops[tname]) {
 				var table = G.drops[tname].concat(G.drops[tname + "_bonus"] || []);
 				for (var i = 0; i < table.length; i++) {
-					if (table[i][1] == name) {
-						// || table[i][1]=="open" && in_arr(table[i][2],names)) # There was an objection to this and seems logical [18/07/22]
+					if (table[i][0] > 0 && (table[i][1] == name || (table[i][1] == "open" && in_arr(table[i][2], names)))) {
 						items.push([iname, l]);
 						break;
 					}

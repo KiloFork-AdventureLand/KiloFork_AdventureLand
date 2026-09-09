@@ -693,7 +693,7 @@
 	"interface.merrit.another_shop": "inny sklep",
 	"interface.merrit.reason_npc": "Za blisko {name}: zachowaj ponad 40px od nieruchomych NPC.",
 	"interface.merrit.reason_stand_close": "Za blisko {name}: zostaw ponad 10px między otwartymi stoiskami.",
-	"interface.merrit.reason_stand_front": "Przed {name}: wyjdź poza obszar 15px na południe i 10px na boki od tego stoiska.",
+	"interface.merrit.reason_stand_front": "Zbyt blisko {name}: zachowaj ponad 15px odstępu w pionie lub ponad 10px w poziomie.",
 	"interface.merrit.reason_warming": "Zostaw sklep w tym miejscu jeszcze przez {count} min.",
 	"interface.merrit.reason_warming.one": "Zostaw sklep w tym miejscu jeszcze przez {count} minutę.",
 	"interface.merrit.reason_cooldown": "Kolejna paczka dla twojego konta może dotrzeć za {count} min, gdy odwiedzi cię Merrit.",

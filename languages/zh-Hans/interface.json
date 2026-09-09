@@ -693,7 +693,7 @@
 	"interface.merrit.another_shop": "另一家店",
 	"interface.merrit.reason_npc": "离{name}太近：与固定NPC保持超过40px的距离。",
 	"interface.merrit.reason_stand_close": "离{name}太近：营业中的摊位之间需留出超过10px的距离。",
-	"interface.merrit.reason_stand_front": "挡在{name}前面：请移出该摊位南侧15px、左右各10px的范围。",
+	"interface.merrit.reason_stand_front": "离{name}太近：纵向距离须超过15px，或横向距离超过10px。",
 	"interface.merrit.reason_warming": "在原地继续摆摊{count}分钟。",
 	"interface.merrit.reason_warming.one": "在原地继续摆摊{count}分钟。",
 	"interface.merrit.reason_cooldown": "{count}分钟后，Merrit到访时可为你的账号送来下一个包裹。",

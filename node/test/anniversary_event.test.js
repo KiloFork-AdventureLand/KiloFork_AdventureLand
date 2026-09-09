@@ -345,7 +345,7 @@ test("the reduced slice rate no longer guarantees a slice from a baseline Ent ki
 	}
 });
 
-function kissRewardHarness(roll) {
+function kissRewardHarness(roll, builder = 0) {
 	const h = eventHarness(),
 		announcements = [],
 		logs = [];
@@ -356,8 +356,6 @@ function kissRewardHarness(roll) {
 	}
 	const context = localize(
 		vm.createContext({
-			G: { items: design.items, drops: design.drops, skills: { ikissyou: { name: "I Kiss You" } } },
-			D: { drops: {} },
 			Math: Object.assign(Object.create(Math), {
 				random: () => {
 					rolls++;
@@ -370,6 +368,19 @@ function kissRewardHarness(roll) {
 			resend() {},
 		}),
 	);
+	// Use the real startup/reload data shape, not the browser's public G object.
+	const gameBuilders = [...source.matchAll(/^\t\tG = \{[\s\S]*?\n\t\t\};/gm)],
+		dropBuilders = [...source.matchAll(/^\t\tD = \{[\s\S]*?\n\t\t\};/gm)];
+	assert.equal(gameBuilders.length, 2);
+	assert.equal(dropBuilders.length, 2);
+	for (const code of [gameBuilders[builder][0], dropBuilders[builder][0]]) {
+		for (const field of code.matchAll(/\w+:\s*(\w+)/g))
+			if (!(field[1] in context)) context[field[1]] = design[field[1]] || {};
+		vm.runInContext(code, context);
+	}
+	context.G.skills = { ikissyou: { name: "I Kiss You" } };
+	context.D.drops = plain(context.D.drops);
+	assert.equal(context.G.drops, undefined);
 	vm.runInContext(definition(shared, "can_stack"), context);
 	for (const name of ["create_new_item", "add_item"]) vm.runInContext(definition(source, name), context);
 	for (const name of ["chest_exchange", "anniversary_deliver"]) vm.runInContext(definition(functions, name), context);
@@ -383,6 +394,35 @@ function kissRewardHarness(roll) {
 		claim: () => h.event.claim(h.visitor, h.host, context.anniversary_deliver),
 	};
 }
+
+test("startup and live reload both deliver the kiss rewards through server drop tables", () => {
+	for (const builder of [0, 1]) {
+		const h = kissRewardHarness(0.5, builder);
+		assert(h.claim());
+		assert(h.visitor.items.some((item) => item?.name === "anniversarygift"));
+		assert(h.host.items.some((item) => item?.name === "anniversarygift"));
+		assert.equal(h.claim(), false);
+	}
+});
+
+test("hardcore processing preserves kiss odds without disabling ordinary prize reweighting", () => {
+	const h = kissRewardHarness(0.001000001);
+	h.context.D.drops.ordinary_fixture = [
+		[1, "cxjar"],
+		[999, "empty"],
+	];
+	const start = functions.indexOf("\t\tfor (var n in D.drops) {"),
+		end = functions.indexOf("\n\t\tfor (var mname in G.maps)", start);
+	assert(start >= 0 && end > start);
+	vm.runInContext(functions.slice(start, end), h.context);
+	assert.deepEqual(plain(h.context.D.drops.anniversary_kiss), plain(design.drops.anniversary_kiss));
+	assert.notDeepEqual(plain(h.context.D.drops.ordinary_fixture), [
+		[1, "cxjar"],
+		[999, "empty"],
+	]);
+	assert(h.claim());
+	assert(!h.visitor.items.some((item) => item?.name === "cxjar"));
+});
 
 test("a rewarded kiss uses the normal prize roller for exactly 0.1% and announces jar wins", () => {
 	assert.deepEqual(plain(design.drops.anniversary_kiss), [

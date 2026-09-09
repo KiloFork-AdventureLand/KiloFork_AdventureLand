@@ -1,5 +1,5 @@
 "use strict";
-const { localize } = require("./helpers/server_vm");
+const { localize, socketHandler } = require("./helpers/server_vm");
 const test = require("node:test"),
 	assert = require("node:assert/strict"),
 	fs = require("node:fs"),
@@ -43,7 +43,7 @@ test("all spacing boundaries and mobility use world positions", () => {
 	o.x = 0;
 	o.y = -15;
 	assert.equal(rules.blockers(p, [o], [], config)[0].code, "stand_front");
-	assert.equal(rules.blockers(o, [p], [], config).length, 0);
+	assert.equal(rules.blockers(o, [p], [], config)[0].code, "stand_front");
 	o.y = -15.001;
 	assert.equal(rules.blockers(p, [o], [], config).length, 0);
 	o.y = -14;
@@ -243,6 +243,88 @@ function harness(options = {}) {
 		},
 	};
 }
+test("a newcomer cannot reset an older shop from either side or by reopening", () => {
+	for (const [x, y, reason] of [
+		[0, -13, "stand_front"],
+		[0, 13, "stand_front"],
+		[10, 0, "stand_close"],
+	]) {
+		const h = harness(),
+			now = Date.now(),
+			c = h.context;
+		const initial = c.market_patron_status(h.p, now);
+		const newcomer = Object.assign(merchant(x, y), { id: "New", owner: "US_new", socket: { emit() {} } });
+		c.instances.main.players.newcomer = newcomer;
+		for (let i = 0; i < 3; i++) {
+			c.market_patron_reset(newcomer);
+			const members = [newcomer, h.p, h.npc];
+			assert.equal(c.market_patron_status(newcomer, now + i, members).reasons[0].code, reason);
+			const status = c.market_patron_status(h.p, now + i, members);
+			assert.equal(status.reasons.length, 0);
+			assert.equal(status.ready_at, initial.ready_at);
+		}
+		// Moving forfeits the old place; arriving back cannot take it from the new shop.
+		h.p.moving = true;
+		c.market_patron_observe(h.p);
+		assert.equal(c.market_patron_status(newcomer, now + 4).reasons[0].code, "warming");
+		h.p.moving = false;
+		assert.equal(c.market_patron_status(h.p, now + 5).reasons[0].code, reason);
+	}
+});
+
+test("a parcel resets settling time but does not forfeit a shop's place", async () => {
+	const h = harness(),
+		c = h.context;
+	c.market_patron_status(h.p, Date.now());
+	const order = c.market_patron_placements.get(h.p).order;
+	await c.market_patron_grant(h.npc, h.p);
+	assert.equal(h.additions(), 1);
+	assert.equal(c.market_patron_placements.get(h.p).order, order);
+	assert.equal(c.market_patron_status(h.p, Date.now()).reasons[0].code, "warming");
+});
+
+test("the real merchant handler keeps repeated opens unchanged and validates before resetting", () => {
+	const h = harness(),
+		c = h.context,
+		responses = [];
+	c.socket = h.p.socket;
+	c.G.items.stand0 = { stand: "stand0" };
+	h.p.items[0] = { name: "stand0", b: "stand" };
+	c.server_log = () => {};
+	c.reslot_player = () => {};
+	c.resend = (player) => c.market_patron_observe(player);
+	c.success_response = (value) => responses.push({ success: value });
+	c.fail_response = (reason) => responses.push({ failed: reason });
+	const handler = socketHandler(c, "merchant");
+	c.market_patron_status(h.p, Date.now());
+	const session = c.market_patron_sessions.get(h.p),
+		placement = c.market_patron_placements.get(h.p);
+	for (let i = 0; i < 10; i++) handler({ num: 0 });
+	assert.equal(c.market_patron_sessions.get(h.p), session);
+	assert.equal(c.market_patron_placements.get(h.p), placement);
+	assert.equal(responses.length, 10);
+	assert(responses.every((response) => response.success));
+	handler({ num: 42 });
+	assert.equal(responses.at(-1).failed, "invalid");
+	assert.equal(c.market_patron_sessions.get(h.p), session);
+	assert.equal(h.p.p.stand, "stand0");
+	handler({ close: 1 });
+	assert.equal(h.p.p.stand, false);
+	assert.equal(h.p.items[0].b, undefined);
+	assert.equal(c.market_patron_placements.has(h.p), false);
+	handler({ num: 0 });
+	assert.equal(h.p.p.stand, "stand0");
+	assert(c.market_patron_placements.get(h.p).order > placement.order);
+	assert(c.market_patron_sessions.get(h.p).since > session.since);
+	// A different inventory copy is a real stand change, even with the same appearance.
+	h.p.items[1] = { name: "stand0" };
+	const reopened = c.market_patron_placements.get(h.p).order;
+	handler({ num: 1 });
+	assert.equal(h.p.items[0].b, undefined);
+	assert.equal(h.p.items[1].b, "stand");
+	assert(c.market_patron_placements.get(h.p).order > reopened);
+});
+
 test("parcel, shell and account receipt commit once; a second claim cannot pay", async () => {
 	const h = harness();
 	await h.context.market_patron_grant(h.npc, h.p);

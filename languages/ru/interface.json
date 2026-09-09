@@ -693,7 +693,7 @@
 	"interface.merrit.another_shop": "другая лавка",
 	"interface.merrit.reason_npc": "Слишком близко к {name}: от неподвижных NPC нужно отступить больше 40 пикселей.",
 	"interface.merrit.reason_stand_close": "Слишком близко к {name}: между открытыми лавками нужно больше 10 пикселей.",
-	"interface.merrit.reason_stand_front": "Вы перед лавкой {name}: выйдите из области в 15 пикселей к югу и 10 пикселей по бокам от неё.",
+	"interface.merrit.reason_stand_front": "Слишком близко к {name}: оставьте больше 15px по вертикали или 10px по горизонтали.",
 	"interface.merrit.reason_warming": "Не перемещайте лавку ещё {count} минут.",
 	"interface.merrit.reason_warming.one": "Не перемещайте лавку ещё {count} минуту.",
 	"interface.merrit.reason_cooldown": "Следующая посылка для вашей учётной записи может прийти через {count} минут, когда заглянет Merrit.",

@@ -963,6 +963,23 @@ function arr_arr_same(ar1, ar2) {
 
 // ==================== USER DATA (InfoElement) ====================
 
+async function update_mail_count(user) {
+	var owner = user._id || user;
+	var unread = await db
+		.collection("mail")
+		.find({ owner: owner, "info.receiver": owner, read: false })
+		.project({ _id: 1 })
+		.limit(100)
+		.toArray();
+	// Do not replace userdata: another request may be saving CODE or tutorial progress.
+	await db.collection("infoelement").updateOne(
+		{ _id: "IE_userdata-" + owner },
+		{ $set: { "info.mail": unread.length }, $setOnInsert: { created: new Date() } },
+		{ upsert: true },
+	);
+	return unread.length;
+}
+
 async function get_user_data(user_id) {
 	if (user_id && user_id._id) user_id = user_id._id;
 	var data = await get("IE_userdata-" + user_id);
@@ -1187,14 +1204,7 @@ async function reward_referrer_logic(user) {
 		});
 		// Update referrer's unread mail count
 		try {
-			var ud = await get_user_data(referrer);
-			var unread = await db
-				.collection("mail")
-				.find({ owner: get_id(referrer), read: false })
-				.limit(100)
-				.toArray();
-			ud.info.mail = unread.length;
-			await safe_save(ud);
+			await update_mail_count(referrer);
 		} catch (e) {
 			console.error("reward_referrer mail ud error", e);
 		}

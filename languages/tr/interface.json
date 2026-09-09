@@ -693,7 +693,7 @@
 	"interface.merrit.another_shop": "başka bir dükkân",
 	"interface.merrit.reason_npc": "{name} çok yakın: sabit NPC'lerden 40px'ten fazla uzakta dur.",
 	"interface.merrit.reason_stand_close": "{name} çok yakın: açık tezgâhlar arasında 10px'ten fazla mesafe bırak.",
-	"interface.merrit.reason_stand_front": "{name} önündesin: o tezgâhın 15px güneyine ve yanlara 10px uzanan alanından çık.",
+	"interface.merrit.reason_stand_front": "{name} dükkânına fazla yakınsın: dikey olarak 15px'ten veya yatay olarak 10px'ten fazla mesafe bırak.",
 	"interface.merrit.reason_warming": "Bu dükkânı {count} dakika daha yerinde tut.",
 	"interface.merrit.reason_warming.one": "Bu dükkânı {count} dakika daha yerinde tut.",
 	"interface.merrit.reason_cooldown": "Hesabının sonraki paketi {count} dakika sonra Merrit ziyaret ettiğinde gelebilir.",

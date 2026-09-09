@@ -693,7 +693,7 @@
 	"interface.merrit.another_shop": "別の店",
 	"interface.merrit.reason_npc": "{name}に近すぎます。動かないNPCから40pxより離れてください。",
 	"interface.merrit.reason_stand_close": "{name}に近すぎます。開いている露店同士は10pxより離してください。",
-	"interface.merrit.reason_stand_front": "{name}の正面です。その露店の南15px・左右10pxの範囲から移動してください。",
+	"interface.merrit.reason_stand_front": "{name}に近すぎます。縦方向に15pxを超えるか、横方向に10pxを超える距離を空けてください。",
 	"interface.merrit.reason_warming": "この場所であと{count}分、店を開いてください。",
 	"interface.merrit.reason_warming.one": "この場所であと{count}分、店を開いてください。",
 	"interface.merrit.reason_cooldown": "このアカウントの次の小包は、{count}分後以降にMerritが訪れると届きます。",
