@@ -4390,6 +4390,7 @@ function render_item(selector, args) {
 	if (!args.pure)
 		html +=
 			"<div style='background-color: black; border: 5px solid gray; font-size: 24px; display: inline-block; padding: 20px; line-height: 24px; max-width: 240px; " +
+			(item.encouragement ? "position: relative; " : "") +
 			(args.styles || "") +
 			"' class='buyitem'>";
 	if (!item) html += phrase.html("interface.item.item");
@@ -4640,16 +4641,21 @@ function render_item(selector, args) {
 			html += bold_prop_line(phrase.html("interface.item.charge"), to_pretty_float(((actual.charges || 0) / item.charge) * 100) + "%", "#7433A7");
 		}
 		if (item.encouragement) {
-			if (prop.gold_multiplier) html += bold_prop_line(phrase.html("interface.item.gold"), prop.gold_multiplier + "×", "#E3BB62");
-			if (prop.xp_multiplier) html += bold_prop_line(phrase.html("stat.xp.name"), prop.xp_multiplier + "×", "#A88BC7");
-			if (prop.luck_multiplier) html += bold_prop_line(phrase.html("interface.item.luck"), prop.luck_multiplier + "×", "#79B899");
+			if (prop.gold_multiplier) html += bold_prop_line(phrase.html("interface.item.gold"), prop.gold_multiplier + "×", colors.gold);
+			if (prop.xp_multiplier) html += bold_prop_line(phrase.html("stat.xp.name"), prop.xp_multiplier + "×", colors.stat_xp);
+			if (prop.luck_multiplier) html += bold_prop_line(phrase.html("interface.item.luck"), prop.luck_multiplier + "×", colors.luck);
 			if (prop.phase) {
 				html += prop_line(phrase.html("interface.item.stage"), phrase.html("interface.item.stage_progress", { stage: prop.phase }));
 				if (prop.xp_multiplier === 1) html += "<div>" + phrase.html("interface.item.new_player_xp_ended_at_level_80") + "</div>";
 				var next = item.phases && item.phases[prop.phase];
 				if (next) html += "<div>" + phrase.html("interface.item.next_gold_xp_luck", { value: next[0], value2: prop.xp_multiplier === 1 ? 1 : next[1], value3: next[2] }) + "</div>";
 			}
-			html += "<div class='slimbutton' onclick='stpr(event); open_guide(\"encouragement\",get_guide_url(\"encouragement\"))'>" + phrase.html("interface.item.info") + "</div>";
+			html +=
+				"<div class='slimbutton' style='" +
+				(args.pure ? "" : "position: absolute; top: -5px; right: -5px; border-width: 5px; padding: 0 6px; font-size: 20px; line-height: 16px; ") +
+				'\' onclick=\'stpr(event); open_guide("encouragement",get_guide_url("encouragement"))\'>' +
+				phrase.html("interface.item.info") +
+				"</div>";
 		}
 		if (item.explanation) {
 			html += "<div style='color: #C3C3C3'>" + phrase.definition("item", name, "explanation", item.explanation) + "</div>";

@@ -1,13 +1,23 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
 const vm = require("node:vm");
+const nunjucks = require("nunjucks");
+const localization = require("../../languages");
 const { read, load } = require("./helpers/server_vm");
 const G = require("./helpers/design");
+
+function article() {
+	return nunjucks.renderString(read("docs/guide/encouragement.html"), {
+		phrase: (id, params) => localization.phrase(id, params, "en"),
+		phrase_html: (id, params) => nunjucks.runtime.markSafe(localization.phrase_html(id, params, "en")),
+	});
+}
 
 function ui() {
 	const rendered = [];
 	const c = vm.createContext({
 		G,
+		colors: G.colors,
 		console,
 		no_graphics: true,
 		window: { no_html: true },
@@ -32,6 +42,8 @@ function ui() {
 			throw Error("blocking dialog");
 		},
 	});
+	vm.runInContext(read("js/phrases.js"), c);
+	c.phrase.load("en", localization.browser_catalog("en"));
 	vm.runInContext(read("docs/directory.js"), c);
 	c.G = Object.assign({}, G, { docs: c.docs });
 	vm.runInContext(read("js/pixi/fake/pixi.min.js"), c);
@@ -63,6 +75,14 @@ test("real condition renderer shows separate factors, a working INFO link and no
 	c.render_condition("#condition", "encouragement_lonewolf");
 	const html = rendered.at(-1);
 	assert.match(html, /3×/);
+	for (const [label, color] of [
+		["Gold", G.colors.gold],
+		["XP", G.colors.stat_xp],
+		["Luck", G.colors.luck],
+	])
+		assert(html.includes(c.bold_prop_line(label, "3×", color)));
+	assert.match(html, /max-width: 240px; position: relative;/);
+	assert.match(html, /top: -5px; right: -5px; border-width: 5px; padding: 0 6px; font-size: 20px; line-height: 16px;/);
 	c.event = {};
 	c.stpr = () => {};
 	let request;
@@ -107,11 +127,11 @@ test("condition definitions, shared atlas, guide directory, SEO and MCP all reso
 	}
 	assert.match(G.imagesets.rawitems.file, /raw_items\.png\?v=18$/);
 	for (const file of ["docs/directory.js", "seo_paths.js", "mcp_api.js"]) assert.match(read(file), /encouragement/);
-	const article = read("docs/guide/encouragement.html");
-	assert.doesNotMatch(article, /<(details|summary)\b/);
-	assert.match(article, /once normally and once more/);
-	assert.match(article, /25 characters or more/);
-	assert.match(article, /oldest character is less than 40 days old/);
+	const html = article();
+	assert.doesNotMatch(html, /<(details|summary)\b/);
+	assert.match(html, /once normally and once more/);
+	assert.match(html, /25 characters or more/);
+	assert.match(html, /oldest character is less than 40 days old/);
 });
 
 test("the exact documented CODE works with no graphics and reads condition removals", () => {
