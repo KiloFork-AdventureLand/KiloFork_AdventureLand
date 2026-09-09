@@ -304,11 +304,13 @@
 </div>
 <div class="menu disableclicks" style="position: fixed; top: 0px; right: 0px; z-index: 201">
 	<!-- .disableclicks as .menu overlays character selection -->
-	{% set buttons="music"%} {% include "htmls/contents/section_buttons.html" %} {% set buttons="essentials"%} {% include "htmls/contents/section_buttons.html" %} {% set buttons="musts"%} {% include
-	"htmls/contents/section_buttons.html" %}
-	<div class="language-controls">
-		{% set buttons="language"%} {% include "htmls/contents/section_buttons.html" %}
-		<div id="progressui" class="gamebutton loading" style="width: 40px; text-align: center" onclick="loader_click();">0%</div>
+	<div class="selection-controls">
+		{% set buttons="music"%} {% include "htmls/contents/section_buttons.html" %} {% set buttons="essentials"%} {% include "htmls/contents/section_buttons.html" %} {% set buttons="musts"%} {% include
+		"htmls/contents/section_buttons.html" %}
+		<div class="language-controls">
+			{% set buttons="language"%} {% include "htmls/contents/section_buttons.html" %}
+			<div id="progressui" class="gamebutton loading" style="width: 40px; text-align: center" onclick="loader_click();">0%</div>
+		</div>
 	</div>
 	{% if servers %}
 	<div style="clear: both"></div>

@@ -375,6 +375,11 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	right: 0px;
 	position: fixed;
 }
+.game-controls,.selection-controls{
+	width: max-content;
+	margin-left: auto;
+	white-space: nowrap;
+}
 .serverinfo-row{
 	width: 100%;
 	max-width: calc(100vw * var(--browser-zoom-inverse, 1));

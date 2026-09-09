@@ -188,28 +188,30 @@
 				</div>
 			</div>
 			<div id="toprightcorner" class="hidden disableclicks bpclicks">
-				<span class="codebuttons">
-				</span>
-				<div class="gamebutton minutesui hidden" style='border-color:#4D75B5'>{{ phrase("pages.index.xx-xx") }}</div>
-				{% if user.admin and (not domain.screenshot and not domain.recording_mode or not domain.electron) %}
-					<div class="gamebutton" onclick="btc(event); show_renderer();">{{ phrase("pages.index.access") }}</div>
-					{# <div class="gamebutton promode {% if domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); item_analysis();">I</div> #}
-					<div class="gamebutton promode {% if domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); visualize();">V</div>
-				{% endif %}
-				<div class="gamebutton promode {% if domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('snippet'); show_snippet()">X</div>
-				<div class="gamebutton promode {% if domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('code'); toggle_code()">CODE</div>
-				<div class="gamebutton" onclick="btc(event); tut('com'); render_com()">{{phrase('navigation.communicator_short')}}<span class='comcount' style='color: #9083BC'>{% if user_data and user_data.info.mail%} [{{user_data.info.mail}}]{% endif%}</span></div>
-				<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); toggle_character()">{{ phrase("pages.index.char") }}</div>
-				<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('inventory'); render_inventory()">{{ phrase("pages.index.inv") }}</div>
-				<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); toggle_stats()">{{ phrase("pages.index.stats") }}</div>
-				<div class="gamebutton" onclick="btc(event); tut('skills'); render_skills()">{{ phrase("pages.index.skills") }}</div>
-				<div class="gamebutton" onclick="btc(event); tut('guide'); show_game_guide();">{{ phrase("pages.index.guide") }}</div> {# newcomermode {% if not domain.newcomer_ui%}hidden{% endif%} #}
-				{# <div class="gamebutton promode {% if domain.newcomer_ui %}hidden{% endif%}" onclick="btc(event); ping()">PING</div> #}
-				<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('code'); toggle_code()">CODE</div>
-				<div class="gamebutton" onclick="btc(event); tut('travel'); render_travel();">{{ phrase("pages.index.travel") }}</div>
-				<div class="gamebutton townb newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); socket.emit('town'); push_deferred('town'); hide_transports();">{{ phrase("pages.index.town-2") }}</div>
-				<div class="gamebutton rewardsbutton hidden" style='border-color:#60B879' onclick="btc(event); render_rewards();">{{ phrase("pages.index.rewards") }}</div>
-				<div class="gamebutton" onclick="btc(event); tut('settings'); show_settings()">{{ phrase("pages.index.conf") }}</div>
+				<div class="game-controls">
+					<span class="codebuttons">
+					</span>
+					<div class="gamebutton minutesui hidden" style='border-color:#4D75B5'>{{ phrase("pages.index.xx-xx") }}</div>
+					{% if user.admin and (not domain.screenshot and not domain.recording_mode or not domain.electron) %}
+						<div class="gamebutton" onclick="btc(event); show_renderer();">{{ phrase("pages.index.access") }}</div>
+						{# <div class="gamebutton promode {% if domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); item_analysis();">I</div> #}
+						<div class="gamebutton promode {% if domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); visualize();">V</div>
+					{% endif %}
+					<div class="gamebutton promode {% if domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('snippet'); show_snippet()">X</div>
+					<div class="gamebutton promode {% if domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('code'); toggle_code()">CODE</div>
+					<div class="gamebutton" onclick="btc(event); tut('com'); render_com()">{{phrase('navigation.communicator_short')}}<span class='comcount' style='color: #9083BC'>{% if user_data and user_data.info.mail%} [{{user_data.info.mail}}]{% endif%}</span></div>
+					<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); toggle_character()">{{ phrase("pages.index.char") }}</div>
+					<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('inventory'); render_inventory()">{{ phrase("pages.index.inv") }}</div>
+					<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); toggle_stats()">{{ phrase("pages.index.stats") }}</div>
+					<div class="gamebutton" onclick="btc(event); tut('skills'); render_skills()">{{ phrase("pages.index.skills") }}</div>
+					<div class="gamebutton" onclick="btc(event); tut('guide'); show_game_guide();">{{ phrase("pages.index.guide") }}</div> {# newcomermode {% if not domain.newcomer_ui%}hidden{% endif%} #}
+					{# <div class="gamebutton promode {% if domain.newcomer_ui %}hidden{% endif%}" onclick="btc(event); ping()">PING</div> #}
+					<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('code'); toggle_code()">CODE</div>
+					<div class="gamebutton" onclick="btc(event); tut('travel'); render_travel();">{{ phrase("pages.index.travel") }}</div>
+					<div class="gamebutton townb newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); socket.emit('town'); push_deferred('town'); hide_transports();">{{ phrase("pages.index.town-2") }}</div>
+					<div class="gamebutton rewardsbutton hidden" style='border-color:#60B879' onclick="btc(event); render_rewards();">{{ phrase("pages.index.rewards") }}</div>
+					<div class="gamebutton" onclick="btc(event); tut('settings'); show_settings()">{{ phrase("pages.index.conf") }}</div>
+				</div>
 				<!-- <div class="codeui hidden" style="text-align: right; margin-top: 5px">
 					{% if domain.Dev or 1 %}
 						<div class="gamebutton" onclick="btc(event); render_code_articles()" style="border-color: #f59b2c;  border-color: #D46E33; /*border-color: #38B54E*/">LEARN</div>
