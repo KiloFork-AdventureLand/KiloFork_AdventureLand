@@ -6078,9 +6078,9 @@ function render_skills() {
 	}
 	var last = 0,
 		right_style = "text-align: right";
-	var html = "<div id='skills-item' class='rendercontainer' style='flex-shrink: 0; max-height: 100vh; overflow-y: auto; margin-right: 5px'></div>";
+	var html = "<div id='skills-item' class='rendercontainer' style='flex-shrink: 0; max-height: calc(100vh * var(--browser-zoom-inverse, 1)); overflow-y: auto; margin-right: 5px'></div>";
 	html +=
-		"<div id='skills-frame' style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; flex-shrink: 0'><div id='skills-panel' style='max-height: calc(100vh - 50px); overflow-y: auto'>";
+		"<div id='skills-frame' style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; flex-shrink: 0'><div id='skills-panel' style='width: max-content; max-height: calc(100vh * var(--browser-zoom-inverse, 1) - 50px); overflow-y: auto'>";
 	html +=
 		"<div class='textbutton' style='margin-left: 5px'><span  onclick='btc(event); show_snippet()'>" +
 		phrase.html("interface.skills.mapping") +

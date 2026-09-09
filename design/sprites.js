@@ -1159,7 +1159,7 @@ var imagesets = {
 		size: 20,
 		rows: 1,
 		columns: 4,
-		file: "/images/tiles/items/teasers.png?v=1",
+		file: "/images/tiles/items/teasers.png?v=2",
 	},
 	pack_1a: {
 		size: 16,

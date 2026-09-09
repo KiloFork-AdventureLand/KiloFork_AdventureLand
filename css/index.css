@@ -523,7 +523,8 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	margin-bottom:8px;
 	text-align:left;
 }
-.event-announcement{
+#event-announcements .event-announcement,
+.upcoming-cards .event-announcement{
 	box-sizing:border-box;
 	position:relative;
 	display:flex;
@@ -542,10 +543,10 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	cursor:pointer;
 	overflow:visible;
 }
-.event-announcement:last-child{margin-bottom:0}
+#event-announcements .event-announcement:last-child,.upcoming-cards .event-announcement:last-child{margin-bottom:0}
 .event-announcement:focus-visible{outline:3px solid var(--event-accent);outline-offset:-7px}
 .event-announcement-sprite{position:relative;display:flex;align-items:center;justify-content:center;width:48px;height:48px;flex:none;pointer-events:none;image-rendering:crisp-edges;image-rendering:pixelated}
-.event-announcement-copy{position:relative;display:block;flex:1;min-width:0;background:#080B10}
+.event-announcement-copy{position:relative;display:block;flex:1;min-width:0;white-space:normal;overflow-wrap:anywhere;background:#080B10}
 .event-announcement-copy small{display:block;color:var(--event-accent);font-size:16px;line-height:14px}
 .event-announcement-title{display:block;color:var(--event-color);font-size:24px;line-height:22px;margin:2px 0}
 .event-announcement-description{display:block;font-size:18px;line-height:16px}
@@ -1146,11 +1147,18 @@ html.browser-zoomed .imodal{
 	cursor: default;
 }
 .upcoming-cards{
-	max-height: 360px;
+	max-height: 384px;
 	overflow-y: auto;
 }
 .upcoming-cards .event-announcement{
+	gap: 11px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	margin-bottom: 8px;
 	cursor: default;
+}
+.upcoming-cards .event-announcement-title{
+	margin-bottom: 4px;
 }
 .upcoming-cards .event-announcement-effects i{
 	animation-iteration-count: infinite;
