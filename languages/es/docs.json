@@ -1,4 +1,5 @@
 {
+	"docs.guide.monster-hunts.beginner-scaling": "Daisy tiene en cuenta el nivel más alto de los personajes de tu cuenta. Si es inferior a 30, las cazas piden derrotar como máximo a 10 Goo. Entre los niveles 30 y 59, se desbloquean objetivos más difíciles y cazas con más monstruos. A partir del 60, se aplican las cazas normales.",
 	"docs.tutorial.tracktrix.achievements": "Los logros de monstruos otorgan bonificaciones de atributos mientras llevas Tracktrix. Para cada monstruo cuenta la puntuación más alta de tu cuenta, no la suma de las puntuaciones de tus personajes.",
 	"docs.tutorial.tracktrix.goo_rewards": "Para Goo, 10 puntos otorgan +5 HP; 100 puntos añaden otros +10 HP.",
 	"docs.tutorial.tracktrix.intro": "Tus cacerías pueden darte algo más que oro. Cambia 4 Monster Tokens con Daisy por un Tracktrix: una guía de monstruos, botín y tu progreso en los logros.",

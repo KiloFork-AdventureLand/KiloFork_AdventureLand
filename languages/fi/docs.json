@@ -1,4 +1,5 @@
 {
+	"docs.guide.monster-hunts.beginner-scaling": "Daisy käyttää tilisi korkeinta hahmotasoa. Jos se on alle 30, jahti vaatii enintään 10 Goo-hirviön kukistamista. Tasoilla 30–59 avautuu vaikeampia kohteita ja jahteja, joissa kukistetaan enemmän hirviöitä. Tasosta 60 alkaen jahdit ovat tavallisia.",
 	"docs.tutorial.tracktrix.achievements": "Hirviösaavutukset antavat ominaisuusbonuksia, kun kannat Tracktrixia. Kunkin hirviön kohdalla lasketaan tilisi korkein pistemäärä, ei hahmojesi pisteiden summaa.",
 	"docs.tutorial.tracktrix.goo_rewards": "Goo antaa 10 pisteestä +5 HP ja 100 pisteestä vielä +10 HP lisää.",
 	"docs.tutorial.tracktrix.intro": "Metsästys voi tuoda muutakin kuin kultaa. Vaihda 4 Monster Tokenia Daisyn luona Tracktrixiin — oppaaseen, joka näyttää hirviöt, saaliit ja saavutustesi etenemisen.",

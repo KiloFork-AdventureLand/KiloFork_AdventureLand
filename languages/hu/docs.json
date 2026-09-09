@@ -1,4 +1,5 @@
 {
+	"docs.guide.monster-hunts.beginner-scaling": "Daisy a fiókod legmagasabb karakterszintjét veszi alapul. Ha ez 30 alatt van, a vadászatokhoz legfeljebb 10 Goo legyőzése szükséges. A 30–59. szint között nehezebb célpontok és több szörny legyőzését kérő vadászatok válnak elérhetővé. A 60. szinttől a szokásos vadászatok érvényesek.",
 	"docs.tutorial.tracktrix.achievements": "A szörnyekhez kötődő teljesítmények tulajdonságbónuszokat adnak, amíg nálad van a Tracktrix. Minden szörnynél a fiókod legmagasabb pontszáma számít, nem a karaktereid pontszámainak összege.",
 	"docs.tutorial.tracktrix.goo_rewards": "Goo esetén 10 pont +5 HP-t ad; 100 pont további +10 HP-t jelent.",
 	"docs.tutorial.tracktrix.intro": "A vadászattal az aranyon kívül mást is szerezhetsz. Cserélj be Daisynél 4 Monster Tokent egy Tracktrixre — ez megmutatja a szörnyeket, a zsákmányukat és a teljesítményeid állását.",

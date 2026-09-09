@@ -40,6 +40,7 @@ const discord_relay = require("./logic/discord")({
 });
 const anniversary_rules = require("./logic/anniversary_event");
 const market_patron_rules = require("./logic/market_patron")((a, b) => simple_distance(a, b));
+const monster_hunt_rules = require("./logic/monster_hunts");
 const server_information = require("./logic/server_information")("SR_" + region + server_name);
 var socket_cors = {
 	origin: "*",
@@ -5168,7 +5169,8 @@ function init_socket_io(socket_server) {
 			if (player.s.monsterhunt && player.s.monsterhunt.c) {
 				return fail_response("monsterhunt_already");
 			} else if (player.s.monsterhunt) {
-				delete server.s["monsterhunt_" + player.s.monsterhunt.id];
+				var marker = "monsterhunt_" + player.s.monsterhunt.id;
+				if (server.s[marker] && server.s[marker].name === player.name) delete server.s[marker];
 				delete player.s.monsterhunt;
 				add_item(player, "monstertoken", { log: true, q: (gameplay == "hardcore" && 100) || 1 });
 				resend(player, "u+cid+reopen");
@@ -5177,42 +5179,17 @@ function init_socket_io(socket_server) {
 			if (player.type == "merchant") {
 				return socket.emit("game_response", "monsterhunt_merchant");
 			}
-			var mmax = -1;
-			var name = "goo";
-			var count = 100;
-			var times = 0;
-			var the_hp = 0;
-			for (var id in instances) {
-				if (instances[id].name != id || !G.maps[id] || G.maps[id].irregular) {
-					continue;
-				}
-				for (var mid in instances[id].monsters) {
-					var monster = instances[id].monsters[mid];
-					if (monster.level > mmax && !in_arr(monster.type, hunted) && !monster.target) {
-						// added the target condition [21/07/23]
-						name = monster.type;
-						mmax = monster.level;
-						the_hp = monster.max_hp / 1000.0;
-					}
-				}
-			}
-			for (var id in G.maps) {
-				if (G.maps[id].irregular || !G.maps[id].monsters) {
-					continue;
-				}
-				G.maps[id].monsters.forEach(function (p) {
-					if (p.type == name) {
-						times += p.count;
-					}
-				});
-			}
-			// console.log(times);
-			count = max(1, min(500, parseInt((20 * 60 * max(1, times)) / the_hp / (G.monsters[name].respawn + 0.25))));
+			var group = encouragement_groups.get(encouragement_identity(player).key);
+			var level = monster_hunt_rules.account_level(player, players, group && group.characters);
+			var hunt = monster_hunt_rules.assign(G, instances, hunted, level);
+			var name = hunt.name,
+				count = hunt.count;
 			if (gameplay == "hardcore") {
 				count = max(1, parseInt(count / 10));
 			}
 			player.s.monsterhunt = { sn: region + " " + server_name, id: name, c: count, ms: 30 * 60 * 1000, dl: true };
-			server.s["monsterhunt_" + name] = { name: player.name, id: name, ms: 20 * 60 * 1000, type: "monsterhunt" };
+			if (level >= 60)
+				server.s["monsterhunt_" + name] = { name: player.name, id: name, ms: 20 * 60 * 1000, type: "monsterhunt" };
 			player.hitchhikers.push(["game_response", "monsterhunt_started"]);
 			resend(player, "u+cid");
 			success_response({ started: true });
@@ -11122,9 +11099,10 @@ function init_socket_io(socket_server) {
 			var guild = null;
 			if (owner.guild) guild = await get(owner.guild.startsWith("GU_") ? owner.guild : "GU_" + owner.guild);
 			var characters = await get_characters(owner);
-			var stats = { monsters: {} };
+			var stats = { monsters: {}, level: entity.level || 1 };
 			for (var i = 0; i < characters.length; i++) {
 				var c = characters[i];
+				stats.level = max(stats.level, c.level || 1);
 				var c_monsters = (c.info && c.info.p && c.info.p.stats && c.info.p.stats.monsters) || {};
 				var c_monsters_diff = (c.info && c.info.p && c.info.p.stats && c.info.p.stats.monsters_diff) || {};
 				for (var mid in c_monsters) {

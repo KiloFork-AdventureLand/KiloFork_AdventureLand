@@ -4582,6 +4582,8 @@ module.exports = {
 	// docs/guide/monster-hunts.html:7; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Daisy"].
 	"docs.guide.monster-hunts.accept-hunt-return-your-condition-bar-holds-the":
 		"<b>Accept · Hunt · Return</b>Your condition bar holds the target, remaining count, server, and time. The reward is not automatic: completed hunts must be turned in to Daisy.",
+	// Monster-hunt guide and tutorial: account-level difficulty. Keep Daisy, Goo and the level/count numbers unchanged. No parameters.
+	"docs.guide.monster-hunts.beginner-scaling": "Daisy uses your account's highest character level. Below 30, hunts ask for at most 10 Goo. From 30 to 59, tougher targets and larger hunts become available. At 60, normal hunts apply.",
 	// docs/guide/monster-hunts.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Monster Token","Daisy"].
 	"docs.guide.monster-hunts.daisy-marks-one-monster-type-and-a-number":
 		"Daisy marks one monster type and a number to defeat. Finish on the server that issued the hunt, then return to her for a Monster Token.",

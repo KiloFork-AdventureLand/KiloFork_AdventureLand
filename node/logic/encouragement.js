@@ -35,6 +35,7 @@ async function encouragement_load(player, previous_online) {
 					projection: {
 						_id: 1,
 						owner: 1,
+						level: 1,
 						pid: 1,
 						type: 1,
 						created: 1,

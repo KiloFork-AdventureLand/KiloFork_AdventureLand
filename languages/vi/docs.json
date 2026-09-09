@@ -1,4 +1,5 @@
 {
+	"docs.guide.monster-hunts.beginner-scaling": "Daisy dựa vào cấp nhân vật cao nhất trong tài khoản của bạn. Nếu dưới cấp 30, nhiệm vụ săn chỉ yêu cầu hạ tối đa 10 Goo. Từ cấp 30 đến 59, các mục tiêu khó hơn và nhiệm vụ săn nhiều quái hơn dần được mở. Từ cấp 60, nhiệm vụ săn trở lại bình thường.",
 	"docs.tutorial.tracktrix.achievements": "Thành tựu quái vật tăng chỉ số khi bạn mang theo Tracktrix. Với mỗi quái vật, hệ thống tính điểm cao nhất trong tài khoản, không cộng điểm của tất cả nhân vật.",
 	"docs.tutorial.tracktrix.goo_rewards": "Với Goo, 10 điểm cho +5 HP; 100 điểm cộng thêm +10 HP nữa.",
 	"docs.tutorial.tracktrix.intro": "Đi săn có thể mang lại nhiều hơn vàng. Đổi 4 Monster Token với Daisy để lấy Tracktrix — cẩm nang về quái vật, vật phẩm rơi ra và tiến độ thành tựu của bạn.",
