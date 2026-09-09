@@ -279,10 +279,10 @@ async function send_email(domain, email, args) {
 				Source: "hello@adventure.land",
 				Destination: { ToAddresses: [email] },
 				Message: {
-					Subject: { Data: title },
+					Subject: { Data: title, Charset: "UTF-8" },
 					Body: {
-						Html: { Data: html },
-						Text: { Data: text },
+						Html: { Data: html, Charset: "UTF-8" },
+						Text: { Data: text, Charset: "UTF-8" },
 					},
 				},
 			}),

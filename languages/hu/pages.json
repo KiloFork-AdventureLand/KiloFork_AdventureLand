@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "HAMAROSAN",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Útmutató</a><a href=\"/\">Játék</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Útmutató</a><a href=\"/\">Játék</a>",
+	"pages.email.to-verify-your-email": "E-mail-cím megerősítése",
+	"pages.email.to-reset-your-password-please-visit": "Jelszó visszaállítása"
 }

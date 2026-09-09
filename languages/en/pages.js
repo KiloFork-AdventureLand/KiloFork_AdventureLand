@@ -1222,10 +1222,10 @@ module.exports = {
 	"pages.email.if-you-haven-t-initiated-this-routine-please": "If you haven't initiated this routine, please ignore this email.",
 	// htmls/email.html:11; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.email.some-suggestions": "Some Suggestions!",
-	// htmls/email.html:5; Page prose. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
-	"pages.email.to-reset-your-password-please-visit": "To Reset Your Password Please Visit:",
-	// htmls/email.html:9; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
-	"pages.email.to-verify-your-email": "To Verify Your Email",
+	// Password-reset email heading and button. A short action label; the button opens the recipient's reset link.
+	"pages.email.to-reset-your-password-please-visit": "Reset your password",
+	// Welcome/verification email heading and button. A short action label; the button confirms the recipient's email address.
+	"pages.email.to-verify-your-email": "Verify your email",
 	// htmls/executor.html:32; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.executor.initiating": "Initiating",
 	// htmls/index.html:197; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.

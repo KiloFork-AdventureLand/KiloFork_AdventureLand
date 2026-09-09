@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "IN ARRIVO",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Guida</a><a href=\"/\">Gioco</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Guida</a><a href=\"/\">Gioco</a>",
+	"pages.email.to-verify-your-email": "Verifica la tua email",
+	"pages.email.to-reset-your-password-please-visit": "Reimposta la password"
 }

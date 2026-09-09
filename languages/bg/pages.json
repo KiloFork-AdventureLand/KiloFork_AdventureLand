@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "ПРЕДСТОИ",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Наръчник</a><a href=\"/\">Игра</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Наръчник</a><a href=\"/\">Игра</a>",
+	"pages.email.to-verify-your-email": "Потвърди имейла си",
+	"pages.email.to-reset-your-password-please-visit": "Нулирай паролата си"
 }

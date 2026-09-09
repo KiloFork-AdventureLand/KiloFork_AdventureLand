@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "BINNENKORT",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Gids</a><a href=\"/\">Spel</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Gids</a><a href=\"/\">Spel</a>",
+	"pages.email.to-verify-your-email": "Verifieer je e-mailadres",
+	"pages.email.to-reset-your-password-please-visit": "Stel je wachtwoord opnieuw in"
 }

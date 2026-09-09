@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "ÎN CURÂND",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Ghid</a><a href=\"/\">Joc</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Ghid</a><a href=\"/\">Joc</a>",
+	"pages.email.to-verify-your-email": "Verifică-ți adresa de e-mail",
+	"pages.email.to-reset-your-password-please-visit": "Resetează-ți parola"
 }

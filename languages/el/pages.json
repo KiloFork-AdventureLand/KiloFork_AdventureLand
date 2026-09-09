@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "ΠΡΟΣΕΧΩΣ",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Οδηγός</a><a href=\"/\">Παιχνίδι</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Οδηγός</a><a href=\"/\">Παιχνίδι</a>",
+	"pages.email.to-verify-your-email": "Επαλήθευση email",
+	"pages.email.to-reset-your-password-please-visit": "Επαναφορά κωδικού πρόσβασης"
 }

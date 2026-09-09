@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "SẮP CÓ",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Hướng dẫn</a><a href=\"/\">Trò chơi</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Hướng dẫn</a><a href=\"/\">Trò chơi</a>",
+	"pages.email.to-verify-your-email": "Xác minh email",
+	"pages.email.to-reset-your-password-please-visit": "Đặt lại mật khẩu"
 }

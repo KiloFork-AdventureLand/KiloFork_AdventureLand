@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "JIŽ BRZY",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Průvodce</a><a href=\"/\">Hra</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Průvodce</a><a href=\"/\">Hra</a>",
+	"pages.email.to-verify-your-email": "Ověřit e-mail",
+	"pages.email.to-reset-your-password-please-visit": "Obnovit heslo"
 }

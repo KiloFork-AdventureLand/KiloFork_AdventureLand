@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "SEGERA HADIR",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Panduan</a><a href=\"/\">Game</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Panduan</a><a href=\"/\">Game</a>",
+	"pages.email.to-verify-your-email": "Verifikasi emailmu",
+	"pages.email.to-reset-your-password-please-visit": "Atur ulang kata sandi"
 }

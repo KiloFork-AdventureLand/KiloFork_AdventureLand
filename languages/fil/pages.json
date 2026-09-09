@@ -1,5 +1,7 @@
 {
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "PARATING",
-	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Gabay</a><a href=\"/\">Laro</a>"
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Gabay</a><a href=\"/\">Laro</a>",
+	"pages.email.to-verify-your-email": "Beripikahin ang iyong email",
+	"pages.email.to-reset-your-password-please-visit": "Palitan ang iyong password"
 }

@@ -320,6 +320,107 @@ test("concurrent article renders retain their request language and safely interp
 	assert.equal(context.shtml("docs/fixture.html", { domain: { language: "ja" } }), "ja");
 });
 
+test("verification and password emails retain translated actions, safe links and UTF-8 in every language", () => {
+	const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(path.resolve(__dirname, "../..")), {
+		autoescape: true,
+	});
+	vm.runInNewContext(read("filters.js"), { env, nunjucks, localization, to_pretty_num: String });
+	const sent = [],
+		errors = [];
+	const context = vm.createContext({
+		localization,
+		nunjucks: env,
+		get_id: (user) => user._id,
+		keys: {},
+		console: { log() {}, error: (...args) => errors.push(args) },
+		require(name) {
+			assert.equal(name, "@aws-sdk/client-ses");
+			return {
+				SESClient: class {
+					async send(command) {
+						sent.push(command.input);
+					}
+				},
+				SendEmailCommand: class {
+					constructor(input) {
+						this.input = input;
+					}
+				},
+			};
+		},
+	});
+	load(context, "adventure_functions.js", ["send_email", "send_verification_email", "send_password_reminder_email"]);
+	const english = { ...require("../../languages/en/pages"), ...require("../../languages/en/server") };
+	const ids = Object.keys(english).filter((id) => id.startsWith("pages.email.") || id.startsWith("server.email."));
+	ids.push("pages.contents.announcement_email.hi-adventurer");
+	for (const { code } of localization.languages) {
+		const catalog =
+			code === "en"
+				? english
+				: {
+						...JSON.parse(read(`languages/${code}/pages.json`)),
+						...JSON.parse(read(`languages/${code}/server.json`)),
+					};
+		for (const id of ids) {
+			assert.equal(typeof catalog[id], "string", `${code}: missing ${id}`);
+			if (code !== "en") assert.notEqual(catalog[id], english[id], `${code}: untranslated ${id}`);
+			assert.deepEqual(
+				catalog[id].match(/\{[a-z_]+\}/g),
+				english[id].match(/\{[a-z_]+\}/g),
+				`${code}: parameters in ${id}`,
+			);
+		}
+		const domain = {
+			language: "en",
+			base_url: "https://adventure.test",
+			discord_url: "https://discord.example.invalid/?a=1&b=2",
+		};
+		const token = 'fixture&"<>';
+		const user = {
+			_id: "US_email_fixture",
+			language: code,
+			info: { email: "email@example.invalid", everification: token, password_key: token },
+		};
+		for (const [send, route, prefix, action] of [
+			["send_verification_email", "ev", "verification", "pages.email.to-verify-your-email"],
+			["send_password_reminder_email", "reset", "reset", "pages.email.to-reset-your-password-please-visit"],
+		]) {
+			const count = sent.length;
+			context[send](domain, user);
+			assert.equal(sent.length, count + 1);
+			const message = sent.at(-1).Message;
+			const url = `${domain.base_url}/${route}/${user._id}/${token}`;
+			assert.equal(message.Subject.Charset, "UTF-8");
+			assert.equal(message.Body.Html.Charset, "UTF-8");
+			assert.equal(message.Body.Text.Charset, "UTF-8");
+			assert.equal(message.Subject.Data, catalog[`server.email.${prefix}_subject`]);
+			assert.equal(message.Body.Text.Data, localization.phrase(`server.email.${prefix}_text`, { url }, code));
+			const html = message.Body.Html.Data;
+			assert.ok(html.includes(`href="${nunjucks.lib.escape(url)}"`), `${code}: escaped action URL`);
+			assert.ok(html.includes(`lang="${code}"`));
+			assert.ok(html.includes(`dir="${code === "ar" ? "rtl" : "ltr"}" width="640"`));
+			const text = html
+				.replace(/<[^>]*>/g, "")
+				.replace(/&nbsp;/g, " ")
+				.replace(/\s+/g, " ");
+			assert.ok(text.includes(nunjucks.lib.escape(catalog[action])), `${code}: action label`);
+			if (route === "ev") {
+				assert.ok(html.includes(`href="${nunjucks.lib.escape(domain.discord_url)}"`));
+				for (const id of ids.filter((id) => /^pages\.email\.[124]-/.test(id))) {
+					assert.ok(html.includes(nunjucks.lib.escape(catalog[id])), `${code}: welcome instructions`);
+				}
+			} else {
+				assert.ok(
+					html.includes(nunjucks.lib.escape(catalog["pages.email.if-you-haven-t-initiated-this-routine-please"])),
+				);
+				assert.ok(!html.includes(domain.discord_url));
+			}
+		}
+		assert.equal(domain.language, "en");
+	}
+	assert.deepEqual(errors, []);
+});
+
 test("phrase route returns executable dictionaries for exact supported codes only", () => {
 	const res = response();
 	localization.serve({ params: { language: "tr" } }, res);
