@@ -307,5 +307,6 @@
 	"server.payment.shells.few": "{count} ракушки",
 	"server.payment.shells.many": "{count} ракушек",
 	"server.payment.shells.one": "{count} ракушка",
-	"server.payment.shells.other": "{count} ракушки"
+	"server.payment.shells.other": "{count} ракушки",
+	"server.pm.delivery_failed": "(НЕ ДОСТАВЛЕНО)"
 }

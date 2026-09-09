@@ -428,5 +428,8 @@
 	"game.loading.ready": "ゲームのリソースをすべて読み込みました<br /><br />ログインできない場合は、hello@adventure.landまでメールしてください",
 	"game.trade_history.bought": "- {player}から{quantity}'{item}'を{gold}ゴールドで購入",
 	"game.trade_history.gave_away": "- {player}に{quantity}'{item}'を無料で譲渡",
-	"game.trade_history.sold": "- {player}に{quantity}'{item}'を{gold}ゴールドで売却"
+	"game.trade_history.sold": "- {player}に{quantity}'{item}'を{gold}ゴールドで売却",
+	"chat.expand": "チャットを拡大",
+	"chat.restore": "チャットのサイズを戻す",
+	"chat.no_characters": "キャラクターがいません"
 }

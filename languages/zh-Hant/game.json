@@ -428,5 +428,8 @@
 	"game.loading.ready": "所有遊戲資源已載入<br /><br />如果無法登入，請寄信至hello@adventure.land",
 	"game.trade_history.bought": "- 花費{gold}金幣從{player}購買了{quantity}'{item}'",
 	"game.trade_history.gave_away": "- 將{quantity}'{item}'贈送給{player}",
-	"game.trade_history.sold": "- 將{quantity}'{item}'賣給{player}，獲得{gold}金幣"
+	"game.trade_history.sold": "- 將{quantity}'{item}'賣給{player}，獲得{gold}金幣",
+	"chat.expand": "放大聊天視窗",
+	"chat.restore": "還原聊天視窗大小",
+	"chat.no_characters": "沒有角色"
 }

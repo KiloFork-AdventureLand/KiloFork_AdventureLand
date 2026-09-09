@@ -428,5 +428,8 @@
 	"game.loading.ready": "Все ресурсы игры загружены<br /><br />Если не удаётся войти, напишите на hello@adventure.land",
 	"game.trade_history.bought": "- Куплено {quantity}'{item}' у {player} за {gold} золота",
 	"game.trade_history.gave_away": "- Подарено {quantity}'{item}' игроку {player}",
-	"game.trade_history.sold": "- Продано {quantity}'{item}' игроку {player} за {gold} золота"
+	"game.trade_history.sold": "- Продано {quantity}'{item}' игроку {player} за {gold} золота",
+	"chat.expand": "Развернуть чат",
+	"chat.restore": "Восстановить размер чата",
+	"chat.no_characters": "Нет персонажей"
 }

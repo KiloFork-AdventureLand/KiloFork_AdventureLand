@@ -34,18 +34,44 @@
 	outline-offset: -2px;
 }
 .comm-chat-heading {
+	cursor: move;
+	user-select: none;
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	gap: 6px;
 	padding: 6px;
 	border-bottom: 2px solid gray;
 }
 .comm-chat-heading > span {
-	flex: 1;
+	flex: 1 0 auto;
+	white-space: nowrap;
 	color: #85c76b;
+}
+.comm-chat-heading button {
+	flex-shrink: 0;
+	white-space: nowrap;
 }
 #comm-chat .gamebutton-small {
 	margin-bottom: 0;
+}
+#comm-chat-expand {
+	flex-shrink: 0;
+}
+.comm-chat-expand-icon {
+	display: block;
+	width: 16px;
+	height: 16px;
+	box-sizing: border-box;
+	border: 2px solid white;
+}
+#comm-chat.comm-chat-expanded .comm-chat-expand-icon {
+	width: 12px;
+	height: 12px;
+	margin: 2px;
+}
+#comm-chat.comm-chat-expanded .comm-chat-heading {
+	cursor: default;
 }
 .comm-chat-body {
 	display: flex;
@@ -174,7 +200,9 @@
 }
 .comm-chat-from label,
 #comm-chat-recipient label {
-	width: 40px;
+	min-width: 40px;
+	flex-shrink: 0;
+	white-space: nowrap;
 	color: #999;
 }
 #comm-chat .selectioninput {
@@ -250,4 +278,13 @@
 		bottom: 82px;
 		max-height: calc(100dvh - 94px);
 	}
+}
+#comm-chat.comm-chat-expanded {
+	left: 5vw;
+	top: 5dvh;
+	bottom: auto;
+	width: 90vw;
+	height: 90dvh;
+	max-width: none;
+	max-height: none;
 }

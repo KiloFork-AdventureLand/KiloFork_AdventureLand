@@ -77,9 +77,32 @@ function render_servers() {
 var comm_chat = { chats: {}, active: null, characters: [], socket: null, open: true, list_loading: false, list_cursor: null, last_list: 0, last_pull: 0 };
 
 function comm_chat_layout() {
+	if (comm_chat.expanded) return;
+	if (comm_chat.moved) {
+		var panel = $("#comm-chat").css({ bottom: "auto", maxHeight: "calc(100dvh - 20px)" })[0];
+		var rect = panel.getBoundingClientRect();
+		$(panel).css({ left: Math.max(0, Math.min(rect.left, innerWidth - rect.width)), top: Math.max(0, Math.min(rect.top, innerHeight - rect.height)) });
+		return;
+	}
 	var nav = document.getElementById("bottom");
 	var bottom = nav.offsetHeight ? Math.max(10, Math.ceil(window.innerHeight - nav.getBoundingClientRect().top + 8)) : 10;
 	$("#comm-chat").css({ bottom: bottom + "px", maxHeight: "calc(100dvh - " + (bottom + 10) + "px)" });
+}
+
+function comm_chat_expand() {
+	var panel = $("#comm-chat"),
+		history = $("#comm-chat-history")[0];
+	var at_bottom = history.scrollHeight - history.scrollTop - history.clientHeight < 50;
+	comm_chat.expanded = !comm_chat.expanded;
+	if (comm_chat.expanded) {
+		comm_chat.small_position = { left: panel[0].style.left, top: panel[0].style.top };
+		panel.css({ left: "", top: "", bottom: "", maxHeight: "" });
+	} else panel.css(comm_chat.small_position);
+	panel.toggleClass("comm-chat-expanded", comm_chat.expanded).draggable("option", "disabled", comm_chat.expanded);
+	var label = phrase(comm_chat.expanded ? "chat.restore" : "chat.expand");
+	$("#comm-chat-expand").attr({ "aria-pressed": String(comm_chat.expanded), "aria-label": label, title: label });
+	comm_chat_layout();
+	if (at_bottom) history.scrollTop = history.scrollHeight;
 }
 
 function comm_chat_escape(value) {
@@ -150,9 +173,7 @@ function comm_chat_render_sender() {
 	if (!chat) return;
 	var selected = chat.type == "private" ? chat.character : chat.sender || (window.observing && observing.name),
 		html = "";
-	var available = comm_chat.characters.filter(function (character) {
-		return character.online && (chat.type != "server" || character.server == chat.server);
-	});
+	var available = comm_chat.characters;
 	if (
 		chat.type != "private" &&
 		!chat.sender &&
@@ -163,22 +184,14 @@ function comm_chat_render_sender() {
 		selected = available.length ? available[0].name : "";
 	if (chat.type != "private" && selected) chat.sender = selected;
 	comm_chat.characters.forEach(function (character) {
-		var allowed = character.online && (chat.type != "server" || character.server == chat.server);
-		html +=
-			"<option value='" +
-			comm_chat_escape(character.name) +
-			"'" +
-			(!allowed && chat.type != "private" ? " disabled" : "") +
-			">" +
-			comm_chat_escape(character.online ? character.name + " · " + server_to_ui(character.server) : phrase("chat.character_offline", { character: character.name })) +
-			"</option>";
+		html += "<option value='" + comm_chat_escape(character.name) + "'" + ">" + comm_chat_escape(character.name) + "</option>";
 	});
 	if (
 		!comm_chat.characters.some(function (character) {
 			return character.name == selected;
 		})
 	)
-		html = "<option value=''>" + comm_chat_escape(chat.type == "private" ? phrase("chat.character_unavailable", { character: chat.character }) : phrase("chat.no_character_online")) + "</option>" + html;
+		html = "<option value=''>" + comm_chat_escape(chat.type == "private" ? phrase("chat.character_unavailable", { character: chat.character }) : phrase("chat.no_characters")) + "</option>" + html;
 	$("#comm-chat-from")
 		.html(html)
 		.val(selected || "")
@@ -190,19 +203,13 @@ function comm_chat_update_composer() {
 	var chat = comm_chat.active,
 		sender = comm_chat_sender();
 	if (!chat) return;
-	var allowed = !!(sender && sender.online && (chat.type != "server" || sender.server == chat.server));
+	var allowed = !!sender;
 	$("#comm-chat-form").toggleClass("hidden", !user_id);
 	$("#comm-chat-input").prop("disabled", !allowed || !!chat.sending);
 	$("#comm-chat-send").prop("disabled", !allowed || chat.sending || !$("#comm-chat-input").val().trim() || (chat.type == "new" && !$("#comm-chat-to").val().trim()));
 	$("#comm-chat-to").prop("disabled", !!chat.sending);
 	var status = !user_id ? phrase("chat.login_required") : chat.sending ? phrase("chat.sending") : chat.error || "";
-	if (!status && !allowed)
-		status =
-			chat.type == "private"
-				? phrase("chat.connect_to_reply", { character: chat.character })
-				: chat.type == "server"
-					? phrase("chat.connect_to_server", { server: server_to_ui(chat.server) })
-					: phrase("chat.connect_for_private");
+	if (!status && !allowed) status = chat.type == "private" ? phrase("chat.character_unavailable", { character: chat.character }) : phrase("chat.no_characters");
 	$("#comm-chat-status").text(status);
 }
 
@@ -268,7 +275,13 @@ function comm_chat_select(chat) {
 	comm_chat.active = chat;
 	chat.scroll_bottom = true;
 	$("#comm-chat").removeClass("comm-chat-show-list");
-	$("#comm-chat-title").text(chat.type == "server" ? phrase("chat.server_title", { server: server_to_ui(chat.server) }) : chat.type == "new" ? phrase("chat.new_private_message") : phrase("chat.private_title", { character: chat.to }));
+	$("#comm-chat-title").text(
+		chat.type == "server"
+			? phrase("chat.server_title", { server: server_to_ui(chat.server) })
+			: chat.type == "new"
+				? phrase("chat.new_private_message")
+				: phrase("chat.private_title", { character: chat.to }),
+	);
 	$("#comm-chat-recipient").toggleClass("hidden", chat.type != "new");
 	$("#comm-chat-to").val(chat.to || "");
 	$("#comm-chat-input").val(chat.draft);
@@ -344,42 +357,39 @@ function comm_chat_pull(older) {
 	comm_chat.last_pull = Date.now();
 	var args = chat.type == "server" ? { server: chat.server } : { character: chat.character, to: chat.to };
 	if (older) args.cursor = chat.cursor;
+	else if (chat.after) args.after = chat.catchup_after || comm_chat_since(chat.after);
 	$("#comm-chat-older").prop("disabled", true);
 	api_call("pull_chat", args, { timeout: 8000 }).then(
 		function (data) {
-			if (
-				!older &&
-				chat.loaded &&
-				data.more &&
-				chat.messages.length &&
-				!data.messages.some(function (message) {
-					return chat.messages.some(function (saved) {
-						return saved.id == message.id;
-					});
-				})
-			) {
-				// A long absence can exceed one page. Keep a continuous history, with
-				// the missing interval reachable through OLDER MESSAGES.
-				chat.messages = [];
-				chat.cursor = data.cursor;
+			var changed = !chat.loaded;
+			if (!older) {
+				if (!chat.after || data.after > chat.after) chat.after = data.after;
+				chat.catchup_after = args.after && data.more ? data.after : null;
 			}
+			chat.retry = 0;
 			var ids = {};
 			chat.messages.forEach(function (message) {
 				ids[message.id] = message;
 			});
 			data.messages.forEach(function (message) {
+				if (!ids[message.id]) changed = true;
 				ids[message.id] = message;
 			});
 			chat.messages = Object.values(ids);
 			if (older || !chat.loaded) chat.cursor = data.cursor;
 			chat.loaded = true;
 			chat.loading = false;
-			if (data.messages.length && (!chat.latest || data.messages[0].date >= chat.latest.date)) chat.latest = data.messages[0];
-			if (comm_chat.active === chat) comm_chat_render_messages(older);
-			comm_chat_render_list();
+			var latest = args.after ? data.messages[data.messages.length - 1] : data.messages[0];
+			if (latest && (!chat.latest || latest.date >= chat.latest.date)) chat.latest = latest;
+			if (comm_chat.active === chat) {
+				if (changed) comm_chat_render_messages(older);
+				else $("#comm-chat-older").prop("disabled", false);
+			}
+			if (changed) comm_chat_render_list();
 		},
 		function (error) {
 			chat.loading = false;
+			chat.retry = Math.min(60000, (chat.retry || 5000) * 2);
 			if (comm_chat.active === chat) {
 				$("#comm-chat-status").text(phrase("chat.messages_load_failed", { error: comm_chat_error(error) }));
 				$("#comm-chat-older").prop("disabled", false);
@@ -388,14 +398,27 @@ function comm_chat_pull(older) {
 	);
 }
 
+function comm_chat_since(cursor) {
+	// Recheck the last second for tied timestamps and history writes completing
+	// during a read. Message IDs remove duplicates without redrawing the thread.
+	return new Date(new Date(cursor.split("|")[0]).getTime() - 1000).toISOString() + "|MS_0";
+}
+
 function comm_chat_pull_list(older) {
 	if (!user_id || comm_chat.list_loading || (older && !comm_chat.list_cursor)) return;
 	comm_chat.list_loading = true;
 	comm_chat.last_list = Date.now();
 	$("#comm-chat-more").prop("disabled", true);
-	api_call("pull_chats", older ? { cursor: comm_chat.list_cursor } : {}, { timeout: 10000 }).then(
+	api_call("pull_chats", older ? { cursor: comm_chat.list_cursor } : comm_chat.list_after ? { after: comm_chat.list_catchup_after || comm_chat_since(comm_chat.list_after) } : {}, {
+		timeout: 10000,
+	}).then(
 		function (data) {
 			comm_chat.list_loading = false;
+			comm_chat.list_retry = 0;
+			if (!older) {
+				comm_chat.list_catchup_after = comm_chat.list_after && data.more ? data.after : null;
+				if (!comm_chat.list_after || data.after > comm_chat.list_after) comm_chat.list_after = data.after;
+			}
 			comm_chat.characters = data.characters;
 			data.chats.forEach(comm_chat_remember);
 			if (older || !comm_chat.list_loaded) comm_chat.list_cursor = data.cursor;
@@ -406,6 +429,7 @@ function comm_chat_pull_list(older) {
 		},
 		function (error) {
 			comm_chat.list_loading = false;
+			comm_chat.list_retry = Math.min(60000, (comm_chat.list_retry || 15000) * 2);
 			$("#comm-chat-more").prop("disabled", false);
 			$("#comm-chat-status").text(phrase("chat.conversations_load_failed", { error: comm_chat_error(error) }));
 		},
@@ -442,7 +466,7 @@ function comm_chat_send(event) {
 				comm_chat_render_sender();
 				$("#comm-chat-input").focus();
 			}
-			// Native delivery is immediate; its history writes finish asynchronously.
+			// Delivery has stored the message; refresh this conversation and its preview.
 			setTimeout(function () {
 				if (comm_chat.active === chat) comm_chat_pull();
 				comm_chat_pull_list();
@@ -471,18 +495,22 @@ function comm_chat_bind_socket() {
 	connected.on("welcome", function (data) {
 		if (window.socket === connected) comm_chat_viewed_server(data);
 	});
-	connected.on("chat_log", function () {
-		if (window.socket !== connected || !comm_chat.open || document.hidden) return;
-		clearTimeout(comm_chat.live_timer);
-		comm_chat.live_timer = setTimeout(function () {
-			comm_chat_pull();
-		}, 200);
-	});
 	if (window.socket_welcomed) comm_chat_viewed_server({ region: server_region, name: server_identifier });
 }
 
 function init_comm_chat() {
 	comm_chat_layout();
+	$("#comm-chat").draggable({
+		handle: ".comm-chat-heading",
+		cancel: "button, input, select, a",
+		containment: "window",
+		scroll: false,
+		start: function () {
+			comm_chat.moved = true;
+			$(this).css("bottom", "auto");
+		},
+		stop: comm_chat_layout,
+	});
 	window.addEventListener("resize", comm_chat_layout);
 	if (window.ResizeObserver) {
 		comm_chat.resize_observer = new ResizeObserver(comm_chat_layout);
@@ -526,7 +554,8 @@ function init_comm_chat() {
 	setInterval(function () {
 		comm_chat_bind_socket();
 		if (!comm_chat.open || document.hidden) return;
-		if (Date.now() - comm_chat.last_pull >= 5000) comm_chat_pull();
-		if (Date.now() - comm_chat.last_list >= 15000) comm_chat_pull_list();
+		var chat = comm_chat.active;
+		if (chat && Date.now() - comm_chat.last_pull >= (chat.retry || (chat.catchup_after ? 1000 : 5000))) comm_chat_pull();
+		if (Date.now() - comm_chat.last_list >= (comm_chat.list_retry || (comm_chat.list_catchup_after ? 1000 : 15000))) comm_chat_pull_list();
 	}, 1000);
 }

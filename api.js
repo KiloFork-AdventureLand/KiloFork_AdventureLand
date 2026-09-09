@@ -960,26 +960,34 @@ function chat_message_to_client(message) {
 	};
 }
 
-function chat_cursor_query(cursor) {
+function chat_cursor_query(cursor, after) {
 	if (!cursor) return {};
 	if (typeof cursor !== "string" || cursor.length > 100) return null;
 	var parts = cursor.split("|"),
 		date = new Date(parts[0]);
 	if (parts.length !== 2 || !Number.isFinite(date.getTime()) || !/^MS_[A-Za-z0-9]+$/.test(parts[1])) return null;
-	return { $or: [{ created: { $lt: date } }, { created: date, _id: { $lt: parts[1] } }] };
+	return { $or: [{ created: { [after ? "$gt" : "$lt"]: date } }, { created: date, _id: { [after ? "$gt" : "$lt"]: parts[1] } }] };
 }
 
-function chat_page(messages, page) {
+function chat_page(messages, page, after, started) {
 	var more = messages.length > page;
 	messages = messages.slice(0, page);
-	var last = messages[messages.length - 1];
-	return { success: true, messages: messages.map(chat_message_to_client), more: more, cursor: more && last ? last.created.toISOString() + "|" + get_id(last) : null };
+	var last = messages[messages.length - 1],
+		latest = after ? last : messages[0];
+	return {
+		success: true,
+		messages: messages.map(chat_message_to_client),
+		more: more,
+		cursor: more && last ? last.created.toISOString() + "|" + get_id(last) : null,
+		after: latest ? latest.created.toISOString() + "|" + get_id(latest) : started.toISOString() + "|MS_0",
+	};
 }
 
 async function pull_chat_api(args) {
-	var before = chat_cursor_query(args.cursor),
+	var started = new Date(),
+		before = chat_cursor_query(args.cursor || args.after, !!args.after),
 		query;
-	if (!before) return { failed: true, reason: "invalid_cursor" };
+	if ((args.cursor && args.after) || !before) return { failed: true, reason: "invalid_cursor" };
 	if (args.server) {
 		var servers = await get_servers();
 		if (
@@ -1007,20 +1015,53 @@ async function pull_chat_api(args) {
 	var messages = await db
 		.collection("message")
 		.find({ $and: [query, before] })
-		.sort({ created: -1, _id: -1 })
+		.sort({ created: args.after ? 1 : -1, _id: args.after ? 1 : -1 })
 		.limit(81)
 		.maxTimeMS(4000)
 		.toArray();
-	return chat_page(messages, 80);
+	return chat_page(messages, 80, !!args.after, started);
+}
+
+var chat_server_cache;
+async function chat_server_channels(servers) {
+	var key = servers.map(get_id).join(",");
+	if (chat_server_cache && chat_server_cache.key === key && chat_server_cache.until > Date.now()) return chat_server_cache.promise;
+	var cache = { key: key, until: Date.now() + 5000 };
+	chat_server_cache = cache;
+	cache.promise = Promise.all(
+		servers.map(async function (server) {
+			var latest = await db
+				.collection("message")
+				.findOne(
+					{ owner: "~" + get_id(server), type: "server" },
+					{ sort: { created: -1, _id: -1 }, projection: { fro: 1, to: 1, created: 1, type: 1, server: 1, "info.message": 1 }, maxTimeMS: 4000 },
+				);
+			return { type: "server", server: get_id(server), latest: latest ? chat_message_to_client(latest) : null };
+		}),
+	).catch(function (error) {
+		if (chat_server_cache === cache) chat_server_cache = null;
+		throw error;
+	});
+	return cache.promise;
 }
 
 async function pull_chats_api(args) {
-	var before = chat_cursor_query(args.cursor);
-	if (!before) return { failed: true, reason: "invalid_cursor" };
+	var started = new Date(),
+		before = chat_cursor_query(args.cursor),
+		after = chat_cursor_query(args.after, true);
+	if ((args.cursor && args.after) || !before || !after) return { failed: true, reason: "invalid_cursor" };
 	var user = args.user,
 		owner = get_id(user);
-	var characters = (await get_characters(user)).filter(function (character) {
-		return character.owner === owner;
+	var characters = await db
+		.collection("character")
+		.find({ owner: owner }, { projection: { owner: 1, "info.name": 1, online: 1, server: 1 } })
+		.limit(100)
+		.toArray();
+	var order = ((user.info && user.info.characters) || []).map(function (character) {
+		return character.id;
+	});
+	characters.sort(function (a, b) {
+		return order.indexOf(get_id(a)) - order.indexOf(get_id(b));
 	});
 	var owned = {};
 	characters.forEach(function (character) {
@@ -1032,20 +1073,20 @@ async function pull_chats_api(args) {
 		.collection("message")
 		.aggregate(
 			[
-				{ $match: { owner: owner, type: "private" } },
+				{ $match: { owner: owner, type: "private", ...after } },
 				{ $sort: { created: -1, _id: -1 } },
 				{ $project: { fro: 1, to: 1, created: 1, author: 1, type: 1, server: 1, "info.message": 1 } },
 				{ $addFields: { first: { $toLower: "$fro" }, second: { $toLower: { $cond: [{ $isArray: "$to" }, { $arrayElemAt: ["$to", 0] }, "$to"] } } } },
 				{ $group: { _id: { $cond: [{ $lt: ["$first", "$second"] }, ["$first", "$second"], ["$second", "$first"]] }, latest: { $first: "$$ROOT" } } },
 				{ $replaceRoot: { newRoot: "$latest" } },
 				{ $match: before },
-				{ $sort: { created: -1, _id: -1 } },
+				{ $sort: { created: args.after ? 1 : -1, _id: args.after ? 1 : -1 } },
 				{ $limit: 41 },
 			],
 			{ maxTimeMS: 4000 },
 		)
 		.toArray();
-	var page = chat_page(messages, 40);
+	var page = chat_page(messages, 40, !!args.after, started);
 	var chats = messages.slice(0, 40).map(function (message) {
 		var latest = chat_message_to_client(message),
 			fro = latest.fro,
@@ -1056,17 +1097,7 @@ async function pull_chats_api(args) {
 	});
 	if (!args.cursor) {
 		var servers = await get_servers();
-		var channels = await Promise.all(
-			servers.map(async function (server) {
-				var latest = await db
-					.collection("message")
-					.findOne(
-						{ owner: "~" + get_id(server), type: "server" },
-						{ sort: { created: -1, _id: -1 }, projection: { fro: 1, to: 1, created: 1, type: 1, server: 1, "info.message": 1 }, maxTimeMS: 4000 },
-					);
-				return { type: "server", server: get_id(server), latest: latest ? chat_message_to_client(latest) : null };
-			}),
-		);
+		var channels = await chat_server_channels(servers);
 		chats = chats.concat(channels);
 	}
 	return {
@@ -1074,41 +1105,43 @@ async function pull_chats_api(args) {
 		chats: chats,
 		more: page.more,
 		cursor: page.cursor,
+		after: page.after,
 		characters: characters.map(function (character) {
 			return { name: character.info.name, online: !!character.online, server: character.server || "" };
 		}),
 	};
 }
 
-// Runs only through the existing authenticated server_eval integration. Invoke
-// the wrapped native handler so chat moderation, call costs, delivery and logs
-// stay the same. Its response belongs to this HTTP request, not running CODE.
-function communicator_say(data) {
+// These functions run only through the existing authenticated server_eval bridge.
+// Read moderation state without emitting through or changing a character's socket.
+function communicator_chat_status(data) {
 	var player = get_player(data.character);
-	if (!player || player.dc) return { failed: true, reason: "character_not_in_game" };
+	if (!player) return { success: true };
 	if (player.owner !== data.owner || player.real_id !== data.id) return { failed: true, reason: "not_owner" };
+	if (player.s.mute) return { failed: true, reason: "muted" };
+	if (player.last_say && mssince(player.last_say) < 400) return { failed: true, reason: "chat_slowdown" };
+	return { success: true };
+}
+
+async function communicator_say(data) {
 	if (server_id !== data.server) return { failed: true, reason: "wrong_server" };
-	var handlers = player.socket.listeners("say");
-	if (handlers.length !== 1) return { failed: true, reason: "chat_unavailable" };
-	var emit = player.socket.emit,
-		previous_socket = current_socket,
-		previous_method = ls_method;
-	var result = { failed: true, reason: "message_not_sent" };
-	player.socket.emit = function (event, response) {
-		if (event === "game_response" && response && response.place === "say") {
-			result = response.failed ? { failed: true, reason: response.reason || response.response } : { success: true };
-			return this;
-		}
-		return emit.apply(this, arguments);
-	};
+	var message = strip_string(data.message).substr(0, 1200);
+	if (!message) return { failed: true, reason: "invalid_message" };
+	var character = await get_character(data.character);
+	if (!character || character.owner !== data.owner || get_id(character) !== data.id) return { failed: true, reason: "not_owner" };
+	if (gf(character, "s", {}).mute) return { failed: true, reason: "muted" };
+	var status = communicator_chat_status(data);
+	if (status.failed) return status;
+	// One atomic cooldown per account, shared across HTTP workers and servers.
 	try {
-		handlers[0].call(player.socket, { message: data.message, name: data.to || undefined });
-	} finally {
-		player.socket.emit = emit;
-		current_socket = previous_socket;
-		ls_method = previous_method;
+		await db
+			.collection("mark")
+			.updateOne({ _id: "MK_comm-chat-" + data.owner, $or: [{ updated: { $lte: new Date(Date.now() - 400) } }, { updated: { $exists: false } }] }, { $set: { updated: new Date() } }, { upsert: true });
+	} catch (error) {
+		if (error.code === 11000) return { failed: true, reason: "chat_slowdown" };
+		throw error;
 	}
-	return result;
+	return deliver_chat_message({ owner: data.owner, name: character.info.name, id: "comm:" + data.id }, message, data.to);
 }
 
 async function send_message_api(args) {
@@ -1123,26 +1156,25 @@ async function send_message_api(args) {
 		to = await get_character(args.to);
 		if (!to) return { failed: true, reason: "character_not_found" };
 		if (get_id(to) === get_id(character)) return { failed: true, reason: "message_self" };
-	} else if (!args.server || args.server !== character.server) return { failed: true, reason: "wrong_server" };
-	if (!character.online || !is_in_game(character)) return { failed: true, reason: "character_not_in_game" };
-	var servers = await get_servers(),
-		server = servers.find(function (server) {
-			return get_id(server) === character.server;
-		});
+	} else if (!args.server) return { failed: true, reason: "server_not_found" };
+	var servers = await get_servers();
+	var server = servers.find(function (server) {
+		return get_id(server) === (to ? to.server : args.server);
+	});
+	if (to && !server) server = servers[0];
 	if (!server) return { failed: true, reason: "server_not_found" };
-	var result = await server_eval(
-		server,
-		"output=(" + communicator_say.toString() + ")(data);",
-		{
-			owner: get_id(args.user),
-			id: get_id(character),
-			character: character.info.name,
-			server: get_id(server),
-			to: to ? to.info.name : "",
-			message: args.message,
-		},
-		5000,
-	);
+	var data = { owner: get_id(args.user), id: get_id(character), character: character.info.name, server: get_id(server), to: to ? to.info.name : "", message: args.message };
+	// A live mute on another realm must still apply before its next database sync.
+	var source =
+		character.online &&
+		servers.find(function (source) {
+			return get_id(source) === character.server && get_id(source) !== get_id(server);
+		});
+	if (source) {
+		var status = await server_eval(source, "output=(" + communicator_chat_status.toString() + ")(data);", data, 3000);
+		if (!status || !status.success) return status && status.failed ? status : { failed: true, reason: "chat_unavailable" };
+	}
+	var result = await server_eval(server, "var communicator_chat_status=" + communicator_chat_status.toString() + "; output=(" + communicator_say.toString() + ")(data);", data, 5000);
 	return result && (result.success || result.failed) ? result : { failed: true, reason: "chat_unavailable" };
 }
 
@@ -2136,12 +2168,14 @@ var REF = {
 		character: { type: "string", optional: true },
 		to: { type: "string", optional: true },
 		cursor: { type: "string", optional: true },
+		after: { type: "string", optional: true },
 	},
 	pull_chats: {
 		F: pull_chats_api,
 		P: true,
 		U: true,
 		cursor: { type: "string", optional: true },
+		after: { type: "string", optional: true },
 	},
 	send_message: {
 		F: send_message_api,

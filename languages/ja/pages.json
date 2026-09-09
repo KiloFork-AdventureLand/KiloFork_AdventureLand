@@ -1340,7 +1340,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "AIクライアントのMCP設定に、サーバーURLとBearerトークンを追加します。",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">更新時は1シェルで、稼働中のキャラクターが1体なら60分、2体なら50分、3体なら45分、4体なら40分利用できます。切断すると以後の更新が止まります。支払い済みの時間は返金されません。</span><span>直接実行したキャラクターはそれぞれ別の環境で動きます。CODEでは同じマシンに最大3体を追加できます。</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">トークンを確認中…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/comm\">通信</a><a href=\"/docs/guide/mainframe\">ガイド</a><a href=\"/\">ゲーム</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">通信</a><a href=\"/docs/guide/mainframe\">ガイド</a><a href=\"/\">ゲーム</a>",
 	"pages.mainframe.connect-an-ai": "AIを接続",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">接続中</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "トークンを作成します。Mainframeでは<strong>トークンを表示</strong>を押すまで値は隠れています。",

@@ -3215,7 +3215,7 @@ module.exports = {
 	// htmls/mainframe.html:90; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
 	"pages.mainframe.checking-token": '<strong id="token-status" class="muted">Checking token…</strong><span id="token-status-detail" class="muted"></span>',
 	// htmls/mainframe.html:82; Page nav prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
-	"pages.mainframe.com-guide-game": '<a href="/comm">COM</a><a href="/docs/guide/mainframe">Guide</a><a href="/">Game</a>',
+	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">COM</a><a href=\"/docs/guide/mainframe\">Guide</a><a href=\"/\">Game</a>",
 	// htmls/mainframe.html:90; Page h2 prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.mainframe.connect-an-ai": "Connect an AI",
 	// htmls/mainframe.html:87; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.

@@ -867,4 +867,10 @@ module.exports = {
 	"game.trade_history.gave_away": "- Gave away {quantity}'{item}' to {player}",
 	// Trade-history sale line. quantity is an optional formatted prefix; item and player are proper names; gold is already formatted.
 	"game.trade_history.sold": "- Sold {quantity}'{item}' to {player} for {gold} gold",
+	// Communicator header icon: tooltip and accessible label. Expands chat to 90% of viewport width and height.
+	"chat.expand": "Expand chat",
+	// Communicator header icon: tooltip and accessible label. Restores the small chat window.
+	"chat.restore": "Restore chat size",
+	// Communicator sender dropdown and status when the account owns no characters.
+	"chat.no_characters": "No characters",
 };

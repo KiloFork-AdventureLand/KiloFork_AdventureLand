@@ -1340,7 +1340,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "Adicione a URL do servidor e o token Bearer às configurações de MCP do seu cliente de IA.",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">Na renovação, 1 concha compra 60min para 1 personagem ativo, 50min para 2, 45min para 3 ou 40min para 4. Desconecte para interromper futuras renovações; o tempo pago não é reembolsado.</span><span>Execuções diretas são isoladas; o CODE pode incluir até mais três personagens na mesma máquina.</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">Verificando token…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/comm\">COM</a><a href=\"/docs/guide/mainframe\">Guia</a><a href=\"/\">Jogo</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">COM</a><a href=\"/docs/guide/mainframe\">Guia</a><a href=\"/\">Jogo</a>",
 	"pages.mainframe.connect-an-ai": "Conectar uma IA",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">Conectando</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "Crie um token. O Mainframe o mantém oculto até você clicar em <strong>Revelar token</strong>.",

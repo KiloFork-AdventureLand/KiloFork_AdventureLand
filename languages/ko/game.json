@@ -428,5 +428,8 @@
 	"game.loading.ready": "게임 리소스를 모두 불러왔어요<br /><br />로그인할 수 없다면 hello@adventure.land로 이메일을 보내 주세요",
 	"game.trade_history.bought": "- {player}님에게 골드 {gold}를 내고 {quantity}'{item}' 구매",
 	"game.trade_history.gave_away": "- {player}님에게 {quantity}'{item}' 나눔",
-	"game.trade_history.sold": "- {player}님에게 {quantity}'{item}' 판매, 골드 {gold} 받음"
+	"game.trade_history.sold": "- {player}님에게 {quantity}'{item}' 판매, 골드 {gold} 받음",
+	"chat.expand": "채팅 확대",
+	"chat.restore": "채팅 크기 복원",
+	"chat.no_characters": "캐릭터 없음"
 }

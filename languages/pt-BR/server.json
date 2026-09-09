@@ -304,5 +304,6 @@
 	"server.page.steam_news_unavailable": "Notícias do Steam indisponíveis",
 	"server.payment.shells": "{count} Conchas",
 	"server.game_log.you_monster": "Seu monstro!",
-	"server.payment.shells.one": "{count} Concha"
+	"server.payment.shells.one": "{count} Concha",
+	"server.pm.delivery_failed": "(NÃO ENTREGUE)"
 }

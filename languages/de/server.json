@@ -304,5 +304,6 @@
 	"server.page.steam_news_unavailable": "Steam-Neuigkeiten nicht verfügbar",
 	"server.payment.shells": "{count} Muscheln",
 	"server.game_log.you_monster": "Du Monster!",
-	"server.payment.shells.one": "{count} Muschel"
+	"server.payment.shells.one": "{count} Muschel",
+	"server.pm.delivery_failed": "(NICHT ZUGESTELLT)"
 }

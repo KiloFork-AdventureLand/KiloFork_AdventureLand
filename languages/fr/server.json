@@ -304,5 +304,6 @@
 	"server.page.steam_news_unavailable": "Actualités Steam indisponibles",
 	"server.payment.shells": "{count} coquillages",
 	"server.game_log.you_monster": "Espèce de monstre !",
-	"server.payment.shells.one": "{count} coquillage"
+	"server.payment.shells.one": "{count} coquillage",
+	"server.pm.delivery_failed": "(NON REMIS)"
 }

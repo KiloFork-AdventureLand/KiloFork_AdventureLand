@@ -1340,7 +1340,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "Dodaj URL serwera i token Bearer do ustawień MCP swojego klienta AI.",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">Przy odnowieniu 1 muszla daje 60 min dla 1 aktywnej postaci, 50 min dla 2, 45 min dla 3 lub 40 min dla 4. Rozłącz się, by zatrzymać kolejne odnowienia; opłacony czas nie podlega zwrotowi.</span><span>Bezpośrednie uruchomienia są odizolowane; CODE może dołączyć do trzech kolejnych postaci na tej samej maszynie.</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">Sprawdzanie tokenu…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/comm\">COM</a><a href=\"/docs/guide/mainframe\">Poradnik</a><a href=\"/\">Gra</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">COM</a><a href=\"/docs/guide/mainframe\">Poradnik</a><a href=\"/\">Gra</a>",
 	"pages.mainframe.connect-an-ai": "Podłącz AI",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">Łączenie</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "Utwórz token. Mainframe ukrywa go, dopóki nie naciśniesz <strong>Ujawnij token</strong>.",

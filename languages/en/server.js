@@ -611,4 +611,6 @@ module.exports = {
 	"server.payment.shells": "{count} Shells",
 	// node/server.js calculate_player_stats; short rebuke sent before disconnection after repeated invalid XP. Uses the existing game_log display event.
 	"server.game_log.you_monster": "You monster!",
+	// Compact parenthesized failure marker sent back by the game server when a cross-server private message cannot be delivered because the target account was not found. Used in the existing private-chat display and floating PM text. Preserve parentheses, use a concise native marker for failed delivery, and never translate player-authored messages. The raw CODE PM event still receives the original (FAILED).
+	"server.pm.delivery_failed": "(FAILED)",
 };

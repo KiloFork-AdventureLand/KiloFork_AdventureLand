@@ -1340,7 +1340,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "AI 클라이언트의 MCP 설정에 서버 URL과 Bearer 토큰을 추가하세요.",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">갱신 시 조개 1개로 활성 캐릭터 1명은 60분, 2명은 50분, 3명은 45분, 4명은 40분을 이용해요. 이후 갱신을 멈추려면 연결을 끊으세요. 결제한 시간은 환불되지 않아요.</span><span>직접 실행한 캐릭터는 각각 분리돼요. CODE로 같은 머신에 캐릭터를 최대 3명 더 포함할 수 있어요.</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">토큰 확인 중…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/comm\">소통</a><a href=\"/docs/guide/mainframe\">가이드</a><a href=\"/\">게임</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">소통</a><a href=\"/docs/guide/mainframe\">가이드</a><a href=\"/\">게임</a>",
 	"pages.mainframe.connect-an-ai": "AI 연결",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">연결 중</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "토큰을 발급하세요. Mainframe은 <strong>토큰 표시</strong>를 누르기 전까지 토큰을 가려 둬요.",

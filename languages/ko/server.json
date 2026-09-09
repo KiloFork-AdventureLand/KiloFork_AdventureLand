@@ -303,5 +303,6 @@
 	"server.page.not_permitted": "권한이 없어요!",
 	"server.page.steam_news_unavailable": "Steam 소식을 불러올 수 없어요",
 	"server.payment.shells": "조개 {count}개",
-	"server.game_log.you_monster": "이 괴물 같은 녀석!"
+	"server.game_log.you_monster": "이 괴물 같은 녀석!",
+	"server.pm.delivery_failed": "(전달 실패)"
 }

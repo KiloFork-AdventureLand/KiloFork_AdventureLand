@@ -104,7 +104,8 @@ app.get("/", async (req, res, next) => {
 });
 
 // Communication page
-app.get(["/comm", "/communicator"], async (req, res, next) => {
+app.get("/comm", (req, res) => res.redirect(301, "/communicator" + req.originalUrl.slice(req.path.length)));
+app.get("/communicator", async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
 	var servers = await get_servers();

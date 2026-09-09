@@ -31,6 +31,7 @@
 
 		<script src="/js/libraries/bowser/bowser.16.08.16.js"{%if domain.electron%} onload="if(typeof require!=='undefined') window.bowser=module.exports;"{%endif%}></script>
 		<script src="/js/libraries/combined.js?v=4"></script>
+		<script src="/js/libraries/jquery-ui.draggable.min.js"></script>
 		
 		<script src="/js/codemirror/{{domain.cm_version}}/codemirror.js"></script>
 		<link href="/js/codemirror/{{domain.cm_version}}/codemirror.css" rel="stylesheet" type="text/css"/>
@@ -104,6 +105,7 @@
 				<span>{{ phrase("pages.comm.chat") }}</span>
 				<button type="button" class="gamebutton gamebutton-small comm-chat-back" onclick="comm_chat_list()">{{ phrase("pages.comm.chats") }}</button>
 				{% if user %}<button type="button" class="gamebutton gamebutton-small" onclick="comm_chat_new()">{{ phrase("pages.comm.new-pm") }}</button>{% endif %}
+				<button id="comm-chat-expand" type="button" class="gamebutton gamebutton-small" onclick="comm_chat_expand()" aria-label="{{ phrase("chat.expand") }}" title="{{ phrase("chat.expand") }}" aria-pressed="false"><span aria-hidden="true" class="comm-chat-expand-icon"></span></button>
 				<button type="button" class="gamebutton gamebutton-small" onclick="toggle_comm_chat()" aria-label="{{ phrase("pages.comm.label-hide-chat") }}">{{ phrase("pages.comm.hide") }}</button>
 			</div>
 			<div class="comm-chat-body">

@@ -1,7 +1,7 @@
 // Release highlights. Dates, item/character names and CODE identifiers stay unchanged.
 module.exports = {
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
-	"update.08_09_26.communicator_now_opens_with_server_chat_keeps_private_conversations": "Communicator now opens with server chat, keeps private conversations together, and lets you choose which online character speaks.",
+	"update.08_09_26.communicator_now_opens_with_server_chat_keeps_private_conversations": "Communicator opens with server chat, keeps private conversations together, and lets you chat as any of your characters, even while they are offline.",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
 	"update.08_09_26.new_players_returning_adventurers_and_lone_wolves_earn_extra": "New players, returning adventurers and Lone Wolves earn extra monster rewards for their contribution. Click a bonus condition or open GUIDE → Encouragement Bonuses for the rates and CODE example.",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.

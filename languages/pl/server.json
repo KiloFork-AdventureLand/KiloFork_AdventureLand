@@ -307,5 +307,6 @@
 	"server.payment.shells.few": "{count} muszle",
 	"server.payment.shells.many": "{count} muszli",
 	"server.payment.shells.one": "{count} muszla",
-	"server.payment.shells.other": "{count} muszli"
+	"server.payment.shells.other": "{count} muszli",
+	"server.pm.delivery_failed": "(NIE DOSTARCZONO)"
 }

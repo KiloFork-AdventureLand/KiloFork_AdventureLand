@@ -428,5 +428,8 @@
 	"game.loading.ready": "Wczytano wszystkie zasoby gry<br /><br />Jeśli nie możesz się zalogować, napisz na hello@adventure.land",
 	"game.trade_history.bought": "- Kupiono {quantity}'{item}' od {player}. Koszt w złocie: {gold}",
 	"game.trade_history.gave_away": "- Podarowano {quantity}'{item}' graczowi {player}",
-	"game.trade_history.sold": "- Sprzedano {quantity}'{item}' graczowi {player}. Cena w złocie: {gold}"
+	"game.trade_history.sold": "- Sprzedano {quantity}'{item}' graczowi {player}. Cena w złocie: {gold}",
+	"chat.expand": "Powiększ czat",
+	"chat.restore": "Przywróć rozmiar czatu",
+	"chat.no_characters": "Brak postaci"
 }

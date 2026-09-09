@@ -303,5 +303,6 @@
 	"server.page.not_permitted": "沒有權限！",
 	"server.page.steam_news_unavailable": "暫時無法取得Steam新聞",
 	"server.payment.shells": "{count}貝殼",
-	"server.game_log.you_monster": "你這個怪物！"
+	"server.game_log.you_monster": "你這個怪物！",
+	"server.pm.delivery_failed": "(傳送失敗)"
 }

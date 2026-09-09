@@ -85,6 +85,7 @@ eval("" + fs.readFileSync(path.resolve(__dirname, "../models.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "server_functions.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/market_patron_runtime.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/encouragement.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/chat.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "../version.js")));
 var precomputed_bfs_path = path.resolve(__dirname, "precomputed_map_data.js");
 if (fs.existsSync(precomputed_bfs_path)) eval("" + fs.readFileSync(precomputed_bfs_path));
@@ -721,12 +722,13 @@ server_api.post("/lost_friend", (req, res) => {
 	res.send("yes");
 });
 
-server_api.post("/eval", (req, res) => {
+server_api.post("/eval", async (req, res) => {
 	if (req.body.spass !== keys.ACCESS_MASTER) return res.status(403).send("");
 	var output = "";
 	var data = JSON.parse(req.body.data || "{}");
 	try {
 		eval(req.body.code);
+		output = await output;
 	} catch (e) {
 		console.log("\n" + req.body.code);
 		log_trace("chttp_eval", e);
@@ -4868,179 +4870,11 @@ function init_socket_io(socket_server) {
 					return fail_response("not_in_a_party");
 				}
 				party_emit(player.party, "partym", { owner: player.name, message: message, id: player.id, p: true });
-			} else if (data.name) {
-				var target = get_player(data.name);
-				if (!target) {
-					player.socket.emit("pm", {
-						owner: player.name,
-						to: data.name,
-						message: message,
-						id: player.id,
-						xserver: true,
-					});
-					// xprivate: deliver PM cross-server + log for both users
-					(async function () {
-						try {
-							var target_owner = await get_owner(data.name);
-							if (!target_owner) {
-								if (players[socket.id])
-									player.socket.emit("pm", {
-										owner: player.name,
-										to: data.name,
-										message: "(FAILED)",
-										id: player.id,
-										xserver: true,
-									});
-								return;
-							}
-							var simplified = data.name.toLowerCase().replace(/\s+/g, "");
-							var target_char = await db.collection("character").findOne({ name: simplified });
-							if (target_char && target_char.server) {
-								var target_srv = await get(target_char.server);
-								if (target_srv)
-									try {
-										await server_eval_direct(
-											target_srv,
-											"var p=get_player(data.name); if(p) p.socket.emit('pm',{owner:data.owner,message:data.message,id:data.owner,xserver:true});",
-											{ owner: player.name, name: data.name, message: message },
-										);
-									} catch (e) {}
-							}
-							var to_id = get_id(target_owner);
-							await insert({
-								_id: "MS_" + random_string(29),
-								created: new Date(),
-								owner: to_id,
-								author: player.owner,
-								fro: player.name,
-								to: [data.name],
-								type: "private",
-								info: { message: message },
-								server: server_id,
-								blobs: ["info"],
-							});
-							if (to_id !== player.owner)
-								await insert({
-									_id: "MS_" + random_string(29),
-									created: new Date(),
-									owner: player.owner,
-									author: player.owner,
-									fro: player.name,
-									to: [data.name],
-									type: "private",
-									info: { message: message },
-									server: server_id,
-									blobs: ["info"],
-								});
-						} catch (e) {
-							console.error("log_chat xprivate error", e);
-						}
-					})();
-				} else {
-					if (target.name == player.name) {
-						return fail_response("invalid");
-					}
-					player.socket.emit("pm", { owner: player.name, to: data.name, message: message, id: player.id });
-					target.socket.emit("pm", { owner: player.name, message: message, id: player.id });
-					// private: log for both users
-					(async function () {
-						try {
-							await insert({
-								_id: "MS_" + random_string(29),
-								created: new Date(),
-								owner: target.owner,
-								author: player.owner,
-								fro: player.name,
-								to: [target.name],
-								type: "private",
-								info: { message: message },
-								server: server_id,
-								blobs: ["info"],
-							});
-							if (target.owner !== player.owner)
-								await insert({
-									_id: "MS_" + random_string(29),
-									created: new Date(),
-									owner: player.owner,
-									author: player.owner,
-									fro: player.name,
-									to: [target.name],
-									type: "private",
-									info: { message: message },
-									server: server_id,
-									blobs: ["info"],
-								});
-						} catch (e) {
-							console.error("log_chat private error", e);
-						}
-					})();
-				}
 			} else {
-				if (1) {
-					broadcast("chat_log", { owner: player.name, message: message, id: player.id, p: true });
-					discord_call(message, player.name);
-					var owners = {};
-					for (var id in players) {
-						var p = players[id];
-						owners[p.owner] = owners[p.owner] || [];
-						owners[p.owner].push(p.name);
-					}
-					// ambient: log for each owner on the server
-					(async function () {
-						try {
-							var entries = Object.entries(owners);
-							for (var i = 0; i < entries.length; i++) {
-								var owner_id = entries[i][0],
-									names = entries[i][1];
-								await insert({
-									_id: "MS_" + random_string(29),
-									created: new Date(),
-									owner: owner_id,
-									author: player.owner,
-									fro: player.name,
-									to: names,
-									type: "ambient",
-									info: { message: message },
-									server: server_id,
-									blobs: ["info"],
-								});
-							}
-						} catch (e) {
-							console.error("log_chat ambient error", e);
-						}
-					})();
-				} else {
-					xy_emit(player, "chat_log", { owner: player.name, message: message, id: player.id, p: true });
-				}
-				// server: log to server channel + global
-				(async function () {
-					try {
-						await insert({
-							_id: "MS_" + random_string(29),
-							created: new Date(),
-							owner: "~" + server_id,
-							author: player.owner,
-							fro: player.name,
-							type: "server",
-							info: { message: message },
-							server: server_id,
-							blobs: ["info"],
-						});
-						await insert({
-							_id: "MS_" + random_string(29),
-							created: new Date(),
-							owner: "~global",
-							author: player.owner,
-							fro: player.name,
-							type: "server",
-							info: { message: message },
-							server: server_id,
-							blobs: ["info"],
-						});
-					} catch (e) {
-						console.error("log_chat server error", e);
-					}
-				})();
+				if (data.name && get_player(data.name) === player) return fail_response("invalid");
+				deliver_chat_message(player, message, data.name).catch(function (error) {
+					console.error("log_chat error", error);
+				});
 			}
 			if (player.s.typing) {
 				delete player.s.typing;

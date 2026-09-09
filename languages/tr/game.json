@@ -428,5 +428,8 @@
 	"game.loading.ready": "Tüm oyun kaynakları yüklendi<br /><br />Giriş yapamıyorsanız lütfen hello@adventure.land adresine yazın",
 	"game.trade_history.bought": "- {player} adlı oyuncudan {gold} altın karşılığında {quantity}'{item}' alındı",
 	"game.trade_history.gave_away": "- {player} adlı oyuncuya {quantity}'{item}' hediye edildi",
-	"game.trade_history.sold": "- {player} adlı oyuncuya {gold} altın karşılığında {quantity}'{item}' satıldı"
+	"game.trade_history.sold": "- {player} adlı oyuncuya {gold} altın karşılığında {quantity}'{item}' satıldı",
+	"chat.expand": "Sohbeti büyüt",
+	"chat.restore": "Sohbeti eski boyutuna getir",
+	"chat.no_characters": "Karakter yok"
 }

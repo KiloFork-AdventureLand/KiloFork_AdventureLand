@@ -428,5 +428,8 @@
 	"game.loading.ready": "Todos os recursos do jogo foram carregados<br /><br />Se não conseguir entrar, escreva para hello@adventure.land",
 	"game.trade_history.bought": "- Comprou {quantity}'{item}' de {player} por {gold} de ouro",
 	"game.trade_history.gave_away": "- Deu {quantity}'{item}' para {player}",
-	"game.trade_history.sold": "- Vendeu {quantity}'{item}' para {player} por {gold} de ouro"
+	"game.trade_history.sold": "- Vendeu {quantity}'{item}' para {player} por {gold} de ouro",
+	"chat.expand": "Ampliar chat",
+	"chat.restore": "Restaurar tamanho do chat",
+	"chat.no_characters": "Nenhum personagem"
 }
