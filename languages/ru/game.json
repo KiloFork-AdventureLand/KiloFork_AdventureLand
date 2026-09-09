@@ -431,5 +431,7 @@
 	"game.trade_history.sold": "- Продано {quantity}'{item}' игроку {player} за {gold} золота",
 	"chat.expand": "Развернуть чат",
 	"chat.restore": "Восстановить размер чата",
-	"chat.no_characters": "Нет персонажей"
+	"chat.no_characters": "Нет персонажей",
+	"chat.full": "ПОЛН.",
+	"chat.min": "МИН."
 }

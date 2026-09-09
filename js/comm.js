@@ -77,6 +77,7 @@ function render_servers() {
 var comm_chat = { chats: {}, active: null, characters: [], socket: null, open: true, list_loading: false, list_cursor: null, last_list: 0, last_pull: 0 };
 
 function comm_chat_layout() {
+	comm_chat_picker(false);
 	if (comm_chat.expanded) return;
 	if (comm_chat.moved) {
 		var panel = $("#comm-chat").css({ bottom: "auto", maxHeight: "calc(100dvh - 20px)" })[0];
@@ -100,7 +101,9 @@ function comm_chat_expand() {
 	} else panel.css(comm_chat.small_position);
 	panel.toggleClass("comm-chat-expanded", comm_chat.expanded).draggable("option", "disabled", comm_chat.expanded);
 	var label = phrase(comm_chat.expanded ? "chat.restore" : "chat.expand");
-	$("#comm-chat-expand").attr({ "aria-pressed": String(comm_chat.expanded), "aria-label": label, title: label });
+	$("#comm-chat-expand")
+		.text(phrase(comm_chat.expanded ? "chat.min" : "chat.full"))
+		.attr({ "aria-pressed": String(comm_chat.expanded), "aria-label": label, title: label });
 	comm_chat_layout();
 	if (at_bottom) history.scrollTop = history.scrollHeight;
 }
@@ -196,7 +199,43 @@ function comm_chat_render_sender() {
 		.html(html)
 		.val(selected || "")
 		.prop("disabled", chat.type == "private" || chat.sending || !user_id);
+	var select = $("#comm-chat-from"),
+		options = "";
+	select.find("option[value!='']").each(function () {
+		options +=
+			"<button type='button' class='comm-chat-row' role='option' tabindex='-1' aria-selected='" +
+			this.selected +
+			"' data-sender='" +
+			comm_chat_escape(this.value) +
+			"'>" +
+			comm_chat_escape(this.text) +
+			"</button>";
+	});
+	if ($("#comm-chat-options").data("options") !== options) {
+		comm_chat_picker(false);
+		$("#comm-chat-options").html(options).data("options", options);
+	}
+	$("#comm-chat-from-button")
+		.prop("disabled", select.prop("disabled") || !select.val())
+		.find("span")
+		.text(select.find(":selected").text());
+	if ($("#comm-chat-from-button").prop("disabled")) comm_chat_picker(false);
 	comm_chat_update_composer();
+}
+
+function comm_chat_picker(open, focus) {
+	var button = $("#comm-chat-from-button"),
+		list = $("#comm-chat-options");
+	if (open === undefined) open = list.hasClass("hidden");
+	if (open && button.prop("disabled")) return;
+	button.attr("aria-expanded", String(open));
+	list.toggleClass("hidden", !open);
+	if (open) {
+		var rect = button[0].getBoundingClientRect(),
+			below = rect.top < 100;
+		list.css({ top: below ? "100%" : "auto", bottom: below ? "auto" : "100%", maxHeight: Math.min(240, Math.max(32, below ? innerHeight - rect.bottom - 8 : rect.top - 8)) });
+		list.find("[aria-selected='true']").focus();
+	} else if (focus) button.focus();
 }
 
 function comm_chat_update_composer() {
@@ -535,7 +574,56 @@ function init_comm_chat() {
 	$("#comm-chat-from").on("change", function () {
 		comm_chat.active.sender = $(this).val();
 		comm_chat.active.error = "";
-		comm_chat_update_composer();
+		comm_chat_render_sender();
+	});
+	$("#comm-chat-from-button")
+		.on("click", function () {
+			comm_chat_picker();
+		})
+		.on("keydown", function (event) {
+			if (event.key == "ArrowDown" || event.key == "ArrowUp") {
+				event.preventDefault();
+				comm_chat_picker(true);
+			}
+		});
+	$("#comm-chat-options")
+		.on("click", "[data-sender]", function () {
+			$("#comm-chat-from").val($(this).attr("data-sender")).trigger("change");
+			comm_chat_picker(false, true);
+		})
+		.on("keydown", function (event) {
+			if (event.key == "Escape" || event.key == "Tab") {
+				comm_chat_picker(false, true);
+				if (event.key == "Escape") event.preventDefault();
+				return;
+			}
+			var options = $(this).find("[data-sender]"),
+				index = options.index(document.activeElement),
+				next = index;
+			if (event.key == "ArrowDown") next = (index + 1) % options.length;
+			else if (event.key == "ArrowUp") next = (index + options.length - 1) % options.length;
+			else if (event.key == "Home") next = 0;
+			else if (event.key == "End") next = options.length - 1;
+			else if (event.key.length == 1 && event.key != " " && !event.ctrlKey && !event.metaKey) {
+				for (var i = 1; i <= options.length; i++) {
+					var candidate = (index + i) % options.length;
+					if (options[candidate].textContent.toLowerCase().startsWith(event.key.toLowerCase())) {
+						next = candidate;
+						break;
+					}
+				}
+			} else return;
+			event.preventDefault();
+			options.eq(next).focus();
+		});
+	$(document).on("pointerdown", function (event) {
+		if (!$(event.target).closest(".comm-chat-picker").length) comm_chat_picker(false);
+	});
+	$(".comm-chat-picker").on("focusout", function () {
+		var picker = this;
+		setTimeout(function () {
+			if (!picker.contains(document.activeElement)) comm_chat_picker(false);
+		}, 0);
 	});
 	$("#comm-chat-list").on("click", "[data-chat]", function () {
 		comm_chat_select(comm_chat.chats[$(this).attr("data-chat")]);

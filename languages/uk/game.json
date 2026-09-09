@@ -1,5 +1,7 @@
 {
 	"chat.expand": "Розгорнути чат",
 	"chat.restore": "Відновити розмір чату",
-	"chat.no_characters": "Немає персонажів"
+	"chat.no_characters": "Немає персонажів",
+	"chat.full": "ПОВН.",
+	"chat.min": "МІН."
 }

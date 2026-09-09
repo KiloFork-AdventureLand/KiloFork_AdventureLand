@@ -1,5 +1,7 @@
 {
 	"chat.expand": "Уголеми чата",
 	"chat.restore": "Възстанови размера на чата",
-	"chat.no_characters": "Няма герои"
+	"chat.no_characters": "Няма герои",
+	"chat.full": "ЦЯЛ",
+	"chat.min": "МИН."
 }

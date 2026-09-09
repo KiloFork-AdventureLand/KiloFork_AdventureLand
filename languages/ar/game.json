@@ -1,5 +1,7 @@
 {
 	"chat.expand": "تكبير الدردشة",
 	"chat.restore": "استعادة حجم الدردشة",
-	"chat.no_characters": "لا توجد شخصيات"
+	"chat.no_characters": "لا توجد شخصيات",
+	"chat.full": "كامل",
+	"chat.min": "مصغر"
 }

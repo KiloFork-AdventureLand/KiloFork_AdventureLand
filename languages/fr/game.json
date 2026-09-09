@@ -431,5 +431,7 @@
 	"game.trade_history.sold": "- Vente de {quantity}'{item}' à {player} pour {gold} or",
 	"chat.expand": "Agrandir le chat",
 	"chat.restore": "Rétablir la taille du chat",
-	"chat.no_characters": "Aucun personnage"
+	"chat.no_characters": "Aucun personnage",
+	"chat.full": "PLEIN",
+	"chat.min": "MIN"
 }

@@ -431,5 +431,7 @@
 	"game.trade_history.sold": "- {player} adlı oyuncuya {gold} altın karşılığında {quantity}'{item}' satıldı",
 	"chat.expand": "Sohbeti büyüt",
 	"chat.restore": "Sohbeti eski boyutuna getir",
-	"chat.no_characters": "Karakter yok"
+	"chat.no_characters": "Karakter yok",
+	"chat.full": "TAM",
+	"chat.min": "KÜÇÜK"
 }

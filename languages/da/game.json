@@ -1,5 +1,7 @@
 {
 	"chat.expand": "Udvid chat",
 	"chat.restore": "Gendan chatstørrelse",
-	"chat.no_characters": "Ingen figurer"
+	"chat.no_characters": "Ingen figurer",
+	"chat.full": "FULD",
+	"chat.min": "MIN"
 }

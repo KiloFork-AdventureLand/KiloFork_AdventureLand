@@ -1,5 +1,7 @@
 {
 	"chat.expand": "Utvid chat",
 	"chat.restore": "Gjenopprett chatstørrelse",
-	"chat.no_characters": "Ingen figurer"
+	"chat.no_characters": "Ingen figurer",
+	"chat.full": "FULL",
+	"chat.min": "MIN"
 }

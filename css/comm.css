@@ -58,18 +58,6 @@
 #comm-chat-expand {
 	flex-shrink: 0;
 }
-.comm-chat-expand-icon {
-	display: block;
-	width: 16px;
-	height: 16px;
-	box-sizing: border-box;
-	border: 2px solid white;
-}
-#comm-chat.comm-chat-expanded .comm-chat-expand-icon {
-	width: 12px;
-	height: 12px;
-	margin: 2px;
-}
 #comm-chat.comm-chat-expanded .comm-chat-heading {
 	cursor: default;
 }
@@ -216,6 +204,49 @@
 	border: 2px solid gray;
 	border-radius: 0;
 	padding: 4px;
+}
+.comm-chat-picker {
+	position: relative;
+	flex: 1;
+	min-width: 0;
+}
+#comm-chat #comm-chat-from-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 2px 24px;
+	font: inherit;
+	text-align: center;
+}
+#comm-chat-from-button::after {
+	content: "";
+	position: absolute;
+	right: 10px;
+	border: 4px solid transparent;
+	border-top-color: currentColor;
+	margin-top: 4px;
+}
+#comm-chat-options {
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	max-height: 240px;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	border: 2px solid gray;
+	background: black;
+}
+#comm-chat-options .comm-chat-row {
+	padding: 4px;
+	border-left: 0;
+	text-align: center;
+}
+#comm-chat-options [aria-selected="true"] {
+	color: #85c76b;
+	background: #202020;
 }
 #comm-chat-status {
 	color: #aaa;

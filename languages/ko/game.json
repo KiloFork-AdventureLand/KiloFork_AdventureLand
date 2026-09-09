@@ -431,5 +431,7 @@
 	"game.trade_history.sold": "- {player}님에게 {quantity}'{item}' 판매, 골드 {gold} 받음",
 	"chat.expand": "채팅 확대",
 	"chat.restore": "채팅 크기 복원",
-	"chat.no_characters": "캐릭터 없음"
+	"chat.no_characters": "캐릭터 없음",
+	"chat.full": "확대",
+	"chat.min": "축소"
 }

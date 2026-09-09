@@ -431,5 +431,7 @@
 	"game.trade_history.sold": "- 將{quantity}'{item}'賣給{player}，獲得{gold}金幣",
 	"chat.expand": "放大聊天視窗",
 	"chat.restore": "還原聊天視窗大小",
-	"chat.no_characters": "沒有角色"
+	"chat.no_characters": "沒有角色",
+	"chat.full": "放大",
+	"chat.min": "縮小"
 }

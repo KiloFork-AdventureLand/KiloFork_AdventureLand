@@ -1,5 +1,7 @@
 {
 	"chat.expand": "Suurenna chat",
 	"chat.restore": "Palauta chatin koko",
-	"chat.no_characters": "Ei hahmoja"
+	"chat.no_characters": "Ei hahmoja",
+	"chat.full": "TÄYSI",
+	"chat.min": "PIENI"
 }

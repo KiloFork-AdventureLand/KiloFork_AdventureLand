@@ -431,5 +431,7 @@
 	"game.trade_history.sold": "- {player}に{quantity}'{item}'を{gold}ゴールドで売却",
 	"chat.expand": "チャットを拡大",
 	"chat.restore": "チャットのサイズを戻す",
-	"chat.no_characters": "キャラクターがいません"
+	"chat.no_characters": "キャラクターがいません",
+	"chat.full": "拡大",
+	"chat.min": "縮小"
 }

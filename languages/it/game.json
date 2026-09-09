@@ -1,5 +1,7 @@
 {
 	"chat.expand": "Ingrandisci chat",
 	"chat.restore": "Ripristina dimensioni della chat",
-	"chat.no_characters": "Nessun personaggio"
+	"chat.no_characters": "Nessun personaggio",
+	"chat.full": "INTERO",
+	"chat.min": "MIN"
 }

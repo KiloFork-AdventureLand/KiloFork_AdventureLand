@@ -105,7 +105,7 @@
 				<span>{{ phrase("pages.comm.chat") }}</span>
 				<button type="button" class="gamebutton gamebutton-small comm-chat-back" onclick="comm_chat_list()">{{ phrase("pages.comm.chats") }}</button>
 				{% if user %}<button type="button" class="gamebutton gamebutton-small" onclick="comm_chat_new()">{{ phrase("pages.comm.new-pm") }}</button>{% endif %}
-				<button id="comm-chat-expand" type="button" class="gamebutton gamebutton-small" onclick="comm_chat_expand()" aria-label="{{ phrase("chat.expand") }}" title="{{ phrase("chat.expand") }}" aria-pressed="false"><span aria-hidden="true" class="comm-chat-expand-icon"></span></button>
+				<button id="comm-chat-expand" type="button" class="gamebutton gamebutton-small" onclick="comm_chat_expand()" aria-label="{{ phrase("chat.expand") }}" title="{{ phrase("chat.expand") }}" aria-pressed="false">{{ phrase("chat.full") }}</button>
 				<button type="button" class="gamebutton gamebutton-small" onclick="toggle_comm_chat()" aria-label="{{ phrase("pages.comm.label-hide-chat") }}">{{ phrase("pages.comm.hide") }}</button>
 			</div>
 			<div class="comm-chat-body">
@@ -121,7 +121,14 @@
 					</div>
 					<form id="comm-chat-form" autocomplete="off">
 						<div id="comm-chat-recipient" class="hidden"><label for="comm-chat-to">{{ phrase("pages.comm.to") }}</label><input id="comm-chat-to" class="selectioninput mprotected" maxlength="12" placeholder="{{ phrase("pages.comm.label-character-name") }}" aria-label="{{ phrase("pages.comm.label-recipient-character") }}"></div>
-						<div class="comm-chat-from"><label for="comm-chat-from">{{ phrase("pages.comm.from") }}</label><select id="comm-chat-from" class="selectioninput mprotected" aria-label="{{ phrase("pages.comm.label-sending-character") }}"></select></div>
+						<div class="comm-chat-from">
+							<label id="comm-chat-from-label" for="comm-chat-from-button">{{ phrase("pages.comm.from") }}</label>
+							<div class="comm-chat-picker">
+								<button id="comm-chat-from-button" type="button" class="gamebutton gamebutton-small selectioninput mprotected" aria-labelledby="comm-chat-from-label comm-chat-from-name" aria-haspopup="listbox" aria-controls="comm-chat-options" aria-expanded="false"><span id="comm-chat-from-name"></span></button>
+								<div id="comm-chat-options" class="hidden" role="listbox" aria-label="{{ phrase("pages.comm.label-sending-character") }}"></div>
+								<select id="comm-chat-from" class="hidden" aria-hidden="true" tabindex="-1"></select>
+							</div>
+						</div>
 						<div class="comm-chat-compose"><input id="comm-chat-input" class="selectioninput mprotected" maxlength="1200" placeholder="{{ phrase("pages.comm.label-message") }}" aria-label="{{ phrase("pages.comm.label-message") }}"><button id="comm-chat-send" type="submit" class="gamebutton gamebutton-small">{{ phrase("pages.comm.send") }}</button></div>
 					</form>
 					<div id="comm-chat-status" role="status" aria-live="polite"></div>

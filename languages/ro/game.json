@@ -1,5 +1,7 @@
 {
 	"chat.expand": "Mărește chatul",
 	"chat.restore": "Restabilește dimensiunea chatului",
-	"chat.no_characters": "Niciun personaj"
+	"chat.no_characters": "Niciun personaj",
+	"chat.full": "MAX",
+	"chat.min": "MIN"
 }

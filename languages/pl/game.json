@@ -431,5 +431,7 @@
 	"game.trade_history.sold": "- Sprzedano {quantity}'{item}' graczowi {player}. Cena w złocie: {gold}",
 	"chat.expand": "Powiększ czat",
 	"chat.restore": "Przywróć rozmiar czatu",
-	"chat.no_characters": "Brak postaci"
+	"chat.no_characters": "Brak postaci",
+	"chat.full": "PEŁNY",
+	"chat.min": "MAŁY"
 }
