@@ -37,6 +37,9 @@ const DOCS_PATHS = [
 	"/docs/guide/mainframe",
 	"/docs/guide/communicator",
 	"/docs/tutorial",
+	"/docs/guide/lore",
+	"/docs/guide/first-goals",
+	"/docs/guide/merchant",
 	"/docs/ref",
 	"/docs/ref/boosters",
 	"/docs/ref/event-anniversary",
@@ -111,6 +114,7 @@ function get_seo_paths(args) {
 	for (var i = 0; i < args.docs.functions.length; i++) paths.add("/docs/code/functions/" + url_part(args.docs.functions[i]));
 	add_guide_paths(paths, args.docs.guide, "/docs/guide", article_names);
 	for (var i = 0; i < args.docs.tutorial.length; i++) paths.add("/docs/tutorial/" + url_part(args.docs.tutorial[i].key));
+	for (var i = 0; i < (args.docs.merchant_tutorial || []).length; i++) paths.add("/docs/tutorial/" + url_part(args.docs.merchant_tutorial[i].key));
 
 	for (var i = 0; i < DOCS_DATA_KEYS.length; i++) paths.add("/docs/code/data/" + url_part(DOCS_DATA_KEYS[i]));
 	for (var i = 0; i < args.guide_articles.length; i++) {

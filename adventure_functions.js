@@ -1050,41 +1050,51 @@ function tutorial_lesson_complete(user_data, lesson, continuing) {
 	});
 }
 
-function calculate_tutorial_step(user_data) {
+function get_tutorial_track(user_data, track) {
+	if (track !== "merchant") return user_data;
+	if (!user_data.info.merchant_tutorial) user_data.info.merchant_tutorial = { completed_tasks: [], tutorial_step: 0, tutorial_key: docs.merchant_tutorial[0].key };
+	return { info: user_data.info.merchant_tutorial };
+}
+
+function calculate_tutorial_step(user_data, lessons) {
+	lessons = lessons || docs.tutorial;
 	user_data.info.tutorial_step = parseInt(user_data.info.tutorial_step) || 0;
-	user_data.info.tutorial_step = Math.max(0, Math.min(user_data.info.tutorial_step, docs.tutorial.length));
+	user_data.info.tutorial_step = Math.max(0, Math.min(user_data.info.tutorial_step, lessons.length));
 	if (user_data.info.tutorial_key !== undefined) {
-		var position = docs.tutorial.findIndex(function (lesson) {
+		var position = lessons.findIndex(function (lesson) {
 			return lesson.key === user_data.info.tutorial_key;
 		});
-		user_data.info.tutorial_step = position === -1 ? docs.tutorial.length : position;
+		user_data.info.tutorial_step = position === -1 ? lessons.length : position;
 	}
 	for (var i = 0; i < user_data.info.tutorial_step; i++) {
-		if (!tutorial_lesson_complete(user_data, docs.tutorial[i])) {
+		if (!tutorial_lesson_complete(user_data, lessons[i])) {
 			user_data.info.tutorial_step = i;
 			break;
 		}
 	}
-	user_data.info.tutorial_key = docs.tutorial[user_data.info.tutorial_step] ? docs.tutorial[user_data.info.tutorial_step].key : null;
+	user_data.info.tutorial_key = lessons[user_data.info.tutorial_step] ? lessons[user_data.info.tutorial_step].key : null;
 }
 
-function data_to_tutorial(user_data) {
+function data_to_tutorial(user_data, track) {
 	try {
 		if (user_data) {
-			var completed_lessons = docs.tutorial
+			var lessons = track === "merchant" ? docs.merchant_tutorial : docs.tutorial;
+			user_data = get_tutorial_track(user_data, track);
+			if (track === "merchant") calculate_tutorial_step(user_data, lessons);
+			var completed_lessons = lessons
 				.filter(function (lesson) {
 					return tutorial_lesson_complete(user_data, lesson);
 				})
 				.map(function (lesson) {
 					return lesson.key;
 				});
-			if (user_data.info.tutorial_step >= docs.tutorial.length)
-				return { step: docs.tutorial.length, completed: [], pending: [], completed_lessons: completed_lessons, finished: true, task: false, progress: 100 };
+			if (user_data.info.tutorial_step >= lessons.length)
+				return { step: lessons.length, completed: [], pending: [], completed_lessons: completed_lessons, finished: true, task: false, progress: 100 };
 			var arr = [],
 				pending = [],
 				task = false,
 				percent = 100;
-			var tasks = docs.tutorial[user_data.info.tutorial_step].tasks;
+			var tasks = lessons[user_data.info.tutorial_step].tasks;
 			for (var i = 0; i < tasks.length; i++) {
 				if (user_data.info.completed_tasks.indexOf(tasks[i]) !== -1) arr.push(tasks[i]);
 				else pending.push(tasks[i]);

@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Η εργασία '{task}' ολοκληρώθηκε!",
+	"server.tutorial.complete_current": "Ολοκλήρωσε το τρέχον μάθημα πριν συνεχίσεις.",
+	"server.tutorial.lesson_complete": "Το μάθημα '{lesson}' ολοκληρώθηκε!",
 	"server.pm.delivery_failed": "(ΔΕΝ ΠΑΡΑΔΟΘΗΚΕ)"
 }

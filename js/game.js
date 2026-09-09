@@ -847,10 +847,11 @@ function reposition_ui() {
 }
 
 function update_tutorial_ui() {
-	var completion = X.tutorial.progress,
-		reviewing = last_rendered_step != X.tutorial.step,
-		lesson = G.docs.tutorial[last_rendered_step],
-		completed = X.tutorial.completed_lessons ? lesson && X.tutorial.completed_lessons.indexOf(lesson.key) !== -1 : last_rendered_step < X.tutorial.step;
+	var view = get_tutorial_view(last_rendered_track), progress = view.progress,
+		completion = progress.progress,
+		reviewing = last_rendered_step != progress.step,
+		lesson = view.lessons[last_rendered_step],
+		completed = progress.completed_lessons ? lesson && progress.completed_lessons.indexOf(lesson.key) !== -1 : last_rendered_step < progress.step;
 	if (reviewing && !completed) {
 		completion = 0;
 	} else {
@@ -860,8 +861,8 @@ function update_tutorial_ui() {
 			//$(".tutstask").show();
 			$(".tuttask").html("©");
 			$(".tuttaskd").show();
-		} else completion = X.tutorial.progress;
-		X.tutorial.completed.forEach(function (name) {
+		} else completion = progress.progress;
+		progress.completed.forEach(function (name) {
 			$(".tuttask" + name)
 				.css("color", "#85C76B")
 				.css("font-size", "64px");
@@ -876,7 +877,7 @@ function update_tutorial_ui() {
 		$(".tutreview")
 			.show()
 			.html(phrase.html(completed ? "game.tutorial.completed" : "game.tutorial.upcoming"));
-	} else if (X.tutorial.can_continue || completion == 100) {
+	} else if (progress.can_continue || completion == 100) {
 		$(".tutcontinue").show();
 		$(".tutincomplete").hide();
 		$(".tutreview").hide();
@@ -1357,6 +1358,7 @@ function init_demo() {
 
 var first_welcome = false;
 function init_socket(args) {
+	var tutorial_map;
 	if (!args) args = {};
 	if (!server_address) {
 		add_log(phrase.html("game.welcome"));
@@ -1445,7 +1447,7 @@ function init_socket(args) {
 			first_welcome = true;
 			if (is_electron && electron_is_main() && user_id) setTimeout(electron_code_sync_logic, 1);
 		}
-		current_map = data.map;
+		current_map = tutorial_map = data.map;
 		current_in = data["in"];
 		first_coords = true;
 		first_x = data.x;
@@ -1472,7 +1474,9 @@ function init_socket(args) {
 			topleft_npc = false;
 			data.redraw = true;
 		}
-		if (create && character) tut("travel");
+		// Player packets can update current_map before new_map arrives.
+		if (tutorial_map && tutorial_map !== data.name && character) tut("travel");
+		tutorial_map = data.name;
 		current_map = data.name;
 		current_in = data["in"];
 		reflect_music();

@@ -1,4 +1,6 @@
 {
+	"game.tutorial.completed": "VALMIS",
+	"game.tutorial.upcoming": "TULOSSA",
 	"chat.expand": "Suurenna chat",
 	"chat.restore": "Palauta chatin koko",
 	"chat.no_characters": "Ei hahmoja",

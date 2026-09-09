@@ -1,4 +1,6 @@
 {
+	"game.tutorial.completed": "ÎNCHEIAT",
+	"game.tutorial.upcoming": "URMEAZĂ",
 	"chat.expand": "Mărește chatul",
 	"chat.restore": "Restabilește dimensiunea chatului",
 	"chat.no_characters": "Niciun personaj",

@@ -218,6 +218,7 @@ docs = {
 	],
 	tutorial: [
 		// continue_task is recorded by Continue, not by a gameplay action. Keep task IDs stable when reordering lessons.
+		{ key: "lore", tasks: ["read_lore"], continue_task: "read_lore", title: "The Voice in the Goo" },
 		{
 			key: "helloworld",
 			tasks: ["read_helloworld"],
@@ -229,6 +230,7 @@ docs = {
 			tasks: ["killagoo", "firstloot"],
 			title: "First Combat & Loot",
 		},
+		{ key: "farming", tasks: ["read_farming"], continue_task: "read_farming", title: "Your First Farming Goals" },
 		{
 			key: "interface",
 			tasks: ["inventory", "equip", "usepotion"],
@@ -249,6 +251,9 @@ docs = {
 			tasks: ["buyscrolls", "upgrade"],
 			title: "Upgrading",
 		},
+		{ key: "stat-scrolls", tasks: ["addstats"], title: "Give Your Armor a Stat" },
+		{ key: "gear-comparison", tasks: ["read_gear_comparison"], continue_task: "read_gear_comparison", title: "What +7 Equipment Changes" },
+		{ key: "accessory-comparison", tasks: ["read_accessory_comparison"], continue_task: "read_accessory_comparison", title: "What +2 Accessories Add" },
 		{
 			key: "compound",
 			tasks: ["buycscroll0", "compound"],
@@ -264,6 +269,7 @@ docs = {
 			tasks: ["travel", "visitnpc"],
 			title: "Travel & NPCs",
 		},
+		{ key: "hunting", tasks: ["read_hunting"], continue_task: "read_hunting", title: "Your First Monster Hunt" },
 		{
 			key: "crafting-exchanges",
 			tasks: ["recipes", "craftsman", "exchanger"],
@@ -296,6 +302,13 @@ docs = {
 			continue_task: "read_theend",
 			title: "The Road Is Yours",
 		},
+	],
+	merchant_tutorial: [
+		{ key: "merchant-start", tasks: ["read_merchant_start"], continue_task: "read_merchant_start", title: "Your Merchant's First Job" },
+		{ key: "merchant-supplies", tasks: ["read_merchant_supplies"], continue_task: "read_merchant_supplies", title: "Supplies and Deliveries" },
+		{ key: "merchant-shop", tasks: ["read_merchant_shop"], continue_task: "read_merchant_shop", title: "Open Your Shop" },
+		{ key: "merchant-leveling", tasks: ["read_merchant_leveling"], continue_task: "read_merchant_leveling", title: "How Merchants Gain XP" },
+		{ key: "merchant-gathering", tasks: ["read_merchant_gathering"], continue_task: "read_merchant_gathering", title: "Gathering and Market Parcels" },
 	],
 	tasks: {
 		character: "Your Character",
@@ -639,6 +652,9 @@ docs = {
 		// 	]
 		// ],
 		["basics", "The Basics", "", "#97D058"],
+		["lore", "The Voice in the Goo", "story,comic,wizard,nell", "#97D058"],
+		["first-goals", "First Goals", "beginner,farming,gear,stats,hunt", "#97D058"],
+		["merchant", "Playing a Merchant", "merchant,xp,leveling,donations,gathering,deliveries,supplies,stand", "#E0C05E"],
 		["stats", "Attributes, Classes, Skills", "", "#33C9CC"],
 		["items", "Items, Upgrades, Crafting", "items", "#58ABFF"],
 		[

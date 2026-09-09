@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Tehtävä '{task}' suoritettu!",
+	"server.tutorial.complete_current": "Suorita nykyinen oppitunti ennen kuin jatkat.",
+	"server.tutorial.lesson_complete": "Oppitunti '{lesson}' suoritettu!",
 	"server.pm.delivery_failed": "(EI TOIMITETTU)"
 }

@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Tugas '{task}' Selesai!",
+	"server.tutorial.complete_current": "Selesaikan pelajaran saat ini sebelum melanjutkan.",
+	"server.tutorial.lesson_complete": "Pelajaran '{lesson}' Selesai!",
 	"server.pm.delivery_failed": "(GAGAL TERKIRIM)"
 }

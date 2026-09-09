@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Tapos Na ang Gawaing '{task}'!",
+	"server.tutorial.complete_current": "Tapusin ang kasalukuyang aralin bago magpatuloy.",
+	"server.tutorial.lesson_complete": "Tapos Na ang Araling '{lesson}'!",
 	"server.pm.delivery_failed": "(HINDI NAHATID)"
 }

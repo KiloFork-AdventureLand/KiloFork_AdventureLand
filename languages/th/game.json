@@ -1,4 +1,6 @@
 {
+	"game.tutorial.completed": "เสร็จแล้ว",
+	"game.tutorial.upcoming": "ขั้นต่อไป",
 	"chat.expand": "ขยายแชต",
 	"chat.restore": "คืนขนาดแชต",
 	"chat.no_characters": "ไม่มีตัวละคร",

@@ -1,4 +1,6 @@
 {
+	"game.tutorial.completed": "HOÀN THÀNH",
+	"game.tutorial.upcoming": "SẮP TỚI",
 	"chat.expand": "Mở rộng trò chuyện",
 	"chat.restore": "Khôi phục kích thước trò chuyện",
 	"chat.no_characters": "Không có nhân vật",

@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Oppgaven '{task}' er fullført!",
+	"server.tutorial.complete_current": "Fullfør den nåværende leksjonen før du fortsetter.",
+	"server.tutorial.lesson_complete": "Leksjonen '{lesson}' er fullført!",
 	"server.pm.delivery_failed": "(IKKE LEVERT)"
 }

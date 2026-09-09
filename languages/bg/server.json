@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Задачата '{task}' е завършена!",
+	"server.tutorial.complete_current": "Завърши текущия урок, преди да продължиш.",
+	"server.tutorial.lesson_complete": "Урокът '{lesson}' е завършен!",
 	"server.pm.delivery_failed": "(НЕДОСТАВЕНО)"
 }

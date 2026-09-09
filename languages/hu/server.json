@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "A(z) '{task}' feladat kész!",
+	"server.tutorial.complete_current": "A folytatás előtt fejezd be a jelenlegi leckét.",
+	"server.tutorial.lesson_complete": "A(z) '{lesson}' lecke kész!",
 	"server.pm.delivery_failed": "(NEM KÉZBESÍTVE)"
 }

@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Attività '{task}' completata!",
+	"server.tutorial.complete_current": "Completa la lezione attuale prima di continuare.",
+	"server.tutorial.lesson_complete": "Lezione '{lesson}' completata!",
 	"server.pm.delivery_failed": "(NON RECAPITATO)"
 }

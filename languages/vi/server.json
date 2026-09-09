@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Đã hoàn thành tác vụ '{task}'!",
+	"server.tutorial.complete_current": "Hoàn thành bài học hiện tại trước khi tiếp tục.",
+	"server.tutorial.lesson_complete": "Đã hoàn thành bài học '{lesson}'!",
 	"server.pm.delivery_failed": "(GỬI THẤT BẠI)"
 }

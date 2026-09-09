@@ -5,6 +5,15 @@
 		class="gamebutton gamebutton-small"
 		onclick="
 			btc(event);
+			open_tutorial(undefined, 'merchant');
+		"
+	>
+		{{ phrase("interface.tutorial.merchant_track") }}
+	</div>
+	<div
+		class="gamebutton gamebutton-small"
+		onclick="
+			btc(event);
 			open_guide('multi', '/docs/guide/multi');
 		"
 	>
@@ -15,7 +24,10 @@
 {% for task in tutorial_data("multiple-characters").tasks %} {% if loop.first %}
 <div class="tutdivider"></div>
 {% endif %}
-<div class="tuttaskrow"><span class="tuttask tuttask{{task}}">o</span> <span class="tuttaskname">{{task_name(task)}}</span> <span class="tuttaskd tuttaskd{{task}}">{{ phrase("docs.tutorial.multiple-characters.done") }}</span></div>
+<div class="tuttaskrow">
+	<span class="tuttask tuttask{{task}}">o</span> <span class="tuttaskname">{{task_name(task)}}</span>
+	<span class="tuttaskd tuttaskd{{task}}">{{ phrase("docs.tutorial.multiple-characters.done") }}</span>
+</div>
 {% endfor %}
 
 <div class="tutpath manual">
@@ -33,9 +45,7 @@
 	show_json(error);
 });</div>
 	<p>{{ phrase("docs.tutorial.multiple-characters.only-trust-commands-from-your-own-characters-check") }}</p>
-	<p>
-		{{ phrase_html("docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character") }}
-	</p>
+	<p>{{ phrase_html("docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character") }}</p>
 </div>
 
 <style>

@@ -1,0 +1,21 @@
+<p>{{ phrase("docs.tutorial.new.supplies_manual") }}</p>
+<p><span class="tutorial-item" data-item="hpot0"></span> <span class="tutorial-item" data-item="mpot0"></span></p>
+<script>
+	render_tutorial_items();
+</script>
+<p>{{ phrase("docs.tutorial.new.supplies_code") }}</p>
+<div class="divider"></div>
+<div class="title mt15">CODE</div>
+<!-- prettier-ignore -->
+<div class="code">async function supply_friend(name) {
+	if (character.ctype !== "merchant" || !get_player(name)) return;
+	await buy_with_gold("hpot0", 20);
+	var slot = locate_item("hpot0");
+	if (slot !== -1) await send_item(name, slot, 10);
+}
+supply_friend("FriendName").catch(show_json);</div>
+<p>
+	{{ phrase("docs.tutorial.new.references") }}: <span class="rref clickable" onclick="render_function_reference('buy_with_gold')">buy_with_gold</span> ·
+	<span class="rref clickable" onclick="render_function_reference('send_item')">send_item</span> · <span class="rref clickable" onclick="render_function_reference('send_gold')">send_gold</span> ·
+	<span class="rref clickable" onclick="render_function_reference('bank_store')">bank_store</span>
+</p>

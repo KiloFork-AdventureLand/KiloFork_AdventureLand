@@ -1,0 +1,24 @@
+<p>{{ phrase("docs.tutorial.new.lore_intro") }}</p>
+<div class="tutorial-lore" data-page="1" data-language="{{domain.language}}">
+	<img
+		class="tutorial-lore-page"
+		src="/images/tutorial/lore/{{domain.language}}/page-01.jpg"
+		alt="{{ phrase('docs.lore.page1.alt')|e }}"
+		data-alt-1="{{ phrase('docs.lore.page1.alt')|e }}"
+		data-alt-2="{{ phrase('docs.lore.page2.alt')|e }}"
+		data-alt-3="{{ phrase('docs.lore.page3.alt')|e }}"
+		data-alt-4="{{ phrase('docs.lore.page4.alt')|e }}"
+		data-alt-5="{{ phrase('docs.lore.page5.alt')|e }}"
+		width="836"
+		height="472"
+		style="display: block; image-rendering: pixelated"
+	/>
+	<div style="text-align: center">
+		<button class="gamebutton gamebutton-small" style="font-family:inherit" onclick="turn_tutorial_lore(-1)">{{ phrase_html("interface.learn_article.lt_previous") }}</button>
+		<span class="tutorial-lore-counter">1 / 5</span>
+		<button class="gamebutton gamebutton-small" style="font-family:inherit" onclick="turn_tutorial_lore(1)">{{ phrase_html("interface.learn_article.next_gt") }}</button>
+	</div>
+</div>
+<script>
+	turn_tutorial_lore(0);
+</script>

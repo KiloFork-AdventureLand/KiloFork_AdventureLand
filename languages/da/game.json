@@ -1,4 +1,6 @@
 {
+	"game.tutorial.completed": "FULDFØRT",
+	"game.tutorial.upcoming": "KOMMENDE",
 	"chat.expand": "Udvid chat",
 	"chat.restore": "Gendan chatstørrelse",
 	"chat.no_characters": "Ingen figurer",

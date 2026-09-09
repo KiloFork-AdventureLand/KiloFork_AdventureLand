@@ -428,6 +428,7 @@ async function servers_and_characters_api(args) {
 		servers: servers,
 		characters: characters,
 		tutorial: data_to_tutorial(user_data),
+		merchant_tutorial: data_to_tutorial(user_data, "merchant"),
 		code_list: gf(user_data, "code_list", {}),
 		mail: mail,
 		rewards: gf(user, "rewards", []),
@@ -1423,6 +1424,7 @@ async function list_codes_api(args) {
 }
 
 async function tutorial_api(args) {
+	if (args.track && args.track !== "merchant") return { failed: true, reason: "invalid" };
 	var user = args.user,
 		task = args.task,
 		step = args.step;
@@ -1431,12 +1433,15 @@ async function tutorial_api(args) {
 		async () => {
 			var user_id = A.user._id || A.user;
 			var data = process_user_data(user_id, await tx_get("IE_userdata-" + user_id));
-			var current = data.info.tutorial_step;
+			var progress = get_tutorial_track(data, A.track);
+			var lessons = A.track === "merchant" ? docs.merchant_tutorial : docs.tutorial;
+			calculate_tutorial_step(progress, lessons);
+			var current = progress.info.tutorial_step;
 			if (A.task) {
-				var lesson = docs.tutorial[current];
+				var lesson = lessons[current];
 				var valid_task = docs.tasks && docs.tasks[A.task] && lesson && A.task !== lesson.continue_task && lesson.tasks.indexOf(A.task) !== -1;
-				if (valid_task && data.info.completed_tasks.indexOf(A.task) === -1) {
-					data.info.completed_tasks.push(A.task);
+				if (valid_task && progress.info.completed_tasks.indexOf(A.task) === -1) {
+					progress.info.completed_tasks.push(A.task);
 					await tx_save(data);
 					R.result = [phrase_html("server.tutorial.task_complete", { task: phrase("tutorial.task." + A.task) }), "#85C76B", data, 1];
 				} else {
@@ -1446,26 +1451,27 @@ async function tutorial_api(args) {
 				}
 			} else {
 				var next = parseInt(A.step);
-				var current_lesson = docs.tutorial[current];
-				var complete = current_lesson && (!A.lesson || A.lesson === current_lesson.key) && tutorial_lesson_complete(data, current_lesson, true);
-				if (next !== current + 1 || next > docs.tutorial.length || !complete) {
+				var current_lesson = lessons[current];
+				var complete = current_lesson && (!A.lesson || A.lesson === current_lesson.key) && tutorial_lesson_complete(progress, current_lesson, true);
+				if (next !== current + 1 || next > lessons.length || !complete) {
 					R.result = [phrase_html("server.tutorial.complete_current"), "gray", data, 0];
 				} else {
-					if (current_lesson.continue_task && data.info.completed_tasks.indexOf(current_lesson.continue_task) === -1) data.info.completed_tasks.push(current_lesson.continue_task);
-					while (next < docs.tutorial.length && tutorial_lesson_complete(data, docs.tutorial[next])) next++;
-					data.info.tutorial_step = next;
-					data.info.tutorial_key = docs.tutorial[next] ? docs.tutorial[next].key : null;
+					if (current_lesson.continue_task && progress.info.completed_tasks.indexOf(current_lesson.continue_task) === -1) progress.info.completed_tasks.push(current_lesson.continue_task);
+					while (next < lessons.length && tutorial_lesson_complete(progress, lessons[next])) next++;
+					progress.info.tutorial_step = next;
+					progress.info.tutorial_key = lessons[next] ? lessons[next].key : null;
 					await tx_save(data);
 					R.result = [phrase_html("server.tutorial.lesson_complete", { lesson: phrase("tutorial." + current_lesson.key + ".title") }), "#85C76B", data, 2];
 				}
 			}
 		},
-		{ user: user, task: task, step: step, lesson: args.lesson },
+		{ user: user, task: task, step: step, lesson: args.lesson, track: args.track },
 	);
 
 	if (R.failed) return { failed: true, reason: "failed" };
 	if (R.result) {
-		var info = data_to_tutorial(R.result[2]);
+		var info = data_to_tutorial(R.result[2], args.track);
+		if (args.track) info.track = args.track;
 		info.type = "tutorial_data";
 		if (R.result[3] === 1) info.success = true;
 		if (R.result[3] === 2) info.next = true;
@@ -1476,23 +1482,27 @@ async function tutorial_api(args) {
 }
 
 async function reset_tutorial_api(args) {
+	if (args.track && args.track !== "merchant") return { failed: true, reason: "invalid" };
 	var user = args.user;
 
 	var R = await tx(
 		async () => {
 			var user_id = A.user._id || A.user;
 			var data = process_user_data(user_id, await tx_get("IE_userdata-" + user_id));
-			data.info.completed_tasks = [];
-			data.info.tutorial_step = 0;
-			data.info.tutorial_key = docs.tutorial[0].key;
+			var progress = get_tutorial_track(data, A.track);
+			var lessons = A.track === "merchant" ? docs.merchant_tutorial : docs.tutorial;
+			progress.info.completed_tasks = [];
+			progress.info.tutorial_step = 0;
+			progress.info.tutorial_key = lessons[0].key;
 			await tx_save(data);
 			R.data = data;
 		},
-		{ user: user },
+		{ user: user, track: args.track },
 	);
 
 	if (R.failed) return { failed: true, reason: "failed" };
-	var info = data_to_tutorial(R.data);
+	var info = data_to_tutorial(R.data, args.track);
+	if (args.track) info.track = args.track;
 	info.type = "tutorial_data";
 	args.res.infs.push(info);
 	args.res.infs.push({ type: "message", message: phrase_html("server.api.tutorial_reset"), color: "#F7B32F" });
@@ -1943,7 +1953,7 @@ async function delete_map_api(args) {
 async function load_article_api(args) {
 	var name = to_filename("" + args.name);
 	if (args.tutorial) {
-		args.res.infs.push({ type: "article", html: shtml("docs/tutorial/" + name + ".html"), tutorial: args.tutorial, url: args.url });
+		args.res.infs.push({ type: "article", html: shtml("docs/tutorial/" + name + ".html"), tutorial: args.tutorial, track: args.track, url: args.url });
 	} else if (args.guide) {
 		var col = [],
 			prev = null,
@@ -2218,8 +2228,10 @@ var REF = {
 		U: true,
 		task: { type: "string", optional: true },
 		step: { type: "any", optional: true },
+		lesson: { type: "string", optional: true },
+		track: { type: "string", optional: true },
 	},
-	reset_tutorial: { F: reset_tutorial_api, P: true, U: true },
+	reset_tutorial: { F: reset_tutorial_api, P: true, U: true, track: { type: "string", optional: true } },
 
 	stripe_payment: {
 		F: stripe_payment_api,
@@ -2262,6 +2274,7 @@ var REF = {
 		name: { type: "string" },
 		func: { type: "any", optional: true },
 		tutorial: { type: "any", optional: true },
+		track: { type: "string", optional: true },
 		guide: { type: "any", optional: true },
 		url: { type: "string", optional: true },
 	},

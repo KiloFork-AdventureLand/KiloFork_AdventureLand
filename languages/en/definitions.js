@@ -1,5 +1,33 @@
 // English display text from loaded game definitions. Canonical G is not localized.
 module.exports = {
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.farming.title": "Your First Farming Goals",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.stat-scrolls.title": "Give Your Armor a Stat",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.gear-comparison.title": "What +7 Equipment Changes",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.accessory-comparison.title": "What +2 Accessories Add",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.hunting.title": "Your First Monster Hunt",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.merchant-start.title": "Your Merchant's First Job",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.merchant-supplies.title": "Supplies and Deliveries",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.merchant-shop.title": "Open Your Shop",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.merchant-leveling.title": "How Merchants Gain XP",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"tutorial.merchant-gathering.title": "Gathering and Market Parcels",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"directory.guide.first-goals.title": "First Goals",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"directory.guide.merchant.title": "Playing a Merchant",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"directory.guide.lore.title": "The Voice in the Goo",
+	// Title of the optional five-page opening comic.
+	"tutorial.lore.title": "The Voice in the Goo",
 	// Canonical G.npcs.citizen22.market.spacing_text; matching definition phrase for rule summaries. Distances exact; keep the established translation of NPC.
 	"npc.citizen22.market.spacing_text": "Stay more than 40px from fixed NPCs, more than 10px from open stands, and more than 15px vertically when within 10px sideways of another stand. The shop set up first keeps its place.",
 	// design/achievements.js; 1000boss explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.

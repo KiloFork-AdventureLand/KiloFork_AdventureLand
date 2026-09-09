@@ -1,4 +1,6 @@
 {
+	"game.tutorial.completed": "ΟΛΟΚΛΗΡΩΘΗΚΕ",
+	"game.tutorial.upcoming": "ΠΡΟΣΕΧΩΣ",
 	"chat.expand": "Μεγέθυνση συνομιλίας",
 	"chat.restore": "Επαναφορά μεγέθους συνομιλίας",
 	"chat.no_characters": "Δεν υπάρχουν χαρακτήρες",

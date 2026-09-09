@@ -112,7 +112,7 @@ test("guide CODE examples are valid async JavaScript", () => {
 
 test("every tutorial lesson has finished content and valid tasks", () => {
 	const keys = new Set();
-	for (const lesson of docs.tutorial) {
+	for (const lesson of docs.tutorial.concat(docs.merchant_tutorial || [])) {
 		assert.ok(!keys.has(lesson.key), `duplicate tutorial key ${lesson.key}`);
 		keys.add(lesson.key);
 		const file = path.join(root, "docs/tutorial", lesson.key + ".html");

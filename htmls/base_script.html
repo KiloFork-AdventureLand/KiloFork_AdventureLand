@@ -176,6 +176,7 @@
 X.servers={{domain.servers|to_json|safe}};
 X.characters={{domain.characters|to_json|safe}};
 X.tutorial={{user_data|to_tutorial|safe}};
+X.merchant_tutorial={{user_data|to_tutorial("merchant")|safe}};
 X.unread={{user_data and user_data.info.mail or 0}};
 X.codes={{(user_data and user_data.info.code_list or {})|to_json|safe}}
 

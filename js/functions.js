@@ -5878,6 +5878,7 @@ function handle_information(infs) {
 			X.servers = info.servers;
 			X.characters = info.characters;
 			X.tutorial = info.tutorial;
+			X.merchant_tutorial = info.merchant_tutorial;
 			X.unread = info.mail;
 			if (window.character && info.code_list[code_slot] && (!X.codes[code_slot] || info.code_list[code_slot][1] > X.codes[code_slot][1])) {
 				add_log(phrase.html("client.handle_information.external_code_update_detected"), "#5BAC57");
@@ -5960,7 +5961,7 @@ function handle_information(infs) {
 			show_modal(html);
 		} else if (info.type == "article") {
 			if (info.tutorial) {
-				render_tutorial(info.html, parseInt(info.tutorial), info.url || "/docs");
+				render_tutorial(info.html, parseInt(info.tutorial), info.url || "/docs", info.track);
 			} else if (info.guide) {
 				render_learn_article(info.html, { url: info.url || "/docs", prev: info.prev, next: info.next });
 			} else if (info.func) {
@@ -5971,12 +5972,12 @@ function handle_information(infs) {
 			}
 		} else if (info.type == "tutorial_data") {
 			delete info.type;
-			X.tutorial = info;
-			claim_tutorial_reward();
+			if (info.track === "merchant") X.merchant_tutorial = info;
+			else { X.tutorial = info; claim_tutorial_reward(); }
 			if (info.next) {
 				small_success(character, { color: "purple" });
 				delete info.next;
-				setTimeout(open_tutorial, 1000);
+				setTimeout(open_tutorial.bind(null, undefined, info.track), 1000);
 			} else if (info.success) {
 				small_success(character, { color: "success" });
 				delete info.success;
@@ -6080,14 +6081,25 @@ function tut(name) {
 			(X.tutorial.task == name || (X.tutorial.pending && X.tutorial.pending.indexOf(name) !== -1))
 		) {
 			tutorial_tasks_in_flight[name] = true;
-			api_call("tutorial", { task: name }).then(
-				function () {
+			function save_credit(attempt) {
+				if (!X.tutorial || !(X.tutorial.task == name || (X.tutorial.pending && X.tutorial.pending.indexOf(name) !== -1))) {
 					delete tutorial_tasks_in_flight[name];
-				},
-				function () {
-					delete tutorial_tasks_in_flight[name];
-				},
-			);
+					return;
+				}
+				api_call("tutorial", { task: name }).then(
+					function () {
+						delete tutorial_tasks_in_flight[name];
+					},
+					function (error) {
+						if (attempt < 3 && error && (error.reason === "network_error" || error.reason === "timeout")) {
+							setTimeout(function () { save_credit(attempt + 1); }, 500 * Math.pow(2, attempt));
+							return;
+						}
+						delete tutorial_tasks_in_flight[name];
+					},
+				);
+			}
+			save_credit(0);
 		}
 	} catch (e) {
 		console.error("FATAL: tut() " + name);

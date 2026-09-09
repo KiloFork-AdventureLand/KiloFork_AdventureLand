@@ -1,4 +1,6 @@
 {
+	"game.tutorial.completed": "SELESAI",
+	"game.tutorial.upcoming": "AKAN DATANG",
 	"chat.expand": "Besarkan sembang",
 	"chat.restore": "Pulihkan saiz sembang",
 	"chat.no_characters": "Tiada watak",

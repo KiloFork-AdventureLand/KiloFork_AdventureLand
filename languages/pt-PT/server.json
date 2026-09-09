@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Tarefa '{task}' Concluída!",
+	"server.tutorial.complete_current": "Conclui a lição atual antes de continuar.",
+	"server.tutorial.lesson_complete": "Lição '{lesson}' Concluída!",
 	"server.pm.delivery_failed": "(NÃO ENTREGUE)"
 }

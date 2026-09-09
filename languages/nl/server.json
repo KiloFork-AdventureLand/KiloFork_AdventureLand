@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Taak '{task}' afgerond!",
+	"server.tutorial.complete_current": "Rond de huidige les af voordat je verdergaat.",
+	"server.tutorial.lesson_complete": "Les '{lesson}' afgerond!",
 	"server.pm.delivery_failed": "(NIET BEZORGD)"
 }

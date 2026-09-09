@@ -1,4 +1,6 @@
 {
+	"game.tutorial.completed": "KÉSZ",
+	"game.tutorial.upcoming": "KÉSŐBB",
 	"chat.expand": "Csevegés nagyítása",
 	"chat.restore": "Csevegés méretének visszaállítása",
 	"chat.no_characters": "Nincsenek karakterek",

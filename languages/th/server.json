@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "ทำงาน '{task}' เสร็จแล้ว!",
+	"server.tutorial.complete_current": "ทำบทเรียนปัจจุบันให้เสร็จก่อนดำเนินการต่อ",
+	"server.tutorial.lesson_complete": "จบบทเรียน '{lesson}' แล้ว!",
 	"server.pm.delivery_failed": "(ส่งไม่สำเร็จ)"
 }

@@ -194,6 +194,8 @@
 				{
 					for(var i=0;i<G.docs.tutorial.length;i++)
 						if(G.docs.tutorial[i].key==path[1]) open_tutorial(i);
+					for(var i=0;i<(G.docs.merchant_tutorial||[]).length;i++)
+						if(G.docs.merchant_tutorial[i].key==path[1]) open_tutorial(i,"merchant");
 				}
 			}
 		}

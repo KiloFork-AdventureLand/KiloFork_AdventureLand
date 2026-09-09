@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "Sarcina '{task}' este terminată!",
+	"server.tutorial.complete_current": "Termină lecția curentă înainte de a continua.",
+	"server.tutorial.lesson_complete": "Lecția '{lesson}' este terminată!",
 	"server.pm.delivery_failed": "(NELIVRAT)"
 }

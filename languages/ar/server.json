@@ -1,3 +1,6 @@
 {
+	"server.tutorial.task_complete": "اكتملت مهمة '{task}'!",
+	"server.tutorial.complete_current": "أكمل الدرس الحالي قبل المتابعة.",
+	"server.tutorial.lesson_complete": "اكتمل درس '{lesson}'!",
 	"server.pm.delivery_failed": "(لم تُسلَّم)"
 }

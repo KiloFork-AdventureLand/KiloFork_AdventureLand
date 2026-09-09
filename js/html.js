@@ -3453,18 +3453,72 @@ function open_guide(name, url) {
 	api_call("load_article", { name: name, guide: true, url: url });
 }
 
-function open_tutorial(step) {
-	if (step === undefined || step === null) step = Math.min(X.tutorial.step, G.docs.tutorial.length - 1);
-	step = Math.max(0, Math.min(parseInt(step) || 0, G.docs.tutorial.length - 1));
-	api_call("load_article", { name: G.docs.tutorial[step].key, tutorial: "" + step });
+function get_tutorial_view(track) {
+	return { lessons: track === "merchant" ? G.docs.merchant_tutorial : G.docs.tutorial, progress: (window.X && (track === "merchant" ? X.merchant_tutorial : X.tutorial)) || { step: 0, completed: [], pending: [] } };
 }
 
-function render_tutorial_index() {
-	var progress = (window.X && X.tutorial) || {},
+function render_tutorial_items() {
+	if (window.no_graphics) return;
+	$(".tutorial-item").each(function () {
+		var name = $(this).attr("data-item");
+		if (G.items[name]) $(this).css({ display: "inline-block", direction: "ltr" }).html(item_container({ skin: G.items[name].skin }, { name: name }));
+	});
+	$(".tutorial-npc").each(function () {
+		var npc = G.npcs[$(this).attr("data-npc")];
+		if (npc) $(this).css({ display: "inline-block", direction: "ltr" }).html(sprite(npc.skin, { height: 62, overflow: true }));
+	});
+}
+
+function turn_tutorial_lore(direction) {
+	if (window.no_graphics) return;
+	var container = $(".tutorial-lore"), page = Math.max(1, Math.min(5, Number(container.attr("data-page")) + direction));
+	if (!container.length) return;
+	var available = Math.min(900, $(window).width() - 100), divisor = 2;
+	while (1672 / divisor > available && divisor < 16) divisor *= 2;
+	container.attr("data-page", page);
+	container.find("img").attr("src", "/images/tutorial/lore/" + container.attr("data-language") + "/page-0" + page + ".jpg").attr("alt", container.find("img").attr("data-alt-" + page)).css({ width: 1672 / divisor, height: 944 / divisor });
+	container.find(".tutorial-lore-counter").text(page + " / 5");
+	container.find("button").first().prop("disabled", page === 1);
+	container.find("button").last().prop("disabled", page === 5);
+	position_modals();
+}
+
+function render_tutorial_comparison(data, accessories) {
+	if (window.no_graphics) return;
+	var type = window.character && character.ctype;
+	if (!data.classes[type]) type = "mage";
+	var build = data.classes[type], indices = accessories ? [2, 3] : [0, 1, 2], labels = accessories ? ["accessory_plain", "accessory_improved"] : ["gear_plain", "gear_upgraded", "gear_statted"];
+	var html = "<div class='title mt15'>" + phrase.definition("class", type, "name", type) + " · " + data.level + "</div>";
+	html += "<p>" + phrase.html("interface.tutorial.comparison.target") + ": " + G.monsters[data.target].name + "</p><div class='guide-card-grid'>";
+	indices.forEach(function (index, i) {
+		var row = build.rows[index];
+		html += "<div class='guide-card'><b>" + phrase.html("interface.tutorial.comparison." + labels[i]) + "</b><div style='direction:ltr;text-align:left'>";
+		Object.keys(row.slots).forEach(function (slot) {
+			var item = row.slots[slot];
+			html += item_container({ skin: G.items[item.name].skin }, item);
+		});
+		html += "</div><p>" + phrase.html("interface.tutorial.comparison.hit") + ": <span class='dlabel'>" + row.hit + "</span><br>" + phrase.html("interface.tutorial.comparison.dps") + ": <span class='dlabel'>" + row.dps + "</span>";
+		if (i) html += "<br>" + phrase.html("interface.tutorial.comparison.increase") + ": <span style='color:#387649'>+" + ((row.dps / build.rows[indices[i - 1]].dps - 1) * 100).toFixed(1) + "%</span>";
+		html += "</p></div>";
+	});
+	$(".tutorial-comparison").html(html + "</div>");
+}
+
+function open_tutorial(step, track) {
+	var view = get_tutorial_view(track);
+	if (step === undefined || step === null) step = Math.min(view.progress.step, view.lessons.length - 1);
+	step = Math.max(0, Math.min(parseInt(step) || 0, view.lessons.length - 1));
+	api_call("load_article", { name: view.lessons[step].key, tutorial: "" + step, track: track, url: "/docs/tutorial/" + view.lessons[step].key });
+}
+
+function render_tutorial_index(track) {
+	var view = get_tutorial_view(track), progress = view.progress,
 		current_step = progress.step || 0,
 		html = "<div style='width: 520px; text-align: left'>";
 	html += "<div class='gamebutton block mb5' style='text-align:center'>" + phrase.html("interface.tutorial_index.tutorial_lessons") + "</div>";
-	G.docs.tutorial.forEach(function (lesson, step) {
+	html += "<div class='gamebutton block mb5' onclick='render_tutorial_index()'>" + phrase.html("interface.tutorial.main_track") + "</div>";
+	html += "<div class='gamebutton block mb5' onclick='render_tutorial_index(\"merchant\")'>" + phrase.html("interface.tutorial.merchant_track") + "</div>";
+	view.lessons.forEach(function (lesson, step) {
 		var completed = progress.completed_lessons ? progress.completed_lessons.indexOf(lesson.key) !== -1 : step < current_step;
 		var color = step == current_step ? "#D67D23" : completed ? "#73BD6D" : "gray";
 		html +=
@@ -3472,7 +3526,7 @@ function render_tutorial_index() {
 			color +
 			"; text-align:left' onclick='open_tutorial(" +
 			step +
-			")'><span style='color:" +
+			",\"" + (track || "") + "\")'><span style='color:" +
 			color +
 			"'>[" +
 			(step + 1) +
@@ -3484,13 +3538,21 @@ function render_tutorial_index() {
 	show_modal(html, { wrap: false, url: "/docs/tutorial" });
 }
 
-var last_rendered_step = 0;
-function render_tutorial(article, step, url) {
+var last_rendered_step = 0, last_rendered_track = "";
+function continue_tutorial() {
+	var view = get_tutorial_view(last_rendered_track);
+	if (last_rendered_step !== view.progress.step || !view.lessons[last_rendered_step]) return;
+	api_call("tutorial", { step: last_rendered_step + 1, lesson: view.lessons[last_rendered_step].key, track: last_rendered_track || undefined });
+	hide_modal();
+}
+
+function render_tutorial(article, step, url, track) {
 	hide_modals();
 	last_rendered_step = step;
-	var tutorial = G.docs.tutorial[step],
+	last_rendered_track = track === "merchant" ? "merchant" : "";
+	var view = get_tutorial_view(last_rendered_track), tutorial = view.lessons[step],
 		cphrase = phrase.html("interface.tutorial.continue");
-	if (step == G.docs.tutorial.length - 1) cphrase = phrase.html("interface.tutorial.complete");
+	if (step == view.lessons.length - 1) cphrase = phrase.html("interface.tutorial.complete");
 
 	var html = "<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
 	html +=
@@ -3499,32 +3561,29 @@ function render_tutorial(article, step, url) {
 		"</span> <div style='float:right; color: #585859; color: #906CB4'>[" +
 		(step + 1) +
 		"/" +
-		G.docs.tutorial.length +
-		"] <span class='clickable' style='font-size:20px; color:#7A7A7A' onclick='render_tutorial_index()'>" +
+		view.lessons.length +
+		"] <span class='clickable' style='font-size:20px; color:#7A7A7A' onclick='render_tutorial_index(\"" + last_rendered_track + "\")'>" +
 		phrase.html("interface.tutorial.lessons") +
 		"</span></div></div>";
 	html += "<div style='margin-left:-24px; margin-right: -24px; border-bottom: 5px solid gray'></div>";
 	html += article;
 	html += "<div style='margin-left:-24px; margin-right: -24px; border-bottom: 5px solid gray'></div>";
 	html +=
-		"<div style='margin-top: 8px; margin-bottom: -16px'><span style='color: #D67D23'>" +
+		"<div class='tutorial-footer' style='margin-top: 8px; margin-bottom: -16px'><span style='color: #D67D23'>" +
 		phrase.html("interface.tutorial.completion") +
 		" " +
 		"<span class='tutprogress'>" +
 		0 +
 		"</span>%</span> <div style='float: right; color: #906CB4; display:none' class='tutreview'></div><div style='float: right; color: gray' class='tutincomplete'>" +
 		phrase.html("interface.tutorial.incomplete") +
-		"</div><div style='float: right; color: #73BD6D' class='clickable tutcontinue' onclick='btc(event); api_call(\"tutorial\",{step:" +
-		(step + 1) +
-		',lesson:"' +
-		tutorial.key +
-		"\"}); hide_modal()'>" +
+		"</div><div style='float: right; color: #73BD6D' class='clickable tutcontinue' onclick='btc(event); continue_tutorial()'>" +
 		cphrase +
 		"</div></div>";
 	html += "</div>";
 
 	show_modal(html, { wrap: false, url: url, close: { label: "X", classes: "ui-close-tutorial", corner: true } });
-	update_tutorial_ui();
+	if (typeof update_tutorial_ui === "function") update_tutorial_ui();
+	else $(".tutorial-footer").hide();
 	$(".code").codemirror({ trim: true });
 	position_modals();
 }

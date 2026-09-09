@@ -1,4 +1,18 @@
 module.exports = {
+	// Labels on the level-50 tutorial equipment comparisons.
+	"interface.tutorial.comparison.gear_plain": "+0 vendor equipment",
+	"interface.tutorial.comparison.gear_upgraded": "Same equipment at +7",
+	"interface.tutorial.comparison.gear_statted": "+7 with stat scrolls",
+	"interface.tutorial.comparison.accessory_plain": "Accessories at +0",
+	"interface.tutorial.comparison.accessory_improved": "Same accessories at +2",
+	"interface.tutorial.comparison.hit": "Damage per hit",
+	"interface.tutorial.comparison.dps": "Damage per second",
+	"interface.tutorial.comparison.increase": "Increase",
+	"interface.tutorial.comparison.target": "Target",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"interface.tutorial.main_track": "Adventurer Tutorial",
+	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
+	"interface.tutorial.merchant_track": "Merchant Tutorial",
 	// Regular Settings label, beside the separate zoom percentage button.
 	"interface.settings.zoom": "Zoom",
 	// Small Settings button; cycles page magnification. percent is 0, +25 or +50; 0 means normal size.

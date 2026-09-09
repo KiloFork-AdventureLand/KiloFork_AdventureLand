@@ -6,12 +6,31 @@ const { load, read, transactions } = require("./helpers/server_vm");
 function runtime(info) {
 	const context = vm.createContext({ console: { log() {}, error() {} } });
 	vm.runInContext(read("docs/directory.js"), context);
+	const previousKeys = [
+		"helloworld",
+		"learntofight",
+		"interface",
+		"skills-recovery",
+		"shops",
+		"upgrade",
+		"compound",
+		"bank",
+		"move",
+		"crafting-exchanges",
+		"parties-friends",
+		"hellocode",
+		"multiple-characters",
+		"events-status",
+		"theend",
+	];
+	context.docs.tutorial = previousKeys.map((key) => context.docs.tutorial.find((lesson) => lesson.key === key));
 	load(context, "adventure_functions.js", [
 		"process_user_data",
 		"migrate_tutorial_data",
 		"tutorial_lesson_complete",
 		"calculate_tutorial_step",
 		"data_to_tutorial",
+		"get_tutorial_track",
 	]);
 	load(context, "api.js", ["tutorial_api", "reset_tutorial_api"]);
 	const id = "IE_userdata-US_tutorial";
@@ -223,6 +242,7 @@ function tutorialUI(context, data) {
 		G: { docs: context.docs },
 		X: { tutorial: context.data_to_tutorial(data) },
 		last_rendered_step: 0,
+		last_rendered_track: "",
 		tutorial_ui: true,
 		no_graphics: true,
 		hide_modals() {},
@@ -239,7 +259,7 @@ function tutorialUI(context, data) {
 	});
 	context.window = context;
 	load(context, "js/game.js", ["update_tutorial_ui"]);
-	load(context, "js/html.js", ["render_tutorial_index", "render_tutorial"]);
+	load(context, "js/html.js", ["get_tutorial_view", "continue_tutorial", "render_tutorial_index", "render_tutorial"]);
 	return { elements, calls };
 }
 
@@ -277,7 +297,7 @@ test("completed later lessons remain marked completed while reading a newly inse
 	r.context.render_tutorial_index();
 	assert.match(
 		r.context.modal,
-		new RegExp("border-color:#73BD6D; text-align:left' onclick='open_tutorial\\(" + previousReading + "\\)"),
+		new RegExp("border-color:#73BD6D; text-align:left' onclick='open_tutorial\\(" + previousReading + ","),
 	);
 	delete r.context.X;
 	assert.doesNotThrow(() => r.context.render_tutorial_index(), "the index also works without an account");
