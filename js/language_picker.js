@@ -32,7 +32,10 @@ function language_icon(language) {
 
 function show_languages() {
 	var html = "<div class='language-picker'><div class='mb5'>" + phrase.html("language.choose") + "</div>";
-	phrase.languages.forEach(function (language) {
+	var languages = phrase.languages.slice().sort(function (a, b) {
+		return a.name.localeCompare(b.name, "en", { sensitivity: "base" });
+	});
+	languages.forEach(function (language) {
 		html +=
 			"<button type='button' class='gamebutton language-choice' lang='" +
 			language.code +
