@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Denní dobrodružství",
+  "interface.upcoming.adventures.text": "Tajemství čarodějnice a nové stezky.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Na moři se schyluje k potížím.",
+  "interface.upcoming.werdars.title": "Odměny od Werdars za úrovně",
+  "interface.upcoming.werdars.text": "Nová výbava pro další vzestup.",
+  "interface.upcoming.rare_drops.title": "Nová vzácná kořist",
+  "interface.upcoming.rare_drops.text": "Další vzácné nálezy jako Sucker Punch.",
 	"interface.tutorial.skip": "Přeskočit",
 	"interface.learn_article.lt_previous": "&lt; Předchozí",
 	"interface.learn_article.next_gt": "Další &gt;",

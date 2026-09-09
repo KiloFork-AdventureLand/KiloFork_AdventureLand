@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Щоденні пригоди",
+  "interface.upcoming.adventures.text": "Таємниці відьми й нові стежки.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "У відкритому морі назріває лихо.",
+  "interface.upcoming.werdars.title": "Нагороди Werdars за рівні",
+  "interface.upcoming.werdars.text": "Нове спорядження для подальшого сходження.",
+  "interface.upcoming.rare_drops.title": "Нова рідкісна здобич",
+  "interface.upcoming.rare_drops.text": "Більше рідкісних знахідок на кшталт Sucker Punch.",
 	"interface.tutorial.skip": "Пропустити",
 	"interface.learn_article.lt_previous": "&lt; Назад",
 	"interface.learn_article.next_gt": "Далі &gt;",

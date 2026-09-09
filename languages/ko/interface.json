@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "일일 모험",
+  "interface.upcoming.adventures.text": "마녀의 비밀과 새롭게 따라갈 길.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "먼바다에 불길한 기운이 모여듭니다.",
+  "interface.upcoming.werdars.title": "Werdars의 레벨 보상",
+  "interface.upcoming.werdars.text": "앞으로의 성장을 위한 새 장비.",
+  "interface.upcoming.rare_drops.title": "새로운 희귀 드롭",
+  "interface.upcoming.rare_drops.text": "Sucker Punch 같은 희귀 아이템이 더 등장합니다.",
 	"interface.tutorial.skip": "건너뛰기",
 	"interface.tutorial.comparison.gear_plain": "상점에서 산 +0 장비",
 	"interface.tutorial.comparison.gear_upgraded": "같은 장비를 +7로 강화",

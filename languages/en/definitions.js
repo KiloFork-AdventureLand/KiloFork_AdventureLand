@@ -494,6 +494,8 @@ module.exports = {
 	"directory.guide.code.title": "Learn CODE",
 	// docs/directory.js; guide navigation heading. Preserve its route key. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"directory.guide.communicator.title": "Communicator & Chat",
+	// docs/directory.js: Guide link to the external Hub chat and character-watching article. Keep Hub unchanged.
+	"directory.guide.hub.title": "Hub & Chat",
 	// docs/directory.js; guide navigation heading. Preserve its route key. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"directory.guide.compounding.title": "Compounding",
 	// docs/directory.js; guide navigation heading. Preserve its route key. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.

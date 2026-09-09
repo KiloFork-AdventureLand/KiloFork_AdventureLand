@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Ежедневные приключения",
+  "interface.upcoming.adventures.text": "Секреты ведьмы и новые тропы.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "В открытом море назревает беда.",
+  "interface.upcoming.werdars.title": "Награды Werdars за уровни",
+  "interface.upcoming.werdars.text": "Новое снаряжение для дальнейшего восхождения.",
+  "interface.upcoming.rare_drops.title": "Новая редкая добыча",
+  "interface.upcoming.rare_drops.text": "Больше редких находок вроде Sucker Punch.",
 	"interface.tutorial.skip": "Пропустить",
 	"interface.tutorial.comparison.gear_plain": "Снаряжение +0 от продавца",
 	"interface.tutorial.comparison.gear_upgraded": "То же снаряжение +7",

@@ -103,9 +103,9 @@ app.get("/", async (req, res, next) => {
 	await render_selection(req, res, user, domain);
 });
 
-// Communication page
-app.get("/comm", (req, res) => res.redirect(301, "/communicator" + req.originalUrl.slice(req.path.length)));
-app.get("/communicator", async (req, res, next) => {
+// External Hub page; the in-game COM panel is separate.
+app.get("/comm", (req, res) => res.redirect(301, "/hub" + req.originalUrl.slice(req.path.length)));
+app.get("/hub", async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
 	var servers = await get_servers();

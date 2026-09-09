@@ -1,4 +1,6 @@
 {
+  "navigation.hub": "Hub",
+  "navigation.github": "GitHub",
 	"language.choose": "Język",
 	"language.select": "Wybierz język: {language}",
 	"language.save_failed": "Nie udało się zapisać języka. Spróbuj ponownie.",

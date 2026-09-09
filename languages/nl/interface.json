@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Dagelijkse avonturen",
+  "interface.upcoming.adventures.text": "De geheimen van een heks en nieuwe paden om te volgen.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Op zee broeien problemen.",
+  "interface.upcoming.werdars.title": "Niveaubeloningen van Werdars",
+  "interface.upcoming.werdars.text": "Nieuwe uitrusting voor de verdere klim.",
+  "interface.upcoming.rare_drops.title": "Nieuwe zeldzame buit",
+  "interface.upcoming.rare_drops.text": "Meer zeldzame vondsten zoals Sucker Punch.",
 	"interface.tutorial.skip": "Overslaan",
 	"interface.learn_article.lt_previous": "&lt; Vorige",
 	"interface.learn_article.next_gt": "Volgende &gt;",

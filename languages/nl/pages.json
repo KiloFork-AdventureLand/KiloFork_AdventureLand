@@ -1,3 +1,5 @@
 {
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">COM</a><a href=\"/docs/guide/mainframe\">Gids</a><a href=\"/\">Spel</a>"
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "BINNENKORT",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Gids</a><a href=\"/\">Spel</a>"
 }

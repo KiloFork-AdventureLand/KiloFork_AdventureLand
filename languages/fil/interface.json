@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Mga Pang-araw-araw na Pakikipagsapalaran",
+  "interface.upcoming.adventures.text": "Mga lihim ng isang mangkukulam at mga bagong landas na susundan.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "May namumuong panganib sa laot.",
+  "interface.upcoming.werdars.title": "Mga Gantimpala sa Level mula kay Werdars",
+  "interface.upcoming.werdars.text": "Bagong kagamitan para sa patuloy na pag-angat.",
+  "interface.upcoming.rare_drops.title": "Mga Bagong Bihirang Nakukuha",
+  "interface.upcoming.rare_drops.text": "Mas marami pang bihirang makukuha tulad ng Sucker Punch.",
 	"interface.tutorial.skip": "Laktawan",
 	"interface.learn_article.lt_previous": "&lt; Nakaraan",
 	"interface.learn_article.next_gt": "Susunod &gt;",

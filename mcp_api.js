@@ -2190,12 +2190,12 @@ var MCP_TOOL_META = {
 	},
 	browser_code_eval: {
 		description:
-			"Evaluate up to 64 KiB of arbitrary JavaScript in an account-owned character's browser CODE context through the authenticated /communicator relay. The browser must already be open and connected. If CODE is stopped, the browser starts a temporary snippet runner. A successful result means the snippet was queued, not that it completed or succeeded.",
+			"Evaluate up to 64 KiB of arbitrary JavaScript in an account-owned character's browser CODE context through the authenticated /hub relay. The browser must already be open and connected. If CODE is stopped, the browser starts a temporary snippet runner. A successful result means the snippet was queued, not that it completed or succeeded.",
 		destructiveHint: true,
 	},
 	mainframe_code_eval: {
 		description:
-			"Evaluate up to 64 KiB of arbitrary JavaScript in an account-owned character's running Mainframe CODE context through the authenticated /communicator relay. The character must have a live Mainframe assignment. A successful result means the snippet was queued, not that it completed or succeeded.",
+			"Evaluate up to 64 KiB of arbitrary JavaScript in an account-owned character's running Mainframe CODE context through the authenticated /hub relay. The character must have a live Mainframe assignment. A successful result means the snippet was queued, not that it completed or succeeded.",
 		destructiveHint: true,
 	},
 	mainframe_list_characters: { description: "List owned characters and their Mainframe access and runtime state.", readOnlyHint: true },

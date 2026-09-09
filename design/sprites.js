@@ -1155,6 +1155,12 @@ for (var i = 0; i < 42; i++) {
 // 	sprites["hairs3"]["matrix"][0].push("hair3"+("0"+i).slice(-2));
 
 var imagesets = {
+	teasers: {
+		size: 20,
+		rows: 1,
+		columns: 4,
+		file: "/images/tiles/items/teasers.png?v=1",
+	},
 	pack_1a: {
 		size: 16,
 		rows: 128,

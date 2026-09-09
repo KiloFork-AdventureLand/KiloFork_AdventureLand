@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "مغامرات يومية",
+  "interface.upcoming.adventures.text": "أسرار ساحرة ودروب جديدة لاستكشافها.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "متاعب تتجمع قبالة الساحل.",
+  "interface.upcoming.werdars.title": "مكافآت المستويات من Werdars",
+  "interface.upcoming.werdars.text": "عتاد جديد لمواصلة التقدم.",
+  "interface.upcoming.rare_drops.title": "غنائم نادرة جديدة",
+  "interface.upcoming.rare_drops.text": "المزيد من اللقى النادرة مثل Sucker Punch.",
 	"interface.tutorial.skip": "تخطّ",
 	"interface.learn_article.lt_previous": "&lt; السابق",
 	"interface.learn_article.next_gt": "التالي &gt;",

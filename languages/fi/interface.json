@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Päivittäiset seikkailut",
+  "interface.upcoming.adventures.text": "Noidan salaisuuksia ja uusia polkuja seurattavaksi.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Avomerellä muhii ongelmia.",
+  "interface.upcoming.werdars.title": "Werdarsin tasopalkinnot",
+  "interface.upcoming.werdars.text": "Uusia varusteita tulevaan nousuun.",
+  "interface.upcoming.rare_drops.title": "Uusia harvinaisia saaliita",
+  "interface.upcoming.rare_drops.text": "Lisää harvinaisia löytöjä, kuten Sucker Punch.",
 	"interface.tutorial.skip": "Ohita",
 	"interface.learn_article.lt_previous": "&lt; Edellinen",
 	"interface.learn_article.next_gt": "Seuraava &gt;",

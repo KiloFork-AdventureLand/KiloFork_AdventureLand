@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Petualangan Harian",
+  "interface.upcoming.adventures.text": "Rahasia seorang penyihir dan jalur baru untuk ditelusuri.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Masalah mulai muncul di lepas pantai.",
+  "interface.upcoming.werdars.title": "Hadiah Level dari Werdars",
+  "interface.upcoming.werdars.text": "Perlengkapan baru untuk terus naik level.",
+  "interface.upcoming.rare_drops.title": "Jarahan Langka Baru",
+  "interface.upcoming.rare_drops.text": "Lebih banyak temuan langka seperti Sucker Punch.",
 	"interface.tutorial.skip": "Lewati",
 	"interface.learn_article.lt_previous": "&lt; Sebelumnya",
 	"interface.learn_article.next_gt": "Berikutnya &gt;",

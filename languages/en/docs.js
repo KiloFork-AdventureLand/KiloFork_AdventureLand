@@ -1,5 +1,9 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// docs/articles/hub.html: Article title. Keep Hub, the external chat and character-watching page name. Preserve the HTML.
+	"docs.articles.hub.title": '<span class="dlabel">Hub &amp; Chat</span>',
+	// docs/articles/hub.html: Opening directions. Preserve the /hub link and the CHAT control name.
+	"docs.articles.hub.introduction": 'Open <a href="/hub">Hub</a> to watch your characters and chat. CHAT starts open on the server you are viewing. You can read server chat before logging in.',
 	// Image descriptions reused from the approved localized comic editions.
 	"docs.lore.page1.alt": "A goo interrupts a hunt. Someone is speaking through it, asking not to be sent back.",
 	"docs.lore.page2.alt": "Patch traces the voice to a worker outside. He offers to help her escape as a robot approaches.",
@@ -1112,35 +1116,35 @@ module.exports = {
 	// docs/articles/code-globals.html:7; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.articles.code-globals.your-live-character-proxy-stats-inventory-equipment-conditions":
 		"Your live character proxy: stats, inventory, equipment, conditions, action progress, movement, social state, and event methods. See the Character Object reference.",
-	// docs/articles/communicator.html:38; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Mainframe"].
+	// docs/articles/hub.html:38; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Mainframe"].
 	"docs.articles.communicator.both-functions-also-work-in-mainframe-mute-and": "Both functions also work in Mainframe. Mute and chat limits still apply.",
 	// Communicator guide: NEW PM chooses an owned sender; existing private chats retain their sender. Neither character needs to be online.
 	"docs.articles.communicator.choose-new-pm-and-enter-the-recipient-s":
 		"Choose NEW PM and enter the recipient's full character name. Choose your sender for a new conversation; replies keep the character already in that chat. Both characters can be offline.",
-	// docs/articles/communicator.html:25; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["CODE"].
+	// docs/articles/hub.html:25; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["CODE"].
 	"docs.articles.communicator.code-examples": '<span class="dlabel">CODE examples</span>',
-	// docs/articles/communicator.html:1; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	// docs/articles/hub.html:1; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.articles.communicator.communicator-chat": '<span class="dlabel">Communicator &amp; Chat</span>',
-	// docs/articles/communicator.html:27; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["say"].
+	// docs/articles/hub.html:27; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["say"].
 	"docs.articles.communicator.from-an-online-character-use-say-for-its":
 		'From an online character, use <span class="rlabel" onclick="render_function_reference(\'say\')">say</span> for its server chat. Run this once when you want to greet the server:',
 	// Communicator guide: any owned name can send to any server, online or offline. Translate From and SEND using the actual controls; Enter is the keyboard key.
 	"docs.articles.communicator.log-in-choose-a-character-in-the-from":
 		"Log in, choose any of your characters in From, then type your message and press Enter or SEND. You can send to any server using that character's name, even while it is offline or playing elsewhere.",
-	// docs/articles/communicator.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	// docs/articles/hub.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.articles.communicator.open-communicator-to-watch-your-characters-and-chat":
-		'Open <a href="/communicator">Communicator</a> to watch your characters and chat. CHAT starts open on the server you are viewing. You can read server chat before logging in.',
-	// docs/articles/communicator.html:12; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+		'Open <a href="/hub">Communicator</a> to watch your characters and chat. CHAT starts open on the server you are viewing. You can read server chat before logging in.',
+	// docs/articles/hub.html:12; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.articles.communicator.sending-messages": '<span class="dlabel">Sending messages</span>',
-	// docs/articles/communicator.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
+	// docs/articles/hub.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.articles.communicator.the-conversation-list-puts-the-most-recent-chats":
 		"The conversation list puts the most recent chats first. Select a server or a private conversation to read it. Use OLDER MESSAGES to read further back, or MORE CHATS to find older conversations. On a\n\tsmall screen, CHATS opens the conversation list.",
-	// docs/articles/communicator.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["pm"].
+	// docs/articles/hub.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["pm"].
 	"docs.articles.communicator.use-pm-for-a-private-message-replace-friendname":
 		'Use <span class="rlabel" onclick="render_function_reference(\'pm\')">pm</span> for a private message. Replace FriendName with an existing character name. The recipient can be offline. Run this\n\tseparately from the greeting; chat has a cooldown.',
 	// Communicator guide: drafts, dragging by the header/CHAT label, 90% width and height, restore, and HIDE/CHAT controls.
 	"docs.articles.communicator.your-draft-stays-in-its-conversation-while-you":
-		"Drafts stay in their conversations when you switch chats. Drag the small window by its header, including CHAT. The expand button fills 90% of the screen's width and height; press it again to restore the small window. HIDE closes chat; CHAT opens it again. Watching characters and the other Communicator controls remain available.",
+		"Drafts stay in their conversations when you switch chats. Drag the small window by its header, including CHAT. The expand button fills 90% of the screen's width and height; press it again to restore the small window. HIDE closes chat; CHAT opens it again. Watching characters and the other Hub controls remain available.",
 	// docs/articles/data-character.html:60; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.articles.data-character.attributes-and-combat-pressure": '<span class="dlabel">Attributes and combat pressure</span>',
 	// docs/articles/data-character.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["x","y","move","equip","use_skill"]. Keep names: ["CODE"].
@@ -1517,7 +1521,7 @@ module.exports = {
 		"Mainframe supports the public CODE function directory without a browser page or DOM. Combat, movement, inventory, crafting, social, mail, trade, storage, and event functions use normal game actions. UI-only calls such as buttons, drawing, and focus do not affect gameplay.",
 	// docs/articles/mainframe.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["CODE","Mainframe"].
 	"docs.articles.mainframe.open-mainframe-to-choose-a-character-code-slot":
-		"Open <a href=\"/mainframe\">Mainframe</a> to choose a character, CODE slot, and live realm. Mainframe is also visible in COM and on <a href=\"/communicator\">/communicator</a>.",
+		'Open <a href="/mainframe">Mainframe</a> to choose a character, CODE slot, and live realm. Mainframe is also visible in COM and on <a href="/hub">/hub</a>.',
 	// docs/articles/mainframe.html:27; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["smart_move"]. Keep names: ["Mainframe"].
 	"docs.articles.mainframe.smart-move-uses-mainframe-navigation-instead-of-running":
 		'<span class="dlabel">smart_move</span> uses Mainframe navigation instead of running the browser\'s exhaustive pathfinder. Your code keeps the same public call.',
@@ -4623,7 +4627,7 @@ module.exports = {
 		'Open another game client from character selection with <b>&gt; New Game Window</b>, or type <span class="dlabel">/window</span> in chat. Each window renders the complete game and runs that character\'s CODE.',
 	// docs/guide/multi.html:11; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.multi.open-com-select-characters-and-press-deploy-to":
-		"Open <a href=\"/communicator\">COM</a>, select <b>Characters</b>, and press <b>Deploy</b> to open an owned character in a new window. COM also shows where your characters are connected.",
+		'Open COM, select <b>Characters</b>, and press <b>Deploy</b> to open an owned character in a new window. COM also shows where your characters are connected.',
 	// docs/guide/multi.html:2; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.multi.run-more-than-one-character": "Run More Than One Character",
 	// docs/guide/multi.html:19; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["CODE"].
@@ -4631,7 +4635,7 @@ module.exports = {
 		'Type <span class="dlabel">/start CHARACTERNAME</span> in chat, or use CODE, to run another owned character inside the current browser. Coordinate characters with trusted CODE messages:',
 	// docs/guide/multi.html:34; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["send_cm"].
 	"docs.guide.multi.use-com-or-comm-to-observe-connected-characters":
-		"Use <a href=\"/communicator\">COM</a> or <span class=\"dlabel\">/communicator</span> to observe connected characters. Use <span class=\"dlabel\">send_cm</span> for character-to-character instructions, and always check the sender before acting on a message.",
+		'Use COM or <a href="/hub">Hub</a> to observe connected characters. Use <span class="dlabel">send_cm</span> for character-to-character instructions, and always check the sender before acting on a message.',
 	// docs/guide/npc-angel.html:1; Documentation prose. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.npc-angel.hello-world": "Hello World!",
 	// docs/guide/npc-merrit.html:13; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.

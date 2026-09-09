@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Tägliche Abenteuer",
+  "interface.upcoming.adventures.text": "Die Geheimnisse einer Hexe und neue Pfade.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Auf See braut sich Ärger zusammen.",
+  "interface.upcoming.werdars.title": "Werdars' Stufenbelohnungen",
+  "interface.upcoming.werdars.text": "Neue Ausrüstung für den weiteren Aufstieg.",
+  "interface.upcoming.rare_drops.title": "Neue seltene Beute",
+  "interface.upcoming.rare_drops.text": "Mehr seltene Funde wie Sucker Punch.",
 	"interface.tutorial.skip": "Überspringen",
 	"interface.tutorial.comparison.gear_plain": "Beim Verkäufer gekaufte Ausrüstung auf +0",
 	"interface.tutorial.comparison.gear_upgraded": "Dieselbe Ausrüstung auf +7",

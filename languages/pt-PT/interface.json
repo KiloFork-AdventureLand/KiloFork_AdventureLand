@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Aventuras diárias",
+  "interface.upcoming.adventures.text": "Os segredos de uma bruxa e novos trilhos a seguir.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Avizinham-se problemas em alto-mar.",
+  "interface.upcoming.werdars.title": "Prémios de nível de Werdars",
+  "interface.upcoming.werdars.text": "Novo equipamento para continuares a subir.",
+  "interface.upcoming.rare_drops.title": "Novos despojos raros",
+  "interface.upcoming.rare_drops.text": "Mais achados raros como Sucker Punch.",
 	"interface.tutorial.skip": "Saltar",
 	"interface.learn_article.lt_previous": "&lt; Anterior",
 	"interface.learn_article.next_gt": "Seguinte &gt;",

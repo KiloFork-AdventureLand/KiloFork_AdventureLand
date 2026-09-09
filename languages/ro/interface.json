@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Aventuri zilnice",
+  "interface.upcoming.adventures.text": "Secretele unei vrăjitoare și noi poteci de urmat.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Necazurile se adună în larg.",
+  "interface.upcoming.werdars.title": "Recompense de nivel de la Werdars",
+  "interface.upcoming.werdars.text": "Echipament nou pentru ascensiunea ce urmează.",
+  "interface.upcoming.rare_drops.title": "Pradă rară nouă",
+  "interface.upcoming.rare_drops.text": "Mai multe descoperiri rare, precum Sucker Punch.",
 	"interface.tutorial.skip": "Omite",
 	"interface.learn_article.lt_previous": "&lt; Înapoi",
 	"interface.learn_article.next_gt": "Înainte &gt;",

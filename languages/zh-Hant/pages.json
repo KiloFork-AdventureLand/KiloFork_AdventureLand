@@ -1,4 +1,6 @@
 {
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "即將推出",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - 更新說明",
 	"pages.allnotes.last-update": "最近更新 {last_deploy}",
 	"pages.allnotes.update-notes": "更新說明",
@@ -1340,7 +1342,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "在AI用戶端的MCP設定中添加伺服器URL和Bearer權杖。",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">續費時，1貝殼可供1個活躍角色執行60分鐘，2個角色50分鐘，3個角色45分鐘，或4個角色40分鐘。中斷連線可停止後續續費；已付費時長不退還。</span><span>直接啟動的執行實例彼此隔離；CODE可在同一台機器中再加入最多三個角色。</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">正在檢查權杖…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">通訊</a><a href=\"/docs/guide/mainframe\">指南</a><a href=\"/\">遊戲</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">指南</a><a href=\"/\">遊戲</a>",
 	"pages.mainframe.connect-an-ai": "連線至AI",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">正在連線</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "建立權杖。Mainframe會遮住權杖，直到你點選<strong>查看權杖</strong>。",

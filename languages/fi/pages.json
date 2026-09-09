@@ -1,3 +1,5 @@
 {
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">YHT</a><a href=\"/docs/guide/mainframe\">Opas</a><a href=\"/\">Peli</a>"
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "TULOSSA",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Opas</a><a href=\"/\">Peli</a>"
 }

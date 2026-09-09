@@ -1,4 +1,6 @@
 {
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "СКОРО",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land — новости обновлений",
 	"pages.allnotes.last-update": "Последнее обновление: {last_deploy}",
 	"pages.allnotes.update-notes": "Новости обновлений",
@@ -1340,7 +1342,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "Добавьте URL сервера и токен доступа Bearer в настройки MCP вашего ИИ-клиента.",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">При продлении 1 ракушка даёт 60 мин. для 1 активного персонажа, 50 мин. для 2, 45 мин. для 3 или 40 мин. для 4. Отключитесь, чтобы остановить будущие продления; оплаченное время не возвращается.</span><span>Прямые запуски изолированы; CODE может включать до трёх дополнительных персонажей на той же машине.</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">Проверка токена доступа…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">СВЯЗЬ</a><a href=\"/docs/guide/mainframe\">Руководство</a><a href=\"/\">Игра</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Руководство</a><a href=\"/\">Игра</a>",
 	"pages.mainframe.connect-an-ai": "Подключить ИИ",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">Подключение</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "Создайте токен доступа. Mainframe скрывает его, пока вы не нажмёте <strong>Показать токен доступа</strong>.",

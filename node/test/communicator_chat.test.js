@@ -225,11 +225,11 @@ test("Communicator cooldown is shared across destinations and saved or remote li
 	assert.equal((await f.send()).reason, "muted");
 });
 
-test("the legacy communicator URL redirects permanently and preserves its query string", () => {
+test("the legacy /comm URL redirects to Hub and preserves its query string", () => {
 	const source = read("main.js"),
 		start = source.indexOf('app.get("/comm",');
 	let handler;
-	vm.runInNewContext(source.slice(start, source.indexOf('\napp.get("/communicator"', start)), {
+	vm.runInNewContext(source.slice(start, source.indexOf('\napp.get("/hub"', start)), {
 		app: {
 			get: (route, fn) => {
 				handler = fn;
@@ -245,7 +245,8 @@ test("the legacy communicator URL redirects permanently and preserves its query 
 			},
 		},
 	);
-	assert.deepEqual(redirected, { status: 301, url: "/communicator?region=US&name=I" });
+	assert.deepEqual(redirected, { status: 301, url: "/hub?region=US&name=I" });
+	assert.ok(!source.includes('app.get("/communicator"'));
 });
 
 test("the existing authenticated eval bridge returns both immediate and asynchronous results", async () => {

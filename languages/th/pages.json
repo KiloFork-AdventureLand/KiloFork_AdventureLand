@@ -1,3 +1,5 @@
 {
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">สื่อสาร</a><a href=\"/docs/guide/mainframe\">คู่มือ</a><a href=\"/\">เกม</a>"
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "เร็ว ๆ นี้",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">คู่มือ</a><a href=\"/\">เกม</a>"
 }

@@ -1,4 +1,6 @@
 {
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "YAKINDA",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Güncelleme Notları",
 	"pages.allnotes.last-update": "Son Güncelleme {last_deploy}",
 	"pages.allnotes.update-notes": "Güncelleme Notları",
@@ -1340,7 +1342,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "Sunucu URL'sini ve Bearer anahtarını yapay zekâ istemcinizin MCP ayarlarına ekleyin.",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">Yenilemede 1 Deniz Kabuğu, 1 aktif karakter için 60 dk, 2 için 50 dk, 3 için 45 dk, 4 için 40 dk sağlar. Sonraki yenilemeleri durdurmak için bağlantıyı kesin; ödenmiş süre iade edilmez.</span><span>Doğrudan çalıştırmalar birbirinden ayrıdır; CODE aynı makineye üç karakter daha ekleyebilir.</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">Anahtar kontrol ediliyor…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">İLT</a><a href=\"/docs/guide/mainframe\">Rehber</a><a href=\"/\">Oyun</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Rehber</a><a href=\"/\">Oyun</a>",
 	"pages.mainframe.connect-an-ai": "Yapay Zekâ Bağla",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">Bağlanıyor</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "Bir anahtar oluşturun. Mainframe, <strong>Anahtarı göster</strong>'e basana kadar onu gizli tutar.",

@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Codzienne przygody",
+  "interface.upcoming.adventures.text": "Sekrety wiedźmy i nowe ścieżki.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Na morzu zbierają się kłopoty.",
+  "interface.upcoming.werdars.title": "Nagrody Werdars za poziomy",
+  "interface.upcoming.werdars.text": "Nowy ekwipunek na dalszą wspinaczkę.",
+  "interface.upcoming.rare_drops.title": "Nowe rzadkie łupy",
+  "interface.upcoming.rare_drops.text": "Więcej rzadkich znalezisk, takich jak Sucker Punch.",
 	"interface.tutorial.skip": "Pomiń",
 	"interface.tutorial.comparison.gear_plain": "Wyposażenie +0 od sprzedawcy",
 	"interface.tutorial.comparison.gear_upgraded": "To samo wyposażenie na +7",

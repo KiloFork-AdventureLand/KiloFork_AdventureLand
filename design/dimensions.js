@@ -65,6 +65,11 @@ dimensions["goldenbat"]=dimensions["bat"];
 dimensions["pppompom"]=dimensions["minimush"]; dimensions["pppompom"][2]=-1;
 
 var positions={
+	// Menu previews only; these skins are not playable items.
+	"teaser_witch":["teasers",0,0],
+	"teaser_blackwake":["teasers",1,0],
+	"teaser_werdars":["teasers",2,0],
+	"teaser_rare":["teasers",3,0],
 	"encouragement_new":["rawitems",14,3],
 	"encouragement_lonewolf":["rawitems",15,3],
 	"encouragement_returning":["rawitems",16,3],

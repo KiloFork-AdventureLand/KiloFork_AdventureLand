@@ -1,6 +1,8 @@
 <!-- <a class="gamebutton" href="/logs" target="_blank">Development Diary</a> -->
 {% if buttons=="essentials" %}
 <a class="gamebutton" href="/docs" style="border-color: #d6d135" target="_blank">{{ phrase("pages.contents.section_buttons.docs") }}</a>
+<a class="gamebutton" href="/hub" style="border-color: #B28AE8" target="_blank">{{ phrase("navigation.hub") }}</a>
+<a class="gamebutton eexternal" href="https://github.com/kaansoral/adventureland_mongodb" style="border-color: #85C76B" target="_blank">{{ phrase("navigation.github") }}</a>
 <a class="gamebutton eexternal" href="https://discord.gg/44yUVeU" target="_blank" style="border-color: #32a3b0">{{ phrase("pages.contents.section_buttons.discord") }}</a>
 {% endif %} {% if buttons=="musts" %} {#
 <div class="gamebutton" onclick="btc(event); show_terms()">Terms</div>
@@ -8,7 +10,7 @@
 #}
 <div class="gamebutton" onclick="btc(event); show_ttp()" style="border-color: #d46e33">{{ phrase("pages.contents.section_buttons.terms") }}</div>
 {% endif %} {% if buttons=="social" %}
-<a class="gamebutton eexternal" href="https://github.com/kaansoral/adventureland_mongodb" target="_blank">Github</a>
+<a class="gamebutton eexternal" href="https://github.com/kaansoral/adventureland_mongodb" target="_blank">{{ phrase("navigation.github") }}</a>
 <a class="gamebutton eexternal" href="https://www.reddit.com/r/adventureland" target="_blank">Reddit</a>
 {% endif %} {% if 0 %}
 <a class="gamebutton" href="https://www.facebook.com/adventurelandmmo" target="_blank">Facebook</a>

@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Avventure quotidiane",
+  "interface.upcoming.adventures.text": "I segreti di una strega e nuovi sentieri da seguire.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Guai in vista al largo.",
+  "interface.upcoming.werdars.title": "Premi di livello di Werdars",
+  "interface.upcoming.werdars.text": "Nuovo equipaggiamento per continuare a salire.",
+  "interface.upcoming.rare_drops.title": "Nuovi bottini rari",
+  "interface.upcoming.rare_drops.text": "Altri ritrovamenti rari come Sucker Punch.",
 	"interface.tutorial.skip": "Salta",
 	"interface.learn_article.lt_previous": "&lt; Precedente",
 	"interface.learn_article.next_gt": "Successivo &gt;",

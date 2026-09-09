@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "日々の冒険",
+  "interface.upcoming.adventures.text": "魔女の秘密と、新たにたどる道。",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "沖合で不穏な気配が漂っています。",
+  "interface.upcoming.werdars.title": "Werdarsのレベル報酬",
+  "interface.upcoming.werdars.text": "さらなる成長を支える新たな装備。",
+  "interface.upcoming.rare_drops.title": "新たなレアドロップ",
+  "interface.upcoming.rare_drops.text": "Sucker Punchのようなレアアイテムがさらに登場。",
 	"interface.tutorial.skip": "スキップ",
 	"interface.tutorial.comparison.gear_plain": "店で買える+0装備",
 	"interface.tutorial.comparison.gear_upgraded": "同じ装備を+7に強化",

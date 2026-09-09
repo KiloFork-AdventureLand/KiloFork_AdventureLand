@@ -1,4 +1,6 @@
 {
+  "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; chat</span>",
+  "docs.articles.hub.introduction": "Otevři <a href=\"/hub\">Hub</a> a sleduj své postavy nebo chatuj. CHAT se otevře na serveru, který právě sleduješ. Serverový chat můžeš číst i před přihlášením.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Tvoje postavy sdílejí účet, banku a pokud chceš, i plán.",
 	"docs.tutorial.multiple-characters.characters-coordination": "POSTAVY A KOORDINACE",
 	"docs.tutorial.multiple-characters.done": "HOTOVO",
@@ -63,8 +65,8 @@
 	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Uložené předměty a zlato v bance, ne živá data. stale označuje banku používanou postavou, ne stáří dat. Aktuálnost není ověřena; observed_at není známo a retrieved_at je čas čtení.",
 	"docs.articles.communicator.log-in-choose-a-character-in-the-from": "Přihlas se, v poli Od vyber libovolnou ze svých postav, napiš zprávu a stiskni Enter nebo ODESLAT. Pod jménem této postavy můžeš psát na kterýkoli server, i když je offline nebo hraje jinde.",
 	"docs.articles.communicator.choose-new-pm-and-enter-the-recipient-s": "Vyber NOVÁ SZ a zadej celé jméno postavy příjemce. Pro novou konverzaci vyber odesílatele; odpovědi se posílají za postavu, která už je v daném chatu. Obě postavy mohou být offline.",
-	"docs.articles.communicator.your-draft-stays-in-its-conversation-while-you": "Rozepsané zprávy zůstávají ve svých konverzacích, když přepínáš chaty. Malé okno můžeš táhnout za záhlaví, včetně nápisu CHAT. Tlačítko zvětšení zvětší okno na 90 % šířky i výšky obrazovky; dalším stisknutím obnovíš malé okno. SKRÝT chat zavře; CHAT ho znovu otevře. Sledování postav i ostatní ovládací prvky Komunikátoru zůstávají dostupné.",
-	"docs.articles.mainframe.open-mainframe-to-choose-a-character-code-slot": "Otevři <a href=\"/mainframe\">Mainframe</a> a vyber postavu, pozici CODE a aktivní svět. Mainframe najdeš také v KOM a na <a href=\"/communicator\">/communicator</a>.",
-	"docs.guide.multi.open-com-select-characters-and-press-deploy-to": "Otevři <a href=\"/communicator\">KOM</a>, vyber <b>Postavy</b> a stiskni <b>Připojit</b>. Tím otevřeš vlastní postavu v novém okně. KOM také ukazuje, kde jsou tvé postavy připojené.",
-	"docs.guide.multi.use-com-or-comm-to-observe-connected-characters": "Pomocí <a href=\"/communicator\">KOM</a> nebo <span class=\"dlabel\">/communicator</span> sleduj připojené postavy. K pokynům mezi postavami použij <span class=\"dlabel\">send_cm</span> a před provedením zprávy vždy ověř odesílatele."
+	"docs.articles.communicator.your-draft-stays-in-its-conversation-while-you": "Rozepsané zprávy zůstávají ve svých konverzacích, když přepínáš chaty. Malé okno můžeš táhnout za záhlaví, včetně nápisu CHAT. Tlačítko zvětšení zvětší okno na 90 % šířky i výšky obrazovky; dalším stisknutím obnovíš malé okno. SKRÝT chat zavře; CHAT ho znovu otevře. Sledování postav i ostatní ovládací prvky Hub zůstávají dostupné.",
+	"docs.articles.mainframe.open-mainframe-to-choose-a-character-code-slot": "Otevři <a href=\"/mainframe\">Mainframe</a> a vyber postavu, pozici CODE a aktivní svět. Mainframe najdeš také v KOM a na <a href=\"/hub\">/hub</a>.",
+	"docs.guide.multi.open-com-select-characters-and-press-deploy-to": "Otevři KOM, vyber <b>Postavy</b> a stiskni <b>Připojit</b>. Tím otevřeš vlastní postavu v novém okně. KOM také ukazuje, kde jsou tvé postavy připojené.",
+	"docs.guide.multi.use-com-or-comm-to-observe-connected-characters": "Pomocí KOM nebo <a href=\"/hub\">Hub</a> sleduj připojené postavy. K pokynům mezi postavami použij <span class=\"dlabel\">send_cm</span> a před provedením zprávy vždy ověř odesílatele."
 }

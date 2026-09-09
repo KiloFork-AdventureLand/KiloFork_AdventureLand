@@ -1,4 +1,13 @@
 module.exports = {
+	// Selection screen upcoming-content cards. Short teasers only; no dates or detailed mechanics. Keep The Black Wake, Werdars and Sucker Punch as proper names.
+	"interface.upcoming.adventures.title": "Daily Adventures",
+	"interface.upcoming.adventures.text": "A witch's secrets and new trails to follow.",
+	"interface.upcoming.black_wake.title": "The Black Wake",
+	"interface.upcoming.black_wake.text": "Trouble is gathering offshore.",
+	"interface.upcoming.werdars.title": "Werdars' Level Awards",
+	"interface.upcoming.werdars.text": "New gear for the climb ahead.",
+	"interface.upcoming.rare_drops.title": "New Rare Drops",
+	"interface.upcoming.rare_drops.text": "More rare finds like Sucker Punch.",
 	// Skip the opening comic and continue to the first gameplay lesson.
 	"interface.tutorial.skip": "Skip",
 	// Labels on the level-50 tutorial equipment comparisons.

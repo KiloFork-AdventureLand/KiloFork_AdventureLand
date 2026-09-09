@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Daglige eventyr",
+  "interface.upcoming.adventures.text": "En heks' hemmeligheder og nye stier at følge.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Der er ballade under opsejling ude på havet.",
+  "interface.upcoming.werdars.title": "Niveaubelønninger fra Werdars",
+  "interface.upcoming.werdars.text": "Nyt udstyr til den videre opstigning.",
+  "interface.upcoming.rare_drops.title": "Nyt sjældent bytte",
+  "interface.upcoming.rare_drops.text": "Flere sjældne fund som Sucker Punch.",
 	"interface.tutorial.skip": "Spring over",
 	"interface.learn_article.lt_previous": "&lt; Forrige",
 	"interface.learn_article.next_gt": "Næste &gt;",

@@ -1,4 +1,6 @@
 {
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "即将推出",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - 更新说明",
 	"pages.allnotes.last-update": "最近更新 {last_deploy}",
 	"pages.allnotes.update-notes": "更新说明",
@@ -1340,7 +1342,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "在AI客户端的MCP设置中添加服务器URL和Bearer令牌。",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">续费时，1贝壳可供1个活跃角色运行60分钟，2个角色50分钟，3个角色45分钟，或4个角色40分钟。断开连接可停止后续续费；已付费时长不退还。</span><span>直接启动的运行实例彼此隔离；CODE可在同一台机器中再加入最多三个角色。</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">正在检查令牌…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">通讯</a><a href=\"/docs/guide/mainframe\">指南</a><a href=\"/\">游戏</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">指南</a><a href=\"/\">游戏</a>",
 	"pages.mainframe.connect-an-ai": "连接AI",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">正在连接</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "创建令牌。Mainframe会遮住令牌，直到你点击<strong>查看令牌</strong>。",

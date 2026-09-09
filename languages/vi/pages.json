@@ -1,3 +1,5 @@
 {
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">LIÊN LẠC</a><a href=\"/docs/guide/mainframe\">Hướng dẫn</a><a href=\"/\">Trò chơi</a>"
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "SẮP CÓ",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Hướng dẫn</a><a href=\"/\">Trò chơi</a>"
 }

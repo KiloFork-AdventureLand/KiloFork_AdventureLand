@@ -1,4 +1,6 @@
 {
+  "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; chat</span>",
+  "docs.articles.hub.introduction": "Åbn <a href=\"/hub\">Hub</a> for at følge dine figurer og chatte. CHAT er åben fra starten på den server, du ser. Du kan læse serverchat, før du logger ind.",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Dine figurer deler en konto, en bank og, hvis du vil, en plan.",
 	"docs.tutorial.multiple-characters.characters-coordination": "FIGURER OG KOORDINERING",
 	"docs.tutorial.multiple-characters.done": "FÆRDIG",
@@ -63,8 +65,8 @@
 	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "Gemte bankgenstande og guld, ikke livedata. stale viser, at en karakter bruger banken, ikke hvor gamle dataene er. Aktualiteten er ikke bekræftet; observed_at er ukendt, og retrieved_at er læsetidspunktet.",
 	"docs.articles.communicator.log-in-choose-a-character-in-the-from": "Log ind, vælg en af dine figurer under Fra, skriv din besked, og tryk på Enter eller SEND. Du kan sende til enhver server med figurens navn, også når den er offline eller spiller et andet sted.",
 	"docs.articles.communicator.choose-new-pm-and-enter-the-recipient-s": "Vælg NY PB, og indtast modtagerens fulde figurnavn. Vælg afsender til en ny samtale; svar bruger fortsat den figur, der allerede bruges i chatten. Begge figurer kan være offline.",
-	"docs.articles.communicator.your-draft-stays-in-its-conversation-while-you": "Kladder bliver i deres samtaler, når du skifter chat. Træk det lille vindue i overskriften, også ved CHAT. Udvidelsesknappen forstørrer vinduet til 90 % af skærmens bredde og højde; tryk igen for at gendanne det lille vindue. SKJUL lukker chatten; CHAT åbner den igen. Du kan stadig følge figurer og bruge de andre funktioner i Kommunikator.",
-	"docs.articles.mainframe.open-mainframe-to-choose-a-character-code-slot": "Åbn <a href=\"/mainframe\">Mainframe</a> for at vælge en figur, en CODE-plads og en aktiv verden. Mainframe vises også i KOM og på <a href=\"/communicator\">/communicator</a>.",
-	"docs.guide.multi.open-com-select-characters-and-press-deploy-to": "Åbn <a href=\"/communicator\">KOM</a>, vælg <b>Figurer</b>, og tryk på <b>Log ind</b> for at åbne en figur, du ejer, i et nyt vindue. KOM viser også, hvor dine figurer er forbundet.",
-	"docs.guide.multi.use-com-or-comm-to-observe-connected-characters": "Brug <a href=\"/communicator\">KOM</a> eller <span class=\"dlabel\">/communicator</span> til at observere forbundne figurer. Brug <span class=\"dlabel\">send_cm</span> til instruktioner mellem figurer, og kontrollér altid afsenderen, før du handler på en besked."
+	"docs.articles.communicator.your-draft-stays-in-its-conversation-while-you": "Kladder bliver i deres samtaler, når du skifter chat. Træk det lille vindue i overskriften, også ved CHAT. Udvidelsesknappen forstørrer vinduet til 90 % af skærmens bredde og højde; tryk igen for at gendanne det lille vindue. SKJUL lukker chatten; CHAT åbner den igen. Du kan stadig følge figurer og bruge de andre funktioner i Hub.",
+	"docs.articles.mainframe.open-mainframe-to-choose-a-character-code-slot": "Åbn <a href=\"/mainframe\">Mainframe</a> for at vælge en figur, en CODE-plads og en aktiv verden. Mainframe vises også i KOM og på <a href=\"/hub\">/hub</a>.",
+	"docs.guide.multi.open-com-select-characters-and-press-deploy-to": "Åbn KOM, vælg <b>Figurer</b>, og tryk på <b>Log ind</b> for at åbne en figur, du ejer, i et nyt vindue. KOM viser også, hvor dine figurer er forbundet.",
+	"docs.guide.multi.use-com-or-comm-to-observe-connected-characters": "Brug KOM eller <a href=\"/hub\">Hub</a> til at observere forbundne figurer. Brug <span class=\"dlabel\">send_cm</span> til instruktioner mellem figurer, og kontrollér altid afsenderen, før du handler på en besked."
 }

@@ -1,3 +1,5 @@
 {
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">KOM</a><a href=\"/docs/guide/mainframe\">Průvodce</a><a href=\"/\">Hra</a>"
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "JIŽ BRZY",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Průvodce</a><a href=\"/\">Hra</a>"
 }

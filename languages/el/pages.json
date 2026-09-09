@@ -1,3 +1,5 @@
 {
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">COM</a><a href=\"/docs/guide/mainframe\">Οδηγός</a><a href=\"/\">Παιχνίδι</a>"
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "ΠΡΟΣΕΧΩΣ",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Οδηγός</a><a href=\"/\">Παιχνίδι</a>"
 }

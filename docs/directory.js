@@ -750,7 +750,7 @@ docs = {
 			],
 		],
 		["multi", "Multiple Ways to Run Multiple Characters", "multi,deploy", "#5997FF"],
-		["communicator", "Communicator & Chat", "chat,private,pm,messages,server,comm", "#CD7879"],
+		["hub", "Hub & Chat", "chat,private,pm,messages,server,comm,hub", "#CD7879"],
 		["adventure-mcp", "Adventure Land MCP for AI", "mcp,ai,tools,code,mainframe,architecture,source", "#238DB9"],
 		["mainframe", "Mainframe", "mainframe,hosting,automation,code", "#5ED6A8"],
 		[

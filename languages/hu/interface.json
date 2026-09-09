@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Napi kalandok",
+  "interface.upcoming.adventures.text": "Egy boszorkány titkai és új ösvények.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Baj készül a nyílt tengeren.",
+  "interface.upcoming.werdars.title": "Werdars szintjutalmai",
+  "interface.upcoming.werdars.text": "Új felszerelés a további fejlődéshez.",
+  "interface.upcoming.rare_drops.title": "Új ritka zsákmányok",
+  "interface.upcoming.rare_drops.text": "Még több ritka lelet, mint a Sucker Punch.",
 	"interface.tutorial.skip": "Kihagyás",
 	"interface.learn_article.lt_previous": "&lt; Előző",
 	"interface.learn_article.next_gt": "Következő &gt;",

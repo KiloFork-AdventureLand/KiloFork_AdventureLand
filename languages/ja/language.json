@@ -1,4 +1,6 @@
 {
+  "navigation.hub": "Hub",
+  "navigation.github": "GitHub",
 	"language.choose": "言語",
 	"language.select": "{language}を使う",
 	"language.save_failed": "言語を保存できませんでした。もう一度お試しください。",

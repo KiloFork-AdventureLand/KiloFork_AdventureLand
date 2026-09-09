@@ -1,4 +1,6 @@
 {
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "À VENIR",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Notes de mise à jour",
 	"pages.allnotes.last-update": "Dernière mise à jour {last_deploy}",
 	"pages.allnotes.update-notes": "Notes de mise à jour",
@@ -1340,7 +1342,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "Ajoute l’URL du serveur et le jeton Bearer aux paramètres MCP de ton client d’IA.",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">Au renouvellement, 1 coquillage donne 60 min pour 1 personnage actif, 50 min pour 2, 45 min pour 3 ou 40 min pour 4. Déconnecte-toi pour arrêter les renouvellements ; le temps payé n’est pas remboursé.</span><span>Les exécutions directes sont isolées ; CODE peut inclure jusqu’à trois personnages supplémentaires sur la même machine.</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">Vérification du jeton…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">COM</a><a href=\"/docs/guide/mainframe\">Guide</a><a href=\"/\">Jeu</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Guide</a><a href=\"/\">Jeu</a>",
 	"pages.mainframe.connect-an-ai": "Connecter une IA",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">Connexion</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "Crée un jeton. Mainframe le garde masqué jusqu’à ce que tu appuies sur <strong>Révéler le jeton</strong>.",

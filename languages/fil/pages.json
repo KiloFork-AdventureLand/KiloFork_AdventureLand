@@ -1,3 +1,5 @@
 {
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">KOM</a><a href=\"/docs/guide/mainframe\">Gabay</a><a href=\"/\">Laro</a>"
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "PARATING",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Gabay</a><a href=\"/\">Laro</a>"
 }

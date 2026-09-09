@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Καθημερινές περιπέτειες",
+  "interface.upcoming.adventures.text": "Τα μυστικά μιας μάγισσας και νέα μονοπάτια.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Μπελάδες μαζεύονται στα ανοιχτά.",
+  "interface.upcoming.werdars.title": "Ανταμοιβές επιπέδων από τον Werdars",
+  "interface.upcoming.werdars.text": "Νέος εξοπλισμός για την πορεία προς τα πάνω.",
+  "interface.upcoming.rare_drops.title": "Νέα σπάνια λάφυρα",
+  "interface.upcoming.rare_drops.text": "Περισσότερα σπάνια ευρήματα όπως το Sucker Punch.",
 	"interface.tutorial.skip": "Παράλειψη",
 	"interface.learn_article.lt_previous": "&lt; Προηγούμενο",
 	"interface.learn_article.next_gt": "Επόμενο &gt;",

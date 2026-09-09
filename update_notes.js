@@ -1,6 +1,6 @@
 // Newest notes first. Add player-visible changes at the top with deployed: null.
 module.exports = [
-	{ phrase: "update.08_09_26.communicator_now_opens_with_server_chat_keeps_private_conversations", deployed: null, date: "[08/09/26]", note: "Communicator opens with server chat, keeps private conversations together, and lets you chat as any of your characters, even while they are offline." },
+	{ phrase: "update.08_09_26.communicator_now_opens_with_server_chat_keeps_private_conversations", deployed: null, date: "[08/09/26]", note: "Hub opens with server chat, keeps private conversations together, and lets you chat as any of your characters, even while they are offline." },
 	{ phrase: "update.08_09_26.new_players_returning_adventurers_and_lone_wolves_earn_extra", deployed: null, date: "[08/09/26]", note: "New players, returning adventurers and Lone Wolves earn extra monster rewards for their contribution. Click a bonus condition or open GUIDE → Encouragement Bonuses for the rates and CODE example." },
 	{ phrase: "update.05_09_26.merrit_visits_settled_shops_in_mainland_with_stackable_market",deployed:null,date:"[05/09/26]",note:"Merrit visits settled shops in Mainland with stackable Market Parcels and occasional SHELLS. Exchange parcels for supplies, four rare T3 armor pieces or a spear. Keep stands clear of fixed NPCs and neighboring shops; INFO explains her visits and rewards."},
 	{ phrase: "update.05_09_26.celebrate_ten_years_of_adventure_land_find_featured_players",

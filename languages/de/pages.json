@@ -1,4 +1,6 @@
 {
+  "pages.hub.title": "Hub - {name}",
+  "pages.contents.selection_features.upcoming": "DEMNÄCHST",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land – Update-Notizen",
 	"pages.allnotes.last-update": "Letztes Update {last_deploy}",
 	"pages.allnotes.update-notes": "Update-Notizen",
@@ -1340,7 +1342,7 @@
 	"pages.mainframe.add-the-server-url-and-bearer-token-to": "Trage die Server-URL und das Bearer-Token in den MCP-Einstellungen deines KI-Clients ein.",
 	"pages.mainframe.at-renewal-1-shell-buys-60m-for-1": "<span id=\"billing-note\">Bei der Verlängerung kauft 1 Muschel 60 Min. für 1 aktiven Charakter, 50 Min. für 2, 45 Min. für 3 oder 40 Min. für 4. Trenne die Verbindung, um weitere Verlängerungen zu stoppen. Bezahlte Zeit wird nicht erstattet.</span><span>Direkt gestartete Charaktere laufen getrennt. CODE kann bis zu drei weitere Charaktere auf derselben Maschine einbinden.</span>",
 	"pages.mainframe.checking-token": "<strong id=\"token-status\" class=\"muted\">Token wird geprüft…</strong><span id=\"token-status-detail\" class=\"muted\"></span>",
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">COM</a><a href=\"/docs/guide/mainframe\">Leitfaden</a><a href=\"/\">Spiel</a>",
+	"pages.mainframe.com-guide-game": "<a href=\"/hub\">Hub</a><a href=\"/docs/guide/mainframe\">Leitfaden</a><a href=\"/\">Spiel</a>",
 	"pages.mainframe.connect-an-ai": "Eine KI verbinden",
 	"pages.mainframe.connecting": "<span class=\"dot\"></span><strong id=\"status-title\">Verbindung wird hergestellt</strong>",
 	"pages.mainframe.create-a-token-mainframe-keeps-it-masked-until": "Erstelle ein Token. Mainframe zeigt es erst, wenn du auf <strong>Token aufdecken</strong> drückst.",

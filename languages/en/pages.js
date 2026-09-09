@@ -1,5 +1,9 @@
 // English page catalog. Usage notes protect code, names and dynamic parameters.
 module.exports = {
+	// htmls/comm.html: Title of the external Hub page. Keep Hub unchanged; {name} is the game name.
+	"pages.hub.title": "Hub - {name}",
+	// htmls/contents/selection_features.html: Compact tab above the upcoming-content cards, sized like the close control. Use uppercase where supported.
+	"pages.contents.selection_features.upcoming": "UPCOMING",
 	// htmls/allnotes.html:5; Page title prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Update Notes",
 	// htmls/allnotes.html:82; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Named parameters (preserve each token exactly): {"last_deploy":"domain.last_deploy|escape"}.
@@ -3215,7 +3219,7 @@ module.exports = {
 	// htmls/mainframe.html:90; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
 	"pages.mainframe.checking-token": '<strong id="token-status" class="muted">Checking token…</strong><span id="token-status-detail" class="muted"></span>',
 	// htmls/mainframe.html:82; Page nav prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.
-	"pages.mainframe.com-guide-game": "<a href=\"/communicator\">COM</a><a href=\"/docs/guide/mainframe\">Guide</a><a href=\"/\">Game</a>",
+	"pages.mainframe.com-guide-game": '<a href="/hub">Hub</a><a href="/docs/guide/mainframe">Guide</a><a href="/">Game</a>',
 	// htmls/mainframe.html:90; Page h2 prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged.
 	"pages.mainframe.connect-an-ai": "Connect an AI",
 	// htmls/mainframe.html:87; Page div prose block. Keep Adventure Land, CODE symbols, product names, and item/NPC/map/character names unchanged. Fixed HTML: preserve all tags, attributes, URLs and handlers exactly. Translate visible prose only.

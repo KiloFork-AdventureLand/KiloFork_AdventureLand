@@ -1,4 +1,6 @@
 {
+  "docs.articles.hub.title": "<span class=\"dlabel\">Hub &amp; แชต</span>",
+  "docs.articles.hub.introduction": "เปิด <a href=\"/hub\">Hub</a> เพื่อดูตัวละครและแชต แชตจะเปิดที่เซิร์ฟเวอร์ที่คุณกำลังดู คุณอ่านแชตเซิร์ฟเวอร์ได้ก่อนเข้าสู่ระบบ",
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "ตัวละครของคุณใช้บัญชีและธนาคารร่วมกัน และถ้าคุณต้องการ ก็ใช้แผนร่วมกันได้ด้วย",
 	"docs.tutorial.multiple-characters.characters-coordination": "ตัวละครและการประสานงาน",
 	"docs.tutorial.multiple-characters.done": "เสร็จแล้ว",
@@ -63,8 +65,8 @@
 	"docs.articles.adventure-api.every-owned-bank-pack-and-the-shared-bank": "ไอเทมและทองในธนาคารที่บันทึกไว้ ไม่ใช่ข้อมูลสด stale ระบุว่ามีตัวละครกำลังใช้ธนาคาร ไม่ได้ระบุอายุข้อมูล ยังไม่ได้ยืนยันว่าข้อมูลเป็นปัจจุบันหรือไม่ โดยไม่ทราบค่า observed_at และ retrieved_at คือเวลาที่อ่านข้อมูล",
 	"docs.articles.communicator.log-in-choose-a-character-in-the-from": "เข้าสู่ระบบ เลือกตัวละครใดก็ได้ของคุณในช่อง จาก แล้วพิมพ์ข้อความและกด Enter หรือ ส่ง คุณส่งข้อความไปยังเซิร์ฟเวอร์ใดก็ได้ในชื่อตัวละครนั้น แม้ตัวละครจะออฟไลน์หรือกำลังเล่นอยู่ที่อื่น",
 	"docs.articles.communicator.choose-new-pm-and-enter-the-recipient-s": "เลือก ข้อความส่วนตัวใหม่ แล้วกรอกชื่อตัวละครผู้รับให้ครบ เลือกตัวละครผู้ส่งของคุณเมื่อเริ่มบทสนทนาใหม่ ส่วนการตอบกลับจะใช้ตัวละครเดิมในแชตนั้น ตัวละครทั้งสองฝ่ายออฟไลน์ได้",
-	"docs.articles.communicator.your-draft-stays-in-its-conversation-while-you": "ข้อความร่างจะอยู่ในบทสนทนาเดิมเมื่อคุณสลับแชต ลากหน้าต่างเล็กได้จากแถบหัวหน้าต่าง รวมถึงคำว่า แชต ปุ่มขยายจะทำให้หน้าต่างใช้พื้นที่ 90% ของความกว้างและความสูงหน้าจอ กดอีกครั้งเพื่อกลับเป็นหน้าต่างเล็ก ซ่อน จะปิดแชต และ แชต จะเปิดอีกครั้ง คุณยังดูตัวละครและใช้ส่วนควบคุมอื่นของศูนย์สื่อสารได้ตามเดิม",
-	"docs.articles.mainframe.open-mainframe-to-choose-a-character-code-slot": "เปิด <a href=\"/mainframe\">Mainframe</a> เพื่อเลือกตัวละคร ช่อง CODE และโลกที่ออนไลน์อยู่ นอกจากนี้ยังพบ Mainframe ได้ในสื่อสารและที่ <a href=\"/communicator\">/communicator</a>",
-	"docs.guide.multi.open-com-select-characters-and-press-deploy-to": "เปิด <a href=\"/communicator\">สื่อสาร</a> เลือก <b>ตัวละคร</b> แล้วกด <b>เข้าเกม</b> เพื่อเปิดตัวละครของคุณในหน้าต่างใหม่ ศูนย์สื่อสารยังแสดงด้วยว่าตัวละครของคุณเชื่อมต่ออยู่ที่ใด",
-	"docs.guide.multi.use-com-or-comm-to-observe-connected-characters": "ใช้ <a href=\"/communicator\">สื่อสาร</a> หรือ <span class=\"dlabel\">/communicator</span> เพื่อสังเกตตัวละครที่เชื่อมต่ออยู่ ใช้ <span class=\"dlabel\">send_cm</span> ส่งคำสั่งระหว่างตัวละคร และตรวจสอบผู้ส่งเสมอก่อนทำตามข้อความ"
+	"docs.articles.communicator.your-draft-stays-in-its-conversation-while-you": "ข้อความร่างจะอยู่ในบทสนทนาเดิมเมื่อคุณสลับแชต ลากหน้าต่างเล็กได้จากแถบหัวหน้าต่าง รวมถึงคำว่า แชต ปุ่มขยายจะทำให้หน้าต่างใช้พื้นที่ 90% ของความกว้างและความสูงหน้าจอ กดอีกครั้งเพื่อกลับเป็นหน้าต่างเล็ก ซ่อน จะปิดแชต และ แชต จะเปิดอีกครั้ง คุณยังดูตัวละครและใช้ส่วนควบคุมอื่นของ Hub ได้ตามเดิม",
+	"docs.articles.mainframe.open-mainframe-to-choose-a-character-code-slot": "เปิด <a href=\"/mainframe\">Mainframe</a> เพื่อเลือกตัวละคร ช่อง CODE และโลกที่ออนไลน์อยู่ นอกจากนี้ยังพบ Mainframe ได้ในสื่อสารและที่ <a href=\"/hub\">/hub</a>",
+	"docs.guide.multi.open-com-select-characters-and-press-deploy-to": "เปิด สื่อสาร เลือก <b>ตัวละคร</b> แล้วกด <b>เข้าเกม</b> เพื่อเปิดตัวละครของคุณในหน้าต่างใหม่ ศูนย์สื่อสารยังแสดงด้วยว่าตัวละครของคุณเชื่อมต่ออยู่ที่ใด",
+	"docs.guide.multi.use-com-or-comm-to-observe-connected-characters": "ใช้ สื่อสาร หรือ <a href=\"/hub\">Hub</a> เพื่อสังเกตตัวละครที่เชื่อมต่ออยู่ ใช้ <span class=\"dlabel\">send_cm</span> ส่งคำสั่งระหว่างตัวละคร และตรวจสอบผู้ส่งเสมอก่อนทำตามข้อความ"
 }

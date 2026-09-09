@@ -642,6 +642,49 @@ function open_event_announcement(key) {
 	open_guide(event.modal, "/docs/ref/" + event.modal);
 }
 
+function event_announcement_html(args) {
+	if (no_html) return "";
+	var interactive = !!args.key,
+		item = G.items[args.sprite],
+		html =
+			(interactive ? "<button type='button' class='gamebutton event-announcement'" : "<article class='event-announcement'") +
+			" data-effect='" + html_escape(args.effect) +
+			"' style='--event-color:" + args.color + ";--event-accent:" + args.accent + "'";
+	if (interactive)
+		html += " onclick='pcs(event);open_event_announcement(\"" + args.key + "\")' aria-haspopup='dialog'";
+	html += ">";
+	if (interactive) html += "<span class='event-announcement-arrow' aria-hidden='true'>&lt;</span>";
+	if (!no_graphics) {
+		html += "<span class='event-announcement-effects' aria-hidden='true'>";
+		for (var i = 0; i < 12; i++) html += "<i style='left:" + (12 + i * 24) + "px;top:" + (8 + (i % 3) * 12) + "px;animation-delay:" + (i % 4) * -0.6 + "s'></i>";
+		html += "</span>";
+	}
+	html += "<span class='event-announcement-sprite' aria-hidden='true'>";
+	if (!no_graphics) html += args.skin || item ? item_container({ skin: args.skin || item.skin, size: 40, draggable: false }) : sprite(args.sprite, { width: 48, height: 48, overflow: true });
+	html += "</span><span class='event-announcement-copy'>";
+	if (args.label) html += "<small>" + html_escape(args.label) + "</small>";
+	return html + "<span class='event-announcement-title'>" + html_escape(args.title) +
+		"</span><span class='event-announcement-description'>" + html_escape(args.text) +
+		"</span></span>" + (interactive ? "</button>" : "</article>");
+}
+
+function render_upcoming_content() {
+	if (no_html) return;
+	var cards = $("#features .upcoming-cards");
+	if (!cards.length) return;
+	var teasers = [
+		{ id: "adventures", skin: "teaser_witch", color: "#B28AE8", accent: "#EA89B4", effect: "sparks" },
+		{ id: "black_wake", skin: "teaser_blackwake", color: "#69D6CF", accent: "#589FE8", effect: "bubbles" },
+		{ id: "werdars", skin: "teaser_werdars", color: "#EAB957", accent: "#EF866B", effect: "embers" },
+		{ id: "rare_drops", skin: "teaser_rare", color: "#85C76B", accent: "#69D6CF", effect: "sparks" },
+	];
+	cards.html(teasers.map(function (teaser) {
+		teaser.title = phrase("interface.upcoming." + teaser.id + ".title");
+		teaser.text = phrase("interface.upcoming." + teaser.id + ".text");
+		return event_announcement_html(teaser);
+	}).join(""));
+}
+
 function render_event_announcements() {
 	if (no_html) return;
 	var banner = $("#event-announcements"),
@@ -667,35 +710,17 @@ function render_event_announcements() {
 	var html = "";
 	keys.forEach(function (key) {
 		var event = G.events[key],
-			theme = event.announcement,
-			item = G.items[event.sprite];
-		html +=
-			"<button type='button' class='gamebutton event-announcement' data-effect='" +
-			html_escape(theme.effect) +
-			"' style='--event-color:" +
-			theme.color +
-			";--event-accent:" +
-			theme.accent +
-			"' onclick='pcs(event);open_event_announcement(\"" +
-			key +
-			"\")' aria-haspopup='dialog'><span class='event-announcement-arrow' aria-hidden='true'>" +
-			"&lt;" +
-			"</span>";
-		if (!no_graphics) {
-			html += "<span class='event-announcement-effects' aria-hidden='true'>";
-			for (var i = 0; i < 12; i++) html += "<i style='left:" + (12 + i * 24) + "px;top:" + (8 + (i % 3) * 12) + "px;animation-delay:" + (i % 4) * -0.6 + "s'></i>";
-			html += "</span>";
-		}
-		html += "<span class='event-announcement-sprite' aria-hidden='true'>";
-		if (!no_graphics) html += item ? item_container({ skin: item.skin, size: 40, draggable: false }) : sprite(event.sprite, { width: 48, height: 48, overflow: true });
-		html +=
-			"</span><span class='event-announcement-copy'><small>" +
-			(event.type == "seasonal" ? phrase.html("interface.event_announcements.seasonal_event") : phrase.html("interface.event_announcements.live_event")) +
-			"</small><span class='event-announcement-title'>" +
-			html_escape(theme.title ? phrase.definition("event", key, "announcement.title", theme.title) : phrase.definition("event", key, "name", event.name)) +
-			"</span><span class='event-announcement-description'>" +
-			html_escape(phrase.definition("event", key, "announcement.text", theme.text)) +
-			"</span></span></button>";
+			theme = event.announcement;
+		html += event_announcement_html({
+			key: key,
+			sprite: event.sprite,
+			color: theme.color,
+			accent: theme.accent,
+			effect: theme.effect,
+			label: event.type == "seasonal" ? phrase("interface.event_announcements.seasonal_event") : phrase("interface.event_announcements.live_event"),
+			title: theme.title ? phrase.definition("event", key, "announcement.title", theme.title) : phrase.definition("event", key, "name", event.name),
+			text: phrase.definition("event", key, "announcement.text", theme.text),
+		});
 	});
 	banner.html(html);
 	if (keys.length) banner.show();
@@ -7930,7 +7955,7 @@ function load_class_info(name, look) {
 		phrase.definition("class", name, "description", G.classes[name].description) +
 		"</span></div>";
 
-	$("#features").css("height", 208).html(html);
+	$("#features").removeClass("upcoming-features").css({ height: 208, maxWidth: 320, fontSize: 24, overflowY: "auto" }).html(html);
 	// $(".salesui").css("bottom",208+36);
 }
 

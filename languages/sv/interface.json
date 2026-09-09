@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Dagliga äventyr",
+  "interface.upcoming.adventures.text": "En häxas hemligheter och nya stigar att följa.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Oroligheter tornar upp sig ute till havs.",
+  "interface.upcoming.werdars.title": "Nivåbelöningar från Werdars",
+  "interface.upcoming.werdars.text": "Ny utrustning för klättringen framåt.",
+  "interface.upcoming.rare_drops.title": "Nytt sällsynt byte",
+  "interface.upcoming.rare_drops.text": "Fler sällsynta fynd som Sucker Punch.",
 	"interface.tutorial.skip": "Hoppa över",
 	"interface.learn_article.lt_previous": "&lt; Föregående",
 	"interface.learn_article.next_gt": "Nästa &gt;",

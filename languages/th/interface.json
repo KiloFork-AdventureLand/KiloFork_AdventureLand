@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "การผจญภัยรายวัน",
+  "interface.upcoming.adventures.text": "ความลับของแม่มดและเส้นทางใหม่ให้ติดตาม",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "เรื่องร้ายกำลังก่อตัวนอกชายฝั่ง",
+  "interface.upcoming.werdars.title": "รางวัลเลเวลจาก Werdars",
+  "interface.upcoming.werdars.text": "อุปกรณ์ใหม่สำหรับการเติบโตต่อไป",
+  "interface.upcoming.rare_drops.title": "ของดรอปหายากใหม่",
+  "interface.upcoming.rare_drops.text": "ของหายากเพิ่มเติมอย่าง Sucker Punch",
 	"interface.tutorial.skip": "ข้าม",
 	"interface.learn_article.lt_previous": "&lt; ก่อนหน้า",
 	"interface.learn_article.next_gt": "ถัดไป &gt;",

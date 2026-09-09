@@ -5,6 +5,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 const test = require("node:test");
+const { localize } = require("./helpers/server_vm");
 const root = path.resolve(__dirname, "../..");
 const html = fs.readFileSync(path.join(root, "js/html.js"), "utf8");
 const source = html.slice(html.indexOf("function open_event_announcement("), html.indexOf("function render_server("));
@@ -65,6 +66,7 @@ function setup(extra = {}) {
 		event: {},
 		...extra,
 	});
+	localize(context);
 	vm.runInContext(fs.readFileSync(path.join(root, "design/events.js"), "utf8"), context);
 	context.G = { events: context.events, items: {}, monsters: { rgoo: { size: 1.5 }, crabxx: { size: 1.5 } } };
 	vm.runInContext(source, context);
@@ -232,7 +234,7 @@ test("sprites use the INFO renderer's normal size and can overflow above their c
 	assert.equal(visuals[0][1].overflow, true);
 	const css = fs.readFileSync(path.join(root, "css/index.css"), "utf8");
 	assert.match(css, /#event-announcements\{[^}]*overflow:visible/);
-	assert.match(css, /#event-announcements \.event-announcement\{[^}]*overflow:visible/);
+	assert.match(css, /\.event-announcement\{[^}]*overflow:visible/);
 	assert.match(css, /\.event-announcement-effects\{[^}]*overflow:hidden/, "particles stay inside their own card");
 });
 
@@ -246,4 +248,42 @@ test("compact cards put the Steam-style left chevron before the sprite", () => {
 	const css = fs.readFileSync(path.join(root, "css/index.css"), "utf8");
 	assert.match(css, /min-height:76px/);
 	assert.match(css, /\.event-announcement-arrow\{[^}]*color:#69d6cf;font-size:40px;line-height:26px/);
+});
+
+test("upcoming cards have no actions and skip all graphics in headless mode", () => {
+	const { context, visuals } = setup();
+	const design = require("./helpers/design");
+	context.G.items = design.items;
+	let html = "";
+	context.$ = (selector) => {
+		assert.equal(selector, "#features .upcoming-cards");
+		return { length: 1, html: (value) => { html = value; } };
+	};
+	context.render_upcoming_content();
+	assert.equal((html.match(/<article /g) || []).length, 4);
+	assert.match(html, /Daily Adventures/);
+	assert.match(html, /The Black Wake/);
+	assert.match(html, /Werdars&#39; Level Awards/);
+	assert.match(html, /New Rare Drops/);
+	assert.match(html, /Sucker Punch/);
+	const skins = ["teaser_witch", "teaser_blackwake", "teaser_werdars", "teaser_rare"];
+	assert.deepEqual(visuals.map(([item]) => item.skin), skins);
+	const sheet = design.imagesets.teasers;
+	const png = fs.readFileSync(path.join(root, sheet.file.split("?")[0]));
+	assert.equal(png.readUInt32BE(16), sheet.columns * sheet.size);
+	assert.equal(png.readUInt32BE(20), sheet.rows * sheet.size);
+	skins.forEach((skin, column) => {
+		assert.deepEqual(Array.from(design.positions[skin]), ["teasers", column, 0]);
+		assert.equal(design.items[skin], undefined, "teasers must not add playable items");
+	});
+	assert.doesNotMatch(html, /onclick=|onmousedown=|<button|<a\s|event-announcement-arrow/);
+	context.no_graphics = true;
+	context.PIXI = new Proxy({}, { get() { throw new Error("Headless cards touched PIXI"); } });
+	context.sprite = context.item_container = () => { throw new Error("Headless cards requested a sprite"); };
+	context.render_upcoming_content();
+	assert.match(html, /New Rare Drops/);
+	assert.doesNotMatch(html, /event-announcement-effects|class="sprite"|class="item"/);
+	context.no_html = true;
+	context.$ = () => { throw new Error("No-HTML cards touched the DOM"); };
+	context.render_upcoming_content();
 });

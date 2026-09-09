@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Phiêu lưu hằng ngày",
+  "interface.upcoming.adventures.text": "Bí mật của một phù thủy và những lối đi mới để khám phá.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Sóng gió đang tụ lại ngoài khơi.",
+  "interface.upcoming.werdars.title": "Phần thưởng cấp độ của Werdars",
+  "interface.upcoming.werdars.text": "Trang bị mới cho chặng đường lên cấp.",
+  "interface.upcoming.rare_drops.title": "Vật phẩm rơi hiếm mới",
+  "interface.upcoming.rare_drops.text": "Thêm những món đồ hiếm như Sucker Punch.",
 	"interface.tutorial.skip": "Bỏ qua",
 	"interface.learn_article.lt_previous": "&lt; Trước",
 	"interface.learn_article.next_gt": "Tiếp &gt;",

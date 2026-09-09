@@ -1,4 +1,12 @@
 {
+  "interface.upcoming.adventures.title": "Aventuras diarias",
+  "interface.upcoming.adventures.text": "Los secretos de una bruja y nuevos caminos por descubrir.",
+  "interface.upcoming.black_wake.title": "The Black Wake",
+  "interface.upcoming.black_wake.text": "Se avecinan problemas mar adentro.",
+  "interface.upcoming.werdars.title": "Premios de Werdars por nivel",
+  "interface.upcoming.werdars.text": "Nuevo equipo para seguir subiendo.",
+  "interface.upcoming.rare_drops.title": "Nuevos botines raros",
+  "interface.upcoming.rare_drops.text": "Más hallazgos raros como Sucker Punch.",
 	"interface.tutorial.skip": "Omitir",
 	"interface.tutorial.comparison.gear_plain": "Equipo +0 de vendedor",
 	"interface.tutorial.comparison.gear_upgraded": "El mismo equipo a +7",
