@@ -809,6 +809,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	align-items: center;
 	gap: 8px;
 	font: inherit;
+	font-family: var(--pixel-font, pixel);
 	font-size: 32px;
 	text-align: start;
 	margin: 0;
@@ -825,14 +826,9 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 .language-choice[aria-pressed='true']{
 	border-color: #85C76B;
 }
-.language-choice[lang='ar'] > span:last-child{
-	font-family: Arial, sans-serif;
-	line-height: 1.4;
-}
 html:lang(ar) .guide-article{
 	direction: rtl;
 	text-align: start !important;
-	font-family: Arial, sans-serif;
 	line-height: 1.4;
 }
 html:lang(ar) .guide-article p,

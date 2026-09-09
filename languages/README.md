@@ -34,7 +34,7 @@ Keep canonical definition descriptions and their English phrase values aligned. 
 
 ## Fonts
 
-Arabic uses scoped direction and font rules on guide/tutorial articles. Preserve left-to-right CODE blocks and keep the shared UI structure simple.
+Arabic uses the registered Arabic pixel-font subset, loaded when Arabic text is rendered. Do not replace it with a system-font override. Direction changes stay scoped to guide/tutorial articles; CODE blocks and native drop ratios remain left to right. Compact Arabic HUD counters isolate their numeric runs. The shared UI layout stays simple.
 
 ## Catalog status
 

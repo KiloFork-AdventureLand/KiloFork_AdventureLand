@@ -591,7 +591,7 @@
 
 	function drawCanvasLabel(context, value, anchorX, anchorY, color, occupied) {
 		var label = shortLabel(value);
-		context.font = "14px pixel, monospace";
+		context.font = "14px " + getComputedStyle(context.canvas).fontFamily;
 		context.textAlign = "center";
 		context.textBaseline = "middle";
 		var width = context.measureText(label).width + 10;
@@ -1016,7 +1016,7 @@
 			context.fillStyle = "#080b0d";
 			context.fillRect(0, 0, canvas.width, canvas.height);
 			context.fillStyle = "#9aabb0";
-			context.font = "16px pixel, monospace";
+			context.font = "16px " + getComputedStyle(canvas).fontFamily;
 			context.textAlign = "center";
 			context.fillText(phrase("services.realm.geometry-unavailable"), canvas.width / 2, canvas.height / 2);
 		});
@@ -1108,7 +1108,7 @@
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		if (!frame) {
 			context.fillStyle = "#9aabb0";
-			context.font = "18px pixel, monospace";
+			context.font = "18px " + getComputedStyle(canvas).fontFamily;
 			context.textAlign = "center";
 			context.fillText("?", canvas.width / 2, canvas.height / 2 + 6);
 			return;
