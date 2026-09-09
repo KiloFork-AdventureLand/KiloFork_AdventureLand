@@ -162,6 +162,9 @@
 	phrase.error = function (reason) {
 		var wait = /^wait_(\d{1,6})_minutes$/.exec(String(reason || ""));
 		if (wait) return current.html("error.wait_minutes", { minutes: wait[1] });
+		if (reason === "operation_failed") reason = "failed";
+		if (reason === "something_went_wrong") reason = "unexpected";
+		if (reason === "invalid") reason = "invalid_field";
 		var id = "error." + reason;
 		return current.has(id) ? current.html(id) : current.html("error.unexpected");
 	};

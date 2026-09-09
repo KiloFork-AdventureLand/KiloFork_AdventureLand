@@ -5699,7 +5699,8 @@ function ui_log(m, color) {
 }
 
 function ui_error(m) {
-	add_log(m, "red");
+	if (window.inside == "message") $("#message").html(m);
+	else add_log(m, "red");
 }
 
 function ui_success(m) {

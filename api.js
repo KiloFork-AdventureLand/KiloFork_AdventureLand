@@ -1918,7 +1918,7 @@ async function copy_map_api(args) {
 		await save({ _id: "MP_" + args.to, name: args.to, created: new Date(), updated: new Date(), info: { data: from_map.info.data }, blobs: ["info"] });
 		args.res.infs.push({ type: "success", message: phrase_html("server.api.done") });
 	} else {
-		args.res.infs.push({ type: "info", message: phrase_html("server.api.map_didn_t_exist") });
+		args.res.infs.push({ type: "message", message: phrase_html("server.api.map_didn_t_exist") });
 	}
 	return { success: true };
 }
@@ -1935,7 +1935,7 @@ async function delete_map_api(args) {
 		await remove(map);
 		args.res.infs.push({ type: "success", message: phrase_html("server.api.deleted") });
 	} else {
-		args.res.infs.push({ type: "info", message: phrase_html("server.api.map_didn_t_exist") });
+		args.res.infs.push({ type: "message", message: phrase_html("server.api.map_didn_t_exist") });
 	}
 	return { success: true };
 }

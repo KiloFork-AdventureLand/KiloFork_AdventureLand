@@ -92,15 +92,15 @@
 		<div class="accountui onback-hide hidden">
 			<div class="textbutton mt5" style="color: #75b38c">{{user.info.email}}</div>
 			{% if not user.info.dont_send_emails %}
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('settings',{setting:'email',value:''})">{{ phrase_html("pages.contents.selection.emails-on") }}</div>
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('settings',{setting:'email',value:''},{disable:$(this)})">{{ phrase_html("pages.contents.selection.emails-on") }}</div>
 			{%else %}
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('settings',{setting:'email',value:'1'})">{{ phrase_html("pages.contents.selection.emails-off") }}</div>
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('settings',{setting:'email',value:'1'},{disable:$(this)})">{{ phrase_html("pages.contents.selection.emails-off") }}</div>
 			{% endif %}
 			<div class="textbutton mt5 mb5" onclick="if(bc(this)) return; $('.accountui').hide(); $('.passwordui').show(); resize();">{{ phrase_html("pages.contents.selection.change-password") }}</div>
 			<div class="textbutton mt5" onclick="if(bc(this)) return; $('.accountui').hide(); $('.emailcui').show(); resize();">
 				<span style="color: #df6b81">*</span> {% if not user.info.verified%}{{ phrase("pages.contents.selection.re-verify-email") }}{%else%}{{ phrase("pages.contents.selection.change-email") }}{% endif %}
 			</div>
-			<div class="textbutton mt5 mb5" onclick="if(bc(this)) return; api_call('logout_everywhere',{},{disable:$(this)}).then(function(){location.reload();})">
+			<div class="textbutton mt5 mb5" onclick="if(bc(this)) return; api_call_l('logout_everywhere',{},{disable:$(this)}).then(function(result){if(!result.failed) location.reload();})">
 				{{ phrase_html("pages.contents.selection.logout-everywhere") }}
 			</div>
 			<div style="color: gray; margin-top: 6px">{{ phrase("pages.contents.selection.ps-you-can-always-email-hello-adventure-land") }}</div>
@@ -108,7 +108,7 @@
 		<div class="emailcui onback-hide hidden">
 			<div class="whiteheader mb2">{{ phrase("pages.contents.selection.new-email") }}</div>
 			<input class="selectioninput nemail" value="{{user.info.email}}" />
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('change_email',{email:$('.nemail').val()},{disable:$(this)});">{{ phrase_html("pages.contents.selection.change-email-2") }}</div>
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('change_email',{email:$('.nemail').val()},{disable:$(this)});">{{ phrase_html("pages.contents.selection.change-email-2") }}</div>
 			<div style="color: gray; margin-top: 6px">{{ phrase("pages.contents.selection.ps-changing-the-email-re-sends-the-verification") }}</div>
 			<div style="color: gray; margin-top: 6px">{{ phrase("pages.contents.selection.ps-2-you-can-only-do-this-operation") }}</div>
 			<div style="color: #c87282; margin-top: 6px">{{ phrase("pages.contents.selection.ps-3-please-check-the-spam-folder-and") }}</div>
@@ -120,14 +120,14 @@
 			<input class="selectioninput newpass1" type="password" />
 			<div class="whiteheader mb2">{{ phrase("pages.contents.selection.repeat-new-password") }}</div>
 			<input class="selectioninput newpass2" type="password" />
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('change_password',{epass:$('.epass').val(),newpass1:$('.newpass1').val(),newpass2:$('.newpass2').val()},{disable:$(this)});">
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('change_password',{epass:$('.epass').val(),newpass1:$('.newpass1').val(),newpass2:$('.newpass2').val()},{disable:$(this)});">
 				{{ phrase_html("pages.contents.selection.change") }}
 			</div>
 		</div>
 		<div class="sortui onback-hide hidden">
 			<div class="whiteheader mb2">{{ phrase("pages.contents.selection.list") }}</div>
 			<textarea class="selectioninput scharacters" style="width: 320px; height: 160px">{% for c in user.info.characters%}{{c.name}}{%if not loop.last%},{%endif%}{%endfor%}</textarea>
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('sort_characters',{characters:$('.scharacters').val()},{disable:$(this)});">
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('sort_characters',{characters:$('.scharacters').val()},{disable:$(this)});">
 				{{ phrase_html("pages.contents.selection.sort-characters") }}
 			</div>
 			<div style="color: gray; margin-top: 6px">{{ phrase("pages.contents.selection.ps-the-name-of-your-first-character-becomes") }}</div>
@@ -137,10 +137,10 @@
 			<input class="selectioninput renamen" type="text" />
 			<div class="whiteheader mb2">{{ phrase("pages.contents.selection.new-name") }}</div>
 			<input class="selectioninput rnnamen" type="text" />
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('quote_name',{name:$('.renamen').val(),nname:$('.rnnamen').val()},{disable:$(this)});">
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('quote_name',{name:$('.renamen').val(),nname:$('.rnnamen').val()},{disable:$(this)});">
 				{{ phrase_html("pages.contents.selection.quote") }}
 			</div>
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('rename_character',{name:$('.renamen').val(),nname:$('.rnnamen').val()},{disable:$(this)});">
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('rename_character',{name:$('.renamen').val(),nname:$('.rnnamen').val()},{disable:$(this)});">
 				{{ phrase_html("pages.contents.selection.rename-character") }}
 			</div>
 			<div style="color: red; margin-top: 6px">{{ phrase_html("pages.contents.selection.warning-use-the-quote-function-to-learn-about") }}</div>
@@ -152,7 +152,7 @@
 			<input class="selectioninput tcowner" />
 			<div class="whiteheader mb2">{{ phrase("pages.contents.selection.receiver-transfer-auth") }}</div>
 			<input class="selectioninput tcauth" />
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('transfer_character',{name:$('.tcname').val(),id:$('.tcowner').val(),auth:$('.tcauth').val()},{disable:$(this)});">
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('transfer_character',{name:$('.tcname').val(),id:$('.tcowner').val(),auth:$('.tcauth').val()},{disable:$(this)});">
 				{{ phrase_html("pages.contents.selection.transfer") }}
 			</div>
 			<div style="color: #5dac40; margin-top: 4px">{{ phrase("pages.contents.selection.cost-500-shells") }}</div>
@@ -179,12 +179,12 @@
 			<input class="selectioninput cmapf" type="text" value="jayson_ALMap2" />
 			<div class="whiteheader mb2">{{ phrase("pages.contents.selection.to") }}</div>
 			<input class="selectioninput cmapt" type="text" value="test" />
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('copy_map',{f:$('.cmapf').val(),t:$('.cmapt').val()},{disable:$(this)});">{{ phrase_html("pages.contents.selection.copy") }}</div>
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('copy_map',{from:$('.cmapf').val(),to:$('.cmapt').val()},{disable:$(this)});">{{ phrase_html("pages.contents.selection.copy") }}</div>
 		</div>
 		<div class="dmapui onback-hide hidden">
 			<div class="whiteheader mb2">{{ phrase("pages.contents.selection.map-name") }}</div>
 			<input class="selectioninput dmapn" type="text" value="jayson_ALMap2" />
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('delete_map',{n:$('.dmapn').val()},{disable:$(this)});">{{ phrase_html("pages.contents.selection.delete") }}</div>
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('delete_map',{name:$('.dmapn').val()},{disable:$(this)});">{{ phrase_html("pages.contents.selection.delete") }}</div>
 		</div>
 		{% endif %}
 		<div class="recruitui onback-hide hidden">
@@ -215,7 +215,7 @@
 		<div class="privacyui onback-hide hidden">
 			<div class="whiteheader mb2">{{ phrase("pages.contents.selection.name") }}</div>
 			<input class="selectioninput pcharactername" type="text" />
-			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call('edit_character',{operation:'toggle_privacy',name:$('.pcharactername').val()},{disable:$(this)});">
+			<div class="textbutton mt5" onclick="if(bc(this)) return; api_call_l('edit_character',{operation:'toggle_privacy',name:$('.pcharactername').val()},{disable:$(this)});">
 				{{ phrase_html("pages.contents.selection.toggle") }}
 			</div>
 		</div>
@@ -226,7 +226,7 @@
 			<input class="selectioninput dcharactername2" type="text" />
 			<div
 				class="textbutton mt5"
-				onclick="if(bc(this)) return; if($('.dcharactername').val()==$('.dcharactername2').val()) api_call('delete_character',{name:$('.dcharactername').val()},{disable:$(this)});"
+				onclick="if(bc(this)) return; if($('.dcharactername').val()!=$('.dcharactername2').val()) return ui_error(phrase.error('invalid_name')); api_call_l('delete_character',{name:$('.dcharactername').val()},{disable:$(this)});"
 			>
 				{{ phrase_html("pages.contents.selection.x-delete") }}
 			</div>
@@ -270,7 +270,7 @@
 		{% endif %} {% if domain.newcomer_ui %}
 		<div class="mt5 textbutton" onclick="pcs(); $('.menu').hide(); $('.freeui').show(); resize()">{{ phrase("pages.contents.selection.stop-code-3") }}</div>
 		{%endif%}
-		<div class="mt5 textbutton logout" onclick="if(bc(this)) return; api_call('logout',{},{disable:$(this)}).then(function(){location.reload();})">{{ phrase("pages.contents.selection.logout") }}</div>
+		<div class="mt5 textbutton logout" onclick="if(bc(this)) return; api_call_l('logout',{},{disable:$(this)}).then(function(result){if(!result.failed) location.reload();})">{{ phrase("pages.contents.selection.logout") }}</div>
 	</div>
 	<div class="largeborder" style="padding-left: 15px; padding-right: 15px; margin-top: 8px; font-size: 24px">
 		<div style="border-bottom: 2px dashed gray; color: #e7e7e7; display: inline-block; margin-bottom: 6px">{{ phrase("pages.contents.selection.in-game") }}</div>
