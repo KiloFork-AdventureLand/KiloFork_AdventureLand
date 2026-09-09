@@ -3566,9 +3566,13 @@ function open_tutorial(step, track) {
 }
 
 function render_tutorial_index(track) {
+	if ($(".tutorial-index").length) {
+		while (modal_count && !$(".modal:last .tutorial-index").length) hide_modal(true);
+		hide_modal();
+	}
 	var view = get_tutorial_view(track), progress = view.progress,
 		current_step = progress.step || 0,
-		html = "<div style='width: 520px; text-align: left'>";
+		html = "<div class='tutorial-index' data-track='" + (track === "merchant" ? "merchant" : "") + "' style='width: 520px; text-align: left'>";
 	html += "<div class='gamebutton block mb5' style='text-align:center'>" + phrase.html("interface.tutorial_index.tutorial_lessons") + "</div>";
 	html += "<div class='gamebutton block mb5' onclick='render_tutorial_index()'>" + phrase.html("interface.tutorial.main_track") + "</div>";
 	html += "<div class='gamebutton block mb5' onclick='render_tutorial_index(\"merchant\")'>" + phrase.html("interface.tutorial.merchant_track") + "</div>";
@@ -3589,7 +3593,7 @@ function render_tutorial_index(track) {
 			"</div>";
 	});
 	html += "</div>";
-	show_modal(html, { wrap: false, url: "/docs/tutorial" });
+	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/tutorial" });
 }
 
 var last_rendered_step = 0, last_rendered_track = "";
@@ -3601,7 +3605,9 @@ function continue_tutorial() {
 }
 
 function render_tutorial(article, step, url, track) {
-	hide_modals();
+	// Keep the lesson list underneath; closing a lesson returns to the same track.
+	while (modal_count && !$(".modal:last .tutorial-index").length) hide_modal(true);
+	if ($(".tutorial-index").length && $(".tutorial-index").attr("data-track") !== (track === "merchant" ? "merchant" : "")) render_tutorial_index(track);
 	last_rendered_step = step;
 	last_rendered_track = track === "merchant" ? "merchant" : "";
 	var view = get_tutorial_view(last_rendered_track), tutorial = view.lessons[step],
