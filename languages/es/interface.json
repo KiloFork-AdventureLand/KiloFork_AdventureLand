@@ -1,4 +1,5 @@
 {
+	"interface.settings.zoom": "Zoom: {percent}%",
 	"interface.close_ui_panel.no_target": "SIN OBJETIVO",
 	"interface.prop_remains.seconds": "Segundos",
 	"interface.prop_remains.minutes": "Minutos",

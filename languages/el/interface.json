@@ -1,3 +1,4 @@
 {
+	"interface.settings.zoom": "Μεγέθυνση: {percent}%",
 	"interface.merrit.reason_stand_front": "Πολύ κοντά στο {name}: άφησε περισσότερα από 15px κατακόρυφα ή περισσότερα από 10px οριζόντια."
 }

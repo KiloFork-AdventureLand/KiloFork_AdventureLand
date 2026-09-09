@@ -377,6 +377,15 @@ function hide_modals() {
 	while (modal_count) hide_modal(true);
 }
 
+// CSS page zoom changes the layout viewport without changing window.innerWidth/Height.
+function viewport_width() {
+	return $(window).width() / (1 + (window.browser_zoom || 0) / 100);
+}
+
+function viewport_height() {
+	return $(window).height() / (1 + (window.browser_zoom || 0) / 100);
+}
+
 var modals = [];
 function show_modal(mhtml, args) {
 	if (window.is_bot) return;
@@ -388,7 +397,7 @@ function show_modal(mhtml, args) {
 	if (args.wrap === undefined) args.wrap = true;
 	var wrap_styles = "",
 		min_width = 600;
-	min_width = min(600, $(window).width() - 32);
+	min_width = min(600, viewport_width() - 32);
 	if (args.wrap) wrap_styles = "width: " + (args.wwidth || min_width) + "px; border: 5px solid gray; background: black;";
 	modals[modal_count] = args;
 	modal_count++;
@@ -428,8 +437,8 @@ function position_modals() {
 			iheight = $this.outerHeight(), bounds = this.getBoundingClientRect(), above = 0, below = 0;
 		$this.find(".ui-close:visible,.snippet-actions:visible").each(function () {
 			var rect = this.getBoundingClientRect();
-			above = max(above, bounds.top - rect.top);
-			below = max(below, rect.bottom - bounds.bottom);
+			above = max(above, (bounds.top - rect.top) / (1 + (window.browser_zoom || 0) / 100));
+			below = max(below, (rect.bottom - bounds.bottom) / (1 + (window.browser_zoom || 0) / 100));
 		});
 		$this.css("margin-top", max(above + 8, round((height - iheight - below + above) / 2))).css("margin-bottom", below + 40);
 	});
@@ -577,7 +586,7 @@ function render_update_notes() {
 function show_update_notes() {
 	var html =
 		"<div class='update-notes'><div class='update-notes-title'>" + phrase.html("client.update_notes.update_notes") + "</div><div class='update-notes-subtitle'>" + phrase.html("client.update_notes.last_update", { last_deploy: last_deploy }) + "</div><div class='update-notes-list'></div></div>";
-	show_modal(html, { wwidth: min(760, $(window).width() - 52), hideinbackground: true, url: "/allnotes" });
+	show_modal(html, { wwidth: min(760, viewport_width() - 52), hideinbackground: true, url: "/allnotes" });
 	render_update_notes();
 }
 

@@ -1,3 +1,4 @@
 {
+	"interface.settings.zoom": "Nagyítás: {percent}%",
 	"interface.merrit.reason_stand_front": "Túl közel vagy ehhez: {name}. Hagyj függőlegesen több mint 15px vagy oldalirányban több mint 10px távolságot."
 }

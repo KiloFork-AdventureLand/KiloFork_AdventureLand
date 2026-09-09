@@ -1,3 +1,4 @@
 {
+	"interface.settings.zoom": "Zoom: {percent} %",
 	"interface.merrit.reason_stand_front": "For nær {name}: hold mer enn 15px loddrett eller mer enn 10px til siden."
 }

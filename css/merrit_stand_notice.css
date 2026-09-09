@@ -5,7 +5,7 @@
 }
 #merrit-stand-notice button {
 	pointer-events: auto;
-	max-width: min(440px, calc(100vw - 24px));
+	max-width: min(440px, calc(100vw * var(--browser-zoom-inverse, 1) - 24px));
 	padding: 8px 44px 8px 12px;
 	font:
 		24px/24px var(--pixel-font, pixel),

@@ -294,6 +294,7 @@
 		<script>
 			function first_things_first()
 			{
+				set_browser_zoom(Cookies.get("browser_zoom"));
 				keyboard_logic();
 				init_sounds();
 				if(!bowser.chrome && perfect_pixels) retina_mode=true;

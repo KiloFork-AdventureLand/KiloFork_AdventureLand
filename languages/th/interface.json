@@ -1,3 +1,4 @@
 {
+	"interface.settings.zoom": "ซูม: {percent}%",
 	"interface.merrit.reason_stand_front": "ใกล้ {name} เกินไป: เว้นระยะในแนวตั้งมากกว่า 15px หรือด้านข้างมากกว่า 10px"
 }

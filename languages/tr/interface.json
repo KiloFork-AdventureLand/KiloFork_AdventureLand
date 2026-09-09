@@ -1,4 +1,5 @@
 {
+	"interface.settings.zoom": "Yakınlaştırma: %{percent}",
 	"interface.close_ui_panel.no_target": "HEDEF YOK",
 	"interface.prop_remains.seconds": "Saniye",
 	"interface.prop_remains.minutes": "Dakika",

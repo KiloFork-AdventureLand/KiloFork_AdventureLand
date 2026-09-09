@@ -377,7 +377,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 }
 .serverinfo-row{
 	width: 100%;
-	max-width: 100vw;
+	max-width: calc(100vw * var(--browser-zoom-inverse, 1));
 	text-align: right;
 }
 #newparty:empty{
@@ -386,7 +386,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 #serverinfo{
 	box-sizing: border-box;
 	width: 100%;
-	max-width: 100vw;
+	max-width: calc(100vw * var(--browser-zoom-inverse, 1));
 	margin-top: 5px;
 	flex-wrap: wrap;
 	justify-content: flex-end;
@@ -503,7 +503,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 }
 #event-announcements{
 	width:330px;
-	max-width:100vw;
+	max-width:calc(100vw * var(--browser-zoom-inverse, 1));
 	overflow:visible;
 	margin-bottom:8px;
 	text-align:left;
@@ -751,7 +751,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 }
 .guide-article{
 	box-sizing: border-box;
-	width: min(1018px, calc(100vw - 80px));
+	width: min(1018px, calc(100vw * var(--browser-zoom-inverse, 1) - 80px));
 }
 .language-icon{
 	--language-icon-width: 36px;
@@ -789,7 +789,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	box-sizing: border-box;
 	height: 56px;
 	min-width: 0;
-	max-width: calc(100vw - 80px);
+	max-width: calc(100vw * var(--browser-zoom-inverse, 1) - 80px);
 	font-family: inherit;
 	margin: 0;
 	vertical-align: top;
@@ -1000,12 +1000,17 @@ a.gamebutton{
 	-moz-box-shadow: 0 0 6px #555960;
 	box-shadow: 0 0 6px #555960;
 }
+/* Keep CodeMirror's measurements unzoomed; enlarge its text and box instead. */
 .CodeMirror{
+	zoom: var(--browser-zoom-inverse, 1);
 	height: 100%;
 	width: 100%;
 	font-family: var(--pixel-font, pixel);
-	font-size: 24px;
-	letter-spacing: 1px; /* more readable */
+	font-size: calc(24px * var(--browser-zoom, 1));
+	letter-spacing: calc(1px * var(--browser-zoom, 1)); /* more readable */
+}
+html.browser-zoomed .imodal{
+	max-width: calc(100% - 48px);
 }
 .engagebutton,.dengagebutton{
 	position: absolute;

@@ -1,4 +1,5 @@
 {
+	"interface.settings.zoom": "缩放：{percent}%",
 	"interface.close_ui_panel.no_target": "没有目标",
 	"interface.prop_remains.seconds": "秒",
 	"interface.prop_remains.minutes": "分钟",

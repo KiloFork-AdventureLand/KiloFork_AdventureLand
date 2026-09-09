@@ -2,7 +2,7 @@
 	position: relative;
 	width: 330px;
 	margin-bottom: 8px;
-	max-width: 100vw;
+	max-width: calc(100vw * var(--browser-zoom-inverse, 1));
 	text-align: left;
 }
 #steam-news-banner[hidden] {
@@ -75,8 +75,8 @@
 .steam-news-dialog {
 	box-sizing: border-box;
 	width: 800px;
-	max-width: calc(100vw - 24px);
-	max-height: calc(100vh - 32px);
+	max-width: calc(100vw * var(--browser-zoom-inverse, 1) - 24px);
+	max-height: calc(100vh * var(--browser-zoom-inverse, 1) - 32px);
 	padding: 0;
 	border: 4px solid #ba91ec;
 	background: #08090f;

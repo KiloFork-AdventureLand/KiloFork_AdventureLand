@@ -87,6 +87,29 @@ function close_ui_panel(button) {
 	}
 }
 
+var browser_zoom = 0;
+
+function set_browser_zoom(value) {
+	if (window.no_html || window.no_graphics) return;
+	browser_zoom = Number(value);
+	if (browser_zoom !== 25 && browser_zoom !== 50) browser_zoom = 0;
+	var zoom = 1 + browser_zoom / 100;
+	document.documentElement.style.zoom = browser_zoom ? zoom : "";
+	document.documentElement.style.setProperty("--browser-zoom", zoom);
+	document.documentElement.style.setProperty("--browser-zoom-inverse", 1 / zoom);
+	$("html").toggleClass("browser-zoomed", !!browser_zoom);
+	$(".browserzoom").text(phrase("interface.settings.zoom", { percent: browser_zoom ? "+" + browser_zoom : "0" }));
+	Cookies.set("browser_zoom", browser_zoom, { expires: 12 * 365 });
+	$(".CodeMirror").each(function () {
+		if (this.CodeMirror) this.CodeMirror.refresh();
+	});
+	if (window.renderer) on_resize();
+}
+
+function cycle_browser_zoom() {
+	set_browser_zoom(window.browser_zoom === 25 ? 50 : window.browser_zoom === 50 ? 0 : 25);
+}
+
 function show_settings() {
 	show_modal($(".basicsettings").html(), { wrap: false, styles: "width:600px", hideinbackground: true });
 }
@@ -121,7 +144,16 @@ function toggle_chat_window(type, id) {
 		$("#chatw" + cid).css("top", 400);
 		$("#chatw" + cid).css("left", 400);
 		$("#chatw" + cid).css("z-index", 70 + cwindows.length - docked.length);
-		$("#chatw" + cid).draggable();
+		$("#chatw" + cid).draggable({
+			start: function (event, ui) {
+				$(this).data("drag-start", { x: event.pageX, y: event.pageY, left: parseFloat($(this).css("left")), top: parseFloat($(this).css("top")) });
+			},
+			drag: function (event, ui) {
+				var start = $(this).data("drag-start"), zoom = 1 + (window.browser_zoom || 0) / 100;
+				ui.position.left = start.left + (event.pageX - start.x) / zoom;
+				ui.position.top = start.top + (event.pageY - start.y) / zoom;
+			},
+		});
 		$("#chatt" + cid).removeClass("newmessage");
 	} else {
 		$(".chatb" + cid).html("+");
@@ -3580,7 +3612,7 @@ function render_function_reference(n, f, c) {
 		render_function_html = "";
 	} else {
 		html += "<textarea class='codemirror" + rid + "'></textarea>";
-		show_modal(html, { wwidth: min($(window).width() - 60, 1200), url: "/docs/code/functions/" + n });
+		show_modal(html, { wwidth: min(viewport_width() - 60, 1200), url: "/docs/code/functions/" + n });
 		$(".codemirror" + rid).codemirror({ value: "//Source code of: " + n + "\n" + f.toString(), hints: true });
 		position_modals();
 	}
@@ -7152,7 +7184,7 @@ function render_com() {
 	html += "<div style='font-size: 16px; margin-top: 5px; color: gray; text-align: center'>" + phrase.html("interface.com.note_the_communicator_is_an_evolving_protoype") + "</div>";
 	// html+="<div class='gamebutton mt5' style='display: block'>Refresh</div>";
 	html += "</div>";
-	show_modal(html, { wwidth: min(680, $(window).width() - 52), close: { label: "X", classes: "ui-close-com" } });
+	show_modal(html, { wwidth: min(680, viewport_width() - 52), close: { label: "X", classes: "ui-close-com" } });
 	load_nearby(1);
 }
 
@@ -7530,7 +7562,7 @@ function cx_move(x, y) {
 }
 
 function insert_cx_tuners() {
-	var html = "<div style='left: " + $(window).width() / 2 + "px; top: " + $(window).height() / 2 + "px; width: 0px; height: 0px; position: fixed; z-index: 100; overflow: visible'>";
+	var html = "<div style='left: " + viewport_width() / 2 + "px; top: " + viewport_height() / 2 + "px; width: 0px; height: 0px; position: fixed; z-index: 100; overflow: visible'>";
 	html +=
 		"<div style='position: absolute; top: -130px; left: -35px; text-align: center; width: 50px;' class='gamebutton gamebutton-small' onclick='cx_move(0,-1)'>" +
 		phrase.html("interface.insert_cx_tuners.up") +

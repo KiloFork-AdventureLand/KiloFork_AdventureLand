@@ -1115,8 +1115,8 @@ function init_interface() {
 
 function the_game(demo) {
 	// if(!window.requestAnimationFrame) window.requestAnimationFrame=function(a){ setTimeout(a,16); }; // jsdom patch [18/04/19]
-	width = $(window).width();
-	height = $(window).height();
+	width = viewport_width();
+	height = viewport_height();
 	if (bowser.mac && bowser.firefox && !engine_mode)
 		renderer = new PIXI.CanvasRenderer(width, height, { antialias: antialias, transparent: false }); //, resolution:window.devicePixelRatio etc. doesn't work [15/11/16]
 	else if (retina_mode && !engine_mode) renderer = new PIXI.autoDetectRenderer(width, height, { antialias: antialias, transparent: false, resolution: window.devicePixelRatio, autoResize: true });
@@ -7147,14 +7147,14 @@ function launch_game() {
 }
 
 function on_resize() {
-	width = $(window).width();
-	height = $(window).height();
+	width = viewport_width();
+	height = viewport_height();
 	if (window.renderer) {
 		renderer.resize(width, height);
 		renderer.antialias = antialias;
 		if (window.map) map.last_max_y = undefined;
 	}
-	$("#pagewrapped").css("margin-top", Math.floor(($(window).height() - $("#pagewrapped").outerHeight()) / 2) + "px");
+	$("#pagewrapped").css("margin-top", Math.floor((viewport_height() - $("#pagewrapped").outerHeight()) / 2) + "px");
 	reposition_ui();
 	position_modals();
 	force_draw_on = future_s(1);

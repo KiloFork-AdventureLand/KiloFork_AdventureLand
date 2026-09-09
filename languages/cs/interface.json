@@ -1,3 +1,4 @@
 {
+	"interface.settings.zoom": "Přiblížení: {percent} %",
 	"interface.merrit.reason_stand_front": "Příliš blízko stánku {name}: nech více než 15px svisle nebo více než 10px vodorovně."
 }

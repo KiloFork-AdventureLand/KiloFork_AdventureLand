@@ -1,3 +1,4 @@
 {
+	"interface.settings.zoom": "Zoom: {percent}%",
 	"interface.merrit.reason_stand_front": "Demasiado perto de {name}: deixa mais de 15px na vertical ou mais de 10px na horizontal."
 }
