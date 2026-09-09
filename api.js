@@ -256,6 +256,7 @@ async function change_email_api(args) {
 			await delete_phrase_mark("email", gf(A.user, "email", ""));
 			if (await tx_get("MK_email-" + A.email)) ex("email_exists");
 			R.user = await tx_get(A.user);
+			if (R.user.info.email !== A.email) R.user.ses_bounce = false;
 			R.user.email = [A.email];
 			R.user.info.email = A.email;
 			R.user.info.last_email_change = new Date();

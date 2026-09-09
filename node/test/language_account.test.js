@@ -320,7 +320,7 @@ test("concurrent article renders retain their request language and safely interp
 	assert.equal(context.shtml("docs/fixture.html", { domain: { language: "ja" } }), "ja");
 });
 
-test("verification and password emails retain translated actions, safe links and UTF-8 in every language", () => {
+test("verification and password emails retain translated actions, safe links and UTF-8 in every language", async () => {
 	const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(path.resolve(__dirname, "../..")), {
 		autoescape: true,
 	});
@@ -332,6 +332,7 @@ test("verification and password emails retain translated actions, safe links and
 		nunjucks: env,
 		get_id: (user) => user._id,
 		keys: {},
+		get_user_by_email: async () => null,
 		console: { log() {}, error: (...args) => errors.push(args) },
 		require(name) {
 			assert.equal(name, "@aws-sdk/client-ses");
@@ -349,7 +350,12 @@ test("verification and password emails retain translated actions, safe links and
 			};
 		},
 	});
-	load(context, "adventure_functions.js", ["send_email", "send_verification_email", "send_password_reminder_email"]);
+	load(context, "adventure_functions.js", [
+		"purify_email",
+		"send_email",
+		"send_verification_email",
+		"send_password_reminder_email",
+	]);
 	const english = { ...require("../../languages/en/pages"), ...require("../../languages/en/server") };
 	const ids = Object.keys(english).filter((id) => id.startsWith("pages.email.") || id.startsWith("server.email."));
 	ids.push("pages.contents.announcement_email.hi-adventurer");
@@ -386,7 +392,7 @@ test("verification and password emails retain translated actions, safe links and
 			["send_password_reminder_email", "reset", "reset", "pages.email.to-reset-your-password-please-visit"],
 		]) {
 			const count = sent.length;
-			context[send](domain, user);
+			await context[send](domain, user);
 			assert.equal(sent.length, count + 1);
 			const message = sent.at(-1).Message;
 			const url = `${domain.base_url}/${route}/${user._id}/${token}`;
@@ -419,6 +425,71 @@ test("verification and password emails retain translated actions, safe links and
 		assert.equal(domain.language, "en");
 	}
 	assert.deepEqual(errors, []);
+});
+
+test("the shared sender suppresses bounced users before constructing an SES request", async () => {
+	let bounced = true,
+		sends = 0,
+		lookups = [];
+	const context = vm.createContext({
+		keys: {},
+		console: { log() {}, error() {} },
+		get_user_by_email: async (email) => {
+			lookups.push(email);
+			return { ses_bounce: bounced };
+		},
+		require: () => ({
+			SESClient: class {
+				async send() {
+					sends++;
+				}
+			},
+			SendEmailCommand: class {},
+		}),
+	});
+	load(context, "adventure_functions.js", ["purify_email", "send_email"]);
+	for (const title of ["Announcement", "Verification", "Password reminder"]) {
+		const result = await context.send_email({}, "Player.Name@googlemail.com", { title });
+		assert.equal(result.reason, "ses_bounce");
+	}
+	assert.equal(sends, 0);
+	assert.deepEqual(lookups, Array(3).fill("playername@gmail.com"));
+	bounced = false;
+	await context.send_email({}, "new@example.invalid", {});
+	assert.equal(sends, 1);
+});
+
+test("changing the email clears the bounce flag while reusing the same address preserves it", async () => {
+	for (const address of ["current@example.invalid", "new@example.invalid"]) {
+		const user = {
+			_id: "US_email_change",
+			email: ["current@example.invalid"],
+			ses_bounce: true,
+			info: { email: "current@example.invalid" },
+		};
+		const sent = [];
+		const context = vm.createContext({
+			console: { log() {}, error() {} },
+			get_domain: async () => ({}),
+			get_user_by_email: async (email) => (email === user.info.email ? user : null),
+			gf: (value, key, fallback) => value.info?.[key] ?? fallback,
+			hsince: () => 999,
+			delete_phrase_mark: async () => {},
+			mark_phrase: async () => {},
+			random_string: () => "fixture-value",
+			send_verification_email: (domain, changed) => sent.push(changed.ses_bounce),
+			selection_info: async () => ({}),
+			INITIAL_BACKOFF: 0,
+			BACKOFF_MULTIPLIER: 1,
+		});
+		const fixture = transactions(context, [user]);
+		load(context, "adventure_functions.js", ["purify_email"]);
+		load(context, "api.js", ["change_email_api"]);
+		const result = await context.change_email_api({ user, email: address, req: {}, res: { infs: [] } });
+		assert.equal(result.success, true);
+		assert.equal(fixture.records.get(user._id).ses_bounce, address === user.info.email);
+		assert.deepEqual(sent, [address === user.info.email]);
+	}
 });
 
 test("phrase route returns executable dictionaries for exact supported codes only", () => {

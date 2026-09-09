@@ -264,8 +264,10 @@ async function send_email(domain, email, args) {
 	var title = args.title || "Default Title";
 	var html = args.html || "Default HTML";
 	var text = args.text || "An email from the game";
-	console.log("send_email " + email + " - " + title);
 	try {
+		var recipient = await get_user_by_email(purify_email(email));
+		if (recipient && recipient.ses_bounce) return { skipped: true, reason: "ses_bounce" };
+		console.log("send_email " + email + " - " + title);
 		var { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
 		var client = new SESClient({
 			region: "us-east-1",
@@ -297,7 +299,7 @@ function send_verification_email(domain, user) {
 	var language = localization.normalize(user.language) || domain.language;
 	domain = Object.assign({}, domain, { language: language });
 	var html = nunjucks.render("htmls/email.html", { purpose: "verification", url: url, domain: domain, user: user });
-	send_email(domain, user.info.email, { html: html, title: phrase("server.email.verification_subject", {}, language), text: phrase("server.email.verification_text", { url: url }, language) });
+	return send_email(domain, user.info.email, { html: html, title: phrase("server.email.verification_subject", {}, language), text: phrase("server.email.verification_text", { url: url }, language) });
 }
 
 function send_password_reminder_email(domain, user) {
@@ -305,7 +307,7 @@ function send_password_reminder_email(domain, user) {
 	var language = localization.normalize(user.language) || domain.language;
 	domain = Object.assign({}, domain, { language: language });
 	var html = nunjucks.render("htmls/email.html", { purpose: "password", domain: domain, url: url });
-	send_email(domain, user.info.email, { html: html, title: phrase("server.email.reset_subject", {}, language), text: phrase("server.email.reset_text", { url: url }, language) });
+	return send_email(domain, user.info.email, { html: html, title: phrase("server.email.reset_subject", {}, language), text: phrase("server.email.reset_text", { url: url }, language) });
 }
 
 // ==================== PASSWORD ====================

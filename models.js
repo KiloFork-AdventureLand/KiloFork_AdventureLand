@@ -10,6 +10,7 @@ models = {
 		password: "",
 		credits: 0,
 		banned: false,
+		ses_bounce: false,
 		referrer: "",
 		timezone: 0,
 		cash: 0,
