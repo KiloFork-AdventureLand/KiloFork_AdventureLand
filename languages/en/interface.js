@@ -1,6 +1,8 @@
 module.exports = {
-	// Regular Settings button; cycles page magnification. percent is 0, +25 or +50; 0 means normal size.
-	"interface.settings.zoom": "Zoom: {percent}%",
+	// Regular Settings label, beside the separate zoom percentage button.
+	"interface.settings.zoom": "Zoom",
+	// Small Settings button; cycles page magnification. percent is 0, +25 or +50; 0 means normal size.
+	"interface.settings.zoom_percent": "{percent}%",
 	// js/html.js close_ui_panel; authored interface text.
 	"interface.close_ui_panel.no_target": "NO TARGET",
 	// js/html.js prop_remains; authored interface text.

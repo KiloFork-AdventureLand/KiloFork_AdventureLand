@@ -1,4 +1,5 @@
 {
-	"interface.settings.zoom": "Perbesaran: {percent}%",
+	"interface.settings.zoom": "Perbesaran",
+	"interface.settings.zoom_percent": "{percent}%",
 	"interface.merrit.reason_stand_front": "Terlalu dekat dengan {name}: beri jarak lebih dari 15px secara vertikal atau lebih dari 10px ke samping."
 }

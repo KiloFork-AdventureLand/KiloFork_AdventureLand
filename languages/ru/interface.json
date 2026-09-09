@@ -1,5 +1,6 @@
 {
-	"interface.settings.zoom": "Масштаб: {percent}%",
+	"interface.settings.zoom": "Масштаб",
+	"interface.settings.zoom_percent": "{percent}%",
 	"interface.close_ui_panel.no_target": "НЕТ ЦЕЛИ",
 	"interface.prop_remains.seconds": "Секунды",
 	"interface.prop_remains.minutes": "Минуты",

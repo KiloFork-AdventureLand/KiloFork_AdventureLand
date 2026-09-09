@@ -1,5 +1,6 @@
 {
-	"interface.settings.zoom": "확대: {percent}%",
+	"interface.settings.zoom": "확대",
+	"interface.settings.zoom_percent": "{percent}%",
 	"interface.close_ui_panel.no_target": "대상 없음",
 	"interface.prop_remains.seconds": "초",
 	"interface.prop_remains.minutes": "분",

@@ -1,4 +1,5 @@
 {
-	"interface.settings.zoom": "Thu phóng: {percent}%",
+	"interface.settings.zoom": "Thu phóng",
+	"interface.settings.zoom_percent": "{percent}%",
 	"interface.merrit.reason_stand_front": "Quá gần {name}: giữ khoảng cách hơn 15px theo chiều dọc hoặc hơn 10px theo chiều ngang."
 }

@@ -1,5 +1,6 @@
 {
-	"interface.settings.zoom": "Powiększenie: {percent}%",
+	"interface.settings.zoom": "Powiększenie",
+	"interface.settings.zoom_percent": "{percent}%",
 	"interface.close_ui_panel.no_target": "BRAK CELU",
 	"interface.prop_remains.seconds": "Sekundy",
 	"interface.prop_remains.minutes": "Minuty",

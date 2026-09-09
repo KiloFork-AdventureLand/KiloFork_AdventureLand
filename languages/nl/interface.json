@@ -1,4 +1,5 @@
 {
-	"interface.settings.zoom": "Zoom: {percent}%",
+	"interface.settings.zoom": "Zoom",
+	"interface.settings.zoom_percent": "{percent}%",
 	"interface.merrit.reason_stand_front": "Te dicht bij {name}: laat meer dan 15px verticaal of meer dan 10px horizontaal vrij."
 }

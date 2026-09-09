@@ -1,4 +1,5 @@
 {
-	"interface.settings.zoom": "Мащаб: {percent}%",
+	"interface.settings.zoom": "Мащаб",
+	"interface.settings.zoom_percent": "{percent}%",
 	"interface.merrit.reason_stand_front": "Твърде близо до {name}: остави повече от 15px по вертикала или повече от 10px встрани."
 }

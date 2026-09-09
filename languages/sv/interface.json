@@ -1,4 +1,5 @@
 {
-	"interface.settings.zoom": "Zoom: {percent} %",
+	"interface.settings.zoom": "Zoom",
+	"interface.settings.zoom_percent": "{percent} %",
 	"interface.merrit.reason_stand_front": "För nära {name}: lämna mer än 15px i höjdled eller mer än 10px i sidled."
 }

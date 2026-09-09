@@ -1,4 +1,5 @@
 {
-	"interface.settings.zoom": "Масштаб: {percent}%",
+	"interface.settings.zoom": "Масштаб",
+	"interface.settings.zoom_percent": "{percent}%",
 	"interface.merrit.reason_stand_front": "Надто близько до {name}: залиш понад 15px по вертикалі або понад 10px по горизонталі."
 }

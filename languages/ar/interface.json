@@ -1,4 +1,5 @@
 {
-	"interface.settings.zoom": "التكبير: ⁦{percent}%⁩",
+	"interface.settings.zoom": "التكبير",
+	"interface.settings.zoom_percent": "⁦{percent}%⁩",
 	"interface.merrit.reason_stand_front": "قريب جدًا من {name}: اترك أكثر من 15px عموديًا أو أكثر من 10px أفقيًا."
 }

@@ -98,7 +98,7 @@ function set_browser_zoom(value) {
 	document.documentElement.style.setProperty("--browser-zoom", zoom);
 	document.documentElement.style.setProperty("--browser-zoom-inverse", 1 / zoom);
 	$("html").toggleClass("browser-zoomed", !!browser_zoom);
-	$(".browserzoom").text(phrase("interface.settings.zoom", { percent: browser_zoom ? "+" + browser_zoom : "0" }));
+	$(".browserzoom").text(phrase("interface.settings.zoom_percent", { percent: browser_zoom ? "+" + browser_zoom : "0" }));
 	Cookies.set("browser_zoom", browser_zoom, { expires: 12 * 365 });
 	$(".CodeMirror").each(function () {
 		if (this.CodeMirror) this.CodeMirror.refresh();
