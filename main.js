@@ -110,7 +110,7 @@ app.get("/comm", (req, res) => res.redirect(301, "/hub" + req.originalUrl.slice(
 app.get("/hub", async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
-	var servers = await get_servers();
+	var servers = await get_browser_servers(req);
 	var server = select_server(req, user, servers);
 	var total = 0,
 		characters = [],
@@ -281,7 +281,7 @@ app.get("/character/:name/in/:region/:sname", async (req, res, next) => {
 	var user = await get_user(req);
 	var domain = await get_domain(req, user),
 		level = 80;
-	var servers = await get_servers();
+	var servers = await get_browser_servers(req);
 	var code = req.query.code;
 	if (code) domain.explicit_slot = code;
 	var user_chars = gf(user, "characters", []);
@@ -305,7 +305,7 @@ app.get("/character/:name/in/:region/:sname", async (req, res, next) => {
 app.get("/server/:region/:sname", async (req, res, next) => {
 	var user = await get_user(req);
 	var domain = await get_domain(req, user);
-	var servers = await get_servers();
+	var servers = await get_browser_servers(req);
 	var S = null;
 	for (var i = 0; i < servers.length; i++) {
 		if (servers[i].region === req.params.region && servers[i].name === req.params.sname) S = servers[i];
@@ -423,7 +423,7 @@ async function get_browser_data() {
 app.get("/shells", async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
-	var servers = await get_servers();
+	var servers = await get_browser_servers(req);
 	var server = select_server(req, user, servers);
 	domain.stripe_enabled = true;
 	res.status(200).send(nunjucks.render("htmls/payments.html", { domain: domain, user: user, server: server, extra_shells: extra_shells }));

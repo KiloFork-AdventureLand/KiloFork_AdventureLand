@@ -420,7 +420,7 @@ async function servers_and_characters_api(args) {
 	var user_data = await get_user_data(user);
 	var characters_data = await get_characters(user);
 	var characters = characters_to_client(characters_data);
-	var servers_data = await get_servers();
+	var servers_data = await get_browser_servers(args.req);
 	var servers = servers_to_client(domain, servers_data);
 	var mail = gf(user_data, "mail", 0);
 
@@ -833,7 +833,7 @@ async function disconnect_character_api(args) {
 // ==================== SERVER MANAGEMENT ====================
 
 async function get_servers_api(args) {
-	var server_list = await get_servers();
+	var server_list = await get_browser_servers(args.req);
 	var servers = [];
 	for (var i = 0; i < server_list.length; i++) {
 		var s = server_list[i];
@@ -852,7 +852,7 @@ async function get_servers_api(args) {
 
 async function can_reload_api(args) {
 	var user = args.user;
-	var servers = await get_servers();
+	var servers = await get_browser_servers(args.req);
 	for (var i = 0; i < servers.length; i++) {
 		var server = servers[i];
 		if (server.region === args.region && server.name === args.name) {

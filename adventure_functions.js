@@ -654,6 +654,13 @@ async function get_servers(no_cache) {
 	return result;
 }
 
+async function get_browser_servers(req) {
+	var servers = await get_servers();
+	var host = (req.get("host") || "").toLowerCase().split(":")[0];
+	if (host !== "cloudflare.adventure.land") return servers;
+	return servers.filter((s) => s.address === "de.adventure.land").map((s) => Object.assign({}, s, { address: "cloudflare.adventure.land" }));
+}
+
 function select_server(req, user, servers) {
 	if (!servers || !servers.length) return null;
 	if (Dev) return servers[0];
@@ -1491,7 +1498,7 @@ function shtml(path, vars) {
 
 async function render_selection(req, res, user, domain, level, server) {
 	domain.canonical_url = SEO_ORIGIN + "/";
-	var servers = await get_servers();
+	var servers = await get_browser_servers(req);
 	if (!server) server = select_server(req, user, servers);
 	var total = 0,
 		characters = [],
@@ -1517,7 +1524,7 @@ async function render_selection(req, res, user, domain, level, server) {
 }
 
 async function selection_info(req, user, domain) {
-	var servers = await get_servers();
+	var servers = await get_browser_servers(req);
 	var server = select_server(req, user, servers);
 	var characters = await get_characters(user);
 	return {
