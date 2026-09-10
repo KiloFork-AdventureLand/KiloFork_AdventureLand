@@ -1264,6 +1264,7 @@ function the_game(demo) {
 	FM = {}; // [i,j] for portraits
 	XYWH = {}; // dimensions - previously D, it was cool while it lasted, renamed to XYWH, so the server.D can be imported into window.D [12/07/18]
 	loader = PIXI.loader;
+	if (!no_graphics) loader.concurrency = 64;
 	loader.on("progress", on_load_progress);
 
 	// Different animations can share a sheet; register each resource only once.

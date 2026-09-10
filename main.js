@@ -10,6 +10,8 @@ var phrase = localization.phrase,
 eval("" + fs.readFileSync(path.resolve(__dirname, "common/init.js")));
 reinit_from_options();
 
+var web_assets = require("./web_assets").create_web_assets({ root: __dirname, read_data: get_browser_data, local: Local });
+app.all("/data.js", web_assets.serve_data);
 app.use("/sounds", express.static("./sounds", { maxAge: "30d" }));
 app.get("/phrases/:language.js", localization.serve);
 app.use(
@@ -375,22 +377,15 @@ app.all("/code.js", async (req, res, next) => {
 			.send("game_log(" + JSON.stringify(phrase("server.code.load_not_found")) + ",colors.code_error)");
 });
 
-// Game data serving
-app.all("/data.js", async (req, res, next) => {
-	var domain = await get_domain(req),
-		additional = "",
-		geometry = {},
-		rpc = {};
-	for (var id in maps) {
-		if (maps[id].ignore) continue;
-		rpc[id] = get("MP_" + maps[id].key);
-	}
-	for (var id in maps) {
-		if (maps[id].ignore) continue;
-		var map = await rpc[id];
-		if (map) geometry[id] = map.info.data;
-	}
-	var G = {
+// Called at startup and in the background, never for a cached data.js request.
+async function get_browser_data() {
+	var geometry = {},
+		ids = Object.keys(maps).filter((id) => !maps[id].ignore);
+	var records = await Promise.all(ids.map((id) => get("MP_" + maps[id].key)));
+	ids.forEach((id, index) => {
+		if (records[index]) geometry[id] = records[index].info.data;
+	});
+	return {
 		version: Version,
 		achievements: achievements,
 		animations: animations,
@@ -422,13 +417,7 @@ app.all("/data.js", async (req, res, next) => {
 		docs: docs,
 		drops: drops,
 	};
-	if (req.query.reload || (req.body && req.body.reload)) additional = "add_log(phrase('client.data.reloaded'),'#32A3B0');\napply_backup()\n";
-	res
-		.status(200)
-		.set("Content-Type", "application/javascript")
-		.set("Cache-Control", "public, max-age=2592000")
-		.send("var G=" + JSON.stringify(G) + ";\n" + additional);
-});
+}
 
 // Shells / Payment page
 app.get("/shells", async (req, res, next) => {
@@ -799,9 +788,16 @@ app.all("/api", async (req, res, next) => {
 // ==================== START ====================
 
 const PORT = process.env.PORT || options.port;
-app.listen(PORT, () => {
+// Serve cached public text before common's static mounts without modifying shared initialization.
+const http_app = express();
+http_app.enable("trust proxy");
+http_app.use(web_assets.serve_static);
+http_app.use(app);
+web_assets.start();
+const http_server = http_app.listen(PORT, () => {
 	console.log(`\x1b[32mAdventure Land\x1b[0m listening on port ${PORT}`);
 });
+http_server.on("close", web_assets.stop);
 
 process.on("uncaughtException", function (err) {
 	console.error("#EXC Caught exception:", err);
@@ -811,4 +807,4 @@ process.on("unhandledRejection", function (err) {
 	console.error("#EXC Unhandled rejection:", err);
 });
 
-module.exports = app;
+module.exports = http_app;

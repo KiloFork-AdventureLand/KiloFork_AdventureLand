@@ -40,6 +40,8 @@ test("asset loading shares one resource across animation aliases and asset group
 	const added = [],
 		resources = {};
 	const context = {
+		no_graphics: false,
+		window: {},
 		PIXI: {
 			loader: {
 				resources,
@@ -69,6 +71,7 @@ test("asset loading shares one resource across animation aliases and asset group
 		},
 	};
 	vm.runInContext(queue, context);
+	assert.equal(context.PIXI.loader.concurrency, 64);
 	assert.equal(added.filter((file) => file === "cdn:" + shared).length, 1);
 	assert(added.includes("cdn:unique.png"));
 	assert(!added.includes("cdn:skip.png"));
@@ -77,6 +80,12 @@ test("asset loading shares one resource across animation aliases and asset group
 	vm.runInContext(queue, context);
 	assert.equal(added.length, count, "already registered resources are reused");
 	vm.runInContext(fs.readFileSync(fakePixiPath, "utf8"), context);
+	context.no_graphics = true;
+	Object.defineProperty(context.PIXI.loader, "concurrency", {
+		set() {
+			throw new Error("Headless loader concurrency changed");
+		},
+	});
 	assert.doesNotThrow(() => vm.runInContext(queue, context), "fake loader has no resource registry");
 });
 
