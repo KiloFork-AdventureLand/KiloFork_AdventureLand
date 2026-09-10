@@ -1,5 +1,7 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Bank store/retrieve references and banking guide. Omitting the destination slot lets the server place/stack the item; an explicit occupied slot exchanges items, never merges them. No parameters or fixed CODE.
+	"docs.functions.bank_store.explicit_destination": "Omit the destination slot for automatic placement and stacking. If you specify an occupied destination, the two items swap instead of merging. Use an empty destination to avoid a swap.",
 	// JavaScript lesson “Make CODE speak”, idea. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.
 	"docs.tutorial.js-hello.idea": "<span class=\"dlabel\">game_log(\"Hello!\");</span> writes to the game log. <span class=\"dlabel\">game_log</span> is a function: a named action. Parentheses call it; the text inside is its argument. Quotes make text a <em>string</em>. A semicolon ends the instruction.",
 	// JavaScript lesson “Make CODE speak”, task. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.

@@ -171,6 +171,51 @@ test("article requests translate on the server without shipping their prose in t
 	});
 });
 
+test("bank destination guidance is translated and reaches both docs and MCP", async () => {
+	const id = "docs.functions.bank_store.explicit_destination";
+	const english = require("../../languages/en/docs")[id];
+	const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(root), { autoescape: true });
+	const renderer = { render: env.render.bind(env), runtime: nunjucks.runtime };
+	const context = vm.createContext({
+		env,
+		nunjucks: renderer,
+		localization,
+		to_filename: (value) => value,
+		docs: { functions: ["bank_store", "bank_retrieve"] },
+		fs,
+		path,
+		__dirname: root,
+		MCP_SOURCE_REPOSITORY: "https://github.com/kaansoral/adventureland",
+	});
+	const filters = read("filters.js");
+	vm.runInContext(filters.slice(0, filters.indexOf('env.addFilter("to_json"')), context);
+	vm.runInContext(extract(read("adventure_functions.js"), "shtml"), context);
+	for (const name of ["mcp_api_html_to_text", "mcp_api_public_source_location", "mcp_api_get_code_method"])
+		vm.runInContext(extract(read("mcp_api.js"), name), context);
+	for (const { code } of localization.languages) {
+		const filename = code === "en" ? "languages/en/docs.js" : `languages/${code}/docs.json`;
+		const source = read(filename);
+		assert.equal(source.split(JSON.stringify(id) + ":").length, 2, `${code}: exactly one phrase entry`);
+		const translated = code === "en" ? english : JSON.parse(source)[id];
+		assert.ok(typeof translated === "string" && translated.trim(), code);
+		if (code !== "en") assert.notEqual(translated, english, `${code}: no English filler`);
+		assert.doesNotMatch(translated, /[{}<>]/, `${code}: no added placeholders or markup`);
+		await in_language(code, async () => {
+			for (const file of [
+				"docs/functions/bank_store.html",
+				"docs/functions/bank_retrieve.html",
+				"docs/guide/banking.html",
+			])
+				assert.ok(context.shtml(file).includes(localization.phrase_html(id)), `${code}: ${file}`);
+			for (const name of ["bank_store", "bank_retrieve"]) {
+				const result = await context.mcp_api_get_code_method({ name });
+				assert.equal(result.success, true);
+				assert.ok(result.documentation.includes(translated), `${code}: MCP ${name}`);
+			}
+		});
+	}
+});
+
 test("initial and paginated update notes carry request-local text without changing canonical notes", async () => {
 	const before = JSON.stringify(notes);
 	let handler;
