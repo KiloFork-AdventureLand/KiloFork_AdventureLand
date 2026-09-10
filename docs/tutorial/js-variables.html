@@ -53,6 +53,16 @@ game_log(count);
 count -= 1;
 game_log(count);</div>
 
-{{ phrase_html("docs.tutorial.js-variables.reading_after") }}
+{{ phrase_html("docs.tutorial.js-variables.reading_after") }} {{ phrase_html("docs.tutorial.js-variables.reading_var_before") }}
+
+<!-- prettier-ignore -->
+<div class="code readonly">{
+    var greeting = "Ready";
+    let count = 3;
+    game_log(count);
+}
+game_log(greeting);</div>
+
+{{ phrase_html("docs.tutorial.js-variables.reading_var_after") }}
 
 <p><span class="rlabel clickable" onclick="load_documentation('game_log')">game_log</span></p>

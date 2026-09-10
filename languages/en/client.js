@@ -115,12 +115,12 @@ module.exports = {
 	"client.tutorial_code.error.lesson": "Open the lesson again to run its checks.",
 	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
 	"client.tutorial_code.ready": "Edit the code above, then press Execute.",
-	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
-	"client.tutorial_code.running": "Checking five practice characters…",
+	// JavaScript tutorial practice UI while the learner’s code runs. No interpolation parameters.
+	"client.tutorial_code.running": "Checking your code…",
 	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
 	"client.tutorial_code.changed": "Code changed. Press Execute to check it again.",
-	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
-	"client.tutorial_code.passed": "{count}/5 characters passed.",
+	// JavaScript tutorial summary for multiple checks. {count} is the number passed; {total} is the number run.
+	"client.tutorial_code.passed": "{count}/{total} checks passed.",
 	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
 	"client.tutorial_code.pass": "Pass",
 	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.

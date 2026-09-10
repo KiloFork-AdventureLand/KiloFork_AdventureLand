@@ -801,6 +801,17 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	border: 3px solid gray;
 	box-sizing: border-box;
 }
+.tutorial-code-characters{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+	gap: 12px;
+	margin-bottom: 16px;
+	direction: ltr;
+}
+.tutorial-code-characters > .CodeMirror{
+	min-width: 0;
+	height: auto;
+}
 .tutorial-code-actions{
 	margin: 8px 0 12px;
 	text-align: end;

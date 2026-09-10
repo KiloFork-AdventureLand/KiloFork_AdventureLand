@@ -419,12 +419,30 @@
 	}
 
 	const foundations = ["hello", "values", "variables", "character", "decisions", "arrays", "loops", "functions"];
+	// Keep only cases that teach a different input, boundary, or action outcome.
+	const lessonCases = {
+		hello: [0],
+		values: [0],
+		variables: [0],
+		character: [0, 3, 4],
+		decisions: [0, 1, 2, 3],
+		arrays: [0],
+		loops: [0],
+		functions: [0, 1, 2, 3],
+		inventory: [0, 1, 3],
+		targets: [0, 1, 2, 3, 4],
+		timers: [0, 4],
+		async: [0, 1, 2, 3, 4],
+		events: [0, 1, 2, 3, 4],
+		capstone: [0, 1, 2, 3, 4],
+	};
 	async function check(source, id) {
 		if (typeof source !== "string" || source.length > 20000) throw new PracticeError("client.tutorial_code.error.source_limit");
-		if (!foundations.includes(id) && !Object.prototype.hasOwnProperty.call({ inventory: 1, targets: 1, timers: 1, async: 1, events: 1, capstone: 1 }, id))
-			throw new PracticeError("client.tutorial_code.error.lesson");
+		if (!Object.prototype.hasOwnProperty.call(lessonCases, id)) throw new PracticeError("client.tutorial_code.error.lesson");
 		const results = [];
-		for (const scene of scenarios(id, characters)) {
+		const scenes = scenarios(id, characters);
+		for (const index of lessonCases[id]) {
+			const scene = scenes[index];
 			try {
 				const result = foundations.includes(id) ? runPractice(source, scene.hero, characters) : await runScenario(source, scene);
 				results.push({
@@ -474,9 +492,11 @@
 		output.dataset.state = state || id;
 		output.textContent = text(id, parameters);
 	}
-	function renderResults(output, results) {
+	function renderResults(output, results, id) {
 		const passed = (result) => !result.errors.length && result.checks.every((check) => check.pass);
 		const count = results.filter(passed).length;
+		const multiple = results.length > 1;
+		const showCharacter = !["hello", "variables", "arrays", "loops"].includes(id);
 		output.replaceChildren();
 		output.dataset.state = count === results.length ? "passed" : "failed";
 		function append(parent, tag, className, value) {
@@ -486,13 +506,15 @@
 			parent.appendChild(element);
 			return element;
 		}
-		append(output, "div", "tutorial-code-summary", text("passed", { count }));
+		append(output, "div", "tutorial-code-summary", multiple ? text("passed", { count, total: results.length }) : text(count ? "pass" : "retry"));
 		for (const result of results) {
 			const row = append(output, "div", "tutorial-code-check");
 			row.dataset.passed = String(passed(result));
-			const heading = append(row, "div", "tutorial-code-check-heading");
-			append(heading, "span", "", text("hp", result));
-			append(heading, "span", "tutorial-code-status", text(passed(result) ? "pass" : "retry"));
+			if (showCharacter) {
+				const heading = append(row, "div", "tutorial-code-check-heading");
+				append(heading, "span", "", text("hp", result));
+				if (multiple) append(heading, "span", "tutorial-code-status", text(passed(result) ? "pass" : "retry"));
+			}
 			if (result.note) append(row, "div", "tutorial-code-note", phrase(result.note));
 			append(row, "pre", "tutorial-code-output", result.logs.length ? text("logs", { output: result.logs.join("\n") }) : text("no_logs"));
 			for (const check of result.checks) if (!check.pass) append(row, "div", "tutorial-code-feedback", phrase(check.id, check.parameters));
@@ -510,8 +532,19 @@
 		const element = $(".modal:last .tutorial-code")[0];
 		if (!element || (active && active.element === element)) return !!element;
 		cancel();
-		const editor = element.querySelector(".CodeMirror").CodeMirror;
+		const editor = element.querySelector(":scope > .CodeMirror").CodeMirror;
 		const output = element.querySelector(".tutorial-code-result");
+		const samples = element.querySelector(".tutorial-code-characters");
+		if (samples) {
+			samples.replaceChildren();
+			for (const index of lessonCases[element.dataset.lesson]) {
+				const code = document.createElement("div");
+				code.className = "code readonly";
+				code.textContent = JSON.stringify(characters[index], null, 4);
+				samples.appendChild(code);
+			}
+			$(samples).find(".code").codemirror();
+		}
 		const key = "tutorial_code_v1_" + (root.user_id || "guest") + "_" + element.dataset.lesson;
 		active = { element, editor, output };
 		try {
@@ -546,7 +579,7 @@
 					status(output, "error", { error: errorText(event.data.error) });
 					return;
 				}
-				renderResults(output, event.data.results);
+				renderResults(output, event.data.results, current.element.dataset.lesson);
 				position_modals();
 			};
 			worker.onerror = function () {

@@ -38,7 +38,7 @@ function examples(html) {
 	);
 }
 const passes = (results) =>
-	results.length === 5 &&
+	results.length > 0 &&
 	results.every((r) => !r.errors.length && r.checks.length && r.checks.every((check) => check.pass));
 
 test("all 14 rendered lessons have working solutions, useful failing starters and phrased readings", async () => {
@@ -48,12 +48,13 @@ test("all 14 rendered lessons have working solutions, useful failing starters an
 	const english = localization.catalog("en");
 	for (const lesson of lessons) {
 		const html = render(lesson.key),
-			[starter, solution, reading] = examples(html),
+			snippets = examples(html),
+			[starter, solution, reading] = snippets,
 			id = lesson.key.slice(3);
 		assert.ok(starter && solution && reading, lesson.key);
 		assert.doesNotMatch(html, /{{|<details|<summary|load_documentation\('(?:character|events-character)'\)/);
 		assert.equal((html.match(/class="code executeb"/g) || []).length, 1);
-		new vm.Script(reading);
+		for (const example of snippets.slice(2)) new vm.Script(example);
 		const results = await practice.check(solution, id);
 		assert.ok(passes(results), lesson.key + ": " + JSON.stringify(results));
 		assert.equal(passes(await practice.check(starter, id)), false, lesson.key + " starter needs a real correction");
@@ -65,6 +66,39 @@ test("all 14 rendered lessons have working solutions, useful failing starters an
 	const reading = render("js-character");
 	assert.match(reading, /An <em>object<\/em> groups related values/);
 	assert.match(reading, /variable name, a dot, and the property name/);
+});
+
+test("practice runs fixed exercises once and keeps distinct inputs and cancellation checks", async () => {
+	const solution = (id) => examples(render("js-" + id))[1];
+	for (const id of ["hello", "values", "variables", "arrays", "loops"]) {
+		const results = await practice.check(solution(id), id);
+		assert.deepEqual(
+			results.map((result) => result.name),
+			["Mira"],
+			id,
+		);
+	}
+	for (const [id, names] of [
+		["character", ["Mira", "Iris", "Orin"]],
+		["decisions", ["Mira", "Nox", "Bram", "Iris"]],
+		["functions", ["Mira", "Nox", "Bram", "Iris"]],
+		["inventory", ["Mira", "Nox", "Iris"]],
+		["timers", ["Mira", "Orin"]],
+	]) {
+		const results = await practice.check(solution(id), id);
+		assert.deepEqual(
+			results.map((result) => result.name),
+			names,
+			id,
+		);
+		if (id === "timers") {
+			assert.deepEqual(
+				results.map((result) => result.logs.length),
+				[3, 2],
+			);
+			assert.equal(results[1].note, "client.tutorial_code.scene.timers.1");
+		}
+	}
 });
 
 test("practice catches fixed values, wrong boundaries, ignored parameters and failed cleanup", async () => {
