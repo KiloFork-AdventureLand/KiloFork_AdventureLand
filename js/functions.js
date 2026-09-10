@@ -570,6 +570,7 @@ function add_update_notes() {
 		add_log(note.text === undefined ? note.note : note.text, color);
 	});
 	if (!no_html) add_log("<span class='clickable' onclick='show_update_notes()'>" + phrase.html("client.add_update_notes.all_update_notes") + "</span>", "#E4E4E4");
+	if (!no_html) $("#gamelog").scrollTop(0);
 }
 
 function render_update_notes() {

@@ -237,7 +237,8 @@ test("initial and paginated update notes carry request-local text without changi
 
 test("note renderers use delivered translations while retaining colors and safe modal text", () => {
 	const translated = localization.translate_notes(notes.slice(0, 20), "tr"),
-		logs = [];
+		logs = [],
+		scrolls = [];
 	let html;
 	const context = vm.createContext({
 		update_notes: translated,
@@ -246,10 +247,11 @@ test("note renderers use delivered translations while retaining colors and safe 
 		no_html: false,
 		add_log: (text, color) => logs.push({ text, color }),
 		html_escape: require("../../js/phrases").escape,
-		$: () => ({
+		$: (selector) => ({
 			html: (value) => {
 				html = value;
 			},
+			scrollTop: (value) => scrolls.push({ selector, value }),
 		}),
 		position_modals: () => {},
 	});
@@ -259,6 +261,7 @@ test("note renderers use delivered translations while retaining colors and safe 
 		vm.runInContext(extract(read("js/functions.js"), name), context);
 	context.add_update_notes();
 	assert.ok(logs.some((entry) => entry.text === translated[0].text));
+	assert.deepEqual(scrolls, [{ selector: "#gamelog", value: 0 }]);
 	context.render_update_notes();
 	assert.ok(html.includes(context.html_escape(translated[0].text)));
 	assert.ok(html.includes("load_more_update_notes()"));
