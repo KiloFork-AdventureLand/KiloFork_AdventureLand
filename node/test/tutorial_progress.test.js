@@ -28,6 +28,7 @@ function runtime(info) {
 		"process_user_data",
 		"migrate_tutorial_data",
 		"tutorial_lesson_complete",
+		"tutorial_onboarding_complete",
 		"calculate_tutorial_step",
 		"data_to_tutorial",
 		"get_tutorial_track",
@@ -249,6 +250,7 @@ function tutorialUI(context, data) {
 		hide_modals() {},
 		hide_modal() {},
 		position_modals() {},
+		prepare_tutorial_code() {},
 		btc() {},
 		event: {},
 		show_modal(html) {

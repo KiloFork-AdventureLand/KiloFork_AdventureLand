@@ -1077,9 +1077,22 @@ function calculate_tutorial_step(user_data, lessons) {
 	user_data.info.tutorial_key = lessons[user_data.info.tutorial_step] ? lessons[user_data.info.tutorial_step].key : null;
 }
 
+function tutorial_onboarding_complete(user_data) {
+	var end = docs.tutorial.findIndex(function (lesson) {
+		return lesson.key === "theend";
+	});
+	return (
+		end !== -1 &&
+		docs.tutorial.slice(0, end + 1).every(function (lesson) {
+			return tutorial_lesson_complete(user_data, lesson);
+		})
+	);
+}
+
 function data_to_tutorial(user_data, track) {
 	try {
 		if (user_data) {
+			var onboarding_finished = track !== "merchant" && tutorial_onboarding_complete(user_data);
 			var lessons = track === "merchant" ? docs.merchant_tutorial : docs.tutorial;
 			user_data = get_tutorial_track(user_data, track);
 			if (track === "merchant") calculate_tutorial_step(user_data, lessons);
@@ -1091,7 +1104,7 @@ function data_to_tutorial(user_data, track) {
 					return lesson.key;
 				});
 			if (user_data.info.tutorial_step >= lessons.length)
-				return { step: lessons.length, completed: [], pending: [], completed_lessons: completed_lessons, finished: true, task: false, progress: 100 };
+				return { step: lessons.length, completed: [], pending: [], completed_lessons: completed_lessons, onboarding_finished: onboarding_finished, finished: true, task: false, progress: 100 };
 			var arr = [],
 				pending = [],
 				task = false,
@@ -1109,6 +1122,7 @@ function data_to_tutorial(user_data, track) {
 				completed: arr,
 				pending: pending,
 				progress: percent,
+				onboarding_finished: onboarding_finished,
 				can_continue: tutorial_lesson_complete(user_data, lessons[user_data.info.tutorial_step], true),
 				completed_lessons: completed_lessons,
 			};

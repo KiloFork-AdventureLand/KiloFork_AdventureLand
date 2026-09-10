@@ -18,6 +18,7 @@ function context() {
 		"get_tutorial_track",
 		"calculate_tutorial_step",
 		"tutorial_lesson_complete",
+		"tutorial_onboarding_complete",
 		"data_to_tutorial",
 	]);
 	load(c, "api.js", ["tutorial_api", "reset_tutorial_api"]);

@@ -1579,6 +1579,7 @@ function hide_transports() {
 }
 
 function execute_codemirror(button) {
+	if ($(button).closest(".tutorial-code").length) return prepare_tutorial_code(true);
 	$(".executei").remove();
 	window.the_example = $(button).parent()[0].CodeMirror.getValue();
 	$(button)
@@ -1586,6 +1587,25 @@ function execute_codemirror(button) {
 		.append(
 			"<div class='clickable enableclicks' style='position: absolute; top: 4px; right: 4px; z-index: 4;' onclick='$(\".executei\").remove();'><iframe src='/executor' style='width: 200px; height: 26px; border: 1px solid white; pointer-events: none;' class='executei' /></div>",
 		);
+}
+
+var tutorial_code_loading = null;
+function prepare_tutorial_code(execute) {
+	var container = $(".modal:last .tutorial-code")[0];
+	if (!container) return;
+	if (window.TutorialCode) return execute ? TutorialCode.run() : TutorialCode.mount();
+	$(container).find(".tutorial-code-result").text(phrase("client.tutorial_code.loading"));
+	if (!tutorial_code_loading) {
+		tutorial_code_loading = $.getScript("/js/tutorial_code.js?v=" + (window.VERSION || window.Version || 1));
+		tutorial_code_loading.fail(function () {
+			tutorial_code_loading = null;
+			$(".modal:last .tutorial-code-result").text(phrase("client.tutorial_code.unavailable"));
+		});
+	}
+
+	tutorial_code_loading.done(function () {
+		if (container.isConnected && TutorialCode.mount() && execute) TutorialCode.run();
+	});
 }
 
 function eval_snippet() {
@@ -6079,7 +6099,7 @@ var tutorial_tasks_in_flight = {};
 var tutorial_reward_in_flight = false,
 	tutorial_reward_settled = false;
 function claim_tutorial_reward() {
-	if (tutorial_reward_in_flight || tutorial_reward_settled || !character || !X || !X.tutorial || !X.tutorial.finished) return;
+	if (tutorial_reward_in_flight || tutorial_reward_settled || !character || !X || !X.tutorial || !(X.tutorial.onboarding_finished || X.tutorial.finished)) return;
 	tutorial_reward_in_flight = true;
 	socket.emit("ureward", { name: "c0" });
 }
@@ -6729,11 +6749,13 @@ jQuery.fn.codemirror = function (args) {
 				lineNumbers: true,
 				gutters: ["CodeMirror-linenumbers", "lspacer"],
 				theme: "pixel",
+				readOnly: $this.hasClass("readonly"),
 				cursorHeight: 0.75,
 				/*,lineNumbers:true*/
 			},
 		);
 		var $cm = $(codemirror.getWrapperElement());
+		if ($this.hasClass("readonly")) codemirror.getInputField().setAttribute("aria-label", phrase("client.tutorial_code.example"));
 		if ($this.hasClass("executeb")) {
 			$cm.append(
 				"<div class='clickable' style='position: absolute; bottom: 4px; right: 4px; color: white; background: black; padding: 2px 2px 2px 4px; border: 1px solid white; z-index:4; padding-left: 8px; padding-right: 4px;' onclick='execute_codemirror(this)'>" + phrase.html("client.interface.execute") + "</div>",

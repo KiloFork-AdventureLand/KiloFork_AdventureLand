@@ -38,6 +38,7 @@ const DOCS_PATHS = [
 	"/docs/guide/mainframe",
 	"/docs/guide/hub",
 	"/docs/tutorial",
+	"/docs/tutorial/js-hello",
 	"/docs/tutorial/tracktrix",
 	"/docs/tutorial/hunting",
 	"/docs/guide/monster-hunts",

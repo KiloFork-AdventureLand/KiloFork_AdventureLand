@@ -4962,7 +4962,7 @@ function init_socket_io(socket_server) {
 							R.tutorial = await tx_get("IE_userdata-" + A.owner);
 							if (!R.owner || !R.tutorial) ex("tutorial_incomplete");
 							process_user_data(A.owner, R.tutorial);
-							if (R.tutorial.info.tutorial_step < docs.tutorial.length) ex("tutorial_incomplete");
+							if (!tutorial_onboarding_complete(R.tutorial)) ex("tutorial_incomplete");
 							R.owner.info.rewards = R.owner.info.rewards || [];
 							if (R.owner.info.rewards.includes(A.name)) ex("already");
 							R.owner.info.rewards.push(A.name);

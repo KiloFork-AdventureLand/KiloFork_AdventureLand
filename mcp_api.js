@@ -572,6 +572,10 @@ function mcp_api_doc_entries() {
 		}
 	}
 	traverse((docs && docs.guide) || [], [], []);
+	((docs && docs.tutorial) || []).forEach(function (lesson) {
+		if (lesson.key.indexOf("js-") !== 0) return;
+		result.push({ name: lesson.key, title: lesson.title, keywords: "JavaScript crash course CODE", section: "Tutorial", docs_url: "https://adventure.land/docs/tutorial/" + encodeURIComponent(lesson.key) });
+	});
 	for (var i = 0; i < ((docs && docs.references) || []).length; i++) {
 		var entry = docs.references[i];
 		if (!names.has(entry[0]))
@@ -626,7 +630,7 @@ async function mcp_api_get_doc(args) {
 	if (!entry) return { failed: true, reason: "not_found" };
 	var html;
 	try {
-		html = shtml("docs/guide/" + entry.name + ".html");
+		html = shtml((entry.section === "Tutorial" ? "docs/tutorial/" : "docs/guide/") + entry.name + ".html");
 	} catch (e) {
 		try {
 			html = shtml("docs/articles/" + entry.name + ".html");

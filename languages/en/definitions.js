@@ -1,5 +1,33 @@
 // English display text from loaded game definitions. Canonical G is not localized.
 module.exports = {
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-hello.title": "Make CODE speak",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-values.title": "Name a value",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-variables.title": "Change a variable",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-character.title": "Read your character",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-decisions.title": "Make a decision",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-arrays.title": "Make a list",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-loops.title": "Loop through a list",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-functions.title": "Write your own function",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-inventory.title": "Count your supplies",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-targets.title": "There may be no target",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-timers.title": "Check again later",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-async.title": "Wait for the game",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-events.title": "React when things happen",
+	// Title in the existing tutorial index and article header. Keep CODE unchanged.
+	"tutorial.js-capstone.title": "Build a small farming script",
 	// Tutorial lesson about the Tracktrix item; keep its proper name unchanged.
 	"tutorial.tracktrix.title": "Tracktrix",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.

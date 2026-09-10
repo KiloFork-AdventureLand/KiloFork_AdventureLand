@@ -1,4 +1,148 @@
 module.exports = {
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.inventory.0": "Mixed stacks: 6 HP potions",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.inventory.1": "Empty bag",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.inventory.2": "Matching stack in slot 0",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.inventory.3": "Other items only",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.inventory.4": "Two stacks: 21 HP potions",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.targets.0": "Goo in range",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.targets.1": "No monsters nearby",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.targets.2": "Goo too far away",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.targets.3": "Dead character",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.targets.4": "Only a bee nearby",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.timers.0": "HP changes between reports",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.timers.1": "Cancel after the second report",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.async.0": "Arrive after travel",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.async.1": "Route fails",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.async.2": "Interrupt the journey",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.async.3": "Call again while busy",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.async.4": "Retry after a failed trip",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.events.0": "Two hits, then a late hit",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.events.1": "Quiet until after cleanup",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.events.2": "Payloads without damage",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.events.3": "Zero damage is a number",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.events.4": "Ignore a string, then clean up",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.capstone.0": "Approach, wait for cooldown, attack, loot",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.capstone.1": "No target for the whole run",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.capstone.2": "Low resources, then death during recovery",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.capstone.3": "Failed route, missing target, failed attack, retry",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.scene.capstone.4": "Stop while a long trip is still pending",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.callback": "Pass a function to setTimeout, without calling it.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.pending_limit": "Too many pending callbacks. Schedule only the next turn.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.callback_limit": "Too many callbacks. Check the delay and stopping condition.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.log_limit": "Too many log lines. Keep this exercise to 40 lines or fewer.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.call_limit": "Too many function calls. Check the loop and its stopping condition.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.attack": "Attack needs a current, ready target.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.stop_reports": "Keep the stopReports function so reporting can be cancelled.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.take_trip": "Keep the takeTrip function so the next call can be tested.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.callbacks": "Finish without callback errors.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.expected": "Log in order: {output}",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.silent": "No damage log is expected in this scenario.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.return": "statusFor({name}) returns {value}.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.cleanup": "Finish with no pending callback, action, or listener.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.dead": "Return before looking for a target when dead.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.report_times": "Report immediately, then once per second; respect cancellation.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.trip_count": "Start one trip at a time; allow another after failure.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.trip_times": "Log the result only after the trip settles.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.await": "Await actions so turns do not overlap.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.resources": "Do no new work after death; recover before low-resource combat.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.stop": "Stop once, cancel movement, and clear the next turn.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.after_stop": "Start no action after stopping.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.schedule_after_stop": "Do not schedule another turn after stopping.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.missing_target": "Handle missing targets before reading their properties.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.pace": "Wait for work, then pause before the next turn.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.actions": "Complete the movement, attack, and loot paths.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.ready": "Do not attack without a ready target and enough HP/MP.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.failures": "Report action failures, then keep checking.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.check.function": "Define statusFor(hero).",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.source_limit": "Keep this exercise under 20,000 characters.",
+	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
+	"client.tutorial_code.error.lesson": "Open the lesson again to run its checks.",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.ready": "Edit the code above, then press Execute.",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.running": "Checking five practice characters…",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.changed": "Code changed. Press Execute to check it again.",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.passed": "{count}/5 characters passed.",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.pass": "Pass",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.retry": "Try again",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.logs": "Output: {output}",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.no_logs": "No output.",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.error": "Error: {error}",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.hp": "{name}: {hp}/{max_hp} HP",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.timeout": "Execution stopped after 1.5 seconds. Check your loop’s stopping condition.",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.unavailable": "Practice could not start. Reload the lesson and try again.",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.loading": "Loading the practice checks…",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.editor": "Lesson JavaScript",
+	// JavaScript tutorial practice UI. {count} is the number of passing characters; {name}, {hp}, {max_hp} describe a practice character; {output} and {error} are raw CODE output, never translate them.
+	"client.tutorial_code.example": "JavaScript example",
 	// js/functions.js show_json; authored interface text.
 	"client.json.showing": "Showing",
 	// js/functions.js show_json; authored interface text.

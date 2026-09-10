@@ -3587,6 +3587,7 @@ function open_tutorial(step, track) {
 }
 
 function render_tutorial_index(track) {
+	if (window.TutorialCode) TutorialCode.cancel();
 	if ($(".tutorial-index").length) {
 		while (modal_count && !$(".modal:last .tutorial-index").length) hide_modal(true);
 		hide_modal();
@@ -3639,7 +3640,7 @@ function render_tutorial(article, step, url, track) {
 
 	var html = "<div class='guide-article tutorial-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: start'><div style='margin-top:-15px'></div>";
 	html +=
-		"<div style='margin-bottom: 8px;'><span style='color:#2B9EC9'>" +
+		"<div style='margin-bottom: 8px; display:flow-root'><span style='color:#2B9EC9'>" +
 		phrase.definition("tutorial", tutorial.key, "title", tutorial.title) +
 		"</span> <div style='float:right; color:#906CB4'><span class='clickable' onclick='render_tutorial_index(\"" + last_rendered_track + "\")'>" +
 		phrase.html("interface.tutorial.lessons") +
@@ -3669,10 +3670,11 @@ function render_tutorial(article, step, url, track) {
 		"</div></div>";
 	html += "</div>";
 
-	show_modal(html, { wrap: false, url: url, close: { label: "X", classes: "ui-close-tutorial", corner: true } });
+	show_modal(html, { wrap: false, url: url, close: { label: "X", classes: "ui-close-tutorial", corner: true }, ondestroy: tutorial.key.indexOf("js-") === 0 ? "if(window.TutorialCode) TutorialCode.cancel()" : undefined });
 	if (typeof update_tutorial_ui === "function") update_tutorial_ui();
 	else $(".tutorial-footer").hide();
 	$(".code").codemirror({ trim: true });
+	prepare_tutorial_code();
 	position_modals();
 }
 
