@@ -299,6 +299,7 @@ test("reading renders an enabled Continue with the stable lesson key; gameplay s
 	const r = runtime();
 	const ui = tutorialUI(r.context, r.get());
 	r.context.render_tutorial("Reading content", 0);
+	assert.doesNotMatch(r.context.modal, /class='tutprogress'/, "reading-only lessons have no percentage counter");
 	assert.equal(ui.elements[".tutcontinue"].visible, true);
 	assert.equal(ui.elements[".tutincomplete"].visible, false);
 	assert.equal(ui.elements[".tutprogress"].html, 0);
@@ -312,6 +313,7 @@ test("reading renders an enabled Continue with the stable lesson key; gameplay s
 	data.info.completed_tasks.push("read_helloworld");
 	r.context.X.tutorial = r.context.data_to_tutorial(data);
 	r.context.render_tutorial("Combat content", 1);
+	assert.match(r.context.modal, /class='tutprogress'/, "gameplay tasks keep their progress counter");
 	assert.equal(ui.elements[".tutcontinue"].visible, false);
 	assert.equal(ui.elements[".tutincomplete"].visible, true);
 });

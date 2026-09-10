@@ -6731,6 +6731,7 @@ jQuery.fn.codemirror = function (args) {
 	if (!args) args = {};
 	return this.each(function () {
 		var $this = jQuery(this);
+		var practice = $this.closest(".tutorial-code").length;
 		var value = args.value === undefined ? $this.text() : args.value;
 		if (args.trim || $this.hasClass("trimnl")) {
 			while (value[0] == "\n") value = value.substr(1, value.length);
@@ -6757,7 +6758,8 @@ jQuery.fn.codemirror = function (args) {
 		var $cm = $(codemirror.getWrapperElement());
 		if ($this.hasClass("readonly")) codemirror.getInputField().setAttribute("aria-label", phrase("client.tutorial_code.example"));
 		if ($this.hasClass("executeb")) {
-			$cm.append(
+			if (practice) $cm.after("<div class='tutorial-code-actions'><button type='button' class='gamebutton gamebutton-small' onclick='btc(event);execute_codemirror(this)'>" + phrase.html("client.interface.execute") + "</button></div>");
+			else $cm.append(
 				"<div class='clickable' style='position: absolute; bottom: 4px; right: 4px; color: white; background: black; padding: 2px 2px 2px 4px; border: 1px solid white; z-index:4; padding-left: 8px; padding-right: 4px;' onclick='execute_codemirror(this)'>" + phrase.html("client.interface.execute") + "</div>",
 			);
 		}

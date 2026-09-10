@@ -3657,17 +3657,16 @@ function render_tutorial(article, step, url, track) {
 		if (step > 0) html += "<div class='gamebutton' onclick='open_tutorial(" + (step - 1) + ",\"" + last_rendered_track + "\")'>" + phrase.html("interface.learn_article.lt_previous") + "</div>";
 		if (step + 1 < view.lessons.length) html += "<div class='gamebutton' style='margin-left:auto' onclick='open_tutorial(" + (step + 1) + ",\"" + last_rendered_track + "\")'>" + phrase.html("interface.learn_article.next_gt") + "</div>";
 		html += "</div>";
-	} else html +=
-		"<div class='tutorial-footer' style='margin-top: 8px; margin-bottom: -16px'><span style='color: #D67D23'>" +
-		phrase.html("interface.tutorial.completion") +
-		" " +
-		"<span class='tutprogress'>" +
-		0 +
-		"</span>%</span> <div style='float: right; color: #906CB4; display:none' class='tutreview'></div><div style='float: right; color: gray' class='tutincomplete'>" +
+	} else {
+		html += "<div class='tutorial-footer' style='margin-top: 8px; margin-bottom: -16px; display:flow-root'>";
+		if (tutorial.tasks.some(function (task) { return task !== tutorial.continue_task; }))
+			html += "<span style='color: #D67D23'>" + phrase.html("interface.tutorial.completion") + " <span class='tutprogress'>0</span>%</span> ";
+		html += "<div style='float: right; color: #906CB4; display:none' class='tutreview'></div><div style='float: right; color: gray' class='tutincomplete'>" +
 		phrase.html("interface.tutorial.incomplete") +
 		"</div><div style='float: right; color: #73BD6D' class='clickable tutcontinue' onclick='btc(event); continue_tutorial()'>" +
 		cphrase +
 		"</div></div>";
+	}
 	html += "</div>";
 
 	show_modal(html, { wrap: false, url: url, close: { label: "X", classes: "ui-close-tutorial", corner: true }, ondestroy: tutorial.key.indexOf("js-") === 0 ? "if(window.TutorialCode) TutorialCode.cancel()" : undefined });

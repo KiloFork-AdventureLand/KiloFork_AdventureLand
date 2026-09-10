@@ -796,6 +796,69 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	line-height: 1;
 	margin-bottom: 4px;
 }
+.tutorial-code > .CodeMirror{
+	height: calc(240px * var(--browser-zoom, 1));
+	border: 3px solid gray;
+	box-sizing: border-box;
+}
+.tutorial-code-actions{
+	margin: 8px 0 12px;
+	text-align: end;
+}
+.tutorial-code-actions > .gamebutton{
+	font-family: inherit;
+}
+.tutorial-code-result{
+	margin-bottom: 20px;
+	font-size: 26px;
+	line-height: 1.3;
+	color: #555;
+	overflow-wrap: anywhere;
+}
+.tutorial-code-summary{
+	font-size: 32px;
+	margin-bottom: 8px;
+}
+.tutorial-code-check{
+	border-top: 2px solid #A2A2A2;
+	padding: 12px 0;
+}
+.tutorial-code-check-heading{
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 4px 16px;
+	color: #010805;
+}
+.tutorial-code-result[data-state="passed"] > .tutorial-code-summary,
+.tutorial-code-check[data-passed="true"] .tutorial-code-status{
+	color: #387649;
+}
+.tutorial-code-result[data-state="error"],
+.tutorial-code-result[data-state="failed"] > .tutorial-code-summary,
+.tutorial-code-check[data-passed="false"] .tutorial-code-status,
+.tutorial-code-feedback{
+	color: #C01941;
+}
+.tutorial-code-note{
+	margin-top: 4px;
+}
+.tutorial-code-output{
+	margin: 8px 0 0;
+	padding: 8px 12px;
+	background: black;
+	color: #E0E0D9;
+	font-family: var(--pixel-font, pixel);
+	font-size: 24px;
+	line-height: 1.3;
+	white-space: pre-wrap;
+	direction: ltr;
+	text-align: left;
+}
+.tutorial-code-feedback{
+	margin-top: 6px;
+}
 .guide-reference-row{
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));

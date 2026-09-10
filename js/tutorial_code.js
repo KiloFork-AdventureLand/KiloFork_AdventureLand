@@ -470,11 +470,41 @@
 		deadline = null;
 	const text = (id, parameters) => phrase("client.tutorial_code." + id, parameters);
 	const errorText = (error) => (error.id ? phrase(error.id) : error.raw);
+	function status(output, id, parameters, state) {
+		output.dataset.state = state || id;
+		output.textContent = text(id, parameters);
+	}
+	function renderResults(output, results) {
+		const passed = (result) => !result.errors.length && result.checks.every((check) => check.pass);
+		const count = results.filter(passed).length;
+		output.replaceChildren();
+		output.dataset.state = count === results.length ? "passed" : "failed";
+		function append(parent, tag, className, value) {
+			const element = document.createElement(tag);
+			element.className = className;
+			if (value !== undefined) element.textContent = value;
+			parent.appendChild(element);
+			return element;
+		}
+		append(output, "div", "tutorial-code-summary", text("passed", { count }));
+		for (const result of results) {
+			const row = append(output, "div", "tutorial-code-check");
+			row.dataset.passed = String(passed(result));
+			const heading = append(row, "div", "tutorial-code-check-heading");
+			append(heading, "span", "", text("hp", result));
+			append(heading, "span", "tutorial-code-status", text(passed(result) ? "pass" : "retry"));
+			if (result.note) append(row, "div", "tutorial-code-note", phrase(result.note));
+			append(row, "pre", "tutorial-code-output", result.logs.length ? text("logs", { output: result.logs.join("\n") }) : text("no_logs"));
+			for (const check of result.checks) if (!check.pass) append(row, "div", "tutorial-code-feedback", phrase(check.id, check.parameters));
+			for (const error of result.errors) append(row, "div", "tutorial-code-feedback", text("error", { error: errorText(error) }));
+		}
+	}
 	function cancel() {
 		if (worker) worker.terminate();
 		worker = null;
 		clearTimeout(deadline);
 		deadline = null;
+		if (active && active.output.dataset.state === "running") status(active.output, "ready");
 	}
 	function mount() {
 		const element = $(".modal:last .tutorial-code")[0];
@@ -492,12 +522,12 @@
 		editor.setOption("extraKeys", { "Ctrl-Enter": run, "Cmd-Enter": run });
 		editor.on("change", function () {
 			cancel();
-			output.textContent = text("changed");
+			status(output, "changed");
 			try {
 				if (editor.getValue().length <= 20000) localStorage.setItem(key, editor.getValue());
 			} catch (error) {}
 		});
-		output.textContent = text("ready");
+		status(output, "ready");
 		return true;
 	}
 	function run() {
@@ -505,7 +535,7 @@
 		cancel();
 		const current = active,
 			output = current.output;
-		output.textContent = text("running");
+		status(output, "running");
 		try {
 			worker = new Worker("/js/tutorial_code.js?v=" + (root.VERSION || root.Version || 1));
 			const pending = worker;
@@ -513,35 +543,25 @@
 				if (worker !== pending || !current.element.isConnected) return;
 				cancel();
 				if (event.data.error) {
-					output.textContent = text("error", { error: errorText(event.data.error) });
+					status(output, "error", { error: errorText(event.data.error) });
 					return;
 				}
-				const results = event.data.results;
-				const passed = (result) => !result.errors.length && result.checks.every((check) => check.pass);
-				const lines = [text("passed", { count: results.filter(passed).length })];
-				for (const result of results) {
-					lines.push("", text("hp", result) + " · " + text(passed(result) ? "pass" : "retry"));
-					if (result.note) lines.push(phrase(result.note));
-					lines.push(result.logs.length ? text("logs", { output: result.logs.join(" → ") }) : text("no_logs"));
-					for (const check of result.checks) if (!check.pass) lines.push(phrase(check.id, check.parameters));
-					for (const error of result.errors) lines.push(text("error", { error: errorText(error) }));
-				}
-				output.textContent = lines.join("\n");
+				renderResults(output, event.data.results);
 				position_modals();
 			};
 			worker.onerror = function () {
 				if (worker !== pending) return;
 				cancel();
-				output.textContent = text("unavailable");
+				status(output, "unavailable", {}, "error");
 			};
 			deadline = setTimeout(function () {
 				cancel();
-				output.textContent = text("timeout");
+				status(output, "timeout", {}, "error");
 			}, 1500);
 			worker.postMessage({ id: current.element.dataset.lesson, source: current.editor.getValue() });
 		} catch (error) {
 			cancel();
-			output.textContent = text("unavailable");
+			status(output, "unavailable", {}, "error");
 		}
 	}
 	root.addEventListener("pagehide", cancel);
