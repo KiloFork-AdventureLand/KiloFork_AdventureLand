@@ -1554,6 +1554,15 @@ function delete_cookie(res, name, domain_host) {
 	res.clearCookie(name, { path: "/", domain: "." + domain_host });
 }
 
+async function delete_auth_cookies(req, res) {
+	var domain = await get_domain(req);
+	var host = req.get("host").split(":")[0];
+	delete_cookie(res, options.cookie_key, domain.domain);
+	// Older bot pages also created auth cookies on the current host.
+	res.clearCookie(options.cookie_key, { path: "/" });
+	if (host !== domain.domain) delete_cookie(res, options.cookie_key, host);
+}
+
 // ==================== POST GET INIT ====================
 
 function post_get_init_user(user) {

@@ -180,8 +180,8 @@ X.merchant_tutorial={{user_data|to_tutorial("merchant")|safe}};
 X.unread={{user_data and user_data.info.mail or 0}};
 X.codes={{(user_data and user_data.info.code_list or {})|to_json|safe}}
 
-{% if domain.no_html == "bot" %}
-	Cookies.set('{{domain.cookie_key}}',"{{user and user._id}}-{{user and user.info.auths[0] or ''}}",{ expires:12*365});
+{% if domain.no_html == "bot" and user and user.info.auths[0] %}
+	Cookies.set('{{domain.cookie_key}}',"{{user._id}}-{{user.info.auths[0]}}",{ expires:12*365, path:'/', domain:'.{{domain.domain}}'});
 {% endif %}
 
 </script>

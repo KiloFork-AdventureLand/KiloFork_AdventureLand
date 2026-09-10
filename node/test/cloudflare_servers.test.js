@@ -200,3 +200,42 @@ test("reconnects preserve EU socket paths and exclude external servers only on C
 		}
 	}
 });
+
+test("Cloudflare character links redirect unavailable servers to root, including trailing-slash URLs", async () => {
+	const { routes } = runtime();
+	const router = express.Router();
+	router.get("/character/:name/in/:region/:sname", routes["/character/:name/in/:region/:sname"]);
+	for (const host of [
+		"cloudflare.adventure.land",
+		"CLOUDFLARE.ADVENTURE.LAND:443",
+		"adventure.land",
+		"de.adventure.land",
+	]) {
+		for (const [region, name] of [
+			["US", "I"],
+			["ASIA", "I"],
+			["EU", "V"],
+			["EU", "II"],
+		]) {
+			for (const ending of ["", "/"]) {
+				const req = Object.assign(request(host), {
+					method: "GET",
+					url: "/character/Hero/in/" + region + "/" + name + ending,
+				});
+				const result = await new Promise((resolve, reject) => {
+					const res = Object.assign(response(), {
+						send: (body) => resolve({ body }),
+						redirect: (url) => resolve({ redirect: url }),
+					});
+					router.handle(req, res, (error) => reject(error || new Error("Character route did not match")));
+				});
+				if (host.toLowerCase().startsWith("cloudflare.") && !(region === "EU" && name === "II")) {
+					assert.equal(result.redirect, "/");
+				} else {
+					assert.equal(result.redirect, undefined);
+					assert.equal(result.body.domain.url_path, name === "II" ? "/ws2/" : "/ws1/");
+				}
+			}
+		}
+	}
+});

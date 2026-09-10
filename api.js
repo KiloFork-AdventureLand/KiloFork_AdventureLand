@@ -350,7 +350,7 @@ async function password_reminder_api(args) {
 }
 
 async function logout_api(args) {
-	delete_cookie(args.res, options.cookie_key, args.req.get ? args.req.get("host").split(":")[0] : "");
+	await delete_auth_cookies(args.req, args.res);
 	args.res.infs.push({ type: "message", message: phrase_html("server.api.logged_out") });
 	return { success: true };
 }
@@ -369,7 +369,7 @@ async function logout_everywhere_api(args) {
 	);
 
 	if (R.failed) return { failed: true, reason: R.reason };
-	delete_cookie(args.res, options.cookie_key, args.req.get ? args.req.get("host").split(":")[0] : "");
+	await delete_auth_cookies(args.req, args.res);
 	args.res.infs.push({ type: "message", message: phrase_html("server.api.logged_out_everywhere") });
 	return { success: true };
 }

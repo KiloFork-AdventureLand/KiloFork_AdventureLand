@@ -282,6 +282,8 @@ app.get("/character/:name/in/:region/:sname", async (req, res, next) => {
 	var domain = await get_domain(req, user),
 		level = 80;
 	var servers = await get_browser_servers(req);
+	if ((req.get("host") || "").toLowerCase().split(":")[0] === "cloudflare.adventure.land" && !servers.some((server) => server.region === req.params.region && server.name === req.params.sname))
+		return res.redirect("/");
 	var code = req.query.code;
 	if (code) domain.explicit_slot = code;
 	var user_chars = gf(user, "characters", []);
