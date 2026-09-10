@@ -247,6 +247,8 @@ test("compact cards put the Steam-style left chevron before the sprite", () => {
 	assert.equal((banner.content.match(/event-announcement-arrow/g) || []).length, 1);
 	const css = fs.readFileSync(path.join(root, "css/index.css"), "utf8");
 	assert.match(css, /min-height:76px/);
+	assert.match(css, /#event-announcements \.event-announcement,\s*\.upcoming-cards \.event-announcement\{[^}]*display:flex/, "card layout must outrank the later generic gamebutton rule");
+	assert.match(css, /\.event-announcement-copy\{[^}]*min-width:0;[^}]*overflow-wrap:anywhere/, "long translated text must wrap within its flex column");
 	assert.match(css, /\.event-announcement-arrow\{[^}]*color:#69d6cf;font-size:40px;line-height:26px/);
 });
 

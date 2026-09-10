@@ -1,4 +1,13 @@
 {
+	"interface.anniversary_status.realmfatigue": "Pas de récompenses ni de bonus de baiser : Fatigue des mondes est active. Vérifie le temps restant et participe à une prochaine manche une fois l’effet terminé.",
+	"interface.anniversary_status.hopsickness": "Pas de récompenses ni de bonus de baiser : Mal du pays est actif. Vérifie le temps restant et participe à une prochaine manche une fois l’effet terminé.",
+	"interface.anniversary_status.merchant_home": "Pas de récompenses ni de bonus de baiser : les marchands doivent être sur leur serveur d’origine au début de la manche.",
+	"interface.anniversary_status.claimed": "Tu as déjà reçu les récompenses et le bonus de baiser de cette manche.",
+	"interface.anniversary_status.no_visit": "Pas de récompenses ni de bonus de baiser pour cette manche. Tu dois remplir les conditions et être en ligne au moment où le joueur à l’honneur est choisi.",
+	"interface.anniversary_status.no_round": "Aucun joueur n’est à l’honneur pour le moment.",
+	"interface.anniversary_status.host": "Tu es le joueur à l’honneur. Les visiteurs qui remplissent les conditions t’apportent une part de gâteau et un Anniversary Gift.",
+	"interface.anniversary_status.target_unavailable": "Le joueur à l’honneur est indisponible. Ta Visite d’anniversaire reste valable jusqu’à la fin de cette manche.",
+	"interface.anniversary_status.wrong_target": "Les récompenses de cette manche sont réservées aux baisers envoyés au joueur à l’honneur.",
   "interface.upcoming.adventures.title": "Aventures quotidiennes",
   "interface.upcoming.adventures.text": "Les secrets d’une sorcière et de nouvelles pistes à suivre.",
   "interface.upcoming.black_wake.title": "The Black Wake",
@@ -53,9 +62,9 @@
 	"interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses": "Reste à proximité et accueille tes visiteurs. Chaque visiteur qui utilise sa Visite t’apporte une part de ta saveur et un Anniversary Gift.",
 	"interface.anniversary_event_status_html.get_close_then_send_a_kiss": "Approche-toi, puis envoie un baiser.",
 	"interface.anniversary_event_status_html.who_will_we_visit_next": "À qui rendrons-nous visite ensuite ?",
-	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "Toutes les 30 minutes, quelqu’un de ce serveur est mis à l’honneur. Tous les autres joueurs en ligne reçoivent l’état Visite d’anniversaire pendant cinq minutes.",
-	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "Utilise ta Visite d’anniversaire : 1 part de gâteau + 1 Anniversary Gift, et +10 en vitesse d’attaque / +6 en dégâts infligés pendant 20 minutes.",
-	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "Trouve le joueur à l’honneur et envoie-lui un baiser avant la fin de ton état. Le baiser le consomme. Pas besoin de bocal.",
+	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "Toutes les 30 minutes, quelqu’un de ce serveur est mis à l’honneur. Les joueurs déjà en ligne qui remplissent les conditions ont cinq minutes pour lui envoyer un baiser.",
+	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "Un baiser récompensé donne 1 part de gâteau + 1 Anniversary Gift, et +10 en vitesse d’attaque / +6 en dégâts infligés pendant 20 minutes.",
+	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "Approche-toi et utilise Je t’embrasse. Chaque manche donne droit à un baiser récompensé. Aucun déblocage permanent n’est nécessaire.",
 	"interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when": "Tu n’as plus de Visite d’anniversaire pour cette manche. Sois en ligne lors du choix du prochain joueur.",
 	"interface.anniversary_collection_html.put_the_cake_together": "Reconstitue le gâteau",
 	"interface.anniversary_collection_html.6_flavors_in_your_bag": "{owned} / 6 saveurs dans ton sac",
@@ -838,5 +847,6 @@
 	"interface.gallery.key": "Clés",
 	"interface.item.empty": "Vide",
 	"interface.item.empty_description": "Rien. Pas même une miette.",
+	"interface.server.event": "ÉVÉNEMENT !",
 	"interface.merrit.reason_cooldown.one": "Le prochain colis de ton compte pourra arriver dans {count} minute, lors du passage de Merrit."
 }

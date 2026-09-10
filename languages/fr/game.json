@@ -429,6 +429,8 @@
 	"game.trade_history.bought": "- Achat de {quantity}'{item}' à {player} pour {gold} or",
 	"game.trade_history.gave_away": "- Don de {quantity}'{item}' à {player}",
 	"game.trade_history.sold": "- Vente de {quantity}'{item}' à {player} pour {gold} or",
+	"game.call_limit.report": "Tu as dépassé la limite de {cost} unités de coût d’appel en 4 secondes. C’est beaucouuup trop ! Cela arrive généralement lorsqu’une fonction comme 'move' est appelée à répétition. Certains appels coûtent plus que d’autres. Pour obtenir de l’aide, écris à hello@adventure.land ou pose ta question dans Discord/#code_beginner. Tu as effectué {total} appels au total.",
+	"game.title.hardcore": "Féroce : {character}",
 	"chat.expand": "Agrandir le chat",
 	"chat.restore": "Rétablir la taille du chat",
 	"chat.no_characters": "Aucun personnage",

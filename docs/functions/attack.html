@@ -26,7 +26,7 @@ attack(target).then(
 
 <p>{{ phrase("docs.functions.attack.promise-reference") }}</p>
 
-<span class='dlabel'>"resolve"</span>
+<span class='dlabel'>{{ phrase("docs.reference.fulfilled") }}</span>
 <div class='code'>
 {
 	source: "attack",
@@ -40,7 +40,7 @@ attack(target).then(
 </div>
 <div style='margin-bottom: 10px'></div>
 
-<span class='dlabel'>"reject"</span>
+<span class='dlabel'>{{ phrase("docs.reference.rejected") }}</span>
 <div class='code'>
 {
 	reason: "not_found", // Target not found
@@ -97,4 +97,4 @@ attack(target).then(
 </div>
 
 <p></p>
-<span class='redlabel'>"source"</span>
+<span class='redlabel'>{{ phrase("docs.reference.source_code") }}</span>

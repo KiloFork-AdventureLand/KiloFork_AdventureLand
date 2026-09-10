@@ -694,6 +694,16 @@ module.exports = {
 	"game.note_reads": 'Note reads: "{value}"',
 	// js/game.js, add_log display.
 	"game.an_invisible_statue": "An invisible statue!",
+	// Communicator header button: short label for expanding chat to 90% width and height. Paired with MIN; keep compact.
+	"chat.full": "FULL",
+	// Communicator header button: short label for returning expanded chat to the small window. Paired with FULL; keep compact.
+	"chat.min": "MIN",
+	// Communicator header button: tooltip and accessible label. Expands chat to 90% of viewport width and height.
+	"chat.expand": "Expand chat",
+	// Communicator header button: tooltip and accessible label. Restores the small chat window.
+	"chat.restore": "Restore chat size",
+	// Communicator sender dropdown and status when the account owns no characters.
+	"chat.no_characters": "No characters",
 	// Comm chat interface; authored label or status, never player chat.
 	"chat.server": "Server chat",
 	// Comm chat interface; parameters contain character/server names or a separately translated error.
@@ -867,14 +877,8 @@ module.exports = {
 	"game.trade_history.gave_away": "- Gave away {quantity}'{item}' to {player}",
 	// Trade-history sale line. quantity is an optional formatted prefix; item and player are proper names; gold is already formatted.
 	"game.trade_history.sold": "- Sold {quantity}'{item}' to {player} for {gold} gold",
-	// Communicator header button: short label for expanding chat to 90% width and height. Paired with MIN; keep compact.
-	"chat.full": "FULL",
-	// Communicator header button: short label for returning expanded chat to the small window. Paired with FULL; keep compact.
-	"chat.min": "MIN",
-	// Communicator header button: tooltip and accessible label. Expands chat to 90% of viewport width and height.
-	"chat.expand": "Expand chat",
-	// Communicator header button: tooltip and accessible label. Restores the small chat window.
-	"chat.restore": "Restore chat size",
-	// Communicator sender dropdown and status when the account owns no characters.
-	"chat.no_characters": "No characters",
+	// js/game.js limitdcreport socket handler. Player-facing explanatory paragraph in the existing show_json report after disconnecting for too many CODE calls. {cost} is the server's weighted call-cost LIMIT for a 4-second window, exceeded before disconnection; it is not the consumed cost; {total} is the number of calls, already formatted. These are different quantities. Translate the explanation clearly and concisely, retaining playful emphasis. Do not translate 'move', hello@adventure.land or Discord/#code_beginner. No HTML. Preserve {cost} and {total} once each.
+	"game.call_limit.report": "You exceeded the limit of {cost} call-cost units in 4 seconds. That's tooooo much! This usually happens when a function such as 'move' is called repeatedly. Some calls cost more than others. For help, email hello@adventure.land or ask in Discord/#code_beginner. You made {total} calls in total.",
+	// js/game.js hardcore-mode browser/tab title. Fierce is an emphatic adjective identifying the hardcore mode, not a proper game or character name. Keep {character} exactly; it contains the raw character name. Use a short natural title and avoid assumptions about the character's gender. No HTML.
+	"game.title.hardcore": "Fierce {character}",
 };

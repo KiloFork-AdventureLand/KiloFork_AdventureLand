@@ -429,6 +429,8 @@
 	"game.trade_history.bought": "- {player}から{quantity}'{item}'を{gold}ゴールドで購入",
 	"game.trade_history.gave_away": "- {player}に{quantity}'{item}'を無料で譲渡",
 	"game.trade_history.sold": "- {player}に{quantity}'{item}'を{gold}ゴールドで売却",
+	"game.call_limit.report": "4秒間の呼び出しコストが上限の{cost}単位を超えました。多すぎーーー！これは通常、'move'などの関数を繰り返し呼び出すと起こります。呼び出しによってコストは異なります。ヘルプが必要な場合は、hello@adventure.landにメールするか、Discord/#code_beginnerで質問してください。呼び出し回数は合計{total}回でした。",
+	"game.title.hardcore": "苛烈なる{character}",
 	"chat.expand": "チャットを拡大",
 	"chat.restore": "チャットのサイズを戻す",
 	"chat.no_characters": "キャラクターがいません",

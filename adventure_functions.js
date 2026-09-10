@@ -571,7 +571,7 @@ async function get_domain(req, user) {
 	}
 	domain.servers = [];
 	domain.characters = [];
-	domain.update_notes = update_notes.slice(0, 20);
+	domain.update_notes = localization.translate_notes(update_notes.slice(0, 20), domain.language);
 	domain.update_notes_more = update_notes.length > domain.update_notes.length;
 	domain.last_deploy = LastDeploy;
 
@@ -1109,7 +1109,7 @@ function data_to_tutorial(user_data, track) {
 				completed: arr,
 				pending: pending,
 				progress: percent,
-				can_continue: tutorial_lesson_complete(user_data, docs.tutorial[user_data.info.tutorial_step], true),
+				can_continue: tutorial_lesson_complete(user_data, lessons[user_data.info.tutorial_step], true),
 				completed_lessons: completed_lessons,
 			};
 		}

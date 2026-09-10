@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="pixel/fontfaces.83601c062a30.css">
 		<script src="phrases.js"></script>
+		<script src="desktop.js"></script>
 		<style>
 			html,body{
 				background:black;
@@ -34,15 +35,23 @@
 		</table>
 		<script>
 			var language=phrase.detect(navigator.languages || [navigator.language]);
-			document.documentElement.lang=language;
-			var language_script=document.createElement('script');
-			language_script.src='languages/'+language+'.js';
-			language_script.onload=function(){
-				document.getElementById('thecolor').textContent=phrase('desktop.loading');
-				document.getElementById('connection-help').textContent=phrase('desktop.connection_help');
-				document.getElementById('apologies').textContent=phrase('desktop.apology');
-			};
-			document.head.appendChild(language_script);
+			function show_language(language){
+				document.documentElement.lang=language;
+				var language_script=document.createElement('script');
+				language_script.src='languages/'+language+'.js';
+				language_script.onload=function(){
+					document.getElementById('thecolor').textContent=phrase('desktop.loading');
+					document.getElementById('connection-help').textContent=phrase('desktop.connection_help');
+					document.getElementById('apologies').textContent=phrase('desktop.apology');
+				};
+				document.head.appendChild(language_script);
+				return new Promise(function(resolve){language_script.addEventListener('load',resolve);language_script.addEventListener('error',resolve);});
+			}
+			// Start in the system language immediately. Steam/cache resolution is optional.
+			var initial_language=show_language(language);
+			desktop.language().then(function(selected){
+				if(selected && selected!==language) initial_language.then(function(){show_language(selected);});
+			});
 			var progress=0,s9=0,percent=0;
 			setInterval(function(){
 				progress+=1;

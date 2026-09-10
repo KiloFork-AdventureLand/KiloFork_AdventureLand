@@ -10,15 +10,6 @@
 	>
 		{{ phrase("docs.tutorial.compound.complete-compounding-guide") }}
 	</div>
-	<div
-		class="gamebutton gamebutton-small"
-		onclick="
-			btc(event);
-			code_eval('smart_move(&quot;scrolls&quot;)');
-		"
-	>
-		{{ phrase("docs.tutorial.compound.go-to-the-scrolls") }}
-	</div>
 </div>
 
 {% for task in tutorial_data("compound").tasks %} {% if loop.first %}
@@ -30,6 +21,8 @@
 <div class="tutpath manual">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.compound.manual") }}</div>
 	<p>{{ phrase("docs.tutorial.compound.bring-cue-three-accessories-with-the-same-name") }}</p>
+	<p style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><span class="tutorial-npc" data-npc="scrolls"></span><span>Lucas · Mainland<br>(-464, -96)</span><span class="tutorial-item" data-item="ringsj"></span><span class="tutorial-item" data-item="cscroll0"></span><span class="tutorial-npc" data-npc="newupgrade"></span><span>Cue · Mainland<br>(-207, -220)</span></p>
+<div><span class="tutorial-travel" data-type="npc" data-target="scrolls"></span> <span class="tutorial-travel" data-type="npc" data-target="newupgrade"></span></div>
 	<p>{{ phrase("docs.tutorial.compound.a-failure-consumes-all-three-accessories-and-the") }}</p>
 </div>
 
@@ -121,3 +114,4 @@ compound_once().catch(function (error) {
 		text-align: center;
 	}
 </style>
+<script>render_tutorial_items();</script>

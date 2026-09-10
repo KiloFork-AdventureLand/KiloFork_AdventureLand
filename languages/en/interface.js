@@ -1,4 +1,22 @@
 module.exports = {
+	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
+	"interface.anniversary_status.realmfatigue": "No kiss rewards or buff: Realm Fatigue is active. Check its timer and join a later round once it clears.",
+	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
+	"interface.anniversary_status.hopsickness": "No kiss rewards or buff: Hop Sickness is active. Check its timer and join a later round once it clears.",
+	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
+	"interface.anniversary_status.merchant_home": "No kiss rewards or buff: merchants must be on their home server when the round starts.",
+	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
+	"interface.anniversary_status.claimed": "You already received this round's kiss rewards and buff.",
+	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
+	"interface.anniversary_status.no_visit": "No kiss rewards or buff this round. You must be eligible and online when the featured player is chosen.",
+	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
+	"interface.anniversary_status.no_round": "No player is featured right now.",
+	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
+	"interface.anniversary_status.host": "You're the featured player. Eligible visitors bring you a slice and an Anniversary Gift.",
+	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
+	"interface.anniversary_status.target_unavailable": "The featured player is unavailable. Your Visit stays valid until this round ends.",
+	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
+	"interface.anniversary_status.wrong_target": "This round's rewards are only for kissing the featured player.",
 	// Selection screen upcoming-content cards. Short teasers only; no dates or detailed mechanics. Keep The Black Wake, Werdars and Sucker Punch as proper names.
 	"interface.upcoming.adventures.title": "Daily Adventures",
 	"interface.upcoming.adventures.text": "A witch's secrets and new trails to follow.",
@@ -97,14 +115,11 @@ module.exports = {
 	// js/html.js anniversary_event_status_html; authored interface text.
 	"interface.anniversary_event_status_html.who_will_we_visit_next": "Who will we visit next?",
 	// js/html.js anniversary_event_status_html; authored interface text.
-	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone":
-		"Every 30 minutes, someone on this server is featured. Everyone else online gets an Anniversary Visit condition lasting five minutes.",
+	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "Every 30 minutes, someone on this server is featured. Eligible players already online have five minutes to send them a kiss.",
 	// js/html.js anniversary_event_status_html; authored interface text.
-	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift":
-		"Use your Anniversary Visit: 1 Cake Slice + 1 Anniversary Gift, and +10 Frequency / +6 Output for 20 minutes.",
+	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "A rewarded kiss gives 1 Cake Slice + 1 Anniversary Gift, and +10 Frequency / +6 Output for 20 minutes.",
 	// js/html.js anniversary_event_status_html; authored interface text.
-	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your":
-		"Find the featured player and send a kiss before your condition expires. The kiss uses it up. No jar needed.",
+	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "Get close and use I Kiss You. Each round gives one rewarded kiss. No permanent unlock needed.",
 	// js/html.js anniversary_event_status_html; authored interface text.
 	"interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when": "No Anniversary Visit remaining for this round. Be online when the next player is selected.",
 	// js/html.js anniversary_collection_html; authored interface text.
@@ -1692,4 +1707,6 @@ module.exports = {
 	"interface.item.empty": "Empty",
 	// Same empty-slot tooltip, playful one-line description beneath Empty. All three English words mean nothing; use natural brief local phrasing instead of a forced literal list. Not an error, missing data, or deleted item.
 	"interface.item.empty_description": "Nothing, nada, zilch.",
+	// js/html.js render_server; compact label below an active boss/event icon, opening that event's guide. This is an event label, not a proper event name. Keep brief and emphatic.
+	"interface.server.event": "EVENT!",
 };

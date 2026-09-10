@@ -1,4 +1,13 @@
 {
+	"interface.anniversary_status.realmfatigue": "Keine Kussbelohnungen oder Verstärkung: Weltenmüdigkeit ist aktiv. Prüfe die Restzeit und nimm nach ihrem Ablauf an einer späteren Runde teil.",
+	"interface.anniversary_status.hopsickness": "Keine Kussbelohnungen oder Verstärkung: Wechselübelkeit ist aktiv. Prüfe die Restzeit und nimm nach ihrem Ablauf an einer späteren Runde teil.",
+	"interface.anniversary_status.merchant_home": "Keine Kussbelohnungen oder Verstärkung: Händler müssen zu Rundenbeginn auf ihrem Heimatserver sein.",
+	"interface.anniversary_status.claimed": "Du hast die Kussbelohnungen und Verstärkung dieser Runde bereits erhalten.",
+	"interface.anniversary_status.no_visit": "In dieser Runde gibt es für dich keine Kussbelohnungen oder Verstärkung. Du musst bei der Auswahl des Spielers teilnahmeberechtigt und online sein.",
+	"interface.anniversary_status.no_round": "Zurzeit steht kein Spieler im Mittelpunkt.",
+	"interface.anniversary_status.host": "Du bist der ausgewählte Spieler. Teilnahmeberechtigte Besucher bringen dir ein Stück Kuchen und ein Anniversary Gift.",
+	"interface.anniversary_status.target_unavailable": "Der ausgewählte Spieler ist nicht verfügbar. Dein Jubiläumsbesuch bleibt bis zum Ende dieser Runde gültig.",
+	"interface.anniversary_status.wrong_target": "Die Belohnungen dieser Runde gibt es nur für einen Kuss an den ausgewählten Spieler.",
   "interface.upcoming.adventures.title": "Tägliche Abenteuer",
   "interface.upcoming.adventures.text": "Die Geheimnisse einer Hexe und neue Pfade.",
   "interface.upcoming.black_wake.title": "The Black Wake",
@@ -53,9 +62,9 @@
 	"interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses": "Bleib in der Nähe und begrüße deine Besucher. Jeder Besucher, der seinen Jubiläumsbesuch nutzt, bringt dir ein Stück deiner eigenen Geschmacksrichtung und ein Anniversary Gift.",
 	"interface.anniversary_event_status_html.get_close_then_send_a_kiss": "Geh nah heran und sende einen Kuss.",
 	"interface.anniversary_event_status_html.who_will_we_visit_next": "Wen besuchen wir als Nächstes?",
-	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "Alle 30 Minuten steht jemand auf diesem Server im Mittelpunkt. Alle anderen, die online sind, erhalten den Zustand Jubiläumsbesuch für fünf Minuten.",
-	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "Nutze deinen Jubiläumsbesuch: 1 Cake Slice + 1 Anniversary Gift sowie +10 Angriffstempo / +6 verursachter Schaden für 20 Minuten.",
-	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "Finde den ausgewählten Spieler und sende einen Kuss, bevor dein Zustand abläuft. Der Kuss verbraucht ihn. Kein Glas nötig.",
+	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "Alle 30 Minuten steht jemand auf diesem Server im Mittelpunkt. Teilnahmeberechtigte Spieler, die bereits online sind, haben fünf Minuten, um dieser Person einen Kuss zu senden.",
+	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "Ein belohnter Kuss gibt 1 Stück Kuchen + 1 Anniversary Gift sowie +10 Angriffstempo / +6 verursachten Schaden für 20 Minuten.",
+	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "Geh näher heran und nutze „Ich küsse dich“. Pro Runde wird ein Kuss belohnt. Du musst die Fähigkeit nicht dauerhaft freischalten.",
 	"interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when": "Für diese Runde ist kein Jubiläumsbesuch mehr übrig. Sei online, wenn der nächste Spieler ausgewählt wird.",
 	"interface.anniversary_collection_html.put_the_cake_together": "Setze den Kuchen zusammen",
 	"interface.anniversary_collection_html.6_flavors_in_your_bag": "{owned} / 6 Geschmacksrichtungen im Inventar",
@@ -836,7 +845,8 @@
 	"interface.gallery.scroll": "Schriftrollen",
 	"interface.gallery.exchange": "Tauschgegenstände",
 	"interface.gallery.key": "Schlüssel",
-	"interface.merrit.reason_cooldown.one": "Das nächste Paket für dein Konto kann in {count} Minute bei Merrits Besuch eintreffen.",
 	"interface.item.empty": "Leer",
-	"interface.item.empty_description": "Nichts. Rein gar nichts."
+	"interface.item.empty_description": "Nichts. Rein gar nichts.",
+	"interface.server.event": "EVENT!",
+	"interface.merrit.reason_cooldown.one": "Das nächste Paket für dein Konto kann in {count} Minute bei Merrits Besuch eintreffen."
 }

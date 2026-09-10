@@ -166,7 +166,7 @@
 	"server.server_message.a_b_testing_is_about_to_start": "A/B測試即將開始！",
 	"server.server_message.blessed": "{player}祝福了{region} {server_name}",
 	"server.server_message.defeated": "{attacker}擊敗了{player}",
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "去{map}尋找{target}！消耗週年來訪狀態送上一個吻，獲得一片蛋糕和一個Anniversary Gift。",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "去{map}尋找{target}！靠近並使用「親你一下」，即可獲得一片蛋糕和一個Anniversary Gift。",
 	"server.server_message.found_shells": "{player}找到了{amount}貝殼",
 	"server.server_message.is_now_level": "{player}已升至{level}級",
 	"server.server_message.is_now_level_2": "{player}已升至{level}級！",
@@ -304,5 +304,8 @@
 	"server.page.steam_news_unavailable": "暫時無法取得Steam新聞",
 	"server.payment.shells": "{count}貝殼",
 	"server.game_log.you_monster": "你這個怪物！",
+	"server.game_error.capacity": "目前無法容納超過{count}名玩家",
+	"server.game_error.authentication_failed": "失敗：{reason}",
+	"server.game_error.characters_unconfirmed": "無法確認你帳號下其他角色的狀態，請再試一次。",
 	"server.pm.delivery_failed": "(傳送失敗)"
 }

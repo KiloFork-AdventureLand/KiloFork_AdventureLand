@@ -1,8 +1,6 @@
 <p>{{ phrase("docs.tutorial.new.supplies_manual") }}</p>
-<p><span class="tutorial-item" data-item="hpot0"></span> <span class="tutorial-item" data-item="mpot0"></span></p>
-<script>
-	render_tutorial_items();
-</script>
+<p style="display:flex;align-items:center;gap:16px"><span class="tutorial-npc" data-npc="fancypots"></span><span>Ernis · Mainland<br>(-35, -162)</span><span class="tutorial-item" data-item="hpot0"></span> <span class="tutorial-item" data-item="mpot0"></span></p>
+<div><span class="tutorial-travel" data-type="npc" data-target="fancypots"></span></div>
 <p>{{ phrase("docs.tutorial.new.supplies_code") }}</p>
 <div class="divider"></div>
 <div class="title mt15">CODE</div>
@@ -15,7 +13,8 @@
 }
 supply_friend("FriendName").catch(show_json);</div>
 <p>
-	{{ phrase("docs.tutorial.new.references") }}: <span class="rref clickable" onclick="render_function_reference('buy_with_gold')">buy_with_gold</span> ·
-	<span class="rref clickable" onclick="render_function_reference('send_item')">send_item</span> · <span class="rref clickable" onclick="render_function_reference('send_gold')">send_gold</span> ·
-	<span class="rref clickable" onclick="render_function_reference('bank_store')">bank_store</span>
+	{{ phrase("docs.tutorial.new.references") }}: <span class="rlabel clickable" onclick="load_documentation('buy_with_gold')">buy_with_gold</span> ·
+	<span class="rlabel clickable" onclick="load_documentation('send_item')">send_item</span> · <span class="rlabel clickable" onclick="load_documentation('send_gold')">send_gold</span> ·
+	<span class="rlabel clickable" onclick="load_documentation('bank_store')">bank_store</span>
 </p>
+<script>render_tutorial_items();</script>

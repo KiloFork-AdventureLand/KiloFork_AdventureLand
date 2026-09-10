@@ -14,7 +14,7 @@ var pixel_fonts = (function () {
 		font = font || family();
 		// PIXI measures a Latin probe even when the displayed text uses another script.
 		text = "A" + String(text == null ? "" : text);
-		if (document.fonts.check('16px "' + font + '"', text)) return true;
+		if (document.fonts.check("16px " + font, text)) return true;
 		var points = Array.from(text, function (character) {
 				return character.codePointAt(0);
 			}),
@@ -51,7 +51,7 @@ var pixel_fonts = (function () {
 			requests.set(
 				key,
 				document.fonts
-					.load('16px "' + font + '"', text)
+					.load("16px " + font, text)
 					.catch(function () {
 						return document.fonts.ready;
 					})

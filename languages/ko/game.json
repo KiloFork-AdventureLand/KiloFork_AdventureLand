@@ -429,6 +429,8 @@
 	"game.trade_history.bought": "- {player}님에게 골드 {gold}를 내고 {quantity}'{item}' 구매",
 	"game.trade_history.gave_away": "- {player}님에게 {quantity}'{item}' 나눔",
 	"game.trade_history.sold": "- {player}님에게 {quantity}'{item}' 판매, 골드 {gold} 받음",
+	"game.call_limit.report": "4초 동안의 호출 비용이 한도인 {cost}단위를 초과했어요. 너어어무 많아요! 보통 'move' 같은 함수를 반복해서 호출할 때 이런 일이 생겨요. 호출마다 비용이 다를 수 있어요. 도움이 필요하면 hello@adventure.land로 이메일을 보내거나 Discord/#code_beginner에서 질문하세요. 총 호출 횟수는 {total}회예요.",
+	"game.title.hardcore": "맹렬한 {character}",
 	"chat.expand": "채팅 확대",
 	"chat.restore": "채팅 크기 복원",
 	"chat.no_characters": "캐릭터 없음",

@@ -567,7 +567,7 @@ function add_update_notes() {
 		if (note.note.indexOf("Valentine") != -1) color = "#C987B7"; // ,color="#85C76B"
 		if (note.note.indexOf("Halloween") != -1) color = "#DE6E37";
 		if (note.note.indexOf("Egg Hunt Event") != -1) color = "#DE5CB8";
-		add_log(note.phrase ? phrase.html(note.phrase) : note.note, color);
+		add_log(note.text === undefined ? note.note : note.text, color);
 	});
 	if (!no_html) add_log("<span class='clickable' onclick='show_update_notes()'>" + phrase.html("client.add_update_notes.all_update_notes") + "</span>", "#E4E4E4");
 }
@@ -575,7 +575,7 @@ function add_update_notes() {
 function render_update_notes() {
 	var html = "";
 	update_notes.forEach(function (entry) {
-		html += "<div class='update-notes-entry'><span class='update-notes-date'>" + html_escape(entry.date) + "</span><span>" + html_escape(entry.phrase ? phrase(entry.phrase) : entry.note) + "</span></div>";
+		html += "<div class='update-notes-entry'><span class='update-notes-date'>" + html_escape(entry.date) + "</span><span>" + html_escape(entry.text === undefined ? entry.note : entry.text) + "</span></div>";
 	});
 	if (update_notes_more) html += "<div class='update-notes-footer'><div class='gamebutton' onclick='load_more_update_notes()'>" + phrase.html("client.update_notes.load_more") + "</div></div>";
 	else html += "<div class='update-notes-footer update-notes-date'>" + phrase.html("client.update_notes.the_beginning") + "</div>";
@@ -3002,15 +3002,27 @@ function anniversary_live_event() {
 
 function anniversary_can_visit() {
 	var state = anniversary_live_event(),
-		ticket = character && character.s && character.s.anniversary_visit;
+		ticket = character && character.s && character.s.anniversary_visit,
+		status = character && character.anniversary;
+	if (state && status && status.realm == server_region + " " + server_identifier && status.round == state.round && status.reason != "ready") return false;
 	return !!(state && ticket && ticket.ms > 0 && ticket.round == state.round && ticket.realm == server_region + " " + server_identifier && Date.now() < ticket.expires && Date.now() < state.expires);
 }
 
+function anniversary_visit_reason() {
+	var state = anniversary_live_event(),
+		status = character && character.anniversary;
+	if (!state) return "no_round";
+	if (status && status.realm == server_region + " " + server_identifier && status.round == state.round && status.reason != "ready") return status.reason;
+	if (!anniversary_can_visit()) return "no_visit";
+	if (state.available === false) return "target_unavailable";
+	return null;
+}
+
 function anniversary_kiss() {
-	var state = anniversary_live_event();
+	var state = anniversary_live_event(),
+		reason = anniversary_visit_reason();
 	if (!state) return add_log(phrase.html("client.anniversary_kiss.no_player_is_featured_right_now"), "gray");
-	if (state.available === false) return add_log(phrase.html("client.anniversary_kiss.waiting_for_to_return_the_round_s_timer_is_still", { target: state.target }), "gray");
-	if (!anniversary_can_visit() && !(character.acx && character.acx.ikissyou)) return add_log(phrase.html("client.anniversary_kiss.you_don_t_have_an_anniversary_visit_for_this_round"), "gray");
+	if (reason && !(character.acx && character.acx.ikissyou)) return add_log(phrase.html("interface.anniversary_status." + reason), "gray");
 	return use_skill("ikissyou", state.id);
 }
 
@@ -5712,7 +5724,7 @@ function load_code_s(num) {
 		show_alert(phrase.html("client.load_code_s.to_delete_a_code_slot_simply_enter_delete_as_the"));
 	} else {
 		$(".csharp").val("" + num);
-		$(".codename").val((X.codes[num] && X.codes[num][0]) || "Empty");
+		$(".codename").val((X.codes[num] && X.codes[num][0]) || phrase("client.code.empty"));
 	}
 }
 
@@ -5977,7 +5989,7 @@ function handle_information(infs) {
 			if (info.next) {
 				small_success(character, { color: "purple" });
 				delete info.next;
-				setTimeout(open_tutorial.bind(null, undefined, info.track), 1000);
+				setTimeout(open_tutorial.bind(null, undefined, info.track || ""), 1000);
 			} else if (info.success) {
 				small_success(character, { color: "success" });
 				delete info.success;

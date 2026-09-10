@@ -1,1 +1,1 @@
-phrase.load("fil",{"desktop.loading":"LOADING","desktop.connection_help":"Adventure Land needs an internet connection. Check your connection and try reloading. If it still won't load, email hello@adventure.land.","desktop.apology":"Sorry about the wait :)"});
+phrase.load("fil",{"desktop.loading":"NAGLO-LOAD","desktop.connection_help":"Kailangan ng Adventure Land ng koneksiyon sa internet. Suriin ang iyong koneksiyon at subukang i-load muli. Kung ayaw pa ring mag-load, mag-email sa hello@adventure.land.","desktop.apology":"Pasensiya na sa paghihintay :)"});

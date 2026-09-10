@@ -166,7 +166,7 @@
 	"server.server_message.a_b_testing_is_about_to_start": "A/B 테스트가 곧 시작돼요!",
 	"server.server_message.blessed": "{player}님이 {region} {server_name}에 축복을 내렸어요",
 	"server.server_message.defeated": "{attacker}님이 {player}님을 쓰러뜨렸어요",
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "{map}에서 {target}님을 찾아보세요! 기념일 방문 효과로 입맞춤을 보내면 케이크 조각과 Anniversary Gift를 받아요.",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "{map}에서 {target}님을 찾아보세요! 가까이 가서 입맞춤을 사용하면 케이크 조각과 Anniversary Gift를 받아요.",
 	"server.server_message.found_shells": "{player}님이 조개 {amount}개를 찾았어요",
 	"server.server_message.is_now_level": "{player}님이 {level}레벨이 됐어요",
 	"server.server_message.is_now_level_2": "{player}님이 {level}레벨이 됐어요!",
@@ -304,5 +304,8 @@
 	"server.page.steam_news_unavailable": "Steam 소식을 불러올 수 없어요",
 	"server.payment.shells": "조개 {count}개",
 	"server.game_log.you_monster": "이 괴물 같은 녀석!",
+	"server.game_error.capacity": "현재는 플레이어를 {count}명 넘게 수용할 수 없습니다",
+	"server.game_error.authentication_failed": "실패: {reason}",
+	"server.game_error.characters_unconfirmed": "계정의 다른 캐릭터를 확인할 수 없습니다. 다시 시도해 주세요.",
 	"server.pm.delivery_failed": "(전달 실패)"
 }

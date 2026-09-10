@@ -30,8 +30,12 @@
 <div class="tutpath manual">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.crafting-exchanges.manual") }}</div>
 	<p>{{ phrase_html("docs.tutorial.crafting-exchanges.open-guide-all-recipes-a-recipe-names-every") }}</p>
+	<p style="display:flex;align-items:center;gap:16px"><span class="tutorial-npc" data-npc="craftsman"></span><span>Leo · Mainland<br>(92, 670)</span></p>
+<div><span class="tutorial-travel" data-type="npc" data-target="craftsman"></span></div>
 	<p>{{ phrase("docs.tutorial.crafting-exchanges.exchangeable-items-show-their-required-quantity-xyn-handles") }}</p>
-</div>
+	<p style="display:flex;align-items:center;gap:16px"><span class="tutorial-npc" data-npc="exchange"></span><span>Xyn · Mainland<br>(-25, -478)</span><span class="tutorial-item" data-item="seashell"></span></p>
+<div><span class="tutorial-travel" data-type="npc" data-target="exchange"></span></div>
+	</div>
 
 <div class="tutpath codepath">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.crafting-exchanges.optional-code") }}</div>
@@ -110,3 +114,4 @@ if (exchange_num !== -1) {
 		text-align: center;
 	}
 </style>
+<script>render_tutorial_items();</script>

@@ -1666,7 +1666,10 @@ function skillHarness() {
 		anniversary_deliver: h.deliver,
 		random_one: (a) => a[0],
 		xy_emit: (p, ...args) => emitted.push(args),
-		fail_response: (reason) => failed.push(reason),
+		fail_response: (response, place, data) => {
+			failed.push(response);
+			emitted.push(["game_response", { ...data, response, place, failed: true }]);
+		},
 		consume_mp: (p, mp) => (p.mp -= mp),
 		consume_skill: (p, name) => (p.last[name] = ctx.now),
 	};
@@ -1713,6 +1716,160 @@ test("the real skill handler blocks ineligible rewards without disabling an owne
 			assert.equal(h.delivered.length, 0);
 			assert(h.emitted.some(([name]) => name === "emote"));
 		}
+});
+
+test("kiss results explain blocked rewards and preserve successful cosmetic casts", () => {
+	for (const [patch, reason] of [
+		[{ s: { realmfatigue: { ms: 60000 } } }, "realmfatigue"],
+		[{ s: { hopsickness: { ms: 60000 } } }, "hopsickness"],
+		[{ type: "merchant", p: { home: "TESTII" } }, "merchant_home"],
+	]) {
+		const h = skillHarness();
+		Object.assign(h.visitor, { ...patch, s: { ...h.visitor.s, ...patch.s }, p: { ...h.visitor.p, ...patch.p } });
+		h.cast();
+		let result = h.emitted.findLast(([event]) => event === "game_response")[1];
+		assert.equal(result.failed, true);
+		assert.equal(result.reason, reason);
+		assert.equal(result.rewarded, false);
+		assert.equal(result.phrase, "interface.anniversary_status." + reason);
+		assert.match(result.message, /No kiss rewards or buff/);
+		h.visitor.p.acx.ikissyou = 1;
+		h.cast();
+		result = h.emitted.findLast(([event]) => event === "game_response")[1];
+		assert.equal(result.success, true, "an owned emote remains a successful cosmetic cast");
+		assert.equal(result.rewarded, false);
+		assert.equal(result.reason, reason);
+		assert.match(result.message, /No kiss rewards or buff/);
+		assert.equal(h.delivered.length, 0);
+		assert(h.emitted.some(([event]) => event === "emote"));
+	}
+	const h = skillHarness();
+	h.cast();
+	let result = h.emitted.findLast(([event]) => event === "game_response")[1];
+	assert.equal(result.rewarded, true);
+	assert.equal(result.reason, null);
+	h.cast();
+	result = h.emitted.findLast(([event]) => event === "game_response")[1];
+	assert.equal(result.reason, "claimed");
+	assert.equal(h.delivered.length, 2);
+	const absent = skillHarness();
+	absent.host.afk = true;
+	absent.cast();
+	assert.equal(absent.emitted.findLast(([event]) => event === "game_response")[1].reason, "target_unavailable");
+	assert(absent.visitor.s.anniversary_visit, "an unavailable host does not consume the invitation");
+	const cosmetic = skillHarness();
+	cosmetic.visitor.p.acx.ikissyou = 1;
+	cosmetic.ctx.players.other = player("Other");
+	cosmetic.ctx.id_to_id.Other = "other";
+	cosmetic.cast("ikissyou", "Other");
+	result = cosmetic.emitted.findLast(([event]) => event === "game_response")[1];
+	assert.equal(result.success, true);
+	assert.equal(result.rewarded, false);
+	assert.equal(result.reason, "wrong_target");
+	assert.equal(result.message, undefined, "ordinary cosmetic kisses do not spam event warnings");
+});
+
+test("private Visit status explains withheld and lost tickets once without issuing late replacements", () => {
+	const h = eventHarness(),
+		messages = [];
+	h.visitor.s.realmfatigue = { ms: 60000 };
+	h.visitor.socket.emit = (...args) => messages.push(args);
+	h.start();
+	const ctx = localize(
+		vm.createContext({
+			players: { host: h.host, visitor: h.visitor },
+			instances: {},
+			G: { npcs: {}, maps: { main: { name: "Mainland" } } },
+			E: {},
+			anniversary_is_active: () => true,
+			anniversary_state: () => h.event,
+			resend() {},
+			broadcast() {},
+			broadcast_e() {},
+			get_call_cost: () => 0,
+		}),
+	);
+	load(ctx, "node/server_functions.js", ["anniversary_tick"]);
+	load(ctx, "node/server.js", ["player_to_client"]);
+	ctx.anniversary_tick();
+	ctx.anniversary_tick();
+	assert.equal(h.visitor.anniversary.reason, "realmfatigue");
+	assert.equal(messages.filter(([event]) => event === "game_log").length, 1);
+	assert.equal(ctx.player_to_client(h.visitor).anniversary.reason, "realmfatigue");
+	assert.equal(ctx.player_to_client(h.visitor, true).anniversary, undefined, "never broadcast personal eligibility");
+	delete h.visitor.s.realmfatigue;
+	ctx.anniversary_tick();
+	assert.equal(h.visitor.anniversary.reason, "no_visit");
+	assert.equal(h.visitor.s.anniversary_visit, undefined);
+	h.time(rules.INTERVAL * 2);
+	ctx.anniversary_tick();
+	assert.equal(h.visitor.anniversary.reason, "host", "the next round follows normal eligibility and selection");
+	h.enabled(false);
+	ctx.anniversary_tick();
+	assert.equal(h.visitor.anniversary, null);
+	assert.equal(ctx.player_to_client(h.visitor).anniversary, null, "clear cached client state when the event ends");
+});
+
+test("native event INFO and kiss logs display the server reason without graphics", () => {
+	const h = skillHarness(),
+		logs = [],
+		results = [];
+	h.visitor.s.realmfatigue = { ms: 60000 };
+	h.visitor.anniversary = h.event.visitStatus(h.visitor);
+	let receive;
+	const ctx = localize(
+		vm.createContext({
+			S: { anniversary: h.event.tick() },
+			character: h.visitor,
+			G: { maps: { main: { name: "Mainland" } }, skills: {} },
+			Date: { now: () => rules.INTERVAL },
+			server_region: "TEST",
+			server_identifier: "I",
+			Dev: false,
+			no_graphics: true,
+			html_escape: String,
+			add_log: (message) => logs.push(message),
+			ui_log: (message) => logs.push(message),
+			socket: {
+				on: (event, handler) => {
+					receive = handler;
+				},
+			},
+			draw_trigger: (fn) => fn(),
+			reject_deferred: (place, data) => results.push(data),
+			resolve_deferred: (place, data) => results.push(data),
+			d_text() {
+				throw new Error("no graphics should be used for this feedback");
+			},
+		}),
+	);
+	load(ctx, "js/functions.js", [
+		"anniversary_live_event",
+		"anniversary_can_visit",
+		"anniversary_visit_reason",
+		"anniversary_kiss",
+	]);
+	load(ctx, "js/html.js", ["anniversary_event_status_html", "anniversary_ui_button"]);
+	assert.equal(ctx.anniversary_can_visit(), false);
+	assert.match(ctx.anniversary_event_status_html(), /No kiss rewards or buff: Realm Fatigue/);
+	assert.match(ctx.anniversary_event_status_html(), / disabled/);
+	ctx.S.anniversary.available = false;
+	assert.match(ctx.anniversary_event_status_html(), /Realm Fatigue/);
+	assert.doesNotMatch(ctx.anniversary_event_status_html(), /Your Visit stays valid/);
+	ctx.S.anniversary.available = true;
+	ctx.anniversary_kiss();
+	assert.match(logs.pop(), /Realm Fatigue/);
+	const client = fs.readFileSync(path.join(root, "js/game.js"), "utf8");
+	const start = client.indexOf('socket.on("game_response",');
+	vm.runInContext(client.slice(start, client.indexOf("\n\tsocket.on(", start + 1)), ctx);
+	for (const owned of [false, true]) {
+		h.visitor.p.acx.ikissyou = owned;
+		h.cast();
+		const result = h.emitted.findLast(([event]) => event === "game_response")[1];
+		receive(plain(result));
+		assert.equal(results.at(-1).reason, "realmfatigue");
+		assert.match(logs.pop(), /No kiss rewards or buff: Realm Fatigue/);
+	}
 });
 test("unlock, target, friendship and permanent cosmetic access remain separate", () => {
 	for (const patch of [{ x: 81 }, { npc: true }, { rip: true }, { hp: 0 }, { map: "winterland" }, { in: "other" }]) {

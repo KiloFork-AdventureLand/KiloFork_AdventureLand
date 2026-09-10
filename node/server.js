@@ -99,7 +99,7 @@ var dc_players = {};
 var sockets = {};
 var observers = {};
 var total_monsters = 0;
-var max_players = 96;
+var max_players = 200;
 var chests = {};
 var projectiles = {};
 var name_to_id = {};
@@ -382,6 +382,7 @@ async function init_game() {
 		Server.local_ip = server_def.local_ip;
 		Server.local_port = server_def.local_port;
 		Server.machine = server_def.machine;
+		if (server_def.max_players) max_players = server_def.max_players;
 		server_information.restore(Server.info.recent_characters);
 
 		server_id = "SR_" + region + server_name;
@@ -861,6 +862,7 @@ function player_to_client(player, stranger) {
 			"xpm",
 			"luckm",
 			"encouragement",
+			"anniversary",
 			"map",
 			"in",
 			"isize",
@@ -8556,7 +8558,10 @@ function init_socket_io(socket_server) {
 			if (!actual) {
 				return fail_response("no_item");
 			}
-			if (actual.b) {
+			if (actual.acl && buyer.owner != player.owner) {
+				return fail_response("item_locked");
+			}
+			if (actual.b || actual.v) {
 				return fail_response("item_blocked");
 			}
 			if (!can_add_item(buyer, create_new_item(item.name, data.q))) {
@@ -9345,10 +9350,49 @@ function init_socket_io(socket_server) {
 			if (!gSkill) {
 				return fail_response("no_skill", data.name);
 			}
-			const anniversary_target = gSkill.emote === "ikissyou" && players[id_to_id[data.id]];
+			// Validate the whole bounded list before any charge, projectile, or cooldown changes.
+			const validTargetId = (id) => typeof id === "string" || (Number.isSafeInteger(id) && id >= 0);
+			if (data.name === "3shot" || data.name === "5shot" || data.name === "fanofknives") {
+				if (!Array.isArray(data.ids)) return fail_response("invalid", data.name);
+				data.ids = data.ids.slice(0, gSkill.max_targets || (data.name === "5shot" ? 5 : 3));
+				if (data.ids.some((id) => !validTargetId(id))) return fail_response("invalid", data.name);
+			} else if (data.name === "cburst") {
+				if (!Array.isArray(data.targets)) return fail_response("invalid", data.name);
+				data.targets = data.targets.slice(0, 16);
+				if (
+					data.targets.some(
+						(entry) =>
+							!Array.isArray(entry) ||
+							entry.length !== 2 ||
+							!validTargetId(entry[0]) ||
+							(typeof entry[1] !== "number" && typeof entry[1] !== "string") ||
+							!Number.isFinite(Number(entry[1])),
+					)
+				)
+					return fail_response("invalid", data.name);
+			}
+			const anniversary = gSkill.emote === "ikissyou" && anniversary_state();
+			const anniversary_target = anniversary && players[id_to_id[data.id]];
+			const anniversary_status = anniversary && anniversary.visitStatus(player);
 			const anniversary_guest_access =
-				anniversary_target && anniversary_state().isTarget(anniversary_target) && anniversary_state().canVisit(player);
+				anniversary_target && anniversary.isTarget(anniversary_target) && anniversary.canVisit(player);
+			let anniversary_reason = (anniversary_status && anniversary_status.reason) || "no_round";
+			if (anniversary_reason === "ready") {
+				if (anniversary_guest_access) anniversary_reason = null;
+				else if (anniversary_status.target === data.id) anniversary_reason = "target_unavailable";
+				else anniversary_reason = "wrong_target";
+			}
 			if (gSkill.emote && (!player.p.acx || !player.p.acx[gSkill.emote]) && !anniversary_guest_access) {
+				if (anniversary)
+					return fail_response(
+						"skill_cant_use",
+						data.name,
+						localization.message(
+							"interface.anniversary_status." + anniversary_reason,
+							{},
+							{ reason: anniversary_reason, rewarded: false },
+						),
+					);
 				return fail_response("skill_cant_use", data.name);
 			}
 
@@ -9576,7 +9620,13 @@ function init_socket_io(socket_server) {
 			}
 
 			if (gSkill.emote) {
-				if (gSkill.emote === "ikissyou") anniversary_state().claim(player, target, anniversary_deliver);
+				if (anniversary) {
+					resolve.rewarded = anniversary.claim(player, target, anniversary_deliver);
+					resolve.reason = resolve.rewarded ? null : anniversary_reason || "no_visit";
+					// Ordinary unlocked kisses still work. Explain missing rewards only for a visit to this round's host.
+					if (!resolve.rewarded && anniversary_status && target.id === anniversary_status.target)
+						Object.assign(resolve, localization.message("interface.anniversary_status." + resolve.reason, {}));
+				}
 				if (gSkill.mp) {
 					consume_mp(player, gSkill.mp);
 					player.to_resend = "u+cid";
@@ -11054,7 +11104,7 @@ function init_socket_io(socket_server) {
 				return;
 			}
 			if (Object.keys(players).length >= max_players) {
-				socket.emit("game_error", "Can't accept more than " + max_players + " players at this time");
+				socket.emit("game_error", localization.message("server.game_error.capacity", { count: max_players }));
 				return;
 			}
 			socket.observer_secret = randomStr(24);
@@ -11089,7 +11139,10 @@ function init_socket_io(socket_server) {
 
 			if (observers[socket.id]) observers[socket.id].auth_engaged = false;
 			if (R.failed) {
-				socket.emit("game_error", "Failed: " + R.reason);
+				socket.emit(
+					"game_error",
+					localization.message("server.game_error.authentication_failed", { reason: R.reason }, { reason: R.reason }),
+				);
 				return;
 			}
 
@@ -11294,7 +11347,7 @@ function init_socket_io(socket_server) {
 			}
 
 			if (!(await encouragement_login(player, R.previous_online))) {
-				socket.emit("game_error", "Could not confirm your other characters. Please try again.");
+				socket.emit("game_error", localization.message("server.game_error.characters_unconfirmed"));
 				dc_players[player.real_id] = player;
 				sync_loop();
 				return;

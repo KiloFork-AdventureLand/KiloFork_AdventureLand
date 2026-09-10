@@ -15,7 +15,8 @@ function choose_language(language, button) {
 	if (button) button.disabled = true;
 	function reload() {
 		language_cookie(language, language_account ? "account" : "explicit");
-		location.reload();
+		if (window.desktop) desktop.language(language).then(function () { location.reload(); });
+		else location.reload();
 	}
 	if (!language_account) return reload();
 	api_call("settings", { setting: "language", value: language })
@@ -24,6 +25,22 @@ function choose_language(language, button) {
 			if (button) button.disabled = false;
 			ui_error(phrase("language.save_failed"));
 		});
+}
+
+function initialize_desktop_language() {
+	var preferred = (language_account && language_initialized) || language_source === "account" || language_source === "cookie" ? phrase.language : null;
+	desktop.language(preferred).then(function (language) {
+		if (!language || preferred || language_account) return;
+		language_cookie(language, "detected");
+		// Only the signed-out page may switch automatically, once per session.
+		// Never reload an active character because Steam picked another language.
+		if (language === phrase.language) return;
+		try {
+			if (sessionStorage.getItem("desktop_language_applied")) return;
+			sessionStorage.setItem("desktop_language_applied", "1");
+			location.reload();
+		} catch (error) {} // Storage restrictions must not cause a reload loop.
+	});
 }
 
 function language_icon(language) {

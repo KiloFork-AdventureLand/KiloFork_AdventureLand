@@ -166,7 +166,7 @@
 	"server.server_message.a_b_testing_is_about_to_start": "Zaraz zaczną się testy A/B!",
 	"server.server_message.blessed": "{player} błogosławi {region} {server_name}",
 	"server.server_message.defeated": "{attacker} pokonuje {player}",
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Znajdź {target} na {map}! Wykorzystaj Rocznicową wizytę i wyślij pocałunek, by dostać kawałek ciasta i Anniversary Gift.",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Znajdź {target} na {map}! Podejdź blisko i użyj Całuję cię, by dostać kawałek ciasta i Anniversary Gift.",
 	"server.server_message.found_shells": "{player} znajduje muszle: {amount}",
 	"server.server_message.is_now_level": "{player} osiąga poziom {level}",
 	"server.server_message.is_now_level_2": "{player} osiąga poziom {level}!",
@@ -304,9 +304,14 @@
 	"server.page.steam_news_unavailable": "Aktualności Steam są niedostępne",
 	"server.payment.shells": "Muszle: {count}",
 	"server.game_log.you_monster": "Ty potworze!",
+	"server.game_error.capacity": "Nie można teraz przyjąć więcej niż {count} graczy",
+	"server.game_error.authentication_failed": "Błąd: {reason}",
+	"server.game_error.characters_unconfirmed": "Nie udało się zweryfikować twoich pozostałych postaci. Spróbuj ponownie.",
+	"server.pm.delivery_failed": "(NIE DOSTARCZONO)",
+	"server.game_error.capacity.one": "Nie można teraz przyjąć więcej niż {count} gracza",
+	"server.game_error.capacity.other": "Nie można teraz przyjąć więcej niż {count} graczy",
 	"server.payment.shells.few": "{count} muszle",
 	"server.payment.shells.many": "{count} muszli",
 	"server.payment.shells.one": "{count} muszla",
-	"server.payment.shells.other": "{count} muszli",
-	"server.pm.delivery_failed": "(NIE DOSTARCZONO)"
+	"server.payment.shells.other": "{count} muszli"
 }

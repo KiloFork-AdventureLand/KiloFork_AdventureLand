@@ -429,6 +429,8 @@
 	"game.trade_history.bought": "- Kupiono {quantity}'{item}' od {player}. Koszt w złocie: {gold}",
 	"game.trade_history.gave_away": "- Podarowano {quantity}'{item}' graczowi {player}",
 	"game.trade_history.sold": "- Sprzedano {quantity}'{item}' graczowi {player}. Cena w złocie: {gold}",
+	"game.call_limit.report": "Przekroczono limit {cost} jednostek kosztu wywołań w ciągu 4 sekund. To duuużo za dużo! Zwykle dzieje się tak, gdy funkcja taka jak 'move' jest wywoływana wielokrotnie. Niektóre wywołania kosztują więcej niż inne. Aby uzyskać pomoc, napisz na hello@adventure.land lub zapytaj na Discord/#code_beginner. Łączna liczba wywołań: {total}.",
+	"game.title.hardcore": "Furia: {character}",
 	"chat.expand": "Powiększ czat",
 	"chat.restore": "Przywróć rozmiar czatu",
 	"chat.no_characters": "Brak postaci",

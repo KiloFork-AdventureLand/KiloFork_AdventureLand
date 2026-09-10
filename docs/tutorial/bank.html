@@ -10,15 +10,7 @@
 	>
 		{{ phrase("docs.tutorial.bank.banking-guide") }}
 	</div>
-	<div
-		class="gamebutton gamebutton-small"
-		onclick="
-			btc(event);
-			code_eval('smart_move(&quot;bank&quot;)');
-		"
-	>
-		{{ phrase("docs.tutorial.bank.go-to-the-bank") }}
-	</div>
+	<span class="tutorial-travel" data-type="map" data-target="bank"></span>
 </div>
 
 {% for task in tutorial_data("bank").tasks %} {% if loop.first %}
@@ -30,6 +22,8 @@
 <div class="tutpath manual">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.bank.manual") }}</div>
 	<p>{{ phrase("docs.tutorial.bank.enter-the-bank-to-the-right-of-the") }}</p>
+	<p style="display:flex;align-items:center;gap:16px"><span class="tutorial-npc" data-npc="items0"></span><span>Gabrielle</span><span class="tutorial-npc" data-npc="goldnpc"></span><span>Mr. Rich</span></p>
+<div><span class="tutorial-travel" data-type="npc" data-target="items0"></span> <span class="tutorial-travel" data-type="npc" data-target="goldnpc"></span></div>
 	<p>{{ phrase("docs.tutorial.bank.only-one-of-your-characters-can-be-inside") }}</p>
 </div>
 
@@ -105,3 +99,4 @@ visit_bank().catch(function (error) {
 		text-align: center;
 	}
 </style>
+<script>render_tutorial_items();</script>

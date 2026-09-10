@@ -155,7 +155,7 @@ module.exports = {
 	// utility/htmls/map_editor.js:1167; redraw_map visible map-editor feedback. Keep tile/map names and CODE identifiers unchanged.
 	"editor.message.redraw_map_deleted_some_faulty_lights_this":
 		"Deleted some faulty lights, this might have happened if you shrinked your own tileset, or if you increased your tile area after selecting a tile etc.",
-	// utility/htmls/map_editor.js:1310; redraw_map visible map-editor feedback. Keep tile/map names and CODE identifiers unchanged.
+	// utility/htmls/map_editor.js redraw_map; map-editor warning after invalid entries are removed from map_data.nights. Nights means night animations placed with Add Night Animation, not periods of time and not a typo for tiles. Preserve tile/map names and CODE identifiers.
 	"editor.message.redraw_map_deleted_some_faulty_nights_this":
 		"Deleted some faulty nights, this might have happened if you shrinked your own tileset, or if you increased your tile area after selecting a tile etc.",
 	// Map editor tileset upload form; save-before-upload reminder.

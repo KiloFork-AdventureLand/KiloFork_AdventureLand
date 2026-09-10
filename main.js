@@ -713,7 +713,7 @@ app.get("/allnotes", async (req, res, next) => {
 app.get("/update-notes", function (req, res) {
 	var page_size = 20,
 		offset = Math.max(0, parseInt(req.query.offset, 10) || 0),
-		notes = update_notes.slice(offset, offset + page_size);
+		notes = localization.translate_notes(update_notes.slice(offset, offset + page_size));
 	res.status(200).send({ notes: notes, more: offset + notes.length < update_notes.length });
 });
 app.get("/steam-news", async function (req, res) {

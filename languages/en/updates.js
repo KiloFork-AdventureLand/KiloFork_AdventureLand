@@ -1,5 +1,7 @@
 // Release highlights. Dates, item/character names and CODE identifiers stay unchanged.
 module.exports = {
+	// Release highlight for bundled Steam images and remembered desktop language preferences.
+	"update.09_09_26.steam_clients_include_game_images_and_remember_your_language": "Steam clients now include game images to reduce downloads and remember your language.",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
 	"update.08_09_26.communicator_now_opens_with_server_chat_keeps_private_conversations": "Hub opens with server chat, keeps private conversations together, and lets you chat as any of your characters, even while they are offline.",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.

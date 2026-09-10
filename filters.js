@@ -8,7 +8,7 @@ env.addGlobal("phrase_html", function (id, params, language) {
 
 env.addFilter("to_json", function (obj) {
 	try {
-		return JSON.stringify(obj);
+		return JSON.stringify(obj).replace(/</g, "\\u003c");
 	} catch (e) {
 		return "{}";
 	}

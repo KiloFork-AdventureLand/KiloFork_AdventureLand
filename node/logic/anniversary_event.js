@@ -50,18 +50,17 @@ function createEvent({
 			!p.is_npc
 		);
 	}
-	function rewardEligible(p) {
-		return !!(
-			p &&
-			!p.s?.hopsickness &&
-			!p.s?.realmfatigue &&
-			(p.type !== "merchant" || (p.p?.home && p.p.home === homeRealm))
-		);
+	function rewardBlock(p) {
+		if (!p) return "no_visit";
+		if (p.s?.realmfatigue) return "realmfatigue";
+		if (p.s?.hopsickness) return "hopsickness";
+		if (p.type === "merchant" && (!p.p?.home || p.p.home !== homeRealm)) return "merchant_home";
+		return null;
 	}
 	function eligible(p) {
 		return !!(
 			online(p) &&
-			rewardEligible(p) &&
+			!rewardBlock(p) &&
 			!p.rip &&
 			!p.dead &&
 			p.hp > 0 &&
@@ -82,7 +81,7 @@ function createEvent({
 		const ticket = p && p.s && p.s.anniversary_visit;
 		return !!(
 			active() &&
-			rewardEligible(p) &&
+			!rewardBlock(p) &&
 			round &&
 			round.started &&
 			ticket &&
@@ -93,6 +92,20 @@ function createEvent({
 			now() < ticket.expires &&
 			!round.claims.has(p.id)
 		);
+	}
+	// Private feedback only. Tickets and the claim checks remain the authority.
+	function visitStatus(p) {
+		if (!active()) return null;
+		const live = round && round.started && now() < round.expires;
+		let reason = "no_round";
+		if (live) {
+			const block = rewardBlock(p);
+			if (round.claims.has(p.id)) reason = "claimed";
+			else if (block) reason = block;
+			else if (p.id === round.target.id) reason = "host";
+			else reason = canVisit(p) ? "ready" : "no_visit";
+		}
+		return { realm, round: live ? round.id : null, target: live ? round.target.id : null, reason };
 	}
 	function select() {
 		let candidates = players().filter(eligible);
@@ -136,7 +149,7 @@ function createEvent({
 				round.expires = time + WINDOW;
 				// One ticket for every other eligible character online at selection, not on later ticks.
 				for (const p of players()) {
-					if (!online(p) || !rewardEligible(p) || p.id === round.target.id) continue;
+					if (!online(p) || rewardBlock(p) || p.id === round.target.id) continue;
 					clearTicket(p);
 					addCondition(p, "anniversary_visit", { duration: WINDOW });
 					Object.assign(p.s.anniversary_visit, { round: round.id, realm, expires: round.expires });
@@ -207,7 +220,7 @@ function createEvent({
 		deliver(target, [hostSlice, "anniversarygift"]);
 		return true;
 	}
-	return { tick, isTarget, canVisit, claim };
+	return { tick, isTarget, canVisit, visitStatus, claim };
 }
 
 module.exports = { SLICES, INTERVAL, WINDOW, sliceForAccount, createEvent };

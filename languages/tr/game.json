@@ -429,6 +429,8 @@
 	"game.trade_history.bought": "- {player} adlı oyuncudan {gold} altın karşılığında {quantity}'{item}' alındı",
 	"game.trade_history.gave_away": "- {player} adlı oyuncuya {quantity}'{item}' hediye edildi",
 	"game.trade_history.sold": "- {player} adlı oyuncuya {gold} altın karşılığında {quantity}'{item}' satıldı",
+	"game.call_limit.report": "4 saniyede {cost} çağrı maliyeti birimi sınırını aştın. Bu çooook fazla! Bu genellikle 'move' gibi bir işlev art arda çağrıldığında olur. Bazı çağrıların maliyeti diğerlerinden yüksektir. Yardım için hello@adventure.land adresine e-posta gönder veya Discord/#code_beginner kanalında sor. Toplam {total} çağrı yaptın.",
+	"game.title.hardcore": "Amansız {character}",
 	"chat.expand": "Sohbeti büyüt",
 	"chat.restore": "Sohbeti eski boyutuna getir",
 	"chat.no_characters": "Karakter yok",

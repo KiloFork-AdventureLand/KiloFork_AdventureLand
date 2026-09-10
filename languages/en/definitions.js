@@ -250,7 +250,7 @@ module.exports = {
 	// design/conditions.js; holidayspirit name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.holidayspirit.name": "Holiday Spirit",
 	// design/conditions.js; hopsickness explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Mainland","Bean"].
-	"condition.hopsickness.explanation": "You are not in your home server! Go see Bean in Mainland square for a change.",
+	"condition.hopsickness.explanation": "You are away from your home server. Kiss rewards are blocked while Hop Sickness is active. Return home or ask Bean in Mainland to change your home.",
 	// design/conditions.js; hopsickness name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.hopsickness.name": "Hop Sickness",
 	// design/conditions.js; invincible explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
@@ -371,7 +371,7 @@ module.exports = {
 	// design/conditions.js; purifier name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.purifier.name": "Purifier",
 	// design/conditions.js; realmfatigue explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"condition.realmfatigue.explanation": "Another non-merchant character on your account recently visited a different server. Home rewards return after you settle in; normal rewards continue.",
+	"condition.realmfatigue.explanation": "Another non-merchant character on your account was recently on a different server. Home bonuses and kiss rewards are blocked. Keep your non-merchant characters on one server; activity elsewhere extends the timer.",
 	// design/conditions.js; realmfatigue name, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"condition.realmfatigue.name": "Realm Fatigue",
 	// design/conditions.js; reflection explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.

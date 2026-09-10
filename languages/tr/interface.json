@@ -1,4 +1,13 @@
 {
+	"interface.anniversary_status.realmfatigue": "Öpücük ödülü veya güçlendirmesi yok: Diyar Yorgunluğu etkin. Süresini kontrol et ve sona erdikten sonraki bir tura katıl.",
+	"interface.anniversary_status.hopsickness": "Öpücük ödülü veya güçlendirmesi yok: Sunucu Tutması etkin. Süresini kontrol et ve sona erdikten sonraki bir tura katıl.",
+	"interface.anniversary_status.merchant_home": "Öpücük ödülü veya güçlendirmesi yok: tüccarlar tur başladığında ana sunucularında olmalı.",
+	"interface.anniversary_status.claimed": "Bu turun öpücük ödüllerini ve güçlendirmesini zaten aldın.",
+	"interface.anniversary_status.no_visit": "Bu tur öpücük ödülü veya güçlendirmesi yok. Öne çıkan oyuncu seçildiğinde katılım koşullarını sağlamalı ve çevrimiçi olmalısın.",
+	"interface.anniversary_status.no_round": "Şu anda öne çıkan oyuncu yok.",
+	"interface.anniversary_status.host": "Öne çıkan oyuncu sensin. Katılım koşullarını sağlayan ziyaretçiler sana bir dilim ve bir Anniversary Gift getirir.",
+	"interface.anniversary_status.target_unavailable": "Öne çıkan oyuncuya ulaşılamıyor. Yıl Dönümü Ziyaretin bu tur bitene kadar geçerli.",
+	"interface.anniversary_status.wrong_target": "Bu turun ödülleri yalnızca öne çıkan oyuncuya gönderilen öpücükler için verilir.",
   "interface.upcoming.adventures.title": "Günlük Maceralar",
   "interface.upcoming.adventures.text": "Bir cadının sırları ve izlenecek yeni yollar.",
   "interface.upcoming.black_wake.title": "The Black Wake",
@@ -53,9 +62,9 @@
 	"interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses": "Yakında kal ve ziyaretçilerini karşıla. Ziyaret hakkını kullanan her ziyaretçi sana kendi lezzetinden bir dilim ve bir Anniversary Gift getirir.",
 	"interface.anniversary_event_status_html.get_close_then_send_a_kiss": "Yaklaş, sonra bir öpücük gönder.",
 	"interface.anniversary_event_status_html.who_will_we_visit_next": "Sırada kimi ziyaret edeceğiz?",
-	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "Her 30 dakikada bu sunucudan biri öne çıkarılır. Çevrimiçi olan diğer herkes beş dakika süren Yıl Dönümü Ziyareti etkisini alır.",
-	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "Yıl Dönümü Ziyareti hakkını kullan: 1 Cake Slice + 1 Anniversary Gift ve 20 dakika boyunca +10 Saldırı Sıklığı / +6 Çıktı.",
-	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "Etkinin süresi dolmadan öne çıkan oyuncuyu bul ve öpücük gönder. Öpücük bu hakkı tüketir. Kavanoz gerekmez.",
+	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "Her 30 dakikada bu sunucudan biri öne çıkarılır. O anda çevrimiçi olan ve katılım koşullarını sağlayan oyuncuların ona öpücük göndermek için beş dakikası vardır.",
+	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "Ödüllü bir öpücük 1 pasta dilimi + 1 Anniversary Gift ve 20 dakika boyunca +10 Saldırı Hızı / +6 Hasar Çıktısı verir.",
+	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "Yaklaş ve Seni Öpüyorum kullan. Her turda bir öpücük ödül verir. Beceriyi kalıcı olarak açmış olman gerekmez.",
 	"interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when": "Bu tur için Yıl Dönümü Ziyareti hakkın kalmadı. Sıradaki oyuncu seçilirken çevrimiçi ol.",
 	"interface.anniversary_collection_html.put_the_cake_together": "Pastayı bir araya getir",
 	"interface.anniversary_collection_html.6_flavors_in_your_bag": "Çantandaki lezzetler: {owned} / 6",
@@ -837,5 +846,6 @@
 	"interface.gallery.exchange": "Takaslıklar",
 	"interface.gallery.key": "Anahtarlar",
 	"interface.item.empty": "Boş",
-	"interface.item.empty_description": "Hiçbir şey yok. Hem de hiç."
+	"interface.item.empty_description": "Hiçbir şey yok. Hem de hiç.",
+	"interface.server.event": "ETKİNLİK!"
 }

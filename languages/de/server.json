@@ -166,7 +166,7 @@
 	"server.server_message.a_b_testing_is_about_to_start": "Der A/B-Test beginnt gleich!",
 	"server.server_message.blessed": "{player} hat {region} {server_name} gesegnet",
 	"server.server_message.defeated": "{attacker} hat {player} besiegt",
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Finde {target} in {map}! Nutze deinen Jubiläumsbesuch für einen Kuss und erhalte ein Stück Kuchen und ein Anniversary Gift.",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Finde {target} in {map}! Geh näher heran und nutze „Ich küsse dich“ für ein Stück Kuchen und ein Anniversary Gift.",
 	"server.server_message.found_shells": "{player} hat Muscheln gefunden: {amount}",
 	"server.server_message.is_now_level": "{player} ist jetzt Stufe {level}",
 	"server.server_message.is_now_level_2": "{player} ist jetzt Stufe {level}!",
@@ -304,6 +304,10 @@
 	"server.page.steam_news_unavailable": "Steam-Neuigkeiten nicht verfügbar",
 	"server.payment.shells": "{count} Muscheln",
 	"server.game_log.you_monster": "Du Monster!",
-	"server.payment.shells.one": "{count} Muschel",
-	"server.pm.delivery_failed": "(NICHT ZUGESTELLT)"
+	"server.game_error.capacity": "Derzeit können nicht mehr als {count} Spieler aufgenommen werden",
+	"server.game_error.authentication_failed": "Fehlgeschlagen: {reason}",
+	"server.game_error.characters_unconfirmed": "Deine anderen Charaktere konnten nicht überprüft werden. Bitte versuche es erneut.",
+	"server.pm.delivery_failed": "(NICHT ZUGESTELLT)",
+	"server.game_error.capacity.one": "Derzeit kann nicht mehr als {count} Spieler aufgenommen werden",
+	"server.payment.shells.one": "{count} Muschel"
 }

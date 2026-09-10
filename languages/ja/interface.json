@@ -1,4 +1,13 @@
 {
+	"interface.anniversary_status.realmfatigue": "キスの報酬と強化は受け取れません。「ワールド疲労」が有効です。残り時間を確認し、解除後のラウンドに参加してください。",
+	"interface.anniversary_status.hopsickness": "キスの報酬と強化は受け取れません。「サーバー酔い」が有効です。残り時間を確認し、解除後のラウンドに参加してください。",
+	"interface.anniversary_status.merchant_home": "キスの報酬と強化は受け取れません。商人はラウンド開始時にホームサーバーにいる必要があります。",
+	"interface.anniversary_status.claimed": "このラウンドのキスの報酬と強化は受け取り済みです。",
+	"interface.anniversary_status.no_visit": "このラウンドではキスの報酬と強化を受け取れません。主役が選ばれる時点で参加条件を満たし、接続している必要があります。",
+	"interface.anniversary_status.no_round": "現在、主役のプレイヤーはいません。",
+	"interface.anniversary_status.host": "あなたが主役です。参加条件を満たす訪問者が、ケーキ1切れとAnniversary Giftを届けてくれます。",
+	"interface.anniversary_status.target_unavailable": "主役のプレイヤーは現在対応できません。「記念日の訪問」はこのラウンドが終わるまで有効です。",
+	"interface.anniversary_status.wrong_target": "このラウンドの報酬は、主役のプレイヤーにキスした場合のみ受け取れます。",
   "interface.upcoming.adventures.title": "日々の冒険",
   "interface.upcoming.adventures.text": "魔女の秘密と、新たにたどる道。",
   "interface.upcoming.black_wake.title": "The Black Wake",
@@ -53,9 +62,9 @@
 	"interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses": "近くにいて、訪れる人を迎えましょう。「記念日の訪問」を使ってくれた人ごとに、自分の味のケーキ1切れとAnniversary Giftを1個もらえます。",
 	"interface.anniversary_event_status_html.get_close_then_send_a_kiss": "近づいてキスを送りましょう。",
 	"interface.anniversary_event_status_html.who_will_we_visit_next": "次は誰を訪ねよう？",
-	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "30分ごとに、このサーバーの誰かが主役になります。ほかの接続中の全員に、5分間の「記念日の訪問」が付与されます。",
-	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "「記念日の訪問」を使うと、ケーキ1切れとAnniversary Giftを1個、さらに20分間の攻撃速度+10・与ダメージ+6を獲得。",
-	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "効果が切れる前に主役を見つけてキスを送りましょう。キスで効果を使い切ります。瓶は不要です。",
+	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "30分ごとに、このサーバーの誰かが主役になります。参加条件を満たし、すでに接続しているプレイヤーは、5分以内に主役へキスを送れます。",
+	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "報酬付きのキスでケーキ1切れと1 Anniversary Gift、さらに20分間の攻撃速度+10・与ダメージ+6を獲得します。",
+	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "近づいて「君にキス」を使いましょう。報酬を受け取れるキスは各ラウンド1回です。恒久的な解放は不要です。",
 	"interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when": "このラウンドの「記念日の訪問」は残っていません。次の主役が選ばれるときに接続していましょう。",
 	"interface.anniversary_collection_html.put_the_cake_together": "ケーキを完成させよう",
 	"interface.anniversary_collection_html.6_flavors_in_your_bag": "持っている味：{owned} / 6",
@@ -837,5 +846,6 @@
 	"interface.gallery.exchange": "交換品",
 	"interface.gallery.key": "鍵",
 	"interface.item.empty": "空き",
-	"interface.item.empty_description": "なーんにもない。"
+	"interface.item.empty_description": "なーんにもない。",
+	"interface.server.event": "イベント！"
 }

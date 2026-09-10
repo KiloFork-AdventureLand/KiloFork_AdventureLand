@@ -24,6 +24,116 @@ function context() {
 	return c;
 }
 
+test("beginner directions match the sellers, stand price and tool recipes", () => {
+	const G = require("./helpers/design");
+	for (const [id, name, items] of [
+		["standmerchant", "Divian", ["stand0"]],
+		["basics", "Gabriel", ["coat", "staff", "blade"]],
+		["scrolls", "Lucas", ["scroll0", "cscroll0", "strscroll", "intscroll", "dexscroll"]],
+		["fancypots", "Ernis", ["hpot0", "mpot0"]],
+	]) {
+		assert.equal(G.npcs[id].name, name);
+		assert.ok(G.maps.main.npcs.some((npc) => npc.id === id));
+		for (const item of items) assert.ok(G.npcs[id].items.includes(item), name + ": " + item);
+	}
+	assert.equal(G.items.stand0.g, 40000);
+	assert.equal(G.craft.rod.cost, 100);
+	assert.equal(G.craft.pickaxe.cost, 100);
+	assert.deepEqual(JSON.parse(JSON.stringify(G.craft.rod.items)), [
+		[1, "staff"],
+		[1, "spidersilk"],
+	]);
+	assert.deepEqual(JSON.parse(JSON.stringify(G.craft.pickaxe.items)), [
+		[1, "staff"],
+		[1, "spidersilk"],
+		[1, "blade"],
+	]);
+	assert.ok(G.drops.monsters.spider.some((drop) => drop[1] === "spidersilk"));
+	assert.equal(G.skills.fishing.level, 16);
+	assert.equal(G.skills.fishing.mp, 120);
+});
+
+test("tutorial travel buttons confirm real destinations and stay absent without a character", () => {
+	const G = require("./helpers/design"),
+		targets = [];
+	for (const file of fs.readdirSync(path.join(root, "docs/tutorial")).filter((file) => file.endsWith(".html"))) {
+		const source = read("docs/tutorial/" + file);
+		assert.doesNotMatch(source, /code_eval\('smart_move/);
+		for (const match of source.matchAll(/class="tutorial-travel" data-type="([^"]+)" data-target="([^"]+)"/g))
+			targets.push({ type: match[1], id: match[2], html: "" });
+	}
+	assert.ok(targets.length > 25);
+	const calls = [];
+	let confirm;
+	const c = vm.createContext({
+		G,
+		window: {},
+		event: {},
+		btc() {},
+		html_escape: (s) => s,
+		phrase: { html: (id) => id },
+		hide_modals() {},
+		show_confirm: (_, yes, no, callback) => {
+			confirm = callback;
+		},
+		call_code_function_f: (...args) => calls.push(args),
+		$: (selector) =>
+			typeof selector === "string"
+				? { each: (callback) => targets.forEach((target) => callback.call(target)) }
+				: {
+						attr: (key) => (key === "data-type" ? selector.type : selector.id),
+						empty: () => {
+							selector.html = "";
+						},
+						html: (value) => {
+							selector.html = value;
+						},
+					},
+	});
+	load(c, "js/html.js", ["render_tutorial_travel", "smart_smart_move"]);
+	c.render_tutorial_travel();
+	assert.ok(targets.every((target) => !target.html));
+	c.window.character = { ctype: "merchant" };
+	c.render_tutorial_travel();
+	for (const target of targets) {
+		assert.match(target.html, /gamebutton gamebutton-small/);
+		assert.ok(
+			target.html.includes(
+				(target.type === "npc" ? G.npcs : target.type === "map" ? G.maps : G.monsters)[target.id].name,
+			),
+		);
+		if (target.type === "npc")
+			assert.ok(
+				Object.values(G.maps).some((map) => !map.ignore && (map.npcs || []).some((npc) => npc.id === target.id)),
+			);
+		const before = calls.length;
+		vm.runInContext(target.html.match(/onclick='([^']+)'/)[1], c);
+		assert.equal(calls.length, before, "travel must wait for confirmation");
+		confirm();
+		assert.deepEqual(calls.at(-1), ["smart_move", target.id]);
+	}
+	delete c.window.character;
+	c.render_tutorial_travel();
+	assert.ok(
+		targets.every((target) => !target.html),
+		"rerender removes stale character actions",
+	);
+});
+
+test("translated tutorial references use written documentation, not raw source", () => {
+	for (const file of fs.readdirSync(path.join(root, "docs/tutorial")).filter((file) => file.endsWith(".html"))) {
+		const source = read("docs/tutorial/" + file);
+		assert.doesNotMatch(source, /class="[^"]*\brref\b/, file + " must use the existing function tag style");
+	}
+	for (const { code } of localization.languages) {
+		const catalog =
+			code === "en" ? require("../../languages/en/docs") : JSON.parse(read("languages/" + code + "/docs.json"));
+		for (const [key, text] of Object.entries(catalog)) {
+			if (key.startsWith("docs.tutorial.")) assert.ok(!text.includes("render_function_reference("), code + ": " + key);
+		}
+	}
+});
+
 test("all displayed build numbers match the real server stat calculation", () => {
 	assert.deepEqual(buildComparisons(), comparisons);
 	const G = require("./helpers/design");
@@ -235,8 +345,14 @@ test("every new article renders with translated phrases and each locale has five
 
 test("new visual entry points return before touching graphics in headless mode", () => {
 	const c = vm.createContext({ window: { no_graphics: true } });
-	load(c, "js/html.js", ["render_tutorial_items", "turn_tutorial_lore", "render_tutorial_comparison"]);
+	load(c, "js/html.js", [
+		"render_tutorial_items",
+		"render_tutorial_travel",
+		"turn_tutorial_lore",
+		"render_tutorial_comparison",
+	]);
 	c.render_tutorial_items();
+	c.render_tutorial_travel();
 	c.turn_tutorial_lore(1);
 	c.render_tutorial_comparison(comparisons, false);
 });
@@ -265,7 +381,7 @@ test("farming shows each class's starter weapon, defaults to blade, and leaves o
 						}
 					: { attr: (key) => (key === "data-item" ? selector.item : selector.weapon), css: () => ({ html() {} }) },
 		});
-		load(c, "js/html.js", ["render_tutorial_items"]);
+		load(c, "js/html.js", ["render_tutorial_items", "render_tutorial_travel"]);
 		c.render_tutorial_items();
 		assert.deepEqual(shown, [G.classes[type]?.base_slots?.mainhand?.name || "blade", "hpot0"]);
 	}

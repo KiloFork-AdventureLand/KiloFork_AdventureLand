@@ -235,6 +235,9 @@ test("catalogs merge domains, keep English fallbacks, and cache each requested l
 	fs.writeFileSync(path.join(directory, "tr", "account.json"), '{"fixture.hello":"Merhaba {name}"}\n');
 	const catalog = localization.create_catalog_loader(directory);
 	assert.deepEqual({ ...catalog("tr") }, { "fixture.hello": "Merhaba {name}", "fixture.docs": "Documentation" });
+	const browser = localization.create_catalog_loader(directory, { account: true });
+	assert.deepEqual({ ...browser("tr") }, { "fixture.hello": "Merhaba {name}" });
+	assert.deepEqual({ ...browser("ja") }, { "fixture.hello": "Hello {name}" });
 	fs.writeFileSync(path.join(directory, "tr", "account.json"), "invalid");
 	assert.equal(catalog("tr")["fixture.hello"], "Merhaba {name}");
 	assert.equal(catalog("ja")["fixture.hello"], "Hello {name}");
@@ -494,7 +497,7 @@ test("changing the email clears the bounce flag while reusing the same address p
 
 test("phrase route returns executable dictionaries for exact supported codes only", () => {
 	const res = response();
-	localization.serve({ params: { language: "tr" } }, res);
+	localization.serve({ params: { language: "tr" }, acceptsEncodings: () => "identity" }, res);
 	assert.equal(res.statusCode, 200);
 	assert.match(res.headers["Cache-Control"], /^public,/);
 	assert.equal(res.headers["X-Content-Type-Options"], "nosniff");

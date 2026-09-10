@@ -243,6 +243,7 @@ function tutorialUI(context, data) {
 		X: { tutorial: context.data_to_tutorial(data) },
 		last_rendered_step: 0,
 		last_rendered_track: "",
+		modal_count: 0,
 		tutorial_ui: true,
 		no_graphics: true,
 		hide_modals() {},
@@ -262,6 +263,35 @@ function tutorialUI(context, data) {
 	load(context, "js/html.js", ["get_tutorial_view", "continue_tutorial", "render_tutorial_index", "render_tutorial"]);
 	return { elements, calls };
 }
+
+test("merchants default to their own lessons while numbered and explicit adventurer links stay compatible", () => {
+	const r = runtime(),
+		ui = tutorialUI(r.context, r.get()),
+		c = r.context;
+	c.character = { ctype: "merchant" };
+	c.X.merchant_tutorial = { step: 1, progress: 0, completed: [], pending: [], finished: false };
+	load(c, "js/html.js", ["open_tutorial"]);
+	c.open_tutorial();
+	assert.equal(ui.calls.at(-1).args.name, "merchant-supplies");
+	assert.equal(ui.calls.at(-1).args.track, "merchant");
+	c.open_tutorial(1);
+	assert.equal(ui.calls.at(-1).args.name, "learntofight");
+	assert.equal(ui.calls.at(-1).args.track, "");
+	c.open_tutorial(undefined, "");
+	assert.equal(ui.calls.at(-1).args.name, "helloworld");
+	c.render_tutorial_index();
+	assert.match(c.modal, /data-track='merchant'/);
+	c.render_tutorial_index("");
+	assert.match(c.modal, /data-track=''/);
+	c.update_tutorial_ui();
+	assert.equal(ui.elements["#tutorialui"].html, c.phrase.html("game.tutorial.progress", { step: 2, total: 5 }));
+	c.X.merchant_tutorial.finished = true;
+	c.update_tutorial_ui();
+	assert.equal(ui.elements[".tutorialui"].visible, false);
+	delete c.character;
+	c.open_tutorial();
+	assert.equal(ui.calls.at(-1).args.track, "");
+});
 
 test("reading renders an enabled Continue with the stable lesson key; gameplay stays gated", () => {
 	const r = runtime();

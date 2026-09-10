@@ -1,5 +1,6 @@
 var fs = require("fs"),
 	path = require("path"),
+	zlib = require("zlib"),
 	AsyncLocalStorage = require("async_hooks").AsyncLocalStorage,
 	runtime = require("../js/phrases.js");
 
@@ -159,7 +160,44 @@ function middleware(get_user) {
 	};
 }
 
-function create_catalog_loader(directory) {
+// Only these domains reach the browser. New domains stay on the server by default.
+// A list selects phrase IDs or prefixes within a mixed domain. See README.md.
+var browser_domains = {
+	client: true,
+	code: true,
+	definitions: true,
+	editor: true,
+	errors: true,
+	game: true,
+	interface: true,
+	language: true,
+	mainframe: true,
+	page_actions: true,
+	services: true,
+	// These two short labels are also used by client renderers, unlike article prose.
+	docs: ["docs.guide.basics.move", "docs.reference.source_code"],
+	// Socket messages translate in the browser; HTTP responses and mail translate on the server.
+	server: [
+		"server.admin",
+		"server.chat_log",
+		"server.duel",
+		"server.floating",
+		"server.game_chat",
+		"server.game_error",
+		"server.game_log",
+		"server.grinch",
+		"server.item",
+		"server.kill",
+		"server.merrit",
+		"server.notice",
+		"server.party",
+		"server.pm",
+		"server.server_message",
+		"server.shells",
+	],
+};
+
+function create_catalog_loader(directory, domains) {
 	var cache = Object.create(null);
 	function read(language) {
 		var folder = path.join(directory, language),
@@ -167,9 +205,17 @@ function create_catalog_loader(directory) {
 		if (!fs.existsSync(folder)) return result;
 		for (var name of fs.readdirSync(folder).sort()) {
 			if (!name.endsWith(language === "en" ? ".js" : ".json")) continue;
+			var selection = domains ? domains[path.basename(name, path.extname(name))] : true;
+			if (!selection) continue;
 			var file = path.join(folder, name);
 			var entries = language === "en" ? require(file) : JSON.parse(fs.readFileSync(file, "utf8"));
 			for (var id of Object.keys(entries)) {
+				if (
+					selection !== true &&
+					!selection.some(function (prefix) {
+						return id === prefix || id.startsWith(prefix + ".");
+					})
+				) continue;
 				if (typeof entries[id] !== "string") throw new Error("Invalid phrase " + language + "/" + name + ": " + id);
 				if (Object.prototype.hasOwnProperty.call(result, id)) throw new Error("Duplicate phrase " + language + ": " + id);
 				result[id] = entries[id];
@@ -188,6 +234,8 @@ function create_catalog_loader(directory) {
 }
 
 var catalog = create_catalog_loader(__dirname);
+var browser_catalog = create_catalog_loader(__dirname, browser_domains);
+var browser_scripts = Object.create(null);
 var translators = Object.create(null);
 
 function translator(language) {
@@ -207,17 +255,32 @@ function message(id, parameters, fields) {
 	return Object.assign({}, fields, { message: phrase(id, parameters, "en"), phrase: id, phrase_args: parameters || {} });
 }
 
+function translate_notes(notes, language) {
+	return notes.map(function (note) {
+		// Keep the canonical note and metadata for existing consumers and log colors.
+		return Object.assign({}, note, { text: note.phrase ? phrase(note.phrase, {}, language) : note.note });
+	});
+}
+
 function serve(req, res) {
 	var language = req.params.language;
 	if (!supported(language)) return res.status(404).type("text/plain").send("Unknown language");
-	var json = JSON.stringify(catalog(language)).replace(/[<>&\u2028\u2029]/g, function (character) {
-		return "\\u" + character.charCodeAt(0).toString(16).padStart(4, "0");
-	});
+	res.vary("Accept-Encoding");
+	var encoding = req.acceptsEncodings("gzip", "identity");
+	if (!encoding) return res.status(406).send();
+	if (!browser_scripts[language]) {
+		var json = JSON.stringify(browser_catalog(language)).replace(/[<>&\u2028\u2029]/g, function (character) {
+			return "\\u" + character.charCodeAt(0).toString(16).padStart(4, "0");
+		});
+		var script = "phrase.load(" + JSON.stringify(language) + "," + json + ");\n";
+		browser_scripts[language] = { identity: script, gzip: zlib.gzipSync(script) };
+	}
+	if (encoding === "gzip") res.set("Content-Encoding", "gzip");
 	return res
 		.type("application/javascript")
 		.set("Cache-Control", "public, max-age=2592000")
 		.set("X-Content-Type-Options", "nosniff")
-		.send("phrase.load(" + JSON.stringify(language) + "," + json + ");\n");
+		.send(browser_scripts[language][encoding]);
 }
 
 module.exports = {
@@ -239,8 +302,10 @@ module.exports = {
 	middleware: middleware,
 	create_catalog_loader: create_catalog_loader,
 	catalog: catalog,
+	browser_catalog: browser_catalog,
 	phrase: phrase,
 	phrase_html: phrase_html,
 	message: message,
+	translate_notes: translate_notes,
 	serve: serve,
 };

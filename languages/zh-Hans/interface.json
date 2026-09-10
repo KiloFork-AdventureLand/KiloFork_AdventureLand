@@ -1,4 +1,13 @@
 {
+	"interface.anniversary_status.realmfatigue": "无法获得亲吻奖励或增益：跨界疲劳生效中。查看剩余时间，状态结束后再参加后续轮次。",
+	"interface.anniversary_status.hopsickness": "无法获得亲吻奖励或增益：跨服不适生效中。查看剩余时间，状态结束后再参加后续轮次。",
+	"interface.anniversary_status.merchant_home": "无法获得亲吻奖励或增益：商人必须在本轮开始时位于所属服务器。",
+	"interface.anniversary_status.claimed": "你已经领取了本轮的亲吻奖励和增益。",
+	"interface.anniversary_status.no_visit": "本轮无法获得亲吻奖励或增益。主角选出时，你必须符合参与条件并在线。",
+	"interface.anniversary_status.no_round": "目前没有主角玩家。",
+	"interface.anniversary_status.host": "你是本轮主角。符合条件的访客会为你带来一片蛋糕和一个Anniversary Gift。",
+	"interface.anniversary_status.target_unavailable": "主角玩家目前无法参与。你的周年来访状态在本轮结束前仍然有效。",
+	"interface.anniversary_status.wrong_target": "本轮奖励仅限亲吻主角玩家时获得。",
   "interface.upcoming.adventures.title": "每日冒险",
   "interface.upcoming.adventures.text": "女巫的秘密，还有新的道路等你探索。",
   "interface.upcoming.black_wake.title": "The Black Wake",
@@ -53,9 +62,9 @@
 	"interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses": "留在附近迎接来访者。每位消耗周年来访状态的访客都会带给你一片属于你口味的蛋糕和一个Anniversary Gift。",
 	"interface.anniversary_event_status_html.get_close_then_send_a_kiss": "靠近后，送上一个吻。",
 	"interface.anniversary_event_status_html.who_will_we_visit_next": "下一个要拜访谁呢？",
-	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "每30分钟，服务器会选出一位主角。其他在线玩家都会获得持续五分钟的周年来访状态。",
-	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "消耗周年来访状态：获得1片蛋糕和1个Anniversary Gift，以及持续20分钟的+10攻击速度、+6造成伤害加成。",
-	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "在状态结束前找到本轮主角并送上一个吻。亲吻会消耗该状态，不需要罐子。",
+	"interface.anniversary_event_status_html.every_30_minutes_someone_on_this_server_is_featured_everyone": "每30分钟，服务器会选出一位主角。符合条件且已在线的玩家有五分钟时间向主角送吻。",
+	"interface.anniversary_event_status_html.use_your_anniversary_visit_1_cake_slice_1_anniversary_gift": "获得奖励的亲吻会给予1片蛋糕和1个Anniversary Gift，以及持续20分钟的+10攻击速度、+6造成伤害加成。",
+	"interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your": "靠近并使用“亲你一下”。每轮只有一次亲吻能获得奖励，无需永久解锁。",
 	"interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when": "本轮已无周年来访状态。下次选出主角时记得在线。",
 	"interface.anniversary_collection_html.put_the_cake_together": "拼好蛋糕",
 	"interface.anniversary_collection_html.6_flavors_in_your_bag": "背包中有{owned} / 6种口味",
@@ -837,5 +846,6 @@
 	"interface.gallery.exchange": "兑换物品",
 	"interface.gallery.key": "钥匙",
 	"interface.item.empty": "空",
-	"interface.item.empty_description": "空空如也。"
+	"interface.item.empty_description": "空空如也。",
+	"interface.server.event": "活动！"
 }

@@ -1,1 +1,1 @@
-phrase.load("ro",{"desktop.loading":"LOADING","desktop.connection_help":"Adventure Land needs an internet connection. Check your connection and try reloading. If it still won't load, email hello@adventure.land.","desktop.apology":"Sorry about the wait :)"});
+phrase.load("ro",{"desktop.loading":"SE ÎNCARCĂ","desktop.connection_help":"Adventure Land are nevoie de o conexiune la internet. Verifică-ți conexiunea și încearcă să reîncarci. Dacă tot nu se încarcă, scrie la hello@adventure.land.","desktop.apology":"Scuze pentru așteptare :)"});

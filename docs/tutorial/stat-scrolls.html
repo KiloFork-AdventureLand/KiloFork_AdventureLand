@@ -1,14 +1,14 @@
 <p>{{ phrase("docs.tutorial.new.stat_intro") }}</p>
+<div><span class="tutorial-travel" data-type="npc" data-target="basics"></span></div>
 <p>
 	<span class="tutorial-item" data-item="coat"></span> <span class="tutorial-item" data-item="strscroll"></span> <span class="tutorial-item" data-item="intscroll"></span>
 	<span class="tutorial-item" data-item="dexscroll"></span>
 </p>
-<script>
-	render_tutorial_items();
-</script>
 <p>{{ phrase("docs.tutorial.new.stat_choice") }}</p>
 <hr class="mb15 mt15" />
 <p>{{ phrase("docs.tutorial.new.stat_manual") }}</p>
+<p style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><span class="tutorial-npc" data-npc="scrolls"></span><span>Lucas · Mainland<br>(-464, -96)</span><span class="tutorial-npc" data-npc="newupgrade"></span><span>Cue · Mainland<br>(-207, -220)</span></p>
+<div><span class="tutorial-travel" data-type="npc" data-target="scrolls"></span> <span class="tutorial-travel" data-type="npc" data-target="newupgrade"></span></div>
 <p>{{ phrase("docs.tutorial.new.stat_cost") }}</p>
 <p><span class="tuttask tuttaskaddstats">o</span> {{ task_name("addstats") }} <span class="tuttaskd tuttaskdaddstats" style="display: none">{{ phrase("docs.tutorial.upgrade.done") }}</span></p>
 <p>{{ phrase("docs.tutorial.new.stat_code") }}</p>
@@ -26,7 +26,8 @@
 }
 apply_int().catch(show_json);</div>
 <p>
-	{{ phrase("docs.tutorial.new.references") }}: <span class="rref clickable" onclick="render_function_reference('upgrade')">upgrade</span> ·
-	<span class="rref clickable" onclick="render_function_reference('find_npc')">find_npc</span> · <span class="rref clickable" onclick="render_function_reference('item_grade')">item_grade</span>
+	{{ phrase("docs.tutorial.new.references") }}: <span class="rlabel clickable" onclick="load_documentation('upgrade')">upgrade</span> ·
+	<span class="rlabel clickable" onclick="load_documentation('find_npc')">find_npc</span> · <span class="rlabel clickable" onclick="load_documentation('item_grade')">item_grade</span>
 </p>
 <span class="clickable dlabel" onclick="open_guide('upgrading', get_guide_url('upgrading'))">{{ phrase("tutorial.upgrade.title") }}</span>
+<script>render_tutorial_items();</script>

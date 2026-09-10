@@ -1,4 +1,5 @@
 <p class="tutlead">{{ phrase("docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed") }}</p>
+<div><span class="tutorial-travel" data-type="npc" data-target="basics"></span></div>
 
 <div class="tutlinks">
 	<div
@@ -9,15 +10,6 @@
 		"
 	>
 		{{ phrase("docs.tutorial.upgrade.complete-upgrading-guide") }}
-	</div>
-	<div
-		class="gamebutton gamebutton-small"
-		onclick="
-			btc(event);
-			code_eval('smart_move(&quot;scrolls&quot;)');
-		"
-	>
-		{{ phrase("docs.tutorial.upgrade.go-to-the-scrolls") }}
 	</div>
 </div>
 
@@ -30,6 +22,8 @@
 <div class="tutpath manual">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.upgrade.manual") }}</div>
 	<p>{{ phrase("docs.tutorial.upgrade.buy-one-basic-upgrade-scroll-take-a-cheap") }}</p>
+	<p style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><span class="tutorial-npc" data-npc="scrolls"></span><span>Lucas · Mainland<br>(-464, -96)</span><span class="tutorial-item" data-item="scroll0"></span><span class="tutorial-npc" data-npc="newupgrade"></span><span>Cue · Mainland<br>(-207, -220)</span></p>
+<div><span class="tutorial-travel" data-type="npc" data-target="scrolls"></span> <span class="tutorial-travel" data-type="npc" data-target="newupgrade"></span></div>
 	<p>
 		{{ phrase("docs.tutorial.upgrade.the-item-s-current-grade-decides-which-scroll") }}
 	</p>
@@ -122,3 +116,4 @@ upgrade_once().catch(function (error) {
 		text-align: center;
 	}
 </style>
+<script>render_tutorial_items();</script>

@@ -888,10 +888,11 @@ function update_tutorial_ui() {
 	}
 
 	$(".tutprogress").html(completion);
-	if (X.tutorial.step > 1) $(".flasht").removeClass("flasht");
-	$("#tutorialui").html(phrase.html("game.tutorial.progress", { step: X.tutorial.step + 1, total: G.docs.tutorial.length }));
-	$("#tutorialslider").css("width", ((X.tutorial.step + 1) * 100) / G.docs.tutorial.length + "%");
-	if (X.tutorial.finished || !tutorial_ui) $(".tutorialui").hide();
+	var active = get_tutorial_view();
+	if (active.progress.step > 1) $(".flasht").removeClass("flasht");
+	$("#tutorialui").html(phrase.html("game.tutorial.progress", { step: Math.min(active.progress.step + 1, active.lessons.length), total: active.lessons.length }));
+	$("#tutorialslider").css("width", (Math.min(active.progress.step + 1, active.lessons.length) * 100) / active.lessons.length + "%");
+	if (active.progress.finished || !tutorial_ui) $(".tutorialui").hide();
 	else $(".tutorialui").show();
 }
 
@@ -918,7 +919,8 @@ function update_overlays() {
 			$("#xpui").html(phrase.html("game.hud.experience", { level: character.level, percent: xp }));
 			$("#xpslider").css("width", (character.xp * 100) / character.max_xp + "%");
 		}
-		if (!cached("tutorialtop", X.tutorial.step + "|" + X.tutorial.task + "|" + X.tutorial.progress)) {
+		var tutorial = get_tutorial_view();
+		if (!cached("tutorialtop", tutorial.track + "|" + tutorial.progress.step + "|" + tutorial.progress.task + "|" + tutorial.progress.progress + "|" + tutorial.progress.finished)) {
 			update_tutorial_ui();
 		}
 		if (inventory && !cached("igold", character.gold)) $(".goldnum").html(to_pretty_num(character.gold + (new Date().getDate() == 101 && new Date().getMonth() == 3 ? 1014201800 : 0)));
@@ -1265,6 +1267,7 @@ function the_game(demo) {
 	XYWH = {}; // dimensions - previously D, it was cool while it lasted, renamed to XYWH, so the server.D can be imported into window.D [12/07/18]
 	loader = PIXI.loader;
 	if (!no_graphics) loader.concurrency = 64;
+	if (!no_graphics && window.desktop) desktop.loadImages(loader);
 	loader.on("progress", on_load_progress);
 
 	// Different animations can share a sheet; register each resource only once.
@@ -1583,7 +1586,7 @@ function init_socket(args) {
 			if (!character.xcx.includes(c)) character.xcx.push(c);
 		});
 		if (character.level == 1) {
-			if (X && X.tutorial && !X.tutorial.finished && tutorial_ui) open_tutorial();
+			if (X && !get_tutorial_view().progress.finished && tutorial_ui) open_tutorial();
 			else show_game_guide();
 		}
 		if (character.ctype == "merchant" || recording_mode || 1) options.show_names = true;
@@ -1604,7 +1607,7 @@ function init_socket(args) {
 		// add_log("Warning: A Chrome bug is causing memory leaks, very small but it adds up. They patched the bug, however, that patch didn't make it to our browsers yet","#E08583");
 		$(".charactername").html(character.name);
 		page.title = character.name;
-		if (gameplay == "hardcore") page.title = "Fierce " + character.name;
+		if (gameplay == "hardcore") page.title = phrase("game.title.hardcore", { character: character.name });
 		try {
 			var get = "";
 			if (no_html) get += ((!get && "?") || "&") + "no_html=true";
@@ -1717,7 +1720,7 @@ function init_socket(args) {
 			if (requested_name) parent.character_start_failed_runner(requested_name, data);
 		}
 		draw_trigger(function () {
-			if (is_string(data)) ui_error(data);
+			if (is_string(data)) ui_error(data === "ERROR!" ? phrase.html("response.exception") : data);
 			else ui_error(phrase.message(data, true));
 		});
 	});
@@ -1864,6 +1867,7 @@ function init_socket(args) {
 				ui_log(phrase.html("response.elixir"), "gray");
 				d_text(phrase("response.elixir.floating"), character, { color: "elixir" });
 			} else if (response == "data") {
+				if (data.place == "ikissyou" && data.rewarded === false && data.message) ui_log(phrase.message(data, true), "gray");
 			} else if (response == "invalid") {
 				d_text(phrase("response.invalid.floating"), character);
 			} else if (response == "error") {
@@ -2045,7 +2049,8 @@ function init_socket(args) {
 			} else if (response == "skill_cant_incapacitated") {
 				d_text(phrase("response.skill_cant_incapacitated.floating"), character);
 			} else if (response == "skill_cant_use") {
-				d_text(phrase("response.skill_cant_use.floating"), character);
+				if (data.place == "ikissyou" && data.message) ui_log(phrase.message(data, true), "gray");
+				else d_text(phrase("response.skill_cant_use.floating"), character);
 			} else if (response == "skill_cant_safe") {
 				d_text(phrase("response.skill_cant_safe.floating"), character);
 			} else if (response == "skill_cant_item") {
@@ -2916,16 +2921,17 @@ function init_socket(args) {
 	});
 	socket.on("pm", function (data) {
 		draw_trigger(function () {
+			var message = phrase.message(data);
 			var entity = get_entity(data.id);
 			if (entity) {
-				d_text(data.message, entity, { size: SZ.chat, color: "#BA6B88" });
+				d_text(message, entity, { size: SZ.chat, color: "#BA6B88" });
 				sfx("chat", entity.real_x, entity.real_y);
 			} else {
 				sfx("chat");
 			}
 			var cid = "pm" + (data.to || data.owner);
-			add_pmchat(data.to || data.owner, data.owner, data.message, data.xserver);
-			if (in_arr(cid, docked)) add_chat(data.owner, data.message, "#CD7879");
+			add_pmchat(data.to || data.owner, data.owner, message, data.xserver);
+			if (in_arr(cid, docked)) add_chat(data.owner, message, "#CD7879");
 			call_code_function("trigger_character_event", "pm", { from: data.owner, message: data.message });
 		});
 	});
@@ -2993,12 +2999,7 @@ function init_socket(args) {
 	});
 	socket.on("limitdcreport", function (data) {
 		window.rc_delay = 16;
-		data.calls["!"] =
-			"You've made " +
-			data.climit +
-			" callcosts in 4 seconds. That's tooooo much. This is most probably because you are calling a function like 'move' consecutively. Some calls are also more expensive than others. If you are experiencing issues please email hello@adventure.land or ask for help in Discord/#code_beginner. Ps. You made " +
-			to_pretty_num(data.total) +
-			" calls in total.";
+		data.calls["!"] = phrase("game.call_limit.report", { cost: data.climit, total: to_pretty_num(data.total) });
 		show_json(data.calls);
 	});
 	socket.on("ccreport", function (data) {

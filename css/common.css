@@ -1,4 +1,7 @@
 @import url("fonts/pixel/fontfaces.83601c062a30.css");
+:lang(ar) .CodeMirror,:lang(ar) .code,:lang(ar) pre,:lang(ar) code{
+	font-family: monospace;
+}
 .disableclicks{
 	pointer-events: none;
 }

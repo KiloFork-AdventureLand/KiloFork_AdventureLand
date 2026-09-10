@@ -166,7 +166,7 @@
 	"server.server_message.a_b_testing_is_about_to_start": "A/Bテストがもうすぐ始まります！",
 	"server.server_message.blessed": "{player}が{region} {server_name}に祝福を授けました",
 	"server.server_message.defeated": "{attacker}が{player}を倒しました",
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "{map}で{target}を探そう！「記念日の訪問」でキスを送ると、ケーキ1切れとAnniversary Giftをもらえます。",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "{map}で{target}を探そう！近づいて「君にキス」を使うと、ケーキ1切れとAnniversary Giftをもらえます。",
 	"server.server_message.found_shells": "{player}が{amount}シェルを見つけました",
 	"server.server_message.is_now_level": "{player}がレベル{level}になりました",
 	"server.server_message.is_now_level_2": "{player}がレベル{level}になりました！",
@@ -304,5 +304,8 @@
 	"server.page.steam_news_unavailable": "Steamニュースは利用できません",
 	"server.payment.shells": "{count}シェル",
 	"server.game_log.you_monster": "この怪物め！",
+	"server.game_error.capacity": "現在、{count}人を超えるプレイヤーは受け入れられません",
+	"server.game_error.authentication_failed": "失敗：{reason}",
+	"server.game_error.characters_unconfirmed": "アカウントの他のキャラクターを確認できませんでした。もう一度お試しください。",
 	"server.pm.delivery_failed": "(送信失敗)"
 }

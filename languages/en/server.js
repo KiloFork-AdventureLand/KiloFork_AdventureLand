@@ -336,7 +336,7 @@ module.exports = {
 	// node/server.js:4185; server_message authored display. Keep character, item, monster, map, and product names unchanged. Parameters: {attacker} = attacker.name; {player} = player.name.
 	"server.server_message.defeated": "{attacker} defeated {player}",
 	// node/server_functions.js:2218; anniversary server announcement. Preserve the full reward item name Anniversary Gift, distinct from Gift. Keep character, monster, map, and product names unchanged. Parameters: {target} = next.target; {map} = G.maps[next.map].name.
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Find {target} in {map}! Use your Anniversary Visit to send a kiss for a slice and an Anniversary Gift.",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Find {target} in {map}! Get close and use I Kiss You for a slice and an Anniversary Gift.",
 	// node/server.js:4476; server_message authored display. Keep character, item, monster, map, and product names unchanged. Parameters: {player} = player.name; {amount} = to_pretty_num(amount).
 	"server.server_message.found_shells": "{player} found {amount} shells",
 	// node/server.js:1224; server_message authored display. Keep character, item, monster, map, and product names unchanged. Parameters: {player} = player.name; {level} = player.level.
@@ -611,6 +611,12 @@ module.exports = {
 	"server.payment.shells": "{count} Shells",
 	// node/server.js calculate_player_stats; short rebuke sent before disconnection after repeated invalid XP. Uses the existing game_log display event.
 	"server.game_log.you_monster": "You monster!",
+	// Game login rejected because this server is full. {count} is the numeric maximum concurrent player count, not the number in a party. Translate the whole concise error sentence. Existing English raw message must remain the same. Numeric count selects Intl plural forms, so optional one/few/many/two/zero/other variants may be supplied if grammar requires them.
+	"server.game_error.capacity": "Can't accept more than {count} players at this time",
+	// Game authentication error log. {reason} is a stable technical reason code such as no_character or password_issue. Preserve this placeholder exactly; do not invent or translate its value. Translate only the human failure prefix. The raw English message and reason code remain available to CODE.
+	"server.game_error.authentication_failed": "Failed: {reason}",
+	// Game login could not verify the state of the account's other characters for the existing encouragement mechanism. Ask the player to retry. Other characters are playable characters on their account, not NPCs or party members. This is a temporary verification failure; do not imply deleted characters or a wrong password.
+	"server.game_error.characters_unconfirmed": "Could not confirm your other characters. Please try again.",
 	// Compact parenthesized failure marker sent back by the game server when a cross-server private message cannot be delivered because the target account was not found. Used in the existing private-chat display and floating PM text. Preserve parentheses, use a concise native marker for failed delivery, and never translate player-authored messages. The raw CODE PM event still receives the original (FAILED).
 	"server.pm.delivery_failed": "(FAILED)",
 };

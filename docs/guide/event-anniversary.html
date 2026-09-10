@@ -6,6 +6,7 @@
 	<p>{{ phrase_html("docs.guide.event-anniversary.1-equip-the-emote-open-skills-drag-i") }}</p>
 	<p>{{ phrase_html("docs.guide.event-anniversary.2-select-the-player-close-skills-use-their") }}</p>
 	<p>{{ phrase_html("docs.guide.event-anniversary.3-kiss-get-within-80-range-then-click") }}</p>
+	<p>{{ phrase("docs.guide.event-anniversary.hop-sickness-or-realm-fatigue-prevents-anniversary-visits") }}</p>
 	<p>{{ phrase_html("docs.guide.event-anniversary.your-visit-is-used-up-you-and-the") }}</p>
 	<p>{{ phrase_html("docs.guide.event-anniversary.the-visitor-may-also-receive-an-i-kiss") }}</p>
 	<div class="anniversary-visit-drops"></div>
@@ -25,7 +26,6 @@
 		<div class="anniversary-gift-drops" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:6px"></div>
 	<div class="anniversary-guide-divider"></div>
 	<div style="color:#8B642E">{{ phrase("docs.guide.event-anniversary.event-details") }}</div>
-		<p>{{ phrase("docs.guide.event-anniversary.hop-sickness-or-realm-fatigue-prevents-anniversary-visits") }}</p>
 		<p>{{ phrase("docs.guide.event-anniversary.reachable-non-afk-players-are-chosen-with-newer") }}</p>
 		<p>{{ phrase("docs.guide.event-anniversary.if-the-featured-player-disconnects-or-becomes-unreachable") }}</p>
 		<p>{{ phrase_html("docs.guide.event-anniversary.monsters-also-drop-gifts-and-your-account-s") }}</p>
@@ -35,17 +35,21 @@
 	<div class="anniversary-guide-divider"></div>
 	<div style="color:#8B642E">{{ phrase("docs.guide.event-anniversary.code-find-and-kiss") }}</div>
 	<p>{{ phrase_html("docs.guide.event-anniversary.uses-server-status-anniversary-and-your-visit-condition") }}</p>
+	<p>{{ phrase("docs.guide.event-anniversary.kiss-feedback") }}</p>
 <div class="code">async function visit_featured_player() {
 	var round = server.status.anniversary;
 	var ticket = character.s.anniversary_visit;
+	var status = character.anniversary;
+	if (status &amp;&amp; status.realm === server.region + " " + server.id &amp;&amp;
+		round &amp;&amp; status.round === round.round &amp;&amp; status.reason !== "ready") return show_json(status);
 	if (character.s.hopsickness || character.s.realmfatigue ||
 		!round || !round.active || !round.live || !ticket ||
 		ticket.ms &lt;= 0 || ticket.round !== round.round ||
 		ticket.realm !== server.region + " " + server.id ||
 		Date.now() >= ticket.expires || Date.now() >= round.expires) {
-		return game_log("No Anniversary Visit available right now");
+		return show_json(status || { reason: "no_visit" });
 	}
-	if (round.available === false) return game_log("Waiting for " + round.target + " to return");
+	if (round.available === false) return show_json({ reason: "target_unavailable", target: round.target });
 
 	await smart_move({ map: round.map, x: round.x, y: round.y });
 	var current = server.status.anniversary;
@@ -57,9 +61,10 @@
 
 	var player = get_player(current.target);
 	if (!player || distance(character, player) > 80) {
-		return game_log("The featured player moved. Find them again.");
+		return show_json({ reason: "distance", target: current.target });
 	}
-	await use_skill("ikissyou", player);
+	var result = await use_skill("ikissyou", player);
+	if (result.rewarded === false) show_json(result);
 	// A rewarded visit grants character.s.anniversary_kiss: +10 Frequency and +6 Output for 20 minutes.
 }
 

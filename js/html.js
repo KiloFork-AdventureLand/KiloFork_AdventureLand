@@ -185,7 +185,7 @@ function open_chat_window(type, id, open) {
 		cid = type + id,
 		zindex = 70 + cwindows.length - docked.length,
 		onkeypress = 'last_say=\"' + cid + '\"; if(event.keyCode==13) private_say(\"' + id + '\",$(this).rfval())';
-	if (type == "party") ((name = "Party"), (onkeypress = 'last_say=\"' + cid + '\"; if(event.keyCode==13) party_say($(this).rfval())'));
+	if (type == "party") ((name = phrase.html("interface.load_chat.party")), (onkeypress = 'last_say=\"' + cid + '\"; if(event.keyCode==13) party_say($(this).rfval())'));
 	var html = "<div style='position:fixed; bottom: 0px; left: 0px; background: black; border: 5px solid gray; z-index: " + zindex + "' id='chatw" + cid + "' onclick='last_say=\"" + cid + "\"'>";
 	html +=
 		"<div style='border-bottom: 5px solid gray; text-align: center; font-size: 24px; line-height: 24px; padding: 2px 6px 2px 6px;'><span style='float:left' class='clickable chatb" +
@@ -453,6 +453,7 @@ function anniversary_event_html() {
 function anniversary_event_status_html() {
 	var state = (typeof S != "undefined" && S.anniversary) || {},
 		live = anniversary_live_event(),
+		reason = anniversary_visit_reason(),
 		html = "";
 	if (!state.active) return "<div style='color:#AAA'>" + phrase.html("interface.anniversary_event_status_html.the_anniversary_event_has_ended_you_can_still_open_your") + "</div>";
 	html += "<div style='display:flex;align-items:start;justify-content:space-between;gap:12px;flex-wrap:wrap'>";
@@ -475,10 +476,9 @@ function anniversary_event_status_html() {
 			"<div style='color:#F0B742'>" +
 			(Number.isFinite(remaining) ? phrase.html("interface.time.minutes_left", { count: remaining }) : phrase.html("interface.anniversary_event_status_html.round_in_progress")) +
 			"</div></div>";
-		if (state.available === false)
-			html +=
-				"<div style='margin-top:10px;color:#AAA'>" + phrase.html("interface.anniversary_event_status_html.waiting_for_to_return_to_a_reachable_spot_their_place", { target: state.target }) + "</div>";
-		else if (host) html += "<div style='margin-top:10px'>" + phrase.html("interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses") + "</div>";
+		if (state.available === false) {
+			if (reason != "target_unavailable") html += "<div style='margin-top:10px;color:#AAA'>" + phrase.html("client.anniversary_kiss.waiting_for_to_return_the_round_s_timer_is_still", { target: state.target }) + "</div>";
+		} else if (host) html += "<div style='margin-top:10px'>" + phrase.html("interface.anniversary_event_status_html.stay_nearby_and_welcome_your_visitors_each_visitor_who_uses") + "</div>";
 		else
 			html +=
 				"<div style='display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px'>" +
@@ -504,8 +504,8 @@ function anniversary_event_status_html() {
 			"</div><div style='font-size:22px;line-height:24px;color:#AAA'>" +
 			phrase.html("interface.anniversary_event_status_html.find_the_featured_player_and_send_a_kiss_before_your") +
 			"</div>";
-	if (live && !host && !anniversary_can_visit())
-		html += "<div style='color:#AAA;margin-top:8px'>" + phrase.html("interface.anniversary_event_status_html.no_anniversary_visit_remaining_for_this_round_be_online_when") + "</div>";
+	if (live && reason && reason != "host")
+		html += "<div style='color:#AAA;margin-top:8px'>" + phrase.html("interface.anniversary_status." + reason) + "</div>";
 	return html;
 }
 
@@ -802,7 +802,7 @@ function render_server() {
 		if (S[type]) {
 			var scolor = "#ECECEC",
 				lcolor = "#ECECEC",
-				lphrase = "EVENT!",
+				lphrase = phrase.html("interface.server.event"),
 				s = type;
 			if (type == "goobrawl") ((lcolor = "#FF5D34"), (s = "rgoo"));
 			if (type == "abtesting") ((lcolor = "#E10029"), (s = "thehelmet"));
@@ -885,7 +885,12 @@ function render_server() {
 
 function render_character_sheet() {
 	var html = "<div style='background-color: black; border: 5px solid gray; padding: 20px; font-size: 24px; display: inline-block; vertical-align: top; text-align: left' class='disableclicks'>";
-	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.class") + "</span> " + to_title(character.ctype) + "</div>";
+	html +=
+		"<div><span style='color:gray'>" +
+		phrase.html("interface.character_sheet.class") +
+		"</span> " +
+		html_escape(phrase.definition("class", character.ctype, "name", to_title(character.ctype))) +
+		"</div>";
 	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.level") + "</span> " + character.level + "</div>";
 	html += "<div><span style='color:gray'>" + phrase.html("interface.character_sheet.xp") + "</span> " + to_pretty_num(character.xp) + " / " + to_pretty_num(character.max_xp) + "</div>";
 	var divider = 1,
@@ -2632,7 +2637,7 @@ function render_drop(def, mult, color) {
 		});
 		return html;
 	}
-	html += "<div style='position: relative; white-space: nowrap;'>";
+	html += "<div dir='ltr' style='position: relative; white-space: nowrap;'>";
 	var skin = "",
 		actual = undefined;
 	if (G.items[def[1]]) {
@@ -3480,11 +3485,13 @@ function open_guide(name, url) {
 }
 
 function get_tutorial_view(track) {
-	return { lessons: track === "merchant" ? G.docs.merchant_tutorial : G.docs.tutorial, progress: (window.X && (track === "merchant" ? X.merchant_tutorial : X.tutorial)) || { step: 0, completed: [], pending: [] } };
+	if (track === undefined) track = window.character && character.ctype === "merchant" ? "merchant" : "";
+	return { track: track === "merchant" ? "merchant" : "", lessons: track === "merchant" ? G.docs.merchant_tutorial : G.docs.tutorial, progress: (window.X && (track === "merchant" ? X.merchant_tutorial : X.tutorial)) || { step: 0, completed: [], pending: [] } };
 }
 
 function render_tutorial_items() {
 	if (window.no_graphics) return;
+	render_tutorial_travel();
 	$(".tutorial-item").each(function () {
 		var name = $(this).attr("data-item");
 		if ($(this).attr("data-class-weapon") === "true") {
@@ -3497,11 +3504,23 @@ function render_tutorial_items() {
 	});
 	$(".tutorial-npc").each(function () {
 		var npc = G.npcs[$(this).attr("data-npc")];
-		if (npc) $(this).css({ display: "inline-block", direction: "ltr" }).html(sprite(npc.skin, { height: 62, overflow: true }));
+		if (npc) $(this).css({ display: "inline-flex", direction: "ltr", lineHeight: 0 }).html(sprite(npc.skin, { scale: 3, width: 80, height: (G.dimensions[npc.skin] || G.dimensions.default_character)[1] * 3, overflow: true }));
 	});
 	$(".tutorial-monster").each(function () {
 		var name = $(this).attr("data-monster");
-		if (G.monsters[name]) $(this).css({ display: "inline-block", direction: "ltr" }).html(sprite(name, { height: 62, overflow: true }));
+		if (G.monsters[name]) $(this).css({ display: "inline-flex", direction: "ltr", lineHeight: 0 }).html(sprite(name, { scale: 3, width: 80, height: (G.dimensions[G.monsters[name].skin || name] || G.dimensions.default_character)[1] * 3, overflow: true }));
+	});
+}
+
+function render_tutorial_travel() {
+	if (window.no_graphics) return;
+	$(".tutorial-travel").each(function () {
+		var type = $(this).attr("data-type"), id = $(this).attr("data-target");
+		var definitions = type === "npc" ? G.npcs : type === "monster" ? G.monsters : type === "map" ? G.maps : null;
+		var destination = definitions && definitions[id];
+		$(this).empty();
+		if (!window.character || !destination || !/^[a-zA-Z0-9_]+$/.test(id)) return;
+		$(this).html("<span class='gamebutton gamebutton-small mr5 mt5' onclick='btc(event); if(window.character) smart_smart_move(\"" + type + "\",\"" + id + "\")'>" + phrase.html("docs.guide.basics.move") + " · " + html_escape(destination.name || id) + "</span>");
 	});
 }
 
@@ -3510,10 +3529,10 @@ function turn_tutorial_lore(direction) {
 	var container = $(".tutorial-lore"), page = Math.max(1, Math.min(5, Number(container.attr("data-page")) + direction));
 	if (!container.length) return;
 	var available = viewport_width() - 60, divisor = 1;
-	while (1672 / divisor > available && divisor < 16) divisor *= 2;
-	container.closest(".guide-article").css("width", 1672 / divisor + 10);
+	while (960 / divisor > available && divisor < 16) divisor *= 2;
+	container.closest(".guide-article").css("width", 960 / divisor + 10);
 	container.attr("data-page", page);
-	container.find("img").attr("src", "/images/tutorial/lore/" + container.attr("data-language") + "/page-0" + page + ".jpg").attr("alt", container.find("img").attr("data-alt-" + page)).css({ width: 1672 / divisor, height: 944 / divisor });
+	container.find("img").attr("src", "/images/tutorial/lore/" + container.attr("data-language") + "/page-0" + page + ".jpg?v=native-20260909").attr("alt", container.find("img").attr("data-alt-" + page)).css({ width: 960 / divisor, height: 540 / divisor });
 	container.find(".tutorial-lore-prev").css("visibility", page === 1 ? "hidden" : "visible");
 	container.find(".tutorial-lore-skip").css("visibility", page === 5 ? "hidden" : "visible");
 	container.find(".tutorial-lore-next").toggle(page < 5);
@@ -3559,7 +3578,9 @@ function render_tutorial_comparison(data, accessories) {
 }
 
 function open_tutorial(step, track) {
-	var view = get_tutorial_view(track);
+	// A numbered lesson without a track remains an adventurer lesson for existing links.
+	var view = get_tutorial_view(track === undefined && step !== undefined && step !== null ? "" : track);
+	track = view.track;
 	if (step === undefined || step === null) step = Math.min(view.progress.step, view.lessons.length - 1);
 	step = Math.max(0, Math.min(parseInt(step) || 0, view.lessons.length - 1));
 	api_call("load_article", { name: view.lessons[step].key, tutorial: "" + step, track: track, url: "/docs/tutorial/" + view.lessons[step].key });
@@ -3570,11 +3591,12 @@ function render_tutorial_index(track) {
 		while (modal_count && !$(".modal:last .tutorial-index").length) hide_modal(true);
 		hide_modal();
 	}
-	var view = get_tutorial_view(track), progress = view.progress,
-		current_step = progress.step || 0,
+	var view = get_tutorial_view(track), progress = view.progress;
+	track = view.track;
+	var current_step = progress.step || 0,
 		html = "<div class='tutorial-index' data-track='" + (track === "merchant" ? "merchant" : "") + "' style='width: 520px; text-align: left'>";
 	html += "<div class='gamebutton block mb5' style='text-align:center'>" + phrase.html("interface.tutorial_index.tutorial_lessons") + "</div>";
-	html += "<div class='gamebutton block mb5' onclick='render_tutorial_index()'>" + phrase.html("interface.tutorial.main_track") + "</div>";
+	html += "<div class='gamebutton block mb5' onclick='render_tutorial_index(\"\")'>" + phrase.html("interface.tutorial.main_track") + "</div>";
 	html += "<div class='gamebutton block mb5' onclick='render_tutorial_index(\"merchant\")'>" + phrase.html("interface.tutorial.merchant_track") + "</div>";
 	view.lessons.forEach(function (lesson, step) {
 		var completed = progress.completed_lessons ? progress.completed_lessons.indexOf(lesson.key) !== -1 : step < current_step;
@@ -3615,21 +3637,26 @@ function render_tutorial(article, step, url, track) {
 	if (step == view.lessons.length - 1) cphrase = phrase.html("interface.tutorial.complete");
 	if (tutorial.key === "lore") return render_tutorial_lore(article, url, true);
 
-	var html = "<div class='guide-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: justify'><div style='margin-top:-15px'></div>";
+	var html = "<div class='guide-article tutorial-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: start'><div style='margin-top:-15px'></div>";
 	html +=
 		"<div style='margin-bottom: 8px;'><span style='color:#2B9EC9'>" +
 		phrase.definition("tutorial", tutorial.key, "title", tutorial.title) +
-		"</span> <div style='float:right; color: #585859; color: #906CB4'>[" +
+		"</span> <div style='float:right; color:#906CB4'><span class='clickable' onclick='render_tutorial_index(\"" + last_rendered_track + "\")'>" +
+		phrase.html("interface.tutorial.lessons") +
+		"</span> [" +
 		(step + 1) +
 		"/" +
 		view.lessons.length +
-		"] <span class='clickable' style='font-size:20px; color:#7A7A7A' onclick='render_tutorial_index(\"" + last_rendered_track + "\")'>" +
-		phrase.html("interface.tutorial.lessons") +
-		"</span></div></div>";
+		"]</div></div>";
 	html += "<div style='margin-left:-24px; margin-right: -24px; border-bottom: 5px solid gray'></div>";
 	html += article;
 	html += "<div style='margin-left:-24px; margin-right: -24px; border-bottom: 5px solid gray'></div>";
-	html +=
+	if (window.inside === "docs") {
+		html += "<div class='tutorial-docs-navigation' style='display:flex;justify-content:space-between;gap:12px;margin-top:16px'>";
+		if (step > 0) html += "<div class='gamebutton' onclick='open_tutorial(" + (step - 1) + ",\"" + last_rendered_track + "\")'>" + phrase.html("interface.learn_article.lt_previous") + "</div>";
+		if (step + 1 < view.lessons.length) html += "<div class='gamebutton' style='margin-left:auto' onclick='open_tutorial(" + (step + 1) + ",\"" + last_rendered_track + "\")'>" + phrase.html("interface.learn_article.next_gt") + "</div>";
+		html += "</div>";
+	} else html +=
 		"<div class='tutorial-footer' style='margin-top: 8px; margin-bottom: -16px'><span style='color: #D67D23'>" +
 		phrase.html("interface.tutorial.completion") +
 		" " +
@@ -3729,12 +3756,12 @@ function render_function_reference(n, f, c) {
 		rid = randomStr(10);
 	if (render_function_html) {
 		render_learn_article(render_function_html + "<textarea class='codemirror" + rid + "'></textarea>", { url: "/docs/code/functions/" + n });
-		$(".codemirror" + rid).codemirror({ value: "//Source code of: " + n + "\n" + f.toString(), hints: true });
+		$(".codemirror" + rid).codemirror({ value: "// " + phrase("docs.reference.source_code") + ": " + n + "\n" + f.toString(), hints: true });
 		render_function_html = "";
 	} else {
 		html += "<textarea class='codemirror" + rid + "'></textarea>";
 		show_modal(html, { wwidth: min(viewport_width() - 60, 1200), url: "/docs/code/functions/" + n });
-		$(".codemirror" + rid).codemirror({ value: "//Source code of: " + n + "\n" + f.toString(), hints: true });
+		$(".codemirror" + rid).codemirror({ value: "// " + phrase("docs.reference.source_code") + ": " + n + "\n" + f.toString(), hints: true });
 		position_modals();
 	}
 }
@@ -5669,8 +5696,9 @@ function on_drop(event) {
 		swap = false,
 		move = false;
 	var element = $(document.getElementById(data)),
-		target = $(event.target);
-	while (target && target.parent() && target.attr("ondrop") == undefined) target = target.parent();
+		target = $(event.target).closest("[ondrop]");
+	// The item or drop container may have disappeared during a UI update.
+	if (!element.length || !target.length) return;
 	var cnum = target.data("cnum"),
 		slot = target.data("slot"),
 		strnum = target.data("strnum"),
@@ -5882,7 +5910,7 @@ function item_container(item, actual) {
 			"px; opacity: " +
 			(item.s_op || 0.36) +
 			";' src='" +
-			spack.file +
+			(window.desktop ? desktop.imageUrl(spack.file) : spack.file) +
 			"' draggable='false' />";
 		html += "</div>";
 		html += "</div>";
@@ -5914,7 +5942,7 @@ function item_container(item, actual) {
 			"px; margin-left: -" +
 			x * size +
 			"px;' src='" +
-			pack.file +
+			(window.desktop ? desktop.imageUrl(pack.file) : pack.file) +
 			"' draggable='false' />";
 		html += "</div>";
 		if (actual && actual.name == "monsterbox") {
@@ -5931,7 +5959,7 @@ function item_container(item, actual) {
 				"px; margin-left: -" +
 				(xx * size) / 2 +
 				"px;' src='" +
-				pack.file +
+				(window.desktop ? desktop.imageUrl(pack.file) : pack.file) +
 				"' draggable='false' />";
 			html += "</div>";
 		}
@@ -7049,9 +7077,11 @@ function load_character_list() {
 					server_region +
 					"/" +
 					server_identifier +
-					"/' target='_blank' class='cancela' style='color: #4C9BC8'>" +
+					"/' target='_blank'" +
+					(is_tauri ? " onclick='tauri_create_subwindow(this.href); return false;'" : "") +
+					" class='cancela' style='color: #4C9BC8'>" +
 					phrase.html("interface.load_character_list.deploy") +
-					"</span>"));
+					"</a>"));
 		if (player.name != character.name && player.name != "Hidden")
 			party += " <span style='color: #A255BA' class='clickable' onclick='hide_modal(); cpm_window(\"" + player.name + "\");'>" + phrase.html("interface.chat.private_message_short") + "</span>";
 		if (name == "Hidden") name = "<span style='color:gray'>" + phrase.html("interface.load_character_list.hidden") + "</span>";
@@ -7459,7 +7489,7 @@ function sprite_image(name, args) {
 			IID[name][1] * scale +
 			"px;' \
 		src='" +
-			IID[name][7] +
+			(window.desktop ? desktop.imageUrl(IID[name][7]) : IID[name][7]) +
 			"'/></div>"
 		);
 		// Math.ceil((IID[name][4]-width)/2)

@@ -10,15 +10,7 @@
 	>
 		{{ phrase("docs.tutorial.learntofight.combat-controls") }}
 	</div>
-	<div
-		class="gamebutton gamebutton-small"
-		onclick="
-			btc(event);
-			code_eval('smart_move(&quot;goo&quot;)');
-		"
-	>
-		{{ phrase("docs.tutorial.learntofight.go-to-the-goos") }}
-	</div>
+	<span class="tutorial-travel" data-type="monster" data-target="goo"></span>
 </div>
 
 {% for task in tutorial_data("learntofight").tasks %} {% if loop.first %}
@@ -29,7 +21,7 @@
 
 <div class="tutpath manual">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.learntofight.manual") }}</div>
-	<p>{{ phrase("docs.tutorial.learntofight.left-click-a-goo-to-target-it-move") }}</p>
+	<p>{{ phrase("docs.tutorial.new.farming_intro") }}</p>
 	<p>{{ phrase("docs.tutorial.learntofight.watch-your-hp-potions-are-brave-little-bottles") }}</p>
 </div>
 
@@ -107,3 +99,4 @@ loot();</div>
 		text-align: center;
 	}
 </style>
+<script>render_tutorial_items();</script>

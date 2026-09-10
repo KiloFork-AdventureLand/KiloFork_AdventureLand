@@ -166,7 +166,7 @@
 	"server.server_message.a_b_testing_is_about_to_start": "A/B Testing скоро начнётся!",
 	"server.server_message.blessed": "{player} благословляет {region} {server_name}",
 	"server.server_message.defeated": "{attacker} побеждает {player}",
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Найдите {target} на карте {map}! Используйте «Юбилейный визит», чтобы отправить поцелуй и получить кусочек и Anniversary Gift.",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Найдите {target} на карте {map}! Подойдите ближе и используйте «Я тебя целую», чтобы получить кусочек торта и Anniversary Gift.",
 	"server.server_message.found_shells": "{player} находит ракушки: {amount}",
 	"server.server_message.is_now_level": "{player} достигает уровня {level}",
 	"server.server_message.is_now_level_2": "{player} достигает уровня {level}!",
@@ -304,9 +304,14 @@
 	"server.page.steam_news_unavailable": "Новости Steam недоступны",
 	"server.payment.shells": "{count} ракушек",
 	"server.game_log.you_monster": "Ну ты и чудовище!",
+	"server.game_error.capacity": "Сейчас нельзя принять больше {count} игроков",
+	"server.game_error.authentication_failed": "Ошибка: {reason}",
+	"server.game_error.characters_unconfirmed": "Не удалось проверить остальных ваших персонажей. Попробуйте ещё раз.",
+	"server.pm.delivery_failed": "(НЕ ДОСТАВЛЕНО)",
+	"server.game_error.capacity.one": "Сейчас нельзя принять больше {count} игрока",
+	"server.game_error.capacity.other": "Сейчас нельзя принять больше {count} игроков",
 	"server.payment.shells.few": "{count} ракушки",
 	"server.payment.shells.many": "{count} ракушек",
 	"server.payment.shells.one": "{count} ракушка",
-	"server.payment.shells.other": "{count} ракушки",
-	"server.pm.delivery_failed": "(НЕ ДОСТАВЛЕНО)"
+	"server.payment.shells.other": "{count} ракушки"
 }

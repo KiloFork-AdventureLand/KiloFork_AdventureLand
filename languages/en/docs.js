@@ -1,5 +1,13 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Tutorial: concrete first-use instructions; preserve NPC, map and item names and CODE identifiers.
+	"docs.tutorial.new.shop_open": "Return to the town square and stop moving. Open INV, click the Merchant Stand in your bag, then choose Open. Keep the stand in your inventory. Click your character to see the shop's trade slots.",
+	// Tutorial: concrete first-use instructions; preserve NPC, map and item names and CODE identifiers.
+	"docs.tutorial.new.shop_listing": "Drag an item you want to sell from your bag into an empty trade slot. Set the quantity and gold price per item, then choose Put Up For Sale. Check other players' prices first; the suggested price is not a promise that someone will buy it. Stay online with the stand open. To close it, click the stand in your bag and choose Close.",
+	// Tutorial: concrete first-use instructions; preserve NPC, map and item names and CODE identifiers.
+	"docs.tutorial.new.gather_start": "For your first fishing attempt, go to the western shore of Mainland near Tristian. Close your stand, equip the Rod in your main hand, and stop by the water with at least 120 MP and an empty bag slot. Open SKILLS and drag Fishing to a hotbar key, then press that key. Mining works the same way with a Pickaxe in the Mining Tunnel south of Mainland. Wait for the attempt to finish; finding nothing is possible, and some tools can break.",
+	// Anniversary guide: inspect the existing character state and terminal skill result. Keep character.anniversary, rewarded and reason as CODE identifiers.
+	"docs.guide.event-anniversary.kiss-feedback": "Your character.anniversary state explains reward eligibility. A kiss result includes rewarded and reason fields. A permanently unlocked kiss can play without giving rewards.",
 	// Monster achievement stat bonuses require carrying Tracktrix; these are score thresholds, not raw kill counts.
 	"docs.tutorial.tracktrix.achievements": "Monster achievements grant stat bonuses while you carry Tracktrix. Your account's highest score for each monster counts—not the sum of your characters' scores.",
 	"docs.tutorial.tracktrix.goo_rewards": "For Goo, 10 points grant +5 HP; 100 points add another +10 HP.",
@@ -21,9 +29,9 @@ module.exports = {
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.lore_intro": "Welcome to Adventure Land! Every adventurer starts somewhere. Yours begins with a talking Goo. Enjoy the story—we’ll take your first steps together.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.farming_intro": "Start with one Goo at a time. Keep potions ready and loot each chest. Your first goal is a repeatable fight that leaves you with more gold than you spend on potions.",
+	"docs.tutorial.new.farming_intro": "Walk south from Mainland's town square to find Goo near Divian and Leo. Start with one Goo at a time: left-click to select it, move into range, then right-click to attack. Click its chest for loot. Keep potions ready; aim for fights that earn more gold than you spend recovering.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.farming_next": "Buy a weapon and armor your class can equip. Improve a spare weapon first, then your armor. Keep using your old equipment until its replacement is ready.",
+	"docs.tutorial.new.farming_next": "Gabriel sells basic weapons and armor beside Ernis in Mainland's town square. Right-click Gabriel, click an item to check its class requirements and price, then buy it. Open INV and right-click the equipment to wear it. Improve a spare weapon first, then your armor; keep using your old equipment until its replacement is ready.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.farming_goal": "Try a stronger monster only when you can finish several fights safely. If potions cost more than the loot earns, or you keep dying, return to an easier target and improve your equipment.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
@@ -33,7 +41,7 @@ module.exports = {
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.stat_choice": "For a first damage-focused set, use STR for Warrior or Paladin, DEX for Ranger or Rogue, and INT for Mage or Priest. Merchants also use INT. Other choices can help with health or defense.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.stat_manual": "Buy a plain +0 Coat and the matching stat scroll from the scroll seller. Unequip the Coat if necessary. At the upgrade shrine, place the Coat and stat scroll in the slots, check the preview, and apply it. Equip the Coat afterward.",
+	"docs.tutorial.new.stat_manual": "Buy a plain +0 Coat from Gabriel in Mainland's town square. Buy your chosen STR, INT, or DEX stat scroll from Lucas, west of the square. Then visit Cue, northwest of Gabriel, and choose Upgrade. Unequip the Coat, place it and the stat scroll in the upgrade slots, check the preview, and apply it. Equip the Coat again afterward.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.stat_cost": "A normal-grade Coat needs one stat scroll. Higher grades need more copies; check the shrine before buying. Applying a different stat replaces the old choice—it does not add a second stat.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
@@ -66,29 +74,29 @@ module.exports = {
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.hunting_choice": "Accept a hunt when you are ready to fight. If the assigned monster is too dangerous, keep farming safely instead. This lesson does not require completing a hunt.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.merchant_intro": "Your merchant can keep your fighters supplied, carry loot home, trade with other players, and gather materials. Start with one useful job: keep a small stock of HP and MP potions for your party.",
+	"docs.tutorial.new.merchant_intro": "Your merchant can bring potions to your fighters, carry loot home, and run a shop. Start with a small supply run, not an expensive purchase. Open COM, choose Characters, and open your merchant alongside a fighter on the same server. If you have not created a merchant yet, create one from the character selection page.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.merchant_budget": "Keep potion money separate from trading money. Buy small amounts first. Do not spend everything on a stand, donations, or equipment before you can afford your next supply run.",
+	"docs.tutorial.new.merchant_budget": "To give your merchant starting gold by hand, take a fighter into the bank on Mainland, deposit some gold with Mr. Rich, and leave. Then enter with your merchant and withdraw it. Only one of your characters can be inside the bank at a time. Save enough for your fighters' next potions before spending on a stand or donations.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.supplies_manual": "Buy potions at a potion seller. Stand near the character you want to supply and use the inventory's send action. Bring spare loot back to the bank, or sell only items you deliberately chose to sell.",
+	"docs.tutorial.new.supplies_manual": "Ernis sells HP and MP potions beside Gabriel in Mainland's town square. Right-click Ernis, click a potion, set the quantity, and buy a small stack. To share it by hand, store it with a bank item clerk, leave the bank, then collect it with your other character. For a direct delivery without visiting the bank, stand near the recipient and use the CODE example below.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.supplies_code": "Replace FriendName with your nearby character's name. This example buys 20 HP potions, then sends 10. Buying needs a nearby seller or a Computer; sending needs the recipient nearby.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.shop_manual": "Buy a Merchant Stand, keep it in your inventory, and open it while standing still. Put an item in a trade slot and choose its price and quantity. Closing the stand hides the listing; it does not sell the item.",
+	"docs.tutorial.new.shop_manual": "Your first shop starts with Divian, south of Mainland's town square. Right-click her, choose the button to buy a stand, then click Merchant Stand in her shop and buy it for 40,000 gold. Keep money for potions; you can come back to this lesson when you can afford one.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.shop_code": "With a Merchant Stand in inventory, this opens the stand. Add your first listing manually so you can inspect the item and price before offering it to other players.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.xp_trade": "Player trading: merchants gain XP from eligible purchases and sales through player stands. The XP is based on the trade's tax. Trades between your own characters do not qualify.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.xp_donate": "Donations: visit the Lost & Found office to exchange gold for merchant XP. The rate depends on the realm's treasury. Donations spend your gold immediately; they are optional, not a first goal.",
+	"docs.tutorial.new.xp_donate": "For donations, enter Wizard's Crib west of Mainland's town square and talk to Ron at Lost & Found. Choose Donate, enter a gold amount, and read the XP preview before confirming. The rate depends on the server's treasury. This spends your gold; it is optional, so keep your potion money first.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.xp_combat": "Open stands: the server periodically awards XP to online merchants with an open stand. This is not a timer that starts when you open your shop. Merchants do not earn ordinary monster-kill or party-kill XP.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.xp_gather": "Gathering gives items, not a fixed XP reward per attempt. Selling gathered materials to other players can then earn trade XP.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.gather_manual": "At merchant level 16, equip a Rod to fish or a Pickaxe to mine. Stand still in a suitable gathering zone with enough MP and free inventory space. Some attempts find nothing; tools with a break chance can break.",
+	"docs.tutorial.new.gather_manual": "Gathering unlocks at merchant level 16. Start with a Rod: Leo, south of Mainland's town square, crafts one from a Staff, one Spider Silk, and 100 gold. A Pickaxe needs the same ingredients plus a Blade. Gabriel sells Staff and Blade; Spider Silk drops from Spiders or can be bought from another player. Right-click Leo and choose Recipes to inspect the tool, then Craft when you have its ingredients.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
-	"docs.tutorial.new.delivery_manual": "Merrit delivers Market Parcels to eligible stocked stands in Mainland's square. Leave room around NPCs and other shops. Her guide explains the waiting time, spacing, and parcel rewards.",
+	"docs.tutorial.new.delivery_manual": "Merrit visits open shops in Mainland's town square. You do not accept a delivery quest: keep an eligible item listed for sale, stay online, and leave room around NPCs and other shops. Her guide below shows the delivery area, eligible listings, and waiting time. When a Market Parcel arrives, keep it and follow the guide to exchange it for rewards.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"docs.tutorial.new.merchant_finish": "Choose your next job: a supply run, one carefully priced listing, or gathering once you reach level 16. You can return to these lessons whenever your merchant needs a new goal.",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
@@ -3973,8 +3981,7 @@ module.exports = {
 	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
 	"docs.guide.event-anniversary.gift-drops-one-prize": "Anniversary Gift drops — one prize",
 	// docs/guide/event-anniversary.html:28; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.guide.event-anniversary.hop-sickness-or-realm-fatigue-prevents-anniversary-visits":
-		"Hop Sickness or Realm Fatigue prevents Anniversary Visits and kiss rewards. Merchants can take part only on their home server. These rules apply to the featured player too.",
+	"docs.guide.event-anniversary.hop-sickness-or-realm-fatigue-prevents-anniversary-visits": "Hop Sickness or Realm Fatigue blocks kiss rewards and the kiss buff. Merchants must be on their home server. You must be eligible when the player is chosen; clearing a penalty later does not grant a Visit for that round. Check event INFO for your reason. These rules apply to the featured player too.",
 	// docs/guide/event-anniversary.html:5; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.event-anniversary.how-to-kiss": "How to Kiss",
 	// docs/guide/event-anniversary.html:30; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5128,14 +5135,13 @@ module.exports = {
 	"docs.tutorial.attack.hello-world": "Hello World",
 	// docs/tutorial/bank.html:52; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["bank_deposit","bank_store","bank_retrieve"].
 	"docs.tutorial.bank.bank-deposit-bank-store-bank-retrieve":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">bank_deposit</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">bank_store</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">bank_retrieve</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">bank_deposit</span> · <span class="rlabel" onclick="load_documentation($(this).html())">bank_store</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">bank_retrieve</span>',
 	// docs/tutorial/bank.html:11; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.bank.banking-guide": "BANKING GUIDE",
 	// docs/tutorial/bank.html:27; Documentation span prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.bank.done": "DONE",
 	// docs/tutorial/bank.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Mr. Rich","Ent"].
-	"docs.tutorial.bank.enter-the-bank-to-the-right-of-the":
-		"Enter the bank to the right of the town square. Open an item clerk, move one item into storage, then visit Mr. Rich to deposit a little gold.",
+	"docs.tutorial.bank.enter-the-bank-to-the-right-of-the": "Enter the bank just east of Ernis and Gabriel in Mainland's town square. Right-click Gabrielle, an item clerk inside, and drag one item from your bag into an empty storage slot. Drag it back to retrieve it. For gold, talk to Mr. Rich at the back of the bank, enter an amount, and choose Deposit or Withdraw.",
 	// docs/tutorial/bank.html:20; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.bank.go-to-the-bank": "GO TO THE BANK",
 	// docs/tutorial/bank.html:31; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5155,8 +5161,7 @@ module.exports = {
 	"docs.tutorial.compound.before-risking-rare-pieces-read-the-full-guide":
 		'<span class="hlabel">Before risking rare pieces:</span> Read the full guide. Scroll grades, offerings, grace, and the value of all three inputs matter.',
 	// docs/tutorial/compound.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Compound Scroll","Cue"].
-	"docs.tutorial.compound.bring-cue-three-accessories-with-the-same-name":
-		"Bring Cue three accessories with the same name and level, plus a compatible Compound Scroll. Place all four, read the chance, then decide.",
+	"docs.tutorial.compound.bring-cue-three-accessories-with-the-same-name": "Save three +0 Rings of Small Joys from Mainland monster loot, or buy matching copies from other players. Basic equipment shops do not sell these rings. Buy a basic Compound Scroll from Lucas, west of Mainland's town square. Right-click Cue, northwest of Gabriel, and choose Combine. Drag the three rings and scroll into the four slots, read the chance, then decide. You can also use three other compoundable accessories with the same name and level.",
 	// docs/tutorial/compound.html:61; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["CONFIRM_COMPOUND","true"].
 	"docs.tutorial.compound.calculation-mode-consumes-nothing-read-its-chance-then":
 		'Calculation mode consumes nothing. Read its chance, then change <span class="dlabel">CONFIRM_COMPOUND</span> to <span class="dlabel">true</span> only if you accept the risk.',
@@ -5164,7 +5169,7 @@ module.exports = {
 	"docs.tutorial.compound.complete-compounding-guide": "COMPLETE COMPOUNDING GUIDE",
 	// docs/tutorial/compound.html:63; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["compound","item_grade","locate_item"].
 	"docs.tutorial.compound.compound-item-grade-locate-item":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">compound</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">item_grade</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">locate_item</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">compound</span> · <span class="rlabel" onclick="load_documentation($(this).html())">item_grade</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">locate_item</span>',
 	// docs/tutorial/compound.html:1; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.compound.compounding-turns-three-matching-accessories-into-one-stronger": "Compounding turns three matching accessories into one stronger accessory.",
 	// docs/tutorial/compound.html:27; Documentation span prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5179,7 +5184,7 @@ module.exports = {
 	"docs.tutorial.compound.with-three-0-rings-of-joy-and-a": "With three copies of Ring of Small Joys at +0 and one Compound Scroll in your bag:",
 	// docs/tutorial/crafting-exchanges.html:53; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["auto_craft","craft","dismantle","exchange"].
 	"docs.tutorial.crafting-exchanges.auto-craft-craft-dismantle-exchange":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">craft</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">dismantle</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">exchange</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">auto_craft</span> · <span class="rlabel" onclick="load_documentation($(this).html())">craft</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">dismantle</span> · <span class="rlabel" onclick="load_documentation($(this).html())">exchange</span>',
 	// docs/tutorial/crafting-exchanges.html:58; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.tutorial.crafting-exchanges.careful-crafting-dismantling-and-exchanging-consume-their-inputs":
 		'<span class="hlabel">Careful:</span> Crafting, dismantling, and exchanging consume their inputs. Inspect first; act second.',
@@ -5190,8 +5195,7 @@ module.exports = {
 	// docs/tutorial/crafting-exchanges.html:27; Documentation span prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.crafting-exchanges.done": "DONE",
 	// docs/tutorial/crafting-exchanges.html:33; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Xyn"].
-	"docs.tutorial.crafting-exchanges.exchangeable-items-show-their-required-quantity-xyn-handles":
-		"Exchangeable items show their required quantity. Xyn handles many exchanges; quest and event collectors handle their own. Check the possible rewards before surrendering a rare stack.",
+	"docs.tutorial.crafting-exchanges.exchangeable-items-show-their-required-quantity-xyn-handles": "Xyn, north of Mainland's town square, handles many exchanges. For example, save Seashells from the shore, click one in your bag to check the required quantity, then take the stack to Xyn. Right-click Xyn, place the stack in the exchange slot, inspect the possible rewards, and choose Exchange. Other quest and event collectors accept their own items. Exchanges consume what you hand over.",
 	// docs/tutorial/crafting-exchanges.html:20; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.crafting-exchanges.exchanges-quests": "EXCHANGES & QUESTS",
 	// docs/tutorial/crafting-exchanges.html:31; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5223,7 +5227,7 @@ module.exports = {
 	"docs.tutorial.events-status.manual": "MANUAL",
 	// docs/tutorial/events-status.html:54; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["on_game_event","smart_move","join"].
 	"docs.tutorial.events-status.on-game-event-smart-move-join":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">on_game_event</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">smart_move</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">join</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">on_game_event</span> · <span class="rlabel" onclick="load_documentation($(this).html())">smart_move</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">join</span>',
 	// docs/tutorial/events-status.html:41; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"].
 	"docs.tutorial.events-status.optional-code": "OPTIONAL CODE",
 	// docs/tutorial/events-status.html:21; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5286,7 +5290,7 @@ module.exports = {
 	"docs.tutorial.interface.items-inventory": "ITEMS & INVENTORY",
 	// docs/tutorial/interface.html:36; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["locate_item","equip","use_hp_or_mp"].
 	"docs.tutorial.interface.locate-item-equip-use-hp-or-mp":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">locate_item</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">equip</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">use_hp_or_mp</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">locate_item</span> · <span class="rlabel" onclick="load_documentation($(this).html())">equip</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">use_hp_or_mp</span>',
 	// docs/tutorial/interface.html:22; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.interface.manual": "MANUAL",
 	// docs/tutorial/interface.html:23; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
@@ -5307,7 +5311,7 @@ module.exports = {
 	"docs.tutorial.learntofight.done": "DONE",
 	// docs/tutorial/learntofight.html:54; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["get_nearest_monster","is_in_range","attack","loot"].
 	"docs.tutorial.learntofight.get-nearest-monster-is-in-range-attack-loot":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">get_nearest_monster</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">is_in_range</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">attack</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">loot</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">get_nearest_monster</span> · <span class="rlabel" onclick="load_documentation($(this).html())">is_in_range</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">attack</span> · <span class="rlabel" onclick="load_documentation($(this).html())">loot</span>',
 	// docs/tutorial/learntofight.html:20; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.learntofight.go-to-the-goos": "GO TO THE GOOS",
 	// docs/tutorial/learntofight.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Goo"].
@@ -5336,7 +5340,7 @@ module.exports = {
 	"docs.tutorial.move.roads-doors-transporters-and-a-little-curiosity-connect": "Roads, doors, transporters, and a little curiosity connect the world.",
 	// docs/tutorial/move.html:51; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["smart_move","find_npc","use_nearest_door","transport"].
 	"docs.tutorial.move.smart-move-find-npc-use-nearest-door-transport":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">smart_move</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">find_npc</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">use_nearest_door</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">transport</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">smart_move</span> · <span class="rlabel" onclick="load_documentation($(this).html())">find_npc</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">use_nearest_door</span> · <span class="rlabel" onclick="load_documentation($(this).html())">transport</span>',
 	// docs/tutorial/move.html:11; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.move.travel-guide": "TRAVEL GUIDE",
 	// docs/tutorial/move.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
@@ -5363,7 +5367,7 @@ module.exports = {
 	"docs.tutorial.multiple-characters.optional-code": "OPTIONAL CODE",
 	// docs/tutorial/multiple-characters.html:37; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["start_character","send_cm","on_cm","command_character"].
 	"docs.tutorial.multiple-characters.start-character-send-cm-on-cm-command-character":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">start_character</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">send_cm</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">on_cm</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">command_character</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">start_character</span> · <span class="rlabel" onclick="load_documentation($(this).html())">send_cm</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">on_cm</span> · <span class="rlabel" onclick="load_documentation($(this).html())">command_character</span>',
 	// docs/tutorial/multiple-characters.html:1; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.multiple-characters.your-characters-share-an-account-a-bank-and": "Your characters share an account, a bank, and—if you choose—a plan.",
 	// docs/tutorial/parties-friends.html:18; Documentation span prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5384,7 +5388,7 @@ module.exports = {
 		"Replace the name before running. For incoming requests, listen for the matching CODE event and call the matching accept function.",
 	// docs/tutorial/parties-friends.html:44; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["send_party_invite","send_friend_request","party_say","pm"].
 	"docs.tutorial.parties-friends.send-party-invite-send-friend-request-party-say":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">send_party_invite</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">send_friend_request</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">party_say</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">pm</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">send_party_invite</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">send_friend_request</span> · <span class="rlabel" onclick="load_documentation($(this).html())">party_say</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">pm</span>',
 	// docs/tutorial/parties-friends.html:1; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.parties-friends.some-roads-are-easier-with-company-some-are": "Some roads are easier with company. Some are simply louder.",
 	// docs/tutorial/shops.html:11; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5393,7 +5397,7 @@ module.exports = {
 	"docs.tutorial.shops.done": "DONE",
 	// docs/tutorial/shops.html:40; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["find_npc","buy","sell"].
 	"docs.tutorial.shops.find-npc-buy-sell":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">find_npc</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">buy</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">sell</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">find_npc</span> · <span class="rlabel" onclick="load_documentation($(this).html())">buy</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">sell</span>',
 	// docs/tutorial/shops.html:24; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.shops.keep-one-empty-inventory-slot-full-bags-have": "Keep one empty inventory slot. Full bags have a talent for becoming full at the worst moment.",
 	// docs/tutorial/shops.html:22; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5405,11 +5409,10 @@ module.exports = {
 	// docs/tutorial/shops.html:1; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Town"].
 	"docs.tutorial.shops.town-merchants-sell-dependable-supplies-monsters-provide-the": "Town merchants sell dependable supplies. Monsters provide the stranger merchandise.",
 	// docs/tutorial/shops.html:23; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
-	"docs.tutorial.shops.walk-near-a-merchant-and-right-click-buy":
-		"Walk near a merchant and right-click. Buy a small stack of potions. To sell, open your inventory while a merchant is active and choose an item you truly do not need.",
+	"docs.tutorial.shops.walk-near-a-merchant-and-right-click-buy": "Visit Ernis beside Gabriel in Mainland's town square. Right-click Ernis to open his potion shop, click an HP potion, choose a small quantity, and buy it. Gabriel sells basic equipment next door. To sell an unwanted item, keep the shop open and click the item in your inventory; check it before choosing Sell.",
 	// docs/tutorial/skills-recovery.html:46; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["can_use","use_skill","respawn"].
 	"docs.tutorial.skills-recovery.can-use-use-skill-respawn":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">can_use</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">use_skill</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">respawn</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">can_use</span> · <span class="rlabel" onclick="load_documentation($(this).html())">use_skill</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">respawn</span>',
 	// docs/tutorial/skills-recovery.html:11; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.skills-recovery.classes-skills": "CLASSES & SKILLS",
 	// docs/tutorial/skills-recovery.html:27; Documentation span prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
@@ -5451,8 +5454,7 @@ module.exports = {
 	"docs.tutorial.theend.you-can-fight-by-hand-automate-a-loop":
 		"You can fight by hand, automate a loop, build a party, raise several characters, chase a live event, craft something rare, or simply wander until the map surprises you.",
 	// docs/tutorial/upgrade.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Upgrade Scroll","Cue"].
-	"docs.tutorial.upgrade.buy-one-basic-upgrade-scroll-take-a-cheap":
-		"Buy one Upgrade Scroll. Take a cheap +0 weapon or armor piece to Cue, place both in the upgrade window, and read the chance before you commit.",
+	"docs.tutorial.upgrade.buy-one-basic-upgrade-scroll-take-a-cheap": "Buy a basic Upgrade Scroll from Lucas, west of Mainland's town square. Bring a spare +0 weapon or armor piece from Gabriel to Cue, northwest of Gabriel. Right-click Cue and choose Upgrade. Drag the item and scroll into their slots, read the success chance, then decide whether to attempt it. Keep your working equipment equipped so you do not risk it by mistake.",
 	// docs/tutorial/upgrade.html:63; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["CONFIRM_UPGRADE","true"].
 	"docs.tutorial.upgrade.calculation-mode-consumes-nothing-read-its-chance-then":
 		'Calculation mode consumes nothing. Read its chance, then change <span class="dlabel">CONFIRM_UPGRADE</span> to <span class="dlabel">true</span> only if you accept the risk.',
@@ -5477,9 +5479,15 @@ module.exports = {
 		'This selects a normal-grade upgradeable item. It will only attempt the upgrade after you change the confirmation line from <span class="dlabel">false</span> to <span class="dlabel">true</span>:',
 	// docs/tutorial/upgrade.html:65; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["upgrade","item_grade","lock_item"].
 	"docs.tutorial.upgrade.upgrade-item-grade-lock-item":
-		'<span class="rlabel" onclick="render_function_reference($(this).html())">upgrade</span> · <span class="rlabel" onclick="render_function_reference($(this).html())">item_grade</span> ·\n\t\t<span class="rlabel" onclick="render_function_reference($(this).html())">lock_item</span>',
+		'<span class="rlabel" onclick="load_documentation($(this).html())">upgrade</span> · <span class="rlabel" onclick="load_documentation($(this).html())">item_grade</span> ·\n\t\t<span class="rlabel" onclick="load_documentation($(this).html())">lock_item</span>',
 	// docs/tutorial/upgrade.html:1; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.tutorial.upgrade.upgrading-makes-weapons-and-armor-stronger-a-failed": "Upgrading makes weapons and armor stronger. A failed attempt can destroy the item.",
 	// docs/articles/8-code-slots-and-files.html; section heading explaining shared modules. Translate Modules and keep the require_code function identifier unchanged. Locked inline code: ["require_code"].
 	"docs.articles.8-code-slots-and-files.modules-require-code": "Modules: require_code",
+	// docs/functions/*.html; heading above the actual JavaScript function implementation. Also js/html.js render_function_reference generated comment before that implementation. Translate the heading, preserve function names and executable source.
+	"docs.reference.source_code": "Source code",
+	// docs/functions/{attack,buy,compound,equip_batch,upgrade}.html; heading above example values delivered when a JavaScript Promise fulfills successfully. This is a Promise outcome, not quest completion.
+	"docs.reference.fulfilled": "Fulfilled",
+	// docs/functions/{attack,buy,compound,equip_batch,upgrade}.html; heading above example error objects delivered when a JavaScript Promise rejects. This is a Promise outcome, not moderation or a declined invitation.
+	"docs.reference.rejected": "Rejected",
 };

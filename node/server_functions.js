@@ -2254,6 +2254,21 @@ function anniversary_tick() {
 		next = anniversary_state().tick();
 	if (next) E.anniversary = next;
 	else delete E.anniversary;
+	for (const player of Object.values(players)) {
+		if (player.dc || player.npc || player.is_npc || !player.socket) continue;
+		const previous = player.anniversary,
+			status = anniversary_state().visitStatus(player);
+		if (JSON.stringify(previous || null) === JSON.stringify(status)) continue;
+		player.anniversary = status;
+		resend(player, "u+cid");
+		// Explain a withheld or lost Visit once, not on every event tick.
+		if (status && status.round !== null && ["realmfatigue", "hopsickness", "merchant_home"].includes(status.reason)) {
+			player.socket.emit(
+				"game_log",
+				localization.message("interface.anniversary_status." + status.reason, {}, { color: "gray" }),
+			);
+		}
+	}
 	if (JSON.stringify(before) !== JSON.stringify(next || undefined)) {
 		if (next && next.live && (!before || before.round !== next.round || before.id !== next.id)) {
 			broadcast(

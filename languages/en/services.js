@@ -418,7 +418,7 @@ module.exports = {
 	"services.realm.role-compound": "Compound",
 	// js/realm.js; role craftsman. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
 	"services.realm.role-craftsman": "Craftsman",
-	// js/realm.js; role cx. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
+	// js/realm.js; compact role label for Haila, who opens the cx appearance exchange shrine. Retain the established locale caption for appearance/cosmetics or its Cx token. Do not invent another expansion of Cx.
 	"services.realm.role-cx": "Cx",
 	// js/realm.js; role events. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
 	"services.realm.role-events": "Events",
@@ -444,7 +444,7 @@ module.exports = {
 	"services.realm.role-lostandfound": "Lostandfound",
 	// js/realm.js; role lottery. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
 	"services.realm.role-lottery": "Lottery",
-	// js/realm.js; role mcollector. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
+	// js/realm.js; compact role label for Cole, who opens render_recipes("mcollector"). Retain the established material/crafting role caption or its Mcollector token. This service does not collect monsters.
 	"services.realm.role-mcollector": "Mcollector",
 	// js/realm.js; role merchant. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
 	"services.realm.role-merchant": "Merchant",
@@ -464,7 +464,7 @@ module.exports = {
 	"services.realm.role-pvptokens": "Pvptokens",
 	// js/realm.js; role quest. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
 	"services.realm.role-quest": "Quest",
-	// js/realm.js; role repeater. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
+	// js/realm.js; descriptive role label for a Wizard whose repeated line is SHELLS! Translate the role, preserve the NPC name.
 	"services.realm.role-repeater": "Repeater",
 	// js/realm.js; role resort. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
 	"services.realm.role-resort": "Resort",
@@ -486,9 +486,9 @@ module.exports = {
 	"services.realm.role-standmerchant": "Standmerchant",
 	// js/realm.js; role tavern. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
 	"services.realm.role-tavern": "Tavern",
-	// js/realm.js; role tease. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
+	// js/realm.js; descriptive role label for lichteaser, who says Soon. Translate this teasing role, preserve NPC names.
 	"services.realm.role-tease": "Tease",
-	// js/realm.js; role thesearch. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
+	// js/realm.js; thesearch role for Wizard with the glitch quest and a hardcore-only teleport interaction. Retain the established locale search-role caption or its Thesearch token. This label is not the NPC name or a new quest instruction.
 	"services.realm.role-thesearch": "Thesearch",
 	// js/realm.js; role transport. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
 	"services.realm.role-transport": "Transport",

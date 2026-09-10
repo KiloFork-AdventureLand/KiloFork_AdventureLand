@@ -429,6 +429,8 @@
 	"game.trade_history.bought": "- Has comprado {quantity}'{item}' a {player} por {gold} de oro",
 	"game.trade_history.gave_away": "- Has regalado {quantity}'{item}' a {player}",
 	"game.trade_history.sold": "- Has vendido {quantity}'{item}' a {player} por {gold} de oro",
+	"game.call_limit.report": "Has superado el límite de {cost} unidades de coste de llamadas en 4 segundos. ¡Es demasiaaaado! Esto suele ocurrir al llamar repetidamente a una función como 'move'. Algunas llamadas cuestan más que otras. Para pedir ayuda, escribe a hello@adventure.land o pregunta en Discord/#code_beginner. Has realizado {total} llamadas en total.",
+	"game.title.hardcore": "Feroz: {character}",
 	"chat.expand": "Ampliar chat",
 	"chat.restore": "Restaurar tamaño del chat",
 	"chat.no_characters": "No hay personajes",

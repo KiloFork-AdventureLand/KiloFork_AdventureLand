@@ -429,6 +429,8 @@
 	"game.trade_history.bought": "- {quantity}'{item}' von {player} für {gold} Gold gekauft",
 	"game.trade_history.gave_away": "- {quantity}'{item}' an {player} verschenkt",
 	"game.trade_history.sold": "- {quantity}'{item}' an {player} für {gold} Gold verkauft",
+	"game.call_limit.report": "Du hast das Limit von {cost} Aufrufkosteneinheiten innerhalb von 4 Sekunden überschritten. Das ist viiiiel zu viel! Das passiert meist, wenn eine Funktion wie 'move' wiederholt aufgerufen wird. Manche Aufrufe kosten mehr als andere. Hilfe bekommst du per E-Mail an hello@adventure.land oder in Discord/#code_beginner. Insgesamt hast du {total} Aufrufe gemacht.",
+	"game.title.hardcore": "Wild: {character}",
 	"chat.expand": "Chat vergrößern",
 	"chat.restore": "Chatgröße wiederherstellen",
 	"chat.no_characters": "Keine Charaktere",

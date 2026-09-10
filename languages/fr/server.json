@@ -166,7 +166,7 @@
 	"server.server_message.a_b_testing_is_about_to_start": "Le test A/B va commencer !",
 	"server.server_message.blessed": "{player} a béni {region} {server_name}",
 	"server.server_message.defeated": "{attacker} a vaincu {player}",
-	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Trouve {target} sur {map} ! Utilise ta Visite d’anniversaire pour envoyer un baiser et recevoir une part et un Anniversary Gift.",
+	"server.server_message.find_in_use_your_anniversary_visit_to_send_a_kiss_for_a": "Trouve {target} sur {map} ! Approche-toi et utilise Je t’embrasse pour recevoir une part et un Anniversary Gift.",
 	"server.server_message.found_shells": "{player} a trouvé {amount} coquillages",
 	"server.server_message.is_now_level": "{player} est désormais niveau {level}",
 	"server.server_message.is_now_level_2": "{player} est désormais niveau {level} !",
@@ -304,6 +304,11 @@
 	"server.page.steam_news_unavailable": "Actualités Steam indisponibles",
 	"server.payment.shells": "{count} coquillages",
 	"server.game_log.you_monster": "Espèce de monstre !",
-	"server.payment.shells.one": "{count} coquillage",
-	"server.pm.delivery_failed": "(NON REMIS)"
+	"server.game_error.capacity": "Impossible d'accueillir plus de {count} joueurs pour le moment",
+	"server.game_error.authentication_failed": "Échec : {reason}",
+	"server.game_error.characters_unconfirmed": "Impossible de vérifier vos autres personnages. Veuillez réessayer.",
+	"server.pm.delivery_failed": "(NON REMIS)",
+	"server.game_error.capacity.one": "Impossible d'accueillir plus de {count} joueur pour le moment",
+	"server.game_error.capacity.other": "Impossible d'accueillir plus de {count} joueurs pour le moment",
+	"server.payment.shells.one": "{count} coquillage"
 }
