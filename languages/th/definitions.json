@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub และแชต",
+	"directory.guide.hub.title": "Hub และแชต",
 	"tutorial.farming.title": "เป้าหมายแรกในการฟาร์ม",
 	"tutorial.stat-scrolls.title": "เพิ่มค่าสถานะให้เกราะ",
 	"tutorial.gear-comparison.title": "อุปกรณ์ +7 เปลี่ยนอะไรบ้าง",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "เขย่า",
 	"slot.char.name": "ตัวละคร",
 	"slot.stone.name": "ป้ายหลุมศพ",
-	"slot.special.name": "เอฟเฟกต์"
+	"slot.special.name": "เอฟเฟกต์",
+	"tutorial.js-hello.title": "ให้ CODE พูด",
+	"tutorial.js-values.title": "ตั้งชื่อให้ค่า",
+	"tutorial.js-variables.title": "เปลี่ยนตัวแปร",
+	"tutorial.js-character.title": "อ่านข้อมูลตัวละคร",
+	"tutorial.js-decisions.title": "ตัดสินใจ",
+	"tutorial.js-arrays.title": "สร้างรายการ",
+	"tutorial.js-loops.title": "วนอ่านรายการ",
+	"tutorial.js-functions.title": "เขียนฟังก์ชันเอง",
+	"tutorial.js-inventory.title": "นับเสบียง",
+	"tutorial.js-targets.title": "อาจไม่มีเป้าหมาย",
+	"tutorial.js-timers.title": "ตรวจอีกครั้งภายหลัง",
+	"tutorial.js-async.title": "รอการทำงานของเกม",
+	"tutorial.js-events.title": "ตอบสนองต่อเหตุการณ์",
+	"tutorial.js-capstone.title": "สร้างสคริปต์ฟาร์มเล็กๆ"
 }

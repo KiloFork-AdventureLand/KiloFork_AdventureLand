@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub och chatt",
+	"directory.guide.hub.title": "Hub och chatt",
 	"tutorial.farming.title": "Dina första mål för att samla byte",
 	"tutorial.stat-scrolls.title": "Ge din rustning ett attribut",
 	"tutorial.gear-comparison.title": "Vad utrustning på +7 förändrar",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "SKAKA",
 	"slot.char.name": "Figur",
 	"slot.stone.name": "Gravsten",
-	"slot.special.name": "Effekter"
+	"slot.special.name": "Effekter",
+	"tutorial.js-hello.title": "Låt CODE tala",
+	"tutorial.js-values.title": "Ge ett värde ett namn",
+	"tutorial.js-variables.title": "Ändra en variabel",
+	"tutorial.js-character.title": "Läs din karaktär",
+	"tutorial.js-decisions.title": "Fatta ett beslut",
+	"tutorial.js-arrays.title": "Skapa en lista",
+	"tutorial.js-loops.title": "Loopa genom en lista",
+	"tutorial.js-functions.title": "Skriv en egen funktion",
+	"tutorial.js-inventory.title": "Räkna dina förråd",
+	"tutorial.js-targets.title": "Målet kan saknas",
+	"tutorial.js-timers.title": "Kontrollera igen senare",
+	"tutorial.js-async.title": "Vänta på spelet",
+	"tutorial.js-events.title": "Reagera på händelser",
+	"tutorial.js-capstone.title": "Bygg ett litet farmningsskript"
 }

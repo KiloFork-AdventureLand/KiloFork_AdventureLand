@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub e Chat",
+	"directory.guide.hub.title": "Hub e Chat",
 	"tutorial.farming.title": "Suas primeiras metas de farm",
 	"tutorial.stat-scrolls.title": "Dê um atributo à sua armadura",
 	"tutorial.gear-comparison.title": "O que muda com equipamento +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "SACUDIR",
 	"slot.char.name": "Pers.",
 	"slot.stone.name": "Lápide",
-	"slot.special.name": "Efeitos"
+	"slot.special.name": "Efeitos",
+	"tutorial.js-hello.title": "Faça o CODE falar",
+	"tutorial.js-values.title": "Dê nome a um valor",
+	"tutorial.js-variables.title": "Altere uma variável",
+	"tutorial.js-character.title": "Leia seu personagem",
+	"tutorial.js-decisions.title": "Tome uma decisão",
+	"tutorial.js-arrays.title": "Crie uma lista",
+	"tutorial.js-loops.title": "Percorra uma lista",
+	"tutorial.js-functions.title": "Escreva sua própria função",
+	"tutorial.js-inventory.title": "Conte seus suprimentos",
+	"tutorial.js-targets.title": "Pode não haver alvo",
+	"tutorial.js-timers.title": "Confira novamente mais tarde",
+	"tutorial.js-async.title": "Espere pelo jogo",
+	"tutorial.js-events.title": "Reaja aos acontecimentos",
+	"tutorial.js-capstone.title": "Crie um pequeno script de caça"
 }

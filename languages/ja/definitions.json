@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hubとチャット",
+	"directory.guide.hub.title": "Hubとチャット",
 	"tutorial.farming.title": "最初の稼ぎの目標",
 	"tutorial.stat-scrolls.title": "防具に能力値を付けよう",
 	"tutorial.gear-comparison.title": "+7の装備で何が変わる？",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "振る",
 	"slot.char.name": "キャラ",
 	"slot.stone.name": "墓石",
-	"slot.special.name": "特殊効果"
+	"slot.special.name": "特殊効果",
+	"tutorial.js-hello.title": "CODEで話そう",
+	"tutorial.js-values.title": "値に名前を付ける",
+	"tutorial.js-variables.title": "変数を変更する",
+	"tutorial.js-character.title": "キャラクターの情報を読む",
+	"tutorial.js-decisions.title": "条件で判断する",
+	"tutorial.js-arrays.title": "リストを作る",
+	"tutorial.js-loops.title": "ループでリストを読む",
+	"tutorial.js-functions.title": "自分の関数を書く",
+	"tutorial.js-inventory.title": "持ち物を数える",
+	"tutorial.js-targets.title": "ターゲットがいない場合",
+	"tutorial.js-timers.title": "後でもう一度確認する",
+	"tutorial.js-async.title": "ゲームの処理を待つ",
+	"tutorial.js-events.title": "イベントに反応する",
+	"tutorial.js-capstone.title": "小さな狩りのスクリプトを作る"
 }

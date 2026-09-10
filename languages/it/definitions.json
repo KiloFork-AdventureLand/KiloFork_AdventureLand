@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub e chat",
+	"directory.guide.hub.title": "Hub e chat",
 	"tutorial.farming.title": "I tuoi primi obiettivi di farming",
 	"tutorial.stat-scrolls.title": "Assegna una statistica all'armatura",
 	"tutorial.gear-comparison.title": "Cosa cambia con l'equipaggiamento +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "SCUOTI",
 	"slot.char.name": "PERS.",
 	"slot.stone.name": "LAPIDE",
-	"slot.special.name": "FX SPEC."
+	"slot.special.name": "FX SPEC.",
+	"tutorial.js-hello.title": "Fai parlare CODE",
+	"tutorial.js-values.title": "Dai un nome a un valore",
+	"tutorial.js-variables.title": "Modifica una variabile",
+	"tutorial.js-character.title": "Leggi il tuo personaggio",
+	"tutorial.js-decisions.title": "Prendi una decisione",
+	"tutorial.js-arrays.title": "Crea una lista",
+	"tutorial.js-loops.title": "Scorri una lista",
+	"tutorial.js-functions.title": "Scrivi una funzione",
+	"tutorial.js-inventory.title": "Conta le provviste",
+	"tutorial.js-targets.title": "Il bersaglio può mancare",
+	"tutorial.js-timers.title": "Controlla più tardi",
+	"tutorial.js-async.title": "Aspetta il gioco",
+	"tutorial.js-events.title": "Reagisci agli eventi",
+	"tutorial.js-capstone.title": "Crea un piccolo script di farming"
 }

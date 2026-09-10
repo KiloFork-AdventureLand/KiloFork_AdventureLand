@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub и чат",
+	"directory.guide.hub.title": "Hub и чат",
 	"tutorial.farming.title": "Първите ти цели за трупане на плячка",
 	"tutorial.stat-scrolls.title": "Дай показател на бронята си",
 	"tutorial.gear-comparison.title": "Какво променя екипировката +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "РАЗКЛАТИ",
 	"slot.char.name": "Герой",
 	"slot.stone.name": "Надгробие",
-	"slot.special.name": "Сп. еф."
+	"slot.special.name": "Сп. еф.",
+	"tutorial.js-hello.title": "Нека CODE проговори",
+	"tutorial.js-values.title": "Дай име на стойност",
+	"tutorial.js-variables.title": "Промени променлива",
+	"tutorial.js-character.title": "Прочети своя герой",
+	"tutorial.js-decisions.title": "Вземи решение",
+	"tutorial.js-arrays.title": "Създай списък",
+	"tutorial.js-loops.title": "Обходи списък с цикъл",
+	"tutorial.js-functions.title": "Напиши своя функция",
+	"tutorial.js-inventory.title": "Преброй запасите",
+	"tutorial.js-targets.title": "Целта може да липсва",
+	"tutorial.js-timers.title": "Провери отново по-късно",
+	"tutorial.js-async.title": "Изчакай играта",
+	"tutorial.js-events.title": "Реагирай на събития",
+	"tutorial.js-capstone.title": "Създай малък скрипт за фармене"
 }

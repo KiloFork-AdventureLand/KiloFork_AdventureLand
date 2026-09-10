@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub والدردشة",
+	"directory.guide.hub.title": "Hub والدردشة",
 	"tutorial.farming.title": "أهدافك الأولى لجمع الغنائم",
 	"tutorial.stat-scrolls.title": "أضف سمة إلى درعك",
 	"tutorial.gear-comparison.title": "ما الذي يغيّره العتاد +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "هز",
 	"slot.char.name": "شخصية",
 	"slot.stone.name": "شاهد قبر",
-	"slot.special.name": "مؤثرات"
+	"slot.special.name": "مؤثرات",
+	"tutorial.js-hello.title": "اجعل CODE يتكلم",
+	"tutorial.js-values.title": "سمِّ قيمة",
+	"tutorial.js-variables.title": "غيّر متغيرًا",
+	"tutorial.js-character.title": "اقرأ بيانات شخصيتك",
+	"tutorial.js-decisions.title": "اتخذ قرارًا",
+	"tutorial.js-arrays.title": "أنشئ قائمة",
+	"tutorial.js-loops.title": "مرّ على قائمة بحلقة",
+	"tutorial.js-functions.title": "اكتب دالتك الخاصة",
+	"tutorial.js-inventory.title": "احسب مؤنك",
+	"tutorial.js-targets.title": "قد لا يوجد هدف",
+	"tutorial.js-timers.title": "تحقق مجددًا لاحقًا",
+	"tutorial.js-async.title": "انتظر اللعبة",
+	"tutorial.js-events.title": "استجب للأحداث",
+	"tutorial.js-capstone.title": "أنشئ سكربت صيد صغيرًا"
 }

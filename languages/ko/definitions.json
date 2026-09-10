@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub와 채팅",
+	"directory.guide.hub.title": "Hub와 채팅",
 	"tutorial.farming.title": "첫 반복 사냥 목표",
 	"tutorial.stat-scrolls.title": "방어구에 능력치 부여하기",
 	"tutorial.gear-comparison.title": "+7 장비로 달라지는 점",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "흔들기",
 	"slot.char.name": "캐릭터",
 	"slot.stone.name": "묘비",
-	"slot.special.name": "특수 효과"
+	"slot.special.name": "특수 효과",
+	"tutorial.js-hello.title": "CODE로 말하기",
+	"tutorial.js-values.title": "값에 이름 붙이기",
+	"tutorial.js-variables.title": "변수 바꾸기",
+	"tutorial.js-character.title": "캐릭터 정보 읽기",
+	"tutorial.js-decisions.title": "판단하기",
+	"tutorial.js-arrays.title": "목록 만들기",
+	"tutorial.js-loops.title": "목록을 반복해서 읽기",
+	"tutorial.js-functions.title": "나만의 함수 만들기",
+	"tutorial.js-inventory.title": "보급품 세기",
+	"tutorial.js-targets.title": "대상이 없을 수도 있어요",
+	"tutorial.js-timers.title": "나중에 다시 확인하기",
+	"tutorial.js-async.title": "게임 작업 기다리기",
+	"tutorial.js-events.title": "이벤트에 반응하기",
+	"tutorial.js-capstone.title": "작은 사냥 스크립트 만들기"
 }

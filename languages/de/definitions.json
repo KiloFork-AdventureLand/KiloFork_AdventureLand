@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub & Chat",
+	"directory.guide.hub.title": "Hub & Chat",
 	"tutorial.farming.title": "Deine ersten Farmziele",
 	"tutorial.stat-scrolls.title": "Gib deiner Rüstung ein Attribut",
 	"tutorial.gear-comparison.title": "Was Ausrüstung auf +7 verändert",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "SCHÜTTELN",
 	"slot.char.name": "Char.",
 	"slot.stone.name": "Grab",
-	"slot.special.name": "Effekte"
+	"slot.special.name": "Effekte",
+	"tutorial.js-hello.title": "CODE sprechen lassen",
+	"tutorial.js-values.title": "Einem Wert einen Namen geben",
+	"tutorial.js-variables.title": "Eine Variable ändern",
+	"tutorial.js-character.title": "Deinen Charakter auslesen",
+	"tutorial.js-decisions.title": "Eine Entscheidung treffen",
+	"tutorial.js-arrays.title": "Eine Liste erstellen",
+	"tutorial.js-loops.title": "Eine Liste durchlaufen",
+	"tutorial.js-functions.title": "Eine eigene Funktion schreiben",
+	"tutorial.js-inventory.title": "Deine Vorräte zählen",
+	"tutorial.js-targets.title": "Es kann kein Ziel geben",
+	"tutorial.js-timers.title": "Später erneut prüfen",
+	"tutorial.js-async.title": "Auf das Spiel warten",
+	"tutorial.js-events.title": "Auf Ereignisse reagieren",
+	"tutorial.js-capstone.title": "Ein kleines Farming-Skript bauen"
 }

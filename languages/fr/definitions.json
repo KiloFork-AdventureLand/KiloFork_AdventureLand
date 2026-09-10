@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub et chat",
+	"directory.guide.hub.title": "Hub et chat",
 	"tutorial.farming.title": "Vos premiers objectifs de farm",
 	"tutorial.stat-scrolls.title": "Ajoutez une caractéristique à votre armure",
 	"tutorial.gear-comparison.title": "Ce que change un équipement +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "SECOUER",
 	"slot.char.name": "Perso",
 	"slot.stone.name": "Tombe",
-	"slot.special.name": "Effets"
+	"slot.special.name": "Effets",
+	"tutorial.js-hello.title": "Faire parler CODE",
+	"tutorial.js-values.title": "Nommer une valeur",
+	"tutorial.js-variables.title": "Modifier une variable",
+	"tutorial.js-character.title": "Lire ton personnage",
+	"tutorial.js-decisions.title": "Prendre une décision",
+	"tutorial.js-arrays.title": "Créer une liste",
+	"tutorial.js-loops.title": "Parcourir une liste",
+	"tutorial.js-functions.title": "Écrire ta propre fonction",
+	"tutorial.js-inventory.title": "Compter tes provisions",
+	"tutorial.js-targets.title": "La cible peut être absente",
+	"tutorial.js-timers.title": "Vérifier à nouveau plus tard",
+	"tutorial.js-async.title": "Attendre le jeu",
+	"tutorial.js-events.title": "Réagir aux événements",
+	"tutorial.js-capstone.title": "Créer un petit script de récolte"
 }

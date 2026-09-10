@@ -1,4 +1,22 @@
 module.exports = {
+	// JavaScript tutorial practice inputs. Preserve HTML and CODE identifiers. {time} is milliseconds; {reason} is a raw CODE error reason.
+	"client.tutorial_code.inputs.character": "Your code runs once for each object below. Each time, <span class=\"dlabel\">character</span> refers to that object.",
+	// JavaScript tutorial practice inputs. Preserve HTML and CODE identifiers. {time} is milliseconds; {reason} is a raw CODE error reason.
+	"client.tutorial_code.inputs.targets": "Each column is one check. It shows the character properties used here and the <span class=\"dlabel\">target</span> returned by <span class=\"dlabel\">get_nearest_monster</span>. Comments describe later changes.",
+	// JavaScript tutorial practice inputs. Preserve HTML and CODE identifiers. {time} is milliseconds; {reason} is a raw CODE error reason.
+	"client.tutorial_code.inputs.timers": "Each column is one check. The comments show when HP changes or <span class=\"dlabel\">stopReports</span> is called.",
+	// JavaScript tutorial practice inputs. Preserve HTML and CODE identifiers. {time} is milliseconds; {reason} is a raw CODE error reason.
+	"client.tutorial_code.inputs.async": "Each column is one check. The comments describe the journey and when practice calls <span class=\"dlabel\">takeTrip</span> or <span class=\"dlabel\">stop</span>.",
+	// JavaScript tutorial practice inputs. Preserve HTML and CODE identifiers. {time} is milliseconds; {reason} is a raw CODE error reason.
+	"client.tutorial_code.inputs.events": "Each column is one check. The <span class=\"dlabel\">data</span> objects reach your hit callback at the times shown, including a hit after the listener should be removed.",
+	// JavaScript tutorial practice inputs. Preserve HTML and CODE identifiers. {time} is milliseconds; {reason} is a raw CODE error reason.
+	"client.tutorial_code.inputs.at": "At {time} ms",
+	// JavaScript tutorial practice inputs. Preserve HTML and CODE identifiers. {time} is milliseconds; {reason} is a raw CODE error reason.
+	"client.tutorial_code.inputs.travel": "An uninterrupted trip takes {time} ms.",
+	// JavaScript tutorial practice inputs. Preserve HTML and CODE identifiers. {time} is milliseconds; {reason} is a raw CODE error reason.
+	"client.tutorial_code.inputs.failure": "The first trip fails with {reason}; the next can succeed.",
+	// JavaScript tutorial practice inputs. Preserve HTML and CODE identifiers. {time} is milliseconds; {reason} is a raw CODE error reason.
+	"client.tutorial_code.inputs.cooldown": "Attacking is on cooldown until {time} ms.",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
 	"client.tutorial_code.scene.inventory.0": "Mixed stacks: 6 HP potions",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
@@ -38,7 +56,7 @@ module.exports = {
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
 	"client.tutorial_code.scene.events.1": "Quiet until after cleanup",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
-	"client.tutorial_code.scene.events.2": "Payloads without damage",
+	"client.tutorial_code.scene.events.2": "Ignore missing or nonnumeric damage",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
 	"client.tutorial_code.scene.events.3": "Zero damage is a number",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
@@ -72,11 +90,11 @@ module.exports = {
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
 	"client.tutorial_code.check.callbacks": "Finish without callback errors.",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
-	"client.tutorial_code.check.expected": "Log in order: {output}",
+	"client.tutorial_code.check.expected": "Expected output: {output}",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
 	"client.tutorial_code.check.silent": "No damage log is expected in this scenario.",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
-	"client.tutorial_code.check.return": "statusFor({name}) returns {value}.",
+	"client.tutorial_code.check.return": "Expected statusFor({name}) to return {value}.",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.
 	"client.tutorial_code.check.cleanup": "Finish with no pending callback, action, or listener.",
 	// JavaScript tutorial practice feedback. Preserve CODE identifiers, character names and checked output. Parameters contain raw learner output or fixed CODE and must not be translated.

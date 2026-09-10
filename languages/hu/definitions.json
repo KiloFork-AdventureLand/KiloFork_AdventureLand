@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub és csevegés",
+	"directory.guide.hub.title": "Hub és csevegés",
 	"tutorial.farming.title": "Az első farmolási céljaid",
 	"tutorial.stat-scrolls.title": "Adj tulajdonságot a páncélodnak",
 	"tutorial.gear-comparison.title": "Mit változtat a +7-es felszerelés?",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "RÁZÁS",
 	"slot.char.name": "Karakter",
 	"slot.stone.name": "Sírkő",
-	"slot.special.name": "Effektek"
+	"slot.special.name": "Effektek",
+	"tutorial.js-hello.title": "Szólaljon meg a CODE",
+	"tutorial.js-values.title": "Adj nevet egy értéknek",
+	"tutorial.js-variables.title": "Módosíts egy változót",
+	"tutorial.js-character.title": "Olvasd ki a karakteredet",
+	"tutorial.js-decisions.title": "Hozz döntést",
+	"tutorial.js-arrays.title": "Készíts listát",
+	"tutorial.js-loops.title": "Járd be a listát",
+	"tutorial.js-functions.title": "Írj saját függvényt",
+	"tutorial.js-inventory.title": "Számold meg a készleteidet",
+	"tutorial.js-targets.title": "Lehet, hogy nincs célpont",
+	"tutorial.js-timers.title": "Ellenőrizd később újra",
+	"tutorial.js-async.title": "Várj a játékra",
+	"tutorial.js-events.title": "Reagálj az eseményekre",
+	"tutorial.js-capstone.title": "Készíts kis farmoló szkriptet"
 }

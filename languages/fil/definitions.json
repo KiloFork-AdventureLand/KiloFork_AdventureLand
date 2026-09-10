@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub at Usapan",
+	"directory.guide.hub.title": "Hub at Usapan",
 	"tutorial.farming.title": "Mga unang layunin sa pagkuha ng loot",
 	"tutorial.stat-scrolls.title": "Lagyan ng katangian ang baluti mo",
 	"tutorial.gear-comparison.title": "Ano ang nababago ng kagamitang +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "ALUGIN",
 	"slot.char.name": "Kar.",
 	"slot.stone.name": "Lapida",
-	"slot.special.name": "Esp. FX"
+	"slot.special.name": "Esp. FX",
+	"tutorial.js-hello.title": "Pagsalitain ang CODE",
+	"tutorial.js-values.title": "Pangalanan ang isang value",
+	"tutorial.js-variables.title": "Baguhin ang variable",
+	"tutorial.js-character.title": "Basahin ang karakter mo",
+	"tutorial.js-decisions.title": "Gumawa ng pasya",
+	"tutorial.js-arrays.title": "Gumawa ng listahan",
+	"tutorial.js-loops.title": "Ikutin ang listahan",
+	"tutorial.js-functions.title": "Sumulat ng sariling function",
+	"tutorial.js-inventory.title": "Bilangin ang suplay",
+	"tutorial.js-targets.title": "Maaaring walang target",
+	"tutorial.js-timers.title": "Suriin ulit mamaya",
+	"tutorial.js-async.title": "Hintayin ang laro",
+	"tutorial.js-events.title": "Tumugon sa mga event",
+	"tutorial.js-capstone.title": "Bumuo ng maliit na farming script"
 }

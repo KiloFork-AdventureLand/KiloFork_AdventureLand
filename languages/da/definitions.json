@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub og chat",
+	"directory.guide.hub.title": "Hub og chat",
 	"tutorial.farming.title": "Dine første mål for at samle bytte",
 	"tutorial.stat-scrolls.title": "Giv din rustning en egenskab",
 	"tutorial.gear-comparison.title": "Hvad udstyr på +7 ændrer",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "RYST",
 	"slot.char.name": "Figur",
 	"slot.stone.name": "Gravsten",
-	"slot.special.name": "Sp. FX"
+	"slot.special.name": "Sp. FX",
+	"tutorial.js-hello.title": "Lad CODE tale",
+	"tutorial.js-values.title": "Giv en værdi et navn",
+	"tutorial.js-variables.title": "Ændr en variabel",
+	"tutorial.js-character.title": "Læs din figur",
+	"tutorial.js-decisions.title": "Træf en beslutning",
+	"tutorial.js-arrays.title": "Lav en liste",
+	"tutorial.js-loops.title": "Gå gennem en liste",
+	"tutorial.js-functions.title": "Skriv din egen funktion",
+	"tutorial.js-inventory.title": "Tæl dine forsyninger",
+	"tutorial.js-targets.title": "Målet kan mangle",
+	"tutorial.js-timers.title": "Tjek igen senere",
+	"tutorial.js-async.title": "Vent på spillet",
+	"tutorial.js-events.title": "Reager på hændelser",
+	"tutorial.js-capstone.title": "Lav et lille farmingscript"
 }

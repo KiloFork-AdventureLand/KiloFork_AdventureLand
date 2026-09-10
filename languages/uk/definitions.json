@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub і чат",
+	"directory.guide.hub.title": "Hub і чат",
 	"tutorial.farming.title": "Перші цілі для фарму",
 	"tutorial.stat-scrolls.title": "Додайте характеристику броні",
 	"tutorial.gear-comparison.title": "Що змінює спорядження +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "СТРУСНУТИ",
 	"slot.char.name": "Перс.",
 	"slot.stone.name": "Надгробок",
-	"slot.special.name": "Спецеф."
+	"slot.special.name": "Спецеф.",
+	"tutorial.js-hello.title": "Нехай CODE заговорить",
+	"tutorial.js-values.title": "Назви значення",
+	"tutorial.js-variables.title": "Зміни змінну",
+	"tutorial.js-character.title": "Прочитай дані персонажа",
+	"tutorial.js-decisions.title": "Ухвали рішення",
+	"tutorial.js-arrays.title": "Створи список",
+	"tutorial.js-loops.title": "Пройди список циклом",
+	"tutorial.js-functions.title": "Напиши власну функцію",
+	"tutorial.js-inventory.title": "Порахуй припаси",
+	"tutorial.js-targets.title": "Цілі може не бути",
+	"tutorial.js-timers.title": "Перевір пізніше",
+	"tutorial.js-async.title": "Дочекайся гри",
+	"tutorial.js-events.title": "Реагуй на події",
+	"tutorial.js-capstone.title": "Створи невеликий скрипт фарму"
 }

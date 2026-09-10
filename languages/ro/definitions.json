@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub și chat",
+	"directory.guide.hub.title": "Hub și chat",
 	"tutorial.farming.title": "Primele tale obiective de strâns pradă",
 	"tutorial.stat-scrolls.title": "Adaugă un atribut armurii",
 	"tutorial.gear-comparison.title": "Ce schimbă echipamentul +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "SCUTURĂ",
 	"slot.char.name": "Personaj",
 	"slot.stone.name": "Mormânt",
-	"slot.special.name": "Ef. sp."
+	"slot.special.name": "Ef. sp.",
+	"tutorial.js-hello.title": "Fă CODE să vorbească",
+	"tutorial.js-values.title": "Dă un nume unei valori",
+	"tutorial.js-variables.title": "Schimbă o variabilă",
+	"tutorial.js-character.title": "Citește datele personajului",
+	"tutorial.js-decisions.title": "Ia o decizie",
+	"tutorial.js-arrays.title": "Creează o listă",
+	"tutorial.js-loops.title": "Parcurge o listă",
+	"tutorial.js-functions.title": "Scrie propria funcție",
+	"tutorial.js-inventory.title": "Numără proviziile",
+	"tutorial.js-targets.title": "Ținta poate lipsi",
+	"tutorial.js-timers.title": "Verifică din nou mai târziu",
+	"tutorial.js-async.title": "Așteaptă jocul",
+	"tutorial.js-events.title": "Reacționează la evenimente",
+	"tutorial.js-capstone.title": "Construiește un mic script de farming"
 }

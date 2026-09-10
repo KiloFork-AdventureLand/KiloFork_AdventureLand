@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub & Trò chuyện",
+	"directory.guide.hub.title": "Hub & Trò chuyện",
 	"tutorial.farming.title": "Mục tiêu cày đầu tiên của bạn",
 	"tutorial.stat-scrolls.title": "Thêm chỉ số cho giáp",
 	"tutorial.gear-comparison.title": "Trang bị +7 thay đổi điều gì",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "LẮC",
 	"slot.char.name": "Nhân vật",
 	"slot.stone.name": "Bia mộ",
-	"slot.special.name": "Hiệu ứng"
+	"slot.special.name": "Hiệu ứng",
+	"tutorial.js-hello.title": "Cho CODE lên tiếng",
+	"tutorial.js-values.title": "Đặt tên cho giá trị",
+	"tutorial.js-variables.title": "Thay đổi biến",
+	"tutorial.js-character.title": "Đọc dữ liệu nhân vật",
+	"tutorial.js-decisions.title": "Đưa ra quyết định",
+	"tutorial.js-arrays.title": "Tạo danh sách",
+	"tutorial.js-loops.title": "Duyệt danh sách",
+	"tutorial.js-functions.title": "Viết hàm của riêng bạn",
+	"tutorial.js-inventory.title": "Đếm vật tư",
+	"tutorial.js-targets.title": "Có thể không có mục tiêu",
+	"tutorial.js-timers.title": "Kiểm tra lại sau",
+	"tutorial.js-async.title": "Chờ trò chơi",
+	"tutorial.js-events.title": "Phản ứng với sự kiện",
+	"tutorial.js-capstone.title": "Tạo đoạn mã đi farm nhỏ"
 }

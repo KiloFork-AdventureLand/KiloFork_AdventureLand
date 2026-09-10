@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub i czat",
+	"directory.guide.hub.title": "Hub i czat",
 	"tutorial.farming.title": "Pierwsze cele farmienia",
 	"tutorial.stat-scrolls.title": "Nadaj pancerzowi atrybut",
 	"tutorial.gear-comparison.title": "Co zmienia wyposażenie +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "POTRZĄŚNIJ",
 	"slot.char.name": "Postać",
 	"slot.stone.name": "Nagrobek",
-	"slot.special.name": "Ef. spec."
+	"slot.special.name": "Ef. spec.",
+	"tutorial.js-hello.title": "Niech CODE przemówi",
+	"tutorial.js-values.title": "Nazwij wartość",
+	"tutorial.js-variables.title": "Zmień zmienną",
+	"tutorial.js-character.title": "Odczytaj swoją postać",
+	"tutorial.js-decisions.title": "Podejmij decyzję",
+	"tutorial.js-arrays.title": "Utwórz listę",
+	"tutorial.js-loops.title": "Przejdź przez listę pętlą",
+	"tutorial.js-functions.title": "Napisz własną funkcję",
+	"tutorial.js-inventory.title": "Policz zapasy",
+	"tutorial.js-targets.title": "Celu może nie być",
+	"tutorial.js-timers.title": "Sprawdź ponownie później",
+	"tutorial.js-async.title": "Poczekaj na grę",
+	"tutorial.js-events.title": "Reaguj na zdarzenia",
+	"tutorial.js-capstone.title": "Zbuduj mały skrypt do farmienia"
 }

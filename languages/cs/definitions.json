@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub a chat",
+	"directory.guide.hub.title": "Hub a chat",
 	"tutorial.farming.title": "První cíle při farmaření",
 	"tutorial.stat-scrolls.title": "Přidej zbroji atribut",
 	"tutorial.gear-comparison.title": "Co změní vybavení +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "ZATŘÁST",
 	"slot.char.name": "Postava",
 	"slot.stone.name": "Náhrobek",
-	"slot.special.name": "Sp. efekty"
+	"slot.special.name": "Sp. efekty",
+	"tutorial.js-hello.title": "Nech CODE promluvit",
+	"tutorial.js-values.title": "Pojmenuj hodnotu",
+	"tutorial.js-variables.title": "Změň proměnnou",
+	"tutorial.js-character.title": "Přečti svou postavu",
+	"tutorial.js-decisions.title": "Rozhodni se",
+	"tutorial.js-arrays.title": "Vytvoř seznam",
+	"tutorial.js-loops.title": "Projdi seznam cyklem",
+	"tutorial.js-functions.title": "Napiš vlastní funkci",
+	"tutorial.js-inventory.title": "Spočítej zásoby",
+	"tutorial.js-targets.title": "Cíl může chybět",
+	"tutorial.js-timers.title": "Zkontroluj to později",
+	"tutorial.js-async.title": "Počkej na hru",
+	"tutorial.js-events.title": "Reaguj na události",
+	"tutorial.js-capstone.title": "Sestav malý skript pro farmení"
 }

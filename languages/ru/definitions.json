@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub и чат",
+	"directory.guide.hub.title": "Hub и чат",
 	"tutorial.farming.title": "Первые цели для фарма",
 	"tutorial.stat-scrolls.title": "Добавьте характеристику броне",
 	"tutorial.gear-comparison.title": "Что меняет снаряжение +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "ВСТРЯХНУТЬ",
 	"slot.char.name": "Перс.",
 	"slot.stone.name": "Плита",
-	"slot.special.name": "Эффект"
+	"slot.special.name": "Эффект",
+	"tutorial.js-hello.title": "Пусть CODE заговорит",
+	"tutorial.js-values.title": "Дай значению имя",
+	"tutorial.js-variables.title": "Измени переменную",
+	"tutorial.js-character.title": "Прочитай данные персонажа",
+	"tutorial.js-decisions.title": "Прими решение",
+	"tutorial.js-arrays.title": "Создай список",
+	"tutorial.js-loops.title": "Пройди по списку циклом",
+	"tutorial.js-functions.title": "Напиши свою функцию",
+	"tutorial.js-inventory.title": "Посчитай припасы",
+	"tutorial.js-targets.title": "Цели может не быть",
+	"tutorial.js-timers.title": "Проверь позже",
+	"tutorial.js-async.title": "Дождись игры",
+	"tutorial.js-events.title": "Реагируй на события",
+	"tutorial.js-capstone.title": "Собери небольшой скрипт фарма"
 }

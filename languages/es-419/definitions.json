@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub y chat",
+	"directory.guide.hub.title": "Hub y chat",
 	"tutorial.farming.title": "Tus primeras metas de farmeo",
 	"tutorial.stat-scrolls.title": "Añade un atributo a tu armadura",
 	"tutorial.gear-comparison.title": "Qué cambia con el equipo +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "AGITAR",
 	"slot.char.name": "Pers.",
 	"slot.stone.name": "Lápida",
-	"slot.special.name": "Efectos"
+	"slot.special.name": "Efectos",
+	"tutorial.js-hello.title": "Haz hablar a CODE",
+	"tutorial.js-values.title": "Dale nombre a un valor",
+	"tutorial.js-variables.title": "Cambia una variable",
+	"tutorial.js-character.title": "Lee tu personaje",
+	"tutorial.js-decisions.title": "Toma una decisión",
+	"tutorial.js-arrays.title": "Crea una lista",
+	"tutorial.js-loops.title": "Recorre una lista",
+	"tutorial.js-functions.title": "Escribe tu propia función",
+	"tutorial.js-inventory.title": "Cuenta tus provisiones",
+	"tutorial.js-targets.title": "Puede que no haya objetivo",
+	"tutorial.js-timers.title": "Comprueba de nuevo más tarde",
+	"tutorial.js-async.title": "Espera al juego",
+	"tutorial.js-events.title": "Reacciona a los eventos",
+	"tutorial.js-capstone.title": "Crea un pequeño script de farmeo"
 }

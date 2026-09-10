@@ -181,7 +181,7 @@ module.exports = {
 	// JavaScript lesson “Check again later”, transfer. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.
 	"docs.tutorial.js-timers.transfer": "In CODE, this snippet reports your live HP three times over about two seconds. clearTimeout cancels a pending callback; it cannot undo one that already ran.",
 	// JavaScript lesson “Check again later”, variation. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.
-	"docs.tutorial.js-timers.variation": "Add setTimeout(stopReports, 1500). Predict how many reports appear. Remove it again to pass all the normal three-report cases.",
+	"docs.tutorial.js-timers.variation": "Add setTimeout(stopReports, 1500). Predict how many reports appear. Remove it again to pass Mira’s three-report check.",
 	// JavaScript lesson “Check again later”, reading title. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.
 	"docs.tutorial.js-timers.reading_title": "Give JavaScript time to breathe",
 	// JavaScript lesson “Check again later”, reading before. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.
@@ -227,7 +227,7 @@ module.exports = {
 	// JavaScript lesson “Build a small farming script”, idea. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.
 	"docs.tutorial.js-capstone.idea": "Put the pieces together: a configuration object, guards, fresh target reads, awaited actions, and one scheduled next turn. This example runs for ten seconds. Read it in small parts before pressing Execute.",
 	// JavaScript lesson “Build a small farming script”, task. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.
-	"docs.tutorial.js-capstone.task": "The script forgets to handle a missing target. Add the guard before reading target.map or checking range. Pass all five scenarios, then explain what each return prevents and where the next turn is scheduled.",
+	"docs.tutorial.js-capstone.task": "The script forgets to handle a missing target. Add the guard before reading target.map or checking range. Pass all three checks, then explain what each return prevents and where the next turn is scheduled.",
 	// JavaScript lesson “Build a small farming script”, hint. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.
 	"docs.tutorial.js-capstone.hint": "After get_nearest_monster, add if (!target) return. A return inside try still runs finally. Scheduling there keeps one next turn after the current work finishes, even when a guard returns or an action fails.",
 	// JavaScript lesson “Build a small farming script”, transfer. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.

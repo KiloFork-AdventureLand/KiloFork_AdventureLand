@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub ve Sohbet",
+	"directory.guide.hub.title": "Hub ve Sohbet",
 	"tutorial.farming.title": "İlk Düzenli Av Hedeflerin",
 	"tutorial.stat-scrolls.title": "Zırhına Bir Özellik Ekle",
 	"tutorial.gear-comparison.title": "+7 Ekipman Neleri Değiştirir?",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "SALLA",
 	"slot.char.name": "Kar.",
 	"slot.stone.name": "Mezar",
-	"slot.special.name": "Efekt"
+	"slot.special.name": "Efekt",
+	"tutorial.js-hello.title": "CODE'u konuştur",
+	"tutorial.js-values.title": "Bir değere ad ver",
+	"tutorial.js-variables.title": "Bir değişkeni değiştir",
+	"tutorial.js-character.title": "Karakterini oku",
+	"tutorial.js-decisions.title": "Karar ver",
+	"tutorial.js-arrays.title": "Bir liste oluştur",
+	"tutorial.js-loops.title": "Listeyi döngüyle gez",
+	"tutorial.js-functions.title": "Kendi fonksiyonunu yaz",
+	"tutorial.js-inventory.title": "Malzemelerini say",
+	"tutorial.js-targets.title": "Hedef olmayabilir",
+	"tutorial.js-timers.title": "Daha sonra tekrar kontrol et",
+	"tutorial.js-async.title": "Oyunu bekle",
+	"tutorial.js-events.title": "Olaylara tepki ver",
+	"tutorial.js-capstone.title": "Küçük bir avlanma betiği yaz"
 }

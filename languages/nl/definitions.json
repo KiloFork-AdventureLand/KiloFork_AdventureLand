@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub en chat",
+	"directory.guide.hub.title": "Hub en chat",
 	"tutorial.farming.title": "Je eerste doelen voor buit verzamelen",
 	"tutorial.stat-scrolls.title": "Geef je pantser een attribuut",
 	"tutorial.gear-comparison.title": "Wat uitrusting op +7 verandert",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "SCHUDDEN",
 	"slot.char.name": "Pers.",
 	"slot.stone.name": "Graf",
-	"slot.special.name": "Sp. FX"
+	"slot.special.name": "Sp. FX",
+	"tutorial.js-hello.title": "Laat CODE spreken",
+	"tutorial.js-values.title": "Geef een waarde een naam",
+	"tutorial.js-variables.title": "Verander een variabele",
+	"tutorial.js-character.title": "Lees je personage",
+	"tutorial.js-decisions.title": "Neem een beslissing",
+	"tutorial.js-arrays.title": "Maak een lijst",
+	"tutorial.js-loops.title": "Loop door een lijst",
+	"tutorial.js-functions.title": "Schrijf je eigen functie",
+	"tutorial.js-inventory.title": "Tel je voorraad",
+	"tutorial.js-targets.title": "Er is misschien geen doelwit",
+	"tutorial.js-timers.title": "Controleer later opnieuw",
+	"tutorial.js-async.title": "Wacht op het spel",
+	"tutorial.js-events.title": "Reageer op gebeurtenissen",
+	"tutorial.js-capstone.title": "Bouw een klein farmscript"
 }

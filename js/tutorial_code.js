@@ -68,7 +68,7 @@
 					"client.tutorial_code.scene.async.4",
 				][index];
 			} else if (id === "events") {
-				const payloads = [[{ damage: 12 }, { damage: 9 }], [], [{ heal: 7 }, {}], [{ damage: 0 }], [{ damage: 5 }, { damage: "9" }]][index];
+				const payloads = [[{ damage: 12 }, { damage: 9 }], [], [{ heal: 7 }, {}, { damage: "9" }], [{ damage: 0 }], [{ damage: 5 }, { damage: "9" }]][index];
 				scene.events = payloads.map((data, i) => ({ at: 500 + i * 500, data }));
 				scene.events.push({ at: 3500, data: { damage: 88 } });
 				scene.expected = [["Damage: 12", "Damage: 9"], [], [], ["Damage: 0"], ["Damage: 5"]][index];
@@ -335,7 +335,7 @@
 			checks.push({
 				pass: same(result.logs, scene.expected),
 				id: scene.expected.length ? "client.tutorial_code.check.expected" : "client.tutorial_code.check.silent",
-				parameters: { output: scene.expected.join(" → ") },
+				parameters: { output: scene.expected.join("\n") },
 			});
 		checks.push({ pass: result.pendingTimers === 0 && result.pendingActions === 0 && result.listeners === 0, id: "client.tutorial_code.check.cleanup" });
 		if (scene.id === "targets") checks.push({ pass: !result.calls.some((call) => call.dead), id: "client.tutorial_code.check.dead" });
@@ -402,7 +402,7 @@
 			{
 				pass: result.logs.length === expected.length && expected.every((line, index) => result.logs[index] === line),
 				id: "client.tutorial_code.check.expected",
-				parameters: { output: expected.join(" → ") },
+				parameters: { output: expected.join("\n") },
 			},
 		];
 		if (id === "functions") {
@@ -425,26 +425,30 @@
 		values: [0],
 		variables: [0],
 		character: [0, 3, 4],
-		decisions: [0, 1, 2, 3],
+		decisions: [0, 2, 3],
 		arrays: [0],
 		loops: [0],
-		functions: [0, 1, 2, 3],
+		functions: [0, 2, 3],
 		inventory: [0, 1, 3],
-		targets: [0, 1, 2, 3, 4],
+		targets: [0, 1, 2],
 		timers: [0, 4],
-		async: [0, 1, 2, 3, 4],
-		events: [0, 1, 2, 3, 4],
-		capstone: [0, 1, 2, 3, 4],
+		async: [2, 3, 4],
+		events: [0, 2, 3],
+		capstone: [2, 3, 4],
 	};
+	function lessonScenes(id) {
+		if (!Object.prototype.hasOwnProperty.call(lessonCases, id)) throw new PracticeError("client.tutorial_code.error.lesson");
+		const scenes = scenarios(id, characters);
+		return lessonCases[id].map((index) => scenes[index]);
+	}
 	async function check(source, id) {
 		if (typeof source !== "string" || source.length > 20000) throw new PracticeError("client.tutorial_code.error.source_limit");
-		if (!Object.prototype.hasOwnProperty.call(lessonCases, id)) throw new PracticeError("client.tutorial_code.error.lesson");
 		const results = [];
-		const scenes = scenarios(id, characters);
-		for (const index of lessonCases[id]) {
-			const scene = scenes[index];
+		const scenes = lessonScenes(id);
+		const probes = scenes.map((scene) => scene.hero);
+		for (const scene of scenes) {
 			try {
-				const result = foundations.includes(id) ? runPractice(source, scene.hero, characters) : await runScenario(source, scene);
+				const result = foundations.includes(id) ? runPractice(source, scene.hero, probes) : await runScenario(source, scene);
 				results.push({
 					name: scene.hero.name,
 					hp: scene.hero.hp,
@@ -452,7 +456,7 @@
 					note: scene.note,
 					logs: result.logs,
 					errors: result.errors || [],
-					checks: foundations.includes(id) ? grade(id, scene.hero, result, characters) : gradeScenario(scene, result),
+					checks: foundations.includes(id) ? grade(id, scene.hero, result, probes) : gradeScenario(scene, result),
 				});
 			} catch (error) {
 				results.push({
@@ -468,7 +472,7 @@
 		}
 		return results;
 	}
-	const tutorial = { characters, scenarios, createClock, runScenario, gradeScenario, runPractice, grade, check };
+	const tutorial = { characters, scenarios, lessonScenes, createClock, runScenario, gradeScenario, runPractice, grade, check };
 	if (typeof document === "undefined" && typeof module !== "undefined" && module.exports) {
 		module.exports = tutorial;
 		return;
@@ -496,7 +500,8 @@
 		const passed = (result) => !result.errors.length && result.checks.every((check) => check.pass);
 		const count = results.filter(passed).length;
 		const multiple = results.length > 1;
-		const showCharacter = !["hello", "variables", "arrays", "loops"].includes(id);
+		const showHeading = !["hello", "variables", "arrays", "loops"].includes(id);
+		const showHP = ["values", "character", "decisions", "functions", "timers", "capstone"].includes(id);
 		output.replaceChildren();
 		output.dataset.state = count === results.length ? "passed" : "failed";
 		function append(parent, tag, className, value) {
@@ -510,12 +515,12 @@
 		for (const result of results) {
 			const row = append(output, "div", "tutorial-code-check");
 			row.dataset.passed = String(passed(result));
-			if (showCharacter) {
+			if (showHeading) {
 				const heading = append(row, "div", "tutorial-code-check-heading");
-				append(heading, "span", "", text("hp", result));
+				append(heading, "span", "", id === "events" ? phrase(result.note) : showHP ? text("hp", result) : result.name);
 				if (multiple) append(heading, "span", "tutorial-code-status", text(passed(result) ? "pass" : "retry"));
 			}
-			if (result.note) append(row, "div", "tutorial-code-note", phrase(result.note));
+			if (result.note && id !== "events") append(row, "div", "tutorial-code-note", phrase(result.note));
 			append(row, "pre", "tutorial-code-output", result.logs.length ? text("logs", { output: result.logs.join("\n") }) : text("no_logs"));
 			for (const check of result.checks) if (!check.pass) append(row, "div", "tutorial-code-feedback", phrase(check.id, check.parameters));
 			for (const error of result.errors) append(row, "div", "tutorial-code-feedback", text("error", { error: errorText(error) }));
@@ -528,23 +533,67 @@
 		deadline = null;
 		if (active && active.output.dataset.state === "running") status(active.output, "ready");
 	}
+	function renderInputs(element, editor, id) {
+		const fields = {
+			character: ["name", "hp", "max_hp"],
+			decisions: ["name", "hp", "max_hp"],
+			functions: ["name", "hp", "max_hp"],
+			inventory: ["name", "items"],
+			targets: ["name", "rip", "map", "x", "y", "range"],
+			timers: ["name", "hp", "max_hp"],
+			async: ["name", "map", "x", "y"],
+			events: [],
+			capstone: ["name", "hp", "max_hp", "mp", "max_mp", "rip", "map", "x", "y", "range"],
+		};
+		if (!fields[id]) return;
+		element.querySelectorAll(".tutorial-code-inputs, .tutorial-code-input-intro").forEach((node) => node.remove());
+		const intro = document.createElement("p");
+		intro.className = "tutorial-code-input-intro";
+		const kind = id === "targets" || id === "capstone" ? "targets" : ["timers", "async", "events"].includes(id) ? id : "character";
+		intro.innerHTML = phrase.html("client.tutorial_code.inputs." + kind);
+		const samples = document.createElement("div");
+		samples.className = "tutorial-code-inputs";
+		element.insertBefore(intro, editor.getWrapperElement());
+		element.insertBefore(samples, editor.getWrapperElement());
+		const pick = (object, keys) => Object.fromEntries(keys.map((key) => [key, object[key]]));
+		const assignment = (name, value) => name + " = " + JSON.stringify(value, null, 4) + ";";
+		const target = (monsters) => {
+			const monster = monsters.find((monster) => monster.mtype === "goo");
+			return monster ? pick(monster, ["mtype", "map", "x", "y"]) : null;
+		};
+		const at = (time) => "// " + text("inputs.at", { time });
+		for (const scene of lessonScenes(id)) {
+			const lines = [];
+			if (fields[id].length) lines.push(assignment("character", pick(scene.hero, fields[id])));
+			if (kind === "targets") lines.push(assignment("target", target(scene.monsters)));
+			if (scene.note) lines.push("// " + phrase(scene.note));
+			if (id === "async" || id === "capstone") {
+				lines.push("// " + text("inputs.travel", { time: scene.travelDelay }));
+				if (scene.tripResults[0]) lines.push("// " + text("inputs.failure", { reason: scene.tripResults[0] }));
+			}
+			if (scene.cooldownUntil) lines.push("// " + text("inputs.cooldown", { time: scene.cooldownUntil }));
+			for (const change of scene.changes) {
+				lines.push(at(change.at));
+				for (const key of Object.keys(change.hero || {})) lines.push(assignment("character." + key, change.hero[key]));
+				if (change.monsters) lines.push(assignment("target", target(change.monsters)));
+			}
+			for (const event of scene.events) lines.push(at(event.at), assignment("data", event.data));
+			if (scene.cancelAt !== undefined) lines.push(at(scene.cancelAt), id === "timers" ? "stopReports();" : 'stop("move");');
+			if (scene.repeatAt !== undefined) lines.push(at(scene.repeatAt), "takeTrip();");
+			const code = document.createElement("div");
+			code.className = "code readonly";
+			code.textContent = lines.join("\n");
+			samples.appendChild(code);
+		}
+		$(samples).find(".code").codemirror();
+	}
 	function mount() {
 		const element = $(".modal:last .tutorial-code")[0];
 		if (!element || (active && active.element === element)) return !!element;
 		cancel();
 		const editor = element.querySelector(":scope > .CodeMirror").CodeMirror;
 		const output = element.querySelector(".tutorial-code-result");
-		const samples = element.querySelector(".tutorial-code-characters");
-		if (samples) {
-			samples.replaceChildren();
-			for (const index of lessonCases[element.dataset.lesson]) {
-				const code = document.createElement("div");
-				code.className = "code readonly";
-				code.textContent = JSON.stringify(characters[index], null, 4);
-				samples.appendChild(code);
-			}
-			$(samples).find(".code").codemirror();
-		}
+		renderInputs(element, editor, element.dataset.lesson);
 		const key = "tutorial_code_v1_" + (root.user_id || "guest") + "_" + element.dataset.lesson;
 		active = { element, editor, output };
 		try {

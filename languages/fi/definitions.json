@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub ja chat",
+	"directory.guide.hub.title": "Hub ja chat",
 	"tutorial.farming.title": "Ensimmäiset saaliinkeruutavoitteesi",
 	"tutorial.stat-scrolls.title": "Anna haarniskallesi ominaisuus",
 	"tutorial.gear-comparison.title": "Mitä +7-varusteet muuttavat",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "RAVISTA",
 	"slot.char.name": "Hahmo",
 	"slot.stone.name": "Hautakivi",
-	"slot.special.name": "Efektit"
+	"slot.special.name": "Efektit",
+	"tutorial.js-hello.title": "Anna CODElle ääni",
+	"tutorial.js-values.title": "Nimeä arvo",
+	"tutorial.js-variables.title": "Muuta muuttujaa",
+	"tutorial.js-character.title": "Lue hahmosi tiedot",
+	"tutorial.js-decisions.title": "Tee päätös",
+	"tutorial.js-arrays.title": "Luo lista",
+	"tutorial.js-loops.title": "Käy lista läpi",
+	"tutorial.js-functions.title": "Kirjoita oma funktio",
+	"tutorial.js-inventory.title": "Laske tarvikkeesi",
+	"tutorial.js-targets.title": "Kohde voi puuttua",
+	"tutorial.js-timers.title": "Tarkista myöhemmin",
+	"tutorial.js-async.title": "Odota peliä",
+	"tutorial.js-events.title": "Reagoi tapahtumiin",
+	"tutorial.js-capstone.title": "Tee pieni farmausskripti"
 }

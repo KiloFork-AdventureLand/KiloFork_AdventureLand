@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub και συνομιλία",
+	"directory.guide.hub.title": "Hub και συνομιλία",
 	"tutorial.farming.title": "Οι πρώτοι στόχοι συλλογής λείας",
 	"tutorial.stat-scrolls.title": "Δώσε μια ιδιότητα στην πανοπλία σου",
 	"tutorial.gear-comparison.title": "Τι αλλάζει ο εξοπλισμός +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "ΚΟΥΝΗΜΑ",
 	"slot.char.name": "ΧΑΡ.",
 	"slot.stone.name": "ΤΑΦΟΣ",
-	"slot.special.name": "ΕΙΔ. ΕΦΕ"
+	"slot.special.name": "ΕΙΔ. ΕΦΕ",
+	"tutorial.js-hello.title": "Κάνε το CODE να μιλήσει",
+	"tutorial.js-values.title": "Δώσε όνομα σε μια τιμή",
+	"tutorial.js-variables.title": "Άλλαξε μια μεταβλητή",
+	"tutorial.js-character.title": "Διάβασε τον χαρακτήρα σου",
+	"tutorial.js-decisions.title": "Πάρε μια απόφαση",
+	"tutorial.js-arrays.title": "Φτιάξε μια λίστα",
+	"tutorial.js-loops.title": "Διάτρεξε μια λίστα",
+	"tutorial.js-functions.title": "Γράψε δική σου συνάρτηση",
+	"tutorial.js-inventory.title": "Μέτρησε τις προμήθειες",
+	"tutorial.js-targets.title": "Ο στόχος μπορεί να λείπει",
+	"tutorial.js-timers.title": "Έλεγξε ξανά αργότερα",
+	"tutorial.js-async.title": "Περίμενε το παιχνίδι",
+	"tutorial.js-events.title": "Αντέδρασε σε συμβάντα",
+	"tutorial.js-capstone.title": "Φτιάξε ένα μικρό script για farming"
 }

@@ -56,6 +56,7 @@ test("all 14 rendered lessons have working solutions, useful failing starters an
 		assert.equal((html.match(/class="code executeb"/g) || []).length, 1);
 		for (const example of snippets.slice(2)) new vm.Script(example);
 		const results = await practice.check(solution, id);
+		assert.ok(results.length >= 1 && results.length <= 3, lesson.key + " keeps the checks bite-sized");
 		assert.ok(passes(results), lesson.key + ": " + JSON.stringify(results));
 		assert.equal(passes(await practice.check(starter, id)), false, lesson.key + " starter needs a real correction");
 		for (const result of results) for (const check of result.checks) assert.ok(english[check.id], check.id);
@@ -80,10 +81,14 @@ test("practice runs fixed exercises once and keeps distinct inputs and cancellat
 	}
 	for (const [id, names] of [
 		["character", ["Mira", "Iris", "Orin"]],
-		["decisions", ["Mira", "Nox", "Bram", "Iris"]],
-		["functions", ["Mira", "Nox", "Bram", "Iris"]],
+		["decisions", ["Mira", "Bram", "Iris"]],
+		["functions", ["Mira", "Bram", "Iris"]],
 		["inventory", ["Mira", "Nox", "Iris"]],
 		["timers", ["Mira", "Orin"]],
+		["targets", ["Mira", "Nox", "Bram"]],
+		["async", ["Bram", "Iris", "Orin"]],
+		["events", ["Mira", "Bram", "Iris"]],
+		["capstone", ["Bram", "Iris", "Orin"]],
 	]) {
 		const results = await practice.check(solution(id), id);
 		assert.deepEqual(
@@ -109,6 +114,8 @@ test("practice catches fixed values, wrong boundaries, ignored parameters and fa
 		["functions", "hero.hp < hero.max_hp", "character.hp < character.max_hp"],
 		["inventory", "else total += item.q;", "else total += 1;"],
 		["events", "character.remove(listener);", ""],
+		["events", 'typeof data.damage !== "number"', "data.damage == null"],
+		["events", 'typeof data.damage !== "number"', "!data.damage"],
 		["capstone", "if (running) timer =", "timer ="],
 	]) {
 		assert.ok(solution(id).includes(from), id);

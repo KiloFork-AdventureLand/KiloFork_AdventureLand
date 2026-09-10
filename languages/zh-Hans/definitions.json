@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub与聊天",
+	"directory.guide.hub.title": "Hub与聊天",
 	"tutorial.farming.title": "最初的刷怪目标",
 	"tutorial.stat-scrolls.title": "为护甲赋予属性",
 	"tutorial.gear-comparison.title": "+7装备带来的变化",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "摇晃",
 	"slot.char.name": "角色",
 	"slot.stone.name": "墓碑",
-	"slot.special.name": "特效"
+	"slot.special.name": "特效",
+	"tutorial.js-hello.title": "让 CODE 开口说话",
+	"tutorial.js-values.title": "给值起个名字",
+	"tutorial.js-variables.title": "修改变量",
+	"tutorial.js-character.title": "读取角色数据",
+	"tutorial.js-decisions.title": "做出判断",
+	"tutorial.js-arrays.title": "创建列表",
+	"tutorial.js-loops.title": "循环遍历列表",
+	"tutorial.js-functions.title": "编写自己的函数",
+	"tutorial.js-inventory.title": "清点补给",
+	"tutorial.js-targets.title": "目标可能不存在",
+	"tutorial.js-timers.title": "稍后再次检查",
+	"tutorial.js-async.title": "等待游戏操作",
+	"tutorial.js-events.title": "响应事件",
+	"tutorial.js-capstone.title": "编写一个小型刷怪脚本"
 }

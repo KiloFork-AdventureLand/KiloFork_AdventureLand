@@ -1,6 +1,6 @@
 {
 	"tutorial.tracktrix.title": "Tracktrix",
-  "directory.guide.hub.title": "Hub & Obrolan",
+	"directory.guide.hub.title": "Hub & Obrolan",
 	"tutorial.farming.title": "Target farming pertamamu",
 	"tutorial.stat-scrolls.title": "Beri atribut pada zirahmu",
 	"tutorial.gear-comparison.title": "Perubahan dari perlengkapan +7",
@@ -1543,5 +1543,19 @@
 	"item.frozenstone.action": "GUNCANG",
 	"slot.char.name": "Kar.",
 	"slot.stone.name": "Nisan",
-	"slot.special.name": "Efek Kh."
+	"slot.special.name": "Efek Kh.",
+	"tutorial.js-hello.title": "Buat CODE berbicara",
+	"tutorial.js-values.title": "Beri nama pada nilai",
+	"tutorial.js-variables.title": "Ubah variabel",
+	"tutorial.js-character.title": "Baca karaktermu",
+	"tutorial.js-decisions.title": "Ambil keputusan",
+	"tutorial.js-arrays.title": "Buat daftar",
+	"tutorial.js-loops.title": "Telusuri daftar dengan perulangan",
+	"tutorial.js-functions.title": "Tulis fungsi sendiri",
+	"tutorial.js-inventory.title": "Hitung persediaan",
+	"tutorial.js-targets.title": "Target mungkin tidak ada",
+	"tutorial.js-timers.title": "Periksa lagi nanti",
+	"tutorial.js-async.title": "Tunggu tindakan game",
+	"tutorial.js-events.title": "Tanggapi kejadian",
+	"tutorial.js-capstone.title": "Buat skrip farming kecil"
 }
