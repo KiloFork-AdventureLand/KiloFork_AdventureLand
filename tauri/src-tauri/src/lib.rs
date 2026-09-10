@@ -655,9 +655,12 @@ pub fn run() {
                 main.on_window_event(move |event| {
                     if let tauri::WindowEvent::CloseRequested { api, .. } = event {
                         api.prevent_close();
+                        let description = handle
+                            .state::<Arc<desktop::DesktopLanguage>>()
+                            .close_confirmation();
                         let confirmed = rfd::MessageDialog::new()
                             .set_title("Adventure Land")
-                            .set_description("Are you sure you want to close Adventure Land?")
+                            .set_description(description)
                             .set_buttons(rfd::MessageButtons::YesNo)
                             .show();
                         if confirmed == rfd::MessageDialogResult::Yes {

@@ -1,1 +1,1 @@
-phrase.load("th",{"desktop.loading":"กำลังโหลด","desktop.connection_help":"Adventure Land ต้องเชื่อมต่ออินเทอร์เน็ต ตรวจสอบการเชื่อมต่อแล้วลองโหลดใหม่ หากยังโหลดไม่ได้ ส่งอีเมลไปที่ hello@adventure.land","desktop.apology":"ขอโทษที่ให้รอ :)"});
+phrase.load("th",{"desktop.loading":"กำลังโหลด","desktop.connection_help":"Adventure Land ต้องเชื่อมต่ออินเทอร์เน็ต ตรวจสอบการเชื่อมต่อแล้วลองโหลดใหม่ หากยังโหลดไม่ได้ ส่งอีเมลไปที่ hello@adventure.land","desktop.apology":"ขอโทษที่ให้รอ :)","desktop.close_confirmation":"แน่ใจไหมว่าต้องการปิด Adventure Land?"});

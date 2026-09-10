@@ -176,6 +176,10 @@ test("all real desktop catalogs are shipped, separately from the image cache", (
 			phrase: { load(language, values) { assert.equal(language, code); entries = values; } },
 		});
 		assert.ok(entries["desktop.loading"]);
+		assert.equal(
+			entries["desktop.close_confirmation"],
+			locales.find(entry => entry.code === code).close_confirmation,
+		);
 		assert.ok(Object.keys(entries).every(key => key.startsWith("desktop.")));
 	}
 });

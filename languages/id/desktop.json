@@ -1,5 +1,6 @@
 {
 	"desktop.loading": "MEMUAT",
 	"desktop.connection_help": "Adventure Land memerlukan koneksi internet. Periksa koneksimu dan coba muat ulang. Jika tetap tidak bisa dimuat, kirim email ke hello@adventure.land.",
-	"desktop.apology": "Maaf sudah membuatmu menunggu :)"
+	"desktop.apology": "Maaf sudah membuatmu menunggu :)",
+	"desktop.close_confirmation": "Yakin ingin menutup Adventure Land?"
 }
