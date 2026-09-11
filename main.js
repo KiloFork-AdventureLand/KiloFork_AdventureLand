@@ -278,6 +278,7 @@ app.get("/merchants", async (req, res, next) => {
 
 // Character + server selection (enter game)
 app.get("/character/:name/in/:region/:sname", async (req, res, next) => {
+	if (redirect_inactive_server(req, res)) return;
 	var user = await get_user(req);
 	var domain = await get_domain(req, user),
 		level = 80;
@@ -305,6 +306,7 @@ app.get("/character/:name/in/:region/:sname", async (req, res, next) => {
 
 // Server selection
 app.get("/server/:region/:sname", async (req, res, next) => {
+	if (redirect_inactive_server(req, res)) return;
 	var user = await get_user(req);
 	var domain = await get_domain(req, user);
 	var servers = await get_browser_servers(req);

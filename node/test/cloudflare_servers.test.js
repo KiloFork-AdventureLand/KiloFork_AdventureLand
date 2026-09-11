@@ -39,6 +39,7 @@ function runtime() {
 		["EU", "IV", "de.adventure.land", 6],
 		["US", "I", "na2.adventure.land", 1],
 		["ASIA", "I", "sg.adventure.land", 1],
+		["ASIA", "II", "sg.adventure.land", 2],
 		["EU", "V", "external.example.test", 1],
 	].map(([region, name, address, path]) =>
 		Object.freeze({
@@ -57,7 +58,19 @@ function runtime() {
 	const context = vm.createContext({
 		Dev: true,
 		SEO_ORIGIN: "https://adventure.land",
-		options: { servers: Object.fromEntries(records.map((server) => [server.key, {}])) },
+		options: {
+			servers: Object.fromEntries(
+				records.map((server) => [
+					server.key,
+					{
+						region: server.region,
+						name: server.name,
+						inactive: server.key === "EUIV" || server.key === "ASIAII",
+						redirect: [server.region, "I"],
+					},
+				]),
+			),
+		},
 		db: {
 			collection(name) {
 				assert.equal(name, "server");
@@ -91,6 +104,7 @@ function runtime() {
 			"adventure_functions.js",
 			[
 				"get_servers",
+				"redirect_inactive_server",
 				"get_browser_servers",
 				"select_server",
 				"servers_to_client",
@@ -99,6 +113,7 @@ function runtime() {
 			],
 		],
 		["api.js", ["servers_and_characters_api", "get_servers_api", "can_reload_api"]],
+		["mainframe.js", ["mainframe_resolve_server"]],
 	]) {
 		vm.runInContext(names.map((name) => extract(read(file), name)).join("\n"), context, { filename: file });
 	}
@@ -237,5 +252,67 @@ test("Cloudflare character links redirect unavailable servers to root, including
 				}
 			}
 		}
+	}
+});
+
+test("retired servers are absent from discovery, refreshes and reconnect requests despite stale online records", async () => {
+	const { context, user } = runtime();
+	for (const [region, name] of [
+		["EU", "IV"],
+		["ASIA", "II"],
+	]) {
+		assert.equal(await context.mainframe_resolve_server(region + " " + name), null);
+		assert.equal(await context.mainframe_resolve_server("SR_" + region + name), null);
+		for (const host of ["adventure.land", "cloudflare.adventure.land", "adventure.test"]) {
+			const req = request(host, region, name);
+			const servers = await context.get_browser_servers(req);
+			assert.ok(!servers.some((s) => s.region === region && s.name === name));
+			const listing = await context.get_servers_api({ req });
+			assert.ok(!listing.servers.some((s) => s.region === region && s.name === name));
+			const res = response();
+			assert.equal((await context.can_reload_api({ req, res, user, region, name })).reload, false);
+			assert.deepEqual(res.infs, []);
+		}
+	}
+	assert.equal((await context.mainframe_resolve_server("EU I")).key, "SR_EUI");
+});
+
+test("retired character and server links bypass selection, preserving names and query strings", async () => {
+	const { context, routes } = runtime();
+	context.get_user = context.get_servers = async () => assert.fail("redirect must not access the database");
+	const router = express.Router();
+	for (const path of ["/character/:name/in/:region/:sname", "/server/:region/:sname"]) router.get(path, routes[path]);
+	for (const [region, name] of [
+		["EU", "IV"],
+		["ASIA", "II"],
+	]) {
+		for (const host of ["adventure.test", "adventure.land", "cloudflare.adventure.land"]) {
+			for (const prefix of ["/character/Wizard/in/", "/character/Hero%20Name/in/", "/server/"]) {
+				for (const ending of ["", "/", "/?code=2&no_html=1", "?code=a%26b&no_graphics=1"]) {
+					const req = Object.assign(request(host), { method: "GET", url: prefix + region + "/" + name + ending });
+					const url = await new Promise((resolve, reject) => {
+						router.handle(req, { redirect: resolve }, (error) => reject(error || new Error("Route did not match")));
+					});
+					const query = ending.includes("?") ? ending.slice(ending.indexOf("?")) : "";
+					assert.equal(url, prefix + region + "/I/" + query);
+				}
+			}
+		}
+	}
+});
+
+test("missing, invalid and inactive redirect destinations cannot cause redirect loops", () => {
+	const { context } = runtime();
+	const definition = context.options.servers.EUIV;
+	for (const redirect of [undefined, "EU/I", ["EU", "missing"], ["EU", "IV"], ["ASIA", "II"]]) {
+		definition.redirect = redirect;
+		let destination;
+		assert.equal(
+			context.redirect_inactive_server(request("adventure.land", "EU", "IV"), {
+				redirect: (url) => (destination = url),
+			}),
+			true,
+		);
+		assert.equal(destination, "/");
 	}
 });

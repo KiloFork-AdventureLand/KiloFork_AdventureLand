@@ -5,6 +5,50 @@ const test = require("node:test");
 const vm = require("node:vm");
 const { read, load, socketHandler } = require("./helpers/server_vm");
 
+test("inactive and unknown server keys fail before sockets or database connections are created", () => {
+	for (const [key, definition, message] of [
+		["retired", { inactive: true }, "Inactive server"],
+		["missing", undefined, "Unknown server"],
+	]) {
+		const context = vm.createContext({
+			process: { argv: ["node", "server.js", key] },
+			require(name) {
+				if (name === "./../secretsandconfig/options") return { servers: { [key]: definition } };
+				if (name === "./../secretsandconfig/keys" || name === "../languages") return {};
+				assert.fail("Inactive server loaded a service: " + name);
+			},
+		});
+		assert.throws(() => vm.runInContext(read("node/server.js"), context), new RegExp(message + ": " + key));
+	}
+});
+
+test("server RPC refuses inactive definitions even when a character points at a stale server record", async () => {
+	let requests = 0;
+	const context = vm.createContext({
+		keys: { ACCESS_MASTER: "test" },
+		URLSearchParams,
+		options: {
+			base_url: "https://adventure.land",
+			servers: { active: { api_path: "/api1/" }, retired: { inactive: true, api_path: "/api2/" } },
+		},
+		console: { error() {} },
+		fetch() {
+			requests++;
+			return { text: async () => "{}" };
+		},
+	});
+	load(context, "adventure_functions.js", ["server_url", "server_eval"]);
+	assert.equal(
+		context.server_url({ key: "active", address: "example.test" }, "eval"),
+		"https://example.test/api1/eval",
+	);
+	for (const key of ["retired", "unknown"])
+		assert.equal(await context.server_eval({ key, address: "example.test" }, "1"), null);
+	assert.equal(requests, 0, "retired and unknown servers must not receive a request");
+	assert.ok(await context.server_eval({ key: "active", address: "example.test" }, "1"));
+	assert.equal(requests, 1, "active server requests still work");
+});
+
 test("destroying an instance moves spectators before deletion and disconnect cleanup remains idempotent", () => {
 	const sent = [];
 	const instances = {

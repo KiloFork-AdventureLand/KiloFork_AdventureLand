@@ -14,6 +14,8 @@ var localization = require("../languages"),
 	phrase_html = localization.phrase_html;
 var server_key = process.argv[process.argv.length - 1];
 var server_def = options.servers[server_key];
+if (!server_def) throw new Error("Unknown server: " + server_key);
+if (server_def.inactive) throw new Error("Inactive server: " + server_key);
 var region = server_def.region;
 var server_name = server_def.name;
 var Dev = options.Dev;

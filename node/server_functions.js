@@ -1142,9 +1142,13 @@ function realmfatigue_logic(player, characters) {
 async function pull_server_information() {
 	if (Date.now() < server_information.next_pull) return;
 	server_information.next_pull = Date.now() + 30000;
-	var ids = Object.values(options.servers).map(function (definition) {
-		return "SR_" + definition.region + definition.name;
-	});
+	var ids = Object.values(options.servers)
+		.filter(function (definition) {
+			return !definition.inactive;
+		})
+		.map(function (definition) {
+			return "SR_" + definition.region + definition.name;
+		});
 	try {
 		var snapshots = await db
 			.collection("server")

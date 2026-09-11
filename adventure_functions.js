@@ -649,9 +649,25 @@ async function get_servers(no_cache) {
 	});
 	var result = [];
 	servers.forEach(function (s) {
-		if (options.servers[s.key]) result.push(s);
+		if (options.servers[s.key] && !options.servers[s.key].inactive) result.push(s);
 	});
 	return result;
+}
+
+function redirect_inactive_server(req, res) {
+	var definitions = Object.values(options.servers);
+	var definition = definitions.find((s) => s.region === req.params.region && s.name === req.params.sname);
+	if (!definition || !definition.inactive) return false;
+	var redirect = definition.redirect;
+	var destination = Array.isArray(redirect) && definitions.find((s) => !s.inactive && s.region === redirect[0] && s.name === redirect[1]);
+	var url = "/";
+	if (destination) {
+		url = req.path.replace(/\/[^/]+\/[^/]+\/?$/, "/" + encodeURIComponent(destination.region) + "/" + encodeURIComponent(destination.name) + "/");
+		var query = req.originalUrl.indexOf("?");
+		if (query !== -1) url += req.originalUrl.slice(query);
+	}
+	res.redirect(url);
+	return true;
 }
 
 async function get_browser_servers(req) {
@@ -1346,8 +1362,10 @@ async function add_event(element, type, tags, args) {
 // ==================== SERVER COMMUNICATION ====================
 
 function server_url(server, api_method) {
+	var definition = options.servers[server.key];
+	if (!definition || definition.inactive) throw new Error("Server unavailable: " + server.key);
 	var protocol = options.base_url.startsWith("https") ? "https" : "http";
-	return protocol + "://" + server.address + options.servers[server.key].api_path + api_method;
+	return protocol + "://" + server.address + definition.api_path + api_method;
 }
 
 async function server_eval(server, code, data, timeout) {
@@ -1385,7 +1403,7 @@ async function server_eval_safe(server, code, data) {
 async function servers_eval(code, data) {
 	var servers = await get_servers();
 	for (var i = 0; i < servers.length; i++) {
-		if (options.servers[servers[i].key]) await server_eval_safe(servers[i], code, data);
+		await server_eval_safe(servers[i], code, data);
 	}
 }
 

@@ -79,7 +79,13 @@ test("regular Server updates publish history and share one throttled projected p
 		Date: { now: () => now },
 		Version: 9001,
 		server_information: information,
-		options: { servers: { eu1: { region: "EU", name: "1" }, us1: { region: "US", name: "1" } } },
+		options: {
+			servers: {
+				eu1: { region: "EU", name: "1" },
+				us1: { region: "US", name: "1" },
+				retired: { region: "EU", name: "IV", inactive: true },
+			},
+		},
 		server: { live: true },
 		Server: { _id: "SR_EU1", version: "2030", updated: new Date(now - 16000), info: {} },
 		players: Object.fromEntries(Array.from({ length: 20 }, (_, i) => [i, character("CH_" + i)])),
