@@ -56,6 +56,9 @@ function setup(saved) {
 	const context = {
 		no_graphics: false,
 		no_html: false,
+		browser_zoom: 0,
+		map_npcs: [],
+		map_doors: [],
 		proximity_guides: true,
 		character: {},
 		entities: { npc, merchant },
@@ -89,10 +92,134 @@ function setup(saved) {
 			view: { getBoundingClientRect: () => ({ left: 0, top: 0, right: 800, bottom: 600, width: 800, height: 600 }) },
 		},
 	};
+	context.window = context;
 	localize(vm.createContext(context));
 	vm.runInContext(source, context);
 	return context;
 }
+
+function button_bounds(button) {
+	const left = parseFloat(button.style.left),
+		top = parseFloat(button.style.top);
+	return { left, top, right: left + button.offsetWidth, bottom: top + button.offsetHeight };
+}
+
+function overlaps(a, b) {
+	return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+}
+
+test("notice coordinates follow page zoom, canvas scaling and canvas offsets", () => {
+	const c = setup();
+	for (const zoom of [-25, 0, 25, 50]) {
+		for (const scale of [1, 1.5]) {
+			const factor = 1 + zoom / 100,
+				left = 37 * factor,
+				top = 19 * factor;
+			const width = 800 * scale * factor,
+				height = 600 * scale * factor;
+			c.browser_zoom = zoom;
+			c.renderer.view.getBoundingClientRect = () => ({
+				left,
+				top,
+				width,
+				height,
+				right: left + width,
+				bottom: top + height,
+			});
+			c.update_npc_obstruction_hint();
+			assert.equal(c.npc_obstruction_hints.length, 1, "reuse the notice when zoom changes");
+			const button = c.npc_obstruction_hints[0],
+				bounds = button_bounds(button);
+			assert.equal(button.style.display, "block");
+			assert.ok(
+				Math.abs((bounds.left + button.offsetWidth / 2) * factor - (left + 300 * scale * factor)) <= factor / 2,
+				"center remains over the NPC",
+			);
+			assert.ok(
+				Math.abs((bounds.bottom + 104) * factor - (top + 264 * scale * factor)) <= factor / 2,
+				"vertical gap uses the same coordinate space as the button",
+			);
+		}
+	}
+});
+
+test("notices avoid all NPC bodies and name tags, including citizens, moving and map NPCs", () => {
+	for (const type of ["citizen", "moving", "map"]) {
+		const c = setup(),
+			other = Object.assign(sprite(300, 155), { npc: "quiet", moving: type === "moving" });
+		c.G.npcs.quiet = { role: type === "citizen" ? "citizen" : "merchant" };
+		other.name_tag = {
+			visible: true,
+			worldAlpha: 1,
+			getBounds: (skipUpdate) => {
+				assert.equal(skipUpdate, true);
+				return { x: 160, y: 90, width: 280, height: 16 };
+			},
+		};
+		if (type === "map") c.map_npcs.push(other);
+		else c.entities.other = other;
+		c.update_npc_obstruction_hint();
+		const button = c.npc_obstruction_hints[0];
+		assert.equal(button.style.display, "block", type);
+		assert.ok(!overlaps(button_bounds(button), c.npc_hint_bounds(other, true)), type);
+		assert.ok(!overlaps(button_bounds(button), c.npc_hint_bounds(c.entities.npc)), "keep the target visible too");
+	}
+});
+
+test("notices avoid door hit areas at every supported zoom", () => {
+	for (const zoom of [-25, 0, 25, 50]) {
+		const c = setup(),
+			factor = 1 + zoom / 100;
+		const door = sprite(300, 160, 1, 1);
+		door.hitArea = { x: -180, y: -100, width: 360, height: 100 };
+		c.map_doors.push(door);
+		c.browser_zoom = zoom;
+		c.renderer.view.getBoundingClientRect = () => ({
+			left: 0,
+			top: 0,
+			right: 800 * factor,
+			bottom: 600 * factor,
+			width: 800 * factor,
+			height: 600 * factor,
+		});
+		c.update_npc_obstruction_hint();
+		const button = c.npc_obstruction_hints[0];
+		assert.equal(button.style.display, "block");
+		assert.ok(!overlaps(button_bounds(button), c.npc_hint_bounds(door)), String(zoom));
+	}
+});
+
+test("notices stay inside the canvas at its edges without covering their NPC", () => {
+	for (const x of [15, 785])
+		for (const y of [60, 595]) {
+			const c = setup();
+			Object.assign(c.entities.npc, sprite(x, y));
+			delete c.entities.merchant;
+			c.entities.other = Object.assign(sprite(x, y + 10), { type: "character" });
+			c.update_npc_obstruction_hint();
+			const button = c.npc_obstruction_hints[0],
+				bounds = button_bounds(button);
+			assert.equal(button.style.display, "block");
+			assert.ok(bounds.left >= 8 && bounds.right <= 792 && bounds.top >= 8 && bounds.bottom <= 592);
+			assert.ok(!overlaps(bounds, c.npc_hint_bounds(c.entities.npc)));
+		}
+});
+
+test("a notice hides when no free position fits and returns when the obstruction clears", () => {
+	const c = setup();
+	c.update_npc_obstruction_hint();
+	const button = c.npc_obstruction_hints[0],
+		door = sprite(400, 600, 800, 600);
+	c.map_doors.push(door);
+	c.update_npc_obstruction_hint();
+	assert.equal(button.style.display, "none", "no position can cover the door");
+	door.visible = false;
+	c.update_npc_obstruction_hint();
+	assert.equal(button.style.display, "block");
+	c.renderer.view.getBoundingClientRect = () => ({ left: 0, top: 0, right: 150, bottom: 60, width: 150, height: 60 });
+	c.update_npc_obstruction_hint();
+	assert.equal(button.style.display, "none", "never overflow a canvas smaller than the notice");
+});
 
 test("notices reach 300 units but still require a stand overlapping in front", () => {
 	const c = setup();
