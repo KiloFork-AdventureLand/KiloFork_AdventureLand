@@ -729,6 +729,9 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	padding-left: 9px;
 	padding-right: 7px;
 }
+#bottomrightcodecorner .ui-info{
+	top: -32px;
+}
 .ui-close-row{
 	position: relative;
 	top: auto;
