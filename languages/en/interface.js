@@ -42,9 +42,9 @@ module.exports = {
 	"interface.tutorial.main_track": "Adventurer Tutorial",
 	// New tutorial/guide text. Keep Adventure Land, CODE/API identifiers, item/NPC names (Goo, Coat, Merchant Stand, Market Parcels, Rod, Pickaxe, Computer, Daisy, Merrit, Lost & Found), FriendName, STR/INT/DEX/MP/HP/XP and numbers unchanged. Translate class display names using existing locale terminology. No markup or placeholders.
 	"interface.tutorial.merchant_track": "Merchant Tutorial",
-	// Regular Settings label, beside the separate zoom percentage button.
+	// Regular Settings label, beside the four page zoom choices.
 	"interface.settings.zoom": "Zoom",
-	// Small Settings button; cycles page magnification. percent is 0, +25 or +50; 0 means normal size.
+	// Direct page magnification choice in Settings. percent is -25, 0, +25 or +50; 0 means normal size.
 	"interface.settings.zoom_percent": "{percent}%",
 	// js/html.js close_ui_panel; authored interface text.
 	"interface.close_ui_panel.no_target": "NO TARGET",

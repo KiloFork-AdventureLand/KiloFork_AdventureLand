@@ -87,27 +87,26 @@ function close_ui_panel(button) {
 	}
 }
 
-var browser_zoom = 0;
+var browser_zoom = 0,
+	browser_zoom_levels = [-25, 0, 25, 50];
 
 function set_browser_zoom(value) {
 	if (window.no_html || window.no_graphics) return;
 	browser_zoom = Number(value);
-	if (browser_zoom !== 25 && browser_zoom !== 50) browser_zoom = 0;
+	if (!browser_zoom_levels.includes(browser_zoom)) browser_zoom = 0;
 	var zoom = 1 + browser_zoom / 100;
 	document.documentElement.style.zoom = browser_zoom ? zoom : "";
 	document.documentElement.style.setProperty("--browser-zoom", zoom);
 	document.documentElement.style.setProperty("--browser-zoom-inverse", 1 / zoom);
 	$("html").toggleClass("browser-zoomed", !!browser_zoom);
-	$(".browserzoom").text(phrase("interface.settings.zoom_percent", { percent: browser_zoom ? "+" + browser_zoom : "0" }));
+	$(".browserzoom").each(function () {
+		$(this).attr("aria-pressed", Number($(this).attr("data-zoom")) === browser_zoom);
+	});
 	Cookies.set("browser_zoom", browser_zoom, { expires: 12 * 365 });
 	$(".CodeMirror").each(function () {
 		if (this.CodeMirror) this.CodeMirror.refresh();
 	});
 	if (window.renderer) on_resize();
-}
-
-function cycle_browser_zoom() {
-	set_browser_zoom(window.browser_zoom === 25 ? 50 : window.browser_zoom === 50 ? 0 : 25);
 }
 
 function show_settings() {

@@ -5,6 +5,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");
 const vm = require("node:vm");
+const { localize, load } = require("./helpers/server_vm");
 const source = fs.readFileSync(path.resolve(__dirname, "../../js/npc_obstruction_hint.js"), "utf8");
 
 test("page initializes platform globals before the notice reads the real storage helper", () => {
@@ -68,6 +69,7 @@ function setup(saved) {
 				return this;
 			},
 			css() {},
+			html() {},
 		}),
 		G: { npcs: { upgrade: { name: "Upgrade", role: "newupgrade" }, compound: { name: "Compound", role: "compound" } } },
 		document: {
@@ -87,7 +89,7 @@ function setup(saved) {
 			view: { getBoundingClientRect: () => ({ left: 0, top: 0, right: 800, bottom: 600, width: 800, height: 600 }) },
 		},
 	};
-	vm.createContext(context);
+	localize(vm.createContext(context));
 	vm.runInContext(source, context);
 	return context;
 }
@@ -108,41 +110,64 @@ test("notices reach 300 units but still require a stand overlapping in front", (
 	assert.equal(c.obstructed_npcs().length, 0, "closed stand");
 });
 
-test("blocked citizens and non-service NPCs stay quiet while essential services retain notices", () => {
+test("all stationary NPC roles can show notices, except citizens and roaming NPCs", () => {
 	const c = setup(),
 		definitions = require("./helpers/design").npcs;
 	for (const [id, definition] of Object.entries(definitions)) {
-		if (
-			definition.role !== "citizen" &&
-			!["quest", "companion", "announcer", "lottery", "tavern"].includes(definition.role)
-		)
-			continue;
 		c.G.npcs[id] = definition;
 		c.entities.npc.npc = id;
-		assert.equal(c.obstructed_npcs().length, 0, id);
+		const excluded = definition.role === "citizen" || definition.moving || definition.movable;
+		assert.equal(c.obstructed_npcs().length, excluded ? 0 : 1, id);
 	}
-	for (const id of [
-		"basics",
-		"scrolls",
-		"newupgrade",
-		"compound",
-		"exchange",
-		"craftsman",
-		"mcollector",
-		"anniversary_baker",
-		"items0",
-		"transporter",
-	]) {
-		assert(definitions[id], id);
-		c.G.npcs[id] = definitions[id];
-		c.entities.npc.npc = id;
-		assert.equal(c.obstructed_npcs().length, 1, id);
-	}
+	c.entities.npc.npc = "upgrade";
 	c.update_npc_obstruction_hint();
 	c.G.npcs.quiet = { role: "citizen", name: "Stewart" };
 	c.entities.npc.npc = "quiet";
 	c.update_npc_obstruction_hint();
 	assert.equal(c.npc_obstruction_hints[0].style.display, "none", "a previously visible notice is hidden");
+});
+
+test("runtime movement and citizen flags hide an existing notice", () => {
+	for (const flag of ["moving", "citizen"]) {
+		const c = setup();
+		c.update_npc_obstruction_hint();
+		c.entities.npc[flag] = true;
+		c.update_npc_obstruction_hint();
+		assert.equal(c.obstructed_npcs().length, 0, flag);
+		assert.equal(c.npc_obstruction_hints[0].style.display, "none", flag);
+	}
+});
+
+test("Favoré and Ponty notices use their existing click and F interactions", () => {
+	for (const id of ["favors", "secondhands"]) {
+		for (const input of ["click", "key"]) {
+			const c = setup(),
+				events = [],
+				dialogs = [];
+			c.G.npcs[id] = require("./helpers/design").npcs[id];
+			c.sfx = c.d_text = () => {};
+			c.socket = { emit: (event) => events.push(event) };
+			c.render_interaction = (dialog) => dialogs.push(dialog);
+			load(c, "js/game.js", ["npc_right_click"]);
+			load(c, "js/functions.js", ["npc_focus"]);
+			c.map_doors = [];
+			Object.assign(c.entities.npc, { npc: id, role: c.G.npcs[id].role, onrclick: c.npc_right_click });
+			c.update_npc_obstruction_hint();
+			const button = c.npc_obstruction_hints[0];
+			assert.equal(button.textContent, c.G.npcs[id].name + "\nPress F or Click");
+			if (input === "click") button.onclick({ preventDefault() {}, stopPropagation() {} });
+			else {
+				c.entities.npc.proximity = 80;
+				c.npc_focus();
+			}
+			if (id === "favors") {
+				assert.equal(dialogs.length, 1);
+				assert.equal(dialogs[0].skin, "favore");
+				dialogs[0].onclick();
+				assert.deepEqual(events, ["bless_server"]);
+			} else assert.deepEqual(events, ["secondhands"]);
+		}
+	}
 });
 
 test("a player without a stand covering Ernis triggers the notice and moving away clears it", () => {

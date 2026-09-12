@@ -53,9 +53,13 @@
 	<div class="mt4 blockbutton sdlinesoff {% if domain.sd_lines %}hidden{% endif %}"
 		onclick="btc(event); Cookies.set('sd_lines_off','',{ expires:12*365}); $('.sdlinesoff').hide(); $('.sdlineson').show(); sd_lines=1;">Green Lines: OFF</div>
 	-->
-	<div class="audio-setting-row">
-		<div class="blockbutton audio-setting-toggle" onclick="btc(event); cycle_browser_zoom()">{{ phrase("interface.settings.zoom") }}</div>
-		<div class="blockbutton audio-setting-volume browserzoom" onclick="btc(event); cycle_browser_zoom()">{{ phrase("interface.settings.zoom_percent", {percent: "0"}) }}</div>
+	<div class="audio-setting-row zoom-setting">
+		<div class="blockbutton audio-setting-toggle">{{ phrase("interface.settings.zoom") }}</div>
+		<div class="audio-setting-volume browser-zoom-options">
+			{% for percent in [-25, 0, 25, 50] %}
+				<button type="button" class="tinybutton browserzoom clickable" data-zoom="{{ percent }}" aria-pressed="{{ 'true' if percent == 0 else 'false' }}" onclick="btc(event); set_browser_zoom({{ percent }})">{{ phrase("interface.settings.zoom_percent", {percent: ('+' ~ percent) if percent > 0 else percent}) }}</button>
+			{% endfor %}
+		</div>
 	</div>
 	<div class="mt4 blockbutton" onclick="btc(event); show_modal($('.performancesettings').html(),{wrap:false,styles:'width:600px',hideinbackground:true});">{{ phrase("pages.contents.settings.performance-settings") }}</div>
 	<div class="mt4 blockbutton" onclick="btc(event); show_modal($('.advancedsettings').html(),{wrap:false,styles:'width:600px',hideinbackground:true});">{{ phrase("pages.contents.settings.advanced-settings") }}</div>

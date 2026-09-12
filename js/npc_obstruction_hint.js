@@ -48,13 +48,9 @@ function obstructed_npcs() {
 		result = [];
 	all.forEach(function (npc) {
 		if (!npc.npc || !npc.onrclick || !npc.parent || !npc.visible || !npc.worldAlpha || distance(npc, character) >= 300) return;
-		// Keep essential services reachable without adding notices over citizens or flavor NPCs.
-		if (
-			!["merchant", "newupgrade", "shrine", "compound", "exchange", "craftsman", "mcollector", "anniversary_crafter", "items", "gold", "transport", "locksmith", "scrollsmith"].includes(
-				(G.npcs[npc.npc] || {}).role,
-			)
-		)
-			return;
+		var definition = G.npcs[npc.npc] || {};
+		// Any stationary NPC can need a notice; citizens and roaming NPCs stay quiet.
+		if (definition.role == "citizen" || definition.moving || definition.movable || npc.citizen || npc.moving) return;
 		var body = npc_hint_bounds(npc);
 		if (!body) return;
 		var blocked = players.some(function (player) {
