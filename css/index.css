@@ -390,6 +390,12 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 .game-controls .gamebutton,.selection-controls > *{
 	flex-shrink: 0;
 }
+.game-controls .gamebutton{
+	border-width: 2px;
+	font-size: 16px;
+	line-height: 16px;
+	padding: 4px 8px;
+}
 .serverinfo-row{
 	width: 100%;
 	max-width: calc(100vw * var(--browser-zoom-inverse, 1));
