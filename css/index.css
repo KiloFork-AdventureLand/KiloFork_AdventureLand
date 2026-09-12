@@ -391,7 +391,6 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	flex-shrink: 0;
 }
 .game-controls .gamebutton,#topleftcornerui > .gamebutton{
-	border-width: 2px;
 	padding: 4px 8px;
 }
 .serverinfo-row{
