@@ -1741,13 +1741,14 @@ function render_inventory(reset) {
 		return;
 	} else if (reset && !inventory) reset = false;
 	if (!reset) unread_chat = 0;
-	if (reset) return update_inventory(); // new [15/02/20]
-	inventory_opened_for = null;
+	if (!reset) inventory_opened_for = null;
 	var html = "",
 		columns = 7;
 	if (is_comm) columns = 5;
 	var character = window.character;
 	if (is_comm) character = observing;
+	// Overflow can add or remove rows; updating existing slots cannot resize the grid.
+	if (reset && $(".theinventory [data-cnum]").length == Math.ceil(max(character.isize, character.items.length) / columns) * columns) return update_inventory();
 	if (!reset && !is_comm)
 		html +=
 			"<div style='background-color: black; border: 5px solid gray; margin-bottom: -5px; padding: 2px 16px 2px 16px; font-size: 24px; vertical-align: bottom; display: none; color: #FCB136' class='newchatui clickable' onclick='stpr(event); render_inventory()'>" +
@@ -5742,6 +5743,9 @@ function on_drop(event) {
 		snum = element.data("snum"),
 		skname = element.data("skname"); // items + skills
 
+	// The last overflow row includes padding, not additional inventory slots.
+	if (cnum !== undefined && cnum >= Math.max(character.isize, character.items.length)) return;
+
 	// console.log(cnum+" "+inum+" "+slot+" "+sname+" skid: "+skid+" skname: "+skname);
 
 	if (inum != undefined && character.items[parseInt(inum)] && character.items[parseInt(inum)].name == "placeholder") return false;
@@ -5828,6 +5832,7 @@ function on_drop(event) {
 
 	if (move) {
 		target.html(element.all_html());
+		if (cnum !== undefined) cache_i[cnum] = -1;
 	}
 }
 
