@@ -155,7 +155,7 @@ function transactions(context, documents, beforeCommit) {
 	context.get_kind = (entity) => context.get_kind_from_id(entity._id);
 	context.post_get = (entity) => entity;
 	load(context, "common/mongodb_functions.js", ["tx"]);
-	return { records, stats };
+	return { records, stats, versions };
 }
 
 module.exports = { root, read, extract, load, localize, socketHandler, transactions };

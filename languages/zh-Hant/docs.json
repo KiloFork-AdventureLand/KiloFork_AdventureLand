@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "之前做過的操作也算數。完成任務後，選擇{button}繼續。",
+	"docs.tutorial.compound.optional_practice": "不買卷軸、不合成也可以繼續。等你湊齊三個相同的飾品後再回來。",
+	"docs.tutorial.bank.example_supplies": "執行此範例前，請在背包裡準備HP Potion (hpot0)。它會將1金幣和這疊藥水存入銀行。",
+	"docs.tutorial.skills-recovery.regeneration_task": "從{skills}中把一個再生技能拖到技能欄，再按下對應的按鍵。這也能完成此任務。CODE範例只會在HP未滿時執行。",
 	"docs.functions.bank_store.explicit_destination": "省略目標欄位即可自動放置和堆疊物品。若指定的欄位已有物品，兩件物品會交換位置，而不會合併堆疊。若不想交換，請指定空欄位。",
 	"docs.tutorial.new.shop_open": "回到城鎮廣場並停下。開啟背包，點擊背包裡的Merchant Stand，再選擇「開啟」。把攤位留在背包中。點擊自己的角色即可查看店鋪的交易欄位。",
 	"docs.tutorial.new.shop_listing": "把想賣的物品從背包拖到空的交易欄位。設定數量和每件物品的金幣價格，再選擇「上架出售」。先看看其他玩家的價格；建議價格不代表一定有人買。保持在線並讓攤位營業。要收攤時，點擊背包裡的攤位並選擇「關閉」。",

@@ -201,7 +201,7 @@
 					<div class="gamebutton promode {% if domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('code'); toggle_code()">CODE</div>
 					<div class="gamebutton" onclick="btc(event); tut('com'); render_com()">{{phrase('navigation.communicator_short')}}<span class='comcount' style='color: #9083BC'>{% if user_data and user_data.info.mail%} [{{user_data.info.mail}}]{% endif%}</span></div>
 					<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); toggle_character()">{{ phrase("pages.index.char") }}</div>
-					<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); tut('inventory'); render_inventory()">{{ phrase("pages.index.inv") }}</div>
+					<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); render_inventory()">{{ phrase("pages.index.inv") }}</div>
 					<div class="gamebutton newcomermode {% if not domain.newcomer_ui%}hidden{% endif%}" onclick="btc(event); toggle_stats()">{{ phrase("pages.index.stats") }}</div>
 					<div class="gamebutton" onclick="btc(event); tut('skills'); render_skills()">{{ phrase("pages.index.skills") }}</div>
 					<div class="gamebutton" onclick="btc(event); tut('guide'); show_game_guide();">{{ phrase("pages.index.guide") }}</div> {# newcomermode {% if not domain.newcomer_ui%}hidden{% endif%} #}
@@ -259,7 +259,7 @@
 							{{ phrase_html("pages.index.name") }}
 						</div>
 					</div>
-					<div style="background: black; padding: 2px; border: 4px solid gray; margin-left: -4px;" class="clickable bshadow2 inline-block" onclick="btc(event); tut('inventory'); render_inventory()">
+					<div style="background: black; padding: 2px; border: 4px solid gray; margin-left: -4px;" class="clickable bshadow2 inline-block" onclick="btc(event); render_inventory()">
 						<div style="vertical-align: middle; height: 30px; font-size: 30px; line-height: 30px; width: 125px; background: #6A6A6A" class="tint ptint inline-block">
 							<!-- nice teal #4B979C nice purple #664FA0 | #4A959B -->
 							<!-- chrome palette | nice earth tone #9c7f4b | darker earth tone #8a7246 | better teal #47867d -->

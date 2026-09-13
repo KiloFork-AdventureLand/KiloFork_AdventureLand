@@ -846,8 +846,81 @@ function reposition_ui() {
 	}
 }
 
+function tutorial_npc(npc) {
+	var id = typeof npc === "string" ? npc : npc && (npc.npc || npc.id),
+		def = G.npcs && G.npcs[id];
+	if (!def) return;
+	tut("visitnpc");
+	if (def.items || def.role === "merchant") tut("visitshop");
+	var key = G.docs.interaction_map.npc_ids[id] || G.docs.interaction_map.npc_roles[def.role];
+	if (key === "crafting") tut("craftsman");
+	if (key === "exchanges") tut("exchanger");
+}
+
+function update_tutorial_state() {
+	if (!window.character || window.is_comm || !window.X || !X.tutorial || X.tutorial.finished) return;
+	if (window.inventory) tut("inventory");
+	if (window.skillsui) tut("skills");
+	if (window.friends_inside === "characters" || (X.characters && X.characters.length > 1)) tut("characters");
+	if (window.topleft_npc === "recipes") tut("recipes");
+	if (window.topleft_npc === "craftsman") tut("craftsman");
+	if (window.topleft_npc === "exchange") tut("exchanger");
+	var equipped = Object.keys(character.slots || {}).filter(function (slot) {
+		return slot.indexOf("trade") !== 0 && character.slots[slot];
+	});
+	if (equipped.length) tut("equip");
+	(character.items || [])
+		.concat(
+			equipped.map(function (slot) {
+				return character.slots[slot];
+			}),
+		)
+		.forEach(function (item) {
+			var def = item && G.items && G.items[item.name];
+			if (!def) return;
+			if (/^scroll[0-9]+$/.test(item.name)) tut("buyscrolls");
+			if (/^cscroll[0-9]+$/.test(item.name)) tut("buycscroll0");
+			if (item.stat_type) tut("addstats");
+			if (item.level > 0 && def.upgrade) {
+				tut("upgrade");
+				tut("buyscrolls");
+			}
+			if (item.level > 0 && def.compound) {
+				tut("compound");
+				tut("buycscroll0");
+			}
+		});
+	var bank = character.bank || character.user;
+	if (bank || /^bank(?:_|$)/.test(character.map || "")) tut("bank");
+	if (bank) {
+		if (bank.gold > 0) tut("deposit");
+		if (
+			Object.keys(bank).some(function (pack) {
+				return (
+					/^items[0-9]+$/.test(pack) &&
+					Array.isArray(bank[pack]) &&
+					bank[pack].some(function (item) {
+						return item && item.name !== "placeholder";
+					})
+				);
+			})
+		)
+			tut("store");
+	}
+	// Tutorial visits use service range, not the deliberately smaller INFO radius.
+	var map = G.maps && G.maps[character.map],
+		x = character.real_x === undefined ? character.x : character.real_x,
+		y = character.real_y === undefined ? character.y : character.real_y;
+	if (map)
+		(map.npcs || []).forEach(function (npc) {
+			if (npc.position && point_distance(x, y, npc.position[0], npc.position[1]) <= 400) tutorial_npc(npc);
+		});
+}
+
 function update_tutorial_ui() {
-	var view = get_tutorial_view(last_rendered_track), progress = view.progress,
+	update_tutorial_state();
+	var view = get_tutorial_view(last_rendered_track),
+		progress = view.progress,
 		completion = progress.progress,
 		reviewing = last_rendered_step != progress.step,
 		lesson = view.lessons[last_rendered_step],
@@ -1001,6 +1074,7 @@ function showhide_quirks_logic() {
 	for (var i = 0; i < interaction_npcs.length; i++) {
 		var map_npc = interaction_npcs[i],
 			context = get_npc_interaction_context(map_npc);
+		if (distance(character, map_npc) <= 400) tutorial_npc(map_npc);
 		if (!context || !context.definition.proximity) continue;
 		var c_distance = distance(character, map_npc);
 		consider_interaction_context(context.key, "npc:" + context.npc_id, c_distance, 72, context, 3, "npc");
@@ -1574,6 +1648,7 @@ function init_socket(args) {
 		G.base_gold = data.base_gold;
 		delete data.base_gold;
 		character = add_character(data, 1);
+		update_tutorial_state();
 		character.ping = min(320, mssince(window.auth_sent));
 		pings = [character.ping];
 		if (!data.vision) character.vision = [700, 500];
@@ -1742,7 +1817,12 @@ function init_socket(args) {
 					message: start_error,
 				});
 		}
-		if ((data.message || data) == "You killed a Goo") tut("killagoo");
+		if (
+			(data.message || data) == "You killed a Goo" ||
+			(data.phrase && data.phrase.indexOf("server.kill.") === 0 && data.phrase_args && data.phrase_args.monster === G.monsters.goo.name) ||
+			(typeof (data.message || data) === "string" && / killed (?:a |the )?Goo$/.test(data.message || data))
+		)
+			tut("killagoo");
 		draw_trigger(function () {
 			if (is_string(data)) ui_log(data, "gray");
 			else {
@@ -1852,9 +1932,42 @@ function init_socket(args) {
 				resolve_deferred(data.place, data);
 			}
 			if (!data.failed && data.place == "equip" && data.slot && !in_arr(data.slot, trade_slots)) tut("equip");
+			if (
+				data.place == "equip_batch" &&
+				Array.isArray(data.slots) &&
+				data.slots.some(function (slot) {
+					return slot && slot.slot && !in_arr(slot.slot, trade_slots);
+				})
+			)
+				tut("equip");
 			if (!data.failed && (data.place == "skill" || (data.place != "attack" && G.skills[data.place]))) tut("useskill");
+			if (!data.failed && data.place == "use" && in_arr(data.used, ["hp", "mp"])) tut("useskill");
+			if (!data.failed && in_arr(data.place, ["heal", "attack"])) tut("useskill");
 			if (!data.failed && data.used && ((data.place == "use" && in_arr(data.used, ["hp", "mp"])) || (data.place == "equip" && G.items[data.used] && G.items[data.used].gives))) tut("usepotion");
-			if (!data.failed && data.place == "bank" && data.bank_action == "store") tut("store");
+			if (!data.failed && data.place == "bank" && (data.bank_action == "store" || (data.bank_action == "swap" && data.stored))) tut("store");
+			if (!data.failed && data.place == "bank") tut("bank");
+			if (!data.failed && in_arr(data.place, ["buy", "buy_with_cash", "exchange_buy", "trade_buy"])) {
+				tut("visitshop");
+				tut("buyitem");
+				tut("visitnpc");
+			}
+			if (!data.failed && in_arr(data.place, ["craft", "dismantle"])) {
+				tut("craftsman");
+				tut("recipes");
+				tut("visitnpc");
+			}
+			if (!data.failed && data.place == "exchange") {
+				tut("exchanger");
+				tut("visitnpc");
+			}
+			if (!data.failed && response == "upgrade_chance") {
+				tut("upgrade");
+				tut("buyscrolls");
+			}
+			if (!data.failed && response == "compound_chance") {
+				tut("compound");
+				tut("buycscroll0");
+			}
 			var merge_transfer_cevent = cevent == response && in_arr(response, ["item_received", "item_sent", "gold_sent", "gold_received"]);
 			if (cevent && !merge_transfer_cevent) call_code_function("trigger_character_event", cevent, data);
 			if (event) call_code_function("trigger_event", event, data);
@@ -2975,6 +3088,7 @@ function init_socket(args) {
 		var hitchhikers = data.hitchhikers;
 		delete data.hitchhikers;
 		if (character) (adopt_soft_properties(character, data), rip_logic());
+		update_tutorial_state();
 		if (hitchhikers)
 			hitchhikers.forEach(function (tuple) {
 				original_onevent.apply(socket, [{ type: 2, nsp: "/", data: tuple }]);
@@ -3308,6 +3422,7 @@ function init_socket(args) {
 
 function npc_right_click(event) {
 	var npc = G.npcs[this.npc];
+	tutorial_npc(this);
 	sfx("npc", this.x, this.y);
 	if (this.type == "character") npc = G.npcs[this.npc];
 	last_npc_right_click = new Date();

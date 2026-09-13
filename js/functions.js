@@ -6110,12 +6110,24 @@ function tut(name) {
 		if (
 			X &&
 			X.tutorial &&
+			!X.tutorial.finished &&
 			!tutorial_tasks_in_flight[name] &&
-			(X.tutorial.task == name || (X.tutorial.pending && X.tutorial.pending.indexOf(name) !== -1))
+			(X.tutorial.completed_tasks || X.tutorial.completed || []).indexOf(name) === -1 &&
+			(X.tutorial.task == name ||
+				(X.tutorial.pending && X.tutorial.pending.indexOf(name) !== -1) ||
+				(X.tutorial.completed_tasks &&
+					G.docs.tutorial.some(function (lesson) {
+						return name !== lesson.continue_task && lesson.tasks.indexOf(name) !== -1;
+					})))
 		) {
 			tutorial_tasks_in_flight[name] = true;
 			function save_credit(attempt) {
-				if (!X.tutorial || !(X.tutorial.task == name || (X.tutorial.pending && X.tutorial.pending.indexOf(name) !== -1))) {
+				if (
+					!X.tutorial ||
+					X.tutorial.finished ||
+					(X.tutorial.completed_tasks || X.tutorial.completed || []).indexOf(name) !== -1 ||
+					(!X.tutorial.completed_tasks && !(X.tutorial.task == name || (X.tutorial.pending && X.tutorial.pending.indexOf(name) !== -1)))
+				) {
 					delete tutorial_tasks_in_flight[name];
 					return;
 				}
@@ -6124,8 +6136,13 @@ function tut(name) {
 						delete tutorial_tasks_in_flight[name];
 					},
 					function (error) {
-						if (attempt < 3 && error && (error.reason === "network_error" || error.reason === "timeout")) {
-							setTimeout(function () { save_credit(attempt + 1); }, 500 * Math.pow(2, attempt));
+						if (attempt < 3 && error && (error.reason === "network_error" || error.reason === "timeout" || error.reason === "failed")) {
+							setTimeout(
+								function () {
+									save_credit(attempt + 1);
+								},
+								500 * Math.pow(2, attempt),
+							);
 							return;
 						}
 						delete tutorial_tasks_in_flight[name];

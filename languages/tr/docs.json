@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Önceden yaptıkların da sayılır. Görevler tamamlandığında ilerlemek için {button} düğmesini seç.",
+	"docs.tutorial.compound.optional_practice": "Parşömen almadan veya birleştirme yapmadan devam edebilirsin. Aynı türden üç aksesuarın olduğunda geri dön.",
+	"docs.tutorial.bank.example_supplies": "Bu örnek için çantanda HP Potion (hpot0) bulundur. Örnek bankaya 1 altın ve bu iksir yığınını koyar.",
+	"docs.tutorial.skills-recovery.regeneration_task": "{skills} menüsünden bir yenilenme becerisini beceri çubuğuna sürükle ve atadığın tuşa bas. Bu da görev için sayılır. CODE örneği yalnızca HP eksikken çalışır.",
 	"docs.functions.bank_store.explicit_destination": "Otomatik yerleştirme ve istifleme için hedef yuvayı belirtme. Dolu bir hedef belirtirsen iki eşya birleşmek yerine yer değiştirir. Yer değiştirmelerini istemiyorsan boş bir hedef kullan.",
 	"docs.tutorial.new.shop_open": "Kasaba meydanına dön ve dur. ENV'yi aç, çantandaki Merchant Stand'e tıkla ve AÇ'ı seç. Tezgâhı envanterinde tut. Dükkânın ticaret yuvalarını görmek için karakterine tıkla.",
 	"docs.tutorial.new.shop_listing": "Satmak istediğin eşyayı çantandan boş bir ticaret yuvasına sürükle. Adedi ve eşya başına altın fiyatını belirle, ardından SATIŞA KOY'u seç. Önce diğer oyuncuların fiyatlarına bak; önerilen fiyat, birinin satın alacağını garanti etmez. Tezgâhın açıkken çevrimiçi kal. Kapatmak için çantandaki tezgâha tıkla ve KAPAT'ı seç.",

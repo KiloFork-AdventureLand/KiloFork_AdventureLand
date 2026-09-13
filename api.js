@@ -1440,7 +1440,11 @@ async function tutorial_api(args) {
 			var current = progress.info.tutorial_step;
 			if (A.task) {
 				var lesson = lessons[current];
-				var valid_task = docs.tasks && docs.tasks[A.task] && lesson && A.task !== lesson.continue_task && lesson.tasks.indexOf(A.task) !== -1;
+				R.silent = lesson && lesson.tasks.indexOf(A.task) === -1;
+				// Remember gameplay even when a player has not opened its lesson yet.
+				var valid_task = docs.tasks && docs.tasks[A.task] && lessons.some(function (entry) {
+					return A.task !== entry.continue_task && entry.tasks.indexOf(A.task) !== -1;
+				});
 				if (valid_task && progress.info.completed_tasks.indexOf(A.task) === -1) {
 					progress.info.completed_tasks.push(A.task);
 					await tx_save(data);
@@ -1458,6 +1462,9 @@ async function tutorial_api(args) {
 					R.result = [phrase_html("server.tutorial.complete_current"), "gray", data, 0];
 				} else {
 					if (current_lesson.continue_task && progress.info.completed_tasks.indexOf(current_lesson.continue_task) === -1) progress.info.completed_tasks.push(current_lesson.continue_task);
+					(current_lesson.optional_tasks || []).forEach(function (task) {
+						if (progress.info.completed_tasks.indexOf(task) === -1) progress.info.completed_tasks.push(task);
+					});
 					while (next < lessons.length && tutorial_lesson_complete(progress, lessons[next])) next++;
 					progress.info.tutorial_step = next;
 					progress.info.tutorial_key = lessons[next] ? lessons[next].key : null;
@@ -1467,6 +1474,8 @@ async function tutorial_api(args) {
 			}
 		},
 		{ user: user, task: task, step: step, lesson: args.lesson, track: args.track },
+		5,
+		25,
 	);
 
 	if (R.failed) return { failed: true, reason: "failed" };
@@ -1474,10 +1483,10 @@ async function tutorial_api(args) {
 		var info = data_to_tutorial(R.result[2], args.track);
 		if (args.track) info.track = args.track;
 		info.type = "tutorial_data";
-		if (R.result[3] === 1) info.success = true;
+		if (R.result[3] === 1 && !R.silent) info.success = true;
 		if (R.result[3] === 2) info.next = true;
 		args.res.infs.push(info);
-		args.res.infs.push({ type: "message", message: R.result[0], color: R.result[1] });
+		if (!R.silent) args.res.infs.push({ type: "message", message: R.result[0], color: R.result[1] });
 	}
 	return { success: true };
 }

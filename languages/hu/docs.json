@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "A korábbi tetteid is számítanak. Ha kész vagy a feladatokkal, válaszd a {button} gombot a továbblépéshez.",
+	"docs.tutorial.compound.optional_practice": "Tekercsvásárlás és tárgyegyesítés nélkül is továbbléphetsz. Gyere vissza, ha van három egyforma kiegészítőd.",
+	"docs.tutorial.bank.example_supplies": "Ehhez a példához legyen HP Potion (hpot0) a táskádban. A példa 1 aranyat és ezt az italhalmot teszi a bankba.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Húzz egy regeneráló képességet a {skills} menüből a képességsávra, majd nyomd meg a hozzá rendelt billentyűt. Ez is teljesíti a feladatot. A CODE-példa csak akkor fut, ha hiányzik HP.",
 	"docs.functions.bank_store.explicit_destination": "Hagyd ki a célrekeszt az automatikus elhelyezéshez és halmozáshoz. Ha foglalt rekeszt adsz meg, a két tárgy összevonás helyett helyet cserél. Válassz üres rekeszt, ha nem szeretnél cserét.",
 	"docs.tutorial.new.shop_open": "Menj vissza a főtérre, és állj meg. Nyisd meg a TÁSKA panelt, kattints a táskádban a Merchant Stand tárgyra, majd válaszd a KINYITÁS lehetőséget. Tartsd a standot a táskádban. Kattints a karakteredre a bolt kereskedőhelyeinek megjelenítéséhez.",
 	"docs.tutorial.new.shop_listing": "Húzd az eladni kívánt tárgyat a táskádból egy üres kereskedőhelyre. Állítsd be a mennyiséget és a darabonkénti aranyárat, majd válaszd az ELADÁSRA KÍNÁLÁS lehetőséget. Előbb nézd meg más játékosok árait; a javasolt ár nem ígéret arra, hogy valaki megveszi. Maradj online nyitott standdal. A bezáráshoz kattints a táskádban a standra, és válaszd a BEZÁRÁS lehetőséget.",

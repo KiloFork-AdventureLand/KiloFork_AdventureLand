@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "As ações anteriores também contam. Quando terminares as tarefas, escolhe {button} para avançar.",
+	"docs.tutorial.compound.optional_practice": "Podes continuar sem comprar pergaminhos nem combinar objetos. Volta quando tiveres três acessórios iguais.",
+	"docs.tutorial.bank.example_supplies": "Para este exemplo, leva HP Potion (hpot0) na mochila. Deposita 1 de ouro e guarda essa pilha de poções no banco.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Arrasta uma habilidade de regeneração de {skills} para a barra de habilidades e prime a respetiva tecla. Isto também conta para a tarefa. O exemplo de CODE só atua quando falta HP.",
 	"docs.functions.bank_store.explicit_destination": "Omite o espaço de destino para colocar e empilhar automaticamente. Se indicares um espaço ocupado, os dois itens trocam de lugar em vez de se empilharem. Usa um espaço vazio para evitar a troca.",
 	"docs.tutorial.new.shop_open": "Volta à praça e para de te mover. Abre INV, clica no Merchant Stand na tua bolsa e escolhe ABRIR. Mantém a banca no inventário. Clica na tua personagem para veres os espaços de venda da loja.",
 	"docs.tutorial.new.shop_listing": "Arrasta um item que queiras vender da bolsa para um espaço de venda vazio. Define a quantidade e o preço em ouro por item, depois escolhe COLOCAR À VENDA. Verifica primeiro os preços dos outros jogadores; o preço sugerido não garante que alguém compre. Mantém-te online com a banca aberta. Para a fechares, clica na banca na bolsa e escolhe FECHAR.",

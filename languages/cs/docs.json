@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Počítají se i dřívější akce. Po splnění úkolů zvol {button} a pokračuj dál.",
+	"docs.tutorial.compound.optional_practice": "Můžeš pokračovat bez nákupu svitků a slučování předmětů. Vrať se, až budeš mít tři stejné doplňky.",
+	"docs.tutorial.bank.example_supplies": "Pro tento příklad měj v batohu HP Potion (hpot0). Uloží do banky 1 zlatý a tuto hromádku lektvarů.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Přetáhni regenerační dovednost z {skills} na lištu dovedností a stiskni její klávesu. I to se počítá pro tento úkol. Příklad CODE se spustí jen tehdy, když chybí HP.",
 	"docs.functions.bank_store.explicit_destination": "Vynech cílovou pozici pro automatické uložení a skládání do hromádek. Pokud zadáš obsazenou pozici, oba předměty si vymění místa místo sloučení. Chceš-li se výměně vyhnout, vyber prázdnou pozici.",
 	"docs.tutorial.new.shop_open": "Vrať se na náměstí a zastav se. Otevři INV, klikni na Merchant Stand v tašce a zvol OTEVŘÍT. Stánek si nech v inventáři. Kliknutím na svou postavu zobrazíš obchodní sloty.",
 	"docs.tutorial.new.shop_listing": "Přetáhni předmět, který chceš prodat, z tašky do prázdného obchodního slotu. Nastav počet a cenu ve zlatě za kus, pak zvol NABÍDNOUT K PRODEJI. Nejdřív se podívej na ceny ostatních hráčů; navržená cena nezaručuje, že někdo nakoupí. Zůstaň online s otevřeným stánkem. Pro zavření klikni na stánek v tašce a zvol ZAVŘÍT.",

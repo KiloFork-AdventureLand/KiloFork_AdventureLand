@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Frühere Aktionen zählen ebenfalls. Wähle nach Abschluss der Aufgaben {button}, um weiterzumachen.",
+	"docs.tutorial.compound.optional_practice": "Du kannst ohne Schriftrollenkauf oder Kombination weitermachen. Komm zurück, wenn du drei gleiche Accessoires hast.",
+	"docs.tutorial.bank.example_supplies": "Für dieses Beispiel brauchst du HP Potion (hpot0) im Inventar. Es zahlt 1 Gold ein und lagert diesen Trankstapel in der Bank.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Ziehe eine Regenerationsfertigkeit aus {skills} auf deine Fertigkeitenleiste und drücke ihre Taste. Das zählt ebenfalls für diese Aufgabe. Das CODE-Beispiel wird nur bei fehlenden HP aktiv.",
 	"docs.functions.bank_store.explicit_destination": "Lasse den Zielplatz weg, damit der Gegenstand automatisch abgelegt oder gestapelt wird. Gibst du einen belegten Zielplatz an, tauschen die beiden Gegenstände die Plätze, statt gestapelt zu werden. Verwende einen leeren Zielplatz, um einen Tausch zu vermeiden.",
 	"docs.tutorial.new.shop_open": "Kehre zum Stadtplatz zurück und bleib stehen. Öffne INV, klicke auf den Merchant Stand in deiner Tasche und wähle ÖFFNEN. Behalte den Stand im Inventar. Klicke auf deinen Charakter, um die Handelsplätze des Ladens zu sehen.",
 	"docs.tutorial.new.shop_listing": "Ziehe einen Gegenstand, den du verkaufen möchtest, aus deiner Tasche auf einen leeren Handelsplatz. Lege die Menge und den Goldpreis pro Stück fest und wähle ZUM VERKAUF ANBIETEN. Prüfe zuerst die Preise anderer Spieler; der vorgeschlagene Preis garantiert keinen Käufer. Bleib mit geöffnetem Stand online. Zum Schließen klickst du auf den Stand in deiner Tasche und wählst SCHLIESSEN.",

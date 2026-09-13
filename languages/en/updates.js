@@ -1,5 +1,7 @@
 // Release highlights. Dates, item/character names and CODE identifiers stay unchanged.
 module.exports = {
+	// Tutorial release highlight: wider completion paths, remembered actions and optional compounding practice.
+	"update.13_09_26.tutorial_progress": "Patched tutorial progress: earlier actions and more ways of completing tasks now count. Compounding practice is optional, so collecting accessories no longer blocks later lessons.",
 	// Release highlight for bundled Steam images and remembered desktop language preferences.
 	"update.09_09_26.steam_clients_include_game_images_and_remember_your_language": "Steam clients now include game images to reduce downloads and remember your language.",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.

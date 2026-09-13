@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Tindakan sebelumnya juga dihitung. Setelah tugas selesai, pilih {button} untuk melanjutkan.",
+	"docs.tutorial.compound.optional_practice": "Kamu bisa melanjutkan tanpa membeli gulungan atau menggabungkan item. Kembalilah saat sudah punya tiga aksesori yang sama.",
+	"docs.tutorial.bank.example_supplies": "Siapkan HP Potion (hpot0) di tas untuk contoh ini. Contoh ini menyetor 1 emas dan menyimpan tumpukan ramuan tersebut di bank.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Seret skill regenerasi dari {skills} ke bilah skill, lalu tekan tombolnya. Ini juga dihitung untuk tugas ini. Contoh CODE hanya berjalan saat HP belum penuh.",
 	"docs.functions.bank_store.explicit_destination": "Jangan tentukan slot tujuan agar item ditempatkan dan ditumpuk secara otomatis. Jika memilih slot yang terisi, kedua item akan bertukar tempat, bukan digabungkan. Gunakan slot kosong jika tidak ingin menukar item.",
 	"docs.tutorial.new.shop_open": "Kembali ke alun-alun dan berhenti bergerak. Buka TAS, klik Merchant Stand di tasmu, lalu pilih BUKA. Simpan lapak itu di inventori. Klik karaktermu untuk melihat slot dagang toko.",
 	"docs.tutorial.new.shop_listing": "Seret item yang ingin dijual dari tas ke slot dagang kosong. Atur jumlah dan harga emas per item, lalu pilih PASANG UNTUK DIJUAL. Periksa harga pemain lain dulu; harga yang disarankan bukan jaminan akan ada pembeli. Tetap online dengan lapak terbuka. Untuk menutupnya, klik lapak di tas dan pilih TUTUP.",

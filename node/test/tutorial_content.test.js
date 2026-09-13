@@ -5,9 +5,76 @@ const fs = require("node:fs");
 const path = require("node:path");
 const nunjucks = require("nunjucks");
 const localization = require("../../languages");
-const { read, load, transactions, root } = require("./helpers/server_vm");
+const { read, load, transactions, root, socketHandler } = require("./helpers/server_vm");
 const { buildComparisons, averageHit } = require("./helpers/tutorial_comparison");
 const comparisons = require("../../docs/tutorial/comparisons.json");
+
+test("bank swaps credit storage only when an inventory item actually enters the bank", () => {
+	const condition = read("js/game.js")
+		.split("\n")
+		.find((line) => line.includes("data.bank_action") && line.includes('tut("store")'));
+	for (const quantity of [1, 10]) {
+		for (const kind of ["empty slot", "occupied slot", "withdrawal", "empty swap", "blocked", "placeholder"]) {
+			const item = { name: kind === "placeholder" ? "placeholder" : "hpot0", q: quantity };
+			if (kind === "blocked") item.b = true;
+			const inv = ["withdrawal", "empty swap"].includes(kind) ? null : item;
+			const stored = ["occupied slot", "withdrawal"].includes(kind) ? { name: "mpot0", q: 2 } : null;
+			const player = {
+				map: "bank",
+				isize: 1,
+				items: [inv],
+				citems: [],
+				user: { gold: 0, items0: [stored] },
+				cuser: { items0: [] },
+			};
+			let response,
+				credited = false;
+			const c = vm.createContext({
+				players: { test: player },
+				socket: { id: "test", emit() {} },
+				bank_packs: { items0: ["bank"] },
+				max: Math.max,
+				min: Math.min,
+				server_log() {},
+				resend() {},
+				cache_item: (item) => item,
+				success_response: (data) => {
+					response = { ...data, place: "bank" };
+				},
+				fail_response: (reason) => {
+					response = { failed: true, place: "bank", reason };
+				},
+			});
+			socketHandler(c, "bank")({ operation: "swap", inv: 0, str: 0, pack: "items0" });
+			vm.runInNewContext(condition, {
+				data: response,
+				tut: () => {
+					credited = true;
+				},
+			});
+			const expected = ["empty slot", "occupied slot"].includes(kind);
+			assert.equal(credited, expected, kind);
+			if (expected) {
+				assert.equal(player.user.items0[0], item);
+				assert.equal(response.bank_action, "swap", "preserve the public response action");
+			}
+		}
+	}
+	for (const data of [
+		{ place: "bank", bank_action: "store" },
+		{ place: "bank", operation: "move" },
+		{ place: "bank", bank_action: "swap" },
+	]) {
+		let credited = false;
+		vm.runInNewContext(condition, {
+			data,
+			tut: () => {
+				credited = true;
+			},
+		});
+		assert.equal(credited, data.bank_action === "store");
+	}
+});
 
 function context() {
 	const c = vm.createContext({ console });

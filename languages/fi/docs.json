@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Myös aiemmat teot lasketaan. Kun tehtävät ovat valmiit, valitse {button} ja jatka eteenpäin.",
+	"docs.tutorial.compound.optional_practice": "Voit jatkaa ostamatta kääröjä tai yhdistämättä esineitä. Palaa, kun sinulla on kolme samanlaista asustetta.",
+	"docs.tutorial.bank.example_supplies": "Pidä laukussasi HP Potion (hpot0) tätä esimerkkiä varten. Se tallettaa pankkiin 1 kultarahan ja kyseisen juomapinon.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Vedä palautumistaito valikosta {skills} taitopalkkiin ja paina sen näppäintä. Tämäkin kelpaa tehtävän suoritukseksi. CODE-esimerkki toimii vain, kun HP ei ole täynnä.",
 	"docs.functions.bank_store.explicit_destination": "Jätä kohdepaikka määrittämättä, jotta esine sijoitetaan ja pinotaan automaattisesti. Jos määrität varatun paikan, esineet vaihtavat paikkaa yhdistymisen sijaan. Valitse tyhjä paikka, jos et halua vaihtoa.",
 	"docs.tutorial.new.shop_open": "Palaa torille ja pysähdy. Avaa REPPU, napsauta repussasi olevaa Merchant Stand -esinettä ja valitse AVAA. Pidä koju repussasi. Napsauta hahmoasi nähdäksesi kaupan myyntipaikat.",
 	"docs.tutorial.new.shop_listing": "Vedä myytävä esine repustasi tyhjään myyntipaikkaan. Aseta määrä ja kultahinta kappaleelta ja valitse LAITA MYYNTIIN. Tarkista ensin muiden pelaajien hinnat; ehdotettu hinta ei takaa ostajaa. Pysy kirjautuneena ja pidä koju auki. Sulje se napsauttamalla kojua repussasi ja valitsemalla SULJE.",

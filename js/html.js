@@ -1575,6 +1575,7 @@ function render_mainframe() {
 }
 
 function render_gold_npc() {
+	tut("bank");
 	reset_inventory(1);
 	topleft_npc = "gold";
 	rendered_target = topleft_npc;
@@ -1606,6 +1607,7 @@ function render_gold_npc() {
 
 var last_rendered_items = "items0";
 function render_items_npc(pack) {
+	tut("bank");
 	if (!character.user) return;
 	if (!pack) pack = last_rendered_items;
 	if (pack && !character.user[pack]) {
@@ -1877,6 +1879,7 @@ function render_inventory(reset) {
 	} else {
 		$(".theinventory").replaceWith(html);
 	}
+	tut("inventory");
 	["upgrade", "compound", "exchange"].forEach(function (e) {
 		if (character.q[e] && rids[character.q[e].num]) {
 			$(".loaderqplc" + rids[character.q[e].num]).css("opacity", 0.4);
@@ -1886,6 +1889,8 @@ function render_inventory(reset) {
 }
 
 function render_craftsman() {
+	tut("craftsman");
+	tut("visitnpc");
 	var shade = "stick",
 		button = phrase.html("interface.craftsman.craft");
 	reset_inventory(1);
@@ -2054,6 +2059,7 @@ function render_scrollsmith() {
 }
 
 function render_recipe(element, type, name) {
+	tut("recipes");
 	last_selector = "#recipe-item";
 	var html;
 	if (type != "dismantle") {
@@ -2068,6 +2074,7 @@ function render_recipe(element, type, name) {
 
 var r_page = {};
 function render_recipes(type, only) {
+	tut("recipes");
 	if (!type) type = "";
 	reset_inventory(1);
 	topleft_npc = "recipes";
@@ -2144,6 +2151,8 @@ function render_recipes_old(quest) {
 }
 
 function render_exchange_shrine(type) {
+	tut("exchanger");
+	tut("visitnpc");
 	var shade = "shade_exchange",
 		button = phrase.html("interface.exchange_shrine.exchange");
 	var originals = [e_item];
@@ -2516,6 +2525,8 @@ function render_donate() {
 }
 
 function render_merchant(npc, premium) {
+	tut("visitshop");
+	tut("visitnpc");
 	reset_inventory(1);
 	topleft_npc = "merchant";
 	rendered_target = topleft_npc;
@@ -3480,12 +3491,18 @@ function open_article(name, url) {
 }
 
 function open_guide(name, url) {
+	if (name === "events-and-home" || (typeof name === "string" && name.indexOf("event-") === 0)) tut("events");
+	if (name === "crafting") tut("recipes");
 	api_call("load_article", { name: name, guide: true, url: url });
 }
 
 function get_tutorial_view(track) {
 	if (track === undefined) track = window.character && character.ctype === "merchant" ? "merchant" : "";
-	return { track: track === "merchant" ? "merchant" : "", lessons: track === "merchant" ? G.docs.merchant_tutorial : G.docs.tutorial, progress: (window.X && (track === "merchant" ? X.merchant_tutorial : X.tutorial)) || { step: 0, completed: [], pending: [] } };
+	return {
+		track: track === "merchant" ? "merchant" : "",
+		lessons: track === "merchant" ? G.docs.merchant_tutorial : G.docs.tutorial,
+		progress: (window.X && (track === "merchant" ? X.merchant_tutorial : X.tutorial)) || { step: 0, completed: [], pending: [] },
+	};
 }
 
 function render_tutorial_items() {
@@ -3632,16 +3649,20 @@ function render_tutorial(article, step, url, track) {
 	if ($(".tutorial-index").length && $(".tutorial-index").attr("data-track") !== (track === "merchant" ? "merchant" : "")) render_tutorial_index(track);
 	last_rendered_step = step;
 	last_rendered_track = track === "merchant" ? "merchant" : "";
-	var view = get_tutorial_view(last_rendered_track), tutorial = view.lessons[step],
+	var view = get_tutorial_view(last_rendered_track),
+		tutorial = view.lessons[step],
 		cphrase = phrase.html("interface.tutorial.continue");
 	if (step == view.lessons.length - 1) cphrase = phrase.html("interface.tutorial.complete");
 	if (tutorial.key === "lore") return render_tutorial_lore(article, url, true);
 
-	var html = "<div class='guide-article tutorial-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: start'><div style='margin-top:-15px'></div>";
+	var html =
+		"<div class='guide-article tutorial-article' style='background: #E5E5E5; color: #010805; border: 5px solid gray; padding: 24px; font-size: 32px; text-align: start'><div style='margin-top:-15px'></div>";
 	html +=
 		"<div style='margin-bottom: 8px; display:flow-root'><span style='color:#2B9EC9'>" +
 		phrase.definition("tutorial", tutorial.key, "title", tutorial.title) +
-		"</span> <div style='float:right; color:#906CB4'><span class='clickable' onclick='render_tutorial_index(\"" + last_rendered_track + "\")'>" +
+		"</span> <div style='float:right; color:#906CB4'><span class='clickable' style='color:#2B9EC9' onclick='render_tutorial_index(\"" +
+		last_rendered_track +
+		"\")'>" +
 		phrase.html("interface.tutorial.lessons") +
 		"</span> [" +
 		(step + 1) +
@@ -3653,22 +3674,34 @@ function render_tutorial(article, step, url, track) {
 	html += "<div style='margin-left:-24px; margin-right: -24px; border-bottom: 5px solid gray'></div>";
 	if (window.inside === "docs") {
 		html += "<div class='tutorial-docs-navigation' style='display:flex;justify-content:space-between;gap:12px;margin-top:16px'>";
-		if (step > 0) html += "<div class='gamebutton' onclick='open_tutorial(" + (step - 1) + ",\"" + last_rendered_track + "\")'>" + phrase.html("interface.learn_article.lt_previous") + "</div>";
-		if (step + 1 < view.lessons.length) html += "<div class='gamebutton' style='margin-left:auto' onclick='open_tutorial(" + (step + 1) + ",\"" + last_rendered_track + "\")'>" + phrase.html("interface.learn_article.next_gt") + "</div>";
+		if (step > 0) html += "<div class='gamebutton' onclick='open_tutorial(" + (step - 1) + ',"' + last_rendered_track + "\")'>" + phrase.html("interface.learn_article.lt_previous") + "</div>";
+		if (step + 1 < view.lessons.length)
+			html +=
+				"<div class='gamebutton' style='margin-left:auto' onclick='open_tutorial(" + (step + 1) + ',"' + last_rendered_track + "\")'>" + phrase.html("interface.learn_article.next_gt") + "</div>";
 		html += "</div>";
 	} else {
 		html += "<div class='tutorial-footer' style='margin-top: 8px; margin-bottom: -16px; display:flow-root'>";
-		if (tutorial.tasks.some(function (task) { return task !== tutorial.continue_task; }))
+		if (
+			tutorial.tasks.some(function (task) {
+				return task !== tutorial.continue_task;
+			})
+		)
 			html += "<span style='color: #D67D23'>" + phrase.html("interface.tutorial.completion") + " <span class='tutprogress'>0</span>%</span> ";
-		html += "<div style='float: right; color: #906CB4; display:none' class='tutreview'></div><div style='float: right; color: gray' class='tutincomplete'>" +
-		phrase.html("interface.tutorial.incomplete") +
-		"</div><div style='float: right; color: #73BD6D' class='clickable tutcontinue' onclick='btc(event); continue_tutorial()'>" +
-		cphrase +
-		"</div></div>";
+		html +=
+			"<div style='float: right; color: #906CB4; display:none' class='tutreview'></div><div style='float: right; color: gray' class='tutincomplete'>" +
+			phrase.html("interface.tutorial.incomplete") +
+			"</div><div style='float: right; color: #73BD6D' class='gamebutton gamebutton-small tutcontinue' onclick='btc(event); continue_tutorial()'>" +
+			cphrase +
+			"</div></div>";
 	}
 	html += "</div>";
 
-	show_modal(html, { wrap: false, url: url, close: { label: "X", classes: "ui-close-tutorial", corner: true }, ondestroy: tutorial.key.indexOf("js-") === 0 ? "if(window.TutorialCode) TutorialCode.cancel()" : undefined });
+	show_modal(html, {
+		wrap: false,
+		url: url,
+		close: { label: "X", classes: "ui-close-tutorial", corner: true },
+		ondestroy: tutorial.key.indexOf("js-") === 0 ? "if(window.TutorialCode) TutorialCode.cancel()" : undefined,
+	});
 	if (typeof update_tutorial_ui === "function") update_tutorial_ui();
 	else $(".tutorial-footer").hide();
 	$(".code").codemirror({ trim: true });
@@ -6097,6 +6130,7 @@ function skill_click(slot) {
 
 var skills_page = "I";
 function render_skills() {
+	tut("skills");
 	if (skillsui) {
 		$(".skillsui").hide();
 		$("#theskills").remove();

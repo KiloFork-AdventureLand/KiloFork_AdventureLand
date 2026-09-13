@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Những việc đã làm trước đó cũng được tính. Khi hoàn thành các nhiệm vụ, chọn {button} để đi tiếp.",
+	"docs.tutorial.compound.optional_practice": "Bạn có thể tiếp tục mà không cần mua cuộn giấy hay ghép đồ. Hãy quay lại khi có ba phụ kiện giống nhau.",
+	"docs.tutorial.bank.example_supplies": "Hãy để HP Potion (hpot0) trong túi để chạy ví dụ này. Ví dụ sẽ gửi 1 vàng và chồng thuốc đó vào ngân hàng.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Kéo một kỹ năng hồi phục từ {skills} vào thanh kỹ năng rồi nhấn phím đã gán. Cách này cũng được tính cho nhiệm vụ. Ví dụ CODE chỉ chạy khi HP chưa đầy.",
 	"docs.functions.bank_store.explicit_destination": "Bỏ qua ô đích để tự động đặt và gộp chồng vật phẩm. Nếu chỉ định một ô đã có vật phẩm, hai vật phẩm sẽ đổi chỗ thay vì gộp lại. Hãy chọn ô trống nếu không muốn đổi chỗ.",
 	"docs.tutorial.new.shop_open": "Quay lại quảng trường và dừng di chuyển. Mở TÚI ĐỒ, nhấp Merchant Stand trong túi rồi chọn MỞ. Giữ quầy trong túi đồ. Nhấp vào nhân vật của bạn để xem các ô giao dịch của cửa hàng.",
 	"docs.tutorial.new.shop_listing": "Kéo vật phẩm muốn bán từ túi vào một ô giao dịch trống. Đặt số lượng và giá vàng cho mỗi vật phẩm, rồi chọn RAO BÁN. Hãy xem giá của người chơi khác trước; giá gợi ý không đảm bảo sẽ có người mua. Giữ kết nối và để quầy mở. Để đóng quầy, nhấp vào quầy trong túi rồi chọn ĐÓNG.",

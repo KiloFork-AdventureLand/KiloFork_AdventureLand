@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Tidigare handlingar räknas också. Välj {button} när uppgifterna är klara för att gå vidare.",
+	"docs.tutorial.compound.optional_practice": "Du kan fortsätta utan att köpa skriftrullar eller kombinera föremål. Kom tillbaka när du har tre likadana accessoarer.",
+	"docs.tutorial.bank.example_supplies": "Ha HP Potion (hpot0) i väskan för det här exemplet. Det sätter in 1 guld och lägger den traven med drycker i banken.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Dra en återhämtningsförmåga från {skills} till förmågefältet och tryck på dess tangent. Det räknas också för uppgiften. CODE-exemplet körs bara när HP saknas.",
 	"docs.functions.bank_store.explicit_destination": "Utelämna målplatsen för automatisk placering och stapling. Om du anger en upptagen plats byter de två föremålen plats i stället för att staplas. Välj en tom plats för att undvika ett byte.",
 	"docs.tutorial.new.shop_open": "Gå tillbaka till torget och stå stilla. Öppna PACK, klicka på Merchant Stand i din väska och välj ÖPPNA. Behåll ståndet i packningen. Klicka på din karaktär för att se butikens försäljningsplatser.",
 	"docs.tutorial.new.shop_listing": "Dra ett föremål du vill sälja från väskan till en tom försäljningsplats. Ange antal och guldpris per föremål och välj LÄGG UT TILL FÖRSÄLJNING. Kolla andra spelares priser först; det föreslagna priset garanterar inte att någon köper. Stanna online med ståndet öppet. Stäng det genom att klicka på ståndet i väskan och välja STÄNG.",

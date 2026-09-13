@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Wcześniejsze działania też się liczą. Po wykonaniu zadań wybierz {button}, aby przejść dalej.",
+	"docs.tutorial.compound.optional_practice": "Możesz kontynuować bez kupowania zwojów i łączenia przedmiotów. Wróć, gdy będziesz mieć trzy takie same akcesoria.",
+	"docs.tutorial.bank.example_supplies": "Do tego przykładu potrzebujesz HP Potion (hpot0) w torbie. Przykład wpłaca 1 sztukę złota i odkłada ten stos mikstur w banku.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Przeciągnij umiejętność regeneracji z {skills} na pasek umiejętności i naciśnij jej klawisz. To również zalicza zadanie. Przykład CODE działa tylko wtedy, gdy brakuje HP.",
 	"docs.functions.bank_store.explicit_destination": "Pomiń miejsce docelowe, aby przedmiot został automatycznie umieszczony lub dodany do stosu. Jeśli wskażesz zajęte miejsce, oba przedmioty zamienią się miejscami zamiast połączyć w stos. Wybierz puste miejsce, aby uniknąć zamiany.",
 	"docs.tutorial.new.shop_open": "Wróć na rynek i zatrzymaj się. Otwórz EKW., kliknij Merchant Stand w torbie i wybierz OTWÓRZ. Trzymaj stoisko w ekwipunku. Kliknij swoją postać, aby zobaczyć pola handlowe sklepu.",
 	"docs.tutorial.new.shop_listing": "Przeciągnij przedmiot na sprzedaż z torby do pustego pola handlowego. Ustaw liczbę sztuk i cenę w złocie za sztukę, a potem wybierz WYSTAW NA SPRZEDAŻ. Najpierw sprawdź ceny innych graczy; sugerowana cena nie gwarantuje kupca. Pozostań online z otwartym stoiskiem. Aby je zamknąć, kliknij stoisko w torbie i wybierz ZAMKNIJ.",

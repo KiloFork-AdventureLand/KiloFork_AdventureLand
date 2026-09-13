@@ -9021,7 +9021,14 @@ function init_socket_io(socket_server) {
 					player.items[data.inv] = bank_item;
 					player.cuser[data.pack][data.str] = cache_item(player.user[data.pack][data.str]);
 					player.citems[data.inv] = cache_item(player.items[data.inv]);
-					success = { operation: "swap", bank_action: "swap", pack: data.pack, inv: data.inv, str: data.str };
+					success = {
+						operation: "swap",
+						bank_action: "swap",
+						stored: !!inv_item,
+						pack: data.pack,
+						inv: data.inv,
+						str: data.str,
+					};
 				} else if (operation == "store" && inv_item) {
 					if (!can_add_item(player.user[data.pack], inv_item)) {
 						return fail_response("storage_full");

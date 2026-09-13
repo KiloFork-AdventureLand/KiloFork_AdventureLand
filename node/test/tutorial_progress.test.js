@@ -1,7 +1,8 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
 const vm = require("node:vm");
-const { load, read, transactions } = require("./helpers/server_vm");
+const { load, read, socketHandler, transactions } = require("./helpers/server_vm");
+const design = require("./helpers/design");
 
 function runtime(info) {
 	const context = vm.createContext({ console: { log() {}, error() {} } });
@@ -204,9 +205,60 @@ test("tutorial writes do not overwrite concurrent account changes", async () => 
 		versions.set(r.id, versions.get(r.id) + 1);
 	});
 	const result = await r.request({ task: "killagoo" });
-	assert.equal(result.result.failed, true);
+	assert.equal(result.result.success, true);
 	assert.equal(store.records.get(r.id).info.code_list.main, "concurrent-edit");
-	assert.ok(!store.records.get(r.id).info.completed_tasks.includes("killagoo"));
+	assert.ok(store.records.get(r.id).info.completed_tasks.includes("killagoo"));
+	assert.equal(store.stats.aborts, 1, "retry the conflicting save against the latest account data");
+});
+
+test("inventory rendering and an already-open bag credit the task without clicking a button", async () => {
+	for (const alreadyOpen of [false, true]) {
+		const base = runtime(),
+			info = previousProgress(base.context, 2);
+		info.completed_tasks.push("equip", "usepotion");
+		const r = runtime(info),
+			c = r.context;
+		tutorialUI(c, r.get());
+		Object.assign(c, {
+			character: { items: [], isize: 0, gold: 0, q: {} },
+			inventory: alreadyOpen,
+			is_comm: false,
+			c_enabled: false,
+			max: Math.max,
+			to_pretty_num: String,
+			tutorial_tasks_in_flight: {},
+		});
+		load(c, "js/html.js", ["render_inventory"]);
+		load(c, "js/functions.js", ["tut"]);
+		let pending,
+			requests = 0;
+		c.api_call = (name, args) => {
+			assert.equal(name, "tutorial");
+			assert.equal(args.task, "inventory");
+			assert.equal(c.inventory, true, "credit happens after the bag opens");
+			requests++;
+			return (pending = r.request(args).then(() => {
+				c.X.tutorial = c.data_to_tutorial(r.get());
+			}));
+		};
+		if (alreadyOpen) c.update_tutorial_ui();
+		else c.render_inventory();
+		await pending;
+		assert.equal(requests, 1);
+		assert.ok(r.get().info.completed_tasks.includes("inventory"));
+		assert.equal(c.X.tutorial.can_continue, true);
+		let creditCalls = 0;
+		c.tut = () => {
+			creditCalls++;
+		};
+		c.render_inventory(); // Close, not another completion.
+		assert.equal(c.inventory, false);
+		c.is_comm = true;
+		c.observing = c.character;
+		c.render_inventory(); // Another character's bag is not the player's task.
+		assert.equal(creditCalls, 0);
+	}
+	assert.doesNotMatch(read("htmls/index.html"), /tut\(['"]inventory['"]\)/);
 });
 
 function tutorialUI(context, data) {
@@ -261,7 +313,7 @@ function tutorialUI(context, data) {
 		},
 	});
 	context.window = context;
-	load(context, "js/game.js", ["update_tutorial_ui"]);
+	load(context, "js/game.js", ["update_tutorial_ui", "update_tutorial_state", "tutorial_npc"]);
 	load(context, "js/html.js", ["get_tutorial_view", "continue_tutorial", "render_tutorial_index", "render_tutorial"]);
 	return { elements, calls };
 }
@@ -303,7 +355,7 @@ test("reading renders an enabled Continue with the stable lesson key; gameplay s
 	assert.equal(ui.elements[".tutcontinue"].visible, true);
 	assert.equal(ui.elements[".tutincomplete"].visible, false);
 	assert.equal(ui.elements[".tutprogress"].html, 0);
-	const onclick = r.context.modal.match(/class='clickable tutcontinue' onclick='([^']+)'/)[1];
+	const onclick = r.context.modal.match(/class='[^']*\btutcontinue'[^>]*onclick='([^']+)'/)[1];
 	vm.runInContext(onclick, r.context);
 	assert.equal(ui.calls[0].name, "tutorial");
 	assert.equal(ui.calls[0].args.lesson, "helloworld");
@@ -335,4 +387,387 @@ test("completed later lessons remain marked completed while reading a newly inse
 	);
 	delete r.context.X;
 	assert.doesNotThrow(() => r.context.render_tutorial_index(), "the index also works without an account");
+});
+
+// Exercise real client entry points, tut(), the API, and saved account progress.
+function actionRuntime() {
+	const r = runtime(),
+		c = r.context,
+		calls = [];
+	vm.runInContext(read("docs/directory.js"), c);
+	Object.assign(c, {
+		G: { ...design, docs: c.docs },
+		X: { tutorial: c.data_to_tutorial(r.get()) },
+		character: { map: "main", x: 0, y: 0, items: [], slots: {} },
+		tutorial_tasks_in_flight: {},
+		no_graphics: true,
+		no_html: true,
+		Dev: false,
+		trade_slots: ["trade1"],
+		options: {},
+		socket: {},
+		resolve_deferred() {},
+		reject_deferred() {},
+		call_code_function() {},
+		draw_trigger() {},
+	});
+	c.window = c;
+	Object.defineProperty(c, "PIXI", {
+		get() {
+			throw new Error("Tutorial progress must not touch PIXI");
+		},
+	});
+	let pending = Promise.resolve();
+	c.api_call = (name, args) => {
+		calls.push({ name, args });
+		if (name !== "tutorial") return Promise.resolve();
+		pending = pending.then(async () => {
+			const result = await r.request(args);
+			assert.equal(result.result.success, true);
+			c.X.tutorial = result.info;
+			return result;
+		});
+		return pending;
+	};
+	load(c, "js/functions.js", ["tut"]);
+	load(c, "js/old_common_functions.js", ["point_distance"]);
+	load(c, "js/game.js", ["tutorial_npc", "update_tutorial_state"]);
+	const source = read("js/game.js"),
+		handlers = {};
+	for (const event of ["game_response", "game_log"]) {
+		const start = source.indexOf('\tsocket.on("' + event + '",');
+		assert.notEqual(start, -1);
+		c.socket.on = (name, handler) => {
+			handlers[name] = handler;
+		};
+		vm.runInContext(source.slice(start, source.indexOf("\n\tsocket.on(", start + 1)), c);
+	}
+	return { ...r, calls, handlers, flush: () => pending, saved: () => Array.from(r.get().info.completed_tasks) };
+}
+
+test("earlier gameplay persists quietly, deduplicates, and never credits unread lessons", async () => {
+	const r = actionRuntime(),
+		c = r.context;
+	c.tut("inventory");
+	c.tut("inventory");
+	c.tut("read_helloworld");
+	const result = await r.flush();
+	assert.deepEqual(r.saved(), ["inventory"]);
+	assert.equal(result.info.success, undefined, "future credit must not flash completion of the current lesson");
+	assert.equal(result.res.infs.filter((info) => info.type === "message").length, 0);
+	assert.deepEqual(Array.from(c.X.tutorial.completed_tasks), ["inventory"]);
+	assert.deepEqual(Array.from(c.X.tutorial.completed), [], "legacy completed still describes the current lesson");
+	c.tut("inventory");
+	assert.equal(r.calls.length, 1);
+	assert.equal(r.get().info.tutorial_key, "lore");
+	await r.request({ task: "read_helloworld" });
+	assert.deepEqual(r.saved(), ["inventory"]);
+});
+
+test("simultaneous task saves retry conflicts without losing credit or replaying actions", async () => {
+	const r = actionRuntime(),
+		c = r.context;
+	const tasks = [
+		"inventory",
+		"skills",
+		"recipes",
+		"events",
+		"useskill",
+		"usepotion",
+		"killagoo",
+		"equip",
+		"visitnpc",
+		"bank",
+		"store",
+		"deposit",
+	];
+	const requests = [];
+	c.api_call = (_, args) => {
+		const request = r.request(args).then((result) => {
+			if (result.result.failed) throw result.result;
+			c.X.tutorial = result.info;
+			return result.result;
+		});
+		requests.push(request);
+		return request;
+	};
+	for (const task of tasks) c.tut(task);
+	for (let tick = 0; tick < 200 && Object.keys(c.tutorial_tasks_in_flight).length; tick++)
+		await new Promise(setImmediate);
+	await Promise.allSettled(requests);
+	assert.deepEqual(Object.keys(c.tutorial_tasks_in_flight), []);
+	for (const task of tasks) assert.ok(r.saved().includes(task), task);
+	assert.equal(new Set(r.saved()).size, tasks.length);
+	assert.equal(r.get().info.tutorial_key, "lore");
+	assert.ok(r.store.stats.aborts > 0, "the test must exercise competing writes");
+});
+
+test("actual HP and MP regeneration preserve potion credit and also complete skill use", async () => {
+	for (const used of ["hp", "mp"]) {
+		const r = actionRuntime();
+		const player = { hp: 10, max_hp: 100, mp: 0, max_mp: 200, last: {}, cid: 0 };
+		const server = vm.createContext({
+			G: design,
+			players: { test: player },
+			socket: { id: "test", emit() {} },
+			future_ms: (n) => new Date(Date.now() + n),
+			mssince: (t) => Date.now() - t,
+			disappearing_text() {},
+			player_to_client: (p) => p,
+			success_response: (data) => r.handlers.game_response({ ...data, place: "use" }),
+			fail_response: (reason) => {
+				throw new Error(reason);
+			},
+		});
+		socketHandler(server, "use")({ item: used });
+		await r.flush();
+		assert.equal(player[used], used === "hp" ? 60 : 100);
+		assert.deepEqual(r.saved().sort(), ["usepotion", "useskill"]);
+	}
+});
+
+test("solo, party, localized and legacy Goo kills all persist completion", async () => {
+	const server = vm.createContext({ G: design });
+	load(server, "node/server_functions.js", ["kill_message"]);
+	const messages = [
+		server.kill_message("OtherPartyMember", "goo", false),
+		server.kill_message("Player", "goo", true),
+		"OtherPartyMember killed a Goo",
+	];
+	for (const data of messages) {
+		const r = actionRuntime();
+		r.handlers.game_log(data);
+		await r.flush();
+		assert.ok(r.saved().includes("killagoo"));
+	}
+	const r = actionRuntime();
+	const localized = server.kill_message("Friend", "goo", false);
+	localized.message = "localized display text";
+	r.handlers.game_log(localized);
+	await r.flush();
+	assert.ok(r.saved().includes("killagoo"));
+});
+
+test("actual batch equipment and partial batch results count just like single equipment", async () => {
+	const r = actionRuntime();
+	const player = { type: "mage", items: [{ name: "coat", level: 0 }], slots: {}, citems: [], cslots: {}, s: {} };
+	const server = vm.createContext({
+		G: design,
+		players: { test: player },
+		socket: { id: "test", emit() {} },
+		min: Math.min,
+		to_number: Number,
+		cache_item: (item) => item,
+		resend() {},
+		success_response: (_, data) => r.handlers.game_response({ ...data, place: "equip_batch" }),
+		fail_response: (reason) => {
+			throw new Error(reason);
+		},
+	});
+	load(server, "node/server.js", ["can_equip_item"]);
+	socketHandler(server, "equip_batch")([{ num: 0 }]);
+	await r.flush();
+	assert.equal(player.slots.chest.name, "coat");
+	assert.ok(r.saved().includes("equip"));
+	const partial = actionRuntime();
+	partial.handlers.game_response({
+		place: "equip_batch",
+		failed: true,
+		slots: [{ slot: "chest" }],
+		errors: [{ num: 1 }],
+	});
+	await partial.flush();
+	assert.ok(partial.saved().includes("equip"), "one equipped item is enough");
+});
+
+test("existing UI, equipment, scrolls and bank contents recover missed tasks without graphics", async () => {
+	const r = actionRuntime(),
+		c = r.context;
+	c.inventory = c.skillsui = true;
+	c.X.characters = [{ name: "One" }, { name: "Two" }];
+	c.character = {
+		map: "bank",
+		items: [{ name: "scroll0" }, { name: "cscroll0" }, { name: "ringsj", level: 1 }],
+		slots: { chest: { name: "coat", level: 2, stat_type: "int" } },
+		user: { gold: 1, items0: [{ name: "hpot0", q: 1 }] },
+	};
+	c.update_tutorial_state();
+	await r.flush();
+	for (const task of [
+		"inventory",
+		"skills",
+		"characters",
+		"equip",
+		"upgrade",
+		"compound",
+		"buyscrolls",
+		"buycscroll0",
+		"addstats",
+		"bank",
+		"deposit",
+		"store",
+	])
+		assert.ok(r.saved().includes(task), task);
+	const requests = r.calls.length;
+	c.update_tutorial_state();
+	assert.equal(r.calls.length, requests, "state recovery does not keep sending completed tasks");
+	delete c.character;
+	assert.doesNotThrow(() => c.update_tutorial_state(), "standalone documentation has no character");
+});
+
+test("NPC visits use service range while the smaller INFO range stays unchanged", async () => {
+	for (const [id, task] of [
+		["fancypots", "visitshop"],
+		["craftsman", "craftsman"],
+		["exchange", "exchanger"],
+	]) {
+		const r = actionRuntime(),
+			c = r.context;
+		c.G.maps = { audit: {} };
+		c.character.map = "audit";
+		Object.assign(c, {
+			entities: {},
+			map_npcs: [{ npc: id, role: design.npcs[id].role }],
+			quirks: {},
+			interaction_context: null,
+			interaction_contexts: [],
+			distance: () => 100,
+			is_number: (n) => typeof n === "number",
+			render_server() {},
+		});
+		load(c, "js/game.js", [
+			"showhide_quirks_logic",
+			"get_npc_interaction_context",
+			"consider_interaction_context",
+			"interaction_context_range",
+			"normalize_interaction_contexts",
+			"interaction_context_signature",
+		]);
+		c.showhide_quirks_logic();
+		await r.flush();
+		assert.ok(r.saved().includes(task), id);
+		assert.equal(c.interaction_contexts.length, 0, "no extra INFO clutter at 100 units");
+		c.distance = () => 50;
+		c.showhide_quirks_logic();
+		assert.ok(c.interaction_contexts.length > 0);
+	}
+});
+
+test("Leo's recipe list and individual recipe, plus event INFO, grant saved credit", async () => {
+	for (const render of ["render_recipe", "render_recipes"]) {
+		const r = actionRuntime(),
+			c = r.context;
+		Object.assign(c, {
+			r_page: {},
+			next_side_interaction: null,
+			reset_inventory() {},
+			item_container: () => "item",
+			render_item: () => "recipe",
+			show_modal() {},
+			render_ui_panel() {},
+			randomStr: () => "test",
+			object_sort: (object) => Object.entries(object),
+		});
+		load(c, "js/html.js", [render]);
+		if (render === "render_recipe") c.render_recipe(null, "", "computer");
+		else c.render_recipes();
+		await r.flush();
+		assert.ok(r.saved().includes("recipes"));
+	}
+	for (const name of ["events-and-home", "event-franky"]) {
+		const r = actionRuntime();
+		load(r.context, "js/html.js", ["open_guide"]);
+		r.context.open_guide(name);
+		await r.flush();
+		assert.ok(r.saved().includes("events"));
+		assert.equal(r.calls.at(-1).name, "load_article");
+	}
+});
+
+test("successful CODE services and chance previews also satisfy the matching lessons", async () => {
+	for (const [data, tasks] of [
+		[{ place: "buy" }, ["visitshop", "buyitem", "visitnpc"]],
+		[{ place: "craft" }, ["craftsman", "recipes", "visitnpc"]],
+		[{ place: "dismantle" }, ["craftsman", "recipes"]],
+		[{ place: "exchange" }, ["exchanger", "visitnpc"]],
+		[{ place: "heal" }, ["useskill"]],
+		[{ response: "upgrade_chance" }, ["upgrade", "buyscrolls"]],
+		[{ response: "compound_chance" }, ["compound", "buycscroll0"]],
+	]) {
+		const r = actionRuntime();
+		r.handlers.game_response(data);
+		await r.flush();
+		for (const task of tasks) assert.ok(r.saved().includes(task), JSON.stringify(data) + " -> " + task);
+	}
+});
+
+test("Continue skips compounding practice without materials or a new acquisition requirement", async () => {
+	const r = runtime();
+	const step = r.context.docs.tutorial.findIndex((lesson) => lesson.key === "compound");
+	const data = r.get();
+	data.info = {
+		tutorial_version: 3,
+		tutorial_step: step,
+		tutorial_key: "compound",
+		completed_tasks: r.context.docs.tutorial.slice(0, step).flatMap((lesson) => lesson.tasks),
+	};
+	r.store.records.set(r.id, structuredClone(data));
+	assert.equal(r.context.data_to_tutorial(r.get()).can_continue, true);
+	assert.equal((await r.proceed()).info.next, true);
+	assert.equal(r.get().info.tutorial_key, "bank");
+	for (const task of ["compound", "buycscroll0"]) assert.ok(r.get().info.completed_tasks.includes(task));
+});
+
+test("existing TRAVEL-button, SKILLS-closing and zero-deposit completions remain accepted", async () => {
+	const r = actionRuntime(),
+		c = r.context;
+	const travelClick = read("htmls/index.html").match(/onclick="([^"\n]*tut\('travel'\)[^"\n]*)"/)[1];
+	Object.assign(c, {
+		event: {},
+		btc() {},
+		render_travel() {},
+		skillsui: true,
+		$: () => ({ hide() {}, remove() {} }),
+		render_skillbar() {},
+		ui_log() {},
+		to_pretty_num: String,
+	});
+	vm.runInContext(travelClick, c);
+	load(c, "js/html.js", ["render_skills"]);
+	c.render_skills();
+	assert.equal(c.skillsui, false);
+	c.draw_trigger = (callback) => callback();
+	const player = { map: "bank", gold: 10, user: { gold: 0 } };
+	const server = vm.createContext({
+		players: { test: player },
+		socket: { id: "test", emit() {} },
+		max: Math.max,
+		min: Math.min,
+		server_log() {},
+		resend() {},
+		success_response: (data) => r.handlers.game_response({ ...data, place: "bank" }),
+	});
+	socketHandler(server, "bank")({ operation: "deposit", amount: 0 });
+	await r.flush();
+	assert.equal(player.gold, 10);
+	for (const task of ["travel", "skills", "deposit"]) assert.ok(r.saved().includes(task), task);
+});
+
+test("all current main and merchant lessons can persist and advance through the API", async () => {
+	for (const track of [undefined, "merchant"]) {
+		const r = actionRuntime(),
+			c = r.context;
+		const lessons = track ? c.docs.merchant_tutorial : c.docs.tutorial;
+		for (let i = 0; i < lessons.length; i++) {
+			const lesson = lessons[i];
+			for (const task of lesson.tasks.filter((task) => task !== lesson.continue_task)) await r.request({ track, task });
+			const result = await r.request({ track, step: i + 1, lesson: lesson.key });
+			assert.equal(result.info.next, true, lesson.key);
+			assert.equal(result.info.step, i + 1, lesson.key);
+		}
+		const saved = c.get_tutorial_track(r.get(), track).info;
+		assert.equal(saved.tutorial_key, null);
+		for (const lesson of lessons)
+			for (const task of lesson.tasks) assert.ok(saved.completed_tasks.includes(task), task);
+	}
 });

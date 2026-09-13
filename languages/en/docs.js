@@ -1,5 +1,13 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Tutorial welcome: earlier gameplay is remembered; {button} is the localized Continue label.
+	"docs.tutorial.helloworld.earlier_actions": "Earlier actions count too. When the tasks are done, choose {button} to move on.",
+	// Compounding lesson: both practice tasks are optional; no purchase or item consumption is required to continue.
+	"docs.tutorial.compound.optional_practice": "You can continue without buying scrolls or compounding. Come back when you have three matching accessories.",
+	// Bank CODE requirements: fixed item name HP Potion and key hpot0; the example deposits one gold and the whole matching potion stack.
+	"docs.tutorial.bank.example_supplies": "Keep an HP Potion (hpot0) in your bag for this example. It deposits 1 gold and stores that potion stack.",
+	// Recovery lesson: {skills} is the localized SKILLS control. Explain manual use and the CODE example's missing-HP condition.
+	"docs.tutorial.skills-recovery.regeneration_task": "Drag a regeneration skill from {skills} to your skillbar and press its key. It counts for this task too. The CODE example runs only when HP is missing.",
 	// Bank store/retrieve references and banking guide. Omitting the destination slot lets the server place/stack the item; an explicit occupied slot exchanges items, never merges them. No parameters or fixed CODE.
 	"docs.functions.bank_store.explicit_destination": "Omit the destination slot for automatic placement and stacking. If you specify an occupied destination, the two items swap instead of merging. Use an empty destination to avoid a swap.",
 	// JavaScript lesson “Make CODE speak”, idea. Translate prose; preserve HTML, CODE identifiers, names, item/event keys, and quoted strings the exercise prints. No interpolation parameters in this phrase.

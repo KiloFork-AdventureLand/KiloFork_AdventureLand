@@ -24,13 +24,16 @@
 {% for task in tutorial_data("skills-recovery").tasks %} {% if loop.first %}
 <div class="tutdivider"></div>
 {% endif %}
-<div class="tuttaskrow"><span class="tuttask tuttask{{task}}">o</span> <span class="tuttaskname">{{task_name(task)}}</span> <span class="tuttaskd tuttaskd{{task}}">{{ phrase("docs.tutorial.skills-recovery.done") }}</span></div>
+<div class="tuttaskrow">
+	<span class="tuttask tuttask{{task}}">o</span> <span class="tuttaskname">{{task_name(task)}}</span> <span class="tuttaskd tuttaskd{{task}}">{{ phrase("docs.tutorial.skills-recovery.done") }}</span>
+</div>
 {% endfor %}
 
 <div class="tutpath manual">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.skills-recovery.manual") }}</div>
 	<p>{{ phrase_html("docs.tutorial.skills-recovery.open-skills-read-your-class-skills-their-mp") }}</p>
 	<p>{{ phrase("docs.tutorial.skills-recovery.regeneration-costs-time-potions-cost-gold-and-share") }}</p>
+	<p>{{ phrase("docs.tutorial.skills-recovery.regeneration_task", {skills: phrase("pages.index.skills")}) }}</p>
 </div>
 
 <div class="tutpath codepath">
@@ -42,9 +45,7 @@
 
 if (character.rip) respawn();</div>
 	<p>{{ phrase_html("docs.tutorial.skills-recovery.for-class-skills-read-g-skills-then-pass") }}</p>
-	<p>
-		{{ phrase_html("docs.tutorial.skills-recovery.can-use-use-skill-respawn") }}
-	</p>
+	<p>{{ phrase_html("docs.tutorial.skills-recovery.can-use-use-skill-respawn") }}</p>
 </div>
 
 <style>

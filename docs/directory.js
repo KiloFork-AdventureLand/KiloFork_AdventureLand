@@ -257,6 +257,7 @@ docs = {
 		{
 			key: "compound",
 			tasks: ["buycscroll0", "compound"],
+			optional_tasks: ["buycscroll0", "compound"],
 			title: "Compounding",
 		},
 		{

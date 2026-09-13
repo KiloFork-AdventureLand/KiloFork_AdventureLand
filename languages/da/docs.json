@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Tidligere handlinger tæller også. Vælg {button}, når opgaverne er færdige, for at gå videre.",
+	"docs.tutorial.compound.optional_practice": "Du kan fortsætte uden at købe skriftruller eller kombinere genstande. Kom tilbage, når du har tre ens tilbehørsgenstande.",
+	"docs.tutorial.bank.example_supplies": "Hav HP Potion (hpot0) i tasken til dette eksempel. Det indsætter 1 guld og lægger den stak drikke i banken.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Træk en regenereringsevne fra {skills} til din evnelinje, og tryk på dens tast. Det tæller også til opgaven. CODE-eksemplet kører kun, når der mangler HP.",
 	"docs.functions.bank_store.explicit_destination": "Udelad destinationspladsen for automatisk placering og stabling. Hvis du angiver en optaget plads, bytter de to genstande plads i stedet for at blive stablet sammen. Brug en tom plads for at undgå et bytte.",
 	"docs.tutorial.new.shop_open": "Gå tilbage til torvet, og stå stille. Åbn INV, klik på Merchant Stand i din taske, og vælg ÅBN. Behold boden i dit inventar. Klik på din figur for at se butikkens salgsfelter.",
 	"docs.tutorial.new.shop_listing": "Træk en genstand, du vil sælge, fra tasken til et tomt salgsfelt. Angiv antal og guldpris pr. genstand, og vælg SÆT TIL SALG. Tjek først andre spilleres priser; den foreslåede pris garanterer ikke, at nogen køber. Bliv online med boden åben. Luk den ved at klikke på boden i tasken og vælge LUK.",

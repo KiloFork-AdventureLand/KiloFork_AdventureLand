@@ -1071,7 +1071,7 @@ function migrate_tutorial_data(user_data) {
 
 function tutorial_lesson_complete(user_data, lesson, continuing) {
 	return lesson.tasks.every(function (task) {
-		return (continuing && task === lesson.continue_task) || user_data.info.completed_tasks.indexOf(task) !== -1;
+		return (continuing && (task === lesson.continue_task || (lesson.optional_tasks || []).indexOf(task) !== -1)) || user_data.info.completed_tasks.indexOf(task) !== -1;
 	});
 }
 
@@ -1127,7 +1127,17 @@ function data_to_tutorial(user_data, track) {
 					return lesson.key;
 				});
 			if (user_data.info.tutorial_step >= lessons.length)
-				return { step: lessons.length, completed: [], pending: [], completed_lessons: completed_lessons, onboarding_finished: onboarding_finished, finished: true, task: false, progress: 100 };
+				return {
+					step: lessons.length,
+					completed: [],
+					completed_tasks: user_data.info.completed_tasks.slice(),
+					pending: [],
+					completed_lessons: completed_lessons,
+					onboarding_finished: onboarding_finished,
+					finished: true,
+					task: false,
+					progress: 100,
+				};
 			var arr = [],
 				pending = [],
 				task = false,
@@ -1143,6 +1153,7 @@ function data_to_tutorial(user_data, track) {
 				step: user_data.info.tutorial_step,
 				task: task,
 				completed: arr,
+				completed_tasks: user_data.info.completed_tasks.slice(),
 				pending: pending,
 				progress: percent,
 				onboarding_finished: onboarding_finished,

@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Les actions déjà effectuées comptent aussi. Une fois les tâches terminées, choisis {button} pour avancer.",
+	"docs.tutorial.compound.optional_practice": "Tu peux continuer sans acheter de parchemins ni combiner d’objets. Reviens quand tu auras trois accessoires identiques.",
+	"docs.tutorial.bank.example_supplies": "Pour cet exemple, garde HP Potion (hpot0) dans ton sac. Il dépose 1 pièce d’or et cette pile de potions à la banque.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Fais glisser une compétence de régénération depuis {skills} vers ta barre de compétences, puis appuie sur sa touche. Cela compte aussi pour cette tâche. L’exemple CODE n’agit que s’il te manque des HP.",
 	"docs.functions.bank_store.explicit_destination": "Omettez l’emplacement de destination pour ranger et empiler automatiquement. Si vous indiquez un emplacement occupé, les deux objets échangent leurs places au lieu de s’empiler. Utilisez un emplacement vide pour éviter cet échange.",
 	"docs.tutorial.new.shop_open": "Retourne sur la place et arrête-toi. Ouvre INV, clique sur le Merchant Stand dans ton sac, puis choisis OUVRIR. Garde l’étal dans ton inventaire. Clique sur ton personnage pour voir les emplacements de vente de la boutique.",
 	"docs.tutorial.new.shop_listing": "Fais glisser un objet à vendre de ton sac vers un emplacement de vente vide. Fixe la quantité et le prix en or par objet, puis choisis METTRE EN VENTE. Vérifie d’abord les prix des autres joueurs ; le prix suggéré ne garantit pas un acheteur. Reste en ligne avec l’étal ouvert. Pour le fermer, clique sur l’étal dans ton sac et choisis FERMER.",

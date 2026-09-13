@@ -16,35 +16,39 @@
 {% for task in tutorial_data("bank").tasks %} {% if loop.first %}
 <div class="tutdivider"></div>
 {% endif %}
-<div class="tuttaskrow"><span class="tuttask tuttask{{task}}">o</span> <span class="tuttaskname">{{task_name(task)}}</span> <span class="tuttaskd tuttaskd{{task}}">{{ phrase("docs.tutorial.bank.done") }}</span></div>
+<div class="tuttaskrow">
+	<span class="tuttask tuttask{{task}}">o</span> <span class="tuttaskname">{{task_name(task)}}</span> <span class="tuttaskd tuttaskd{{task}}">{{ phrase("docs.tutorial.bank.done") }}</span>
+</div>
 {% endfor %}
 
 <div class="tutpath manual">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.bank.manual") }}</div>
 	<p>{{ phrase("docs.tutorial.bank.enter-the-bank-to-the-right-of-the") }}</p>
-	<p style="display:flex;align-items:center;gap:16px"><span class="tutorial-npc" data-npc="items0"></span><span>Gabrielle</span><span class="tutorial-npc" data-npc="goldnpc"></span><span>Mr. Rich</span></p>
-<div><span class="tutorial-travel" data-type="npc" data-target="items0"></span> <span class="tutorial-travel" data-type="npc" data-target="goldnpc"></span></div>
+	<p style="display: flex; align-items: center; gap: 16px">
+		<span class="tutorial-npc" data-npc="items0"></span><span>Gabrielle</span><span class="tutorial-npc" data-npc="goldnpc"></span><span>Mr. Rich</span>
+	</p>
+	<div><span class="tutorial-travel" data-type="npc" data-target="items0"></span> <span class="tutorial-travel" data-type="npc" data-target="goldnpc"></span></div>
 	<p>{{ phrase("docs.tutorial.bank.only-one-of-your-characters-can-be-inside") }}</p>
 </div>
 
 <div class="tutpath codepath">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.bank.optional-code") }}</div>
+	<p>{{ phrase("docs.tutorial.bank.example_supplies") }}</p>
 	<!-- prettier-ignore -->
 	<div class="code">async function visit_bank() {
 	await smart_move("bank");
 	await bank_deposit(1);
 
 	var potions = locate_item("hpot0");
-	if (potions !== -1) await bank_store(potions);
+	if (potions === -1) throw {reason: "missing_item", name: "hpot0"};
+	await bank_store(potions);
 }
 
 visit_bank().catch(function (error) {
 	show_json(error);
 });</div>
 	<p>{{ phrase("docs.tutorial.bank.the-item-can-be-retrieved-later-from-its") }}</p>
-	<p>
-		{{ phrase_html("docs.tutorial.bank.bank-deposit-bank-store-bank-retrieve") }}
-	</p>
+	<p>{{ phrase_html("docs.tutorial.bank.bank-deposit-bank-store-bank-retrieve") }}</p>
 </div>
 
 <style>
@@ -99,4 +103,6 @@ visit_bank().catch(function (error) {
 		text-align: center;
 	}
 </style>
-<script>render_tutorial_items();</script>
+<script>
+	render_tutorial_items();
+</script>

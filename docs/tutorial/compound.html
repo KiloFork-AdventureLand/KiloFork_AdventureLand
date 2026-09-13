@@ -1,4 +1,5 @@
 <p class="tutlead">{{ phrase("docs.tutorial.compound.compounding-turns-three-matching-accessories-into-one-stronger") }}</p>
+<p>{{ phrase("docs.tutorial.compound.optional_practice") }}</p>
 
 <div class="tutlinks">
 	<div
@@ -15,14 +16,19 @@
 {% for task in tutorial_data("compound").tasks %} {% if loop.first %}
 <div class="tutdivider"></div>
 {% endif %}
-<div class="tuttaskrow"><span class="tuttask tuttask{{task}}">o</span> <span class="tuttaskname">{{task_name(task)}}</span> <span class="tuttaskd tuttaskd{{task}}">{{ phrase("docs.tutorial.compound.done") }}</span></div>
+<div class="tuttaskrow">
+	<span class="tuttask tuttask{{task}}">o</span> <span class="tuttaskname">{{task_name(task)}}</span> <span class="tuttaskd tuttaskd{{task}}">{{ phrase("docs.tutorial.compound.done") }}</span>
+</div>
 {% endfor %}
 
 <div class="tutpath manual">
 	<div class="tutpath-title">{{ phrase("docs.tutorial.compound.manual") }}</div>
 	<p>{{ phrase("docs.tutorial.compound.bring-cue-three-accessories-with-the-same-name") }}</p>
-	<p style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><span class="tutorial-npc" data-npc="scrolls"></span><span>Lucas · Mainland<br>(-464, -96)</span><span class="tutorial-item" data-item="ringsj"></span><span class="tutorial-item" data-item="cscroll0"></span><span class="tutorial-npc" data-npc="newupgrade"></span><span>Cue · Mainland<br>(-207, -220)</span></p>
-<div><span class="tutorial-travel" data-type="npc" data-target="scrolls"></span> <span class="tutorial-travel" data-type="npc" data-target="newupgrade"></span></div>
+	<p style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap">
+		<span class="tutorial-npc" data-npc="scrolls"></span><span>Lucas · Mainland<br />(-464, -96)</span><span class="tutorial-item" data-item="ringsj"></span
+		><span class="tutorial-item" data-item="cscroll0"></span><span class="tutorial-npc" data-npc="newupgrade"></span><span>Cue · Mainland<br />(-207, -220)</span>
+	</p>
+	<div><span class="tutorial-travel" data-type="npc" data-target="scrolls"></span> <span class="tutorial-travel" data-type="npc" data-target="newupgrade"></span></div>
 	<p>{{ phrase("docs.tutorial.compound.a-failure-consumes-all-three-accessories-and-the") }}</p>
 </div>
 
@@ -52,9 +58,7 @@ compound_once().catch(function (error) {
 	show_json(error);
 });</div>
 	<p>{{ phrase_html("docs.tutorial.compound.calculation-mode-consumes-nothing-read-its-chance-then") }}</p>
-	<p>
-		{{ phrase_html("docs.tutorial.compound.compound-item-grade-locate-item") }}
-	</p>
+	<p>{{ phrase_html("docs.tutorial.compound.compound-item-grade-locate-item") }}</p>
 </div>
 
 <p class="tuttip">{{ phrase_html("docs.tutorial.compound.before-risking-rare-pieces-read-the-full-guide") }}</p>
@@ -114,4 +118,6 @@ compound_once().catch(function (error) {
 		text-align: center;
 	}
 </style>
-<script>render_tutorial_items();</script>
+<script>
+	render_tutorial_items();
+</script>

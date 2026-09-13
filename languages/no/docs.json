@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Tidligere handlinger teller også. Velg {button} når oppgavene er ferdige, for å gå videre.",
+	"docs.tutorial.compound.optional_practice": "Du kan fortsette uten å kjøpe skriftruller eller kombinere gjenstander. Kom tilbake når du har tre like tilbehørsgjenstander.",
+	"docs.tutorial.bank.example_supplies": "Ha HP Potion (hpot0) i vesken for dette eksemplet. Det setter inn 1 gull og legger den stabelen med drikker i banken.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Dra en regenereringsferdighet fra {skills} til ferdighetslinjen og trykk på tasten til den. Det teller også for oppgaven. CODE-eksemplet kjører bare når HP mangler.",
 	"docs.functions.bank_store.explicit_destination": "Utelat målplassen for automatisk plassering og stabling. Hvis du angir en opptatt plass, bytter de to gjenstandene plass i stedet for å bli stablet sammen. Bruk en tom plass for å unngå et bytte.",
 	"docs.tutorial.new.shop_open": "Gå tilbake til torget og stå stille. Åpne INV, klikk på Merchant Stand i vesken din, og velg ÅPNE. Behold boden i inventaret. Klikk på figuren din for å se butikkens salgsplasser.",
 	"docs.tutorial.new.shop_listing": "Dra en gjenstand du vil selge fra vesken til en tom salgsplass. Angi antall og gullpris per gjenstand, og velg LEGG UT FOR SALG. Sjekk andre spilleres priser først; den foreslåtte prisen garanterer ikke at noen kjøper. Hold deg pålogget med boden åpen. Lukk den ved å klikke på boden i vesken og velge LUKK.",

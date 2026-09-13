@@ -1,4 +1,8 @@
 {
+	"docs.tutorial.helloworld.earlier_actions": "Contează și acțiunile făcute mai devreme. Când ai terminat sarcinile, alege {button} pentru a merge mai departe.",
+	"docs.tutorial.compound.optional_practice": "Poți continua fără să cumperi pergamente sau să combini obiecte. Revino când ai trei accesorii identice.",
+	"docs.tutorial.bank.example_supplies": "Ține HP Potion (hpot0) în geantă pentru acest exemplu. El depune 1 aur și pune acel teanc de poțiuni în bancă.",
+	"docs.tutorial.skills-recovery.regeneration_task": "Trage o abilitate de regenerare din {skills} pe bara de abilități și apasă tasta ei. Și aceasta contează pentru sarcină. Exemplul CODE rulează doar când îți lipsesc HP.",
 	"docs.functions.bank_store.explicit_destination": "Omite slotul de destinație pentru a plasa și stivui automat obiectul. Dacă indici un slot ocupat, cele două obiecte își schimbă locurile în loc să se combine. Alege un slot gol pentru a evita schimbul.",
 	"docs.tutorial.new.shop_open": "Întoarce-te în piața orașului și oprește-te. Deschide INV, apasă pe Merchant Stand din geantă, apoi alege DESCHIDE. Păstrează taraba în inventar. Apasă pe personajul tău pentru a vedea sloturile de comerț ale magazinului.",
 	"docs.tutorial.new.shop_listing": "Trage un obiect pe care vrei să-l vinzi din geantă într-un slot de comerț gol. Stabilește cantitatea și prețul în aur pe bucată, apoi alege PUNE LA VÂNZARE. Verifică întâi prețurile altor jucători; prețul sugerat nu garantează un cumpărător. Rămâi online cu taraba deschisă. Pentru a o închide, apasă pe taraba din geantă și alege ÎNCHIDE.",
