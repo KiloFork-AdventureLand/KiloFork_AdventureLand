@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Kokeile CODEssa",
 	"docs.tutorial.theend.javascript_next": "Kirjoita seuraavaksi pieniä skriptejä ja opi CODEssa käytettävää JavaScriptiä.",
 	"docs.tutorial.javascript.practice": "Muokkaa koodia ja tarkista tulos painamalla Suorita. Harjoitus käyttää esimerkkitietoja eikä ohjaa hahmoasi. Jatka vie eteenpäin, kun olet valmis.",
-	"docs.tutorial.javascript.copy": "Valitse esimerkin teksti ja kopioi se käyttämättömään CODE-paikkaan kokeiltavaksi. Pysäytä nykyinen skripti ennen ENGAGE-painiketta."
+	"docs.tutorial.javascript.copy": "Valitse esimerkin teksti ja kopioi se käyttämättömään CODE-paikkaan kokeiltavaksi. Pysäytä nykyinen skripti ennen ENGAGE-painiketta.",
+	"docs.code_settings.scope": "Nämä asetukset koskevat tämän hahmon nykyistä CODE-ajokertaa. Kaikkien kolmen oletusarvo on true. Lisää alla olevat sijoituslauseet tallennetun CODE-koodisi alkuun, jotta ne otetaan käyttöön jokaisella ajokerralla.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> piilottaa viestin vastaanotosta tulevan oletuslokimerkinnän. Omat CM-käsittelijäsi ja lokitulosteesi toimivat edelleen.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> piilottaa reitinhaun tavalliset lokimerkinnät. <code>code_settings.show_smart_move_text = false</code> piilottaa reitinhaun aikana leijuvat kommentit. Liikkuminen, takaisinkutsut ja Promise-tulokset pysyvät ennallaan.",
+	"docs.code_settings.errors": "Nämä asetukset jättävät reitinhaun epäonnistumiset, varoitukset ja JavaScript-virheet näkyviin. Mainframe hyväksyy samat asetukset; tavalliset lokimerkinnät ja leijuva teksti jäävät siellä jo valmiiksi pois."
 }

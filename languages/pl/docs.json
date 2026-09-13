@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Wypróbuj w CODE",
 	"docs.tutorial.theend.javascript_next": "Następnie napisz małe skrypty i poznaj JavaScript stojący za CODE.",
 	"docs.tutorial.javascript.practice": "Edytuj kod i naciśnij Wykonaj, aby sprawdzić wynik. Ćwiczenie używa przykładowych danych i nie steruje postacią. Kontynuuj przechodzi dalej, kiedy chcesz.",
-	"docs.tutorial.javascript.copy": "Aby wypróbować przykład w CODE, zaznacz tekst i skopiuj do nieużywanego miejsca. Zatrzymaj obecny skrypt przed naciśnięciem ENGAGE."
+	"docs.tutorial.javascript.copy": "Aby wypróbować przykład w CODE, zaznacz tekst i skopiuj do nieużywanego miejsca. Zatrzymaj obecny skrypt przed naciśnięciem ENGAGE.",
+	"docs.code_settings.scope": "Te ustawienia dotyczą bieżącego uruchomienia CODE tej postaci. Wszystkie trzy mają domyślną wartość true. Umieść poniższe przypisania na początku zapisanego CODE, aby stosować je przy każdym uruchomieniu.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> ukrywa domyślny wpis o odebraniu wiadomości. Twoje procedury obsługi CM i własne wpisy w dzienniku nadal działają.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> ukrywa zwykłe wpisy dotyczące szukania drogi. <code>code_settings.show_smart_move_text = false</code> ukrywa unoszące się komentarze podczas szukania drogi. Ruch, wywołania zwrotne i wyniki Promise pozostają bez zmian.",
+	"docs.code_settings.errors": "Te ustawienia pozostawiają widoczne niepowodzenia szukania drogi, ostrzeżenia i błędy JavaScript. Mainframe akceptuje te same ustawienia; już teraz pomija zwykłe wpisy i unoszący się tekst."
 }

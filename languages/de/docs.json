@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "In CODE ausprobieren",
 	"docs.tutorial.theend.javascript_next": "Schreibe als Nächstes ein paar kleine Skripte und lerne das JavaScript hinter CODE.",
 	"docs.tutorial.javascript.practice": "Bearbeite den Code und drücke Ausführen, um das Ergebnis zu prüfen. Die Übung nutzt Beispieldaten und steuert deinen Charakter nicht. Weiter führt dich fort, sobald du bereit bist.",
-	"docs.tutorial.javascript.copy": "Wähle den Beispieltext aus und kopiere ihn in einen unbenutzten CODE-Platz. Stoppe dein aktuelles Skript, bevor du ENGAGE drückst."
+	"docs.tutorial.javascript.copy": "Wähle den Beispieltext aus und kopiere ihn in einen unbenutzten CODE-Platz. Stoppe dein aktuelles Skript, bevor du ENGAGE drückst.",
+	"docs.code_settings.scope": "Diese Einstellungen gelten für den aktuellen CODE-Lauf dieses Charakters. Alle drei stehen standardmäßig auf true. Setze die folgenden Zuweisungen an den Anfang deines gespeicherten CODE, damit sie bei jedem Start erneut angewendet werden.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> blendet den standardmäßigen Logeintrag beim Empfang einer Nachricht aus. Deine CM-Handler und eigenen Logausgaben laufen weiter.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> blendet gewöhnliche Logeinträge zur Wegsuche aus. <code>code_settings.show_smart_move_text = false</code> blendet die schwebenden Kommentare zur Wegsuche aus. Bewegung, Rückruffunktionen und Promise-Ergebnisse bleiben unverändert.",
+	"docs.code_settings.errors": "Fehlgeschlagene Wegsuchen, Warnungen und JavaScript-Fehler bleiben mit diesen Einstellungen sichtbar. Mainframe akzeptiert dieselben Einstellungen; dort entfallen gewöhnliche Logeinträge und schwebender Text bereits."
 }

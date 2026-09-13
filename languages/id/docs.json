@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Coba di CODE",
 	"docs.tutorial.theend.javascript_next": "Berikutnya tulis beberapa skrip kecil dan pelajari JavaScript di balik CODE.",
 	"docs.tutorial.javascript.practice": "Edit kode, lalu tekan Jalankan untuk memeriksa hasil. Latihan memakai data contoh dan tidak mengendalikan karaktermu. Lanjut membawa ke langkah berikutnya saat kamu siap.",
-	"docs.tutorial.javascript.copy": "Untuk mencoba contoh di CODE, pilih teks dan salin ke slot yang belum digunakan. Hentikan skrip saat ini sebelum menekan ENGAGE."
+	"docs.tutorial.javascript.copy": "Untuk mencoba contoh di CODE, pilih teks dan salin ke slot yang belum digunakan. Hentikan skrip saat ini sebelum menekan ENGAGE.",
+	"docs.code_settings.scope": "Pengaturan ini berlaku untuk sesi CODE karakter ini yang sedang berjalan. Ketiganya bernilai true secara default. Letakkan penetapan nilai di bawah ini di awal CODE yang tersimpan agar diterapkan kembali setiap kali dijalankan.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> menyembunyikan log penerimaan pesan bawaan. Penangan CM dan log buatan Anda tetap berjalan.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> menyembunyikan log pencarian jalur rutin. <code>code_settings.show_smart_move_text = false</code> menyembunyikan komentar melayang saat pencarian jalur. Pergerakan, callback, dan hasil Promise tetap sama.",
+	"docs.code_settings.errors": "Pengaturan ini tetap menampilkan kegagalan pencarian jalur, peringatan, dan kesalahan JavaScript. Mainframe menerima pengaturan yang sama; log rutin dan teks melayang memang sudah tidak ditampilkan di sana."
 }

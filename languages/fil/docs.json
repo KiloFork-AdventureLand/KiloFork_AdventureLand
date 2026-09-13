@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Subukan sa CODE",
 	"docs.tutorial.theend.javascript_next": "Sumulat ngayon ng maliliit na script at matutuhan ang JavaScript sa likod ng CODE.",
 	"docs.tutorial.javascript.practice": "Baguhin ang code at pindutin ang Patakbuhin para suriin. Halimbawang datos ang gamit, hindi nito kinokontrol ang karakter. Magpatuloy kapag handa ka na.",
-	"docs.tutorial.javascript.copy": "Piliin ang teksto ng halimbawa at kopyahin sa bakanteng CODE slot. Ihinto ang kasalukuyang script bago pindutin ang ENGAGE."
+	"docs.tutorial.javascript.copy": "Piliin ang teksto ng halimbawa at kopyahin sa bakanteng CODE slot. Ihinto ang kasalukuyang script bago pindutin ang ENGAGE.",
+	"docs.code_settings.scope": "Para sa kasalukuyang pagpapatakbo ng CODE ng karakter na ito ang mga setting na ito. Naka-true ang tatlo bilang default. Ilagay ang mga assignment sa ibaba sa simula ng naka-save mong CODE para mailapat muli sa bawat pagpapatakbo.",
+	"docs.code_settings.cm": "Itinatago ng <code>code_settings.log_cm = false</code> ang default na log kapag may natanggap na mensahe. Patuloy na gagana ang mga CM handler at sarili mong log.",
+	"docs.code_settings.smart_move": "Itinatago ng <code>code_settings.log_smart_move = false</code> ang mga karaniwang log ng paghahanap ng daan. Itinatago ng <code>code_settings.show_smart_move_text = false</code> ang mga lumulutang na komento habang naghahanap ng daan. Hindi nagbabago ang paggalaw, mga callback, at mga resulta ng Promise.",
+	"docs.code_settings.errors": "Makikita pa rin ang mga pagkabigo sa paghahanap ng daan, babala, at JavaScript error sa mga setting na ito. Tinatanggap ng Mainframe ang parehong mga setting; hindi na nito ipinapakita ang mga karaniwang log at lumulutang na teksto."
 }

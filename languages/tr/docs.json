@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "CODE'da dene",
 	"docs.tutorial.theend.javascript_next": "Sırada birkaç küçük betik yazmak ve CODE'un arkasındaki JavaScript'i öğrenmek var.",
 	"docs.tutorial.javascript.practice": "Kodu düzenle, sonra sonucu kontrol etmek için Çalıştır'a bas. Alıştırma örnek veri kullanır ve karakterini kontrol etmez. Hazır olduğunda Devam ile ilerleyebilirsin.",
-	"docs.tutorial.javascript.copy": "Örneği CODE'da denemek için metnini seçip kullanılmayan yuvaya kopyala. ENGAGE'e basmadan önce mevcut betiğini durdur."
+	"docs.tutorial.javascript.copy": "Örneği CODE'da denemek için metnini seçip kullanılmayan yuvaya kopyala. ENGAGE'e basmadan önce mevcut betiğini durdur.",
+	"docs.code_settings.scope": "Bu ayarlar, bu karakterin mevcut CODE çalıştırmasına aittir. Üçünün de varsayılan değeri true'dur. Her çalıştırmada yeniden uygulanmaları için aşağıdaki atamaları kayıtlı CODE'unuzun başına ekleyin.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> varsayılan mesaj alındı kaydını gizler. CM işleyicileriniz ve kendi günlük kayıtlarınız çalışmaya devam eder.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> olağan yol bulma kayıtlarını gizler. <code>code_settings.show_smart_move_text = false</code> karakterin üzerinde beliren yol bulma sözlerini gizler. Hareket, geri çağırmalar ve Promise sonuçları değişmez.",
+	"docs.code_settings.errors": "Bu ayarlar yol bulma hatalarını, uyarıları ve JavaScript hatalarını görünür bırakır. Mainframe aynı ayarları kabul eder; olağan kayıtları ve karakter üzerinde beliren metinleri zaten göstermez."
 }

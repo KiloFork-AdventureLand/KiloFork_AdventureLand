@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Prøv i CODE",
 	"docs.tutorial.theend.javascript_next": "Skriv derefter nogle små scripts, og lær JavaScript bag CODE.",
 	"docs.tutorial.javascript.practice": "Ret koden, og tryk Kør for at tjekke resultatet. Øvelsen bruger eksempeldata og styrer ikke din figur. Fortsæt går videre, når du er klar.",
-	"docs.tutorial.javascript.copy": "Markér eksempelteksten og kopier den til en ubrugt CODE-plads for at prøve. Stop dit nuværende script, før du trykker ENGAGE."
+	"docs.tutorial.javascript.copy": "Markér eksempelteksten og kopier den til en ubrugt CODE-plads for at prøve. Stop dit nuværende script, før du trykker ENGAGE.",
+	"docs.code_settings.scope": "Disse indstillinger gælder for denne karakters aktuelle CODE-kørsel. Alle tre har true som standardværdi. Sæt tildelingerne nedenfor øverst i din gemte CODE, så de anvendes ved hver kørsel.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> skjuler den normale loglinje for modtagne beskeder. Dine CM-håndteringer og egne logbeskeder fungerer stadig.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> skjuler almindelige logbeskeder om stifinding. <code>code_settings.show_smart_move_text = false</code> skjuler svævende bemærkninger under stifinding. Bevægelse, tilbagekald og Promise-resultater forbliver uændrede.",
+	"docs.code_settings.errors": "Disse indstillinger lader mislykket stifinding, advarsler og JavaScript-fejl forblive synlige. Mainframe accepterer de samme indstillinger; almindelige logbeskeder og svævende tekst udelades allerede der."
 }

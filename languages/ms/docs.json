@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Cuba dalam CODE",
 	"docs.tutorial.theend.javascript_next": "Seterusnya, tulis beberapa skrip kecil dan pelajari JavaScript di sebalik CODE.",
 	"docs.tutorial.javascript.practice": "Sunting kod, kemudian tekan Jalankan untuk memeriksa hasil. Latihan menggunakan data contoh dan tidak mengawal watak anda. Teruskan membawa anda ke langkah seterusnya apabila anda bersedia.",
-	"docs.tutorial.javascript.copy": "Untuk mencuba contoh dalam CODE, pilih teks dan salin ke slot yang belum digunakan. Hentikan skrip semasa sebelum menekan ENGAGE."
+	"docs.tutorial.javascript.copy": "Untuk mencuba contoh dalam CODE, pilih teks dan salin ke slot yang belum digunakan. Hentikan skrip semasa sebelum menekan ENGAGE.",
+	"docs.code_settings.scope": "Tetapan ini terpakai pada pelaksanaan CODE semasa bagi watak ini. Ketiga-tiganya mempunyai nilai lalai true. Letakkan pernyataan pemberian nilai di bawah pada awal CODE yang disimpan supaya digunakan semula pada setiap pelaksanaan.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> menyembunyikan log penerimaan mesej lalai. Pengendali CM dan log tersuai anda terus berfungsi.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> menyembunyikan log pencarian laluan biasa. <code>code_settings.show_smart_move_text = false</code> menyembunyikan komen terapung semasa mencari laluan. Pergerakan, panggil balik dan hasil Promise kekal sama.",
+	"docs.code_settings.errors": "Tetapan ini masih memaparkan kegagalan mencari laluan, amaran dan ralat JavaScript. Mainframe menerima tetapan yang sama; log biasa dan teks terapung memang sudah tidak dipaparkan di situ."
 }

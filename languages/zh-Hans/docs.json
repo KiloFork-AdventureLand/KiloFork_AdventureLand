@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "在 CODE 中试试",
 	"docs.tutorial.theend.javascript_next": "接下来，编写几个小脚本，学习 CODE 背后的 JavaScript。",
 	"docs.tutorial.javascript.practice": "修改代码后按“执行”检查结果。练习使用示例数据，不会控制你的角色。准备好时即可继续下一步。",
-	"docs.tutorial.javascript.copy": "要在 CODE 中尝试示例，请选中文本并复制到未使用的槽位。按 ENGAGE 前先停止当前脚本。"
+	"docs.tutorial.javascript.copy": "要在 CODE 中尝试示例，请选中文本并复制到未使用的槽位。按 ENGAGE 前先停止当前脚本。",
+	"docs.code_settings.scope": "这些设置适用于该角色当前这次CODE运行。三项设置的默认值均为true。将以下赋值语句放在已保存CODE的开头，即可在每次运行时重新应用。",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code>会隐藏默认的消息接收日志。你的CM处理函数和自定义日志仍会正常运行。",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code>会隐藏常规寻路日志。<code>code_settings.show_smart_move_text = false</code>会隐藏寻路时浮现的文字。移动、回调和Promise结果均保持不变。",
+	"docs.code_settings.errors": "这些设置不会隐藏寻路失败、警告或JavaScript错误。Mainframe也支持相同的设置；它原本就不显示常规日志和浮动文字。"
 }

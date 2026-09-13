@@ -782,7 +782,7 @@ docs = {
 		],
 	],
 	references: [
-		["code-globals", "CODE Globals", "G,server,game,smart,safeties,parent"],
+		["code-globals", "CODE Globals", "G,server,game,smart,safeties,parent,code_settings,log_cm,log_smart_move,show_smart_move_text"],
 		["data-server-status", "Server Status", "server,status,events,bosses,schedule,parent.S"],
 		["data-character", "Character Objects", "characters,players"],
 		["data-monster", "Monster Objects", "monsters,entity"],

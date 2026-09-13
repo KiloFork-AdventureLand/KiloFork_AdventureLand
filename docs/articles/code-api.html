@@ -61,8 +61,11 @@ run_sequence();</div>
 
 <p>{{ phrase_html("docs.articles.code-api.use-character-on-character-once-character-all-character") }}</p>
 
-<div class="code">character.on("cm", function (data) {
-	game_log(data.name + ": " + JSON.stringify(data.message));
+<p>{{ phrase_html("docs.code_settings.cm") }}</p>
+
+<div class="code">code_settings.log_cm = false;
+character.on("cm", function (data) {
+	safe_log(data.name + ": " + JSON.stringify(data.message));
 });
 
 game.on("game_event", function (event) {

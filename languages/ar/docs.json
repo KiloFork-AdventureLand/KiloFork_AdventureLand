@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "جرّبه في CODE",
 	"docs.tutorial.theend.javascript_next": "اكتب الآن بضعة سكربتات صغيرة وتعلّم JavaScript وراء CODE.",
 	"docs.tutorial.javascript.practice": "عدّل الكود واضغط تنفيذ لفحص النتيجة. يستخدم التمرين بيانات نموذجية ولا يتحكم في شخصيتك. انتقل للخطوة التالية عندما تكون جاهزًا.",
-	"docs.tutorial.javascript.copy": "حدد نص المثال وانسخه إلى خانة CODE غير مستخدمة. أوقف سكربتك الحالي قبل ضغط ENGAGE."
+	"docs.tutorial.javascript.copy": "حدد نص المثال وانسخه إلى خانة CODE غير مستخدمة. أوقف سكربتك الحالي قبل ضغط ENGAGE.",
+	"docs.code_settings.scope": "تسري هذه الإعدادات على التشغيل الحالي لـCODE لهذه الشخصية. القيمة الافتراضية للإعدادات الثلاثة هي true. ضع تعيينات القيم أدناه في بداية CODE المحفوظ لتطبيقها عند كل تشغيل.",
+	"docs.code_settings.cm": "يخفي <code>code_settings.log_cm = false</code> السجل الافتراضي لاستلام الرسائل. تستمر معالجات CM وسجلاتك المخصصة في العمل.",
+	"docs.code_settings.smart_move": "يخفي <code>code_settings.log_smart_move = false</code> سجلات البحث عن المسار المعتادة. ويخفي <code>code_settings.show_smart_move_text = false</code> التعليقات العائمة أثناء البحث عن المسار. تظل الحركة ودوال رد النداء ونتائج Promise كما هي.",
+	"docs.code_settings.errors": "تُبقي هذه الإعدادات حالات فشل العثور على مسار والتحذيرات وأخطاء JavaScript ظاهرة. يقبل Mainframe الإعدادات نفسها؛ فهو لا يعرض السجلات المعتادة والنصوص العائمة أصلًا."
 }

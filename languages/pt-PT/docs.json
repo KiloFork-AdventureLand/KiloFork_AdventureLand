@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Experimente no CODE",
 	"docs.tutorial.theend.javascript_next": "Agora escreva alguns scripts pequenos e aprenda o JavaScript por trás do CODE.",
 	"docs.tutorial.javascript.practice": "Edite o código e pressione Executar para conferir o resultado. A prática usa dados de exemplo e não controla seu personagem. Continuar avança quando você estiver pronto.",
-	"docs.tutorial.javascript.copy": "Para experimentar um exemplo no CODE, selecione o texto e copie para um espaço não utilizado. Pare seu script atual antes de pressionar ENGAGE."
+	"docs.tutorial.javascript.copy": "Para experimentar um exemplo no CODE, selecione o texto e copie para um espaço não utilizado. Pare seu script atual antes de pressionar ENGAGE.",
+	"docs.code_settings.scope": "Estas definições aplicam-se à execução atual do CODE desta personagem. As três têm true como valor predefinido. Coloca as atribuições abaixo no início do teu CODE guardado para as aplicar em cada execução.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> oculta o registo predefinido de receção de mensagens. Os teus gestores de CM e os teus próprios registos continuam a funcionar.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> oculta os registos habituais de procura de caminhos. <code>code_settings.show_smart_move_text = false</code> oculta os comentários flutuantes da procura de caminhos. O movimento, as funções de retorno e os resultados de Promise mantêm-se iguais.",
+	"docs.code_settings.errors": "Estas definições mantêm visíveis as falhas na procura de caminhos, os avisos e os erros de JavaScript. Mainframe aceita as mesmas definições; já omite os registos habituais e o texto flutuante."
 }

@@ -5760,4 +5760,14 @@ module.exports = {
 	"docs.reference.fulfilled": "Fulfilled",
 	// docs/functions/{attack,buy,compound,equip_batch,upgrade}.html; heading above example error objects delivered when a JavaScript Promise rejects. This is a Promise outcome, not moderation or a declined invitation.
 	"docs.reference.rejected": "Rejected",
+	// CODE globals reference: settings are per character and per CODE run, with three true defaults. Keep CODE and true unchanged.
+	"docs.code_settings.scope":
+		"These settings belong to this character's current CODE run. All three default to true. Put the assignments below at the top of your saved CODE to reapply them on each run.",
+	// CODE references: only the built-in receipt notice is suppressed; message handlers and player-authored logs still run. Preserve CM and the exact code element.
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> hides the default message receipt log. Your CM handlers and custom logs still run.",
+	// CODE references: separate switches for routine path logs and floating remarks, with no movement or completion changes. Preserve both code elements and Promise.
+	"docs.code_settings.smart_move":
+		"<code>code_settings.log_smart_move = false</code> hides routine pathfinding logs. <code>code_settings.show_smart_move_text = false</code> hides floating pathfinding remarks. Movement, callbacks and Promise results stay the same.",
+	// CODE globals reference: diagnostic output is unchanged. Mainframe supports the same object but already has no routine CM/path logs or floating text. Preserve JavaScript and Mainframe.
+	"docs.code_settings.errors": "These settings leave path failures, warnings and JavaScript errors visible. Mainframe accepts the same settings; it already omits the routine logs and floating text.",
 };

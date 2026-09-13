@@ -66,6 +66,11 @@ for (var p in parent.character) proxy(p); // Not all properties are sadly availa
 
 var G = parent.G; // Game Data - Use show_json(Object.keys(G)); and inspect individual data with show_json(G.skills) and alike
 var safeties = true; // Prevents common delay based issues that cause many requests to be sent to the server in a burst that triggers the server to disconnect the character
+var code_settings = {
+	log_cm: true,
+	log_smart_move: true,
+	show_smart_move_text: true,
+};
 
 server = {
 	mode: parent.gameplay, // "normal", "hardcore", "test"
@@ -2449,7 +2454,7 @@ function smart_move(destination, on_done) {
 			if (done) resolve_deferreds("smart_move", { success: true });
 			else reject_deferreds("smart_move", { reason: reason });
 		};
-	console.log("smart_move: " + smart.map + " " + smart.x + " " + smart.y);
+	if (code_settings.log_smart_move !== false) console.log("smart_move: " + smart.map + " " + smart.x + " " + smart.y);
 	return push_deferred("smart_move");
 }
 
@@ -2609,10 +2614,12 @@ function bfs() {
 		}
 		smart.found = true;
 		if (smart.prune.smooth) smooth_path();
-		if (optimal) game_log(parent.phrase("code.path_found"), "#C882D1");
-		else game_log(parent.phrase("code.path_found_approximate"), "#C882D1");
+		if (code_settings.log_smart_move !== false) {
+			if (optimal) game_log(parent.phrase("code.path_found"), "#C882D1");
+			else game_log(parent.phrase("code.path_found_approximate"), "#C882D1");
+		}
 		// game_log(queue.length);
-		parent.d_text(parent.phrase("code.path_yes"), character, { color: "#58D685" });
+		if (game.graphics && !parent.no_graphics && code_settings.show_smart_move_text !== false) parent.d_text(parent.phrase("code.path_yes"), character, { color: "#58D685" });
 	}
 }
 
@@ -2623,7 +2630,7 @@ function start_pathfinding() {
 	smart.start_y = character.real_y;
 	((queue = []), (visited = {}), (start = 0), (best = null));
 	qpush({ x: character.real_x, y: character.real_y, map: character.map, i: -1 });
-	game_log(parent.phrase("code.path_searching"), "#89D4A2");
+	if (code_settings.log_smart_move !== false) game_log(parent.phrase("code.path_searching"), "#89D4A2");
 	bfs();
 }
 
@@ -2638,11 +2645,28 @@ function smart_move_logic() {
 	} else if (!smart.found) {
 		if (Math.random() < 0.1) {
 			move(character.real_x + Math.random() * 0.0002 - 0.0001, character.real_y + Math.random() * 0.0002 - 0.0001);
-			parent.d_text(
-				shuffle([parent.phrase("code.path_thought_hmm"), "...", "???", parent.phrase("code.path_thought_left"), parent.phrase("code.path_thought_right"), parent.phrase("code.path_thought_uncertain"), parent.phrase("code.path_thought_confidence"), parent.phrase("code.path_thought_thinking"), parent.phrase("code.path_thought_what_if"), parent.phrase("code.path_thought_should_be"), parent.phrase("code.path_thought_sure"), parent.phrase("code.path_thought_nope"), parent.phrase("code.path_thought_wait"), parent.phrase("code.path_thought_surprise")])[0],
-				character,
-				{ color: shuffle(["#68B3D1", "#D06F99", "#6ED5A3", "#D2CF5A"])[0] },
-			);
+			if (game.graphics && !parent.no_graphics && code_settings.show_smart_move_text !== false) {
+				parent.d_text(
+					shuffle([
+						parent.phrase("code.path_thought_hmm"),
+						"...",
+						"???",
+						parent.phrase("code.path_thought_left"),
+						parent.phrase("code.path_thought_right"),
+						parent.phrase("code.path_thought_uncertain"),
+						parent.phrase("code.path_thought_confidence"),
+						parent.phrase("code.path_thought_thinking"),
+						parent.phrase("code.path_thought_what_if"),
+						parent.phrase("code.path_thought_should_be"),
+						parent.phrase("code.path_thought_sure"),
+						parent.phrase("code.path_thought_nope"),
+						parent.phrase("code.path_thought_wait"),
+						parent.phrase("code.path_thought_surprise"),
+					])[0],
+					character,
+					{ color: shuffle(["#68B3D1", "#D06F99", "#6ED5A3", "#D2CF5A"])[0] },
+				);
+			}
 		}
 		continue_pathfinding();
 	} else if (!character.moving && can_walk(character) && !is_transporting(character)) {

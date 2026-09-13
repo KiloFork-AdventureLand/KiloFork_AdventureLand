@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "CODE에서 해 보기",
 	"docs.tutorial.theend.javascript_next": "다음에는 작은 스크립트를 쓰며 CODE의 바탕인 JavaScript를 배워 보세요.",
 	"docs.tutorial.javascript.practice": "코드를 수정하고 실행을 눌러 결과를 확인하세요. 연습은 예제 데이터를 사용하며 내 캐릭터를 조작하지 않습니다. 준비되면 계속을 눌러 넘어갈 수 있습니다.",
-	"docs.tutorial.javascript.copy": "CODE에서 예제를 시험하려면 텍스트를 선택해 빈 슬롯에 복사하세요. ENGAGE를 누르기 전에 현재 스크립트를 멈추세요."
+	"docs.tutorial.javascript.copy": "CODE에서 예제를 시험하려면 텍스트를 선택해 빈 슬롯에 복사하세요. ENGAGE를 누르기 전에 현재 스크립트를 멈추세요.",
+	"docs.code_settings.scope": "이 설정은 이 캐릭터의 현재 CODE 실행에 적용됩니다. 세 설정의 기본값은 모두 true입니다. 실행할 때마다 적용하려면 저장된 CODE 맨 위에 아래 대입문을 넣으세요.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code>는 기본 메시지 수신 로그를 숨깁니다. 직접 만든 CM 핸들러와 로그 출력은 계속 작동합니다.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code>는 일반적인 경로 탐색 로그를 숨깁니다. <code>code_settings.show_smart_move_text = false</code>는 경로 탐색 중 떠오르는 대사를 숨깁니다. 이동, 콜백, Promise 결과는 그대로 유지됩니다.",
+	"docs.code_settings.errors": "이 설정을 사용해도 경로 탐색 실패, 경고, JavaScript 오류는 계속 표시됩니다. Mainframe도 같은 설정을 지원하며, 일반 로그와 떠오르는 텍스트는 원래 표시하지 않습니다."
 }

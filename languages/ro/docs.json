@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Încearcă în CODE",
 	"docs.tutorial.theend.javascript_next": "Scrie apoi câteva scripturi mici și învață JavaScript-ul din spatele CODE.",
 	"docs.tutorial.javascript.practice": "Editează codul și apasă Execută pentru verificare. Exercițiul folosește date de exemplu și nu controlează personajul. Continuă te duce mai departe când ești gata.",
-	"docs.tutorial.javascript.copy": "Selectează textul exemplului și copiază-l într-un slot CODE nefolosit. Oprește scriptul actual înainte să apeși ENGAGE."
+	"docs.tutorial.javascript.copy": "Selectează textul exemplului și copiază-l într-un slot CODE nefolosit. Oprește scriptul actual înainte să apeși ENGAGE.",
+	"docs.code_settings.scope": "Aceste setări se aplică rulării curente a CODE pentru acest personaj. Toate trei au valoarea implicită true. Pune atribuirile de mai jos la începutul CODE salvat pentru a le reaplica la fiecare rulare.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> ascunde înregistrarea implicită din jurnal la primirea unui mesaj. Rutinele tale de tratare CM și propriile mesaje de jurnal continuă să funcționeze.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> ascunde mesajele obișnuite din jurnal despre căutarea traseului. <code>code_settings.show_smart_move_text = false</code> ascunde remarcile plutitoare din timpul căutării. Mișcarea, apelurile de revenire și rezultatele Promise rămân neschimbate.",
+	"docs.code_settings.errors": "Aceste setări păstrează vizibile eșecurile de găsire a traseului, avertismentele și erorile JavaScript. Mainframe acceptă aceleași setări; mesajele obișnuite din jurnal și textul plutitor sunt deja omise acolo."
 }

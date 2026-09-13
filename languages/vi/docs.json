@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Thử trong CODE",
 	"docs.tutorial.theend.javascript_next": "Tiếp theo, viết vài script nhỏ và học JavaScript đằng sau CODE.",
 	"docs.tutorial.javascript.practice": "Sửa mã rồi nhấn Chạy để kiểm tra. Bài tập dùng dữ liệu mẫu và không điều khiển nhân vật. Tiếp tục chuyển bước khi bạn sẵn sàng.",
-	"docs.tutorial.javascript.copy": "Chọn văn bản ví dụ và chép vào ô CODE chưa dùng. Dừng script hiện tại trước khi nhấn ENGAGE."
+	"docs.tutorial.javascript.copy": "Chọn văn bản ví dụ và chép vào ô CODE chưa dùng. Dừng script hiện tại trước khi nhấn ENGAGE.",
+	"docs.code_settings.scope": "Các cài đặt này áp dụng cho lần chạy CODE hiện tại của nhân vật này. Cả ba đều có giá trị mặc định là true. Đặt các lệnh gán bên dưới ở đầu CODE đã lưu để áp dụng lại mỗi lần chạy.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> ẩn dòng nhật ký nhận tin nhắn mặc định. Trình xử lý CM và nhật ký do bạn tự viết vẫn hoạt động.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> ẩn nhật ký tìm đường thông thường. <code>code_settings.show_smart_move_text = false</code> ẩn các lời thoại nổi khi tìm đường. Di chuyển, hàm gọi lại và kết quả Promise không thay đổi.",
+	"docs.code_settings.errors": "Các cài đặt này vẫn hiển thị lỗi tìm đường, cảnh báo và lỗi JavaScript. Mainframe chấp nhận cùng các cài đặt này; vốn dĩ nó đã không hiển thị nhật ký thông thường và chữ nổi."
 }

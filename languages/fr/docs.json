@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Essaie dans CODE",
 	"docs.tutorial.theend.javascript_next": "Écris ensuite quelques petits scripts et découvre le JavaScript derrière CODE.",
 	"docs.tutorial.javascript.practice": "Modifie le code, puis appuie sur Exécuter pour vérifier. L’exercice utilise des données d’exemple et ne contrôle pas ton personnage. Continuer te fait avancer quand tu es prêt.",
-	"docs.tutorial.javascript.copy": "Pour essayer un exemple dans CODE, sélectionne son texte et copie-le dans un emplacement inutilisé. Arrête ton script actuel avant d’appuyer sur ENGAGE."
+	"docs.tutorial.javascript.copy": "Pour essayer un exemple dans CODE, sélectionne son texte et copie-le dans un emplacement inutilisé. Arrête ton script actuel avant d’appuyer sur ENGAGE.",
+	"docs.code_settings.scope": "Ces paramètres s'appliquent à l'exécution actuelle du CODE de ce personnage. Tous les trois valent true par défaut. Placez les affectations ci-dessous au début de votre CODE enregistré pour les réappliquer à chaque lancement.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> masque l'entrée de journal par défaut signalant la réception d'un message. Vos gestionnaires CM et vos propres journaux continuent de fonctionner.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> masque les entrées courantes du journal de recherche de chemin. <code>code_settings.show_smart_move_text = false</code> masque les remarques flottantes de recherche de chemin. Les déplacements, les fonctions de rappel et les résultats de Promise restent identiques.",
+	"docs.code_settings.errors": "Ces paramètres laissent visibles les échecs de recherche de chemin, les avertissements et les erreurs JavaScript. Mainframe accepte les mêmes paramètres ; il omet déjà les entrées courantes et le texte flottant."
 }

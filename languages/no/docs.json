@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Prøv i CODE",
 	"docs.tutorial.theend.javascript_next": "Skriv så noen små skript og lær JavaScript bak CODE.",
 	"docs.tutorial.javascript.practice": "Endre koden og trykk Kjør for å sjekke resultatet. Øvelsen bruker eksempeldata og styrer ikke karakteren din. Fortsett går videre når du er klar.",
-	"docs.tutorial.javascript.copy": "Velg eksempelteksten og kopier den til en ubrukt CODE-plass for å prøve. Stopp skriptet du kjører før du trykker ENGAGE."
+	"docs.tutorial.javascript.copy": "Velg eksempelteksten og kopier den til en ubrukt CODE-plass for å prøve. Stopp skriptet du kjører før du trykker ENGAGE.",
+	"docs.code_settings.scope": "Disse innstillingene gjelder denne figurens nåværende CODE-kjøring. Alle tre har true som standardverdi. Legg tilordningene nedenfor øverst i den lagrede CODE-koden din, slik at de brukes ved hver kjøring.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> skjuler den vanlige logglinjen for mottatte meldinger. CM-behandlerne dine og egne loggmeldinger fungerer fortsatt.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> skjuler vanlige loggmeldinger om stifinning. <code>code_settings.show_smart_move_text = false</code> skjuler svevende kommentarer under stifinning. Bevegelse, tilbakekall og Promise-resultater forblir uendret.",
+	"docs.code_settings.errors": "Disse innstillingene lar mislykket stifinning, advarsler og JavaScript-feil fortsatt være synlige. Mainframe godtar de samme innstillingene; vanlige loggmeldinger og svevende tekst utelates allerede der."
 }

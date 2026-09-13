@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Prova i CODE",
 	"docs.tutorial.theend.javascript_next": "Skriv sedan några små skript och lär dig JavaScript bakom CODE.",
 	"docs.tutorial.javascript.practice": "Ändra koden och tryck på Kör för att kontrollera resultatet. Övningen använder exempeldata och styr inte din karaktär. Fortsätt går vidare när du är redo.",
-	"docs.tutorial.javascript.copy": "Markera exemplets text och kopiera den till en oanvänd CODE-plats för att prova. Stoppa ditt nuvarande skript innan du trycker på ENGAGE."
+	"docs.tutorial.javascript.copy": "Markera exemplets text och kopiera den till en oanvänd CODE-plats för att prova. Stoppa ditt nuvarande skript innan du trycker på ENGAGE.",
+	"docs.code_settings.scope": "Dessa inställningar gäller den här karaktärens pågående CODE-körning. Alla tre har true som standardvärde. Lägg tilldelningarna nedan överst i din sparade CODE så att de tillämpas vid varje körning.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> döljer den vanliga loggraden för mottagna meddelanden. Dina CM-hanterare och egna loggar fungerar fortfarande.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> döljer vanliga loggar för vägsökning. <code>code_settings.show_smart_move_text = false</code> döljer svävande kommentarer vid vägsökning. Rörelse, återanrop och Promise-resultat förblir oförändrade.",
+	"docs.code_settings.errors": "Dessa inställningar låter misslyckade vägsökningar, varningar och JavaScript-fel fortsätta synas. Mainframe accepterar samma inställningar; vanliga loggar och svävande text utelämnas redan där."
 }

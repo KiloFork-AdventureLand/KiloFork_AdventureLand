@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Provalo in CODE",
 	"docs.tutorial.theend.javascript_next": "Ora scrivi piccoli script e impara il JavaScript alla base di CODE.",
 	"docs.tutorial.javascript.practice": "Modifica il codice, poi premi Esegui per verificare il risultato. L’esercizio usa dati di esempio e non controlla il personaggio. Continua ti fa avanzare quando sei pronto.",
-	"docs.tutorial.javascript.copy": "Per provare un esempio in CODE, seleziona il testo e copialo in uno slot inutilizzato. Ferma lo script attuale prima di premere ENGAGE."
+	"docs.tutorial.javascript.copy": "Per provare un esempio in CODE, seleziona il testo e copialo in uno slot inutilizzato. Ferma lo script attuale prima di premere ENGAGE.",
+	"docs.code_settings.scope": "Queste impostazioni valgono per l'esecuzione attuale del CODE di questo personaggio. Tutte e tre hanno true come valore predefinito. Inserisci le assegnazioni qui sotto all'inizio del CODE salvato per applicarle a ogni esecuzione.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> nasconde la voce di registro predefinita per la ricezione dei messaggi. I tuoi gestori CM e i registri personalizzati continuano a funzionare.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> nasconde i normali messaggi di ricerca del percorso nel registro. <code>code_settings.show_smart_move_text = false</code> nasconde le frasi fluttuanti durante la ricerca. Movimento, callback e risultati di Promise restano invariati.",
+	"docs.code_settings.errors": "Queste impostazioni lasciano visibili i fallimenti nella ricerca del percorso, gli avvisi e gli errori JavaScript. Mainframe accetta le stesse impostazioni; omette già i normali messaggi di registro e il testo fluttuante."
 }

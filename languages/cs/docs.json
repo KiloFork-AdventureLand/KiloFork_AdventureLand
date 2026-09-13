@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Vyzkoušej v CODE",
 	"docs.tutorial.theend.javascript_next": "Napiš teď pár malých skriptů a nauč se JavaScript, na kterém CODE stojí.",
 	"docs.tutorial.javascript.practice": "Uprav kód a stiskni Spustit pro kontrolu výsledku. Cvičení používá vzorová data a neovládá tvou postavu. Pokračovat tě posune dál, až budeš chtít.",
-	"docs.tutorial.javascript.copy": "Vyber text příkladu a zkopíruj ho do nepoužité pozice CODE. Před ENGAGE zastav současný skript."
+	"docs.tutorial.javascript.copy": "Vyber text příkladu a zkopíruj ho do nepoužité pozice CODE. Před ENGAGE zastav současný skript.",
+	"docs.code_settings.scope": "Tato nastavení platí pro aktuální běh CODE této postavy. Všechna tři mají výchozí hodnotu true. Vložte následující přiřazení na začátek uloženého CODE, aby se použila při každém spuštění.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> skryje výchozí záznam o přijetí zprávy. Vaše obsluhy CM a vlastní výpisy do protokolu fungují dál.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> skryje běžné záznamy o hledání cesty. <code>code_settings.show_smart_move_text = false</code> skryje vznášející se poznámky při hledání cesty. Pohyb, zpětná volání a výsledky Promise se nemění.",
+	"docs.code_settings.errors": "Tato nastavení ponechávají viditelné neúspěchy při hledání cesty, varování a chyby JavaScript. Mainframe přijímá stejná nastavení; běžné záznamy a vznášející se text už vynechává."
 }

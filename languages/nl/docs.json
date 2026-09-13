@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Probeer het in CODE",
 	"docs.tutorial.theend.javascript_next": "Schrijf nu enkele kleine scripts en leer de JavaScript achter CODE.",
 	"docs.tutorial.javascript.practice": "Bewerk de code en druk op Uitvoeren om het resultaat te controleren. De oefening gebruikt voorbeeldgegevens en bestuurt je personage niet. Verder brengt je naar de volgende stap wanneer je klaar bent.",
-	"docs.tutorial.javascript.copy": "Selecteer een voorbeeld en kopieer het naar een ongebruikt CODE-slot om het te proberen. Stop je huidige script voordat je ENGAGE indrukt."
+	"docs.tutorial.javascript.copy": "Selecteer een voorbeeld en kopieer het naar een ongebruikt CODE-slot om het te proberen. Stop je huidige script voordat je ENGAGE indrukt.",
+	"docs.code_settings.scope": "Deze instellingen gelden voor de huidige CODE-uitvoering van dit personage. Ze staan alle drie standaard op true. Zet de onderstaande toewijzingen bovenaan je opgeslagen CODE om ze bij elke uitvoering opnieuw toe te passen.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> verbergt de standaardlogregel voor ontvangen berichten. Je CM-handlers en eigen logberichten blijven werken.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> verbergt gewone logberichten over het zoeken naar een pad. <code>code_settings.show_smart_move_text = false</code> verbergt zwevende opmerkingen tijdens het zoeken. Beweging, callbacks en Promise-resultaten blijven hetzelfde.",
+	"docs.code_settings.errors": "Deze instellingen laten mislukte zoekpogingen naar een pad, waarschuwingen en JavaScript-fouten zichtbaar. Mainframe accepteert dezelfde instellingen; gewone logberichten en zwevende tekst worden daar al weggelaten."
 }

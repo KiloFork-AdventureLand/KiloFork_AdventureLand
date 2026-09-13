@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "CODEで試す",
 	"docs.tutorial.theend.javascript_next": "次は小さなスクリプトを書き、CODEの基礎になるJavaScriptを学びましょう。",
 	"docs.tutorial.javascript.practice": "コードを編集し、「実行」で結果を確認してください。練習はサンプルデータを使い、キャラクターは操作しません。準備できたら「続ける」で先へ進めます。",
-	"docs.tutorial.javascript.copy": "例をCODEで試すには、テキストを選択して未使用のスロットにコピーします。ENGAGEを押す前に、現在のスクリプトを停止してください。"
+	"docs.tutorial.javascript.copy": "例をCODEで試すには、テキストを選択して未使用のスロットにコピーします。ENGAGEを押す前に、現在のスクリプトを停止してください。",
+	"docs.code_settings.scope": "これらの設定は、このキャラクターの現在のCODE実行に適用されます。3つとも初期値はtrueです。毎回適用するには、保存したCODEの先頭に以下の代入文を記述してください。",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code>で、標準のメッセージ受信ログを非表示にできます。自分のCMハンドラーとログ出力は引き続き動作します。",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code>で、通常の経路探索ログを非表示にできます。<code>code_settings.show_smart_move_text = false</code>で、経路探索中に浮かぶセリフを非表示にできます。移動、コールバック、Promiseの結果は変わりません。",
+	"docs.code_settings.errors": "これらの設定でも、経路探索の失敗、警告、JavaScriptエラーは表示されます。Mainframeでも同じ設定を使用できますが、通常のログと浮かぶテキストはもともと表示されません。"
 }

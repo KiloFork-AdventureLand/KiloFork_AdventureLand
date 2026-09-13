@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Próbáld ki CODE-ban",
 	"docs.tutorial.theend.javascript_next": "Írj most néhány kis szkriptet, és ismerd meg a CODE mögötti JavaScriptet.",
 	"docs.tutorial.javascript.practice": "Módosítsd a kódot, és ellenőrizd a Futtatás gombbal. A gyakorlat mintaadatot használ, nem irányítja a karakteredet. A Folytatás gombbal továbbléphetsz, ha kész vagy.",
-	"docs.tutorial.javascript.copy": "Jelöld ki a példát, és másold egy szabad CODE-helyre. Az ENGAGE előtt állítsd le a jelenlegi szkriptet."
+	"docs.tutorial.javascript.copy": "Jelöld ki a példát, és másold egy szabad CODE-helyre. Az ENGAGE előtt állítsd le a jelenlegi szkriptet.",
+	"docs.code_settings.scope": "Ezek a beállítások ennek a karakternek a jelenlegi CODE-futtatására érvényesek. Mindhárom alapértéke true. Tedd az alábbi értékadásokat a mentett CODE elejére, hogy minden indításkor újra érvénybe lépjenek.",
+	"docs.code_settings.cm": "A <code>code_settings.log_cm = false</code> elrejti az üzenet érkezésekor megjelenő alapértelmezett naplóbejegyzést. A saját CM-kezelőid és naplózásod továbbra is működnek.",
+	"docs.code_settings.smart_move": "A <code>code_settings.log_smart_move = false</code> elrejti az útkeresés szokásos naplóbejegyzéseit. A <code>code_settings.show_smart_move_text = false</code> elrejti az útkeresés lebegő megjegyzéseit. A mozgás, a visszahívások és a Promise eredményei változatlanok maradnak.",
+	"docs.code_settings.errors": "Ezek a beállítások láthatóan hagyják az útkeresési hibákat, a figyelmeztetéseket és a JavaScript-hibákat. A Mainframe ugyanezeket a beállításokat fogadja el; ott a szokásos naplóbejegyzések és a lebegő szöveg már eleve nem jelennek meg."
 }

@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "Pruébalo en CODE",
 	"docs.tutorial.theend.javascript_next": "Ahora escribe unos scripts pequeños y aprende el JavaScript que hay detrás de CODE.",
 	"docs.tutorial.javascript.practice": "Edita el código y presiona Ejecutar para comprobar el resultado. La práctica usa datos de ejemplo y no controla tu personaje. Continuar te permite avanzar cuando quieras.",
-	"docs.tutorial.javascript.copy": "Para probar un ejemplo en CODE, selecciona el texto y cópialo en una ranura sin usar. Detén tu script actual antes de presionar ENGAGE."
+	"docs.tutorial.javascript.copy": "Para probar un ejemplo en CODE, selecciona el texto y cópialo en una ranura sin usar. Detén tu script actual antes de presionar ENGAGE.",
+	"docs.code_settings.scope": "Estas opciones se aplican a la ejecución actual del CODE de este personaje. Las tres tienen el valor true de forma predeterminada. Coloca las asignaciones de abajo al inicio de tu CODE guardado para aplicarlas cada vez que lo ejecutes.",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code> oculta el registro predeterminado de recepción de mensajes. Tus manejadores de CM y tus propios registros siguen funcionando.",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code> oculta los registros habituales de búsqueda de rutas. <code>code_settings.show_smart_move_text = false</code> oculta los comentarios flotantes durante la búsqueda de rutas. El movimiento, las funciones de retorno y los resultados de Promise se mantienen iguales.",
+	"docs.code_settings.errors": "Estas opciones mantienen visibles las fallas de ruta, las advertencias y los errores de JavaScript. Mainframe acepta las mismas opciones; ya omite los registros habituales y el texto flotante."
 }

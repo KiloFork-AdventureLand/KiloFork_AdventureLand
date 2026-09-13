@@ -2462,5 +2462,9 @@
 	"docs.tutorial.javascript.transfer": "在 CODE 中試試",
 	"docs.tutorial.theend.javascript_next": "接下來，編寫幾個小指令碼，學習 CODE 背後的 JavaScript。",
 	"docs.tutorial.javascript.practice": "修改程式碼後按“執行”檢查結果。練習使用範例資料，不會控制你的角色。準備好時即可繼續下一步。",
-	"docs.tutorial.javascript.copy": "要在 CODE 中嘗試範例，請選中文字並複製到未使用的槽位。按 ENGAGE 前先停止當前指令碼。"
+	"docs.tutorial.javascript.copy": "要在 CODE 中嘗試範例，請選中文字並複製到未使用的槽位。按 ENGAGE 前先停止當前指令碼。",
+	"docs.code_settings.scope": "這些設定適用於此角色目前這次CODE執行。三項設定的預設值都是true。將以下指定敘述放在已儲存CODE的開頭，就能在每次執行時重新套用。",
+	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code>會隱藏預設的訊息接收紀錄。你的CM處理函式和自訂紀錄仍會正常運作。",
+	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code>會隱藏一般的尋路紀錄。<code>code_settings.show_smart_move_text = false</code>會隱藏尋路時浮現的文字。移動、回呼和Promise結果都維持不變。",
+	"docs.code_settings.errors": "這些設定會保留尋路失敗、警告及JavaScript錯誤的顯示。Mainframe也支援相同的設定；它原本就不會顯示一般紀錄和浮動文字。"
 }
