@@ -972,7 +972,8 @@ function user_to_server(user) {
 }
 
 function is_in_game(character) {
-	return character.server && hsince(character.last_sync) <= 4;
+	// A stale save can still belong to a live character or an unfinished logout.
+	return !!(character && character.server);
 }
 
 function arr_arr_same(ar1, ar2) {

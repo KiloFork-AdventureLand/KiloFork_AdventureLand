@@ -1,5 +1,7 @@
 // Release highlights. Dates, item/character names and CODE identifiers stay unchanged.
 module.exports = {
+	// Release highlight: failed character startup now releases its online claim so the player can reconnect.
+	"update.13_09_26.login_recovery": "Fixed failed logins that could leave characters stuck online and prevent reconnecting.",
 	// Tutorial release highlight: wider completion paths, remembered actions and optional compounding practice.
 	"update.13_09_26.tutorial_progress": "Patched tutorial progress: earlier actions and more ways of completing tasks now count. Compounding practice is optional, so collecting accessories no longer blocks later lessons.",
 	// Release highlight for bundled Steam images and remembered desktop language preferences.

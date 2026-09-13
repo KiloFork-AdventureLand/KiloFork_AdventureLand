@@ -186,7 +186,13 @@ async function unstuck_characters() {
 		for (var i = 0; i < stuck.length; i++) {
 			var character = post_get(stuck[i]);
 			var m = msince(character.last_sync);
-			await db.collection("character").updateOne({ _id: character._id }, { $set: { online: false, server: "", updated: new Date() } });
+			// The owning process must confirm absence. A stale timestamp alone cannot
+			// release a live player or an unsaved logout (including during DB trouble).
+			var released = await server_eval(server, "output = recover_character_session(data)", {
+				id: character._id, server: server._id,
+				secret: character.info && character.info.secret, last_sync: character.last_sync,
+			}, 5000);
+			if (released !== true) continue;
 			send_email(domain, "kaansoral@gmail.com", {
 				html: "Stuck for " + m + " minutes",
 				title: "MANUALLY UNSTUCK " + character.name + " from " + server._id,

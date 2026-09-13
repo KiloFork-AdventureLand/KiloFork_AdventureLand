@@ -181,5 +181,6 @@ test("public server discovery excludes private activity history", async () => {
 	assert.equal(projection["info.recent_characters"], 0);
 	const server = read("node/server.js");
 	assert.match(server, /server_information\.restore\(Server\.info\.recent_characters\)/);
-	assert.match(server, /server_information\.remember\(player\);\s*player\.dc = true/);
+	const disconnect = server.slice(server.indexOf('socket.on("disconnect",'));
+	assert.match(disconnect, /server_information\.remember\(player\)/);
 });

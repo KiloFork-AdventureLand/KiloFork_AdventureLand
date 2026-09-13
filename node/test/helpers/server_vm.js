@@ -97,7 +97,7 @@ function socketHandler(context, event) {
 		assert.equal(name, event);
 		handler = callback;
 	};
-	vm.runInContext(source.slice(start, end), context);
+	vm.runInContext("(function(socket) {\n" + source.slice(start, end) + "\n})(socket);", context);
 	return handler;
 }
 

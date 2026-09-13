@@ -78,7 +78,7 @@ test("login records the highest level among the already-loaded account character
 		entity: { level: 1 },
 		characters: [{ level: 1 }, { level: 88, type: "merchant", online: false }, { level: 40 }],
 	});
-	vm.runInContext(source.slice(start, source.indexOf("var user_data =", start)), c);
+	vm.runInContext(source.slice(start, source.indexOf('check_character_login(attempt, "user data")', start)), c);
 	assert.equal(c.stats.level, 88);
 });
 

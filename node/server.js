@@ -88,6 +88,7 @@ eval("" + fs.readFileSync(path.resolve(__dirname, "../models.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "server_functions.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/market_patron_runtime.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/encouragement.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/character_sessions.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/chat.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "../version.js")));
 var precomputed_bfs_path = path.resolve(__dirname, "precomputed_map_data.js");
@@ -4795,6 +4796,7 @@ function init_socket_io(socket_server) {
 			}
 		});
 		socket.on("loaded", function (data) {
+			if (!socket.connected || players[socket.id] || observers[socket.id] || socket.login_attempt) return;
 			var observer = (observers[socket.id] = {
 				socket: socket,
 				x: socket.first_x,
@@ -11098,15 +11100,23 @@ function init_socket_io(socket_server) {
 			}
 		});
 		socket.on("auth", async function (data) {
+			if (
+				!data ||
+				typeof data !== "object" ||
+				typeof data.user !== "string" ||
+				typeof data.character !== "string" ||
+				typeof data.auth !== "string"
+			)
+				return;
 			if (data.user) data.user = normalize_user_id(data.user);
 			if (data.character && !data.character.startsWith("CH_")) data.character = "CH_" + data.character;
 			if (gameplay == "test" && data.passphrase != "potato salad") {
 				return socket.emit("game_log", localization.message("server.game_log.wrong_passphrase", {}));
 			}
-			if (observers[socket.id] && observers[socket.id].auth_engaged) {
+			if (socket.login_attempt || pending_logins.has(data.character)) {
 				return socket.emit("game_log", localization.message("server.game_log.authorization_in_progress", {}));
 			}
-			if (dc_players[data.character]) {
+			if (dc_players[data.character] || Object.values(players).some((p) => p.real_id === data.character)) {
 				return socket.emit("game_log", localization.message("server.game_log.authorization_in_progress", {}));
 			}
 			if (!server.live || !observers[socket.id] || players[socket.id]) {
@@ -11116,325 +11126,369 @@ function init_socket_io(socket_server) {
 				socket.emit("game_error", localization.message("server.game_error.capacity", { count: max_players }));
 				return;
 			}
-			socket.observer_secret = randomStr(24);
-			observers[socket.id].auth_engaged = true;
+			var attempt = {
+				id: data.character,
+				socket: socket,
+				secret: randomStr(24),
+				deadline: Date.now() + character_login_timeout,
+				claiming: true,
+				stage: "claim",
+			};
+			socket.observer_secret = attempt.secret;
+			socket.login_attempt = attempt;
+			pending_logins.set(attempt.id, attempt);
+			attempt.timer = setTimeout(function () {
+				server_log("#X Login timed out: " + attempt.id + " at " + attempt.stage, 1);
+				cancel_character_login(attempt);
+				if (socket.connected) socket.disconnect();
+			}, character_login_timeout);
+			try {
+				// tx() to validate auth and mark character online (following qwazy pattern)
+				var R = await tx(async () => {
+					R.owner = await tx_get(A[0].user);
+					R.entity = await tx_get(A[0].character);
+					if (!R.entity) ex("no_character");
+					if (!R.owner || !R.owner.info.auths.includes(A[0].auth)) ex("password_issue");
+					if (R.entity.owner !== get_id(R.owner)) ex("no_character");
+					if (A[0].mainframe_session !== undefined) {
+						var assignment = await tx_get("MK_mainframe_assignment-" + get_id(R.entity));
+						if (!is_valid_mainframe_session(assignment, A[0].mainframe_session)) ex("mainframe_issue");
+						R.mainframe = true;
+					}
+					if (R.entity.server) ex("ingame");
+					if (A[3].cancelled || Date.now() >= A[3].deadline) ex("cancelled");
+					A[3].claim_written = true;
+					R.previous_online = R.entity.last_online;
+					R.entity.pid = R.entity.pid || R.owner.pid || "";
+					R.entity.server = A[1];
+					R.entity.online = true;
+					R.entity.last_sync = new Date();
+					R.entity.last_online = new Date();
+					R.entity.info.secret = A[2];
+					R.entity.info.afk = true;
+					R.entity.info.last_start = new Date();
+					R.entity.friends = R.owner.friends;
+					R.entity.guild = R.owner.guild;
+					await tx_save(R.entity);
+				}, [data, server_id, attempt.secret, attempt]);
 
-			// tx() to validate auth and mark character online (following qwazy pattern)
-			var R = await tx(async () => {
-				R.owner = await tx_get(A[0].user);
-				R.entity = await tx_get(A[0].character);
-				if (!R.entity) ex("no_character");
-				if (!R.owner || !R.owner.info.auths.includes(A[0].auth)) ex("password_issue");
-				if (R.entity.owner !== get_id(R.owner)) ex("no_character");
-				if (A[0].mainframe_session !== undefined) {
-					var assignment = await tx_get("MK_mainframe_assignment-" + get_id(R.entity));
-					if (!is_valid_mainframe_session(assignment, A[0].mainframe_session)) ex("mainframe_issue");
-					R.mainframe = true;
+				attempt.claiming = false;
+				check_character_login(attempt, "claim complete");
+				if (R.failed) {
+					socket.emit(
+						"game_error",
+						localization.message("server.game_error.authentication_failed", { reason: R.reason }, { reason: R.reason }),
+					);
+					cancel_character_login(attempt);
+					return;
 				}
-				if (R.entity.server && msince(R.entity.last_sync) < 120) ex("ingame");
-				R.previous_online = R.entity.last_online;
-				R.entity.pid = R.entity.pid || R.owner.pid || "";
-				R.entity.server = A[1];
-				R.entity.online = true;
-				R.entity.last_sync = new Date();
-				R.entity.last_online = new Date();
-				R.entity.info.secret = A[2];
-				R.entity.info.afk = true;
-				R.entity.info.last_start = new Date();
-				R.entity.friends = R.owner.friends;
-				R.entity.guild = R.owner.guild;
-				await tx_save(R.entity);
-			}, [data, server_id, socket.observer_secret]);
 
-			if (observers[socket.id]) observers[socket.id].auth_engaged = false;
-			if (R.failed) {
-				socket.emit(
-					"game_error",
-					localization.message("server.game_error.authentication_failed", { reason: R.reason }, { reason: R.reason }),
-				);
-				return;
-			}
+				var entity = R.entity;
+				var owner = R.owner;
 
-			var entity = R.entity;
-			var owner = R.owner;
-
-			// Load additional data outside tx (guild, code, characters for stats, IP)
-			var guild = null;
-			if (owner.guild) guild = await get(owner.guild.startsWith("GU_") ? owner.guild : "GU_" + owner.guild);
-			var characters = await get_characters(owner);
-			var stats = { monsters: {}, level: entity.level || 1 };
-			for (var i = 0; i < characters.length; i++) {
-				var c = characters[i];
-				stats.level = max(stats.level, c.level || 1);
-				var c_monsters = (c.info && c.info.p && c.info.p.stats && c.info.p.stats.monsters) || {};
-				var c_monsters_diff = (c.info && c.info.p && c.info.p.stats && c.info.p.stats.monsters_diff) || {};
-				for (var mid in c_monsters) {
-					var total = (c_monsters[mid] || 0) + (c_monsters_diff[mid] || 0);
-					if (total > (stats.monsters[mid] || [0, 0])[0]) {
-						stats.monsters[mid] = [total, c.info.name || c.name];
+				// Load additional data outside tx (guild, code, characters for stats, IP)
+				var guild = null;
+				if (owner.guild) guild = await get(owner.guild.startsWith("GU_") ? owner.guild : "GU_" + owner.guild);
+				check_character_login(attempt, "characters");
+				var characters = await get_characters(owner);
+				check_character_login(attempt, "character stats");
+				var stats = { monsters: {}, level: entity.level || 1 };
+				for (var i = 0; i < characters.length; i++) {
+					var c = characters[i];
+					stats.level = max(stats.level, c.level || 1);
+					var c_monsters = (c.info && c.info.p && c.info.p.stats && c.info.p.stats.monsters) || {};
+					var c_monsters_diff = (c.info && c.info.p && c.info.p.stats && c.info.p.stats.monsters_diff) || {};
+					for (var mid in c_monsters) {
+						var total = (c_monsters[mid] || 0) + (c_monsters_diff[mid] || 0);
+						if (total > (stats.monsters[mid] || [0, 0])[0]) {
+							stats.monsters[mid] = [total, c.info.name || c.name];
+						}
 					}
 				}
-			}
-			var user_data = await get_user_data(owner);
-			var ip_a = get_ip_server(socket);
-			try {
-				ip_a = ip_a.replace("::ffff:", "");
-			} catch (e) {}
-			var ip_info = await get_ip_info(ip_a);
+				check_character_login(attempt, "user data");
+				var user_data = await get_user_data(owner);
+				check_character_login(attempt, "IP data");
+				var ip_a = get_ip_server(socket);
+				try {
+					ip_a = ip_a.replace("::ffff:", "");
+				} catch (e) {}
+				var ip_info = await get_ip_info(ip_a);
+				check_character_login(attempt, "CODE");
 
-			// Load user code
-			var code = null,
-				code_slot = data.code_slot,
-				code_version = 0;
-			if (code_slot) {
-				var code_list = gf(user_data, "code_list", {}) || {};
-				code_slot = "" + code_slot;
-				if (!code_list[code_slot]) {
-					var filename = code_slot;
-					code_slot = find_code_slot(code_list, filename);
-				}
+				// Load user code
+				var code = null,
+					code_slot = data.code_slot,
+					code_version = 0;
 				if (code_slot) {
-					code_version = code_list[code_slot] ? code_list[code_slot][1] : 0;
-					var code_entity = await get("IE_USERCODE-" + get_id(owner) + "-" + code_slot);
-					if (code_entity) code = code_entity.info.code;
+					var code_list = gf(user_data, "code_list", {}) || {};
+					code_slot = "" + code_slot;
+					if (!code_list[code_slot]) {
+						var filename = code_slot;
+						code_slot = find_code_slot(code_list, filename);
+					}
+					if (code_slot) {
+						code_version = code_list[code_slot] ? code_list[code_slot][1] : 0;
+						var code_entity = await get("IE_USERCODE-" + get_id(owner) + "-" + code_slot);
+						check_character_login(attempt, "CODE loaded");
+						if (code_entity) code = code_entity.info.code;
+					}
 				}
-			}
 
-			// DRM check
-			var drm = false,
-				drm_fail = false;
-			if (owner.created > new Date(2019, 1, 1) && !gf(owner, "legacy_override")) drm = true;
-			if (gf(owner, "drm_fail_pid", "not") === entity.pid) drm_fail = true;
+				// DRM check
+				var drm = false,
+					drm_fail = false;
+				if (owner.created > new Date(2019, 1, 1) && !gf(owner, "legacy_override")) drm = true;
+				if (gf(owner, "drm_fail_pid", "not") === entity.pid) drm_fail = true;
 
-			// Build player from entity (following qwazy pattern)
-			server_log("start_character: " + JSON.stringify(entity.name), 1);
-			var player = { u: true, is_player: true, humanoid: true, secret: socket.observer_secret };
-			for (var prop in entity) {
-				player[prop] = entity[prop];
-			}
-			for (var prop in entity.info) {
-				player[prop] = entity.info[prop];
-			}
-			player.id = player.name;
-			player.pid = entity.pid || owner.pid;
-			player.drm = drm;
-			player.drm_fail = drm_fail;
-			player.created = entity.created ? entity.created.getTime() : 0;
-			if (!player.slots) player.slots = {};
-			if (!player.cx) player.cx = {};
-			if (!player.s) player.s = {};
-			if (!player.c) player.c = {};
-			if (!player.q) player.q = {};
-			if (!player.p) player.p = { dt: {} };
-			if (!player.p.dt) player.p.dt = {};
-			if (guild) player.guild = guild_to_info(guild);
-			if (ip_info && ip_info.exception) player.ipx = ip_info.info.limit;
-			player.cash = owner.cash;
-			player.verified = gf(owner, "verified", 0);
-
-			if (!instances[player.map] || !instances[player.map].allow || instances[player.map].mount) {
-				var place = (G.maps[player.map] && G.maps[player.map].on_exit) ||
-					(G.maps[B.start_map] && G.maps[B.start_map].on_exit) || ["main", 0];
-				player.map = player.in = place[0];
-				player.x = G.maps[player.map].spawns[place[1]][0];
-				player.y = G.maps[player.map].spawns[place[1]][1];
-			} else {
-				player.in = player.map;
-			}
-			player.owner = data.user;
-			player.auth = data.user + "-" + data.auth;
-			player.mainframe = R.mainframe === true;
-			player.last_sync = new Date();
-			player.socket = socket;
-			player.max_stats = stats;
-
-			if (data.bot == keys.BOT_MASTER) {
-				player.bot = true;
-				player.afk = "bot";
-			}
-			if (data.no_html) {
-				player.afk = "code";
-				try {
-					player.controller = (name_to_id[data.no_html] && data.no_html) || "";
-				} catch (e) {
-					player.controller = "";
+				// Build player from entity (following qwazy pattern)
+				server_log("start_character: " + JSON.stringify(entity.name), 1);
+				var player = { u: true, is_player: true, humanoid: true, secret: attempt.secret };
+				for (var prop in entity) {
+					player[prop] = entity[prop];
 				}
-			}
-			if (!player.afk) {
-				player.afk = true;
-			}
-			if (gameplay == "test") {
-				player.name += parseInt(Math.random() * 10000);
-			}
-			player.real_id = data.character;
-			player.id = player.name;
-
-			player.total_ips = 1;
-			player.width = 26;
-			player.height = 36;
-			player.damage_type = G.classes[player.type].damage_type;
-			player.xrange = 25;
-			player.red_zone = 0;
-			player.targets = player.targets_p = player.targets_m = player.targets_u = 0;
-			player.cid = 1;
-			player.hits = 0;
-			player.kills = 0;
-			player.m = 0; // map number
-			/* party variables*/
-			player.pdps = 0;
-			player.party_length = 1;
-			player.party_luck = 0;
-			player.party_xp = 0;
-			player.party_gold = 0;
-			player.share = 0.1;
-			player.cx = player.cx || {};
-			if (!player.s) {
-				player.s = {};
-			}
-			player.t = { mdamage: 0, cgold: 0, dgold: 0, xp: 0, start: new Date() };
-			player.hitchhikers = []; // socket events to be registered after a resend
-			player.last = { attack: future_ms(-1200), attacked: really_old };
-			player.bets = {};
-			player.base = dbase;
-			player.age = parseInt(ceil(hsince(new Date(player.created)) / 24.0));
-			// player.vision=[round((data.width/2)/data.scale)+B.ext_vision,round((data.height/2)/data.scale)+B.ext_vision];
-			// player.vision[0]=min(1000,player.vision[0]);
-			// player.vision[1]=min(700,player.vision[1]);
-			player.vision = B.vision;
-
-			if (!player.verified) {
-				player.s.notverified = { ms: 30 * 60 * 1000 };
-			} else if (player.s.notverified) {
-				player.s.notverified = { ms: 100 };
-			}
-
-			if (player.guild) {
-				console.log(player.guild);
-				player.guild = player.guild.short;
-			}
-
-			if (gameplay == "hardcore") {
-				reset_player(player);
-			} //  || gameplay=="test"
-
-			init_player(player);
-			if (data.epl == "mas" && data.receipt) {
-				player.platform = "mas";
-				verify_mas_receipt(player, data.receipt);
-			} else if (data.epl == "steam" && data.ticket) {
-				player.platform = "steam";
-				verify_steam_ticket(player, data.ticket);
-				if (player.p.steam_id && !(await persist_tauri_steam_install(owner, entity, data.auth, player.p.steam_id))) {
-					player.s.authfail = { ms: 900000 };
+				for (var prop in entity.info) {
+					player[prop] = entity.info[prop];
 				}
-				if (player.p.steam_id && !player.s.authfail) player.pid = player.p.steam_id;
-			} else if (data.epl == "tauri_steam") {
-				try {
-					await verify_tauri_steam_auth(player, owner, entity, data, socket);
-				} catch (e) {
+				player.id = player.name;
+				player.pid = entity.pid || owner.pid;
+				player.drm = drm;
+				player.drm_fail = drm_fail;
+				player.created = entity.created ? entity.created.getTime() : 0;
+				if (!player.slots) player.slots = {};
+				if (!player.cx) player.cx = {};
+				if (!player.s) player.s = {};
+				if (!player.c) player.c = {};
+				if (!player.q) player.q = {};
+				if (!player.p) player.p = { dt: {} };
+				if (!player.p.dt) player.p.dt = {};
+				if (guild) player.guild = guild_to_info(guild);
+				if (ip_info && ip_info.exception) player.ipx = ip_info.info.limit;
+				player.cash = owner.cash;
+				player.verified = gf(owner, "verified", 0);
+
+				if (!instances[player.map] || !instances[player.map].allow || instances[player.map].mount) {
+					var place = (G.maps[player.map] && G.maps[player.map].on_exit) ||
+						(G.maps[B.start_map] && G.maps[B.start_map].on_exit) || ["main", 0];
+					player.map = player.in = place[0];
+					player.x = G.maps[player.map].spawns[place[1]][0];
+					player.y = G.maps[player.map].spawns[place[1]][1];
+				} else {
+					player.in = player.map;
+				}
+				player.owner = data.user;
+				player.auth = data.user + "-" + data.auth;
+				player.mainframe = R.mainframe === true;
+				player.last_sync = new Date();
+				player.socket = socket;
+				player.max_stats = stats;
+
+				if (data.bot == keys.BOT_MASTER) {
+					player.bot = true;
+					player.afk = "bot";
+				}
+				if (data.no_html) {
+					player.afk = "code";
+					try {
+						player.controller = (name_to_id[data.no_html] && data.no_html) || "";
+					} catch (e) {
+						player.controller = "";
+					}
+				}
+				if (!player.afk) {
+					player.afk = true;
+				}
+				if (gameplay == "test") {
+					player.name += parseInt(Math.random() * 10000);
+				}
+				player.real_id = data.character;
+				player.id = player.name;
+
+				player.total_ips = 1;
+				player.width = 26;
+				player.height = 36;
+				player.damage_type = G.classes[player.type].damage_type;
+				player.xrange = 25;
+				player.red_zone = 0;
+				player.targets = player.targets_p = player.targets_m = player.targets_u = 0;
+				player.cid = 1;
+				player.hits = 0;
+				player.kills = 0;
+				player.m = 0; // map number
+				/* party variables*/
+				player.pdps = 0;
+				player.party_length = 1;
+				player.party_luck = 0;
+				player.party_xp = 0;
+				player.party_gold = 0;
+				player.share = 0.1;
+				player.cx = player.cx || {};
+				if (!player.s) {
+					player.s = {};
+				}
+				player.t = { mdamage: 0, cgold: 0, dgold: 0, xp: 0, start: new Date() };
+				player.hitchhikers = []; // socket events to be registered after a resend
+				player.last = { attack: future_ms(-1200), attacked: really_old };
+				player.bets = {};
+				player.base = dbase;
+				player.age = parseInt(ceil(hsince(new Date(player.created)) / 24.0));
+				// player.vision=[round((data.width/2)/data.scale)+B.ext_vision,round((data.height/2)/data.scale)+B.ext_vision];
+				// player.vision[0]=min(1000,player.vision[0]);
+				// player.vision[1]=min(700,player.vision[1]);
+				player.vision = B.vision;
+
+				if (!player.verified) {
+					player.s.notverified = { ms: 30 * 60 * 1000 };
+				} else if (player.s.notverified) {
+					player.s.notverified = { ms: 100 };
+				}
+
+				if (player.guild) {
+					console.log(player.guild);
+					player.guild = player.guild.short;
+				}
+
+				if (gameplay == "hardcore") {
+					reset_player(player);
+				} //  || gameplay=="test"
+
+				check_character_login(attempt, "initialize");
+				init_player(player);
+				check_character_login(attempt, "platform");
+				if (data.epl == "mas" && data.receipt) {
+					player.platform = "mas";
+					verify_mas_receipt(player, data.receipt);
+				} else if (data.epl == "steam" && data.ticket) {
+					player.platform = "steam";
+					verify_steam_ticket(player, data.ticket);
+					if (player.p.steam_id && !(await persist_tauri_steam_install(owner, entity, data.auth, player.p.steam_id))) {
+						player.s.authfail = { ms: 900000 };
+					}
+					if (player.p.steam_id && !player.s.authfail) player.pid = player.p.steam_id;
+				} else if (data.epl == "tauri_steam") {
+					try {
+						await verify_tauri_steam_auth(player, owner, entity, data, socket);
+					} catch (e) {
+						player.platform = "web";
+						console.error("#A Tauri Steam authentication unavailable: " + player.name);
+						socket.emit("tauri_auth_error", {
+							reason: "steam_auth_failed",
+							stage: "verify_ticket",
+							ticket_received: !!data.ticket,
+						});
+					}
+				} else {
 					player.platform = "web";
-					console.error("#A Tauri Steam authentication unavailable: " + player.name);
-					socket.emit("tauri_auth_error", {
-						reason: "steam_auth_failed",
-						stage: "verify_ticket",
-						ticket_received: !!data.ticket,
+					if (player.pid) {
+						player.auth_id = player.pid;
+					} // part of the new restriction system [02/05/19]
+				}
+
+				check_character_login(attempt, "platform complete");
+				if (mode.drm_check) {
+					if (player.drm && !player.auth_id) {
+						player.s.authfail = { ms: 900000 * 1000 };
+					} else if (player.s.authfail) {
+						player.s.authfail = { ms: 100 };
+					}
+				}
+
+				check_character_login(attempt, "encouragement");
+				if (!(await encouragement_login(player, R.previous_online))) {
+					socket.emit("game_error", localization.message("server.game_error.characters_unconfirmed"));
+					cancel_character_login(attempt);
+					return;
+				}
+				check_character_login(attempt, "register");
+				if (Object.keys(players).length >= max_players) {
+					socket.emit("game_error", localization.message("server.game_error.capacity", { count: max_players }));
+					return;
+				}
+
+				try {
+					delete_observer(socket);
+				} catch (e) {}
+
+				attempt.registered = true;
+				attempt.player = player;
+				players[socket.id] = player;
+				resume_instance(instances[player.in]);
+				instances[player.in].players[player.id] = player;
+				pmap_add(player);
+
+				name_to_id[player.name] = socket.id;
+				id_to_id[player.id] = socket.id;
+				for (var current of Object.values(players)) {
+					if (encouragement_identity(current).key === encouragement_identity(player).key)
+						encouragement_update(current, true);
+				}
+
+				cache_player_items(player);
+				invincible_logic(player);
+				serverhop_logic(player);
+				realmfatigue_logic(player, characters);
+				calculate_player_stats(player);
+
+				if (!is_player_allowed(player)) {
+					socket.emit("disconnect_reason", "limits");
+					socket.disconnect();
+				} else {
+					server_information.remember(player);
+					var cdata = player_to_client(player);
+					player.ipass = cdata.ipass = randomStr(12);
+					player.last_ipass = new Date();
+					player.last.attack = future_ms(-10000);
+					player.last.transport = future_ms(-10000);
+					cdata.home = player.p.home;
+					cdata.friends = player.friends;
+					cdata.acx = player.p.acx;
+					cdata.xcx = player.p.xcx;
+					cdata.info = instances[player.in].info;
+					cdata.base_gold = D.base_gold;
+					broadcast_e(true);
+					cdata.s_info = E;
+					if (S.blessed_minutes) {
+						cdata.blessed_by = S.blessed_by;
+						cdata.blessed_minutes = S.blessed_minutes;
+						player.s.patronsgrace = { ms: G.conditions.patronsgrace.duration, f: S.blessed_by };
+					}
+					if (code) {
+						cdata.code = code;
+						cdata.code_slot = code_slot;
+						cdata.code_version = code_version;
+					}
+					cdata.entities = send_all_xy(player, { raw: true });
+					if (players[socket.id] !== player || player.dc || !socket.connected) return;
+					socket.emit("start", cdata);
+					if (entity.friends && !entity.private) {
+						setTimeout(function () {
+							notify_friends(entity, server_regions[region] + " " + server_name).catch(console.error);
+						}, 0);
+					}
+					add_event(entity, "start", ["activity"], {
+						info: {
+							message: (entity.info.name || entity.name) + " [LV." + entity.level + "] logged in",
+							server: server_id,
+						},
 					});
+					total_players++;
 				}
-			} else {
-				player.platform = "web";
-				if (player.pid) {
-					player.auth_id = player.pid;
-				} // part of the new restriction system [02/05/19]
-			}
-
-			if (mode.drm_check) {
-				if (player.drm && !player.auth_id) {
-					player.s.authfail = { ms: 900000 * 1000 };
-				} else if (player.s.authfail) {
-					player.s.authfail = { ms: 100 };
+			} catch (e) {
+				// Keep call sites, without logging auth payloads or error messages containing credentials.
+				var trace = e && typeof e.stack === "string" ? "\n" + e.stack.split("\n").slice(1, 7).join("\n") : "";
+				server_log("#X Login failed: " + attempt.id + " at " + attempt.stage + trace, 1);
+				if (socket.connected) {
+					try {
+						socket.emit("game_error", "ERROR!");
+					} catch (emit_error) {}
 				}
-			}
-
-			if (!(await encouragement_login(player, R.previous_online))) {
-				socket.emit("game_error", localization.message("server.game_error.characters_unconfirmed"));
-				dc_players[player.real_id] = player;
-				sync_loop();
-				return;
-			}
-
-			if (!observers[socket.id]) {
-				// observer hang up before "auth"
-				server_log("Abrupt stop for " + (entity.info.name || entity.name), 1);
-				if (gameplay != "hardcore" && gameplay != "test") {
-					dc_players[player.real_id] = player;
+				cancel_character_login(attempt);
+			} finally {
+				attempt.claiming = false;
+				if (attempt.registered) finish_character_login(attempt);
+				else {
+					cancel_character_login(attempt);
+					await release_character_login(attempt);
 				}
-				sync_loop();
-				return;
-			}
-			try {
-				delete_observer(socket);
-			} catch (e) {}
-
-			players[socket.id] = player;
-			resume_instance(instances[player.in]);
-			instances[player.in].players[player.id] = player;
-			pmap_add(player);
-
-			name_to_id[player.name] = socket.id;
-			id_to_id[player.id] = socket.id;
-			for (var current of Object.values(players)) {
-				if (encouragement_identity(current).key === encouragement_identity(player).key)
-					encouragement_update(current, true);
-			}
-
-			cache_player_items(player);
-			invincible_logic(player);
-			serverhop_logic(player);
-			realmfatigue_logic(player, characters);
-			calculate_player_stats(player);
-
-			if (!is_player_allowed(player)) {
-				socket.emit("disconnect_reason", "limits");
-				socket.disconnect();
-			} else {
-				server_information.remember(player);
-				var cdata = player_to_client(player);
-				player.ipass = cdata.ipass = randomStr(12);
-				player.last_ipass = new Date();
-				player.last.attack = future_ms(-10000);
-				player.last.transport = future_ms(-10000);
-				cdata.home = player.p.home;
-				cdata.friends = player.friends;
-				cdata.acx = player.p.acx;
-				cdata.xcx = player.p.xcx;
-				cdata.info = instances[player.in].info;
-				cdata.base_gold = D.base_gold;
-				broadcast_e(true);
-				cdata.s_info = E;
-				if (S.blessed_minutes) {
-					cdata.blessed_by = S.blessed_by;
-					cdata.blessed_minutes = S.blessed_minutes;
-					player.s.patronsgrace = { ms: G.conditions.patronsgrace.duration, f: S.blessed_by };
-				}
-				if (code) {
-					cdata.code = code;
-					cdata.code_slot = code_slot;
-					cdata.code_version = code_version;
-				}
-				cdata.entities = send_all_xy(player, { raw: true });
-				socket.emit("start", cdata);
-				if (entity.friends && !entity.private) {
-					setTimeout(function () {
-						notify_friends(entity, server_regions[region] + " " + server_name).catch(console.error);
-					}, 0);
-				}
-				add_event(entity, "start", ["activity"], {
-					info: {
-						message: (entity.info.name || entity.name) + " [LV." + entity.level + "] logged in",
-						server: server_id,
-					},
-				});
-				total_players++;
 			}
 		});
 		socket.on("use", function (data) {
@@ -12488,6 +12542,7 @@ function init_socket_io(socket_server) {
 			server_log("requested_ack" + JSON.stringify(data), 1);
 		});
 		socket.on("disconnect", function () {
+			if (socket.login_attempt) cancel_character_login(socket.login_attempt);
 			//#IMPORTANT: disconnect exceptions are fatal [07/08/16]
 			// console.log("disconnect!");
 			var player = players[socket.id];
@@ -12495,9 +12550,14 @@ function init_socket_io(socket_server) {
 			try {
 				delete sockets[socket.id];
 			} catch (e) {}
-			if (player) {
-				server_information.remember(player);
+			if (player && !player.dc) {
 				player.dc = true;
+				if (gameplay != "hardcore" && gameplay != "test") dc_players[player.real_id] = player;
+				try {
+					server_information.remember(player);
+				} catch (e) {
+					log_trace("#X DC information", e);
+				}
 				try {
 					defeat_player(player);
 				} catch (e) {
@@ -12550,8 +12610,9 @@ function init_socket_io(socket_server) {
 
 				try {
 					delete players[socket.id];
-					delete instances[player.in].players[player.id];
-					if (instances[player.in].solo == player.id) {
+					if (instances[player.in] && instances[player.in].players[player.id] === player)
+						delete instances[player.in].players[player.id];
+					if (instances[player.in] && instances[player.in].solo == player.id) {
 						destroy_instance(player.in);
 					}
 					pmap_remove(player);
@@ -15952,6 +16013,7 @@ function sync_entity(entity, data) {
 }
 
 function sync_loop() {
+	retry_character_logins();
 	function check_for_delays(player) {
 		var limit = 6;
 		if (player.mounting && msince(player.mounting) > limit && !player.mount_issue) {
@@ -15964,8 +16026,8 @@ function sync_loop() {
 		}
 		if (player.sync_call && msince(player.last_sync) > limit && !player.sync_issue) {
 			server_log("#X SEVERE: " + limit + " minutes and still syncing: " + player.name, 1);
-			// player.sync_issue=new Date();
-			delete player.sync_call;
+			player.sync_issue = new Date();
+			// Never unlock an in-flight write based on age; logout must wait for it.
 		}
 		if (player.stopping && msince(player.stopping) > limit && !player.stop_issue) {
 			server_log("#X SEVERE: " + limit + " minutes and still stopping: " + player.name, 1);
@@ -15988,14 +16050,15 @@ function sync_loop() {
 			return;
 		}
 		player.mount_call = true;
+		player.mount_id = player.mount_id || randomStr(32);
 		// Diagnostic metadata only; tx() discards its R object on an explicit abort.
 		var bank_conflict = {};
-		var R = await tx(
+		var R = await character_save_tx(
 			async () => {
 				delete A[1].in_bank;
 				var owner = await tx_get(A[0].owner);
 				var entity = await tx_get(A[0].real_id);
-				if (!entity || entity.server != server_id) ex("character_gone"); // [03/03/26]
+				if (!owns_character_session(entity, A[0])) ex("character_gone");
 				if (!owner || (owner.server && (owner.server != server_id || owner.mounted_to != get_id(A[0])))) {
 					A[1].in_bank = owner && owner.mounted_to;
 					ex("already_in_bank");
@@ -16010,6 +16073,7 @@ function sync_loop() {
 				var data = player_to_server(A[0], "sync");
 				sync_entity(entity, data);
 				entity.to_backup = true;
+				entity.session_operation = A[0].mount_id;
 				await tx_save(entity);
 			},
 			[player, bank_conflict],
@@ -16021,6 +16085,7 @@ function sync_loop() {
 			player.last_sync = new Date();
 			server_log("mount_user: " + player.name + " owner: " + player.owner, 1);
 			player.user = R.user;
+			delete player.mount_id;
 			init_bank(player);
 			if (players[player.socket.id]) {
 				transport_player_to(player, player.mount_to, player.mount_s);
@@ -16049,10 +16114,14 @@ function sync_loop() {
 		// player.last_sync = new Date();
 		init_bank_exit(player);
 		player.unmount_call = true;
-		var R = await tx(
+		player.unmount_id = player.unmount_id || randomStr(32);
+		var R = await character_save_tx(
 			async () => {
 				var owner = await tx_get(A[0].owner);
 				var entity = await tx_get(A[0].real_id);
+				if (!owns_character_session(entity, A[0])) ex("not_in_game");
+				if (entity.session_operation === A[0].unmount_id) return;
+				if (!owner || owner.server !== server_id || owner.mounted_to !== get_id(A[0])) ex("bank_owner_lost");
 				if (owner) update_pids(entity, A[0], owner);
 				if (owner && owner.server == server_id && owner.mounted_to == get_id(A[0])) {
 					owner.server = owner.mounted_to = "";
@@ -16067,16 +16136,18 @@ function sync_loop() {
 				var data = player_to_server(A[0], "sync");
 				sync_entity(entity, data);
 				entity.to_backup = true;
+				entity.session_operation = A[0].unmount_id;
 				await tx_save(entity);
 			},
 			[player],
-			41,
+			3,
 		);
 		delete player.unmount_call;
 		if (R.success) {
 			player.last_sync = new Date();
 			server_log("unmount_user: " + player.name + " owner: " + player.owner + " result: " + JSON.stringify(R), 1);
 			delete player.unmounting;
+			delete player.unmount_id;
 			player.user = null;
 			player.cuser = null;
 			if (players[player.socket.id] && player.unmount_to) {
@@ -16087,7 +16158,7 @@ function sync_loop() {
 			}
 		} else {
 			server_log("#X SEVERE: Unmount failed for " + player.name, 1);
-			delete player.unmounting;
+			if (R.reason === "not_in_game") delete player.unmounting;
 			if (player.socket && players[player.socket.id]) player.socket.disconnect();
 		}
 	}
@@ -16109,13 +16180,15 @@ function sync_loop() {
 		}
 		player.last_sync = new Date();
 		player.sync_call = true;
-		var R = await tx(
+		var R = await character_save_tx(
 			async () => {
 				var owner = null,
 					player = A[0];
 				if (player.user) owner = await tx_get(player.owner);
 				var entity = await tx_get(player);
-				if (!entity.server || entity.server != server_id) ex("not_in_game");
+				if (!owns_character_session(entity, player)) ex("not_in_game");
+				if (player.user && (!owner || owner.server !== server_id || owner.mounted_to !== get_id(player)))
+					ex("bank_owner_lost");
 				if (owner) update_pids(entity, player, owner);
 				if (owner && owner.server == server_id && owner.mounted_to == get_id(player)) {
 					if (player.user) {
@@ -16146,19 +16219,29 @@ function sync_loop() {
 	}
 	// stop_call: Character logout using tx() (following qwazy pattern)
 	async function stop_call(player) {
+		if (player.stop_call || player.sync_call || player.mount_call || player.unmount_call || player.merrit_grant) return;
 		var bank = (player.user && true) || false;
 		player.stopping = new Date();
 		init_player_exit(player);
 		player.stop_call = true;
-		var R = await tx(
+		var R = await character_save_tx(
 			async () => {
 				var owner = null,
 					player = A[0];
-				if (player.user) owner = await tx_get(player.owner);
+				if (player.user || player.mount_id) owner = await tx_get(player.owner);
 				var entity = await tx_get(player);
-				if (!entity.server || entity.server != server_id) ex("not_in_game");
-				if (owner) update_pids(entity, player, owner);
-				if (owner && owner.server == server_id && owner.mounted_to == get_id(player)) {
+				if (!owns_character_session(entity, player)) ex("not_in_game");
+				// An unmount may have committed while its reply was lost. Its snapshot
+				// is durable, but later inventory changes still need the final save.
+				var bank_released = player.unmount_id && entity.session_operation === player.unmount_id;
+				if (
+					player.user &&
+					!bank_released &&
+					(!owner || owner.server !== server_id || owner.mounted_to !== get_id(player))
+				)
+					ex("bank_owner_lost");
+				if (owner && !bank_released) update_pids(entity, player, owner);
+				if (!bank_released && owner && owner.server == server_id && owner.mounted_to == get_id(player)) {
 					if (player.user) {
 						owner.info.gold = player.user.gold;
 						if (player.user.unlocked) owner.info.unlocked = player.user.unlocked;
@@ -16176,7 +16259,7 @@ function sync_loop() {
 				await tx_save(entity);
 			},
 			[player],
-			41,
+			3,
 		);
 		delete player.stop_call;
 		server_log(
@@ -16185,7 +16268,7 @@ function sync_loop() {
 		);
 		if (R.success || R.reason == "not_in_game") {
 			if (R.reason == "not_in_game") server_log("#X SEVERE not_in_game stop_call ", player.real_id);
-			delete dc_players[player.real_id];
+			if (dc_players[player.real_id] === player) delete dc_players[player.real_id];
 			add_event({ _id: player._id, info: { name: player.name }, level: player.level }, "stop", ["activity"], {
 				info: { message: player.name + " [LV." + player.level + "] logged out", server: server_id },
 			});
@@ -16271,7 +16354,7 @@ async function server_loop() {
 			server.stopped = true;
 		} else if (
 			server.stopped &&
-			((!Object.keys(dc_players).length && !Object.keys(players).length) ||
+			((!pending_logins.size && !Object.keys(dc_players).length && !Object.keys(players).length) ||
 				gameplay == "hardcore" ||
 				gameplay == "test")
 		) {
