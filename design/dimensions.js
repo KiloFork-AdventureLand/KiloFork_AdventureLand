@@ -1079,7 +1079,7 @@ var positions={
 	"waybill":["rawitems",0,3],
 	"surety":["rawitems",1,3],
 	"nighttill":["rawitems",2,3],
-	"marketparcel":["rawitems",17,2],
+	"marketparcel":["rawitems",0,4],
 	"softstepgloves":["rawitems",0,0],
 	"valourdirk":["rawitems",1,0],
 	"knifebelt":["rawitems",9,3],
