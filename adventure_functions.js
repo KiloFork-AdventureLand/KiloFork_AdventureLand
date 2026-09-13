@@ -991,18 +991,9 @@ function arr_arr_same(ar1, ar2) {
 
 async function update_mail_count(user) {
 	var owner = user._id || user;
-	var unread = await db
-		.collection("mail")
-		.find({ owner: owner, "info.receiver": owner, read: false })
-		.project({ _id: 1 })
-		.limit(100)
-		.toArray();
+	var unread = await db.collection("mail").find({ owner: owner, "info.receiver": owner, read: false }).project({ _id: 1 }).limit(100).toArray();
 	// Do not replace userdata: another request may be saving CODE or tutorial progress.
-	await db.collection("infoelement").updateOne(
-		{ _id: "IE_userdata-" + owner },
-		{ $set: { "info.mail": unread.length }, $setOnInsert: { created: new Date() } },
-		{ upsert: true },
-	);
+	await db.collection("infoelement").updateOne({ _id: "IE_userdata-" + owner }, { $set: { "info.mail": unread.length }, $setOnInsert: { created: new Date() } }, { upsert: true });
 	return unread.length;
 }
 
@@ -1768,8 +1759,8 @@ function process_map(map) {
 		max_y = -900;
 	var x_lines = [],
 		y_lines = [];
-	if (data.x_lines) data.x_lines.sort();
-	if (data.y_lines) data.y_lines.sort();
+	if (data.x_lines) data.x_lines.sort((a, b) => a[0] - b[0]);
+	if (data.y_lines) data.y_lines.sort((a, b) => a[0] - b[0]);
 	if (data.default !== undefined) marked[data.default] = true;
 	(data.animations || []).forEach(function (a) {
 		marked[a[0]] = true;
