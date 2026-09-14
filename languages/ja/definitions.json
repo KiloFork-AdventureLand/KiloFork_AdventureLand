@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "ゲームの処理を待つ",
 	"tutorial.js-events.title": "イベントに反応する",
 	"tutorial.js-capstone.title": "小さな狩りのスクリプトを作る",
-	"directory.guide.progression-guide.title": "成長ガイド"
+	"directory.guide.progression-guide.title": "成長ガイド",
+	"item.rimeglass.explanation": "触れると冷たい。温めても溶けない。",
+	"item.djinncrown.explanation": "落ち着かない心に、冷たい冠を。",
+	"item.covemantle.explanation": "潮の満ち引きを待つ長い時間のために織られた。",
+	"item.stillwaterlens.explanation": "ガラスの下で、何かが動きを止めた。",
+	"monster.rimedjinn.explanation": "一気に攻撃を浴びせると、殻にひびが入る。",
+	"condition.rimeshell.name": "霜の殻",
+	"condition.rimeshell.explanation": "3秒以内にDjinnの最大HPの5%に相当するダメージを与えるか、スタンさせると殻を壊せます。通常の凍結では詠唱を中断できません。",
+	"condition.rimeexposed.name": "割れた殻",
+	"condition.rimeexposed.explanation": "5秒間、耐性が160低下します。",
+	"skill.rimeshatter.name": "霜砕き",
+	"skill.rimeshatter.explanation": "射程260以内で戦闘に貢献した最大3人に、氷の弾を1発ずつ放ちます。各弾はDjinnの魔法攻撃の1.5倍のダメージを与えます。",
+	"skill.rimeshell.name": "霜の殻",
+	"skill.rimeshell.explanation": "HPが半分になると、Djinnは3秒間詠唱します。最大HPの5%に相当するダメージを与えるかスタンさせると、殻が壊れ、耐性が5秒間160低下します。壊せなければ、近くで戦闘に貢献した最大3人に弾を放ちます。通常の凍結では詠唱を中断できません。"
 }

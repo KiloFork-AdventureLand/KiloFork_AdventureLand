@@ -1,4 +1,10 @@
 var projectiles={
+	"rimehelix":{
+		"animation": "rimehelix_travel",
+		"speed": 360,
+		"hit_animation": "rimehelix_impact"
+	},
+
 	"momentum":{
 		"animation":"slash",
 		"speed":320,

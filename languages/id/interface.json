@@ -847,5 +847,6 @@
 	"interface.gallery.key": "Kunci",
 	"interface.item.empty": "Kosong",
 	"interface.item.empty_description": "Tak ada apa-apa. Nihil.",
-	"interface.server.event": "ACARA!"
+	"interface.server.event": "ACARA!",
+	"interface.monster.rime_shell_progress": "{seconds} dtk · Perlu {damage} kerusakan lagi"
 }

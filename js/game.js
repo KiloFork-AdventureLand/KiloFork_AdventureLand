@@ -5654,6 +5654,19 @@ function player_effects_logic(sprite) {
 
 function effects_logic(sprite) {
 	if (no_graphics || !sprite.s) return;
+	if (sprite.s.rimeshell && !sprite.fx.rimeshell) {
+		sprite.fx.rimeshell = true;
+		start_animation(sprite, "rimeshell_cast");
+	} else if (!sprite.s.rimeshell && sprite.fx.rimeshell) {
+		delete sprite.fx.rimeshell;
+		stop_animation(sprite, "rimeshell_cast");
+	}
+	if (sprite.s.rimeexposed && !sprite.fx.rimeexposed) {
+		sprite.fx.rimeexposed = true;
+		start_animation(sprite, "rimehelix_impact");
+	} else if (!sprite.s.rimeexposed && sprite.fx.rimeexposed) {
+		delete sprite.fx.rimeexposed;
+	}
 
 	if (sprite.s && sprite.s.sleeping && !sprite.shaking) {
 		if (Math.random() < 0.1) d_text(phrase("combat.zzz"), sprite, { color: "white" });

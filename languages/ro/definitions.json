@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "Așteaptă jocul",
 	"tutorial.js-events.title": "Reacționează la evenimente",
 	"tutorial.js-capstone.title": "Construiește un mic script de farming",
-	"directory.guide.progression-guide.title": "Ghid de progres"
+	"directory.guide.progression-guide.title": "Ghid de progres",
+	"item.rimeglass.explanation": "Rece la atingere. Căldura nu îl va topi.",
+	"item.djinncrown.explanation": "O coroană rece pentru o minte neliniștită.",
+	"item.covemantle.explanation": "Țesută pentru lunga așteptare dintre maree.",
+	"item.stillwaterlens.explanation": "Ceva de sub sticlă a încetat să se miște.",
+	"monster.rimedjinn.explanation": "Carapacea i se crapă sub o rafală bruscă de lovituri.",
+	"condition.rimeshell.name": "Carapace de chiciură",
+	"condition.rimeshell.explanation": "Pentru a sparge carapacea, provoacă în 3 secunde daune egale cu 5% din HP-ul maxim al Djinnului sau amețește-l. Înghețarea obișnuită nu întrerupe vraja.",
+	"condition.rimeexposed.name": "Carapace crăpată",
+	"condition.rimeexposed.explanation": "Rezistența scade cu 160 timp de 5 secunde.",
+	"skill.rimeshatter.name": "Chiciură sfărâmată",
+	"skill.rimeshatter.explanation": "Trage câte un proiectil înghețat spre cel mult trei participanți care au contribuit, aflați la o rază de 260. Fiecare proiectil provoacă daune egale cu 1,5 ori atacul magic al Djinnului.",
+	"skill.rimeshell.name": "Carapace de chiciură",
+	"skill.rimeshell.explanation": "La jumătate din viață, Djinnul pregătește o vrajă timp de 3 secunde. Provoacă daune egale cu 5% din HP-ul său maxim sau amețește-l pentru a sparge carapacea și a-i reduce rezistența cu 160 timp de 5 secunde. Altfel, trage spre cel mult trei participanți din apropiere care au contribuit. Înghețarea obișnuită nu întrerupe vraja."
 }

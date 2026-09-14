@@ -753,5 +753,6 @@
 	"update.16_09_16.launched_the_premium_currency_shells_and_first_premium_items": "Lançadas a moeda premium CONCHAS e os primeiros itens premium. CONCHAS também caem de monstros. Não vou contar de quais :]",
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "Implementada a \"agressividade\" dos monstros. Bees picam :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "Adicionado o recurso de \"linhas\". Desenha uma linha entre entidades ao atacar ou curar. Deve ser especialmente útil no PVP.",
-	"update.14_09_26.progression": "O Guia de progressão sugere projetos de equipamento, locais de caça úteis e oportunidades ativas desde seus primeiros combates com Goo. Escolha um objetivo acima de HP e MP ou desative o guia ao lado de Tutorial em Configurações. O CODE pode ler os mesmos conselhos com get_progression()."
+	"update.14_09_26.progression": "O Guia de progressão sugere projetos de equipamento, locais de caça úteis e oportunidades ativas desde seus primeiros combates com Goo. Escolha um objetivo acima de HP e MP ou desative o guia ao lado de Tutorial em Configurações. O CODE pode ler os mesmos conselhos com get_progression().",
+	"update.14_09_26.rime_djinn": "Rime Djinn agora assombram Frozen Cove. Quebrem suas carapaças juntos, ganhem recompensas do Tracker e juntem Rimeglass para três novas peças de equipamento."
 }

@@ -753,5 +753,6 @@
 	"update.16_09_16.launched_the_premium_currency_shells_and_first_premium_items": "프리미엄 화폐 조개와 첫 프리미엄 아이템을 출시했어요. 몬스터도 조개를 떨어뜨려요. 어떤 몬스터인지는 비밀이에요 :]",
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "몬스터에 \"공격성\"을 구현했어요. Bee가 쏘네요 :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "\"lines\" 기능을 추가했어요. 공격하거나 치유할 때 개체 사이에 선을 그려요. 특히 PVP에서 유용할 거예요.",
-	"update.14_09_26.progression": "성장 가이드가 첫 Goo 전투부터 장비 계획, 유용한 사냥터, 현재 기회를 제안합니다. HP와 MP 위에서 목표를 선택하거나 설정의 튜토리얼 옆에서 가이드를 끄세요. CODE에서도 get_progression()으로 같은 조언을 읽을 수 있습니다."
+	"update.14_09_26.progression": "성장 가이드가 첫 Goo 전투부터 장비 계획, 유용한 사냥터, 현재 기회를 제안합니다. HP와 MP 위에서 목표를 선택하거나 설정의 튜토리얼 옆에서 가이드를 끄세요. CODE에서도 get_progression()으로 같은 조언을 읽을 수 있습니다.",
+	"update.14_09_26.rime_djinn": "Frozen Cove에 Rime Djinn이 나타났습니다. 함께 껍질을 깨고 Tracker 보상을 얻으세요. Rimeglass를 모으면 세 가지 새 장비를 제작할 수 있습니다."
 }

@@ -3246,6 +3246,16 @@ function add_condition(target, condition, args) {
 	if (target.socket) {
 		target.hitchhikers.push(["game_response", response]);
 	}
+	if (
+		target.type === "rimedjinn" &&
+		(condition === "stunned" ||
+			condition === "deepfreezed" ||
+			condition === "fingered" ||
+			condition === "stoned" ||
+			condition === "sleeping")
+	) {
+		monster_abilities.interrupt(target);
+	}
 	return true;
 }
 

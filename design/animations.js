@@ -1,4 +1,29 @@
 var animations={
+	"rimehelix_travel":{
+		"file": "/images/sprites/animations/rimehelix_travel.png?v=rime1",
+		"frames": 4,
+		"continuous": true,
+		"directional": true,
+		"speed": 360,
+		"framefps": 90
+	},
+	"rimehelix_impact":{
+		"file": "/images/sprites/animations/rimehelix_impact.png?v=rime1",
+		"frames": 6,
+		"exact": true,
+		"alpha": 1,
+		"aspeed": "slow",
+		"y": 8
+	},
+	"rimeshell_cast":{
+		"file": "/images/sprites/animations/rimeshell-cast.png?v=rime1",
+		"frames": 4,
+		"continuous": true,
+		"exact": true,
+		"aspeed": "slow",
+		"alpha": 1
+	},
+
 	"merrit_bonus":{"file":"/images/sprites/animations/CGreen_Spark3.png","frames":10,"exact":true,"alpha":1},
 	"block":{
 		"file":"/images/sprites/animations/Block.png", //sparks ...

@@ -1125,6 +1125,7 @@ var maps = {
 		name: "Frozen Cove",
 		npcs: [],
 		monsters: [
+			{"type": "rimedjinn", "boundary": [-64, -1748, 96, -1620], "count": 4},
 			{ type: "harpy", boundary: [-3.38, -398.22, 273.25, -223.83], count: 5, grow: true, roam: true, random: true }, //added grow 31/1/2024
 			{ type: "rharpy", boundary: [-3.38, -398.22, 273.25, -223.83], count: 1, roam: true },
 		],

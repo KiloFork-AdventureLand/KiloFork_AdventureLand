@@ -52,5 +52,6 @@
 	"update.15_01_26.pr_add_crypt_monster_achievements_214": "PR: thêm thành tích quái vật crypt #214",
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "API JSON mới giúp tiết kiệm băng thông (nội bộ)",
 	"update.01_01_26.slight_chance_something_might_break": "(Có một chút khả năng xảy ra lỗi)",
-	"update.14_09_26.progression": "Hướng dẫn phát triển đề xuất kế hoạch trang bị, bãi săn hữu ích và cơ hội đang có ngay từ những trận Goo đầu tiên. Chọn mục tiêu trên HP và MP hoặc tắt hướng dẫn trong Cài đặt, cạnh Hướng dẫn. CODE có thể đọc cùng lời khuyên bằng get_progression()."
+	"update.14_09_26.progression": "Hướng dẫn phát triển đề xuất kế hoạch trang bị, bãi săn hữu ích và cơ hội đang có ngay từ những trận Goo đầu tiên. Chọn mục tiêu trên HP và MP hoặc tắt hướng dẫn trong Cài đặt, cạnh Hướng dẫn. CODE có thể đọc cùng lời khuyên bằng get_progression().",
+	"update.14_09_26.rime_djinn": "Rime Djinn nay xuất hiện ở Frozen Cove. Cùng phá vỏ, nhận thưởng Tracker và gom Rimeglass để chế tạo ba món trang bị mới."
 }

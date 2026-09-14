@@ -847,5 +847,6 @@
 	"interface.gallery.key": "Avaimet",
 	"interface.item.empty": "Tyhjä",
 	"interface.item.empty_description": "Ei niin yhtikäs mitään.",
-	"interface.server.event": "TAPAHTUMA!"
+	"interface.server.event": "TAPAHTUMA!",
+	"interface.monster.rime_shell_progress": "{seconds} s · Vahinkoa puuttuu: {damage}"
 }

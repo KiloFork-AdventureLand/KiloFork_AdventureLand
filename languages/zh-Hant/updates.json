@@ -753,5 +753,6 @@
 	"update.16_09_16.launched_the_premium_currency_shells_and_first_premium_items": "推出高級貨幣貝殼及首批高級物品。怪物也會掉落貝殼，至於是哪幾種，就不告訴你了 :]",
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "怪物新增「主動攻擊」行為。Bee會螫人了 :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "新增「連線」功能，攻擊和治療時在實體之間畫線，對PVP應該尤其有用。",
-	"update.14_09_26.progression": "從第一場Goo戰鬥起，成長指南就會建議裝備計畫、實用狩獵地點與當前機會。可在HP與MP上方選擇目標，或使用設定中教學旁的開關停用指南。CODE也能透過get_progression()讀取相同建議。"
+	"update.14_09_26.progression": "從第一場Goo戰鬥起，成長指南就會建議裝備計畫、實用狩獵地點與當前機會。可在HP與MP上方選擇目標，或使用設定中教學旁的開關停用指南。CODE也能透過get_progression()讀取相同建議。",
+	"update.14_09_26.rime_djinn": "Rime Djinn如今出沒於Frozen Cove。一起擊破牠們的外殼，取得Tracker獎勵，並收集Rimeglass製作三件新裝備。"
 }

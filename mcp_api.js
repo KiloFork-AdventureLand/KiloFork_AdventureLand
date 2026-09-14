@@ -2286,6 +2286,14 @@ var MCP_RESOURCE_GUIDES = [
 		priority: 1,
 	},
 	{
+		uri: "adventureland://guide/rime-djinn",
+		name: "rime-djinn",
+		title: "Rime Djinn",
+		description: "Frozen Cove cooperative combat, shell conditions, drops, crafting, and CODE examples.",
+		article: "rime-djinn",
+		priority: 0.7,
+	},
+	{
 		uri: "adventureland://guide/encouragement",
 		name: "encouragement",
 		title: "Encouragement Bonuses",

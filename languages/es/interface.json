@@ -849,5 +849,6 @@
 	"interface.item.empty_description": "Nada de nada.",
 	"interface.server.event": "¡EVENTO!",
 	"interface.item.count_left.one": "Queda {count}",
-	"interface.merrit.reason_cooldown.one": "El siguiente paquete de tu cuenta puede llegar en {count} minuto, cuando pase Merrit."
+	"interface.merrit.reason_cooldown.one": "El siguiente paquete de tu cuenta puede llegar en {count} minuto, cuando pase Merrit.",
+	"interface.monster.rime_shell_progress": "{seconds} s · Daño restante: {damage}"
 }

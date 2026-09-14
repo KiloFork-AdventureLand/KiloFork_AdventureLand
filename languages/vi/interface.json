@@ -847,5 +847,6 @@
 	"interface.gallery.key": "Chìa khóa",
 	"interface.item.empty": "Trống",
 	"interface.item.empty_description": "Chẳng có gì. Trống trơn.",
-	"interface.server.event": "SỰ KIỆN!"
+	"interface.server.event": "SỰ KIỆN!",
+	"interface.monster.rime_shell_progress": "{seconds} giây · Cần thêm {damage} sát thương"
 }

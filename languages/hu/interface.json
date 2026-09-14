@@ -847,5 +847,6 @@
 	"interface.gallery.key": "Kulcsok",
 	"interface.item.empty": "Üres",
 	"interface.item.empty_description": "Semmi. Egy árva porszem sem.",
-	"interface.server.event": "ESEMÉNY!"
+	"interface.server.event": "ESEMÉNY!",
+	"interface.monster.rime_shell_progress": "{seconds} mp · Hiányzó sebzés: {damage}"
 }

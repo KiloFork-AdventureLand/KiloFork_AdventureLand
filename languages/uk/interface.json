@@ -860,5 +860,6 @@
 	"interface.time.minutes_left.other": "Залишилося {count} хвилини",
 	"interface.time.seconds.few": "{count} секунди",
 	"interface.time.seconds.many": "{count} секунд",
-	"interface.time.seconds.other": "{count} секунди"
+	"interface.time.seconds.other": "{count} секунди",
+	"interface.monster.rime_shell_progress": "{seconds} с · Потрібно шкоди: {damage}"
 }

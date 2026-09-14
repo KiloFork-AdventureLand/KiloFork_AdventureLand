@@ -847,5 +847,6 @@
 	"interface.gallery.key": "Mga Susi",
 	"interface.item.empty": "Walang Laman",
 	"interface.item.empty_description": "Wala. Talagang wala.",
-	"interface.server.event": "KAGANAPAN!"
+	"interface.server.event": "KAGANAPAN!",
+	"interface.monster.rime_shell_progress": "{seconds} s · Kulang pang pinsala: {damage}"
 }

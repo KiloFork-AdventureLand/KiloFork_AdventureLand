@@ -1,4 +1,5 @@
 var dimensions={ //by trial+error using game.js/border_mode=true
+	"rimedjinn":[42,40,0],
 	//width, height, width-disp, base.h, base.v
 	// sprite: [3] positive-> goes left | negative-> goes right
 	"default_character":[26,35],
@@ -1141,6 +1142,10 @@ var positions={
 	//"claw":["",13,42],
 
 	"friendtoken":["",15,33],
+	"rimeglass":["rawitems",1,4],
+	"djinncrown":["rawitems",2,4],
+	"covemantle":["rawitems",3,4],
+	"stillwaterlens":["rawitems",4,4],
 	"patronsgrace":["custom",5,0],
 };
 

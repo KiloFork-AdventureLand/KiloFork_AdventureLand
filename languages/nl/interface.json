@@ -848,5 +848,6 @@
 	"interface.item.empty": "Leeg",
 	"interface.item.empty_description": "Niets, nada, helemaal niks.",
 	"interface.server.event": "EVENEMENT!",
-	"interface.merrit.reason_cooldown.one": "Je account kan over {count} minuut het volgende pakketje krijgen, wanneer Merrit langskomt."
+	"interface.merrit.reason_cooldown.one": "Je account kan over {count} minuut het volgende pakketje krijgen, wanneer Merrit langskomt.",
+	"interface.monster.rime_shell_progress": "{seconds} s · Nog {damage} schade nodig"
 }

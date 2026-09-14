@@ -847,5 +847,6 @@
 	"interface.gallery.key": "鍵",
 	"interface.item.empty": "空き",
 	"interface.item.empty_description": "なーんにもない。",
-	"interface.server.event": "イベント！"
+	"interface.server.event": "イベント！",
+	"interface.monster.rime_shell_progress": "残り{seconds}秒 · 必要ダメージ{damage}"
 }

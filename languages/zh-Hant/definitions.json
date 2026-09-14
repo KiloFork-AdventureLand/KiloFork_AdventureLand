@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "等待遊戲操作",
 	"tutorial.js-events.title": "響應事件",
 	"tutorial.js-capstone.title": "編寫一個小型刷怪指令碼",
-	"directory.guide.progression-guide.title": "成長指南"
+	"directory.guide.progression-guide.title": "成長指南",
+	"item.rimeglass.explanation": "摸起來冰冷。暖意也無法使它融化。",
+	"item.djinncrown.explanation": "獻給不安之心的一頂冰冷王冠。",
+	"item.covemantle.explanation": "為潮汐之間漫長的等待而織。",
+	"item.stillwaterlens.explanation": "玻璃下的某個東西停止了移動。",
+	"monster.rimedjinn.explanation": "一陣突如其來的連擊會讓外殼裂開。",
+	"condition.rimeshell.name": "霜殼",
+	"condition.rimeshell.explanation": "在3秒內造成相當於Djinn最大HP的5%的傷害，或將其擊暈，就能破殼。一般冰凍無法中斷施法。",
+	"condition.rimeexposed.name": "裂殼",
+	"condition.rimeexposed.explanation": "抗性降低160，持續5秒。",
+	"skill.rimeshatter.name": "霜裂",
+	"skill.rimeshatter.explanation": "向260射程內最多三名有戰鬥貢獻的玩家各發射一枚冰彈。每枚冰彈造成Djinn魔法攻擊力1.5倍的傷害。",
+	"skill.rimeshell.name": "霜殼",
+	"skill.rimeshell.explanation": "生命值降至一半時，Djinn會施法3秒。造成相當於其最大HP的5%的傷害，或將其擊暈，就能破殼並降低其抗性160，持續5秒。否則，它會朝附近最多三名有戰鬥貢獻的玩家發射冰彈。一般冰凍無法中斷施法。"
 }

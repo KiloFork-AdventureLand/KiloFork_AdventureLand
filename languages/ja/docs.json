@@ -2473,5 +2473,10 @@
 	"docs.progression.resources": "計画では装備中や保護された装備を製作・合成の素材に使いません。レシピには正確なアイテムレベルと十分な数のスタックが必要です。表示される強化費用は供物や加護を含まない平均値で、保証ではありません。使う前に通常の強化・合成のプレビューを確認してください。",
 	"docs.progression.code": "get_progression(options)は移動、消費、攻撃をせずに助言を返します。通常のCODEとMainframeで使えます。呼び出すと以後の戦闘の観察を開始し、それ以前のプレイは不明です。HUDをオフにしても、このCODE関数は無効になりません。",
 	"docs.progression.api": "結果にはready、goal、progress、complete、rows、plans、opportunities、choicesが含まれます。各行には安定したid、action、reason、cost、リソース参照があります。テキストはフレーズIDとパラメーターで表されます。別の目標にはgoal、支出制限にはspendLimit、PvPの機会を含めるにはallowPvpを使います。オプションは今回の取得にのみ影響し、保存されたHUDの目標は変更しません。",
-	"docs.progression.travel": "{move}を押して確認すると、表示されたNPCや狩り場に移動します。アイテムの購入や戦闘の開始は自分で行ってください。"
+	"docs.progression.travel": "{move}を押して確認すると、表示されたNPCや狩り場に移動します。アイテムの購入や戦闘の開始は自分で行ってください。",
+	"docs.guide.rime-djinn.intro": "Rime DjinnはHarpyの先、Frozen Cove中央の島を漂っています。通りかかった相手を攻撃しても追いかけませんが、攻撃されると反撃します。魔法攻撃に備え、仲間と挑みましょう。",
+	"docs.guide.rime-djinn.ui": "Djinnを選択すると、殻の残り時間と、壊すために必要な残りダメージを確認できます。詳細は能力か状態アイコンをクリックしてください。殻を壊すと、5秒間「割れた殻」が表示されます。スタンや深い凍結でも壊せます。",
+	"docs.guide.rime-djinn.rewards": "貢献者は通常の協力戦闘ルールに従い、XP、ドロップ、Trackerの討伐記録を共有します。ダメージを与える、攻撃を受ける、回復する行動が貢献になります。Rimeglassなどの素材を集め、LeoでDjinn Crown、Cove Mantle、Stillwater Lensを製作しましょう。3つとも直接ドロップすることもあります。",
+	"docs.guide.rime-djinn.code_combat": "Frozen Coveで生存し、攻撃範囲内にいて、十分なMPと攻撃の準備があるときに1回実行してください。仲間とすでに戦っているDjinnも選択します。殻のmsは残りミリ秒、remainingは必要ダメージを示し、rimeexposedは殻が壊れた状態を示します。",
+	"docs.guide.rime-djinn.code_craft": "Leoの近くかComputerを使える状態で、十分なゴールド、空き枠、ロックされていない全材料をインベントリに用意して実行してください。Helmet +0を使います。他のレシピではdjinncrownをcovemantleまたはstillwaterlensに替え、それぞれCape +0またはOrb of Intelligence +0を使ってください。"
 }

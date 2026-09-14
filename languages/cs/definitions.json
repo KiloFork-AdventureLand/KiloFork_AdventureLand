@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "Počkej na hru",
 	"tutorial.js-events.title": "Reaguj na události",
 	"tutorial.js-capstone.title": "Sestav malý skript pro farmení",
-	"directory.guide.progression-guide.title": "Průvodce postupem"
+	"directory.guide.progression-guide.title": "Průvodce postupem",
+	"item.rimeglass.explanation": "Na dotek studené. Teplo ho nerozpustí.",
+	"item.djinncrown.explanation": "Chladná koruna pro neklidnou mysl.",
+	"item.covemantle.explanation": "Utkán pro dlouhé čekání mezi přílivy.",
+	"item.stillwaterlens.explanation": "Něco pod sklem se přestalo hýbat.",
+	"monster.rimedjinn.explanation": "Jeho krunýř praská pod náhlou záplavou úderů.",
+	"condition.rimeshell.name": "Jinovatkový krunýř",
+	"condition.rimeshell.explanation": "Krunýř rozbiješ, když do 3 sekund způsobíš poškození rovné 5 % maximálních HP džina nebo ho omráčíš. Běžné zmrazení sesílání nepřeruší.",
+	"condition.rimeexposed.name": "Prasklý krunýř",
+	"condition.rimeexposed.explanation": "Odolnost se na 5 sekund sníží o 160.",
+	"skill.rimeshatter.name": "Roztříštění jinovatky",
+	"skill.rimeshatter.explanation": "Vystřelí po jedné ledové střele na nejvýše tři přispívající účastníky v dosahu 260. Každá střela způsobí 1,5násobek magického útoku džina.",
+	"skill.rimeshell.name": "Jinovatkový krunýř",
+	"skill.rimeshell.explanation": "Při polovině zdraví džin 3 sekundy sesílá kouzlo. Způsob poškození rovné 5 % jeho maximálních HP nebo ho omrač, abys rozbil krunýř a na 5 sekund snížil odolnost o 160. Jinak vystřelí na nejvýše tři přispívající účastníky poblíž. Běžné zmrazení sesílání nepřeruší."
 }

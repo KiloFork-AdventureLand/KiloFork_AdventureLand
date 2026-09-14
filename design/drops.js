@@ -358,6 +358,7 @@ var drops = {
 			[1.0 / 20, "drapes"],
 		],
 		nerfedmummy: [[1.0 / 100, "drapes"]],
+		rimedjinn: [[0.6, "rimeglass"], [0.08, "essenceoffrost"], [0.0002, "frozenkey"], [0.005, "djinncrown"], [0.0033333333333333335, "covemantle"], [0.0016666666666666668, "stillwaterlens"]],
 		iceroamer: [
 			[0.0001, "essenceoffrost"],
 			[0.00001, "frozenkey"],

@@ -1,4 +1,22 @@
 var conditions = {
+	"rimeshell":{
+		"name": "Rime Shell",
+		"skin": "rimeglass",
+		"ui": true,
+		"buff": true,
+		"duration": 3000,
+		"explanation": "Deal damage equal to 5% of the Djinn’s maximum HP within 3 seconds, or stun it, to break the shell. Ordinary freezing does not interrupt it."
+	},
+	"rimeexposed":{
+		"name": "Cracked Shell",
+		"skin": "rimeglass",
+		"ui": true,
+		"debuff": true,
+		"duration": 5000,
+		"resistance": -160,
+		"explanation": "Resistance is reduced by 160 for 5 seconds."
+	},
+
 	anniversary_visit: {
 		name: "Anniversary Visit",
 		skin: "emote_ikissyou",

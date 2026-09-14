@@ -847,5 +847,6 @@
 	"interface.gallery.key": "مفاتيح",
 	"interface.item.empty": "فارغ",
 	"interface.item.empty_description": "لا شيء، ولا حتى فتات.",
-	"interface.server.event": "فعالية!"
+	"interface.server.event": "فعالية!",
+	"interface.monster.rime_shell_progress": "{seconds} ث · الضرر المطلوب: {damage}"
 }

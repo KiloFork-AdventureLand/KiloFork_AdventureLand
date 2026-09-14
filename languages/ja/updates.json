@@ -753,5 +753,6 @@
 	"update.16_09_16.launched_the_premium_currency_shells_and_first_premium_items": "プレミアム通貨シェルと、最初のプレミアムアイテムを公開。シェルはモンスターからも落ちます。どのモンスターかは秘密 :]",
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "モンスターに「攻撃性」を実装しました。Beeは刺します :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "「lines」機能を追加。攻撃や回復の際、対象との間に線を描きます。特にPVPで役立つはずです。",
-	"update.14_09_26.progression": "成長ガイドが最初のGoo戦から装備の計画、役立つ狩場、開催中の機会を提案します。HPとMPの上で目標を選ぶか、設定のチュートリアルの隣でガイドをオフにできます。CODEでもget_progression()で同じ助言を取得できます。"
+	"update.14_09_26.progression": "成長ガイドが最初のGoo戦から装備の計画、役立つ狩場、開催中の機会を提案します。HPとMPの上で目標を選ぶか、設定のチュートリアルの隣でガイドをオフにできます。CODEでもget_progression()で同じ助言を取得できます。",
+	"update.14_09_26.rime_djinn": "Frozen CoveにRime Djinnが現れました。仲間と殻を壊してTracker報酬を獲得し、Rimeglassを集めて3つの新装備を製作しましょう。"
 }

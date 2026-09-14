@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "Aspetta il gioco",
 	"tutorial.js-events.title": "Reagisci agli eventi",
 	"tutorial.js-capstone.title": "Crea un piccolo script di farming",
-	"directory.guide.progression-guide.title": "Guida alla progressione"
+	"directory.guide.progression-guide.title": "Guida alla progressione",
+	"item.rimeglass.explanation": "Freddo al tatto. Il calore non lo scioglierà.",
+	"item.djinncrown.explanation": "Una corona fredda per una mente inquieta.",
+	"item.covemantle.explanation": "Tessuto per la lunga attesa tra le maree.",
+	"item.stillwaterlens.explanation": "Qualcosa sotto il vetro ha smesso di muoversi.",
+	"monster.rimedjinn.explanation": "Il suo guscio si incrina sotto un'improvvisa raffica di colpi.",
+	"condition.rimeshell.name": "Guscio di brina",
+	"condition.rimeshell.explanation": "Per rompere il guscio, infliggi entro 3 secondi danni pari al 5% degli HP massimi del Djinn oppure stordiscilo. Il normale congelamento non interrompe il lancio.",
+	"condition.rimeexposed.name": "Guscio incrinato",
+	"condition.rimeexposed.explanation": "La resistenza si riduce di 160 per 5 secondi.",
+	"skill.rimeshatter.name": "Frantumazione di brina",
+	"skill.rimeshatter.explanation": "Spara un dardo gelido a ciascuno di un massimo di tre partecipanti entro una portata di 260. Ogni dardo infligge 1,5 volte l'attacco magico del Djinn.",
+	"skill.rimeshell.name": "Guscio di brina",
+	"skill.rimeshell.explanation": "A metà salute, il Djinn prepara un incantesimo per 3 secondi. Infliggi danni pari al 5% dei suoi HP massimi oppure stordiscilo per rompere il guscio e ridurre la resistenza di 160 per 5 secondi. Altrimenti spara a un massimo di tre partecipanti vicini. Il normale congelamento non interrompe il lancio."
 }

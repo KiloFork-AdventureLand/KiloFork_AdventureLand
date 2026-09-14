@@ -52,5 +52,6 @@
 	"update.15_01_26.pr_add_crypt_monster_achievements_214": "PR: aggiunti traguardi per i mostri di crypt #214",
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "Nuova API JSON per risparmiare banda (interna)",
 	"update.01_01_26.slight_chance_something_might_break": "(C’è una piccola possibilità che qualcosa smetta di funzionare)",
-	"update.14_09_26.progression": "La Guida alla progressione suggerisce progetti di equipaggiamento, zone di caccia utili e occasioni attive fin dai primi scontri con Goo. Scegli un obiettivo sopra HP e MP o disattiva la guida nelle impostazioni accanto al tutorial. CODE può leggere gli stessi consigli con get_progression()."
+	"update.14_09_26.progression": "La Guida alla progressione suggerisce progetti di equipaggiamento, zone di caccia utili e occasioni attive fin dai primi scontri con Goo. Scegli un obiettivo sopra HP e MP o disattiva la guida nelle impostazioni accanto al tutorial. CODE può leggere gli stessi consigli con get_progression().",
+	"update.14_09_26.rime_djinn": "I Rime Djinn infestano ora Frozen Cove. Rompete insieme i loro gusci, ottenete ricompense Tracker e raccogliete Rimeglass per tre nuovi pezzi di equipaggiamento."
 }

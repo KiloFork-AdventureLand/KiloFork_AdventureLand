@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "게임 작업 기다리기",
 	"tutorial.js-events.title": "이벤트에 반응하기",
 	"tutorial.js-capstone.title": "작은 사냥 스크립트 만들기",
-	"directory.guide.progression-guide.title": "성장 가이드"
+	"directory.guide.progression-guide.title": "성장 가이드",
+	"item.rimeglass.explanation": "만지면 차갑다. 따뜻하게 해도 녹지 않는다.",
+	"item.djinncrown.explanation": "쉬지 못하는 마음을 위한 차가운 왕관.",
+	"item.covemantle.explanation": "밀물과 썰물 사이의 긴 기다림을 위해 짰다.",
+	"item.stillwaterlens.explanation": "유리 아래 무언가가 움직임을 멈췄다.",
+	"monster.rimedjinn.explanation": "갑작스러운 연속 타격에 껍질이 갈라진다.",
+	"condition.rimeshell.name": "서리 껍질",
+	"condition.rimeshell.explanation": "3초 안에 Djinn 최대 HP의 5%에 해당하는 피해를 주거나 기절시키면 껍질을 깰 수 있습니다. 일반 빙결은 시전을 중단시키지 않습니다.",
+	"condition.rimeexposed.name": "갈라진 껍질",
+	"condition.rimeexposed.explanation": "5초 동안 저항이 160 감소합니다.",
+	"skill.rimeshatter.name": "서리 파열",
+	"skill.rimeshatter.explanation": "사거리 260 안에서 전투에 기여한 최대 세 명에게 얼음 탄환을 하나씩 발사합니다. 각 탄환은 Djinn 마법 공격력의 1.5배에 해당하는 피해를 줍니다.",
+	"skill.rimeshell.name": "서리 껍질",
+	"skill.rimeshell.explanation": "체력이 절반이 되면 Djinn이 3초 동안 시전합니다. 최대 HP의 5%에 해당하는 피해를 주거나 기절시키면 껍질이 깨지고 5초 동안 저항이 160 감소합니다. 실패하면 근처에서 전투에 기여한 최대 세 명에게 발사합니다. 일반 빙결은 시전을 중단시키지 않습니다."
 }

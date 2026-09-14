@@ -1,4 +1,71 @@
 var craft={
+	"djinncrown":{
+		"items": [
+			[
+				80,
+				"rimeglass"
+			],
+			[
+				8,
+				"lspores"
+			],
+			[
+				2,
+				"essenceoffrost"
+			],
+			[
+				1,
+				"helmet",
+				0
+			]
+		],
+		"cost": 400000
+	},
+	"covemantle":{
+		"items": [
+			[
+				120,
+				"rimeglass"
+			],
+			[
+				12,
+				"spidersilk"
+			],
+			[
+				4,
+				"feather1"
+			],
+			[
+				1,
+				"cape",
+				0
+			]
+		],
+		"cost": 400000
+	},
+	"stillwaterlens":{
+		"items": [
+			[
+				240,
+				"rimeglass"
+			],
+			[
+				6,
+				"gemfragment"
+			],
+			[
+				8,
+				"seashell"
+			],
+			[
+				1,
+				"orbofint",
+				0
+			]
+		],
+		"cost": 800000
+	},
+
 	"sixcake":{
 		"items":[[1,"slice_strawberry"],[1,"slice_citrus"],[1,"slice_honey"],[1,"slice_mint"],[1,"slice_blueberry"],[1,"slice_nightberry"]],
 		"cost":100000,

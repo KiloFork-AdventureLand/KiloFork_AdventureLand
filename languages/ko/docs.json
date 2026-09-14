@@ -2473,5 +2473,10 @@
 	"docs.progression.resources": "계획은 착용 중이거나 보호된 장비를 제작과 합성 재료에서 제외합니다. 제작법은 정확한 아이템 레벨과 수량이 충분한 묶음을 요구합니다. 표시되는 성장 비용은 공물이나 은총을 제외한 평균이며 보장 금액이 아닙니다. 쓰기 전에 기존 강화 또는 합성 미리보기를 확인하세요.",
 	"docs.progression.code": "get_progression(options)는 이동, 소비, 공격 없이 조언을 반환합니다. 일반 CODE와 Mainframe에서 작동합니다. 호출하면 이후 전투 관찰을 시작하며 이전 플레이는 알 수 없습니다. HUD를 꺼도 이 CODE 함수는 꺼지지 않습니다.",
 	"docs.progression.api": "결과에는 ready, goal, progress, complete, rows, plans, opportunities, choices가 포함됩니다. 각 행에는 고정된 id, action, reason, cost와 자원 참조가 있습니다. 텍스트는 문구 ID와 매개변수를 사용합니다. 다른 목표는 goal, 지출 한도는 spendLimit, PvP 기회 검토는 allowPvp로 지정하세요. 옵션은 이번 조회에만 적용되며 저장된 HUD 목표는 바꾸지 않습니다.",
-	"docs.progression.travel": "{move} 버튼을 누르고 확인하면 표시된 NPC나 사냥터로 이동합니다. 아이템 구매와 전투 시작은 직접 해야 합니다."
+	"docs.progression.travel": "{move} 버튼을 누르고 확인하면 표시된 NPC나 사냥터로 이동합니다. 아이템 구매와 전투 시작은 직접 해야 합니다.",
+	"docs.guide.rime-djinn.intro": "Rime Djinn은 Harpy 너머 Frozen Cove 중앙 섬을 떠다닙니다. 지나가는 이를 때려도 쫓지는 않지만, 공격받으면 반격합니다. 마법 공격에 맞설 동료를 데려오세요.",
+	"docs.guide.rime-djinn.ui": "Djinn을 선택하면 껍질의 남은 시간과 깨는 데 필요한 남은 피해를 볼 수 있습니다. 능력이나 상태 아이콘을 클릭하면 자세한 정보가 나옵니다. 껍질을 깨면 갈라진 껍질이 5초 동안 표시됩니다. 기절이나 깊은 빙결로도 깰 수 있습니다.",
+	"docs.guide.rime-djinn.rewards": "기여자는 일반 협동 규칙에 따라 XP, 전리품, Tracker 처치 기록을 나눠 받습니다. 피해를 주거나, 공격을 받아내거나, 치유하는 행동이 기여할 수 있습니다. Rimeglass와 다른 재료를 모아 Leo에게서 Djinn Crown, Cove Mantle, Stillwater Lens를 제작하세요. 세 장비 모두 직접 드롭될 수도 있습니다.",
+	"docs.guide.rime-djinn.code_combat": "살아 있는 상태로 Frozen Cove의 공격 사거리 안에서, MP가 충분하고 공격이 준비됐을 때 한 번 실행하세요. 이미 동료와 싸우는 Djinn도 선택합니다. 껍질의 ms는 밀리초, remaining은 필요한 피해를 나타내며, rimeexposed는 껍질이 깨진 상태를 나타냅니다.",
+	"docs.guide.rime-djinn.code_craft": "Leo 근처에 있거나 Computer를 사용할 수 있고, 골드와 빈 공간이 충분하며 잠금 해제된 모든 재료가 인벤토리에 있을 때 실행하세요. Helmet +0을 사용합니다. 다른 제작법은 djinncrown을 covemantle 또는 stillwaterlens로 바꾸고 각각 Cape +0 또는 Orb of Intelligence +0을 사용하세요."
 }

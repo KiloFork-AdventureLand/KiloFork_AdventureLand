@@ -1,5 +1,6 @@
 // Newest notes first. Add player-visible changes at the top with deployed: null.
 module.exports = [
+	{"phrase": "update.14_09_26.rime_djinn", "deployed": null, "date": "[14/09/26]", "note": "Rime Djinn now haunt Frozen Cove. Break their shells together, earn Tracker rewards, and gather Rimeglass for three new pieces of equipment."},
 	{
 		phrase: "update.14_09_26.progression",
 		deployed: null,

@@ -856,5 +856,6 @@
 	"interface.time.minutes_left.few": "Zbývají {count} minuty",
 	"interface.time.minutes_left.many": "Zbývá {count} minuty",
 	"interface.time.seconds.few": "{count} sekundy",
-	"interface.time.seconds.many": "{count} sekundy"
+	"interface.time.seconds.many": "{count} sekundy",
+	"interface.monster.rime_shell_progress": "{seconds} s · Chybí poškození: {damage}"
 }

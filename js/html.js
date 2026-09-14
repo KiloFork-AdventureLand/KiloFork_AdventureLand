@@ -1136,6 +1136,10 @@ function render_monster(monster) {
 	if (monster.lifesteal) html += info_line({ name: phrase.html("interface.monster.lifesteal"), color: colors.lifesteal, value: monster.lifesteal + "%" });
 	if (monster["1hp"]) html += info_line({ line: phrase.html("interface.monster.1hp_hits"), color: "#AEAEAE" });
 	if (monster.cooperative) html += info_line({ line: phrase.html("interface.monster.cooperative"), color: "#AEAEAE" });
+	if (monster.s.rimeshell) html += info_line({
+		line: phrase.html("interface.monster.rime_shell_progress", { seconds: (Math.max(0, monster.s.rimeshell.ms) / 1000).toFixed(1), damage: to_pretty_num(monster.s.rimeshell.remaining) }),
+		color: "#A8DCDC",
+	});
 	if (def.immune) html += info_line({ line: phrase.html("interface.monster.immune"), color: "#AEAEAE" });
 	if (def.peaceful) html += info_line({ line: phrase.html("interface.monster.peaceful"), color: "#54B25F" });
 	if (def.supporter) html += info_line({ line: phrase.html("interface.monster.supporter"), color: "#CA5931" });
@@ -3068,6 +3072,7 @@ function render_monster_info(name) {
 		if (tracker.max.monsters[name]) ((mcount = tracker.max.monsters[name][0]), (mowner = tracker.max.monsters[name][1]));
 	}
 	html += render_item("html", { pure: true, item: G.monsters[name], prop: G.monsters[name], monster: name, count: count, mcount: mcount, score: count + diff, mowner: mowner });
+	if (name === "rimedjinn") html += "<div class='textbutton' onclick=\"open_guide('rime-djinn','/docs/guide/world/rime-djinn')\">" + phrase.html("interface.item.info") + "</div>";
 	if (MR && MR[name] && MR[name].length) {
 		html += "<div style='margin-top: 6px; margin-bottom: 3px; color:#2A9A3D'>" + phrase.html("interface.monster_info.drops") + "</div>";
 		MR[name].forEach(function (drop) {

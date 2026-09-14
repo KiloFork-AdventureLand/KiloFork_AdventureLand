@@ -847,5 +847,6 @@
 	"interface.gallery.key": "鑰匙",
 	"interface.item.empty": "空",
 	"interface.item.empty_description": "空空如也。",
-	"interface.server.event": "活動！"
+	"interface.server.event": "活動！",
+	"interface.monster.rime_shell_progress": "{seconds}秒 · 尚需傷害：{damage}"
 }

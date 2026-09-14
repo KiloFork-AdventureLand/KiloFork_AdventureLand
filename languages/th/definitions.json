@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "รอการทำงานของเกม",
 	"tutorial.js-events.title": "ตอบสนองต่อเหตุการณ์",
 	"tutorial.js-capstone.title": "สร้างสคริปต์ฟาร์มเล็กๆ",
-	"directory.guide.progression-guide.title": "คู่มือพัฒนาตัวละคร"
+	"directory.guide.progression-guide.title": "คู่มือพัฒนาตัวละคร",
+	"item.rimeglass.explanation": "เย็นเมื่อสัมผัส ความอุ่นก็ละลายมันไม่ได้",
+	"item.djinncrown.explanation": "มงกุฎเย็นเยียบสำหรับจิตใจที่ไม่เคยสงบ",
+	"item.covemantle.explanation": "ทอไว้สำหรับการรอคอยอันยาวนานระหว่างกระแสน้ำขึ้นลง",
+	"item.stillwaterlens.explanation": "บางสิ่งใต้แก้วหยุดเคลื่อนไหวแล้ว",
+	"monster.rimedjinn.explanation": "เปลือกของมันแตกร้าวเมื่อถูกโจมตีรัวอย่างฉับพลัน",
+	"condition.rimeshell.name": "เปลือกน้ำค้างแข็ง",
+	"condition.rimeshell.explanation": "สร้างความเสียหายเท่ากับ 5% ของ HP สูงสุดของ Djinn ภายใน 3 วินาที หรือทำให้มันมึนงงเพื่อทำลายเปลือก การแช่แข็งทั่วไปไม่ขัดจังหวะการร่าย",
+	"condition.rimeexposed.name": "เปลือกแตกร้าว",
+	"condition.rimeexposed.explanation": "ความต้านทานลดลง 160 เป็นเวลา 5 วินาที",
+	"skill.rimeshatter.name": "น้ำค้างแข็งแตกกระจาย",
+	"skill.rimeshatter.explanation": "ยิงกระสุนน้ำแข็งใส่ผู้มีส่วนร่วมในการต่อสู้สูงสุดสามคนในระยะ 260 คนละหนึ่งนัด แต่ละนัดสร้างความเสียหาย 1.5 เท่าของพลังโจมตีเวทของ Djinn",
+	"skill.rimeshell.name": "เปลือกน้ำค้างแข็ง",
+	"skill.rimeshell.explanation": "เมื่อพลังชีวิตเหลือครึ่งหนึ่ง Djinn จะร่ายเป็นเวลา 3 วินาที สร้างความเสียหายเท่ากับ 5% ของ HP สูงสุดของมัน หรือทำให้มันมึนงงเพื่อทำลายเปลือกและลดความต้านทาน 160 เป็นเวลา 5 วินาที หากไม่สำเร็จ มันจะยิงใส่ผู้มีส่วนร่วมใกล้เคียงสูงสุดสามคน การแช่แข็งทั่วไปไม่ขัดจังหวะการร่าย"
 }

@@ -1,4 +1,15 @@
 var sprites = {
+	"rimedjinn":{
+		"file": "/images/tiles/monsters/femaledjinn_1.png",
+		"rows": 1,
+		"columns": 1,
+		"matrix": [
+			[
+				"rimedjinn"
+			]
+		]
+	},
+
 	jubchan: {
 		file: "/images/tiles/characters/jubchan_1.png",
 		rows: 1,
@@ -1205,7 +1216,7 @@ var imagesets = {
 		size: 20,
 		rows: 40,
 		columns: 20,
-		file: "/images/tiles/items/raw_items.png?v=21",
+		file: "/images/tiles/items/raw_items.png?v=23",
 		load: true,
 	},
 };

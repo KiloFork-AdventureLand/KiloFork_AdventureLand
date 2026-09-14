@@ -848,5 +848,6 @@
 	"interface.item.empty": "Празно",
 	"interface.item.empty_description": "Нищичко. Съвсем празно.",
 	"interface.server.event": "СЪБИТИЕ!",
-	"interface.merrit.reason_cooldown.one": "Следващата пратка за акаунта ти може да пристигне след {count} минута, когато Merrit те посети."
+	"interface.merrit.reason_cooldown.one": "Следващата пратка за акаунта ти може да пристигне след {count} минута, когато Merrit те посети.",
+	"interface.monster.rime_shell_progress": "{seconds} сек · Нужни щети: {damage}"
 }

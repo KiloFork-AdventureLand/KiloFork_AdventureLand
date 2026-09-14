@@ -852,5 +852,6 @@
 	"interface.merrit.reason_cooldown.one": "Il prossimo pacco per il tuo account può arrivare fra {count} minuto, quando passa Merrit.",
 	"interface.merrit.reason_warming.many": "Tieni questa bottega al suo posto per altri {count} minuti.",
 	"interface.time.minutes_left.many": "Restano {count} minuti",
-	"interface.time.seconds.many": "{count} secondi"
+	"interface.time.seconds.many": "{count} secondi",
+	"interface.monster.rime_shell_progress": "{seconds} s · Danni mancanti: {damage}"
 }

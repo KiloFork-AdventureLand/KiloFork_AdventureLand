@@ -1,5 +1,15 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Guide introduction. Rime Djinn, Frozen Cove and Harpy are fixed game names. Ordinary aggro=1 permits passing attacks without target acquisition.
+	"docs.guide.rime-djinn.intro": "Rime Djinn drift across the central island in Frozen Cove, beyond the Harpies. They strike passersby without giving chase, but fight back when attacked. Bring allies for their magical attacks.",
+	// Guide explanation of existing selected-monster UI, ABILITY link and condition icons. Translate ABILITY to the existing control label and Cracked Shell to condition.rimeexposed.name.
+	"docs.guide.rime-djinn.ui": "Select a Djinn to see its shell timer and remaining break damage. Click ABILITY or a condition icon for details. Breaking the shell reveals Cracked Shell for 5 seconds. A stun or deep freeze also breaks it.",
+	// Guide rewards. Proper item names, Rimeglass, Leo and Tracker remain unchanged. Contributions affect shares; rewards are not guaranteed every kill.
+	"docs.guide.rime-djinn.rewards": "Contributors share XP, drops and Tracker credit through the usual cooperative rules. Damage, tanking and healing can contribute. Collect Rimeglass and other materials, then visit Leo to craft Djinn Crown, Cove Mantle or Stillwater Lens. All three can also drop directly.",
+	// CODE requirements. Preserve Frozen Cove and identifiers ms, remaining, rimeexposed. One attack per call; get_nearest_monster deliberately includes occupied cooperative monsters.
+	"docs.guide.rime-djinn.code_combat": "Run this once while alive, in attack range in Frozen Cove, with enough MP and your attack ready. It also selects Djinn already fighting allies. The shell exposes milliseconds in ms and required damage in remaining; rimeexposed marks the broken shell.",
+	// CODE crafting requirements. Preserve Leo, Computer, Helmet, Cape, Orb of Intelligence and identifiers djinncrown, covemantle, stillwaterlens. Ingredient levels are exactly +0.
+	"docs.guide.rime-djinn.code_craft": "Run this near Leo or with a Computer, with enough gold, free inventory space and all ingredients unlocked in your inventory. Use a +0 Helmet. Replace djinncrown with covemantle or stillwaterlens for the other recipes, using a +0 Cape or +0 Orb of Intelligence respectively.",
 	// Tutorial welcome: earlier gameplay is remembered; {button} is the localized Continue label.
 	"docs.tutorial.helloworld.earlier_actions": "Earlier actions count too. When the tasks are done, choose {button} to move on.",
 	// Compounding lesson: both practice tasks are optional; no purchase or item consumption is required to continue.

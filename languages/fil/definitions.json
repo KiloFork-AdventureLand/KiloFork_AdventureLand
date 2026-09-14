@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "Hintayin ang laro",
 	"tutorial.js-events.title": "Tumugon sa mga event",
 	"tutorial.js-capstone.title": "Bumuo ng maliit na farming script",
-	"directory.guide.progression-guide.title": "Gabay sa Pag-unlad"
+	"directory.guide.progression-guide.title": "Gabay sa Pag-unlad",
+	"item.rimeglass.explanation": "Malamig hawakan. Hindi ito matutunaw sa init.",
+	"item.djinncrown.explanation": "Isang malamig na korona para sa isip na hindi mapakali.",
+	"item.covemantle.explanation": "Hinabi para sa mahabang paghihintay sa pagitan ng mga pagtaas ng tubig.",
+	"item.stillwaterlens.explanation": "May tumigil sa paggalaw sa ilalim ng salamin.",
+	"monster.rimedjinn.explanation": "Nabibitak ang talukab nito sa biglaang sunod-sunod na hampas.",
+	"condition.rimeshell.name": "Talukab ng Yelo",
+	"condition.rimeshell.explanation": "Para mabasag ang talukab, magdulot ng pinsalang katumbas ng 5% ng pinakamataas na HP ng Djinn sa loob ng 3 segundo, o patigilin ito sa pamamagitan ng stun. Hindi naaantala ng karaniwang pagyeyelo ang pagbigkas ng mahika.",
+	"condition.rimeexposed.name": "Bitak na Talukab",
+	"condition.rimeexposed.explanation": "Bumababa ng 160 ang resistansiya sa loob ng 5 segundo.",
+	"skill.rimeshatter.name": "Basag na Yelo",
+	"skill.rimeshatter.explanation": "Nagpapaputok ng tig-isang nagyeyelong bala sa hanggang tatlong nag-ambag sa laban na nasa saklaw na 260. Bawat bala ay nagdudulot ng pinsalang 1.5 beses ng mahiwagang atake ng Djinn.",
+	"skill.rimeshell.name": "Talukab ng Yelo",
+	"skill.rimeshell.explanation": "Kapag kalahati na ang buhay, bumibigkas ng mahika ang Djinn sa loob ng 3 segundo. Magdulot ng pinsalang katumbas ng 5% ng pinakamataas nitong HP o gamitan ito ng stun upang basagin ang talukab at bawasan ang resistansiya ng 160 sa loob ng 5 segundo. Kung hindi, papaputukan nito ang hanggang tatlong kalapit na nag-ambag sa laban. Hindi naaantala ng karaniwang pagyeyelo ang pagbigkas ng mahika."
 }

@@ -860,5 +860,6 @@
 	"interface.time.minutes_left.other": "Pozostało {count} min",
 	"interface.time.seconds.few": "{count} sekundy",
 	"interface.time.seconds.many": "{count} sekund",
-	"interface.time.seconds.other": "{count} sekundy"
+	"interface.time.seconds.other": "{count} sekundy",
+	"interface.monster.rime_shell_progress": "{seconds} s · Brakujące obrażenia: {damage}"
 }

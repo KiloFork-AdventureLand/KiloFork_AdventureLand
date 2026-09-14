@@ -2473,5 +2473,10 @@
 	"docs.progression.resources": "计划不会把正在穿戴和受保护的装备用于制作或合成。配方要求准确的物品等级和数量充足的单组堆叠。列出的培养费用是不计供品或恩赐的平均值，并非保证；花费前请查看游戏原有的强化或合成预览。",
 	"docs.progression.code": "get_progression(options)只返回建议，不移动、不花费、不攻击。适用于常规CODE和Mainframe。调用后开始观察后续战斗，无法得知此前的游玩情况。关闭HUD不会停用这个CODE函数。",
 	"docs.progression.api": "结果包括ready、goal、progress、complete、rows、plans、opportunities和choices。每行都有稳定的id、action、reason、cost和资源引用。文本使用短语ID及参数。用goal查看其他目标，用spendLimit限制支出，用allowPvp考虑PvP机会。选项只影响此次读取，不改变保存的HUD目标。",
-	"docs.progression.travel": "点击{move}并确认后，即可前往所示的NPC或刷怪地点。购买物品和开始战斗需要你自行操作。"
+	"docs.progression.travel": "点击{move}并确认后，即可前往所示的NPC或刷怪地点。购买物品和开始战斗需要你自行操作。",
+	"docs.guide.rime-djinn.intro": "Rime Djinn漂浮在Frozen Cove中央的岛上，就在Harpy的后方。它们会攻击路人，但不会追赶；受到攻击时则会还击。带上同伴，一起应对它们的魔法攻击。",
+	"docs.guide.rime-djinn.ui": "选中Djinn可查看外壳倒计时和破壳所需的剩余伤害。点击“能力”或状态图标可查看详情。破壳后会显示“裂壳”，持续5秒。击晕或深度冻结也能破壳。",
+	"docs.guide.rime-djinn.rewards": "贡献者按通常的合作规则分享XP、掉落和Tracker击杀记录。造成伤害、承受攻击和治疗都可贡献。收集Rimeglass等材料，再找Leo制作Djinn Crown、Cove Mantle或Stillwater Lens。这三件装备也可直接掉落。",
+	"docs.guide.rime-djinn.code_combat": "在Frozen Cove存活、处于攻击范围内、MP充足且攻击就绪时，运行一次此示例。它也会选中已与同伴交战的Djinn。外壳的ms字段表示剩余毫秒数，remaining表示所需伤害；rimeexposed表示外壳已破。",
+	"docs.guide.rime-djinn.code_craft": "在Leo附近或持有Computer时运行，并确保金币充足、背包有空位，且所有材料都在背包中并已解锁。使用Helmet +0。制作其他装备时，将djinncrown替换为covemantle或stillwaterlens，分别使用Cape +0或Orb of Intelligence +0。"
 }

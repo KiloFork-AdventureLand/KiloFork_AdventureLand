@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "Tunggu tindakan game",
 	"tutorial.js-events.title": "Tanggapi kejadian",
 	"tutorial.js-capstone.title": "Buat skrip farming kecil",
-	"directory.guide.progression-guide.title": "Panduan Perkembangan"
+	"directory.guide.progression-guide.title": "Panduan Perkembangan",
+	"item.rimeglass.explanation": "Dingin saat disentuh. Kehangatan tak akan melelehkannya.",
+	"item.djinncrown.explanation": "Mahkota dingin untuk pikiran yang gelisah.",
+	"item.covemantle.explanation": "Ditenun untuk penantian panjang di antara pasang surut.",
+	"item.stillwaterlens.explanation": "Sesuatu di bawah kaca telah berhenti bergerak.",
+	"monster.rimedjinn.explanation": "Cangkangnya retak oleh rentetan pukulan mendadak.",
+	"condition.rimeshell.name": "Cangkang Embun Beku",
+	"condition.rimeshell.explanation": "Untuk memecahkan cangkang, berikan kerusakan sebesar 5% HP maksimum Djinn dalam 3 detik, atau buat ia tertegun. Pembekuan biasa tidak menghentikan perapalan.",
+	"condition.rimeexposed.name": "Cangkang Retak",
+	"condition.rimeexposed.explanation": "Resistansi berkurang 160 selama 5 detik.",
+	"skill.rimeshatter.name": "Pecahan Embun Beku",
+	"skill.rimeshatter.explanation": "Menembakkan satu proyektil es kepada masing-masing dari maksimal tiga peserta yang berkontribusi dalam jangkauan 260. Setiap proyektil memberikan kerusakan sebesar 1,5 kali serangan sihir Djinn.",
+	"skill.rimeshell.name": "Cangkang Embun Beku",
+	"skill.rimeshell.explanation": "Saat kesehatannya tinggal separuh, Djinn merapal selama 3 detik. Berikan kerusakan sebesar 5% HP maksimumnya atau buat ia tertegun untuk memecahkan cangkang dan menurunkan resistansi 160 selama 5 detik. Jika gagal, ia menembak maksimal tiga peserta yang berkontribusi di dekatnya. Pembekuan biasa tidak menghentikan perapalan."
 }

@@ -1,5 +1,7 @@
 // Release highlights. Dates, item/character names and CODE identifiers stay unchanged.
 module.exports = {
+	// Release highlight for cooperative Rime Djinn and four items. Preserve Rime Djinn, Frozen Cove, Tracker and Rimeglass.
+	"update.14_09_26.rime_djinn": "Rime Djinn now haunt Frozen Cove. Break their shells together, earn Tracker rewards, and gather Rimeglass for three new pieces of equipment.",
 	// Release highlight: failed character startup now releases its online claim so the player can reconnect.
 	"update.13_09_26.login_recovery": "Fixed failed logins that could leave characters stuck online and prevent reconnecting.",
 	// Tutorial release highlight: wider completion paths, remembered actions and optional compounding practice.

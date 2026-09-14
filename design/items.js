@@ -3,6 +3,58 @@
 // "a" Announce + High Grade
 // "a" 2 - Announce Within the Map
 var items={
+	"rimeglass":{
+		"type": "material",
+		"skin": "rimeglass",
+		"name": "Rimeglass",
+		"s": 9999,
+		"g": 160,
+		"exclusive": true,
+		"explanation": "Cold to the touch. Warmth will not melt it."
+	},
+	"covemantle":{
+		"type": "cape",
+		"skin": "covemantle",
+		"name": "Cove Mantle",
+		"scroll": true,
+		"stat": 6,
+		"armor": 12,
+		"resistance": 24,
+		"mp": 160,
+		"mp_reduction": 3,
+		"upgrade": {
+			"stat": 0.1,
+			"armor": 1.5,
+			"resistance": 3,
+			"mp": 25
+		},
+		"grades": [
+			0,
+			7,
+			9,
+			10
+		],
+		"g": 120000,
+		"exclusive": true,
+		"cx": {
+			"accent": "#779DB8"
+		},
+		"explanation": "Woven for the long wait between tides."
+	},
+	"stillwaterlens":{
+		"type": "orb",
+		"skin": "stillwaterlens",
+		"name": "Stillwater Lens",
+		"int": 9,
+		"mp": 400,
+		"resistance": 60,
+		"g": 240000,
+		"exclusive": true,
+		"cx": {
+			"accent": "#59C7B8"
+		},
+		"explanation": "Something beneath the glass has stopped moving."
+	},
 	"homecomingcape":{
 		"type":"cape",
 		"skin":"homecomingcape",
@@ -262,6 +314,35 @@ var items={
 }
 
 var armor={
+	"djinncrown":{
+		"type": "helmet",
+		"skin": "djinncrown",
+		"name": "Djinn Crown",
+		"tier": 2.5,
+		"scroll": true,
+		"class": [
+			"mage",
+			"priest"
+		],
+		"mp": 240,
+		"mp_reduction": 4,
+		"upgrade": {
+			"mp": 35
+		},
+		"grades": [
+			0,
+			5,
+			9,
+			10
+		],
+		"g": 160000,
+		"exclusive": true,
+		"cx": {
+			"accent": "#63BCE0"
+		},
+		"explanation": "A cold crown for a restless mind.",
+		"stat": 3
+	},
 	"duskweavehood":{
 		"name": "Duskweave Hood",
 		"type": "helmet",

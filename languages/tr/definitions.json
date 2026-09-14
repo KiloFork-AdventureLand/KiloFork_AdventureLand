@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "Oyunu bekle",
 	"tutorial.js-events.title": "Olaylara tepki ver",
 	"tutorial.js-capstone.title": "Küçük bir avlanma betiği yaz",
-	"directory.guide.progression-guide.title": "İlerleme Rehberi"
+	"directory.guide.progression-guide.title": "İlerleme Rehberi",
+	"item.rimeglass.explanation": "Dokununca soğuk. Sıcaklık onu eritemez.",
+	"item.djinncrown.explanation": "Huzursuz bir zihin için soğuk bir taç.",
+	"item.covemantle.explanation": "Gelgitler arasındaki uzun bekleyiş için dokunmuş.",
+	"item.stillwaterlens.explanation": "Camın altında bir şeyin hareketi durmuş.",
+	"monster.rimedjinn.explanation": "Ani bir darbe yağmuru kabuğunu çatlatır.",
+	"condition.rimeshell.name": "Kırağı Kabuğu",
+	"condition.rimeshell.explanation": "Kabuğu kırmak için 3 saniye içinde Djinn’in azami HP’sinin %5’i kadar hasar verin veya onu sersemletin. Normal dondurma büyüyü kesmez.",
+	"condition.rimeexposed.name": "Çatlak Kabuk",
+	"condition.rimeexposed.explanation": "Direnç 5 saniyeliğine 160 azalır.",
+	"skill.rimeshatter.name": "Kırağı Parçalanması",
+	"skill.rimeshatter.explanation": "260 menzil içindeki en fazla üç katkı sağlayan kişiye birer buzlu ok atar. Her ok Djinn’in büyülü saldırısının 1,5 katı hasar verir.",
+	"skill.rimeshell.name": "Kırağı Kabuğu",
+	"skill.rimeshell.explanation": "Canı yarıya indiğinde Djinn 3 saniye büyü hazırlar. Kabuğu kırıp direncini 5 saniyeliğine 160 düşürmek için azami HP’sinin %5’i kadar hasar verin veya onu sersemletin. Aksi halde yakındaki en fazla üç katkı sağlayan kişiye ateş eder. Normal dondurma büyüyü kesmez."
 }

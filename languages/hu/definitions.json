@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "Várj a játékra",
 	"tutorial.js-events.title": "Reagálj az eseményekre",
 	"tutorial.js-capstone.title": "Készíts kis farmoló szkriptet",
-	"directory.guide.progression-guide.title": "Fejlődési útmutató"
+	"directory.guide.progression-guide.title": "Fejlődési útmutató",
+	"item.rimeglass.explanation": "Hideg tapintású. A meleg sem olvasztja meg.",
+	"item.djinncrown.explanation": "Hideg korona egy nyughatatlan elmének.",
+	"item.covemantle.explanation": "Az árapályok közti hosszú várakozásra szőtték.",
+	"item.stillwaterlens.explanation": "Valami az üveg alatt már nem mozog.",
+	"monster.rimedjinn.explanation": "Páncélját megrepeszti a hirtelen rázúduló ütéssorozat.",
+	"condition.rimeshell.name": "Dérpáncél",
+	"condition.rimeshell.explanation": "A páncél feltöréséhez 3 másodpercen belül sebezz a dzsinn maximális HP-jának 5%-ával egyenlőt, vagy kábítsd el. A szokásos fagyasztás nem szakítja meg a varázslást.",
+	"condition.rimeexposed.name": "Repedt páncél",
+	"condition.rimeexposed.explanation": "Az ellenállás 5 másodpercre 160-nal csökken.",
+	"skill.rimeshatter.name": "Dérhasadás",
+	"skill.rimeshatter.explanation": "Egy-egy jeges lövedéket lő a harc legfeljebb három közreműködőjére 260 hatótávon belül. Minden lövedék a dzsinn mágikus támadásának 1,5-szeresét sebzi.",
+	"skill.rimeshell.name": "Dérpáncél",
+	"skill.rimeshell.explanation": "Fél életerőnél a dzsinn 3 másodpercig varázsol. Sebezz a maximális HP-jának 5%-ával egyenlőt, vagy kábítsd el, hogy feltörd a páncélt, és 5 másodpercre 160-nal csökkentsd az ellenállását. Ellenkező esetben legfeljebb három közeli közreműködőre lő. A szokásos fagyasztás nem szakítja meg a varázslást."
 }

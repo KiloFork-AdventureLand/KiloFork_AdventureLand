@@ -710,6 +710,7 @@ docs = {
 			[
 				["travel-and-instances", "Travel, Doors & Instances", "travel,door,key,instance,transport,smart_move", "#6DB7B8"],
 				["events-and-home", "Events, Schedules & Home", "event,schedule,home,server,status", "#A58BC8"],
+				["rime-djinn", "Rime Djinn", "frozen cove,rimeglass,shell,cooperative,craft", "#63BCE0"],
 				["event-anniversary", "Ten Years & Mira's Cakes", "anniversary,mira,cake,slice,gift,kiss,craft", "#E6AE3F"],
 				["tavern-games", "Tavern Games", "tavern,dice,slots,wager,house edge", "#C78A6B"],
 				["gathering", "Fishing & Mining", "fishing,mining,rod,pickaxe", "#62B9A6"],

@@ -52,5 +52,6 @@
 	"update.15_01_26.pr_add_crypt_monster_achievements_214": "PR: Lisää saavutukset crypt-hirviöille #214",
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "Uusi JSON API säästää kaistanleveyttä (sisäinen)",
 	"update.01_01_26.slight_chance_something_might_break": "(Pieni mahdollisuus, että jokin lakkaa toimimasta)",
-	"update.14_09_26.progression": "Kehitysopas ehdottaa varustehankkeita, hyödyllisiä metsästyspaikkoja ja ajankohtaisia tilaisuuksia ensimmäisistä Goo-taisteluista lähtien. Valitse tavoite HP:n ja MP:n yläpuolelta tai sammuta opas asetuksista opetuksen vierestä. CODE voi lukea samat neuvot get_progression()-funktiolla."
+	"update.14_09_26.progression": "Kehitysopas ehdottaa varustehankkeita, hyödyllisiä metsästyspaikkoja ja ajankohtaisia tilaisuuksia ensimmäisistä Goo-taisteluista lähtien. Valitse tavoite HP:n ja MP:n yläpuolelta tai sammuta opas asetuksista opetuksen vierestä. CODE voi lukea samat neuvot get_progression()-funktiolla.",
+	"update.14_09_26.rime_djinn": "Rime Djinn kummittelevat nyt Frozen Covessa. Rikkokaa niiden kuoret yhdessä, ansaitkaa Tracker-palkintoja ja kerätkää Rimeglass kolmea uutta varustetta varten."
 }

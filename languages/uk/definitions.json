@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "Дочекайся гри",
 	"tutorial.js-events.title": "Реагуй на події",
 	"tutorial.js-capstone.title": "Створи невеликий скрипт фарму",
-	"directory.guide.progression-guide.title": "Путівник розвитку"
+	"directory.guide.progression-guide.title": "Путівник розвитку",
+	"item.rimeglass.explanation": "Холодне на дотик. Тепло його не розтопить.",
+	"item.djinncrown.explanation": "Холодна корона для неспокійного розуму.",
+	"item.covemantle.explanation": "Зітканий для довгого очікування між припливами.",
+	"item.stillwaterlens.explanation": "Щось під склом перестало рухатися.",
+	"monster.rimedjinn.explanation": "Його панцир тріскається під раптовою зливою ударів.",
+	"condition.rimeshell.name": "Інеєвий панцир",
+	"condition.rimeshell.explanation": "Щоб розбити панцир, за 3 секунди завдайте шкоди, що дорівнює 5% максимального HP джина, або приголомште його. Звичайне заморожування не перериває закляття.",
+	"condition.rimeexposed.name": "Тріснутий панцир",
+	"condition.rimeexposed.explanation": "Опір знижено на 160 на 5 секунд.",
+	"skill.rimeshatter.name": "Інеєвий розкол",
+	"skill.rimeshatter.explanation": "Випускає по одному крижаному снаряду в щонайбільше трьох учасників бою в радіусі 260. Кожен снаряд завдає шкоди, що дорівнює 1,5 магічної атаки джина.",
+	"skill.rimeshell.name": "Інеєвий панцир",
+	"skill.rimeshell.explanation": "Коли залишається половина здоров’я, джин готує закляття 3 секунди. Завдайте шкоди, що дорівнює 5% його максимального HP, або приголомште його, щоб розбити панцир і знизити опір на 160 на 5 секунд. Інакше він вистрілить у щонайбільше трьох учасників бою поблизу. Звичайне заморожування не перериває закляття."
 }

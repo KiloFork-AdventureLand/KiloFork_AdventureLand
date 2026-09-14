@@ -847,5 +847,6 @@
 	"interface.gallery.key": "열쇠",
 	"interface.item.empty": "비어 있음",
 	"interface.item.empty_description": "아무것도 없어요. 텅 비었죠.",
-	"interface.server.event": "이벤트!"
+	"interface.server.event": "이벤트!",
+	"interface.monster.rime_shell_progress": "{seconds}초 · 남은 필요 피해: {damage}"
 }

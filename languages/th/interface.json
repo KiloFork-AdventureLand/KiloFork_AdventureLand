@@ -847,5 +847,6 @@
 	"interface.gallery.key": "กุญแจ",
 	"interface.item.empty": "ว่าง",
 	"interface.item.empty_description": "ไม่มีอะไรเลย ว่างเปล่าสนิท",
-	"interface.server.event": "กิจกรรม!"
+	"interface.server.event": "กิจกรรม!",
+	"interface.monster.rime_shell_progress": "{seconds} วิ · ต้องทำอีก {damage} ดาเมจ"
 }

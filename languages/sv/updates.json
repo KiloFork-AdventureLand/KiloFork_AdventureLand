@@ -93,5 +93,6 @@
 	"update.16_09_16.launched_the_premium_currency_shells_and_first_premium_items": "Lanserat premiumvalutan SNÄCKOR och de första premiumföremålen. SNÄCKOR droppar även från monster. Jag tänker inte berätta vilka :]",
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "Infört ”aggressivitet” för monster. Bee sticker :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "Lagt till funktionen ”linjer”. Ritar en linje mellan entiteter vid attacker och helande. Borde vara särskilt användbar i PVP.",
-	"update.14_09_26.progression": "Utvecklingsguiden föreslår utrustningsprojekt, användbara jaktområden och aktuella möjligheter från dina första Goo-strider. Välj ett mål ovanför HP och MP eller stäng av guiden i inställningarna bredvid handledningen. CODE kan läsa samma råd med get_progression()."
+	"update.14_09_26.progression": "Utvecklingsguiden föreslår utrustningsprojekt, användbara jaktområden och aktuella möjligheter från dina första Goo-strider. Välj ett mål ovanför HP och MP eller stäng av guiden i inställningarna bredvid handledningen. CODE kan läsa samma råd med get_progression().",
+	"update.14_09_26.rime_djinn": "Rime Djinn hemsöker nu Frozen Cove. Krossa deras skal tillsammans, få Tracker-belöningar och samla Rimeglass till tre nya utrustningsdelar."
 }

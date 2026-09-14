@@ -1,4 +1,27 @@
 var skills={
+	"rimeshatter":{
+		"name": "Rime Shatter",
+		"skin": "rimeglass",
+		"type": "monster",
+		"hostile": true,
+		"damage_type": "magical",
+		"projectile": "rimehelix",
+		"damage_multiplier": 1.5,
+		"range": 260,
+		"procs": false,
+		"monster": true,
+		"explanation": "Fires one icy bolt at up to three contributors within 260 range. Each bolt deals 1.5 times the Djinn’s magical attack.",
+		"class": []
+	},
+	"rimeshell":{
+		"name": "Rime Shell",
+		"skin": "rimeglass",
+		"type": "monster",
+		"class": [],
+		"explanation": "At half health, the Djinn casts for 3 seconds. Deal damage equal to 5% of its maximum HP, or stun it, to break the shell and lower resistance by 160 for 5 seconds. Otherwise, it fires at up to three nearby contributors. Ordinary freezing does not interrupt it.",
+		"monster": true
+	},
+
 	//Monsters
 	"portal":{
 		"type":"monster",

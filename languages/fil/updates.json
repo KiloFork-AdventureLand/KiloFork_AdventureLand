@@ -52,5 +52,6 @@
 	"update.15_01_26.pr_add_crypt_monster_achievements_214": "PR: magdagdag ng mga nakamit para sa mga halimaw sa crypt #214",
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "Bagong JSON API upang makatipid sa bandwidth (Panloob)",
 	"update.01_01_26.slight_chance_something_might_break": "(May maliit na tsansang may masira)",
-	"update.14_09_26.progression": "Nagmumungkahi ang Gabay sa Pag-unlad ng mga proyekto sa kagamitan, kapaki-pakinabang na pangangaso at aktibong pagkakataon, mula sa una mong mga laban sa Goo. Pumili ng layunin sa itaas ng HP at MP, o patayin ang gabay katabi ng Tutorial sa Mga Setting. Mababasa ng CODE ang parehong payo gamit ang get_progression()."
+	"update.14_09_26.progression": "Nagmumungkahi ang Gabay sa Pag-unlad ng mga proyekto sa kagamitan, kapaki-pakinabang na pangangaso at aktibong pagkakataon, mula sa una mong mga laban sa Goo. Pumili ng layunin sa itaas ng HP at MP, o patayin ang gabay katabi ng Tutorial sa Mga Setting. Mababasa ng CODE ang parehong payo gamit ang get_progression().",
+	"update.14_09_26.rime_djinn": "Nasa Frozen Cove na ang Rime Djinn. Sama-samang basagin ang kanilang talukab, kumita ng mga gantimpala sa Tracker, at mangolekta ng Rimeglass para sa tatlong bagong kagamitan."
 }

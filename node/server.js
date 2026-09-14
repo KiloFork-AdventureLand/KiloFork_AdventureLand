@@ -133,6 +133,18 @@ var pend = 0;
 var tavern = {};
 var dbase = { h: 8, v: 7, vn: 2 }; // default-base
 var G = {};
+const monster_abilities = require("./logic/monster_abilities")({
+	get_game: () => G,
+	get_player,
+	distance,
+	is_disabled,
+	is_invis,
+	is_invinc,
+	add_condition,
+	calculate_monster_stats,
+	commence_attack,
+	now: () => new Date(),
+});
 var D = {};
 var P = {}; // the game
 var S = {}; // server data
@@ -3043,6 +3055,22 @@ function issue_player_award(attacker, target) {
 }
 
 function commence_attack(attacker, target, atype) {
+	if (
+		atype === "rimeshell" ||
+		(atype === "rimeshatter" &&
+			(!attacker.is_monster ||
+				attacker.type !== "rimedjinn" ||
+				!target.is_player ||
+				target.npc ||
+				target.rip ||
+				target.map !== attacker.map ||
+				target.in !== attacker.in ||
+				is_invis(target) ||
+				is_invinc(target) ||
+				distance(attacker, target) >= G.skills.rimeshatter.range))
+	) {
+		return { failed: true, reason: "skill_cant_use", place: atype, id: target.id };
+	}
 	// Direct attack callers must also have the required offhand equipped.
 	if (G.skills[atype].offhand_type && !skill_offhand_matches(attacker, G.skills[atype])) {
 		return { failed: true, reason: "skill_cant_slot", place: atype, id: target.id };
@@ -3128,7 +3156,7 @@ function commence_attack(attacker, target, atype) {
 	}
 
 	// PROCS
-	if (!attacker.is_player || G.skills[atype].procs) {
+	if (atype !== "rimeshatter" && (!attacker.is_player || G.skills[atype].procs)) {
 		info.procs = true;
 	}
 
@@ -3289,6 +3317,8 @@ function commence_attack(attacker, target, atype) {
 		attack = attacker.attack * G.skills[atype].damage_multiplier;
 	} else if (atype == "poisonarrow") {
 		info.conditions.push("poisoned");
+	} else if (atype == "rimeshatter") {
+		attack = attacker.attack * G.skills.rimeshatter.damage_multiplier;
 	} else if (attacker.is_monster) {
 		var rng = parseInt(Math.random() * 100 - 50);
 		if (attacker.s.poisonous) {
@@ -4057,6 +4087,16 @@ function complete_attack(attacker, target, info) {
 		}
 		target.hp = min(target.hp - attack, target.max_hp); // both for damage and heal
 		var net = original - max(0, target.hp);
+		if (
+			target.type === "rimedjinn" &&
+			attacker.is_player &&
+			!info.heal &&
+			!info.positive &&
+			!info.reflections &&
+			!info.action.reflect
+		) {
+			monster_abilities.damage(target, attacker, net);
+		}
 		if (target.is_player && net > 0) {
 			if (attacker.is_monster) {
 				encouragement_points(attacker, target, net * B.dps_tank_mult);
@@ -9361,6 +9401,9 @@ function init_socket_io(socket_server) {
 			if (!gSkill) {
 				return fail_response("no_skill", data.name);
 			}
+			if (data.name === "rimeshell" || data.name === "rimeshatter") {
+				return fail_response("skill_cant_use", data.name);
+			}
 			// Validate the whole bounded list before any charge, projectile, or cooldown changes.
 			const validTargetId = (id) => typeof id === "string" || (Number.isSafeInteger(id) && id >= 0);
 			if (data.name === "3shot" || data.name === "5shot" || data.name === "fanofknives") {
@@ -13086,6 +13129,7 @@ function new_monster(instance, map_def, args) {
 			"level",
 			"s",
 			"temp",
+			"rime_shell",
 			"points",
 			"contributions",
 			"contribution_total",
@@ -13427,7 +13471,7 @@ function defeated_by_a_monster(attacker, player) {
 }
 
 function can_attack(monster, player) {
-	if (is_disabled(monster)) {
+	if (is_disabled(monster) || monster_abilities.active(monster)) {
 		return false;
 	}
 	if (player == "aggro") {
@@ -13516,6 +13560,8 @@ function update_instance(instance) {
 			change = true;
 		} // better to re-calculate for now, for charge speed changes
 		for (var name in monster.s) {
+			// The cast uses an absolute deadline in monster_abilities.
+			if (name === "rimeshell") continue;
 			var def = G.conditions[name];
 			var ref = monster.s[name];
 			var value = monster.s[name].ms;
@@ -13556,6 +13602,7 @@ function update_instance(instance) {
 						if (burner) {
 							add_pdps(burner, monster, damage);
 							add_coop_points(monster, burner, damage, contribution);
+							monster_abilities.damage(monster, burner, contribution);
 						}
 						if (monster.hp <= 0) {
 							if (burner) {
@@ -13791,6 +13838,7 @@ function update_instance(instance) {
 		if (change) {
 			calculate_monster_stats(monster);
 		}
+		monster_abilities.tick(monster, events);
 		if (
 			!monster.pet &&
 			!monster.trap &&

@@ -1,4 +1,6 @@
 module.exports = {
+	// Compact selected-monster line. seconds is a formatted remaining duration; damage is the exact remaining damage needed to break its shell, not monster HP. Preserve both placeholders.
+	"interface.monster.rime_shell_progress": "{seconds}s · {damage} damage left",
 	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.
 	"interface.anniversary_status.realmfatigue": "No kiss rewards or buff: Realm Fatigue is active. Check its timer and join a later round once it clears.",
 	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.

@@ -4,6 +4,8 @@ English phrases live in `en/*.js`. Each entry has a stable semantic identifier a
 
 Every new or changed player-facing feature must update its English phrases and every supported language in the same change. This includes the website, login, game UI, messages, descriptions, dialogue, tutorials, guides, public CODE documentation and player-facing tools. Developer-facing proposals, experiments, prototypes, internal scripts and operational logs are outside this scope. When prototype content enters the live product, the translation requirements apply.
 
+Rime Djinn: all 20 new tooltip, interface, guide and release phrases are translated and proofread in all 32 supported languages. Canonical text and placeholders were checked on 2026-09-14.
+
 ## Runtime
 
 The server reads and caches the requested language with English fallback. The browser receives only phrases needed by client JavaScript through `/phrases/<language>.js?v=<version>`.

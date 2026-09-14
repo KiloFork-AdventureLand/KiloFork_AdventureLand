@@ -847,5 +847,6 @@
 	"interface.gallery.key": "Anahtarlar",
 	"interface.item.empty": "Boş",
 	"interface.item.empty_description": "Hiçbir şey yok. Hem de hiç.",
-	"interface.server.event": "ETKİNLİK!"
+	"interface.server.event": "ETKİNLİK!",
+	"interface.monster.rime_shell_progress": "{seconds} sn · Kalan hasar: {damage}"
 }

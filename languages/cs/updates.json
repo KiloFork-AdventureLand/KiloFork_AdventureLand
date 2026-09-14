@@ -52,5 +52,6 @@
 	"update.15_01_26.pr_add_crypt_monster_achievements_214": "PR: přidání úspěchů za nestvůry v kryptě #214",
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "Nové JSON API pro úsporu přenesených dat (interní)",
 	"update.01_01_26.slight_chance_something_might_break": "(Malá šance, že se něco pokazí)",
-	"update.14_09_26.progression": "Průvodce postupem doporučuje projekty výbavy, užitečná loviště a aktuální příležitosti už od prvních soubojů s Goo. Vyber cíl nad HP a MP nebo průvodce vypni v nastavení vedle výuky. CODE může číst stejné rady přes get_progression()."
+	"update.14_09_26.progression": "Průvodce postupem doporučuje projekty výbavy, užitečná loviště a aktuální příležitosti už od prvních soubojů s Goo. Vyber cíl nad HP a MP nebo průvodce vypni v nastavení vedle výuky. CODE může číst stejné rady přes get_progression().",
+	"update.14_09_26.rime_djinn": "Rime Djinn nyní obývají Frozen Cove. Rozbíjejte jejich krunýře společně, získávejte odměny Tracker a sbírejte Rimeglass na tři nové kusy vybavení."
 }

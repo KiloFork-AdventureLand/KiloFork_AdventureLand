@@ -848,5 +848,6 @@
 	"interface.item.empty": "Vide",
 	"interface.item.empty_description": "Rien. Pas même une miette.",
 	"interface.server.event": "ÉVÉNEMENT !",
-	"interface.merrit.reason_cooldown.one": "Le prochain colis de ton compte pourra arriver dans {count} minute, lors du passage de Merrit."
+	"interface.merrit.reason_cooldown.one": "Le prochain colis de ton compte pourra arriver dans {count} minute, lors du passage de Merrit.",
+	"interface.monster.rime_shell_progress": "{seconds} s · Dégâts restants : {damage}"
 }

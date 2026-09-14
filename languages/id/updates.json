@@ -52,5 +52,6 @@
 	"update.15_01_26.pr_add_crypt_monster_achievements_214": "PR: menambahkan pencapaian monster crypt #214",
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "API JSON baru untuk menghemat bandwidth (Internal)",
 	"update.01_01_26.slight_chance_something_might_break": "(Ada kemungkinan kecil sesuatu bermasalah)",
-	"update.14_09_26.progression": "Panduan Perkembangan menyarankan proyek perlengkapan, tempat berburu yang berguna, dan peluang aktif sejak pertarungan Goo pertamamu. Pilih tujuan di atas HP dan MP, atau matikan panduan di Pengaturan di samping Tutorial. CODE dapat membaca saran yang sama melalui get_progression()."
+	"update.14_09_26.progression": "Panduan Perkembangan menyarankan proyek perlengkapan, tempat berburu yang berguna, dan peluang aktif sejak pertarungan Goo pertamamu. Pilih tujuan di atas HP dan MP, atau matikan panduan di Pengaturan di samping Tutorial. CODE dapat membaca saran yang sama melalui get_progression().",
+	"update.14_09_26.rime_djinn": "Rime Djinn kini menghantui Frozen Cove. Pecahkan cangkang mereka bersama, dapatkan hadiah Tracker, dan kumpulkan Rimeglass untuk tiga perlengkapan baru."
 }

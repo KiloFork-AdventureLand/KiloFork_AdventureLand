@@ -1465,6 +1465,91 @@ var monsters={
 
 };
 
+monsters.rimedjinn={
+	"name": "Rime Djinn",
+	"skin": "rimedjinn",
+	"hp": 640000,
+	"mp": 12800,
+	"xp": 512000,
+	"attack": 960,
+	"damage_type": "magical",
+	"frequency": 0.8,
+	"range": 200,
+	"speed": 18,
+	"charge": 40,
+	"armor": 320,
+	"resistance": 160,
+	"rpiercing": 80,
+	"aggro": 1,
+	"rage": 0,
+	"respawn": 12,
+	"gold": 360,
+	"difficulty": 3,
+	"projectile": "rimehelix",
+	"achievements": [
+		[
+			1,
+			"stat",
+			"mp",
+			5
+		],
+		[
+			10,
+			"stat",
+			"mp",
+			10
+		],
+		[
+			100,
+			"stat",
+			"mp",
+			15
+		],
+		[
+			1000,
+			"stat",
+			"resistance",
+			2
+		],
+		[
+			10000,
+			"stat",
+			"resistance",
+			3
+		],
+		[
+			25000,
+			"stat",
+			"int",
+			1
+		],
+		[
+			50000,
+			"stat",
+			"vit",
+			1
+		],
+		[
+			100000,
+			"stat",
+			"resistance",
+			5
+		]
+	],
+	"cooperative": true,
+	"explanation": "Its shell cracks under a sudden flurry of blows.",
+	"abilities": {
+		"rimeshell": {
+			"threshold": 0.5,
+			"duration": 3000,
+			"break_fraction": 0.05,
+			"targets": 3,
+			"range": 260,
+			"damage_multiplier": 1.5,
+			"exposed_duration": 5000
+		}
+	}
+};
 for(var m of ["puppy1","puppy2","puppy3","puppy3"]){
 	monsters[m]["pet"]={
 		"level":{

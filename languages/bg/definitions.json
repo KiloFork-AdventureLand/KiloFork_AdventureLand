@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "Изчакай играта",
 	"tutorial.js-events.title": "Реагирай на събития",
 	"tutorial.js-capstone.title": "Създай малък скрипт за фармене",
-	"directory.guide.progression-guide.title": "Наръчник за развитие"
+	"directory.guide.progression-guide.title": "Наръчник за развитие",
+	"item.rimeglass.explanation": "Студено на допир. Топлината няма да го разтопи.",
+	"item.djinncrown.explanation": "Студена корона за неспокоен ум.",
+	"item.covemantle.explanation": "Изтъкана за дългото чакане между приливите.",
+	"item.stillwaterlens.explanation": "Нещо под стъклото е спряло да се движи.",
+	"monster.rimedjinn.explanation": "Черупката му се пропуква под внезапна поредица от удари.",
+	"condition.rimeshell.name": "Скрежна черупка",
+	"condition.rimeshell.explanation": "За да счупиш черупката, за 3 секунди нанеси щети, равни на 5% от максималното HP на джина, или го зашемети. Обикновеното замразяване не прекъсва заклинанието.",
+	"condition.rimeexposed.name": "Напукана черупка",
+	"condition.rimeexposed.explanation": "Устойчивостта намалява със 160 за 5 секунди.",
+	"skill.rimeshatter.name": "Скрежно разпукване",
+	"skill.rimeshatter.explanation": "Изстрелва по един леден снаряд към най-много трима участници с принос в обсег 260. Всеки снаряд нанася щети, равни на 1,5 пъти магическата атака на джина.",
+	"skill.rimeshell.name": "Скрежна черупка",
+	"skill.rimeshell.explanation": "При половин здраве джинът подготвя заклинание за 3 секунди. Нанеси щети, равни на 5% от максималното му HP, или го зашемети, за да счупиш черупката и да намалиш устойчивостта със 160 за 5 секунди. Иначе стреля по най-много трима участници с принос наблизо. Обикновеното замразяване не прекъсва заклинанието."
 }

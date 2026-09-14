@@ -1558,5 +1558,18 @@
 	"tutorial.js-async.title": "انتظر اللعبة",
 	"tutorial.js-events.title": "استجب للأحداث",
 	"tutorial.js-capstone.title": "أنشئ سكربت صيد صغيرًا",
-	"directory.guide.progression-guide.title": "دليل التقدم"
+	"directory.guide.progression-guide.title": "دليل التقدم",
+	"item.rimeglass.explanation": "بارد عند لمسه. لن يذيبه الدفء.",
+	"item.djinncrown.explanation": "تاج بارد لعقل لا يهدأ.",
+	"item.covemantle.explanation": "نُسج للانتظار الطويل بين المد والجزر.",
+	"item.stillwaterlens.explanation": "شيء تحت الزجاج توقف عن الحركة.",
+	"monster.rimedjinn.explanation": "تتشقق قشرته تحت وابل مفاجئ من الضربات.",
+	"condition.rimeshell.name": "قشرة الصقيع",
+	"condition.rimeshell.explanation": "لكسر القشرة، ألحق خلال 3 ثوانٍ ضررًا يساوي 5% من أقصى HP لدى Djinn، أو أصبه بالذهول. التجميد العادي لا يقطع إلقاء التعويذة.",
+	"condition.rimeexposed.name": "قشرة متشققة",
+	"condition.rimeexposed.explanation": "تنخفض المقاومة بمقدار 160 لمدة 5 ثوانٍ.",
+	"skill.rimeshatter.name": "تحطم الصقيع",
+	"skill.rimeshatter.explanation": "يطلق مقذوفًا جليديًا واحدًا على كل مشارك من ثلاثة مشاركين مساهمين كحد أقصى ضمن مدى 260. يُلحق كل مقذوف ضررًا يساوي 1.5 ضعف هجوم Djinn السحري.",
+	"skill.rimeshell.name": "قشرة الصقيع",
+	"skill.rimeshell.explanation": "عندما تصل صحته إلى النصف، يلقي Djinn تعويذة لمدة 3 ثوانٍ. ألحق ضررًا يساوي 5% من أقصى HP لديه أو أصبه بالذهول لكسر القشرة وخفض مقاومته بمقدار 160 لمدة 5 ثوانٍ. وإلا فسيطلق على ثلاثة مشاركين مساهمين قريبين كحد أقصى. التجميد العادي لا يقطع إلقاء التعويذة."
 }

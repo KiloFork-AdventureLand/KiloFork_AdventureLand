@@ -848,5 +848,6 @@
 	"interface.item.empty": "Tom",
 	"interface.item.empty_description": "Ingenting. Inte ett dyft.",
 	"interface.server.event": "HÄNDELSE!",
-	"interface.merrit.reason_cooldown.one": "Ditt kontos nästa paket kan komma om {count} minut, när Merrit är på besök."
+	"interface.merrit.reason_cooldown.one": "Ditt kontos nästa paket kan komma om {count} minut, när Merrit är på besök.",
+	"interface.monster.rime_shell_progress": "{seconds} s · Skada kvar: {damage}"
 }
