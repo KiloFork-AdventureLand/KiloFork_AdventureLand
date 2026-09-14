@@ -1727,6 +1727,7 @@ async function mcp_api_plan_character_progression(args) {
 		try {
 			bot = await admin_bots_find(get_id(character));
 			if (!bot && character.info && character.info.name) bot = await admin_bots_find(character.info.name);
+			bot = await mcp_api_owned_mainframe_bot(character, bot);
 		} catch (observation_error) {
 			snapshot_warnings.push({ code: "mainframe_observation_unavailable", retryable: true });
 		}
@@ -1821,21 +1822,26 @@ async function mcp_api_plan_character_progression(args) {
 	}
 }
 
+async function mcp_api_owned_mainframe_bot(character, bot, assignment) {
+	if (!bot) return null;
+	if (assignment === undefined) assignment = await mainframe_get_assignment(character);
+	if (!assignment || assignment.character_id !== get_id(character) || bot.character_id !== get_id(character) || bot.assignment_id !== assignment.assignment_id) return null;
+	return bot;
+}
+
 async function mcp_api_list_mainframe_characters(args) {
 	var snapshot = await admin_bots_snapshot();
 	var characters = await get_characters(args.user);
-	var runtimes_by_id = {};
-	var runtimes_by_name = {};
-	for (var i = 0; i < snapshot.bots.length; i++) {
-		if (snapshot.bots[i].character_id) runtimes_by_id[snapshot.bots[i].character_id] = snapshot.bots[i];
-		runtimes_by_name[snapshot.bots[i].bot_id] = snapshot.bots[i];
-	}
 	var result = [];
 	for (var i = 0; i < characters.length; i++) {
+		if (characters[i].owner !== get_id(args.user)) continue;
 		var character_name = (characters[i] && characters[i].info && characters[i].info.name) || characters[i].name;
 		if (!character_name) continue;
 		var access = await mainframe_get_access(characters[i]);
 		var assignment = await mainframe_get_assignment(characters[i]);
+		var bot = assignment && snapshot.bots.find(function (candidate) {
+			return candidate.character_id === get_id(characters[i]) && candidate.assignment_id === assignment.assignment_id;
+		});
 		result.push({
 			character: character_name,
 			character_id: get_id(characters[i]),
@@ -1845,7 +1851,7 @@ async function mcp_api_list_mainframe_characters(args) {
 			access: mcp_api_mainframe_access(access, assignment),
 			assignment: assignment,
 			available: snapshot.online,
-			runtime: mcp_api_mainframe_runtime(runtimes_by_id[get_id(characters[i])] || runtimes_by_name[character_name]),
+			runtime: mcp_api_mainframe_runtime(await mcp_api_owned_mainframe_bot(characters[i], bot, assignment)),
 		});
 	}
 	var response = {
@@ -1867,6 +1873,7 @@ async function mcp_api_get_mainframe_character(args) {
 	var bot = await admin_bots_find(get_id(character));
 	var access = await mainframe_get_access(character);
 	var assignment = await mainframe_get_assignment(character);
+	bot = await mcp_api_owned_mainframe_bot(character, bot, assignment);
 	var response = {
 		success: true,
 		contract: mcp_api_mainframe_contract(),
@@ -1901,7 +1908,7 @@ async function mcp_api_link_mainframe_character(args) {
 		contract: mcp_api_mainframe_contract(),
 		billing: billing,
 		assignment: billing.assignment,
-		runtime: mcp_api_mainframe_runtime(await admin_bots_find(get_id(character))),
+		runtime: mcp_api_mainframe_runtime(await mcp_api_owned_mainframe_bot(character, await admin_bots_find(get_id(character)), billing.assignment)),
 	};
 }
 
@@ -1914,16 +1921,16 @@ async function mcp_api_disconnect_mainframe_character(args) {
 		success: true,
 		queued: true,
 		assignment: result.assignment,
-		runtime: mcp_api_mainframe_runtime(await admin_bots_find(get_id(character))),
+		runtime: mcp_api_mainframe_runtime(await mcp_api_owned_mainframe_bot(character, await admin_bots_find(get_id(character)), result.assignment)),
 	};
 }
 
 async function mcp_api_get_mainframe_logs(args) {
 	var character = await admin_bots_owned_character(args.user, args.character);
 	if (!character) return { failed: true, reason: "character_not_found" };
-	var bot = await admin_bots_find(get_id(character));
+	var bot = await mcp_api_owned_mainframe_bot(character, await admin_bots_find(get_id(character)));
 	var limit = Math.max(1, Math.min(Number(args.limit) || 100, 100));
-	var persisted = await admin_bots_persisted_logs(get_id(character), limit);
+	var persisted = await admin_bots_persisted_logs(get_id(character), limit, get_id(args.user));
 	var logs = persisted.slice();
 	var seen = new Set(
 		logs.map(function (entry) {
@@ -1949,7 +1956,7 @@ async function mcp_api_get_mainframe_logs(args) {
 async function mcp_api_get_mainframe_events(args) {
 	var character = await admin_bots_owned_character(args.user, args.character);
 	if (!character) return { failed: true, reason: "character_not_found" };
-	var bot = await admin_bots_find(get_id(character));
+	var bot = await mcp_api_owned_mainframe_bot(character, await admin_bots_find(get_id(character)));
 	var limit = Math.max(1, Math.min(Number(args.limit) || 100, 100));
 	return {
 		success: true,

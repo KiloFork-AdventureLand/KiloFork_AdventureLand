@@ -707,6 +707,7 @@ async function transfer_character_api(args) {
 			}
 			owner.info.last_delete = new Date();
 			owner.cash -= 500;
+			await mainframe_retire_assignment(await tx_get(mainframe_assignment_record_id(get_id(c))), new Date(), tx_get, tx_save, owner);
 			await tx_save(owner);
 			c.info.transfer = true;
 			c.owner = get_id(A.receiver);
