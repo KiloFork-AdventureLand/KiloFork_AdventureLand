@@ -4288,8 +4288,9 @@ module.exports = {
 	// docs/guide/event-anniversary.html:29; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Anniversary Gift"].
 	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
 	// The featured player receives their own account's flavor, not the visitor's: claim() delivers hostSlice from sliceForAccount(target.owner). Each visitor separately receives the visitor account's flavor.
+	// Active players and newer, lower-level characters have better selection odds. AFK never excludes a host or changes the original five-minute deadline.
 	"docs.guide.event-anniversary.reachable-non-afk-players-are-chosen-with-newer":
-		"Reachable, non-AFK players are chosen, with newer, lower-level characters favored. Each visitor who uses their Visit also gives the featured player one slice in the featured player's own flavor and one Anniversary Gift. Joining late gives no Visit; repeated kisses give no extra rewards.",
+		"Reachable players can be chosen even while AFK. Active players and newer, lower-level characters have better odds. Going AFK after selection does not shorten the five-minute window. Each visitor who uses their Visit also gives the featured player one slice in the featured player's own flavor and one Anniversary Gift. Joining late gives no Visit; repeated kisses give no extra rewards.",
 	// docs/guide/event-anniversary.html:17; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Keepsake Pendant","The Guestbook","Upgrade Scroll"].
 	"docs.guide.event-anniversary.the-guestbook-and-keepsake-pendant-combine-at-the":
 		"The Guestbook and Keepsake Pendant combine at the Compound Shrine: three matching copies of the same level + a compound scroll. The other anniversary equipment uses Upgrade Scrolls. Both shrines remain available after the event.",
@@ -4440,7 +4441,7 @@ module.exports = {
 	"docs.guide.events-and-home.code-read-before-acting": "CODE: Read Before Acting",
 	// docs/guide/events-and-home.html:33; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.events-and-home.during-the-anniversary-a-non-afk-player-is":
-		"During the anniversary, a non-AFK player is picked every 30 minutes on each non-PvP realm. Be online when the round starts to receive an Anniversary Visit. You have five minutes to find and kiss the featured player.",
+		"During the anniversary, a player is picked every 30 minutes on each non-PvP realm. Be online when the round starts to receive an Anniversary Visit. You have five minutes to find and kiss the featured player.",
 	// docs/guide/events-and-home.html:22; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Ent"].
 	"docs.guide.events-and-home.events-enter-in-different-ways": "Events Enter in Different Ways",
 	// docs/guide/events-and-home.html:2; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.

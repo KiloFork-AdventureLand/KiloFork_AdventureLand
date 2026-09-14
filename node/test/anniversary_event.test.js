@@ -582,7 +582,7 @@ test("featured appearance is a public snapshot; becoming AFK reserves the same c
 	const replacement = h.event.tick();
 	assert.equal(replacement.id, h.host.id);
 	assert.equal(replacement.skin, h.host.skin);
-	assert.equal(replacement.available, false);
+	assert.equal(replacement.available, true);
 	h.time(rules.INTERVAL + rules.WINDOW);
 	const ended = h.event.tick();
 	assert.equal(ended.skin, undefined);
@@ -680,11 +680,11 @@ test("same-realm reconnect keeps an unused invitation, but eligibility recovery 
 
 test("the five-minute deadline begins at actual selection and every ticket holder can claim", () => {
 	const h = eventHarness();
-	h.host.afk = h.visitor.afk = true;
+	h.host.blocked = h.visitor.blocked = true;
 	assert.equal(h.start().live, false);
 	const selectedAt = rules.INTERVAL + 120000;
 	h.time(selectedAt);
-	h.host.afk = false;
+	h.host.blocked = false;
 	const visitors = Array.from({ length: 50 }, (_, i) => player("Guest" + i));
 	h.roster.push(...visitors);
 	assert.equal(h.event.tick().expires, selectedAt + rules.WINDOW);
@@ -736,7 +736,7 @@ test("disconnect and reconnect preserve the selected character, deadline and use
 	assert.equal(waiting.s.anniversary_visit, undefined);
 });
 test("an absent or unreachable host is never replaced, and late return cannot extend a round", () => {
-	for (const patch of [{ dc: true }, { afk: true }, { rip: true }, { in: "private" }, { blocked: true }]) {
+	for (const patch of [{ dc: true }, { rip: true }, { in: "private" }, { blocked: true }]) {
 		const h = eventHarness();
 		const first = h.start();
 		Object.assign(h.host, patch);
@@ -902,11 +902,8 @@ test("the kiss buff uses native Frequency and Output, refreshes without stacking
 	assert(emitted.some(([, message]) => message?.response === "ex_condition" && message.name === "anniversary_kiss"));
 	assert.equal(sync.at(-1), "u+cid");
 });
-test("AFK strings, dead players, instances and inaccessible terrain never host", () => {
+test("dead players, instances and inaccessible terrain never host", () => {
 	for (const patch of [
-		{ afk: true },
-		{ afk: "bot" },
-		{ afk: "code" },
 		{ rip: true },
 		{ dead: true },
 		{ hp: 0 },
@@ -928,15 +925,57 @@ test("AFK strings, dead players, instances and inaccessible terrain never host",
 		assert.equal(h.start().live, false, JSON.stringify(patch));
 	}
 });
-test("newer lower-level hosts receive four lottery tickets, not exclusive selection", () => {
+test("newer lower-level hosts retain a fourfold selection preference", () => {
 	const h = eventHarness({ random: () => 0.6 });
 	h.roster.splice(1);
 	h.host.age = 500;
 	h.roster.push(player("Newcomer"));
 	assert.equal(h.start().target, "Newcomer");
 });
+
+test("selection favors active and newer players without excluding AFK players", () => {
+	const counts = { Host: 0, Newcomer: 0, Away: 0, AwayNewcomer: 0 };
+	for (let i = 0; i < 25; i++) {
+		const h = eventHarness({ random: () => (i + 0.5) / 25 });
+		h.host.age = 500;
+		h.roster.splice(1);
+		h.roster.push(player("Newcomer"), player("Away", { age: 500, afk: true }), player("AwayNewcomer", { afk: "code" }));
+		counts[h.start().target]++;
+	}
+	assert.deepEqual(counts, { Host: 4, Newcomer: 16, Away: 1, AwayNewcomer: 4 });
+	for (const afk of [true, "bot", "code"]) {
+		const h = eventHarness();
+		h.host.afk = afk;
+		h.visitor.afk = true;
+		assert.equal(h.start().available, true);
+		assert(h.event.claim(h.visitor, h.host, h.deliver));
+	}
+});
+
+test("going AFK after selection preserves the five-minute window and prevents repeat rewards", () => {
+	for (const afk of [true, "bot", "code"]) {
+		const h = eventHarness();
+		const later = player("Later"),
+			expired = player("Expired");
+		h.roster.push(later, expired);
+		const first = h.start();
+		h.time(rules.INTERVAL + 60000);
+		h.host.afk = afk;
+		assert.equal(h.event.tick().available, true);
+		assert.equal(h.event.tick().expires, first.expires);
+		assert(h.event.claim(h.visitor, h.host, h.deliver));
+		assert(!h.event.claim(h.visitor, h.host, h.deliver));
+		h.time(first.expires - 1);
+		assert(h.event.claim(later, h.host, h.deliver));
+		assert.equal(h.delivered.length, 4);
+		h.time(first.expires);
+		assert(!h.event.claim(expired, h.host, h.deliver));
+		assert.equal(h.event.tick().live, false);
+	}
+});
 test("every valid kiss gives both players their own flavor and Gift; repeats cannot duplicate", () => {
-	const h = eventHarness();
+	let roll = 0;
+	const h = eventHarness({ random: () => roll });
 	const second = player("Second", { owner: h.visitor.owner });
 	h.roster.push(second);
 	h.start();
@@ -956,6 +995,7 @@ test("every valid kiss gives both players their own flavor and Gift; repeats can
 	h.roster.push(replacement);
 	assert.equal(h.event.tick().target, "Host");
 	assert(!h.event.claim(h.visitor, replacement, h.deliver));
+	roll = 0.99;
 	h.time(2 * rules.INTERVAL);
 	h.event.tick();
 	assert(h.event.claim(h.visitor, replacement, h.deliver));
@@ -1682,6 +1722,7 @@ function skillHarness() {
 }
 test("real socket handler grants only the current host's temporary kiss and honors cooldown", () => {
 	const h = skillHarness();
+	h.host.afk = true;
 	h.cast();
 	assert.deepEqual(h.failed, []);
 	assert.equal(h.delivered.length, 2);
@@ -1753,7 +1794,7 @@ test("kiss results explain blocked rewards and preserve successful cosmetic cast
 	assert.equal(result.reason, "claimed");
 	assert.equal(h.delivered.length, 2);
 	const absent = skillHarness();
-	absent.host.afk = true;
+	absent.host.dc = true;
 	absent.cast();
 	assert.equal(absent.emitted.findLast(([event]) => event === "game_response")[1].reason, "target_unavailable");
 	assert(absent.visitor.s.anniversary_visit, "an unavailable host does not consume the invitation");

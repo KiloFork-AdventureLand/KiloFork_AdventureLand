@@ -64,7 +64,6 @@ function createEvent({
 			!p.rip &&
 			!p.dead &&
 			p.hp > 0 &&
-			!p.afk &&
 			!p.stealth &&
 			!(p.s && p.s.invis) &&
 			p.in === p.map &&
@@ -110,7 +109,8 @@ function createEvent({
 	function select() {
 		let candidates = players().filter(eligible);
 		if (candidates.some((p) => p.id !== previous)) candidates = candidates.filter((p) => p.id !== previous);
-		const weight = (p) => (Number.isFinite(p.age) && p.age <= 30 && p.level <= 40 ? 4 : 1);
+		// Activity affects selection odds, never a chosen player's remaining time.
+		const weight = (p) => (Number.isFinite(p.age) && p.age <= 30 && p.level <= 40 ? 4 : 1) * (p.afk ? 1 : 4);
 		let roll = random() * candidates.reduce((sum, p) => sum + weight(p), 0);
 		for (const p of candidates) {
 			roll -= weight(p);
