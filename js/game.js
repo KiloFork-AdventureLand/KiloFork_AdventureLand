@@ -1119,6 +1119,7 @@ function interaction_context_range(definition, source, fallback) {
 
 function interaction_door_visual(door) {
 	var destination = door && G.maps[door[4]];
+	if (destination && destination.generated) return null;
 	if (!((door && door[7] && door[7] != "ordinary") || (destination && destination.instance))) return null;
 	var keys = { crypt: "cryptkey", winter_instance: "frozenkey", spider_instance: "spiderkey", tomb: "tombkey" };
 	return { icon: keys[door[4]] || "stonekey" };
@@ -1457,7 +1458,8 @@ function init_socket(args) {
 		if (window.location.origin == "http://127.0.0.1/") server_address = "127.0.0.1";
 		// else server_address = "0.0.0.0";
 	}
-	var query = (args.secret && "desktop=" + ((!is_comm && 1) || "") + "&secret=" + args.secret) || undefined;
+	var query = "map_protocol=1&no_graphics=" + (no_graphics ? "1" : "0") +
+		((args.secret && "&desktop=" + ((!is_comm && 1) || "") + "&secret=" + args.secret) || "");
 	if (location.protocol == "https:")
 		window.socket = io(server_address, {
 			path: server_path,
@@ -1506,6 +1508,8 @@ function init_socket(args) {
 		if (mode.log_incoming) console.log("INCOMING", JSON.stringify(arguments) + " " + new Date());
 		original_onevent.apply(socket, arguments);
 	};
+	socket.on("map_chunk", receive_generated_map_chunk);
+	socket.on("cave", receive_cave_state);
 	socket.on("welcome", function (data) {
 		if (data && data.character) {
 			observing = data.character;
@@ -1606,6 +1610,7 @@ function init_socket(args) {
 		if (data.eval) eval(data.eval);
 		call_code_function("trigger_event", "new_map", data);
 		call_code_function("trigger_character_event", "new_map", data);
+		prune_generated_maps();
 	});
 	socket.on("start", function (data) {
 		if (window.SteamNews) SteamNews.stop();
@@ -3421,6 +3426,7 @@ function init_socket(args) {
 }
 
 function npc_right_click(event) {
+	if (this.role === "dreamkeeper") { if (event) event.stopPropagation(); return render_cave_keeper(); }
 	var npc = G.npcs[this.npc];
 	tutorial_npc(this);
 	sfx("npc", this.x, this.y);
@@ -3784,6 +3790,7 @@ function player_right_click(event) {
 }
 
 function monster_click(event) {
+	if (this.cave && ["neutral", "ally", "victim"].includes(this.cave.side)) { if (event) event.stopPropagation(); return cave_manual("talk", {room: this.cave.room}); }
 	if (ctarget == this) map_click(event);
 	ctarget = this;
 	xtarget = null;
@@ -5308,7 +5315,7 @@ function add_monster(data) {
 	sprite.vx = data.vx || 0;
 	sprite.vy = data.vy || 0;
 	if (def.slots) sprite.slots = def.slots;
-	sprite.level = 1;
+	sprite.level = data.cave ? data.level : 1;
 	if (sprite.s.young) sprite.real_alpha = 0.4;
 	if (def.charge_skin) {
 		sprite.normal_skin = sprite.skin;
@@ -6598,6 +6605,8 @@ function add_animatable(name, data) {
 }
 
 function create_map() {
+	if (no_graphics && G.maps[current_map].generated) { drawn_map = current_map; return; }
+	var cached_map = window.cached_map && !G.maps[current_map].generated;
 	var start = new Date();
 	pvp = G.maps[current_map].pvp || is_pvp;
 	if (paused) return;
@@ -6610,7 +6619,7 @@ function create_map() {
 			if (chest.map == window.map.map_name) map.removeChild(chest);
 		}
 		// #IDEA: Destroy sprites too, otherwise they stack up
-		if (!cached_map && map_tiles.length && map.children) map.removeChildren(map.children.indexOf(map_tiles[0]), map.children.indexOf(map_tiles[map_tiles.length - 1])); // [06/03/20]
+		if (!map.cached && map_tiles.length && map.children) map.removeChildren(map.children.indexOf(map_tiles[0]), map.children.indexOf(map_tiles[map_tiles.length - 1])); // [06/03/20]
 		free_children(map); // #PIXI: https://github.com/pixijs/pixi.js/pull/2995#issuecomment-248974419
 
 		map.destroy();
@@ -6648,6 +6657,7 @@ function create_map() {
 
 	map = new PIXI.Container();
 	map.map_name = current_map;
+	map.cached = cached_map;
 	//var filter=new PIXI.filters.ColorMatrixFilter()
 	//filter.desaturate(0.2);
 	//map.filters=[filter];
@@ -7024,7 +7034,8 @@ function create_map() {
 }
 
 function retile_the_map() {
-	if (paused) return;
+	if (no_graphics || paused) return;
+	var cached_map = map.cached;
 	if (cached_map) {
 		if (dtile_size && (dtile_width < width || dtile_height < height)) recreate_dtextures();
 		if (wtile && (wtile_width < width || wtile_height < height)) recreate_wtextures();

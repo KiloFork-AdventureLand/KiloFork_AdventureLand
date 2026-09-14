@@ -6522,6 +6522,10 @@ var BACKUP = {};
 
 function reload_data() {
 	BACKUP.maps = G.maps;
+	BACKUP.generated_geometry = {};
+	if (typeof client_generated_maps !== "undefined") client_generated_maps.forEach(function(key) {
+		BACKUP.generated_geometry[key] = G.geometry[key];
+	});
 	prop_cache = {};
 	//$("head").append("<script src='/data.js?reload=1&timestamp="+(new Date().getTime())+"' async></script>");
 	$.getScript("/data.js?reload=1&timestamp=" + new Date().getTime());
@@ -6529,6 +6533,7 @@ function reload_data() {
 
 function apply_backup() {
 	G.maps = BACKUP.maps;
+	Object.assign(G.geometry, BACKUP.generated_geometry || {});
 	gprocess_game_data();
 	BACKUP = {};
 }

@@ -1124,3 +1124,93 @@ var dismantle={
 	// 	"cost":20,
 	// },
 };
+
+Object.assign(craft, {
+  "cave_locktooth": {
+    "cost": 24000,
+    "items": [
+      [
+        12,
+        "cave_amber"
+      ],
+      [
+        1,
+        "blade",
+        0
+      ],
+      [
+        2,
+        "reefglass"
+      ],
+      [
+        4,
+        "leather"
+      ]
+    ]
+  },
+  "cave_counterweight": {
+    "cost": 36000,
+    "items": [
+      [
+        18,
+        "cave_amber"
+      ],
+      [
+        1,
+        "shield",
+        0
+      ],
+      [
+        3,
+        "dstones"
+      ],
+      [
+        6,
+        "leather"
+      ]
+    ]
+  },
+  "cave_mothsteps": {
+    "cost": 48000,
+    "items": [
+      [
+        24,
+        "cave_amber"
+      ],
+      [
+        1,
+        "shoes",
+        0
+      ],
+      [
+        8,
+        "beewings"
+      ],
+      [
+        2,
+        "spidersilk"
+      ],
+      [
+        8,
+        "drapes"
+      ]
+    ]
+  },
+  "cave_loaded_die": {
+    "cost": 60000,
+    "items": [
+      [
+        30,
+        "cave_amber"
+      ],
+      [
+        12,
+        "seashell"
+      ],
+      [
+        1,
+        "ink"
+      ]
+    ]
+  }
+});

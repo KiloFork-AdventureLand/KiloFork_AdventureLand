@@ -1216,11 +1216,12 @@ var imagesets = {
 		size: 20,
 		rows: 40,
 		columns: 20,
-		file: "/images/tiles/items/raw_items.png?v=23",
+		file: "/images/tiles/items/raw_items.png?v=24",
 		load: true,
 	},
 };
 var tilesets = {
+	dreamsv3: { file: "/images/tiles/map/dreams-v3.png?v=3" },
 	castle: { file: "/images/tiles/map/castle.png?v=2" },
 	custom2: { file: "/images/tiles/map/custom2.png?v=14" },
 	custom: { file: "/images/tiles/map/custom.png?v=14" },

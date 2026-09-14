@@ -6468,7 +6468,7 @@ function render_spawns(id) {
 
 function render_interaction(type, sub_type, args) {
 	if (!args) args = {};
-	var cosmetic_preview = type.auto && (T[type.skin] == "character" || (type.cx && Object.keys(type.cx).length));
+	var cosmetic_preview = type.auto && (T[type.skin] == "character" || type.cx);
 	var cosmetic_type = cosmetic_preview && type;
 	if (sub_type != "return_html") {
 		topleft_npc = "interaction";
@@ -7222,7 +7222,7 @@ function render_mail(id) {
 			"<div class='mailsubject'><span style='color: gray'>" +
 			phrase.html("interface.mail.item") +
 			"</span> " +
-			item_container({ skin: G.items[item.name].skin, def: G.items[item.name], draggable: false }, item) +
+			(item.gold ? phrase.html("cave.gold", {gold: item.gold}) : item_container({ skin: G.items[item.name].skin, def: G.items[item.name], draggable: false }, item)) +
 			take +
 			"</div>";
 	}

@@ -1623,3 +1623,18 @@ drops["monsters"]["cutebee"].push([1, "funtoken"]);
 //drops["candy1"].push([0.32,"phelmet"]);
 
 if (typeof module !== "undefined") module.exports = { drops: drops };
+
+
+// Weighted encounter rewards use chest_exchange and the ordinary item creation path.
+drops.cave_parcel=[[60,"cave_amber",1],[22,"cave_amber",2],[10,"scroll1"],[5,"gem1"],[2,"cave_locktooth"],[1,"cave_mothsteps"]];
+drops.cave_rescue=[[65,"cave_amber",2],[20,"cave_amber",3],[10,"gem1"],[3,"cave_counterweight"],[2,"cave_mothsteps"]];
+drops.cave_boss=[[65,"cave_amber",3],[15,"cave_locktooth"],[12,"cave_counterweight"],[8,"cave_mothsteps"]];
+drops.cave_finish=[[55,"cave_amber",5],[15,"cave_locktooth"],[15,"cave_counterweight"],[10,"cave_mothsteps"],[5,"cave_loaded_die"]];
+drops.cave_darkmage=[[1,"cave_blackstaff"]];
+drops.cave_rogue_weapon=[[1,"cave_backstabber"]];
+for(var cave_monster of ["cave_bat","cave_rat","cave_crab","cave_guard","cave_wolf"])
+ drops.monsters[cave_monster]=[[0.08,"cave_amber",1]];
+
+
+// Quiet hollows pay once per cleared wave, at most three waves each.
+drops.cave_farm=[[65,"cave_amber",1],[20,"cave_amber",2],[10,"scroll1"],[3,"cave_locktooth"],[2,"cave_mothsteps"]];

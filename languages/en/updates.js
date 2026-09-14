@@ -1514,3 +1514,6 @@ module.exports = {
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"update.14_09_26.progression": "The Progression Guide suggests equipment projects, useful farms and live opportunities, from your first Goo fights onward. Choose a goal above HP and MP, or turn the guide off beside Tutorial in Settings. CODE can read the same advice with get_progression().",
 };
+
+// Cave release highlight.
+module.exports["update.14_09_26.cave"] = "Enter the Cave of Many Dreams with your party. You have 24 minutes to explore changing floors, vote on encounters and find cave equipment. Dying inside costs no XP or gold.";

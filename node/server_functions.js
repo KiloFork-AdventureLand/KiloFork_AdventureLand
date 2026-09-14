@@ -429,6 +429,7 @@ function rip(player) {
 	player.hp = 0;
 	player.rip = true;
 	player.rip_time = new Date();
+	if (typeof cave_fallen === "function") cave_fallen(player);
 	player.moving = false;
 	player.abs = true;
 	if (player.party) {
@@ -469,6 +470,7 @@ function is_invinc(player) {
 }
 
 function is_in_pvp(player, allow_safe) {
+	if (G.maps[player.map]?.generated) return false;
 	if (allow_safe && G.maps[player.map].safe) {
 		return false;
 	}
@@ -479,6 +481,7 @@ function is_in_pvp(player, allow_safe) {
 }
 
 function is_map_pvp(map, allow_safe) {
+	if (G.maps[map]?.generated) return false;
 	if (allow_safe && G.maps[map].safe) {
 		return false;
 	}
@@ -2959,7 +2962,10 @@ function start_event(name) {
 
 function new_worker(num) {
 	var worker = new Worker(path.resolve(__dirname, "server_worker.js"), {
-		workerData: { G: G, amap_data: amap_data, smap_data: smap_data },
+		workerData:
+			typeof generated_worker_data === "function"
+				? generated_worker_data(num)
+				: { G: G, amap_data: amap_data, smap_data: smap_data },
 		env: SHARE_ENV,
 		execArgv: [],
 	});
@@ -2968,7 +2974,7 @@ function new_worker(num) {
 		if (data.type == "monster_move") {
 			var instance = instances[data.in];
 			var monster = instance && instance.monsters[data.id];
-			if (!monster) {
+			if (!monster || (data.path_token !== undefined && data.path_token !== monster.zone_actor?.path_token)) {
 				return;
 			}
 			monster.working = false;
@@ -3801,6 +3807,7 @@ function disappearing_text(socket, entity, text, args) {
 }
 
 function magiport_someone(pulled, player) {
+	if (!generated_magiport_allowed(pulled, player)) return false;
 	var spot = random_one([
 		[-10, 16],
 		[10, 16],
@@ -4528,7 +4535,7 @@ function server_bfs(map) {
 		amap_data[map] = {};
 		return;
 	}
-	if (Dev && options.fast_sdk && !(map == "level1" || map == "arena")) {
+	if (Dev && options.fast_sdk && !G.maps[map].generated && !(map == "level1" || map == "arena")) {
 		smap_data[map] = -1;
 		amap_data[map] = {};
 		return;

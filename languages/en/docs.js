@@ -1,5 +1,15 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// CODE example requirements and Promise result. Preserve Tracktrix, Cavalry, Cave of Many Dreams, assigned, queued and reason exactly.
+	"docs.cavalry.code": "Carry Tracktrix and stand near a level 3+ monster. The call resolves with assigned (0–4) and queued; failures reject with reason. Cavalry cannot enter the Cave of Many Dreams.",
+	// Four sentries split into pairs or solo; priority uses caller character level. Calls stay at their original position.
+	"docs.cavalry.dispatch": "They split between calls, giving lower-level adventurers priority. They leave a call when no level 3+ monsters remain, or its caller dies, disconnects, changes maps or leaves the calling area. Idle sentries return home.",
+	// Class behavior and unchanged rewards. Tracker is the fixed item name; XP is experience.
+	"docs.cavalry.combat": "The Warrior stays charged. The Mage fires three projectiles and blinks. The Priest heals wounded players; the Paladin heals and protects nearby allies. Assisted kills keep normal XP, loot and Tracktrix credit.",
+	// Manual instructions; match the translated action label. Tracktrix and Cavalry are fixed names.
+	"docs.cavalry.manual": "Carry Tracktrix, open it, and choose Call in the Cavalry. They leap in to fight level 3+ monsters within 320 range of your calling spot. You can call once every 10 seconds.",
+	// Guide introduction; preserve Wizard's Crib, translate class labels using established terms.
+	"docs.cavalry.intro": "Four sentries wait in Wizard's Crib: a Paladin, Mage, Warrior and Priest. Click one to inspect their equipment.",
 	// Guide introduction. Rime Djinn, Frozen Cove and Harpy are fixed game names. Ordinary aggro=1 permits passing attacks without target acquisition.
 	"docs.guide.rime-djinn.intro": "Rime Djinn drift across the central island in Frozen Cove, beyond the Harpies. They strike passersby without giving chase, but fight back when attacked. Bring allies for their magical attacks.",
 	// Guide explanation of existing selected-monster UI, ABILITY link and condition icons. Translate ABILITY to the existing control label and Cracked Shell to condition.rimeexposed.name.
@@ -5802,3 +5812,48 @@ module.exports = {
 	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
 	"docs.merchant.progression": "Merchants start with a stocked stand, then trade for profit. They are not sent farming for XP. The guide compares recently seen Ponty or Lost & Found stock with player buy orders and your sales tax. It suggests checks, never purchases. Potion reminders count every potion size and stay off for shopkeeping.",
 };
+
+// Cave guide. English only during the user-approved test phase. Preserve CODE identifiers and numbers.
+Object.assign(module.exports, {
+  "docs.cave.intro": "Talk to Dorr in Mainland at 816,1200. Bring one party of up to three characters close to him, out of combat, then choose Enter together. Every account in the party uses its daily visit. It resets at midnight on that account’s home server. Characters sharing an account enter together on that one visit.",
+  "docs.cave.time": "You have 24 minutes after the cave opens. The highest character level in the entering party sets its difficulty. The party is fixed for this visit.",
+  "docs.cave.travel": "There are three floors. Clear the guardroom, settle the marked encounter and break the last seal on each floor to open the stairs. Other rooms are optional. Going down never extends the clock.",
+  "docs.cave.votes": "Each character gets one vote. Two replies are drawn from that encounter\u2019s reply pool. An absolute majority decides early. After 20 seconds, the reply with the most votes wins. A tie or no votes uses the fallback shown in the dialogue. Votes cannot be changed.",
+  "docs.cave.choices": "Look at the people and their weapons. A stronger fighter may win a dispute without your help. You can rescue someone, take a side, leave them to fight, or attack both. Some survivors will travel with you.",
+  "docs.cave.danger": "The red chain releases six level 100 wolves. A rare Dark Mage deals 100,000 magic damage and hunts mages first. Only a reflected spell kills him. You can avoid optional dangers.",
+  "docs.cave.rogue": "The cornered rogue carries two daggers. Sometimes one is Last Word. Only monsters killing him before a betrayal can release that blade. If he survives, he has a 50% chance to turn on you, jump behind nearby targets and attack very quickly within 200 range.",
+  "docs.cave.hunts": "Some travelers pay for killing a set number of marked monsters before their timer ends. Helpers can help with these kills. A larger hunt pays two parcels. Shorter or slower jobs pay Amber. Quiet rooms have three small waves, with a pause between them.",
+  "docs.cave.loot": "NPC rewards go to one random character from the original party, including characters who have left. Full bags or an offline character send the reward by mail to that character. Every item awarded here carries the Cave-found title. A merchant sells one item only: the buyer pays, and a random member of the original party gets it.",
+  "docs.cave.purse": "Gold and loose Amber gather in the cave purse. Choices can spend only the amount they show. Merchant purchases use the buyer\u2019s carried gold. A visit can earn at most 60,000 cave gold and 36 loose Amber, before spending. Equipment and parcels are separate.",
+  "docs.cave.exit": "Choose Exit or use cave_exit() to leave. Leaving is permanent. New characters cannot join, and magiport cannot move anyone into or out of the cave. A disconnect ends that character’s visit. At 24 minutes, earned cave gold and Amber are paid out and everyone still inside is sent out.",
+  "docs.cave.code": "cave_enter() requires the same nearby party as the manual entrance. Listen for character.on(\"cave\", ...). Read character.cave for the clock, objectives, votes, hunts and purse. The example below chooses a reply only when you set reply_id to one of the two IDs in the current choice.",
+  "docs.cave.failure": "The functions return Promises. Failed requests reject with a reason. Repeating your accepted vote returns the same receipt. A stale vote, a second purchase or a request after leaving cannot award anything.",
+  "docs.cave.story": "Dorr\u2019s story",
+  "docs.cave.drops": "Things you can find",
+  "docs.cave.rewards": "The last seal",
+  "docs.cave.code_heading": "CODE",
+});
+
+// Public cave function reference. Preserve function names and return fields.
+module.exports["docs.cave.function.cave_reply"]="Votes once as this character. Use the current choice.id and one of its option IDs. An absolute majority can settle before the 20-second deadline.";
+
+// Public cave function reference. Preserve function names and return fields.
+module.exports["docs.cave.function.cave_buy"]="Buys the merchant\u2019s one item with this character\u2019s gold. A random original party member receives it. Returns recipient, item and gold. A second purchase rejects.";
+
+// Public cave function reference. Preserve function names and return fields.
+module.exports["docs.cave.function.cave_exit"]="Exits permanently. You cannot return to this visit. Returns exited:true.";
+
+// Cave guide text.
+module.exports["docs.cave.death"] = "Dying here costs no XP, gold or items. Stay inside and Nera will offer to revive the fallen where they are, or bring them back to this floor’s doorway. Each character can vote, including fallen characters. Respawn calls Nera; Exit leaves the cave permanently.";
+
+// Cave guide text.
+module.exports["docs.cave.supplies"] = "A lamp can lead the moths to Mothstep Boots. A pry bar opens locked hatches. Bait turns one guard against a patrol. A guard’s pass lets you skip one guardroom. Helpers fight beside you and can follow you downstairs. You can keep two helpers at a time.";
+
+// Cave guide text.
+module.exports["docs.cave.craft"] = "Take Cave Amber to Cole to craft Locktooth, Counterweight Shield, Mothstep Boots or Loaded Die. The recipes also use familiar materials from outside the cave.";
+
+// Cave guide text.
+module.exports["docs.cave.rare_drops"] = "The Dark Mage and the cornered rogue carry these rare weapons. The Dark Mage must die to his own reflected spell. The rogue only drops Last Word if he was carrying it and monsters kill him before he betrays you.";
+
+// Cave guide text.
+module.exports["docs.cave.function.cave_enter"] = "Enter the Cave of Many Dreams with your current party. Everyone must be near Dorr in Mainland, alive and out of combat. Every participating account needs its daily visit; characters from one account share that visit. It resets at midnight on the account’s home server.";

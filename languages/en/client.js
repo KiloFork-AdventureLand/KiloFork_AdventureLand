@@ -530,3 +530,53 @@ module.exports = {
 	// js/functions.js on_skill; brief floating refusal when the generic emote key has no owned emote to play.
 	"client.on_skill.no_emotes": "NO",
 };
+
+// Cave NPC dialogue controls. English is approved for testing; translations follow user approval.
+// {gold}, {amber} and {seconds} are counts; {fallback} is the announced default choice.
+Object.assign(module.exports, {
+  "cave.opening": "Dorr is opening the cave. Stay together.",
+  "cave.keeper": "Bring your party close. One visit per account each day. You have 24 minutes inside. Once you leave, you cannot return.",
+  "cave.enter": "Enter together",
+  "cave.exit": "Exit",
+  "cave.purse": "Cave purse: {gold} gold · {amber} Amber",
+  "cave.vote_done": "The party has decided.",
+  "cave.seconds": "Choose in {seconds} seconds. One vote per character.",
+  "cave.fallback": "Ties or no votes: {fallback}.",
+  "cave.shop_rule": "You pay. One random party member gets the item. There is only one copy.",
+  "cave.sold": "Sold",
+  "cave.buy": "Buy for {gold} gold",
+  "cave.error.generic": "That did not work. Try again.",
+  "cave.error.daily_opening_used": "An account in this party has already visited today. Its visit resets at midnight on its home server.",
+  "cave.error.bring_party_to_keeper": "Bring every party member close to Dorr, out of combat.",
+  "cave.error.party_too_large": "The cave holds one party of up to three characters.",
+  "cave.error.party_changed": "Your party changed while the cave was opening. Try again.",
+  "cave.error.generation_busy": "Other caves are opening. Try again shortly.",
+  "cave.error.gold_not_enough": "You do not have enough gold.",
+  "cave.error.sold_out": "That item has already been sold.",
+  "cave.error.vote_closed": "That vote has ended.",
+  "cave.error.stale_choice": "That conversation has ended.",
+  "cave.error.already_voted": "Your vote has already been cast.",
+  "cave.error.cave_closed": "This visit has ended.",
+  "cave.error.distance": "Move closer first.",
+  "cave.error.cant_enter": "You cannot enter from here.",
+  "cave.error.character_already_entering": "Someone in your party is already entering a cave.",
+  "cave.error.already_opening": "Your cave is already opening.",
+  "cave.error.timeout": "The request took too long. Check your connection.",
+  "cave.error.disconnected": "You are disconnected.",
+  "cave.error.cant_reenter": "You cannot return after leaving this cave."
+});
+
+// Gold attached to a cave reward letter.
+module.exports["cave.gold"] = "{gold} gold";
+
+// Remaining time in the cave, formatted as minutes:seconds.
+module.exports["cave.time_left"] = "Time left: {time}";
+
+// The items visibly carried by a traveler under attack.
+module.exports["cave.carries"] = "{name} is carrying:";
+
+// Opens the existing recipe browser from a cave craftsperson.
+module.exports["cave.recipes"] = "See the recipes";
+
+// Cave entry directions in the existing NPC dialogue.
+module.exports["cave.find_seals"] = "Three seals hold the stairs shut. Clear these rooms. You can explore the other rooms along the way.";

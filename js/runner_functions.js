@@ -2790,3 +2790,8 @@ function code_draw() {
 }
 
 code_draw();
+
+function cave_enter() { return parent.cave_request("enter"); }
+function cave_reply(choice, option) { return parent.cave_request("vote", { choice: choice, option: option }); }
+function cave_buy(room) { return parent.cave_request("buy", { room: room }); }
+function cave_exit() { return parent.cave_request("exit"); }

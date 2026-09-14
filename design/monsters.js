@@ -1587,3 +1587,16 @@ for(var name in monsters){
 }
 
 if(typeof module!=="undefined") module.exports={monsters,monster_gold};
+
+
+// Instance residents use normal monster movement, projectiles and humanoid cosmetics.
+monsters.cave_npc={name:"Cave Traveler",skin:"marmor6f",hp:1200,attack:35,range:40,speed:45,frequency:1,damage_type:"physical",armor:10,resistance:10,xp:0,respawn:-1,aggro:0,passive:true,humanoid:true,stationary:true};
+monsters.cave_darkmage={name:"Dark Mage",skin:"mbody6b",hp:1000,attack:100000,range:320,speed:25,frequency:0.25,damage_type:"magical",projectile:"magic",armor:0,resistance:0,xp:0,respawn:-1,aggro:0,passive:true,immune:true,humanoid:true,stationary:true};
+monsters.cave_rogue=Object.assign({},monsters.cave_npc,{name:"Cornered Rogue",skin:"marmor6e",speed:70,frequency:2});
+for(var pair of [["cave_bat","bat"],["cave_rat","rat"],["cave_crab","crab"],["cave_wolf","wolf"]]) {
+ monsters[pair[0]]=Object.assign({},monsters[pair[1]],{name:"Cave "+pair[1][0].toUpperCase()+pair[1].slice(1),skin:monsters[pair[1]].skin||pair[1],respawn:-1,aggro:0,passive:true,stationary:true,cooperative:false,announce:false,spawns:null,abilities:null,global:false});
+}
+monsters.cave_guard=Object.assign({},monsters.cave_npc,{name:"Cave Guard",skin:"marmor10d",xp:100,slots:{mainhand:{name:"blade",level:0}}});
+monsters.cave_lockbreaker=Object.assign({},monsters.cave_npc,{name:"Lockbreaker",skin:"asoldier",hp:12000,attack:100,armor:300,frequency:0.6});
+monsters.cave_sentinel=Object.assign({},monsters.cave_npc,{name:"Counterweight Sentinel",skin:"stoneworm",hp:16000,attack:140,armor:500,frequency:0.5,humanoid:false});
+monsters.cave_mothkeeper=Object.assign({},monsters.cave_npc,{name:"Moth Keeper",skin:"mbody3f",hp:14000,attack:90,range:240,damage_type:"magical",projectile:"magic",frequency:0.7});

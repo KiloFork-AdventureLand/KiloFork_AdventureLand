@@ -6497,6 +6497,7 @@ var misc={
 		"g":400000,
 	},
 	"tracker":{
+		"cavalry":{"range":320,"min_level":3,"call_cooldown":10000},
 		"type":"tracker",
 		"skin":"tracker",
 		"name":"Tracktrix",
@@ -8680,5 +8681,206 @@ for(var name in items){
 		current.g=1;
 	}
 }
+
+// Cave items keep their explicit progression after ordinary item normalization.
+Object.assign(items, {
+  "cave_locktooth": {
+    "type": "weapon",
+    "tier": 2,
+    "wtype": "short_sword",
+    "class": [
+      "warrior",
+      "paladin",
+      "merchant"
+    ],
+    "skin": "cave_locktooth",
+    "damage_type": "physical",
+    "attack": 20,
+    "range": 13,
+    "apiercing": 40,
+    "speed": -2,
+    "upgrade": {
+      "attack": 4.5,
+      "range": 1.5,
+      "apiercing": 6
+    },
+    "grades": [
+      4,
+      8,
+      10,
+      12
+    ],
+    "g": 48000,
+    "cx": {
+      "accent": "#CBAE69",
+      "scale": 0.5,
+      "extension": true
+    },
+    "name": "Locktooth",
+    "explanation": "It opens locks. Their owners usually object.",
+    "exclusive": true
+  },
+  "cave_counterweight": {
+    "type": "shield",
+    "class": [
+      "warrior",
+      "paladin",
+      "priest",
+      "merchant"
+    ],
+    "skin": "cave_counterweight",
+    "armor": 90,
+    "resistance": 0,
+    "courage": 2,
+    "speed": -5,
+    "upgrade": {
+      "armor": 15,
+      "resistance": 2
+    },
+    "grades": [
+      4,
+      8,
+      10,
+      12
+    ],
+    "g": 60000,
+    "cx": {
+      "accent": "#8B809F"
+    },
+    "name": "Counterweight",
+    "explanation": "A heavy stone shield with thick leather straps.",
+    "exclusive": true
+  },
+  "cave_mothsteps": {
+    "type": "shoes",
+    "skin": "cave_mothsteps",
+    "scroll": true,
+    "stat": 1,
+    "armor": 3,
+    "resistance": 2,
+    "speed": 8,
+    "evasion": 4,
+    "upgrade": {
+      "stat": 1,
+      "armor": 1,
+      "resistance": 1,
+      "speed": 0.75,
+      "evasion": 0.25
+    },
+    "grades": [
+      4,
+      8,
+      10,
+      12
+    ],
+    "g": 90000,
+    "cx": {
+      "accent": "#B780AB"
+    },
+    "name": "Mothstep Boots",
+    "explanation": "Soft boots with folded cuffs.",
+    "exclusive": true
+  },
+  "cave_loaded_die": {
+    "type": "orb",
+    "skin": "cave_loaded_die",
+    "crit": 10,
+    "critdamage": 20,
+    "miss": 5,
+    "grade": 1,
+    "g": 72000,
+    "cx": {
+      "accent": "#E5BC83"
+    },
+    "name": "Loaded Die",
+    "explanation": "Someone put a little extra weight under the six.",
+    "exclusive": true
+  },
+  "cave_amber": {
+    "type": "material",
+    "skin": "gemfragment",
+    "name": "Cave Amber",
+    "s": 9999,
+    "g": 200,
+    "explanation": "Warm stone from the lower caves.",
+    "exclusive": true
+  },
+  "cave_blackstaff": {
+    "type": "weapon",
+    "wtype": "staff",
+    "class": [
+      "mage",
+      "priest"
+    ],
+    "tier": 4,
+    "skin": "oozingterror",
+    "name": "Nightjudge",
+    "damage_type": "magical",
+    "projectile": "magic",
+    "attack": 48,
+    "range": 60,
+    "rpiercing": 80,
+    "reflection": 8,
+    "frequency": -8,
+    "upgrade": {
+      "attack": 6.5,
+      "range": 4,
+      "rpiercing": 12,
+      "reflection": 0.5
+    },
+    "grades": [
+      0,
+      0,
+      8,
+      10
+    ],
+    "g": 1200000,
+    "exclusive": true,
+    "a": true,
+    "cx": {
+      "accent": "#8768B5",
+      "scale": 0.5,
+      "extension": true
+    },
+    "explanation": "The last spell it cast came back."
+  },
+  "cave_backstabber": {
+    "type": "weapon",
+    "wtype": "dagger",
+    "class": [
+      "rogue"
+    ],
+    "tier": 4,
+    "skin": "hdagger",
+    "name": "Last Word",
+    "damage_type": "physical",
+    "attack": 28,
+    "range": 10,
+    "apiercing": 80,
+    "crit": 5,
+    "speed": -4,
+    "upgrade": {
+      "attack": 6,
+      "range": 2,
+      "apiercing": 10,
+      "crit": 0.25
+    },
+    "grades": [
+      0,
+      0,
+      8,
+      10
+    ],
+    "g": 980000,
+    "exclusive": true,
+    "a": true,
+    "cx": {
+      "accent": "#BD526C",
+      "scale": 0.5,
+      "extension": true
+    },
+    "explanation": "Its owner never waited for an answer."
+  }
+});
 
 if(typeof module!=="undefined") module.exports={items:items,sets:sets};

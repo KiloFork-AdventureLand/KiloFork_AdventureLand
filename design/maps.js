@@ -1921,9 +1921,12 @@ var maps = {
 		instance: true,
 	},
 };
+maps.main.spawns.push([816, 1200]);
 for (var name in maps) {
 	if (!maps[name]["doors"]) maps[name]["doors"] = [];
 	if (!maps[name]["npcs"]) maps[name]["npcs"] = [];
 }
 
 if (typeof module !== "undefined") module.exports = { maps };
+
+maps.main.npcs.push({id:"dreamkeeper",position:[816,1200]});
