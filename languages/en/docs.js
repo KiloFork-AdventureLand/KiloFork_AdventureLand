@@ -5770,4 +5770,16 @@ module.exports = {
 		"<code>code_settings.log_smart_move = false</code> hides routine pathfinding logs. <code>code_settings.show_smart_move_text = false</code> hides floating pathfinding remarks. Movement, callbacks and Promise results stay the same.",
 	// CODE globals reference: diagnostic output is unchanged. Mainframe supports the same object but already has no routine CM/path logs or floating text. Preserve JavaScript and Mainframe.
 	"docs.code_settings.errors": "These settings leave path failures, warnings and JavaScript errors visible. Mainframe accepts the same settings; it already omits the routine logs and floating text.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"docs.progression.use": "The Progression Guide sits above HP and MP. Open its heading to see your route or choose a goal; each INFO shows the next step and its sources. Minimize it with the minus button. Turn it off in Settings beside Tutorial.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"docs.progression.goals": "Combat classes first work toward 1,000 permanent Attack; Priests work toward 1,000 Healing, and Merchants toward a stocked shop. Better owned equipment can skip lessons. Later, choose an item, set, gold target, farm or encounter. Temporary buffs do not finish permanent goals.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"docs.progression.estimates": "Farm estimates are starting points. Try an isolated fight and watch HP, MP and potion spending. Recent deaths or costly fights withdraw a route. Event INFO appears when fresh server status reports an opportunity; presence alone does not prove that you can fight it.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"docs.progression.resources": "Plans keep worn and protected equipment out of crafting and compounding inputs. Recipes use exact item levels and sufficient stacks. Listed development costs are averages before offerings or grace, not guarantees; check the native upgrade or compound preview before spending.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"docs.progression.code": "get_progression(options) returns advice without moving, spending or attacking. It works in regular CODE and Mainframe. Calling it starts observation of subsequent fights; earlier play is unknown. Disabling the HUD does not disable this CODE function.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"docs.progression.api": "The result includes ready, goal, progress, complete, rows, plans, opportunities and choices. Each row has a stable id, action, reason, cost and resource references. Text uses phrase IDs and parameters. Use goal to inspect another objective, spendLimit to cap spending, and allowPvp to consider PvP opportunities. Options affect this read, not the saved HUD goal.",
 };

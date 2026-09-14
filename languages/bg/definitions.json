@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Провери отново по-късно",
 	"tutorial.js-async.title": "Изчакай играта",
 	"tutorial.js-events.title": "Реагирай на събития",
-	"tutorial.js-capstone.title": "Създай малък скрипт за фармене"
+	"tutorial.js-capstone.title": "Създай малък скрипт за фармене",
+	"directory.guide.progression-guide.title": "Наръчник за развитие"
 }

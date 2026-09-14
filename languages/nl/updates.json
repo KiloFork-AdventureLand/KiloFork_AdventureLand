@@ -92,5 +92,6 @@
 	"update.17_09_16.new_pvp_animation_and_dynamics_can_t_escape_for": "Nieuwe PVP-animatie en -mechanieken: je kunt 3,6 seconden na een treffer niet ontsnappen.",
 	"update.16_09_16.launched_the_premium_currency_shells_and_first_premium_items": "De premiumvaluta SCHELPEN en de eerste premiumvoorwerpen zijn er. Monsters laten ook SCHELPEN vallen. Ik verklap niet welke :]",
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "Monsters kunnen nu agressief zijn. Bee steekt :)",
-	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "De functie \"lijnen\" toegevoegd. Tekent een lijn tussen entiteiten bij aanvallen en genezen. Vooral handig voor PVP."
+	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "De functie \"lijnen\" toegevoegd. Tekent een lijn tussen entiteiten bij aanvallen en genezen. Vooral handig voor PVP.",
+	"update.14_09_26.progression": "De Voortgangsgids stelt uitrustingsprojecten, nuttige jachtplekken en actuele kansen voor vanaf je eerste Goo-gevechten. Kies een doel boven HP en MP of schakel de gids uit in Instellingen naast Tutorial. CODE kan hetzelfde advies lezen met get_progression()."
 }

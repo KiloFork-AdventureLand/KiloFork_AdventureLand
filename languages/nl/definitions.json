@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Controleer later opnieuw",
 	"tutorial.js-async.title": "Wacht op het spel",
 	"tutorial.js-events.title": "Reageer op gebeurtenissen",
-	"tutorial.js-capstone.title": "Bouw een klein farmscript"
+	"tutorial.js-capstone.title": "Bouw een klein farmscript",
+	"directory.guide.progression-guide.title": "Voortgangsgids"
 }

@@ -61,6 +61,15 @@
 			{% endfor %}
 		</div>
 	</div>
+	<div class="guidance-setting-row">
+		<div>
+			<div class="blockbutton tutoff {%if domain.tutorial %}hidden{% endif %}"
+				onclick="btc(event); $('.tutoff').hide(); $('.tuton').show(); tutorial_ui=true; update_tutorial_ui(); Cookies.set('no_tutorial','',{ expires:12*365});">{{ phrase_html("pages.contents.settings.tutorial-off") }}</div>
+			<div class="blockbutton tuton {%if not domain.tutorial %}hidden{% endif %}"
+				onclick="btc(event); $('.tuton').hide(); $('.tutoff').show(); tutorial_ui=false; update_tutorial_ui(); Cookies.set('no_tutorial','1',{ expires:12*365});">{{ phrase_html("pages.contents.settings.tutorial-on") }}</div>
+		</div>
+		<div><button type="button" class="blockbutton progression-setting" onclick="btc(event); set_progression_guide(storage_get('progression_guide') == 'off')">{{ phrase_html("progression.setting.on") }}</button></div>
+	</div>
 	<div class="mt4 blockbutton" onclick="btc(event); show_modal($('.performancesettings').html(),{wrap:false,styles:'width:600px',hideinbackground:true});">{{ phrase("pages.contents.settings.performance-settings") }}</div>
 	<div class="mt4 blockbutton" onclick="btc(event); show_modal($('.advancedsettings').html(),{wrap:false,styles:'width:600px',hideinbackground:true});">{{ phrase("pages.contents.settings.advanced-settings") }}</div>
 	{% if domain.electron %}
@@ -127,11 +136,6 @@
 		onclick="btc(event); set_close_buttons(true)">{{ phrase_html("pages.contents.settings.close-buttons-off") }}</div>
 	<div class="mt4 blockbutton closebuttonson {% if domain.close_buttons == false %}hidden{% endif %}"
 		onclick="btc(event); set_close_buttons(false)">{{ phrase_html("pages.contents.settings.close-buttons-on") }}</div>
-
-	<div class="mt4 blockbutton tutoff {%if domain.tutorial %}hidden{% endif %}"
-		onclick="btc(event); $('.tutoff').hide(); $('.tuton').show(); tutorial_ui=true; update_tutorial_ui(); Cookies.set('no_tutorial','',{ expires:12*365});">{{ phrase_html("pages.contents.settings.tutorial-off") }}</div>
-	<div class="mt4 blockbutton tuton {%if not domain.tutorial %}hidden{% endif %}"
-		onclick="btc(event); $('.tuton').hide(); $('.tutoff').show(); tutorial_ui=false; update_tutorial_ui(); Cookies.set('no_tutorial','1',{ expires:12*365});">{{ phrase_html("pages.contents.settings.tutorial-on") }}</div>
 
 	<div class="mt4 blockbutton guidesoff {%if domain.proximity_guides %}hidden{% endif %}"
 		onclick="btc(event); set_proximity_guides(true)">{{ phrase_html("pages.contents.settings.guides-off") }}</div>

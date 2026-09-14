@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Verifică din nou mai târziu",
 	"tutorial.js-async.title": "Așteaptă jocul",
 	"tutorial.js-events.title": "Reacționează la evenimente",
-	"tutorial.js-capstone.title": "Construiește un mic script de farming"
+	"tutorial.js-capstone.title": "Construiește un mic script de farming",
+	"directory.guide.progression-guide.title": "Ghid de progres"
 }

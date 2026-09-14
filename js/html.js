@@ -2769,92 +2769,51 @@ function render_equip_info(name) {
 }
 
 function render_item_help(container, name, level, pure) {
-	var html = "",
-		names = [name],
-		parents = Object.create(null);
-	html += "<div style='background-color: black; border: 5px solid gray; font-size: 24px; display: inline-block; padding: 20px; line-height: 24px; max-width: 240px;' class='buyitem'>";
-	// Follow each source once. Nested tables and their independent bonuses can
-	// lead to the same item; cycles must not duplicate sources or loop forever.
-	for (var dname in G.drops) {
-		if (!is_array(G.drops[dname]) || dname == "glitch" || dname == "lglitch" || dname.endsWith("_bonus")) continue;
-		G.drops[dname].concat(G.drops[dname + "_bonus"] || []).forEach(function (drop) {
-			if (!(drop[0] > 0)) return;
-			var child = drop[1] == "open" ? drop[2] : drop[1];
-			if (!parents[child]) parents[child] = [];
-			parents[child].push(dname);
+	var html = "<div style='background-color: black; border: 5px solid gray; font-size: 24px; display: inline-block; padding: 20px; line-height: 24px; max-width: 240px;' class='buyitem'>";
+	var source_index = ProgressionSources.get(G),
+		sources = source_index.sources(name);
+	var npcs = sources
+		.filter(function (s) {
+			return s.kind === "shop";
+		})
+		.map(function (s) {
+			return s.npc;
 		});
-	}
-	for (var i = 0; i < names.length; i++)
-		(parents[names[i]] || []).forEach(function (parent) {
-			if (!in_arr(parent, names)) names.push(parent);
+	var monsters = sources
+		.filter(function (s) {
+			return s.kind === "monster";
+		})
+		.map(function (s) {
+			return [s.monster, s.chance];
 		});
-	var npcs = [];
-	for (var nname in G.npcs) {
-		var done = false;
-		(G.npcs[nname].items || []).forEach(function (item) {
-			if (!done && item && item == name) ((done = true), npcs.push(nname));
+	var maps = sources
+		.filter(function (s) {
+			return s.kind === "map";
+		})
+		.map(function (s) {
+			return s.map;
 		});
-	}
-	var monsters = [];
-	for (var mname in G.drops.monsters) {
-		var table = G.drops.monsters[mname];
-		for (var i = 0; i < table.length; i++) {
-			if (table[i][0] > 0 && (table[i][1] == name || (table[i][1] == "open" && in_arr(table[i][2], names)))) {
-				monsters.push([mname, table[i][1] != "open" && table[i][0]]);
-				break;
-			}
-		}
-	}
-	var maps = [];
-	for (var mname in G.drops.maps) {
-		var table = G.drops.maps[mname];
-		if (mname != "global" && (!G.maps[mname] || G.maps[mname].ignore)) continue;
-		for (var i = 0; i < table.length; i++) {
-			if (table[i][0] > 0 && (table[i][1] == name || (table[i][1] == "open" && in_arr(table[i][2], names)))) {
-				maps.push(mname);
-				break;
-			}
-		}
-	}
-	var items = [];
-	for (var iname in G.items) {
-		if (!G.items[iname].e) continue;
-		var levels = [0],
-			item = G.items[iname];
-		if (item.upgrade || item.compound) levels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-		for (var l = 0; l < levels.length; l++) {
-			var tname = iname + (item.upgrade || item.compound ? levels[l] : "");
-			if (G.drops[tname]) {
-				var table = G.drops[tname].concat(G.drops[tname + "_bonus"] || []);
-				for (var i = 0; i < table.length; i++) {
-					if (table[i][0] > 0 && (table[i][1] == name || (table[i][1] == "open" && in_arr(table[i][2], names)))) {
-						items.push([iname, l]);
-						break;
-					}
-				}
-			}
-		}
-	}
-	var tokens = [];
-	for (var tname in G.tokens) {
-		for (var iname in G.tokens[tname])
-			if (iname == name) {
-				tokens.push(tname);
-				break;
-			}
-	}
-	var collecting = [],
-		crafting = [];
-	for (var iname in G.craft) {
-		var done = false;
-		G.craft[iname].items.forEach(function (ii) {
-			if (!done && ii[1] == name) {
-				if (G.craft[iname].quest == "mcollector") collecting.push(iname);
-				else crafting.push(iname);
-				done = true;
-			}
+	var items = sources
+		.filter(function (s) {
+			return s.kind === "exchange";
+		})
+		.map(function (s) {
+			return [s.name, s.level];
 		});
-	}
+	var tokens = sources
+		.filter(function (s) {
+			return s.kind === "token";
+		})
+		.map(function (s) {
+			return s.token;
+		});
+	var uses = source_index.uses(name);
+	var collecting = uses.filter(function (id) {
+		return G.craft[id].quest === "mcollector";
+	});
+	var crafting = uses.filter(function (id) {
+		return G.craft[id].quest !== "mcollector";
+	});
 	if (npcs.length) {
 		html += "<div style='color:#DDDDDD'>" + phrase.html("interface.item_help.buyable_from") + "</div>";
 		npcs.forEach(function (nname) {

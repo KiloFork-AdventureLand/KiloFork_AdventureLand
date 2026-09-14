@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "나중에 다시 확인하기",
 	"tutorial.js-async.title": "게임 작업 기다리기",
 	"tutorial.js-events.title": "이벤트에 반응하기",
-	"tutorial.js-capstone.title": "작은 사냥 스크립트 만들기"
+	"tutorial.js-capstone.title": "작은 사냥 스크립트 만들기",
+	"directory.guide.progression-guide.title": "성장 가이드"
 }

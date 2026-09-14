@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Zkontroluj to později",
 	"tutorial.js-async.title": "Počkej na hru",
 	"tutorial.js-events.title": "Reaguj na události",
-	"tutorial.js-capstone.title": "Sestav malý skript pro farmení"
+	"tutorial.js-capstone.title": "Sestav malý skript pro farmení",
+	"directory.guide.progression-guide.title": "Průvodce postupem"
 }

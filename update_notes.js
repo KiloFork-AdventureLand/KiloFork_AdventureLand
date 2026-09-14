@@ -1,5 +1,12 @@
 // Newest notes first. Add player-visible changes at the top with deployed: null.
 module.exports = [
+	{
+		phrase: "update.14_09_26.progression",
+		deployed: null,
+		date: "[14/09/26]",
+		note:
+			"The Progression Guide suggests equipment projects, useful farms and live opportunities, from your first Goo fights onward. Choose a goal above HP and MP, or turn the guide off beside Tutorial in Settings. CODE can read the same advice with get_progression().",
+	},
 	{ phrase: "update.13_09_26.login_recovery", deployed: null, date: "[13/09/26]", note: "Fixed failed logins that could leave characters stuck online and prevent reconnecting." },
 	{ phrase: "update.13_09_26.tutorial_progress", deployed: null, date: "[13/09/26]", note: "Patched tutorial progress: earlier actions and more ways of completing tasks now count. Compounding practice is optional, so collecting accessories no longer blocks later lessons." },
 	{ phrase: "update.09_09_26.steam_clients_include_game_images_and_remember_your_language", deployed: null, date: "[09/09/26]", note: "Steam clients now include game images to reduce downloads and remember your language." },

@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Перевір пізніше",
 	"tutorial.js-async.title": "Дочекайся гри",
 	"tutorial.js-events.title": "Реагуй на події",
-	"tutorial.js-capstone.title": "Створи невеликий скрипт фарму"
+	"tutorial.js-capstone.title": "Створи невеликий скрипт фарму",
+	"directory.guide.progression-guide.title": "Путівник розвитку"
 }

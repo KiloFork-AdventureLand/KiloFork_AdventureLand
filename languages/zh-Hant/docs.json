@@ -2466,5 +2466,11 @@
 	"docs.code_settings.scope": "這些設定適用於此角色目前這次CODE執行。三項設定的預設值都是true。將以下指定敘述放在已儲存CODE的開頭，就能在每次執行時重新套用。",
 	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code>會隱藏預設的訊息接收紀錄。你的CM處理函式和自訂紀錄仍會正常運作。",
 	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code>會隱藏一般的尋路紀錄。<code>code_settings.show_smart_move_text = false</code>會隱藏尋路時浮現的文字。移動、回呼和Promise結果都維持不變。",
-	"docs.code_settings.errors": "這些設定會保留尋路失敗、警告及JavaScript錯誤的顯示。Mainframe也支援相同的設定；它原本就不會顯示一般紀錄和浮動文字。"
+	"docs.code_settings.errors": "這些設定會保留尋路失敗、警告及JavaScript錯誤的顯示。Mainframe也支援相同的設定；它原本就不會顯示一般紀錄和浮動文字。",
+	"docs.progression.use": "成長指南位於HP與MP上方。點選標題即可檢視路線或選擇目標，每個INFO都會顯示下一步及其取得途徑。減號按鈕可收合指南。若要關閉，可使用設定中教學旁的開關。",
+	"docs.progression.goals": "戰鬥職業一開始以1,000永久攻擊力為目標；牧師追求1,000治療量，商人則以開設備妥商品的店鋪為目標。已有更好的裝備時可跳過課程。之後可選擇物品、套裝、金幣金額、狩獵地點或戰鬥目標。暫時增益不會完成永久目標。",
+	"docs.progression.estimates": "狩獵估算只是起點。先試著與落單敵人交戰，觀察HP、MP及藥水支出。近期死亡或代價過高的戰鬥會讓該路線退出建議。最新伺服器狀態回報機會時，會顯示活動INFO；活動出現不代表你已具備應戰能力。",
+	"docs.progression.resources": "計畫不會將正在穿戴或受保護的裝備列為製作與合成材料。配方需要精確的物品等級，以及數量足夠的單組堆疊。列出的培養費用是不計供品或恩賜的平均值，並非保證；花費前請確認遊戲原有的強化或合成預覽。",
+	"docs.progression.code": "get_progression(options)只傳回建議，不會移動、花費或攻擊。可用於一般CODE與Mainframe。呼叫後才會開始觀察後續戰鬥，先前的遊玩情況無法得知。關閉HUD不會停用此CODE函式。",
+	"docs.progression.api": "結果包含ready、goal、progress、complete、rows、plans、opportunities與choices。每列都有穩定的id、action、reason、cost及資源參照。文字使用片語ID與參數。以goal查看其他目標，以spendLimit限制支出，以allowPvp納入PvP機會。這些選項僅影響本次讀取，不會更改已儲存的HUD目標。"
 }

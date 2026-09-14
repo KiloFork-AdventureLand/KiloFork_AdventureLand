@@ -570,6 +570,41 @@ function quantity(name) {
 	return q;
 }
 
+function get_progression(options) {
+	if (typeof parent.progression_read === "function") return parent.progression_read(options);
+	if (!get_progression.runtime || get_progression.definitions !== G) {
+		if (get_progression.runtime) get_progression.runtime.detach();
+		get_progression.definitions = G;
+		get_progression.runtime = ProgressionRuntime.create({
+			G: G,
+			characterSlots: character_slots,
+			doublehandTypes: doublehand_types,
+			character: function () {
+				return character;
+			},
+			realm: function () {
+				return parent.server_region + " " + parent.server_identifier;
+			},
+			socket: function () {
+				return parent.socket;
+			},
+			entities: function () {
+				return parent.entities;
+			},
+			party: function () {
+				return parent.party;
+			},
+			status: function () {
+				return parent.S;
+			},
+			nextSkill: function (skill) {
+				return (parent.next_skill && parent.next_skill[skill]) || 0;
+			},
+		});
+	}
+	return get_progression.runtime.read(options);
+}
+
 function item_properties(item) {
 	// example: item_properties(character.items[0])
 	if (!item || !item.name) return null;

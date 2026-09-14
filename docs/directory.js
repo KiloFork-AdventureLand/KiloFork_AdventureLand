@@ -1,6 +1,7 @@
 docs = {
 	functions: [
 		//runner_functions
+		"get_progression",
 		"mode_resolve_all",
 		"start_character",
 		"stop_character",
@@ -680,6 +681,7 @@ docs = {
 			"#D88B45",
 			[
 				["encouragement", "Encouragement Bonuses", "new,returning,lone wolf,bonus,contribution,xp", "#7DBC88"],
+				["progression-guide", "Progression Guide", "goal,attack,healing,beginner,bees,amulet,farm,event", "#B4C7A7"],
 				["upgrading", "Upgrading", "upgrade,scroll,offering,grace,stat", "#E7A445"],
 				["compounding", "Compounding", "compound,combine,accessory,scroll,offering,grace", "#CE7C48"],
 				["crafting", "Crafting & Dismantling", "craft,recipe,dismantle,recycle", "#65B790"],

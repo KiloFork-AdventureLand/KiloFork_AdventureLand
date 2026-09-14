@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Kontrollera igen senare",
 	"tutorial.js-async.title": "Vänta på spelet",
 	"tutorial.js-events.title": "Reagera på händelser",
-	"tutorial.js-capstone.title": "Bygg ett litet farmningsskript"
+	"tutorial.js-capstone.title": "Bygg ett litet farmningsskript",
+	"directory.guide.progression-guide.title": "Utvecklingsguide"
 }

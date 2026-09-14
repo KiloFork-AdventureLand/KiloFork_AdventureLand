@@ -2466,5 +2466,11 @@
 	"docs.code_settings.scope": "これらの設定は、このキャラクターの現在のCODE実行に適用されます。3つとも初期値はtrueです。毎回適用するには、保存したCODEの先頭に以下の代入文を記述してください。",
 	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code>で、標準のメッセージ受信ログを非表示にできます。自分のCMハンドラーとログ出力は引き続き動作します。",
 	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code>で、通常の経路探索ログを非表示にできます。<code>code_settings.show_smart_move_text = false</code>で、経路探索中に浮かぶセリフを非表示にできます。移動、コールバック、Promiseの結果は変わりません。",
-	"docs.code_settings.errors": "これらの設定でも、経路探索の失敗、警告、JavaScriptエラーは表示されます。Mainframeでも同じ設定を使用できますが、通常のログと浮かぶテキストはもともと表示されません。"
+	"docs.code_settings.errors": "これらの設定でも、経路探索の失敗、警告、JavaScriptエラーは表示されます。Mainframeでも同じ設定を使用できますが、通常のログと浮かぶテキストはもともと表示されません。",
+	"docs.progression.use": "成長ガイドはHPとMPの上に表示されます。見出しを開くと道筋の確認や目標の選択ができ、各INFOには次の手順と入手先が表示されます。マイナスボタンで最小化できます。設定のチュートリアルの隣でオフにできます。",
+	"docs.progression.goals": "戦闘クラスはまず恒常的な攻撃力1,000、プリーストは回復力1,000、マーチャントは商品を並べた店を目指します。所持している強い装備でレッスンを飛ばせます。その後はアイテム、セット、所持金、狩場、戦闘の目標を選べます。一時的な強化では恒常的な目標を達成できません。",
+	"docs.progression.estimates": "狩りの予測は出発点です。1体だけとの戦闘を試し、HP、MP、ポーション代を確認しましょう。最近の死亡や費用のかかる戦闘があれば、そのルートは提案から外れます。新しいサーバー情報に機会が示されるとイベントのINFOが表示されますが、存在するだけで戦えるとは限りません。",
+	"docs.progression.resources": "計画では装備中や保護された装備を製作・合成の素材に使いません。レシピには正確なアイテムレベルと十分な数のスタックが必要です。表示される強化費用は供物や加護を含まない平均値で、保証ではありません。使う前に通常の強化・合成のプレビューを確認してください。",
+	"docs.progression.code": "get_progression(options)は移動、消費、攻撃をせずに助言を返します。通常のCODEとMainframeで使えます。呼び出すと以後の戦闘の観察を開始し、それ以前のプレイは不明です。HUDをオフにしても、このCODE関数は無効になりません。",
+	"docs.progression.api": "結果にはready、goal、progress、complete、rows、plans、opportunities、choicesが含まれます。各行には安定したid、action、reason、cost、リソース参照があります。テキストはフレーズIDとパラメーターで表されます。別の目標にはgoal、支出制限にはspendLimit、PvPの機会を含めるにはallowPvpを使います。オプションは今回の取得にのみ影響し、保存されたHUDの目標は変更しません。"
 }

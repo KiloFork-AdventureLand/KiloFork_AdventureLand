@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Vérifier à nouveau plus tard",
 	"tutorial.js-async.title": "Attendre le jeu",
 	"tutorial.js-events.title": "Réagir aux événements",
-	"tutorial.js-capstone.title": "Créer un petit script de récolte"
+	"tutorial.js-capstone.title": "Créer un petit script de récolte",
+	"directory.guide.progression-guide.title": "Guide de progression"
 }

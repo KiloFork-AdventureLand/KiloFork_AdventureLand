@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Проверь позже",
 	"tutorial.js-async.title": "Дождись игры",
 	"tutorial.js-events.title": "Реагируй на события",
-	"tutorial.js-capstone.title": "Собери небольшой скрипт фарма"
+	"tutorial.js-capstone.title": "Собери небольшой скрипт фарма",
+	"directory.guide.progression-guide.title": "Путеводитель развития"
 }

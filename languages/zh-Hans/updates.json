@@ -752,5 +752,6 @@
 	"update.17_09_16.new_pvp_animation_and_dynamics_can_t_escape_for": "新的PVP动画和机制，受击后3.6秒内无法逃离。",
 	"update.16_09_16.launched_the_premium_currency_shells_and_first_premium_items": "推出高级货币贝壳及首批高级物品。怪物也会掉落贝壳，至于是哪几种，就不告诉你了 :]",
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "怪物新增“主动攻击”行为。Bee会蜇人了 :)",
-	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "新增“连线”功能，攻击和治疗时在实体之间画线，对PVP应该尤其有用。"
+	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "新增“连线”功能，攻击和治疗时在实体之间画线，对PVP应该尤其有用。",
+	"update.14_09_26.progression": "成长指南从首次Goo战斗起就会推荐装备计划、实用狩猎地点和当前机会。在HP和MP上方选择目标，或在设置中通过教程旁的开关关闭指南。CODE也能用get_progression()读取相同建议。"
 }

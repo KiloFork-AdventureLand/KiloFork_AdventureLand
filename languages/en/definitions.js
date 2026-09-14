@@ -3135,4 +3135,6 @@ module.exports = {
 	"slot.stone.name": "Stone",
 	// js/html.js render_cosmetics and cx_sprite; compact special-effects appearance caption. Short for Special Effects; keep brief for the narrow slot tile. Displayed uppercase. Quote this same label in the Cosmetics guide.
 	"slot.special.name": "Sp. FX",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"directory.guide.progression-guide.title": "Progression Guide",
 };

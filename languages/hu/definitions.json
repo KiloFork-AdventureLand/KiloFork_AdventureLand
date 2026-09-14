@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Ellenőrizd később újra",
 	"tutorial.js-async.title": "Várj a játékra",
 	"tutorial.js-events.title": "Reagálj az eseményekre",
-	"tutorial.js-capstone.title": "Készíts kis farmoló szkriptet"
+	"tutorial.js-capstone.title": "Készíts kis farmoló szkriptet",
+	"directory.guide.progression-guide.title": "Fejlődési útmutató"
 }

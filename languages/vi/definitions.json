@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Kiểm tra lại sau",
 	"tutorial.js-async.title": "Chờ trò chơi",
 	"tutorial.js-events.title": "Phản ứng với sự kiện",
-	"tutorial.js-capstone.title": "Tạo đoạn mã đi farm nhỏ"
+	"tutorial.js-capstone.title": "Tạo đoạn mã đi farm nhỏ",
+	"directory.guide.progression-guide.title": "Hướng dẫn phát triển"
 }

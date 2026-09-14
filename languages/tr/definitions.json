@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Daha sonra tekrar kontrol et",
 	"tutorial.js-async.title": "Oyunu bekle",
 	"tutorial.js-events.title": "Olaylara tepki ver",
-	"tutorial.js-capstone.title": "Küçük bir avlanma betiği yaz"
+	"tutorial.js-capstone.title": "Küçük bir avlanma betiği yaz",
+	"directory.guide.progression-guide.title": "İlerleme Rehberi"
 }

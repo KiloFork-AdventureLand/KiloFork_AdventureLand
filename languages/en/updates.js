@@ -1509,4 +1509,6 @@ module.exports = {
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "Implemented \"aggressiveness\" for monsters. Bee's sting :)",
 	// update_notes.js; release highlight in game logs and the update archive. Preserve fixed HTML tags/attributes and CODE snippets, when present.
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "Added the \"lines\" feature. Draws a line between entities on attack, heal. Should especially be useful for PVP.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"update.14_09_26.progression": "The Progression Guide suggests equipment projects, useful farms and live opportunities, from your first Goo fights onward. Choose a goal above HP and MP, or turn the guide off beside Tutorial in Settings. CODE can read the same advice with get_progression().",
 };

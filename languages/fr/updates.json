@@ -752,5 +752,6 @@
 	"update.17_09_16.new_pvp_animation_and_dynamics_can_t_escape_for": "Nouvelle animation et nouvelles mécaniques JcJ : impossible de fuir pendant 3.6 secondes après avoir été touché.",
 	"update.16_09_16.launched_the_premium_currency_shells_and_first_premium_items": "Lancement des COQUILLAGES, la monnaie premium, et des premiers objets premium. Les monstres donnent aussi des COQUILLAGES. Je ne dirai pas lesquels :]",
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "Ajout de l’« agressivité » des monstres. Les Bee piquent :)",
-	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "Ajout de la fonction « lignes » : elle trace une ligne entre les entités lors d’une attaque ou d’un soin. Elle devrait être particulièrement utile en JcJ."
+	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "Ajout de la fonction « lignes » : elle trace une ligne entre les entités lors d’une attaque ou d’un soin. Elle devrait être particulièrement utile en JcJ.",
+	"update.14_09_26.progression": "Le Guide de progression propose des projets d'équipement, des zones de chasse utiles et des occasions actives dès vos premiers combats contre Goo. Choisissez un objectif au-dessus des HP et MP, ou désactivez le guide dans les paramètres à côté du tutoriel. CODE peut lire les mêmes conseils avec get_progression()."
 }

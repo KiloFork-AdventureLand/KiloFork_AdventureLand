@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Έλεγξε ξανά αργότερα",
 	"tutorial.js-async.title": "Περίμενε το παιχνίδι",
 	"tutorial.js-events.title": "Αντέδρασε σε συμβάντα",
-	"tutorial.js-capstone.title": "Φτιάξε ένα μικρό script για farming"
+	"tutorial.js-capstone.title": "Φτιάξε ένα μικρό script για farming",
+	"directory.guide.progression-guide.title": "Οδηγός προόδου"
 }

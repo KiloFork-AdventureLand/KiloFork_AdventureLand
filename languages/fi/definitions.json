@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Tarkista myöhemmin",
 	"tutorial.js-async.title": "Odota peliä",
 	"tutorial.js-events.title": "Reagoi tapahtumiin",
-	"tutorial.js-capstone.title": "Tee pieni farmausskripti"
+	"tutorial.js-capstone.title": "Tee pieni farmausskripti",
+	"directory.guide.progression-guide.title": "Kehitysopas"
 }

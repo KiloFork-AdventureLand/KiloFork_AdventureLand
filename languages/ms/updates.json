@@ -51,5 +51,6 @@
 	"update.15_01_26.pr_new_kill_credit_emit_215": "PR: Pemancaran kill_credit baharu #215",
 	"update.15_01_26.pr_add_crypt_monster_achievements_214": "PR: tambah pencapaian raksasa crypt #214",
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "API JSON baharu untuk menjimatkan lebar jalur (Dalaman)",
-	"update.01_01_26.slight_chance_something_might_break": "(Ada sedikit kemungkinan sesuatu tidak berfungsi)"
+	"update.01_01_26.slight_chance_something_might_break": "(Ada sedikit kemungkinan sesuatu tidak berfungsi)",
+	"update.14_09_26.progression": "Panduan Kemajuan mencadangkan projek kelengkapan, tempat memburu yang berguna dan peluang aktif, bermula daripada pertarungan Goo pertama anda. Pilih sasaran di atas HP dan MP, atau matikan panduan di sebelah Tutorial dalam Tetapan. CODE boleh membaca nasihat yang sama dengan get_progression()."
 }

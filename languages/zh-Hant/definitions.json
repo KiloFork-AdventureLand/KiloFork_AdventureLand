@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "稍後再次檢查",
 	"tutorial.js-async.title": "等待遊戲操作",
 	"tutorial.js-events.title": "響應事件",
-	"tutorial.js-capstone.title": "編寫一個小型刷怪指令碼"
+	"tutorial.js-capstone.title": "編寫一個小型刷怪指令碼",
+	"directory.guide.progression-guide.title": "成長指南"
 }

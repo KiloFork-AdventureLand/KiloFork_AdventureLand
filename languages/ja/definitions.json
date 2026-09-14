@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "後でもう一度確認する",
 	"tutorial.js-async.title": "ゲームの処理を待つ",
 	"tutorial.js-events.title": "イベントに反応する",
-	"tutorial.js-capstone.title": "小さな狩りのスクリプトを作る"
+	"tutorial.js-capstone.title": "小さな狩りのスクリプトを作る",
+	"directory.guide.progression-guide.title": "成長ガイド"
 }

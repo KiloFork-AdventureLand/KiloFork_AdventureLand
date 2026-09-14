@@ -590,4 +590,174 @@ module.exports = {
 	"services.vscode_sync.use-show-token-to-reveal-the-active-token-then": "Use Show token to reveal the active token, then paste it into VS Code.",
 	// js/vscode_sync.js; your session ended sign in again. Keep Adventure Land, Mainframe, Steam, product names, item/NPC/map/character names and CODE symbols unchanged. Preserve named parameters exactly.
 	"services.vscode_sync.your-session-ended-sign-in-again": "Your session ended. Sign in again.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.name": "Progression Guide",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.setting.on": "Progression Guide: <span style=\"color:green\">ON</span>",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.setting.off": "Progression Guide: <span style=\"color:#F67D4C\">OFF</span>",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.fold": "Minimize progression",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.goal.stat": "{value} {stat}",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.goal.item": "{item} +{level}",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.goal.gold": "{value} gold",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.goal.farm": "Sustain fights with {monster}",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.goal.shop": "Open your first stocked shop",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.goal.gather": "Gather with your own tools",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.goal.item_select": "Item goal",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.materials": "{owned} / {needed} ready",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.expected": "Average: {copies} base copies and {gold} scroll gold, before offerings or grace. Failed attempts consume items.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.recipe": "{npc}: {gold} gold, plus these ingredients.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.price": "Cost: {gold} gold",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.gain": "Completed change: {stat} +{amount}, HP {hp}, armor {armor}, resistance {resistance}.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.shortfall": "Save {gold} more gold before starting.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reserve": "Keep {gold} gold for potions.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.complete": "Goal reached! Choose what to work toward next.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.intro": "Your next steps follow your equipment, gold, level and recent fights. Click INFO for sources, ingredients and alternatives.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.choose": "Choose a goal",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.automatic": "Return to class goals",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.buy": "Buy {item}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.craft": "Make {item} with {npc}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.token": "Trade tokens for {item}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.farm": "{monster} · {map}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.exchange": "Exchange for a chance at {item}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.dismantle": "Recover materials for {item}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.hunt": "Visit Daisy",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.gather": "Prepare to gather",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.retrieve": "Retrieve {item} from the bank",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.upgrade": "Develop a spare {item} to +{level}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.compound": "Compound {item} to +{level}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.equip": "Equip {item} +{level}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.stat": "Add your main stat to {item}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.event": "{event} is active",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.recover": "Recover before the next fight",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.supplies": "Restock potions",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.shop": "Open and stock your stand",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.inspect": "Find a source for {item}",
+	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.action.prepare": "Prepare for {monster}",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.material": "Still needed: {quantity} {item}.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.try_material": "Try a few fights for {item}; check potion use.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.spares": "Keep your worn equipment. Use spare copies.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.random": "The reward is random; each attempt uses the exchange item.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.source": "Check the source and remaining ingredients in INFO.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.gain": "This bag item improves your current build.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.stat": "Matching stat scrolls needed: {quantity}.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.blocked": "A next step for {item} needs more information. Inspect its sources.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.recover": "Resurrect if needed, then restore HP and MP.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.supplies": "Keep both HP and MP potions ready.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.shop": "Use a stand, list spare items, and keep supplies funded.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.gather": "Check your tool, level, MP, cooldown and gathering location.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.hunt_turnin": "Your assigned hunt is complete. Collect your Monster Token.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.hunt": "Ask for a hunt and save Monster Tokens for equipment.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.hunt_farm": "These kills count toward your assigned hunt.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.prepare": "Read the mechanics and check your party before joining.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.bees": "Earn XP and save Bee Wings for Cole.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.income": "Recent loot covers potion costs and helps fund your goal.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.try_income": "Try a few fights; compare loot gold with potion costs.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.xp": "Recent fights support steady leveling.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.try_xp": "Try one fight first; continue if HP and potions hold up.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.season": "Collect seasonal drops alongside your current farm.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.event_ready": "Recent participation earned credit. Check the current fight in INFO.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.event_check": "Check access and participation in INFO before joining.",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.foundation": "Your first working equipment",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.foundation.why": "Start with Goo. Move to Bees after steady fights, buy five armor pieces, and develop a spare weapon to +3.",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.working": "A +5 weapon and matching armor stats",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.working.why": "Raise a spare weapon to +5. Bring armor to +3 and add your class’s main stat. Keep useful drops for Cole.",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.amulet": "Your first matching amulet",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.amulet.why": "Farm suitable Snakes in Halloween for your class’s amulet. Mainland Snakes do not share that map’s amulet drops.",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.amulet2": "Bring your amulet to +2",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.amulet2.why": "Use three identical spare amulets at the same level for each attempt. Reach +1, then +2; keep your worn amulet safe.",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.earrings": "Fill both earring slots",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.earrings.why": "Fill both ears before compounding. Inspect Phoenix or Dracul drops and fresh player offers; continue rings while a party is unavailable.",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.rings": "Find two matching rings",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.rings.why": "Arctic Bees in Winterland can supply matching rings. Check the fight first, then fill both ring slots.",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.rings2": "Bring both rings to +2",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.rings2.why": "Improve the weaker ring first: +0/+0, +1/+0, +1/+1, +2/+1, then +2/+2. Keep both worn rings.",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.earrings2": "Bring both earrings to +2",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.earrings2.why": "Save matching party drops or compare fresh offers. Develop spare earrings while keeping both ears equipped. Stop at +2 for now.",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.equipment": "Build a lasting equipment foundation",
+	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.lesson.equipment.why": "Work on spare +7 armor and weapons alongside accessories. Bats drop books for suitable offhands. Level gains may finish the goal without another costly upgrade.",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.goal.encounter": "Earn participation credit against {monster}",
+	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
+	"progression.reason.project": "{item} +{level} would add {amount} {stat}. Keep your worn gear.",
 };

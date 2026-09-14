@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Später erneut prüfen",
 	"tutorial.js-async.title": "Auf das Spiel warten",
 	"tutorial.js-events.title": "Auf Ereignisse reagieren",
-	"tutorial.js-capstone.title": "Ein kleines Farming-Skript bauen"
+	"tutorial.js-capstone.title": "Ein kleines Farming-Skript bauen",
+	"directory.guide.progression-guide.title": "Fortschrittsratgeber"
 }

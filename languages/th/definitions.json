@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "ตรวจอีกครั้งภายหลัง",
 	"tutorial.js-async.title": "รอการทำงานของเกม",
 	"tutorial.js-events.title": "ตอบสนองต่อเหตุการณ์",
-	"tutorial.js-capstone.title": "สร้างสคริปต์ฟาร์มเล็กๆ"
+	"tutorial.js-capstone.title": "สร้างสคริปต์ฟาร์มเล็กๆ",
+	"directory.guide.progression-guide.title": "คู่มือพัฒนาตัวละคร"
 }

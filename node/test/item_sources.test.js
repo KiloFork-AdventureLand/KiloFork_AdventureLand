@@ -12,6 +12,7 @@ for (const name of ["multipliers", "conditions", "items", "npcs", "drops"])
 function render(name, data = {}) {
 	const icons = [];
 	const context = vm.createContext({
+		ProgressionSources: require("../../js/progression/sources"),
 		G: Object.assign(
 			{
 				items: design.items,

@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "تحقق مجددًا لاحقًا",
 	"tutorial.js-async.title": "انتظر اللعبة",
 	"tutorial.js-events.title": "استجب للأحداث",
-	"tutorial.js-capstone.title": "أنشئ سكربت صيد صغيرًا"
+	"tutorial.js-capstone.title": "أنشئ سكربت صيد صغيرًا",
+	"directory.guide.progression-guide.title": "دليل التقدم"
 }

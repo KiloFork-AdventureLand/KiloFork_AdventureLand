@@ -51,5 +51,6 @@
 	"update.15_01_26.pr_new_kill_credit_emit_215": "PR: Ny udsendelse af kill_credit #215",
 	"update.15_01_26.pr_add_crypt_monster_achievements_214": "PR: Tilføj præstationer for monstre i krypten #214",
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "Ny JSON-API for at spare båndbredde (internt)",
-	"update.01_01_26.slight_chance_something_might_break": "(Lille risiko for, at noget går i stykker)"
+	"update.01_01_26.slight_chance_something_might_break": "(Lille risiko for, at noget går i stykker)",
+	"update.14_09_26.progression": "Udviklingsguiden foreslår udstyrsprojekter, nyttige jagtsteder og aktuelle muligheder fra dine første Goo-kampe. Vælg et mål over HP og MP, eller slå guiden fra i indstillingerne ved siden af vejledningen. CODE kan læse de samme råd med get_progression()."
 }

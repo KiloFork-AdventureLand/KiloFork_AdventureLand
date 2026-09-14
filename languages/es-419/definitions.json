@@ -1557,5 +1557,6 @@
 	"tutorial.js-timers.title": "Comprueba de nuevo más tarde",
 	"tutorial.js-async.title": "Espera al juego",
 	"tutorial.js-events.title": "Reacciona a los eventos",
-	"tutorial.js-capstone.title": "Crea un pequeño script de farmeo"
+	"tutorial.js-capstone.title": "Crea un pequeño script de farmeo",
+	"directory.guide.progression-guide.title": "Guía de progreso"
 }

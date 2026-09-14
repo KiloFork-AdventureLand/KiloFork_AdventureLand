@@ -2466,5 +2466,11 @@
 	"docs.code_settings.scope": "이 설정은 이 캐릭터의 현재 CODE 실행에 적용됩니다. 세 설정의 기본값은 모두 true입니다. 실행할 때마다 적용하려면 저장된 CODE 맨 위에 아래 대입문을 넣으세요.",
 	"docs.code_settings.cm": "<code>code_settings.log_cm = false</code>는 기본 메시지 수신 로그를 숨깁니다. 직접 만든 CM 핸들러와 로그 출력은 계속 작동합니다.",
 	"docs.code_settings.smart_move": "<code>code_settings.log_smart_move = false</code>는 일반적인 경로 탐색 로그를 숨깁니다. <code>code_settings.show_smart_move_text = false</code>는 경로 탐색 중 떠오르는 대사를 숨깁니다. 이동, 콜백, Promise 결과는 그대로 유지됩니다.",
-	"docs.code_settings.errors": "이 설정을 사용해도 경로 탐색 실패, 경고, JavaScript 오류는 계속 표시됩니다. Mainframe도 같은 설정을 지원하며, 일반 로그와 떠오르는 텍스트는 원래 표시하지 않습니다."
+	"docs.code_settings.errors": "이 설정을 사용해도 경로 탐색 실패, 경고, JavaScript 오류는 계속 표시됩니다. Mainframe도 같은 설정을 지원하며, 일반 로그와 떠오르는 텍스트는 원래 표시하지 않습니다.",
+	"docs.progression.use": "성장 가이드는 HP와 MP 위에 표시됩니다. 제목을 열면 경로를 보거나 목표를 선택할 수 있고 각 INFO는 다음 단계와 획득처를 보여 줍니다. 빼기 버튼으로 접을 수 있습니다. 설정에서 튜토리얼 옆의 스위치로 끌 수 있습니다.",
+	"docs.progression.goals": "전투 직업의 첫 목표는 영구 공격력 1,000이며 사제는 치유력 1,000, 상인은 물건을 갖춘 상점입니다. 이미 더 좋은 장비가 있으면 단계를 건너뛸 수 있습니다. 이후 아이템, 세트, 골드 금액, 사냥터, 전투 목표를 고르세요. 일시적인 강화 효과로는 영구 목표를 완료하지 못합니다.",
+	"docs.progression.estimates": "사냥 예상치는 출발점입니다. 떨어져 있는 적 한 마리와 싸워 보고 HP, MP, 물약 비용을 살피세요. 최근 사망하거나 전투 비용이 커지면 해당 경로가 제안에서 빠집니다. 최신 서버 상태가 기회를 알리면 이벤트 INFO가 나타납니다. 이벤트가 있다는 사실만으로 싸울 수 있다고 판단하지는 않습니다.",
+	"docs.progression.resources": "계획은 착용 중이거나 보호된 장비를 제작과 합성 재료에서 제외합니다. 제작법은 정확한 아이템 레벨과 수량이 충분한 묶음을 요구합니다. 표시되는 성장 비용은 공물이나 은총을 제외한 평균이며 보장 금액이 아닙니다. 쓰기 전에 기존 강화 또는 합성 미리보기를 확인하세요.",
+	"docs.progression.code": "get_progression(options)는 이동, 소비, 공격 없이 조언을 반환합니다. 일반 CODE와 Mainframe에서 작동합니다. 호출하면 이후 전투 관찰을 시작하며 이전 플레이는 알 수 없습니다. HUD를 꺼도 이 CODE 함수는 꺼지지 않습니다.",
+	"docs.progression.api": "결과에는 ready, goal, progress, complete, rows, plans, opportunities, choices가 포함됩니다. 각 행에는 고정된 id, action, reason, cost와 자원 참조가 있습니다. 텍스트는 문구 ID와 매개변수를 사용합니다. 다른 목표는 goal, 지출 한도는 spendLimit, PvP 기회 검토는 allowPvp로 지정하세요. 옵션은 이번 조회에만 적용되며 저장된 HUD 목표는 바꾸지 않습니다."
 }
