@@ -192,6 +192,7 @@
 			return Object.assign({}, route, {
 				safe: !reasons.length,
 				proven: !!proven,
+				trial: !proven && route.monster !== "goo" && (seconds > 12 || loss > current.max_hp * 0.12 || incoming * 8 > current.max_hp),
 				reasons: reasons,
 				seconds: seconds,
 				loss: loss,
@@ -631,13 +632,13 @@
 			ownedEquipment(s).forEach(function (i) {
 				places(i).forEach(function (slot) {
 					add(slot, i, 1000, "owned", i.num);
-					if (plain(i) && G.items[i.name].stat && i.stat_type !== primary) add(slot, Object.assign({}, i, { stat_type: primary }), 960, "stat", i.num);
+					if (plain(i) && G.items[i.name].stat && i.stat_type !== primary) add(slot, Object.assign({}, i, { stat_type: primary }), 810, "stat", i.num);
 				});
 			});
 			slots.forEach(function (slot) {
 				var own = s.durable[slot];
 				if (!own) return;
-				if (props(own).stat && own.stat_type !== primary && plain(own)) add(slot, Object.assign({}, own, { stat_type: primary }), 950, "stat");
+				if (props(own).stat && own.stat_type !== primary && plain(own)) add(slot, Object.assign({}, own, { stat_type: primary }), 810, "stat");
 				if (plain(own) && (G.items[own.name].upgrade || G.items[own.name].compound) && (own.level || 0) < (G.items[own.name].compound ? (teaching.length ? 2 : 4) : 9))
 					add(slot, Object.assign({}, own, { level: (own.level || 0) + 1 }), 650, "develop");
 			});
@@ -738,7 +739,7 @@
 					map: a.route ? G.maps[a.route.map].name || a.route.map : "",
 				};
 			var kind = a.kind === "buy" || a.kind === "purchase" ? "buy" : a.kind;
-			var reason = a.kind === "farm" ? (a.route.proven ? "material" : "try_material") : ["upgrade", "compound"].includes(kind) ? "spares" : a.random ? "random" : "source";
+			var reason = a.kind === "farm" ? (a.route.trial ? "try_material" : "material") : ["upgrade", "compound"].includes(kind) ? "spares" : a.random ? "random" : "source";
 			return advice(
 				kind,
 				reason,
@@ -789,7 +790,7 @@
 				var status = world.status[key],
 					def = G.events[key] || G.monsters[key];
 				if (!def || !active(status, s.now)) return;
-				var seasonal = ["holidayseason", "halloween", "lunarnewyear", "valentines", "egghunt", "anniversary"].includes(key),
+				var seasonal = def.type === "seasonal",
 					evidence = (s.eventEvidence || {})[key];
 				var checked =
 					evidence &&
@@ -816,10 +817,12 @@
 						{ event: def.name },
 						{
 							id: "event:" + key + ":" + s.realm + ":" + world.instances[key],
+							notice: "event:" + key + ":" + s.realm + ":" + (seasonal ? new Date(s.now).getUTCFullYear() : status.id || status.round || status.end || world.instances[key]),
 							event: key,
 							expires: Math.min(at + policy.fresh, typeof status.end === "number" ? status.end : Infinity),
 							action: { kind: "event", event: key, ready: !!checked, modal: def.modal },
-							art: { monster: def.sprite || key },
+							art: G.items[def.sprite] ? { item: def.sprite } : { monster: def.sprite || key },
+							reason: seasonal && def.announcement ? { id: "event." + key + ".announcement.text", args: {} } : message(checked ? "reason.event_ready" : "reason.event_check"),
 							priority: (relevance ? 70 : 0) + (checked ? 65 : seasonal ? 30 : 5),
 							relevant: relevance,
 							informational: !seasonal && !checked,
@@ -908,7 +911,7 @@
 					.sort(function (a, b) {
 						return b.rank - a.rank;
 					})
-					.slice(0, 10)
+					.slice(0, 16)
 					.forEach(function (c) {
 						var row,
 							plan,
@@ -923,9 +926,14 @@
 						else if (c.origin === "stat") {
 							var scroll = primaryScroll(s),
 								quantity = statQuantity(c.item),
-								ownedScroll = bag.find(function (i) {
-									return i.name === scroll && (i.q || 1) >= quantity;
-								});
+								ownedScroll = bag
+									.filter(function (i) {
+										return i.name === scroll;
+									})
+									.sort(function (a, b) {
+										return (b.q || 1) - (a.q || 1);
+									})[0],
+								availableScrolls = Math.min(quantity, ownedScroll ? ownedScroll.q || 1 : 0);
 							if (!G.items[scroll] || !quantity) return;
 							row = advice(
 								"stat",
@@ -933,8 +941,8 @@
 								{ item: itemName(c.item.name), stat: G.classes[s.ctype].main_stat, quantity: quantity },
 								{
 									action: { kind: "stat", slot: c.slot, num: c.num, name: c.item.name, scroll: scroll, quantity: quantity },
-									cost: ownedScroll ? 0 : G.items[scroll].g * quantity,
-									resources: (ownedScroll ? [{ num: ownedScroll.num, quantity: quantity }] : []).concat(c.num !== undefined ? [{ num: c.num, quantity: 1 }] : []),
+									cost: G.items[scroll].g * (quantity - availableScrolls),
+									resources: (availableScrolls ? [{ num: ownedScroll.num, quantity: availableScrolls }] : []).concat(c.num !== undefined ? [{ num: c.num, quantity: 1 }] : []),
 									priority: 95,
 								},
 							);
@@ -962,6 +970,13 @@
 							row.reason = message("reason.project", Object.assign({ item: itemName(c.item.name), level: c.item.level || 0 }, improvement));
 						row.target = c.item;
 						row.slot = c.slot;
+						row.lesson = (
+							teaching.find(function (l) {
+								return l.missing.some(function (r) {
+									return r.slot === c.slot && r.name === c.item.name;
+								});
+							}) || {}
+						).id;
 						row.plan = plan;
 						var survival = Math.max(0, c.gain.armor + c.gain.resistance) / 10,
 							burden =
@@ -971,12 +986,24 @@
 								});
 						row.expected = burden ? { copies: burden.meanCopies, scrollGold: burden.meanGold, minimum: burden.minimum } : null;
 						var value = (c.gain.amount / Math.max(1, current[goal.metric || metricFor(s)] || 1)) * 100 + survival + c.setGain * 100;
-						row.priority = row.kind === "equip" ? 250 + value : row.kind === "stat" && row.cost <= s.budget ? 210 + value : c.origin === "lesson" ? 120 + value : 60 + value + (c.rank >= 700 ? 30 : 0);
+						var readyDevelopment = ["upgrade", "compound"].includes(row.kind) && !row.cost;
+						row.priority = row.kind === "equip" ? 250 + value : row.kind === "stat" && !row.cost ? 210 + value : c.origin === "lesson" ? 140 + value : 60 + value + (c.rank >= 700 ? 30 : 0);
 						if (row.kind === "craft" && row.cost <= s.budget) row.priority = 180 + value;
+						if (readyDevelopment) row.priority = 180 + value - 25 * Math.log(1 / row.action.chance);
 						if (row.kind === "inspect") row.priority = 90 + value;
+						// Compare gold with the improvement, even on a wealthy character.
+						// An affordable stat scroll is not automatically a useful first purchase.
+						var investment = row.cost;
+						if (burden && !readyDevelopment) {
+							var vendor = index.sources(c.item.name).find(function (source) {
+								return source.kind === "shop" && source.currency === "gold";
+							});
+							investment = Math.max(investment, burden.meanGold + (vendor ? vendor.price * burden.meanCopies : 0));
+						}
+						if (row.kind !== "equip") row.priority -= 25 * Math.log1p(investment / Math.max(1, value) / 1000);
 						if (row.cost > s.budget) row.priority -= 70;
-						if (burden && burden.meanGold > Math.max(s.budget, 10000) * 3) row.priority -= 50;
-						if (burden) row.priority -= 20 * Math.log1p(burden.meanGold / Math.max(10000, s.budget)) + 8 * Math.log2(Math.max(1, burden.meanCopies));
+						if (burden && !readyDevelopment && burden.meanGold > Math.max(s.budget, 10000) * 3) row.priority -= 50;
+						if (burden && !readyDevelopment) row.priority -= 20 * Math.log1p(burden.meanGold / Math.max(10000, s.budget)) + 8 * Math.log2(Math.max(1, burden.meanCopies));
 						ranked.push(row);
 					});
 				ranked.sort(function (a, b) {
@@ -1084,9 +1111,14 @@
 				});
 				if (early) farm = early;
 			}
+			function farmReason(route) {
+				if (route.monster === "bee" && teaching.length && !route.trial) return "bees";
+				if (route.trial) return income ? "try_income" : "try_xp";
+				return income ? (route.proven ? "income" : "gold") : route.proven ? "xp" : "level";
+			}
 			if (farm)
 				rows.push(
-					farmAdvice(farm, farm.monster === "bee" && teaching.length ? "bees" : income ? (farm.proven ? "income" : "try_income") : farm.proven ? "xp" : "try_xp", {
+					farmAdvice(farm, farmReason(farm), {
 						priority: goal.kind === "farm" || goal.kind === "gold" ? 110 : result.levelFinish && result.levelFinish <= s.level + 3 ? 150 : 35,
 					}),
 				);
@@ -1135,10 +1167,7 @@
 					return r.kind === "farm";
 				})
 			)
-				result.rows[Math.min(1, result.rows.length)] = farmAdvice(
-					farm,
-					farm.monster === "bee" && teaching.length ? "bees" : income ? (farm.proven ? "income" : "try_income") : farm.proven ? "xp" : "try_xp",
-				);
+				result.rows[Math.min(1, result.rows.length)] = farmAdvice(farm, farmReason(farm));
 			if (
 				result.opportunities[0] &&
 				!result.rows.some(function (r) {
@@ -1156,7 +1185,7 @@
 					return r.kind === "farm" || r.kind === "supplies";
 				})
 			)
-				result.rows[Math.min(1, result.rows.length)] = farmAdvice(farm, farm.proven ? "income" : "try_income");
+				result.rows[Math.min(1, result.rows.length)] = farmAdvice(farm, farmReason(farm));
 			// Only visible projects share the spending budget. Replacing a project
 			// with a farm or event must release its gold reservation.
 			result.rows.forEach(function (r) {

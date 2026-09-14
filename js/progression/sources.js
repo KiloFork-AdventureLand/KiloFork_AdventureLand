@@ -19,7 +19,7 @@
 		Object.keys(G.maps || {}).forEach(function (map) {
 			var def = G.maps[map];
 			if (def.ignore) return;
-			(def.npcs || []).forEach(function (n) {
+			(def.npcs || []).concat(def.seasonal_npcs || []).forEach(function (n) {
 				(locations[n.id] || (locations[n.id] = [])).push({ map: map, position: n.position });
 			});
 			(def.monsters || []).forEach(function (spawn, n) {

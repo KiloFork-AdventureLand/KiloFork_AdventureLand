@@ -2469,7 +2469,7 @@
 	"docs.code_settings.errors": "这些设置不会隐藏寻路失败、警告或JavaScript错误。Mainframe也支持相同的设置；它原本就不显示常规日志和浮动文字。",
 	"docs.progression.use": "成长指南位于HP和MP上方。点击标题可查看路线或选择目标；每个INFO都展示下一步及其来源。点击减号可收起。在设置中可通过教程旁的开关关闭。",
 	"docs.progression.goals": "战斗职业的初始目标是1,000永久攻击力；牧师以1,000治疗量为目标，商人则开设备好货的商店。已有更好的装备可以跳过部分课程。之后可选择物品、套装、金币数额、狩猎地点或战斗目标。临时增益不会完成永久目标。",
-	"docs.progression.estimates": "狩猎估算只是起点。先尝试与落单敌人战斗，并观察HP、MP和药水支出。近期死亡或成本过高的战斗会使路线退出推荐。最新服务器状态报告机会时，会显示活动INFO；活动存在并不代表你已经能应战。",
+	"docs.progression.estimates": "刷怪建议依据你的装备和怪物属性。Goo适合起步。预计战斗接近你的承受极限时，才会建议先试打一场；近期死亡或开销过大的战斗会让该路线退出推荐。活动INFO会打开活动指南；活动正在进行，并不意味着你能参与其中的战斗。",
 	"docs.progression.resources": "计划不会把正在穿戴和受保护的装备用于制作或合成。配方要求准确的物品等级和数量充足的单组堆叠。列出的培养费用是不计供品或恩赐的平均值，并非保证；花费前请查看游戏原有的强化或合成预览。",
 	"docs.progression.code": "get_progression(options)只返回建议，不移动、不花费、不攻击。适用于常规CODE和Mainframe。调用后开始观察后续战斗，无法得知此前的游玩情况。关闭HUD不会停用这个CODE函数。",
 	"docs.progression.api": "结果包括ready、goal、progress、complete、rows、plans、opportunities和choices。每行都有稳定的id、action、reason、cost和资源引用。文本使用短语ID及参数。用goal查看其他目标，用spendLimit限制支出，用allowPvp考虑PvP机会。选项只影响此次读取，不改变保存的HUD目标。"

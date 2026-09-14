@@ -593,13 +593,13 @@ module.exports = {
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.name": "Progression Guide",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
-	"progression.setting.on": "Progression Guide: <span style=\"color:green\">ON</span>",
+	"progression.setting.on": 'Progression Guide: <span style="color:green">ON</span>',
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
-	"progression.setting.off": "Progression Guide: <span style=\"color:#F67D4C\">OFF</span>",
+	"progression.setting.off": 'Progression Guide: <span style="color:#F67D4C">OFF</span>',
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.fold": "Minimize progression",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
-	"progression.goal.stat": "{value} {stat}",
+	"progression.goal.stat": "Reach {value} {stat}",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.goal.item": "{item} +{level}",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
@@ -659,7 +659,7 @@ module.exports = {
 	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.action.equip": "Equip {item} +{level}",
 	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
-	"progression.action.stat": "Add your main stat to {item}",
+	"progression.action.stat": "Add {stat} to {item}",
 	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.action.event": "{event} is active",
 	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
@@ -755,9 +755,54 @@ module.exports = {
 	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.lesson.equipment": "Build a lasting equipment foundation",
 	// Progression guide: goal lesson, with optional sources and spare equipment. Preserve named parameters, native item/map/NPC names and CODE identifiers.
-	"progression.lesson.equipment.why": "Work on spare +7 armor and weapons alongside accessories. Bats drop books for suitable offhands. Level gains may finish the goal without another costly upgrade.",
+	"progression.lesson.equipment.why":
+		"Work on spare +7 armor and weapons alongside accessories. Bats drop books for suitable offhands. Level gains may finish the goal without another costly upgrade.",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.goal.encounter": "Earn participation credit against {monster}",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.reason.project": "{item} +{level} would add {amount} {stat}. Keep your worn gear.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.goal.hint": "Levels and equipment, one step at a time.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.goal.explain": "Raise {stat} through leveling and lasting equipment. This is a long-term goal; you can move to stronger monsters along the way.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.next": "Now: {step}",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.why": "Why this helps",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.steps": "What to do",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.sources": "Items and sources",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.gain.finish": "After completing {item} +{level} and equipping it:",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.gain.stat": "{stat}: {before} → {after} ({change})",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.gain.stat_needed": "This total includes {stat} from stat scrolls. Add those after developing the item.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.how.stat": "Unequip {item}, then place it with {quantity} {scroll} in the upgrade slots. This selects {stat} without changing the item's level.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.how.stat_shop": "Buy missing scrolls from the listed seller and keep them in one stack.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.how.upgrade": "Use a spare {item} and {scroll} at the upgrade NPC. Check the chance before spending. Equip the spare when it is better than your worn item.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.how.compound": "Bring three spare {item} at +{level} and {scroll} to the compound NPC. Each attempt uses all three copies. Keep your worn item.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.how.equip": "Open your inventory and equip {item}.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.how.buy": "Visit {npc} and buy {quantity} {item}. The price below is for this purchase.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.how.craft": "Bring the ingredients below to {npc}. Open the recipe to see the craft and its cost.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.how.farm": "Farm {monster} in {map} for experience and gold. Keep potions ready and collect the loot.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.fight.estimate": "Estimated fight: {seconds}s, about {loss}% of your maximum HP before healing.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.farm.funds": "Gold from this farm funds {item}. Experience also raises your stats.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.reason.gold": "Farm gold for equipment and keep potions stocked.",
+	// Progression: goal context, concrete next steps or projected stats. Preserve item/NPC/map names and named parameters.
+	"progression.reason.level": "Farm for experience; levels increase your character's stats.",
+	// Progression: opens the existing recipe interface; it does not spend ingredients.
+	"progression.recipe.open": "View recipe",
 };

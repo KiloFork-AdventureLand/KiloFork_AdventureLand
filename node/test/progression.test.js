@@ -477,3 +477,105 @@ test("published examples execute through the regular CODE parent adapter", () =>
 	assert.deepEqual(sent, []);
 	a.runtime.detach();
 });
+
+test("a 91-Attack Ranger develops a spare bow before buying ten stat scrolls for Ice Skates", () => {
+	for (const gold of [100000, 10000000]) {
+		const s = snapshot("ranger", {
+			level: 7,
+			gold,
+			slots: { ...D.classes.ranger.base_slots, shoes: { name: "iceskates", level: 0 } },
+		});
+		const result = engine.evaluate(s);
+		assert.equal(result.stats.attack, 91);
+		assert.equal(result.rows[0].target.name, "bow");
+		assert.equal(result.rows[0].target.level, 3);
+		assert.equal(result.rows[0].gain.amount, 28);
+		assert.equal(result.rows[0].cost, 16000);
+		assert(!result.rows.some((r) => r.kind === "stat" && r.target.name === "iceskates"));
+		const farm = result.rows.find((r) => r.kind === "farm");
+		assert.equal(farm.action.route.monster, "goo");
+		assert.equal(farm.action.route.trial, false);
+		assert.equal(farm.reason.id, "progression.reason.level");
+	}
+	const free = engine.evaluate(
+		snapshot("ranger", {
+			level: 7,
+			slots: { ...D.classes.ranger.base_slots, shoes: { name: "iceskates", level: 0 } },
+			items: [
+				{ name: "hpot0", q: 100 },
+				{ name: "mpot0", q: 100 },
+				{ name: "dexscroll", q: 10 },
+			],
+		}),
+	);
+	assert(
+		free.rows.some((r) => r.kind === "stat" && r.cost === 0 && r.gain.amount === 3),
+		"already owned scrolls still provide a useful free improvement",
+	);
+});
+
+test("trial fights depend on combat estimates, not missing play history", () => {
+	const s = engine.normalize(snapshot("paladin", { level: 15 }));
+	const stats = engine.calculate(s.ctype, s.level, s.durable, s.map);
+	const routes = engine.index.routes.map((r) => engine.assess(s, stats, r, engine.reachable(s)));
+	assert(routes.some((r) => r.safe && !r.proven && !r.trial && r.monster === "bee"));
+	assert(routes.some((r) => r.safe && !r.proven && r.trial && r.monster !== "goo"));
+});
+
+test("seasonal notices survive socket reattachment and use the actual event item art", () => {
+	const a = adapter();
+	a.socket.emit("server_info", { anniversary: { active: true, round: "one", id: "featured-one" } });
+	const first = a.runtime.read().opportunities.find((o) => o.event === "anniversary");
+	assert.deepEqual(first.art, { item: "sixcake" });
+	assert.deepEqual(
+		Array.from(engine.index.locations.anniversary_baker[0].position),
+		Array.from(D.maps.main.seasonal_npcs.find((npc) => npc.id === "anniversary_baker").position),
+	);
+	a.runtime.detach();
+	a.advance(10000);
+	a.runtime.attach();
+	a.socket.emit("server_info", { anniversary: { active: true, round: "two", id: "featured-two" } });
+	const second = a.runtime.read().opportunities.find((o) => o.event === "anniversary");
+	assert.equal(second.notice, first.notice);
+	assert.notEqual(second.id, first.id, "combat evidence still belongs to its exact event instance");
+});
+
+test("stat advice buys only missing scrolls and reserves the owned stack", () => {
+	const slots = equipment("ranger", 9, 9, 3);
+	slots.shoes = { name: "iceskates", level: 9 };
+	const result = engine.evaluate(
+		snapshot("ranger", {
+			level: 77,
+			slots,
+			gold: 200000,
+			goal: { kind: "stat", metric: "attack", target: 100000 },
+			items: [
+				{ name: "hpot0", q: 100 },
+				{ name: "mpot0", q: 100 },
+				{ name: "dexscroll", q: 99 },
+			],
+		}),
+	);
+	const row = result.rows.find((r) => r.kind === "stat");
+	assert(row);
+	assert.equal(row.action.quantity, 100);
+	assert.equal(row.cost, D.items.dexscroll.g);
+	assert.deepEqual(row.resources, [{ num: 2, quantity: 99 }]);
+});
+
+test("a ready spare-ring compound outranks distant work without consuming worn rings", () => {
+	const slots = equipment("rogue", 5, 3, 0);
+	slots.offhand = { name: "claw", level: 5 };
+	slots.amulet.level = 2;
+	const items = [
+		{ name: "hpot0", q: 100 },
+		{ name: "mpot0", q: 100 },
+		{ name: "cscroll0", q: 1 },
+		...Array.from({ length: 3 }, () => ({ name: "dexring", level: 0 })),
+	];
+	const result = engine.evaluate(snapshot("rogue", { level: 65, slots, items }));
+	assert.equal(result.rows[0].kind, "compound");
+	assert.equal(result.rows[0].action.level, 1);
+	assert.equal(result.rows[0].cost, 0);
+	assert.deepEqual(result.rows[0].resources.map((r) => r.num).sort(), [2, 3, 4, 5]);
+});

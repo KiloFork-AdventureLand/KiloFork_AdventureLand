@@ -14,7 +14,7 @@
 #progression-guide .progression-heading {
 	display: flex;
 	align-items: center;
-	padding: 3px 8px;
+	padding: 6px 8px;
 }
 #progression-guide .progression-heading button {
 	flex: 1;
@@ -35,6 +35,12 @@
 	color: #a8ada4;
 	white-space: nowrap;
 }
+.progression-context {
+	display: block;
+	font-size: 20px;
+	line-height: 22px;
+	color: #a8ada4;
+}
 #progression-guide .progression-row {
 	width: 100%;
 	border: 0;
@@ -47,6 +53,7 @@
 	text-align: left;
 }
 .progression-art {
+	direction: ltr;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -88,17 +95,16 @@
 #progression-guide.is-folded {
 	width: max-content;
 	border: 0;
+	border-color: gray;
 	background: transparent;
 }
 #progression-guide .progression-fold {
 	border: 4px solid gray;
+	border-color: inherit;
 	margin: 0;
 	font-size: 24px;
 }
 #progression-guide.new-path {
-	animation: progression-new 1.2s step-end 2;
-}
-#progression-guide.new-path .progression-fold {
 	animation: progression-new 1.2s step-end 2;
 }
 @keyframes progression-new {
@@ -113,11 +119,79 @@
 	}
 }
 @media (prefers-reduced-motion: reduce) {
-	#progression-guide.new-path,
-	#progression-guide.new-path .progression-fold {
+	#progression-guide.new-path {
 		animation: none;
 		border-color: #ffdc8a;
 	}
+}
+.guide-article.progression-details {
+	width: min(740px, calc(100vw * var(--browser-zoom-inverse, 1) - 48px));
+}
+.progression-article {
+	font-size: 24px;
+	line-height: 1.25;
+	text-align: start;
+}
+.progression-article p {
+	margin: 12px 0;
+}
+.progression-article .title {
+	color: #406944;
+	font-size: 30px;
+	line-height: 1.1;
+	margin: 0 0 12px;
+}
+.progression-article .divider {
+	height: 5px;
+	background: #a2a2a2;
+	margin: 20px -24px 16px;
+}
+.progression-detail-heading,
+.progression-material {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+.progression-detail-heading .title {
+	margin: 0;
+	font-size: 32px;
+}
+.progression-material {
+	margin: 10px 0;
+}
+.progression-material > :first-child {
+	flex-shrink: 0;
+	direction: ltr;
+}
+.progression-drops {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 20px;
+}
+.progression-drops > div {
+	min-width: 180px;
+}
+.progression-change {
+	direction: ltr;
+	unicode-bidi: isolate;
+	color: #2e6b43;
+	font-size: 28px;
+}
+.progression-article button,
+.progression-article input,
+.progression-article select {
+	font-family: inherit;
+	font-size: 24px;
+	max-width: 100%;
+}
+.progression-article .gamebutton {
+	color: white;
+	white-space: normal;
+	text-align: start;
+}
+.progression-article .gamebutton-small {
+	padding: 4px 8px;
+	margin: 4px 0;
 }
 .guidance-setting-row {
 	display: flex;
