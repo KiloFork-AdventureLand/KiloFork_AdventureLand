@@ -2472,5 +2472,6 @@
 	"docs.progression.estimates": "刷怪建議會考量你的裝備與怪物屬性。Goo適合起步。預估戰況接近你的承受極限時，才會建議先試打一場；近期死亡或花費過高的戰鬥會使該路線退出推薦。活動INFO會開啟活動指南；活動正在進行，不代表你能參與其中的戰鬥。",
 	"docs.progression.resources": "計畫不會將正在穿戴或受保護的裝備列為製作與合成材料。配方需要精確的物品等級，以及數量足夠的單組堆疊。列出的培養費用是不計供品或恩賜的平均值，並非保證；花費前請確認遊戲原有的強化或合成預覽。",
 	"docs.progression.code": "get_progression(options)只傳回建議，不會移動、花費或攻擊。可用於一般CODE與Mainframe。呼叫後才會開始觀察後續戰鬥，先前的遊玩情況無法得知。關閉HUD不會停用此CODE函式。",
-	"docs.progression.api": "結果包含ready、goal、progress、complete、rows、plans、opportunities與choices。每列都有穩定的id、action、reason、cost及資源參照。文字使用片語ID與參數。以goal查看其他目標，以spendLimit限制支出，以allowPvp納入PvP機會。這些選項僅影響本次讀取，不會更改已儲存的HUD目標。"
+	"docs.progression.api": "結果包含ready、goal、progress、complete、rows、plans、opportunities與choices。每列都有穩定的id、action、reason、cost及資源參照。文字使用片語ID與參數。以goal查看其他目標，以spendLimit限制支出，以allowPvp納入PvP機會。這些選項僅影響本次讀取，不會更改已儲存的HUD目標。",
+	"docs.progression.travel": "按下{move}並確認後，即可前往顯示的NPC或刷怪地點。購買物品和開始戰鬥需要你自行操作。"
 }

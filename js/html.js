@@ -2697,7 +2697,20 @@ function render_drop(def, mult, color) {
 	return html;
 }
 
-function smart_smart_move(type, id) {
+function smart_smart_move(type, id, position) {
+	if (window.no_graphics || window.no_html) return;
+	// A specific source can share its monster or NPC with other maps.
+	// Keep the usual confirmation, but travel to the source the player chose.
+	if (position) {
+		var definitions = type == "npc" ? G.npcs : type == "monster" ? G.monsters : type == "map" ? G.maps : {}, destination = definitions[id];
+		if (!destination || !G.maps[position.map] || !Number.isFinite(position.x) || !Number.isFinite(position.y)) return;
+		var point = { map: position.map, x: position.x, y: position.y };
+		show_confirm(phrase.html("interface.travel.confirm", { destination: destination.name + " · " + G.maps[point.map].name }), phrase.html("interface.confirm.yes"), phrase.html("interface.close.cancel"), function () {
+			hide_modals();
+			call_code_function_f("smart_move", point);
+		});
+		return;
+	}
 	if (type == "npc") {
 		var npc = G.npcs[id];
 		show_confirm(phrase.html("interface.travel.confirm", { destination: npc.name }), phrase.html("interface.confirm.yes"), phrase.html("interface.close.cancel"), function () {

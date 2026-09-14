@@ -2472,5 +2472,6 @@
 	"docs.progression.estimates": "刷怪建议依据你的装备和怪物属性。Goo适合起步。预计战斗接近你的承受极限时，才会建议先试打一场；近期死亡或开销过大的战斗会让该路线退出推荐。活动INFO会打开活动指南；活动正在进行，并不意味着你能参与其中的战斗。",
 	"docs.progression.resources": "计划不会把正在穿戴和受保护的装备用于制作或合成。配方要求准确的物品等级和数量充足的单组堆叠。列出的培养费用是不计供品或恩赐的平均值，并非保证；花费前请查看游戏原有的强化或合成预览。",
 	"docs.progression.code": "get_progression(options)只返回建议，不移动、不花费、不攻击。适用于常规CODE和Mainframe。调用后开始观察后续战斗，无法得知此前的游玩情况。关闭HUD不会停用这个CODE函数。",
-	"docs.progression.api": "结果包括ready、goal、progress、complete、rows、plans、opportunities和choices。每行都有稳定的id、action、reason、cost和资源引用。文本使用短语ID及参数。用goal查看其他目标，用spendLimit限制支出，用allowPvp考虑PvP机会。选项只影响此次读取，不改变保存的HUD目标。"
+	"docs.progression.api": "结果包括ready、goal、progress、complete、rows、plans、opportunities和choices。每行都有稳定的id、action、reason、cost和资源引用。文本使用短语ID及参数。用goal查看其他目标，用spendLimit限制支出，用allowPvp考虑PvP机会。选项只影响此次读取，不改变保存的HUD目标。",
+	"docs.progression.travel": "点击{move}并确认后，即可前往所示的NPC或刷怪地点。购买物品和开始战斗需要你自行操作。"
 }

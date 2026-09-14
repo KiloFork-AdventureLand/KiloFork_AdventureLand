@@ -5782,4 +5782,6 @@ module.exports = {
 	"docs.progression.code": "get_progression(options) returns advice without moving, spending or attacking. It works in regular CODE and Mainframe. Calling it starts observation of subsequent fights; earlier play is unknown. Disabling the HUD does not disable this CODE function.",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"docs.progression.api": "The result includes ready, goal, progress, complete, rows, plans, opportunities and choices. Each row has a stable id, action, reason, cost and resource references. Text uses phrase IDs and parameters. Use goal to inspect another objective, spendLimit to cap spending, and allowPvp to consider PvP opportunities. Options affect this read, not the saved HUD goal.",
+	// Progression GUIDE: {move} is the translated Move button. Travel uses the existing confirmation; purchases and combat stay manual.
+	"docs.progression.travel": "Use {move} to travel to the shown NPC or farming spot after confirming. Buy items and start fights yourself.",
 };

@@ -438,7 +438,50 @@ test("UI entry points return before DOM or PIXI in no-graphics CODE", () => {
 	context.progression_details();
 	context.progression_fold(true);
 	context.progression_open({ kind: "craft" });
+	context.progression_travel({ type: "npc", id: "basics" });
 	context.set_progression_guide(false);
+});
+
+test("native travel confirms the selected source without changing named travel", () => {
+	const calls = [];
+	let confirm;
+	const context = vm.createContext({
+		G: D,
+		window: {},
+		show_confirm(text, yes, cancel, action) {
+			confirm = { text, action };
+		},
+		hide_modals() {},
+		call_code_function_f(...args) {
+			calls.push(JSON.parse(JSON.stringify(args)));
+		},
+	});
+	load(context, "js/html.js", ["smart_smart_move"]);
+	const point = { map: "halloween", x: -569, y: -511.5 };
+	context.smart_smart_move("monster", "snake", point);
+	assert(confirm.text.includes(D.maps.halloween.name));
+	assert.deepEqual(calls, []);
+	// A later change to a recommendation must not change an open confirmation.
+	point.map = "main";
+	confirm.action();
+	assert.deepEqual(calls.pop(), ["smart_move", { map: "halloween", x: -569, y: -511.5 }]);
+	context.smart_smart_move("npc", "basics");
+	confirm.action();
+	assert.deepEqual(calls.pop(), ["smart_move", "basics"]);
+	confirm = null;
+	context.smart_smart_move("monster", "snake", { map: "missing", x: 1, y: 2 });
+	context.smart_smart_move("npc", "missing", { map: "main", x: 1, y: 2 });
+	context.smart_smart_move("map", "main", { map: "main", x: NaN, y: 2 });
+	assert.equal(confirm, null);
+	context.window.no_graphics = true;
+	Object.defineProperty(context, "G", {
+		get() {
+			throw Error("game definitions touched in no-graphics travel");
+		},
+	});
+	context.smart_smart_move("npc", "basics");
+	context.smart_smart_move("monster", "snake", point);
+	assert.deepEqual(calls, []);
 });
 
 test("missing exchange inputs lead back to their actual farming sources", () => {

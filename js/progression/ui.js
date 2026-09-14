@@ -92,19 +92,21 @@
 	function persist() {
 		if (stateKey) save(stateKey, { folded: folded, goal: goal, seen: Array.from(seen).slice(-128) });
 	}
-	root.progression_art = function (art) {
+	root.progression_art = function (art, portrait) {
 		if (!graphics()) return "";
 		if (!art) return "<div class='progression-art' aria-hidden='true'></div>";
 		if (art.item && G.items[art.item]) return "<div class='progression-art' aria-hidden='true'>" + item_container({ skin: art.item, size: 40, bcolor: "black", draggable: false }) + "</div>";
-		var name = art.npc && G.npcs[art.npc] ? G.npcs[art.npc].skin : art.monster;
+		var npc = art.npc && G.npcs[art.npc],
+			name = npc ? npc.skin : art.monster;
 		if (!name) return "";
 		precompute_image_positions();
 		var skin = G.monsters[name] ? G.monsters[name].skin || name : name,
-			dims = G.dimensions[skin] || (IID[skin] ? [IID[skin][4], IID[skin][5]] : null);
+			dims = G.dimensions[skin] || (npc && G.dimensions.default_character) || (IID[skin] ? [IID[skin][4], IID[skin][5]] : null);
 		if (!dims || !IID[skin]) return "";
-		var scale = Math.max(1, Math.min(2, Math.floor(64 / (dims[0] + 4)), Math.floor(64 / (dims[1] + 6))));
+		var limit = portrait ? 88 : 64,
+			scale = Math.max(1, Math.min(2, Math.floor(80 / (dims[0] + 4)), Math.floor(limit / (dims[1] + 6))));
 		var width = (dims[0] + 4) * scale,
-			height = (dims[1] + 6) * scale,
+			height = (dims[1] + (npc ? 0 : 6)) * scale,
 			frame = Math.max(64, height);
 		// Passing the native skin avoids the monster-size adjustment in sprite().
 		// Both the frame and its position stay on whole pixels; no crop or resample.
@@ -116,7 +118,14 @@
 			"px;top:" +
 			Math.floor((frame - height) / 2) +
 			"px'>" +
-			sprite(skin, { scale: scale + (G.monsters[skin] && G.monsters[skin].size ? 1 - G.monsters[skin].size : 0), width: width, height: height }) +
+			sprite(skin, {
+				scale: scale + (G.monsters[skin] && G.monsters[skin].size ? 1 - G.monsters[skin].size : 0),
+				width: width,
+				height: height,
+				overflow: !!npc,
+				cx: Object.assign({}, npc && npc.cx),
+				cosmetic_head_y: npc && npc.cosmetic_head_y,
+			}) +
 			"</div></div>"
 		);
 	};
@@ -200,16 +209,21 @@
 				t("fold") +
 				"' onclick='btc(event); progression_fold(true)'>&minus;</button></div>";
 			result.rows.forEach(function (row, n) {
+				var destination = travelTarget(row.action);
 				html +=
-					"<button type='button' class='progression-row' onclick='btc(event); progression_details(" +
+					"<div class='progression-row'><button type='button' class='progression-summary' onclick='btc(event); progression_details(" +
 					n +
 					")'>" +
-					progression_art(row.art) +
+					progression_art(destination && destination.type === "npc" ? { npc: destination.id } : row.art) +
 					"<span class='progression-copy'><span class='progression-title'>" +
 					rowTitle(row) +
 					"</span><span class='progression-reason'>" +
 					rowReason(row) +
-					"</span></span><span class='progression-info'>INFO</span></button>";
+					"</span></span></button><div class='progression-actions'><button type='button' class='progression-info' onclick='btc(event); progression_details(" +
+					n +
+					")'>INFO</button>" +
+					moveButton(destination) +
+					"</div></div>";
 			});
 		}
 		var container = $("#progression-guide");
@@ -219,6 +233,7 @@
 			container.on("pointerdown mousedown touchstart mousemove", function (event) {
 				event.stopPropagation();
 			});
+			bindActions(container);
 		}
 		if (container.data("html") !== html) container.html(html).data("html", html);
 		container.toggleClass("is-folded", folded).css("margin-bottom", 8 + Math.max($(".codebbuttons").outerHeight() || 0, $(".badplaceforaui").outerHeight() || 0));
@@ -285,7 +300,17 @@
 							? html_escape(G.items[action.name].name) + " · INFO"
 							: t("name");
 		}
-		return "<button type='button' class='gamebutton gamebutton-small' data-progression-action='" + html_escape(JSON.stringify(action)) + "'>" + label + "</button>";
+		var reference = {
+			kind: action.kind,
+			name: action.name,
+			level: action.level,
+			recipe: action.recipe,
+			modal: action.modal,
+			event: action.event,
+			monster: action.monster,
+			route: action.route && { monster: action.route.monster },
+		};
+		return "<button type='button' class='gamebutton gamebutton-small' data-progression-action='" + html_escape(JSON.stringify(reference)) + "'>" + label + "</button>";
 	}
 	function section(title, content) {
 		return "<div class='divider'></div><div class='title'>" + title + "</div>" + content;
@@ -293,25 +318,91 @@
 	function paragraph(content) {
 		return "<p>" + content + "</p>";
 	}
-	function itemLine(item, detail) {
+	function materialCount(owned, needed) {
+		// Keep the owned / needed ratio in this order in right-to-left text too.
+		return t("materials", { owned: "\u2066" + to_pretty_num(owned), needed: to_pretty_num(needed) + "\u2069" });
+	}
+	function travelTarget(action) {
+		if (!action || action.blocked) return null;
+		var route = action.route;
+		if (route && route.safe && G.maps[route.map]) return { type: "monster", id: route.monster, position: { map: route.map, x: route.x, y: route.y } };
+		var npc = action.npc || (["upgrade", "compound", "stat"].includes(action.kind) ? "newupgrade" : null);
+		if (npc && G.npcs[npc]) {
+			var locations = adapter().engine.index.locations[npc] || [],
+				location =
+					locations.find(function (p) {
+						return p.map === character.map;
+					}) || locations[0];
+			if (location) return { type: "npc", id: npc, position: { map: location.map, x: location.position[0], y: location.position[1] + 15 } };
+		}
+		if (action.kind === "retrieve" && G.maps.bank) return { type: "map", id: "bank" };
+		return null;
+	}
+	function moveButton(destination) {
+		if (!destination) return "";
+		var definitions = destination.type === "npc" ? G.npcs : destination.type === "monster" ? G.monsters : G.maps;
 		return (
-			"<div class='progression-material'>" +
-			item_container({ skin: G.items[item.name].skin || item.name, size: 40, draggable: false }, item) +
-			"<div>" +
-			sourceButton({ kind: "inspect", name: item.name, level: item.level || 0 }) +
-			(detail ? "<div>" + detail + "</div>" : "") +
+			"<button type='button' class='gamebutton gamebutton-small progression-move' data-progression-travel='" +
+			html_escape(JSON.stringify(destination)) +
+			"' aria-label='" +
+			phrase.html("docs.guide.basics.move") +
+			" · " +
+			html_escape(definitions[destination.id].name) +
+			"'>" +
+			phrase.html("docs.guide.basics.move") +
+			"</button>"
+		);
+	}
+	root.progression_travel = function (destination) {
+		if (!graphics() || !root.character || !destination) return;
+		acknowledge();
+		smart_smart_move(destination.type, destination.id, destination.position);
+	};
+	function bindActions(container) {
+		container.on("click", "[data-progression-travel], [data-progression-action]", function (event) {
+			btc(event);
+			if (this.hasAttribute("data-progression-travel")) progression_travel(JSON.parse(this.getAttribute("data-progression-travel")));
+			else progression_open(JSON.parse(this.getAttribute("data-progression-action")));
+		});
+	}
+	function destinationLine(action, visited, link) {
+		var destination = travelTarget(action);
+		if (!destination) return "";
+		var key = JSON.stringify(destination);
+		if (visited && visited.has(key)) return "";
+		if (visited) visited.add(key);
+		var definitions = destination.type === "npc" ? G.npcs : destination.type === "monster" ? G.monsters : G.maps,
+			point = destination.position,
+			art = destination.type === "map" ? "" : progression_art(destination.type === "npc" ? { npc: destination.id } : { monster: destination.id }, true);
+		return (
+			"<div class='progression-destination'>" +
+			art +
+			"<div class='progression-place'><div>" +
+			html_escape(definitions[destination.id].name) +
+			"</div>" +
+			(point ? "<div class='progression-location'>" + html_escape(G.maps[point.map].name || point.map) + " <bdi>(" + Math.round(point.x) + ", " + Math.round(point.y) + ")</bdi></div>" : "") +
+			"</div><div class='progression-destination-actions'>" +
+			moveButton(destination) +
+			(link ? sourceButton(action) : "") +
 			"</div></div>"
 		);
 	}
-	function place(npc) {
-		var locations = adapter().engine.index.locations[npc] || [],
-			location =
-				locations.find(function (p) {
-					return p.map === character.map;
-				}) || locations[0];
-		return location ? html_escape(G.maps[location.map].name || location.map) + " (" + location.position.slice(0, 2).join(", ") + ")" : "";
+	function itemLine(item, detail) {
+		return (
+			"<div class='progression-material'>" +
+			"<button type='button' class='progression-item' data-progression-action='" +
+			html_escape(JSON.stringify({ kind: "inspect", name: item.name, level: item.level || 0 })) +
+			"'>" +
+			item_container({ skin: G.items[item.name].skin || item.name, size: 40, draggable: false }, item) +
+			"<span>" +
+			html_escape(G.items[item.name].name) +
+			(item.level ? " +" + item.level : "") +
+			" <span class='progression-item-info'>INFO</span>" +
+			(detail ? "<span class='progression-quantity'>" + detail + "</span>" : "") +
+			"</span></button></div>"
+		);
 	}
-	function supplies(item, quantity) {
+	function supplies(item, quantity, visited) {
 		var owned = (character.items || []).reduce(function (n, i) {
 			return Math.max(n, i && AdventureProgression.plain(i) && i.name === item ? i.q || 1 : 0);
 		}, 0);
@@ -320,33 +411,58 @@
 			.find(function (s) {
 				return s.kind === "shop" && s.currency === "gold";
 			});
-		return itemLine(
-			{ name: item },
-			t("materials", { owned: to_pretty_num(owned), needed: to_pretty_num(quantity) }) + (seller ? " · " + html_escape(G.npcs[seller.npc].name) + " · " + place(seller.npc) : ""),
-		);
+		return "<div class='progression-resource'>" + itemLine({ name: item }, materialCount(owned, quantity)) + (owned < quantity && seller ? destinationLine(seller, visited) : "") + "</div>";
 	}
-	function tree(node, depth) {
+	function tree(node, depth, visited, parent) {
 		if (!node || depth > 6) return "";
-		var html = itemLine({ name: node.name, level: node.level }, t("materials", { owned: to_pretty_num(node.owned), needed: to_pretty_num(node.quantity) }));
+		// A developed item and its base copy share a source. Show the item once,
+		// while retaining different quantities and every recipe ingredient.
+		var duplicate = parent && parent.name === node.name && parent.quantity === node.quantity;
+		var html = duplicate ? "" : itemLine({ name: node.name, level: node.level }, materialCount(node.owned, node.quantity));
 		if (!node.remaining) return html;
 		if (node.blocked) return html + paragraph(t("reason.blocked", { item: G.items[node.name].name }));
-		// Follow the chosen acquisition branch. The native item INFO above has
-		// every alternative source, without duplicating a whole tree for each one.
 		var branch =
 			node.alternatives.find(function (a) {
 				return a === node.next || a.next === node.next;
 			}) || node.alternatives[0];
 		if (!branch) return html;
-		if (branch.kind === "develop")
-			html +=
-				paragraph(t("expected", { copies: branch.meanCopies.toFixed(1), gold: to_pretty_num(Math.ceil(branch.meanGold)) })) +
-				sourceButton({ kind: G.items[node.name].compound ? "compound" : "upgrade" });
-		else if (branch.kind === "craft") html += paragraph(t("recipe", { npc: G.npcs[branch.npc].name, gold: to_pretty_num(branch.cost) })) + sourceButton(branch);
-		else if (branch.kind === "token") html += supplies(branch.token, branch.quantity);
-		if (branch.inputs)
-			branch.inputs.forEach(function (input) {
-				html += tree(input, depth + 1);
+		if (branch.kind === "develop") {
+			var development = { kind: G.items[node.name].compound ? "compound" : "upgrade" };
+			html = "<div class='progression-resource'>" + html + destinationLine(development, visited, true) + "</div>";
+			html += paragraph(t("expected", { copies: branch.meanCopies.toFixed(1), gold: to_pretty_num(Math.ceil(branch.meanGold)) }));
+			var scrolls = new Set();
+			adapter()
+				.engine.development(node.name, node.level)
+				.rows.forEach(function (step) {
+					scrolls.add(step.scroll);
+				});
+			scrolls.forEach(function (name) {
+				var seller = adapter()
+					.engine.index.sources(name)
+					.find(function (s) {
+						return s.kind === "shop" && s.currency === "gold";
+					});
+				html += "<div class='progression-resource'>" + itemLine({ name: name }) + (seller ? destinationLine(seller, visited) : "") + "</div>";
 			});
+		} else if (branch.kind === "token") html += supplies(branch.token, branch.quantity, visited);
+		// The active step already shows its source and recipe button.
+		var recipe = branch.kind === "craft" && !visited.has("recipe:" + branch.recipe),
+			destination = destinationLine(branch, visited, recipe);
+		if (destination) html += "<div class='progression-resource'>" + destination + "</div>";
+		if (recipe) {
+			visited.add("recipe:" + branch.recipe);
+			if (!destination) html += sourceButton(branch);
+			if (branch.fee) html += paragraph(t("recipe", { npc: G.npcs[branch.npc].name, gold: to_pretty_num(branch.fee) }));
+		}
+		if (branch.inputs)
+			html +=
+				"<div class='progression-ingredients'>" +
+				branch.inputs
+					.map(function (input) {
+						return "<div>" + tree(input, depth + 1, visited, node) + "</div>";
+					})
+					.join("") +
+				"</div>";
 		return html;
 	}
 	root.progression_open = function (a) {
@@ -361,7 +477,7 @@
 		if (a.name && G.items[a.name]) return render_item_info(a.name, a.level || 0);
 		return open_guide("progression-guide");
 	};
-	function instructions(row) {
+	function instructions(row, visited) {
 		var a = row.action,
 			item = a.name && G.items[a.name],
 			html = "",
@@ -371,21 +487,34 @@
 		else if (row.kind === "upgrade") html += paragraph(t("how.upgrade", { item: item.name, scroll: scroll.name }));
 		else if (row.kind === "compound") html += paragraph(t("how.compound", { item: item.name, level: a.level - 1, scroll: scroll.name }));
 		else if (row.kind === "equip") html += paragraph(t("how.equip", { item: item.name }));
-		else if (row.kind === "buy" && npc) html += paragraph(t("how.buy", { quantity: a.quantity || 1, item: item.name, npc: npc.name })) + paragraph(place(a.npc));
-		else if (row.kind === "craft") html += paragraph(t("how.craft", { npc: npc.name })) + paragraph(place(a.npc));
+		else if (row.kind === "buy" && npc) html += paragraph(t("how.buy", { quantity: a.quantity || 1, item: item.name, npc: npc.name }));
+		else if (row.kind === "craft") html += paragraph(t("how.craft", { npc: npc.name }));
 		else if (row.kind === "farm") {
 			var route = a.route;
 			html += paragraph(t("how.farm", { monster: G.monsters[route.monster].name, map: G.maps[route.map].name || route.map }));
-			html += paragraph(html_escape(G.maps[route.map].name || route.map) + " (" + Math.round(route.x) + ", " + Math.round(route.y) + ")");
 			html += paragraph(t("fight.estimate", { seconds: Math.ceil(route.seconds), loss: Math.ceil((100 * route.loss) / result.stats.max_hp) }));
 			if (route.trial) html += paragraph(say(row.reason));
 		} else html += paragraph(rowReason(row));
-		if (scroll) html += supplies(a.scroll, row.kind === "stat" ? a.quantity : 1);
+		var link = !["buy", "equip"].includes(row.kind);
+		if (row.kind === "buy" && row.target && row.target.level) html += paragraph(t("reason.spares"));
+		html = "<div class='progression-step'><div>" + html + "</div><div>" + (destinationLine(a, visited, link) || (link ? sourceButton(a) : "")) + "</div></div>";
+		if (row.kind === "craft") visited.add("recipe:" + a.recipe);
+		if (scroll) html += supplies(a.scroll, row.kind === "stat" ? a.quantity : 1, visited);
 		if (row.kind === "stat" && row.cost) html += paragraph(t("how.stat_shop"));
-		if (row.cost || row.kind === "stat") html += paragraph(t("price", { gold: to_pretty_num(row.cost) }));
+		var costs = [];
+		if (row.cost || row.kind === "stat") costs.push(t("price", { gold: to_pretty_num(row.cost) }));
+		if (row.cost) costs.push(t("reserve", { gold: to_pretty_num(result.reserve) }));
+		if (costs.length)
+			html +=
+				"<div class='progression-costs'>" +
+				costs
+					.map(function (cost) {
+						return "<span>" + cost + "</span>";
+					})
+					.join("") +
+				"</div>";
 		if (row.shortfall) html += paragraph(t("shortfall", { gold: to_pretty_num(row.shortfall) }));
-		if (row.cost) html += paragraph(t("reserve", { gold: to_pretty_num(result.reserve) }));
-		return html + (row.plan && row.kind === "buy" ? "" : sourceButton(a));
+		return html;
 	}
 	function gains(row) {
 		if (!row.gain) return "";
@@ -421,15 +550,13 @@
 		if (!graphics() || !result) return;
 		acknowledge();
 		var row = result.rows[n],
+			visited = new Set(),
 			html = "";
 		// Event articles already contain the real instructions, rewards and CODE.
 		if (row && (row.kind === "event" || (!row.gain && !row.plan && articles[row.kind]))) return progression_open(row.action);
 		if (row) {
 			html += "<div class='progression-detail-heading'>" + progression_art(row.art) + "<div class='title'>" + rowTitle(row) + "</div></div>";
-			var lesson = result.lessons.find(function (l) {
-				return l.id === row.lesson;
-			});
-			var why = lesson ? paragraph(say(lesson.reason)) : row.kind === "stat" ? "" : paragraph(rowReason(row));
+			var why = row.gain ? "" : paragraph(rowReason(row));
 			if (row.kind === "farm" && !row.request) {
 				var project = result.rows.find(function (r) {
 					return r.target;
@@ -437,8 +564,8 @@
 				if (project) why = paragraph(t("farm.funds", { item: G.items[project.target.name].name }));
 			}
 			html += section(t("why"), why + gains(row));
-			html += section(t("steps"), instructions(row));
-			if (row.plan) html += section(t("sources"), tree(row.plan.tree, 0));
+			html += section(t("steps"), instructions(row, visited));
+			if (row.plan) html += section(t("sources"), tree(row.plan.tree, 0, visited));
 			if (row.kind === "farm") {
 				var route = row.action.route,
 					drops = (G.drops.monsters[route.monster] || []).slice();
@@ -471,15 +598,29 @@
 				return !l.complete;
 			});
 			if (next) html += section(t("next", { step: say(next.title) }), paragraph(say(next.reason)));
+			// The current suggestions link the route to places the player can use now.
+			if (next)
+				result.rows.forEach(function (r) {
+					html += destinationLine(r.action, visited);
+				});
+			html += "<div class='progression-lessons'>";
 			result.lessons.forEach(function (l) {
 				if (l === next) return;
-				html += section((l.complete ? "✓ " : "") + say(l.title), paragraph(say(l.reason)));
+				html +=
+					"<div class='progression-lesson'>" +
+					progression_art(l.gear && l.gear[0] ? { item: l.gear[0].name } : null) +
+					"<div><div class='title'>" +
+					(l.complete ? "✓ " : "") +
+					say(l.title) +
+					"</div>" +
+					paragraph(say(l.reason)) +
+					"</div></div>";
 			});
-			html += section(t("choose"), "");
+			html += "</div>" + section(t("choose"), "<div class='progression-choices'>");
 			result.choices.forEach(function (g, i) {
-				html += "<div><button type='button' class='gamebutton gamebutton-small' onclick='progression_set_goal(" + i + ")'>" + goalLabel(g) + "</button></div>";
+				html += "<button type='button' class='gamebutton gamebutton-small' onclick='progression_set_goal(" + i + ")'>" + goalLabel(g) + "</button>";
 			});
-			html += "<p><label for='progression-item'>" + t("goal.item_select") + "</label> <select id='progression-item'>";
+			html += "</div><p><label for='progression-item'>" + t("goal.item_select") + "</label> <select id='progression-item'>";
 			Object.keys(G.items)
 				.filter(function (id) {
 					return !G.items[id].ignore;
@@ -499,10 +640,7 @@
 		}
 		render_learn_article("<div class='progression-article'>" + html + "</div>", {});
 		$(".guide-article:last").addClass("progression-details");
-		$(".imodal:last [data-progression-action]").on("click", function (event) {
-			btc(event);
-			progression_open(JSON.parse(this.getAttribute("data-progression-action")));
-		});
+		bindActions($(".progression-article:last"));
 		position_modals();
 	};
 	if (typeof document !== "undefined")
