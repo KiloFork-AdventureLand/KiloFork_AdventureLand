@@ -80,13 +80,20 @@ function cave_request(action, fields) {
 }
 function cave_manual(action, fields) {
 	if (no_graphics) return;
-	if (action === "enter") $("#topleftcornerui > div").text(phrase("cave.opening"));
+	var openingMap = current_map;
+	if (action === "enter") {
+		$("#topleftcornerui > div").text(phrase("cave.opening"));
+		if (character) start_animation(character, "transport");
+	}
 	return cave_request(action, fields).then(function(data) {
 		if (action === "enter") render_cave_status();
 		if (action === "vote" || action === "buy" || action === "talk") render_cave_choice();
 		return data;
 	}).catch(function(error) {
 		ui_log((phrase("cave.error." + error.reason) === "cave.error." + error.reason ? phrase("cave.error.generic") : phrase("cave.error." + error.reason)), "#C55E67");
+	}).finally(function() {
+		if (action === "enter" && current_map === openingMap && character && character.animations.transport)
+			stop_animation(character, "transport");
 	});
 }
 function render_cave_status() {

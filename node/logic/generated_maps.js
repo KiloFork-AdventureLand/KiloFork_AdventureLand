@@ -125,26 +125,27 @@ async function ensure_generated_floor(record, index) {
 }
 async function generated_use_door(player, data) {
 	var from = generated_entry(player),
-		record = from.record,
+		record = from?.record,
+		source = player.map;
+	if (!record || !can_walk(player) || player.rip) throw Error("use_exit");
+	var member = generated_member(record, player),
 		index = record.floors.indexOf(data.to);
-	if (index < 0 || !can_walk(player) || player.rip) throw Error("use_exit");
-	var source = player.map;
+	if (!member || member.left || record.closing || record.expires <= Date.now()) throw Error("cave_closed");
 	var door = G.maps[source].doors.find((d) => d[4] === data.to && (d[5] || 0) === (data.s || 0));
 	function reachable() {
 		if (!door || player.map !== source || !check_player(player)) return false;
-		var landing = G.maps[source].spawns[door[6]];
-		return (
-			distance({ map: source, x: landing[0], y: landing[1], width: door[2], height: door[3] }, player) < B.door_dist
-		);
+		return is_door_close(source, door, player.x, player.y) && can_use_door(source, door, player.x, player.y);
 	}
 	if (!reachable()) throw Error("transport_cant_reach");
+	if (door[4] === "main") return cave_interaction(player, { action: "exit" });
+	if (index < 0) throw Error("use_exit");
 	if (index > from.floor.definition.generated.floor && !record.completed[from.floor.definition.generated.floor])
 		throw Error("seal_closed");
 	if (!generated_maps[data.to]) cave_say(record, "The stairway is opening. Stay near the landing.");
 	await ensure_generated_floor(record, index);
 	if (!reachable() || !can_walk(player) || !generated_can_enter(player, instances[data.to]))
 		throw Error("transport_failed");
-	generated_transport(player, data.to, door[5] || 0);
+	generated_transport(player, data.to, door[5] || 0, 1);
 	cave_follow_through(record, source, player);
 	cave_wake_near(record, player);
 	cave_publish(record);
@@ -175,6 +176,7 @@ function send_generated_maps(socket, map_name) {
 				tiles: [],
 				placements: [],
 				groups: [],
+				animations: [],
 			};
 		return { key, definition, geometry, navigation: socket.generated_headless ? floor.amap : undefined };
 	});
@@ -192,10 +194,10 @@ function send_generated_maps(socket, map_name) {
 	socket.generated_run = entry.record.key;
 	socket.generated_floor = map_name;
 }
-function generated_transport(player, name, spawn) {
+function generated_transport(player, name, spawn, effect) {
 	player.zone_transfer = name;
 	try {
-		return transport_player_to(player, name, spawn);
+		return transport_player_to(player, name, spawn, effect);
 	} finally {
 		delete player.zone_transfer;
 	}
@@ -215,7 +217,7 @@ function generated_exit(player, reason) {
 	}
 	player.socket.emit("cave", { type: "ended", reason });
 	delete player.cave;
-	generated_transport(player, "main", record.exit_spawn);
+	generated_transport(player, "main", record.exit_spawn, 1);
 	return true;
 }
 function destroy_generated_run(key) {
@@ -384,7 +386,7 @@ async function open_generated_zone(player) {
 		install_generated_run(record, floors);
 		cave_start(record);
 		activated = true;
-		for (var p of members) generated_transport(p, record.floors[0], 0);
+		for (var p of members) generated_transport(p, record.floors[0], 0, 1);
 		cave_publish(record);
 		return { run: key, expires: record.expires, level: record.level };
 	} finally {

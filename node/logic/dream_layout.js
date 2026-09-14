@@ -1057,6 +1057,14 @@ function canvas(width, height, style) {
 		y_lines: [],
 	};
 	const ids = new Map();
+	function tileId(tile) {
+		const key = JSON.stringify(tile);
+		if (!ids.has(key)) {
+			ids.set(key, data.tiles.length);
+			data.tiles.push(tile);
+		}
+		return ids.get(key);
+	}
 	const context = {
 		imageSmoothingEnabled: false,
 		fillRect() {}, // ground() covers the complete bounded rectangle with native tiles.
@@ -1074,13 +1082,16 @@ function canvas(width, height, style) {
 				if (args[6] !== w || args[7] !== h) throw Error("Resampled terrain");
 			} else throw Error("Unsupported native placement");
 			if (![sx, sy, w, h, x, y].every(Number.isInteger)) throw Error("Fractional terrain");
-			const tile = ["dreamsv3", image.x + sx, image.y + sy, [w, h]];
-			const key = JSON.stringify(tile);
-			if (!ids.has(key)) {
-				ids.set(key, data.tiles.length);
-				data.tiles.push(tile);
+			if (image.name === "torch") {
+				// The shipped brazier and its three flame frames share a floor anchor.
+				const baseY = y + h - 32;
+				data.groups.push([[tileId(["dungeon", 16, 304, [16, 32]]), x, baseY]]);
+				if (!data.animations) data.animations = [];
+				data.animations.push([tileId(["custom_a", 0, 0, [16, 16]]), x, baseY - 4, x, baseY - 4, 120, 0, 20]);
+				return;
 			}
-			const placement = [ids.get(key), x, y];
+			const tile = ["dreamsv3", image.x + sx, image.y + sy, [w, h]];
+			const placement = [tileId(tile), x, y];
 			if (this.depth) {
 				data.groups.push([placement]);
 				return;
@@ -1160,7 +1171,7 @@ function compileDungeon(seed, runKey, exitSpawn, processMap, floorIndex = 0) {
 			name: "Cave of Many Dreams",
 			instance: true,
 			irregular: true,
-			safe: true,
+			pvp: false,
 			spawns: floor.doors.map((d) => [d.landing.x * 16, d.landing.y * 16]),
 			doors: floor.doors.map((d, n) => {
 				const destination = d.target.map || keys[d.target.floor];
@@ -1168,7 +1179,8 @@ function compileDungeon(seed, runKey, exitSpawn, processMap, floorIndex = 0) {
 					? exitSpawn
 					: dungeon.floors[d.target.floor].doors.findIndex((other) => other.id === d.target.door);
 				if (arrival < 0) throw Error("Unpaired stair");
-				return [d.x * 16, d.y * 16, d.placement === "wall" ? 48 : 32, 32, destination, arrival, n, "ordinary"];
+				// The click area includes the walkable threshold in front of the art.
+				return [d.x * 16, d.y * 16 + 16, d.placement === "wall" ? 48 : 32, 48, destination, arrival, n, "ordinary"];
 			}),
 			npcs: [],
 			monsters: [],

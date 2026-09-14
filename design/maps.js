@@ -742,6 +742,7 @@ var maps = {
 		],
 		animatables: {
 			the_door: { x: 888, y: -672, position: "door0" },
+			dreams_gate: { x: 816, y: 1160, position: "dreams_gate", role: "dreamkeeper" },
 		},
 		on_death: ["main", 5],
 		on_exit: ["main", 0],

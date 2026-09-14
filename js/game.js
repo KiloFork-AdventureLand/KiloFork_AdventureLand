@@ -6596,11 +6596,19 @@ function add_quirk(quirk) {
 }
 
 function add_animatable(name, data) {
+	if (no_graphics) return;
 	var animatable = new_sprite(data.position, "animatable");
 	animatable.x = data.x;
 	animatable.y = data.y;
 	animatable.anchor.set(0.5, 1);
 	animatable.type = "animatable";
+	if (data.role) {
+		animatable.role = data.role;
+		animatable.interactive = animatable.buttonMode = true;
+		animatable.on("rightdown", npc_right_click);
+		animatable.onrclick = npc_right_click;
+		if (is_mobile) animatable.on("mousedown", npc_right_click).on("touchstart", npc_right_click);
+	}
 	return animatable;
 }
 
@@ -6987,7 +6995,7 @@ function create_map() {
 	if (log_flags.map) console.log("Map created: " + current_map);
 
 	animatables = {};
-	for (var id in map_info.animatables || {}) {
+	for (var id in (!no_graphics && map_info.animatables) || {}) {
 		animatables[id] = add_animatable(id, map_info.animatables[id]);
 		map.addChild(animatables[id]);
 		map_entities.push(animatables[id]);

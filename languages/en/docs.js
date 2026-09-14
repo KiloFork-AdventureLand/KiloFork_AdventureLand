@@ -5825,7 +5825,7 @@ Object.assign(module.exports, {
   "docs.cave.hunts": "Some travelers pay for killing a set number of marked monsters before their timer ends. Helpers can help with these kills. A larger hunt pays two parcels. Shorter or slower jobs pay Amber. Quiet rooms have three small waves, with a pause between them.",
   "docs.cave.loot": "NPC rewards go to one random character from the original party, including characters who have left. Full bags or an offline character send the reward by mail to that character. Every item awarded here carries the Cave-found title. A merchant sells one item only: the buyer pays, and a random member of the original party gets it.",
   "docs.cave.purse": "Gold and loose Amber gather in the cave purse. Choices can spend only the amount they show. Merchant purchases use the buyer\u2019s carried gold. A visit can earn at most 60,000 cave gold and 36 loose Amber, before spending. Equipment and parcels are separate.",
-  "docs.cave.exit": "Choose Exit or use cave_exit() to leave. Leaving is permanent. New characters cannot join, and magiport cannot move anyone into or out of the cave. A disconnect ends that character’s visit. At 24 minutes, earned cave gold and Amber are paid out and everyone still inside is sent out.",
+  "docs.cave.exit": "Right-click the first floor’s return doorway to leave. You can also choose Exit in a cave dialogue or call cave_exit() from anywhere, even while fallen. Leaving is permanent. New characters cannot join, and magiport cannot move anyone into or out of the cave. A disconnect ends that character’s visit. At 24 minutes, earned cave gold and Amber are paid out and everyone still inside is sent out.",
   "docs.cave.code": "cave_enter() requires the same nearby party as the manual entrance. Listen for character.on(\"cave\", ...). Read character.cave for the clock, objectives, votes, hunts and purse. The example below chooses a reply only when you set reply_id to one of the two IDs in the current choice.",
   "docs.cave.failure": "The functions return Promises. Failed requests reject with a reason. Repeating your accepted vote returns the same receipt. A stale vote, a second purchase or a request after leaving cannot award anything.",
   "docs.cave.story": "Dorr\u2019s story",
@@ -5841,7 +5841,7 @@ module.exports["docs.cave.function.cave_reply"]="Votes once as this character. U
 module.exports["docs.cave.function.cave_buy"]="Buys the merchant\u2019s one item with this character\u2019s gold. A random original party member receives it. Returns recipient, item and gold. A second purchase rejects.";
 
 // Public cave function reference. Preserve function names and return fields.
-module.exports["docs.cave.function.cave_exit"]="Exits permanently. You cannot return to this visit. Returns exited:true.";
+module.exports["docs.cave.function.cave_exit"]="Exits from anywhere in the cave, including while fallen. You cannot return to this visit. Returns exited:true.";
 
 // Cave guide text.
 module.exports["docs.cave.death"] = "Dying here costs no XP, gold or items. Stay inside and Nera will offer to revive the fallen where they are, or bring them back to this floor’s doorway. Each character can vote, including fallen characters. Respawn calls Nera; Exit leaves the cave permanently.";

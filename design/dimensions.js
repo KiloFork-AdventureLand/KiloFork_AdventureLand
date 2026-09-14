@@ -91,6 +91,7 @@ var positions={
 		["custom",128,8*16,32,32],
 		["custom",160,8*16,32,32],
 	],
+	"dreams_gate":[["outside",512,80,32,32]],
 	"lever0":[
 		["puzzle",6*16,4*16+8,16,24],
 		["puzzle",7*16,4*16+8,16,24],

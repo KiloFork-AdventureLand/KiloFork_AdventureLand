@@ -183,6 +183,9 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	c.render_cave_keeper();
 	c.render_cave_status();
 	c.render_cave_choice();
+	c.cave_manual("enter");
+	load(c, "js/game.js", ["add_animatable"]);
+	assert.equal(c.add_animatable("dreams_gate", {}), undefined);
 	c.prune_generated_maps();
 	assert.equal(c.character.cave.choice.id, "v");
 	c.receive_cave_state({ type: "ended" });
@@ -324,4 +327,41 @@ test("passing a rescue or a dispute lets the NPC fight continue", () => {
 	assert.equal(dispute.conflict, true);
 	assert.equal(dispute.npc.zone_actor.prey, dispute.rival);
 	assert.equal(dispute.rival.zone_actor.prey, dispute.npc);
+});
+
+test("generated doors reach the walkable threshold and the return door performs Exit", async () => {
+	const { c, p, run } = fixture();
+	const layout = require("../logic/dream_layout");
+	load(c, "adventure_functions.js", ["process_map"]);
+	const [floor] = layout.compileDungeon("door-regression", "0123456789abcdef01234567", 0, c.process_map);
+	for (const info of floor.manifest) assert.ok(!info.definition.safe);
+	const door = floor.definition.doors[0];
+	assert.equal(door[1], floor.definition.spawns[0][1] - 48);
+	assert.equal(door[3], 48);
+	const animation = floor.geometry.animations[0];
+	assert.ok(animation);
+	assert.deepEqual(floor.geometry.tiles[animation[0]], ["custom_a", 0, 0, 16, 16]);
+	const base = floor.geometry.groups.flat().find((g) => g[1] === animation[1] && g[2] === animation[2] + 4);
+	assert.deepEqual(floor.geometry.tiles[base[0]], ["dungeon", 16, 304, 16, 32]);
+	c.G = Object.assign({}, G, { maps: { zone_a: floor.definition } });
+	p.x = door[0];
+	p.y = door[1] + 4;
+	c.can_walk = () => true;
+	c.is_door_close = () => true;
+	c.can_use_door = () => true;
+	let exits = 0;
+	c.cave_settle_purse = () => {};
+	c.generated_exit = () => {
+		exits++;
+	};
+	load(c, "node/logic/generated_maps.js", ["generated_use_door"]);
+	await c.generated_use_door(p, { to: "main", s: 0 });
+	assert.equal(exits, 1);
+	c.can_use_door = () => false;
+	await assert.rejects(c.generated_use_door(p, { to: "main", s: 0 }), /transport_cant_reach/);
+	assert.equal(exits, 1);
+	// The menu Exit remains available without a nearby doorway, including after death.
+	p.rip = true;
+	await c.cave_interaction(p, { action: "exit" });
+	assert.equal(exits, 2);
 });
