@@ -27,6 +27,7 @@
 		if (!record) return "";
 		var args = Object.assign({}, record.args);
 		if (args.stat) args.stat = statLabel(args.stat);
+		if (typeof args.gold === "number") args.gold = to_pretty_num(args.gold);
 		return phrase.html(record.id, args);
 	}
 	function saved(key) {
@@ -130,6 +131,7 @@
 		);
 	};
 	function goalLabel(g) {
+		if (g.kind === "trade") return t("goal.trade") + " · " + html_escape(G.npcs[g.market].name);
 		if (g.kind === "stat") return t("goal.stat", { value: to_pretty_num(g.target), stat: statLabel(g.metric) });
 		if (g.kind === "item") return t("goal.item", { item: G.items[g.name].name, level: g.level || 0 });
 		if (g.kind === "set") return html_escape(G.sets[g.name].name);
@@ -200,11 +202,9 @@
 				"<div class='progression-heading'><button type='button' onclick='btc(event); progression_details()'>" +
 				goalLabel(result.goal) +
 				" <span class='progression-count'>" +
-				to_pretty_num(result.progress.value) +
-				"/" +
-				to_pretty_num(result.progress.target) +
+				(result.progress.target === null ? "" : to_pretty_num(result.progress.value) + "/" + to_pretty_num(result.progress.target)) +
 				"</span><span class='progression-context'>" +
-				(result.complete ? t("complete") : result.goal.kind === "stat" ? t("goal.hint") : t("name")) +
+				(result.goal.kind === "trade" ? t("goal.trade_hint") : result.complete ? t("complete") : result.goal.kind === "stat" ? t("goal.hint") : t("name")) +
 				"</span></button><button type='button' aria-label='" +
 				t("fold") +
 				"' onclick='btc(event); progression_fold(true)'>&minus;</button></div>";
@@ -281,6 +281,7 @@
 		recover: "basics",
 		supplies: "shops-and-selling",
 		shop: "merchant",
+		market: "markets-and-trading",
 		gather: "gathering",
 		stat: "upgrading",
 		upgrade: "upgrading",
@@ -383,7 +384,7 @@
 			(point ? "<div class='progression-location'>" + html_escape(G.maps[point.map].name || point.map) + " <bdi>(" + Math.round(point.x) + ", " + Math.round(point.y) + ")</bdi></div>" : "") +
 			"</div><div class='progression-destination-actions'>" +
 			moveButton(destination) +
-			(link ? sourceButton(action) : "") +
+			(link ? sourceButton(action, "INFO") : "") +
 			"</div></div>"
 		);
 	}
@@ -481,6 +482,7 @@
 		var a = row.action,
 			item = a.name && G.items[a.name],
 			html = "",
+			details = "",
 			scroll = a.scroll && G.items[a.scroll],
 			npc = a.npc && G.npcs[a.npc];
 		if (row.kind === "stat") html += paragraph(t("how.stat", { item: item.name, quantity: a.quantity, scroll: scroll.name, stat: statLabel(G.classes[character.ctype].main_stat) }));
@@ -488,21 +490,36 @@
 		else if (row.kind === "compound") html += paragraph(t("how.compound", { item: item.name, level: a.level - 1, scroll: scroll.name }));
 		else if (row.kind === "equip") html += paragraph(t("how.equip", { item: item.name }));
 		else if (row.kind === "buy" && npc) html += paragraph(t("how.buy", { quantity: a.quantity || 1, item: item.name, npc: npc.name }));
+		else if (row.kind === "supplies") html += paragraph(a.unlock ? t("how.unlock_potions") : t("how.buy", { quantity: a.quantity, item: item.name, npc: npc.name }));
+		else if (row.kind === "market") {
+			html += paragraph(t("how.market", { npc: npc.name }));
+			if (a.quote) {
+				var q = a.quote;
+				details +=
+					"<div class='progression-material'>" +
+					item_container({ skin: q.item.name, size: 40, draggable: false }, q.item) +
+					"<div>" +
+					sourceButton({ name: q.item.name, level: q.item.level || 0 }) +
+					"</div></div>";
+				details += paragraph(t("market.quote", { quantity: q.quantity, cost: to_pretty_num(q.cost), proceeds: to_pretty_num(q.proceeds), profit: to_pretty_num(q.margin) }));
+				details += paragraph(t("market.buyer", { buyer: q.buyer.seller }));
+			}
+		} else if (row.kind === "shop") html += paragraph(t("how.shop"));
 		else if (row.kind === "craft") html += paragraph(t("how.craft", { npc: npc.name }));
 		else if (row.kind === "farm") {
 			var route = a.route;
-			html += paragraph(t("how.farm", { monster: G.monsters[route.monster].name, map: G.maps[route.map].name || route.map }));
+			html += paragraph(character.ctype === "merchant" ? t("reason.gold") : t("how.farm", { monster: G.monsters[route.monster].name, map: G.maps[route.map].name || route.map }));
 			html += paragraph(t("fight.estimate", { seconds: Math.ceil(route.seconds), loss: Math.ceil((100 * route.loss) / result.stats.max_hp) }));
 			if (route.trial) html += paragraph(say(row.reason));
 		} else html += paragraph(rowReason(row));
 		var link = !["buy", "equip"].includes(row.kind);
 		if (row.kind === "buy" && row.target && row.target.level) html += paragraph(t("reason.spares"));
-		html = "<div class='progression-step'><div>" + html + "</div><div>" + (destinationLine(a, visited, link) || (link ? sourceButton(a) : "")) + "</div></div>";
+		html = "<div class='progression-step'><div>" + html + "</div><div>" + (destinationLine(a, visited, link) || (link ? sourceButton(a) : "")) + "</div></div>" + details;
 		if (row.kind === "craft") visited.add("recipe:" + a.recipe);
 		if (scroll) html += supplies(a.scroll, row.kind === "stat" ? a.quantity : 1, visited);
 		if (row.kind === "stat" && row.cost) html += paragraph(t("how.stat_shop"));
 		var costs = [];
-		if (row.cost || row.kind === "stat") costs.push(t("price", { gold: to_pretty_num(row.cost) }));
+		if ((row.cost || row.kind === "stat") && !a.quote) costs.push(t("price", { gold: to_pretty_num(row.cost) }));
 		if (row.cost) costs.push(t("reserve", { gold: to_pretty_num(result.reserve) }));
 		if (costs.length)
 			html +=
@@ -553,9 +570,9 @@
 			visited = new Set(),
 			html = "";
 		// Event articles already contain the real instructions, rewards and CODE.
-		if (row && (row.kind === "event" || (!row.gain && !row.plan && articles[row.kind]))) return progression_open(row.action);
+		if (row && (row.kind === "event" || (!row.gain && !row.plan && articles[row.kind] && !["supplies", "shop", "market"].includes(row.kind)))) return progression_open(row.action);
 		if (row) {
-			html += "<div class='progression-detail-heading'>" + progression_art(row.art) + "<div class='title'>" + rowTitle(row) + "</div></div>";
+			html += "<div class='progression-detail-heading'>" + progression_art(row.art, true) + "<div class='title'>" + rowTitle(row) + "</div></div>";
 			var why = row.gain ? "" : paragraph(rowReason(row));
 			if (row.kind === "farm" && !row.request) {
 				var project = result.rows.find(function (r) {
@@ -592,8 +609,14 @@
 			}
 		} else {
 			html += "<div class='title'>" + goalLabel(result.goal) + "</div>";
-			html += paragraph(result.complete ? t("complete") : result.goal.kind === "stat" ? t("goal.explain", { stat: statLabel(result.goal.metric) }) : t("intro"));
-			html += "<div class='progression-change'>" + to_pretty_num(result.progress.value) + " / " + to_pretty_num(result.progress.target) + "</div>";
+			html += paragraph(
+				result.goal.kind === "trade" ? t("how.shop") : result.complete ? t("complete") : result.goal.kind === "stat" ? t("goal.explain", { stat: statLabel(result.goal.metric) }) : t("intro"),
+			);
+			if (result.progress.target !== null) html += "<div class='progression-change'>" + to_pretty_num(result.progress.value) + " / " + to_pretty_num(result.progress.target) + "</div>";
+			else
+				result.rows.forEach(function (r) {
+					html += destinationLine(r.action, visited, true);
+				});
 			var next = result.lessons.find(function (l) {
 				return !l.complete;
 			});

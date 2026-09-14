@@ -409,6 +409,7 @@
 									a.next = null;
 								}
 							} else if (a.kind === "monster" || a.kind === "map") {
+								if (s.ctype === "merchant" && !["farm", "encounter"].includes((s.goal || {}).kind)) return;
 								var choices = routes.filter(function (r) {
 									return r.safe && (a.monster ? r.monster === a.monster : r.map === a.map) && index.dropRate(r, req.name) > 0;
 								});
@@ -506,6 +507,7 @@
 		function goalFor(s, current) {
 			var goal = s.goal || {},
 				metric = metricFor(s);
+			if (s.ctype === "merchant" && goal.kind === "trade") return { kind: "trade", market: goal.market === "lostandfound" ? "lostandfound" : "secondhands" };
 			if (goal.kind === "stat" && ["attack", "heal", "max_hp", "armor", "resistance"].includes(goal.metric) && goal.target > 0)
 				return { kind: "stat", metric: goal.metric, target: Math.min(1e9, goal.target) };
 			if (goal.kind === "item" && G.items[goal.name])
@@ -515,10 +517,11 @@
 			if (["farm", "encounter"].includes(goal.kind) && G.monsters[goal.monster]) return { kind: goal.kind, monster: goal.monster, map: goal.map };
 			if (goal.kind === "gold" && goal.target > 0) return { kind: "gold", target: Math.min(1e12, goal.target) };
 			if (goal.kind === "gather" && ["fishing", "mining"].includes(goal.skill)) return { kind: "gather", skill: goal.skill };
-			if (s.ctype === "merchant") return { kind: "shop" };
+			if (s.ctype === "merchant") return stocked(s) ? { kind: "trade", market: s.map === "woffice" ? "lostandfound" : "secondhands" } : { kind: "shop" };
 			return { kind: "stat", metric: metric, target: 1000 };
 		}
 		function goalProgress(s, current, goal, routes) {
+			if (goal.kind === "trade") return { value: s.gold, target: null };
 			if (goal.kind === "stat") return { value: current[goal.metric] || 0, target: goal.target };
 			if (goal.kind === "gold") return { value: s.gold, target: goal.target };
 			if (goal.kind === "item")
@@ -540,17 +543,7 @@
 					}).length,
 					target: goal.target,
 				};
-			if (goal.kind === "shop")
-				return {
-					value:
-						s.shopOpen &&
-						Object.keys(s.slots).some(function (k) {
-							return k.startsWith("trade") && s.slots[k] && !s.slots[k].b;
-						})
-							? 1
-							: 0,
-					target: 1,
-				};
+			if (goal.kind === "shop") return { value: stocked(s) ? 1 : 0, target: 1 };
 			if (goal.kind === "gather") return { value: (s.gathering || {})[goal.skill] && s.gathering[goal.skill].successes ? 1 : 0, target: 1 };
 			var route = routes.find(function (r) {
 				return r.monster === goal.monster && (!goal.map || goal.map === r.map) && r.proven;
@@ -834,6 +827,70 @@
 				return b.priority - a.priority || a.expires - b.expires;
 			});
 		}
+		function stocked(s) {
+			return (
+				s.shopOpen &&
+				Object.keys(s.slots).some(function (k) {
+					var i = s.slots[k];
+					return k.startsWith("trade") && i && !i.b && !i.giveaway && !i.v && i.price > 0;
+				})
+			);
+		}
+		function potionStock(s) {
+			var stock = { hp: 0, mp: 0, locked: { hp: 0, mp: 0 } };
+			s.items.forEach(function (i) {
+				var def = i && G.items[i.name];
+				if (!def || def.type !== "pot" || i.r || i.b || i.expires || i.reserved) return;
+				(def.gives || []).forEach(function (give) {
+					if (["hp", "mp"].includes(give[0]) && give[1] > 0) (i.l ? stock.locked : stock)[give[0]] += i.q || 1;
+				});
+			});
+			return stock;
+		}
+		function marketAdvice(s, market) {
+			function fresh(o) {
+				return o && o.realm === s.realm && o.observedAt <= s.now && s.now - o.observedAt < policy.fresh;
+			}
+			var stock = (s.markets || {})[market],
+				quotes = [],
+				space = s.items.filter(Boolean).length < 42,
+				reason = "market",
+				quote;
+			if (fresh(stock) && stock.access === false) reason = "market_unlock";
+			else if (fresh(stock) && stock.items) {
+				reason = "market_empty";
+				stock.items.slice(0, 64).forEach(function (item) {
+					if (!plain(item) || item.acl || item.gift || !item.rid || !(item.cost > 0) || item.cost > s.budget || !Number.isFinite(s.tax) || s.tax < 0 || s.tax >= 1) return;
+					(s.buyOrders || []).slice(0, 64).forEach(function (bid) {
+						var quantity = item.q || 1;
+						if (!fresh(bid) || bid.seller === s.name || bid.name !== item.name || bid.level !== (item.level || 0) || bid.quantity < quantity || !(bid.price > 0)) return;
+						var proceeds = Math.round(bid.price * quantity * (1 - s.tax));
+						if (proceeds > item.cost) quotes.push({ item: item, buyer: bid, quantity: quantity, cost: item.cost, proceeds: proceeds, margin: proceeds - item.cost });
+					});
+				});
+				quotes.sort(function (a, b) {
+					return b.margin / b.cost - a.margin / a.cost || a.cost - b.cost;
+				});
+				quote = space && quotes[0];
+				if (quote) reason = "market_found";
+			}
+			if (!space) {
+				reason = "market_space";
+				quote = null;
+			}
+			return advice(
+				"market",
+				reason,
+				{ npc: G.npcs[market].name, item: quote && itemName(quote.item.name), gold: quote && quote.margin },
+				{
+					id: "market:" + market + (quote ? ":" + quote.item.rid + ":" + quote.buyer.rid : ":" + reason),
+					art: { npc: market },
+					priority: quote ? 150 : 75,
+					cost: quote ? quote.cost : 0,
+					action: { kind: "market", npc: market, quote: quote || null },
+				},
+			);
+		}
 		function evaluate(input) {
 			var s = normalize(input);
 			if (!s) return { version: 1, ready: false, rows: [] };
@@ -844,7 +901,8 @@
 			});
 			var goal = goalFor(s, current),
 				progress = goalProgress(s, current, goal, routes),
-				completed = progress.value >= progress.target;
+				completed = progress.target !== null && progress.value >= progress.target;
+			var merchantWork = s.ctype === "merchant" && !["stat", "set", "farm", "encounter"].includes(goal.kind);
 			var teaching = s.ctype === "merchant" || goal.kind !== "stat" || current[metricFor(s)] >= 1000 ? [] : lessons(s, current);
 			var result = {
 				version: 1,
@@ -897,10 +955,27 @@
 				result.rows = [advice("recover", "recover", {}, { id: "recover", priority: 1000, action: { kind: "recover" } })];
 				return result;
 			}
-			var hpots = count(bag, "hpot0", 0) + count(bag, "hpot1", 0),
-				mpots = count(bag, "mpot0", 0) + count(bag, "mpot1", 0);
-			if (hpots < 20 || mpots < 20)
-				rows.push(advice("supplies", "supplies", {}, { id: "supplies", art: { item: hpots < 20 ? "hpot0" : "mpot0" }, action: { kind: "supplies", npc: "fancypots" }, priority: 1000 }));
+			var pots = potionStock(s),
+				low = !merchantWork && pots.hp < 20 ? "hp" : (!merchantWork || goal.kind === "gather") && pots.mp < 20 ? "mp" : null;
+			if (low) {
+				var name = low === "hp" ? "hpot0" : "mpot0",
+					unlock = pots.locked[low] >= 20 - pots[low];
+				rows.push(
+					advice(
+						"supplies",
+						"supplies",
+						{ stat: low, hp: pots.hp, mp: pots.mp },
+						{
+							id: "supplies:" + low + (unlock ? ":unlock" : ""),
+							art: { item: name },
+							priority: 1000,
+							title: message(unlock ? "action.unlock_potions" : "action.supplies", { stat: low }),
+							cost: unlock ? 0 : (20 - pots[low]) * G.items[name].g,
+							action: { kind: "supplies", npc: unlock ? undefined : "fancypots", name: name, quantity: 20 - pots[low], unlock: unlock },
+						},
+					),
+				);
+			}
 			if (!completed && goal.kind === "item")
 				addRequest({ name: goal.name, level: goal.level, quantity: Math.max(1, goal.quantity - progress.value + count(bag, goal.name, goal.level)) }, { priority: 90 });
 			if (!completed && ["stat", "set", "farm", "encounter"].includes(goal.kind)) {
@@ -1025,7 +1100,7 @@
 				if (!count(bag, "stand0", 0) && !count(bag, "stand1", 0) && !s.shopOpen) addRequest({ name: "stand0", level: 0 }, { priority: 100 });
 				else rows.push(advice("shop", "shop", {}, { id: "shop", art: { item: "stand0" }, priority: 100, action: { kind: "shop" } }));
 			}
-			if (!completed && goal.kind === "gather") {
+			if (!completed && goal.kind === "gather" && s.level >= G.skills[goal.skill].level) {
 				var tool = goal.skill === "fishing" ? "rod" : "pickaxe";
 				if (
 					!Object.values(s.durable)
@@ -1044,6 +1119,14 @@
 							{ id: "gather:" + goal.skill, art: { item: tool }, priority: 90, action: { kind: "gather", skill: goal.skill, ready: !!((s.gathering || {})[goal.skill] || {}).ready } },
 						),
 					);
+			}
+			if (merchantWork) {
+				var market = goal.market || (s.map === "woffice" ? "lostandfound" : "secondhands");
+				var selectedMarket = marketAdvice(s, market);
+				selectedMarket.priority += 10;
+				rows.push(selectedMarket);
+				if (stocked(s)) rows.push(advice("shop", "shop_keep", {}, { id: "shop:keep", title: message("action.shop_keep"), art: { item: "stand0" }, priority: 80, action: { kind: "shop" } }));
+				if (goal.kind === "trade" || goal.kind === "gold") rows.push(marketAdvice(s, market === "secondhands" ? "lostandfound" : "secondhands"));
 			}
 			if (!completed && goal.kind === "encounter")
 				rows.push(
@@ -1078,6 +1161,7 @@
 				else if (huntRoute) rows.push(farmAdvice(huntRoute, "hunt_farm", { priority: 85, remaining: hunt.c }));
 			}
 			var income =
+				s.ctype === "merchant" ||
 				rows.some(function (r) {
 					return r.cost > s.budget;
 				}) ||
@@ -1090,6 +1174,7 @@
 				farm = safe.find(function (r) {
 					return r.monster === goal.monster && (!goal.map || r.map === goal.map);
 				});
+			if (merchantWork) farm = null;
 			// A deliberate early lesson: a few Goo fights, then Bees for XP and wings.
 			// The estimate must still pass; a death or costly observed fight vetoes it.
 			if (
@@ -1194,10 +1279,10 @@
 				if (r.affordable) spent += r.cost;
 			});
 			result.choices = [
-				{ kind: "stat", metric: metricFor(s), target: Math.max(1000, Math.ceil((current[metricFor(s)] + 1) / 500) * 500) },
+				s.ctype === "merchant" ? { kind: "trade", market: "secondhands" } : { kind: "stat", metric: metricFor(s), target: Math.max(1000, Math.ceil((current[metricFor(s)] + 1) / 500) * 500) },
 				{ kind: "gold", target: Math.max(s.reserve * 2, Math.ceil((s.gold + 1) / 100000) * 100000) },
 			];
-			safe
+			(s.ctype === "merchant" ? [] : safe)
 				.filter(function (r, n, arr) {
 					return (
 						arr.findIndex(function (p) {
@@ -1212,8 +1297,12 @@
 				.forEach(function (r) {
 					result.choices.push({ kind: "farm", monster: r.monster, map: r.map });
 				});
-			if (s.ctype === "merchant") result.choices.push({ kind: "gather", skill: "fishing" }, { kind: "gather", skill: "mining" });
-			result.opportunities
+			if (s.ctype === "merchant") {
+				result.choices.push({ kind: "trade", market: "lostandfound" });
+				if (s.level >= G.skills.fishing.level) result.choices.push({ kind: "gather", skill: "fishing" });
+				if (s.level >= G.skills.mining.level) result.choices.push({ kind: "gather", skill: "mining" });
+			}
+			(s.ctype === "merchant" ? [] : result.opportunities)
 				.filter(function (o) {
 					return G.monsters[o.event];
 				})

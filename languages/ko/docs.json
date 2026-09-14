@@ -40,7 +40,7 @@
 	"docs.tutorial.new.merchant_intro": "상인은 전투 캐릭터에게 물약을 배달하고, 전리품을 가져오고, 상점을 운영할 수 있어요. 비싼 물건을 사기보다 소량의 보급품을 나르는 일부터 시작하세요. 소통을 열고 캐릭터를 선택해 전투 캐릭터와 같은 서버에서 상인도 여세요. 아직 상인이 없다면 캐릭터 선택 페이지에서 만드세요.",
 	"docs.tutorial.new.merchant_budget": "상인에게 직접 시작 자금을 주려면 전투 캐릭터로 Mainland 은행에 들어가 Mr. Rich에게 골드를 조금 맡긴 뒤 나오세요. 다음으로 상인으로 들어가 인출하세요. 내 캐릭터는 한 번에 한 명만 은행 안에 있을 수 있어요. 가판대를 사거나 기부하기 전에 전투 캐릭터가 다음에 쓸 물약값을 남겨 두세요.",
 	"docs.tutorial.new.supplies_manual": "Mainland 마을 광장에서 Gabriel 옆의 Ernis가 HP와 MP 물약을 팔아요. Ernis를 우클릭하고 물약을 클릭한 다음 수량을 정해 조금 구매하세요. 직접 나누어 주려면 은행의 아이템 담당 직원에게 맡기고 은행에서 나온 뒤 다른 캐릭터로 찾아가세요. 은행을 거치지 않고 직접 배달하려면 받을 캐릭터 근처에 서서 아래 CODE 예제를 사용하세요.",
-	"docs.tutorial.new.supplies_code": "FriendName을 가까이 있는 자신의 캐릭터 이름으로 바꾸세요. 이 예제는 HP 물약 20개를 산 뒤 10개를 보냅니다. 구매에는 근처 판매자나 Computer가 필요하고, 보내려면 받는 사람이 가까이 있어야 합니다.",
+	"docs.tutorial.new.supplies_code": "같은 서버에서 상인과 본인 소유의 전투 캐릭터를 같은 파티에 넣으세요. 전투 캐릭터에게 물약이 필요할 때 한 번 실행하세요. 스크립트는 파티의 본인 전투 캐릭터 한 명을 골라, 소지한 물약부터 사용하고 부족분을 Ernis에게 사서 HP 물약 20개와 MP 물약 20개를 배달합니다. 종류별로 20개와 4,000골드는 남깁니다. 큰 물약도 계산합니다. 도착했을 때 전투 캐릭터가 근처에 없으면 멈춥니다.",
 	"docs.tutorial.new.shop_manual": "첫 상점을 준비하려면 Mainland 마을 광장 남쪽의 Divian을 찾아가세요. 우클릭하고 가판대 구매 버튼을 선택한 다음, 상점에서 Merchant Stand를 클릭해 40,000골드에 구매하세요. 물약 살 돈은 남겨 두세요. 여유가 생기면 이 수업으로 돌아와도 됩니다.",
 	"docs.tutorial.new.shop_code": "인벤토리에 Merchant Stand가 있으면 가판대를 엽니다. 다른 플레이어에게 내놓기 전에 아이템과 가격을 확인할 수 있도록 첫 판매 등록은 수동으로 하세요.",
 	"docs.tutorial.new.xp_trade": "플레이어 거래: 상인은 플레이어 가판대에서 조건에 맞는 구매와 판매로 XP를 얻습니다. XP는 거래 세금을 기준으로 합니다. 자신의 캐릭터끼리 거래하는 것은 해당하지 않습니다.",
@@ -2039,7 +2039,7 @@
 	"docs.guide.shops-and-selling.4-choose-currency-when-needed-buy-uses-the": "<b>4. 필요하면 화폐 선택</b><span class=\"dlabel\">buy()</span>는 상점에서 사용할 수 있는 화폐를 써요. 다른 화폐 사용을 막아야 한다면 골드 또는 조개 전용 함수를 사용하세요.",
 	"docs.guide.shops-and-selling.buying": "구매",
 	"docs.guide.shops-and-selling.code-sales-do-not-open-a-confirmation-verify": "CODE 판매에는 확인 창이 뜨지 않아요. 판매 직전에 현재 슬롯의 아이템 이름, 레벨, 수량, 특수 속성, 능력치, 잠금 표식을 확인하세요.",
-	"docs.guide.shops-and-selling.ernis-keeps-adventurers-moving-health-and-mana-potions": "<b>모험을 이어 가게 해 주는 Ernis</b>생명력과 마나 물약은 수량을 지정해 구매해요. 구매 전에 아이템 팝업에서 단가와 화폐를 볼 수 있어요.",
+	"docs.guide.shops-and-selling.ernis-keeps-adventurers-moving-health-and-mana-potions": "<b>Ernis에게 물약 구매</b><br>판매자는 Ernis입니다. 캐릭터가 직접 쓰거나 자신의 전투 캐릭터에게 배달할 물약을 여기서 삽니다. 구매 전에 수량과 총가격을 확인하세요.",
 	"docs.guide.shops-and-selling.merrit-s-visits-keep-an-open-stocked-stand": "<b>Merrit의 방문:</b> 같은 자리에서 물건이 등록된 가판대를 2분간 열어두세요. 계정당 1시간에 소포 하나를 받을 수 있어요. 고정 NPC와 40px 넘게 떨어지고 상점 사이에도 공간을 남겨두세요. 먼저 연 상점이 자리를 유지해요. <span class=\"rlabel\" onclick=\"render_merrit_info()\">Merrit: 전체 규칙과 교환 확률</span>.",
 	"docs.guide.shops-and-selling.nearby-merchant": "<span class=\"guide-flow-icon shop-ernis\"></span><span class=\"guide-flow-label\">근처 상인</span>",
 	"docs.guide.shops-and-selling.npc-merchants-keep-dependable-stock-at-fixed-prices": "NPC 상인은 고정 가격으로 꾸준히 상품을 공급해요. 필요한 물품을 취급하는 상인에게 구매하고, 일반 상인 화면이 열려 있을 때 필요 없는 가방 아이템을 파세요.",
@@ -2478,5 +2478,8 @@
 	"docs.guide.rime-djinn.ui": "Djinn을 선택하면 껍질의 남은 시간과 깨는 데 필요한 남은 피해를 볼 수 있습니다. 능력이나 상태 아이콘을 클릭하면 자세한 정보가 나옵니다. 껍질을 깨면 갈라진 껍질이 5초 동안 표시됩니다. 기절이나 깊은 빙결로도 깰 수 있습니다.",
 	"docs.guide.rime-djinn.rewards": "기여자는 일반 협동 규칙에 따라 XP, 전리품, Tracker 처치 기록을 나눠 받습니다. 피해를 주거나, 공격을 받아내거나, 치유하는 행동이 기여할 수 있습니다. Rimeglass와 다른 재료를 모아 Leo에게서 Djinn Crown, Cove Mantle, Stillwater Lens를 제작하세요. 세 장비 모두 직접 드롭될 수도 있습니다.",
 	"docs.guide.rime-djinn.code_combat": "살아 있는 상태로 Frozen Cove의 공격 사거리 안에서, MP가 충분하고 공격이 준비됐을 때 한 번 실행하세요. 이미 동료와 싸우는 Djinn도 선택합니다. 껍질의 ms는 밀리초, remaining은 필요한 피해를 나타내며, rimeexposed는 껍질이 깨진 상태를 나타냅니다.",
-	"docs.guide.rime-djinn.code_craft": "Leo 근처에 있거나 Computer를 사용할 수 있고, 골드와 빈 공간이 충분하며 잠금 해제된 모든 재료가 인벤토리에 있을 때 실행하세요. Helmet +0을 사용합니다. 다른 제작법은 djinncrown을 covemantle 또는 stillwaterlens로 바꾸고 각각 Cape +0 또는 Orb of Intelligence +0을 사용하세요."
+	"docs.guide.rime-djinn.code_craft": "Leo 근처에 있거나 Computer를 사용할 수 있고, 골드와 빈 공간이 충분하며 잠금 해제된 모든 재료가 인벤토리에 있을 때 실행하세요. Helmet +0을 사용합니다. 다른 제작법은 djinncrown을 covemantle 또는 stillwaterlens로 바꾸고 각각 Cape +0 또는 Orb of Intelligence +0을 사용하세요.",
+	"docs.merchant.resale": "먼저 남는 전리품을 파세요. Ponty의 중고 재고를 플레이어 구매 주문과 비교하세요. 기부 후에는 Ron의 Lost & Found에서도 구할 수 있습니다. 이곳에서는 묶음 전체를 구매하므로, 총비용과 본인의 판매세를 뺀 구매자 지불액을 비교하세요. 보급품 살 골드와 인벤토리 공간을 남겨두세요. 판매 등록 가격만으로 수요를 알 수는 없습니다. 구매자가 없다면 기다리거나 팔리지 않아도 보유할 수 있는 소량만 올리세요.",
+	"docs.merchant.resale_code": "get_progression()을 호출한 뒤 플레이어 가판대를 방문해 가이드가 구매 주문을 확인하게 하세요. 이 예제는 Ponty로 이동해 구매 없이 재고만 확인합니다. Ron의 서비스를 이용할 수 있게 된 뒤에는 lostandfound를 쓰세요. 최근 구매 주문이 묶음 전체를 살 수 있고 세금 차감 후 이익이 남을 때만 재판매 기회가 표시됩니다.",
+	"docs.merchant.progression": "상인은 재고를 채운 가판대에서 시작해 거래로 이익을 얻습니다. XP를 위해 사냥하도록 안내하지 않습니다. 가이드는 최근 확인한 Ponty 또는 Lost & Found 재고와 플레이어 구매 주문을 판매세까지 고려해 비교합니다. 확인할 사항을 제안할 뿐 구매하지 않습니다. 물약 알림은 모든 크기의 물약을 계산하며 상점 운영 중에는 표시하지 않습니다."
 }

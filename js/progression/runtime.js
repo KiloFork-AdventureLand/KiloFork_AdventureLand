@@ -15,6 +15,8 @@
 			recent = [],
 			chests = {},
 			offers = {},
+			buyOrders = {},
+			markets = {},
 			credited = null,
 			last = null,
 			cached = null,
@@ -51,7 +53,7 @@
 		function snapshot(options) {
 			var c = character(),
 				s = {};
-			["name", "id", "level", "gold", "hp", "mp", "max_hp", "max_mp", "map", "rip", "xp"].forEach(function (k) {
+			["name", "id", "level", "gold", "hp", "mp", "max_hp", "max_mp", "map", "rip", "xp", "tax"].forEach(function (k) {
 				s[k] = c[k];
 			});
 			s.ctype = c.ctype || c.type;
@@ -81,6 +83,8 @@
 				return offer.map === c.map && offer.realm === s.realm && s.now >= offer.observedAt && s.now - offer.observedAt < root.AdventureProgression.policy.fresh;
 			});
 			s.listings = s.listings.slice(0, 64);
+			s.buyOrders = Object.values(buyOrders).slice(0, 64);
+			s.markets = clone(markets);
 			s.shopOpen = !!c.stand;
 			s.observations = observations;
 			s.encounters = encounters;
@@ -166,6 +170,26 @@
 			socket = null;
 			listeners = [];
 		}
+		function marketUpdate(place, items) {
+			if (!["secondhands", "lostandfound"].includes(place) || !Array.isArray(items)) return;
+			var value = env.itemValue || root.calculate_item_value || root.item_value,
+				mult = G.multipliers || {};
+			markets[place] = {
+				realm: realm(),
+				observedAt: now(),
+				access: true,
+				items: items
+					.slice(0, 64)
+					.filter(function (i) {
+						return i && G.items[i.name];
+					})
+					.map(function (i) {
+						var factor = place === "lostandfound" ? mult.lostandfound_mult : G.items[i.name].cash ? mult.secondhands_cash_mult : mult.secondhands_mult;
+						return Object.assign({}, clone(i), { cost: value && Number.isFinite(factor) ? value(i) * factor * (i.q || 1) : null });
+					}),
+			};
+			cacheKey = "";
+		}
 		function attach() {
 			var next = env.socket();
 			if (!next || next === socket) return;
@@ -175,6 +199,8 @@
 			recent = [];
 			chests = {};
 			offers = {};
+			buyOrders = {};
+			markets = {};
 			observations = {};
 			encounters = {};
 			evidence = {};
@@ -213,6 +239,8 @@
 			listen("disconnect", function () {
 				if (world) world.connected = false;
 				offers = {};
+				buyOrders = {};
+				markets = {};
 				cacheKey = "";
 			});
 			listen("new_map", function () {
@@ -232,6 +260,9 @@
 					Object.keys(offers).forEach(function (key) {
 						if (offers[key].seller === id) delete offers[key];
 					});
+					Object.keys(buyOrders).forEach(function (key) {
+						if (buyOrders[key].seller === id) delete buyOrders[key];
+					});
 					if (player.stand === false || (!player.stand && !current.stand)) return;
 					Object.keys(player.slots)
 						.filter(function (slot) {
@@ -239,8 +270,8 @@
 						})
 						.forEach(function (slot) {
 							var i = player.slots[slot];
-							if (!i || i.b || !(i.price > 0) || !i.rid) return;
-							offers[id + ":" + slot] = {
+							if (!i || i.v || i.giveaway || !(i.price > 0) || !i.rid) return;
+							(i.b ? buyOrders : offers)[id + ":" + slot] = {
 								name: i.name,
 								level: i.level || 0,
 								stat_type: i.stat_type,
@@ -263,15 +294,39 @@
 					.forEach(function (key) {
 						delete offers[key];
 					});
+				Object.keys(buyOrders)
+					.sort(function (a, b) {
+						return buyOrders[b].observedAt - buyOrders[a].observedAt;
+					})
+					.slice(64)
+					.forEach(function (key) {
+						delete buyOrders[key];
+					});
 				cacheKey = "";
 			});
 			listen("disappear", function (data) {
 				Object.keys(offers).forEach(function (key) {
 					if (offers[key].seller === data.id) delete offers[key];
 				});
+				Object.keys(buyOrders).forEach(function (key) {
+					if (buyOrders[key].seller === data.id && buyOrders[key].map === character().map) delete buyOrders[key];
+				});
 				cacheKey = "";
 			});
 			listen("player", updatePlayer);
+			listen("secondhands", function (items) {
+				marketUpdate("secondhands", items);
+			});
+			listen("lostandfound", function (items) {
+				marketUpdate("lostandfound", items);
+			});
+			listen("game_response", function (data) {
+				if (data && data.response === "data") marketUpdate(data.place, data.items);
+				if (data === "lostandfound_donate" || (data && data.response === "lostandfound_donate")) {
+					markets.lostandfound = { realm: realm(), observedAt: now(), access: false };
+					cacheKey = "";
+				}
+			});
 			listen("hit", function (data) {
 				var c = character(),
 					entities = env.entities() || {},
@@ -351,7 +406,23 @@
 			attach();
 			var s = snapshot(options);
 			if (!s) return { version: 1, ready: false, rows: [] };
-			var key = JSON.stringify([s.ctype, s.level, s.gold, s.hp < s.max_hp * 0.35, s.rip, s.map, s.realm, s.slots, s.items, s.goal, s.spendLimit, s.allowPvp, Math.floor(s.now / 3000)]);
+			var key = JSON.stringify([
+				s.ctype,
+				s.level,
+				s.gold,
+				s.tax,
+				s.shopOpen,
+				s.hp < s.max_hp * 0.35,
+				s.rip,
+				s.map,
+				s.realm,
+				s.slots,
+				s.items,
+				s.goal,
+				s.spendLimit,
+				s.allowPvp,
+				Math.floor(s.now / 3000),
+			]);
 			if (key !== cacheKey) {
 				cached = engine.evaluate(s);
 				cacheKey = key;

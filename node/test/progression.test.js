@@ -78,6 +78,7 @@ test("packaged stat functions remain identical to the native sources", () => {
 	}
 	for (const [file, names] of [
 		["node/server.js", ["apply_stats", "calculate_common_stats", "calculate_player_stats"]],
+		["node/server_functions.js", ["weapon_stat_attack"]],
 		[
 			"js/old_common_functions.js",
 			["calculate_item_properties", "calculate_item_grade", "adopt_extras", "damage_multiplier"],
@@ -107,6 +108,7 @@ test("projection executes current native functions and item curves for every cla
 	const source = read("node/server.js");
 	vm.runInContext(source.slice(source.indexOf("var stat_to_attr ="), source.indexOf("function apply_stats")), native);
 	load(native, "node/server.js", ["apply_stats", "calculate_common_stats", "calculate_player_stats"]);
+	load(native, "node/server_functions.js", ["weapon_stat_attack"]);
 	for (const ctype of Object.keys(Progression.weapons))
 		for (const level of [1, 40, 55, 65, 80, 100, 140, 200]) {
 			const s = snapshot(ctype, { level });
@@ -621,4 +623,358 @@ test("a ready spare-ring compound outranks distant work without consuming worn r
 	assert.equal(result.rows[0].action.level, 1);
 	assert.equal(result.rows[0].cost, 0);
 	assert.deepEqual(result.rows[0].resources.map((r) => r.num).sort(), [2, 3, 4, 5]);
+});
+
+test("stocked Merchants trade instead of farming or buying personal potions", () => {
+	const slots = { trade1: { name: "beewings", q: 5, price: 500, rid: "own" } };
+	const s = snapshot("merchant", {
+		level: 85,
+		shopOpen: true,
+		slots,
+		items: [
+			{ name: "mpot1", q: 100 },
+			{ name: "mpotx", q: 9722 },
+		],
+	});
+	for (const goal of [
+		null,
+		{ kind: "gold", target: 1000000 },
+		{ kind: "gather", skill: "mining" },
+		{ kind: "item", name: "rod" },
+	]) {
+		const r = engine.evaluate({ ...s, goal });
+		assert(!r.rows.some((row) => row.kind === "farm" || row.kind === "supplies"), JSON.stringify(r.rows));
+		assert(!r.choices.some((g) => ["farm", "stat", "encounter"].includes(g.kind)));
+	}
+	const r = engine.evaluate(s);
+	assert.equal(r.goal.kind, "trade");
+	assert.equal(r.progress.target, null);
+	assert.equal(r.complete, false);
+	assert.equal(r.rows[0].action.npc, "secondhands");
+	assert(r.rows.some((row) => row.id === "shop:keep"));
+	const beginner = engine.evaluate(snapshot("merchant", { level: 1, gold: 0, items: [] }));
+	assert(!beginner.choices.some((g) => g.kind === "gather"));
+	assert(!beginner.rows.some((row) => row.kind === "farm" || row.kind === "supplies"));
+});
+test("potion advice counts every restorative tier and distinguishes locked stock from a purchase", () => {
+	const s = snapshot("ranger", {
+		items: [
+			{ name: "hpotx", q: 20 },
+			{ name: "mpotx", q: 35 },
+		],
+	});
+	assert(!engine.evaluate(s).rows.some((r) => r.kind === "supplies"));
+	const busy = adapter("ranger", { items: s.items, q: { upgrade: { num: 2 } } });
+	assert(!busy.runtime.read().rows.some((r) => r.kind === "supplies"));
+	busy.runtime.detach();
+	const locked = engine.evaluate({
+		...s,
+		items: [
+			{ name: "hpotx", q: 20, l: "l" },
+			{ name: "mpotx", q: 35 },
+		],
+	}).rows[0];
+	assert.equal(locked.action.unlock, true);
+	assert.equal(locked.cost, 0);
+	assert.equal(locked.action.npc, undefined);
+	const low = engine.evaluate({
+		...s,
+		items: [
+			{ name: "hpotx", q: 19 },
+			{ name: "mpotx", q: 35 },
+		],
+	}).rows[0];
+	assert.equal(low.kind, "supplies");
+	assert.equal(low.action.quantity, 1);
+	assert.equal(low.action.name, "hpot0");
+	assert.equal(low.reason.args.mp, 35);
+});
+test("Merchant resale evidence uses native full-stack costs and current sales tax", () => {
+	const native = vm.createContext({ G: D, round: Math.round });
+	vm.runInContext(extract(read("js/old_common_functions.js"), "calculate_item_value"), native);
+	const a = adapter("merchant", {
+		level: 85,
+		gold: 500000,
+		tax: 0.01,
+		stand: true,
+		slots: { trade1: { name: "beewings", q: 5, price: 500 } },
+	});
+	// Runtime reads the native helper already present in browser and CODE globals.
+	const old = globalThis.calculate_item_value;
+	globalThis.calculate_item_value = native.calculate_item_value;
+	try {
+		a.socket.emit("entities", {
+			players: [
+				{
+					id: "Buyer",
+					stand: true,
+					map: "main",
+					slots: { trade1: { name: "staff", level: 0, b: true, q: 3, price: 30000, rid: "bid" } },
+				},
+			],
+		});
+		assert.equal(a.runtime.snapshot().listings.length, 0, "buy orders cannot become acquisition offers");
+		a.socket.emit("game_response", {
+			response: "data",
+			place: "secondhands",
+			items: [{ name: "staff", level: 0, q: 3, rid: "stock" }],
+		});
+		let quote = a.runtime.read({ goal: { kind: "trade", market: "secondhands" } }).rows.find((r) => r.action.quote)
+			?.action.quote;
+		assert(quote);
+		assert.equal(
+			quote.cost,
+			native.calculate_item_value({ name: "staff", level: 0 }) * D.multipliers.secondhands_mult * 3,
+		);
+		assert.equal(quote.proceeds, Math.round(30000 * 3 * 0.99));
+		assert.equal(quote.margin, quote.proceeds - quote.cost);
+		a.socket.emit("entities", {
+			players: [
+				{
+					id: "Buyer",
+					stand: true,
+					slots: { trade1: { name: "staff", level: 0, b: true, q: 2, price: 30000, rid: "small" } },
+				},
+			],
+		});
+		assert(!a.runtime.read().rows.some((r) => r.action.quote), "partial buy order cannot cover a recovered stack");
+		a.socket.emit("entities", {
+			players: [
+				{
+					id: "Buyer",
+					stand: true,
+					slots: { trade1: { name: "staff", level: 0, b: true, q: 3, price: 100000, rid: "bid2" } },
+				},
+			],
+		});
+		a.c.map = "woffice";
+		a.socket.emit("new_map", {});
+		a.socket.emit("lostandfound", [{ name: "staff", level: 0, q: 3, rid: "ron-stock" }]);
+		quote = a.runtime.read().rows.find((r) => r.action.quote)?.action.quote;
+		assert(quote);
+		assert.equal(
+			quote.cost,
+			native.calculate_item_value({ name: "staff", level: 0 }) * D.multipliers.lostandfound_mult * 3,
+		);
+		assert.equal(quote.buyer.map, "main", "recent research survives travel to Ron");
+		assert(!a.runtime.read({ spendLimit: 1 }).rows.some((r) => r.action.quote));
+		a.advance(90001);
+		assert(!a.runtime.read().rows.some((r) => r.action.quote), "expired demand cannot imply a resale");
+		a.socket.emit("game_response", { response: "lostandfound_donate", reason: "donation_required" });
+		assert(a.runtime.read().rows.some((r) => r.reason.id === "progression.reason.market_unlock"));
+		a.socket.emit("disconnect");
+		assert.equal(Object.keys(a.runtime.snapshot().markets).length, 0);
+	} finally {
+		a.runtime.detach();
+		if (old) globalThis.calculate_item_value = old;
+		else delete globalThis.calculate_item_value;
+	}
+});
+
+function exampleCode(html) {
+	return html.replaceAll("&gt;", ">").replaceAll("&lt;", "<").replaceAll("&amp;", "&");
+}
+function merchantExample(file, id) {
+	return exampleCode(read(file).match(new RegExp('<div class="code" id="' + id + '">([\\s\\S]*?)<\\/div>'))[1]);
+}
+test("Merchant articles preserve executable CODE blocks and line comments", () => {
+	for (const [file, count] of [
+		["docs/guide/shops-and-selling.html", 2],
+		["docs/guide/markets-and-trading.html", 3],
+		["docs/tutorial/merchant-supplies.html", 1],
+	]) {
+		const blocks = Array.from(read(file).matchAll(/<div class="code"[^>]*>([\s\S]*?)<\/div>/g));
+		assert.equal(blocks.length, count, file);
+		for (const [index, block] of blocks.entries())
+			assert.doesNotThrow(() => new vm.Script(exampleCode(block[1])), file + " block " + (index + 1));
+	}
+});
+function nativeMerchant(t, items, away = false) {
+	const a = adapter("merchant", {
+			level: 85,
+			tax: 0.01,
+			stand: true,
+			items: structuredClone(items),
+			slots: { trade1: { name: "beewings", q: 5, price: 500 } },
+			gold: 500000,
+		}),
+		actions = [],
+		shown = [];
+	a.c.real_x = 0;
+	a.c.real_y = 0;
+	const context = vm.createContext({
+		Dev: false,
+		console,
+		setTimeout,
+		clearTimeout,
+		Date,
+		Math,
+		character: a.c,
+		socket: a.socket,
+		last_npc_right_click: new Date(0),
+		code_settings: { log_smart_move: false },
+		show_json: (o) => shown.push(o),
+		$: () => ({ html() {}, data() {} }),
+	});
+	for (const file of ["common/js/common_functions.js", "js/old_common_functions.js"])
+		vm.runInContext(read(file), context);
+	context.G = D;
+	context.parent = {
+		G: D,
+		S: {},
+		entities: {},
+		X: { characters: [{ name: "GuideTest" }, { name: "Fighter" }] },
+		party: { Fighter: { map: "main", type: "ranger", x: 10, y: 10 } },
+		progression_read: (options) => a.runtime.read(options),
+		push_deferred: context.push_deferred,
+		socket: a.socket,
+	};
+	vm.runInContext(extract(read("js/functions.js"), "buy_with_gold"), context);
+	context.parent.buy_with_gold = context.buy_with_gold;
+	for (const name of [
+		"get_characters",
+		"get_party",
+		"get_player",
+		"find_npc",
+		"smart_move",
+		"buy_with_gold",
+		"send_item",
+		"wait_for_event",
+		"get_secondhands",
+		"get_lost_and_found",
+		"get_progression",
+	])
+		vm.runInContext(extract(read("js/runner_functions.js"), name), context);
+	context.smart = { moving: false, on_done() {} };
+	const original = a.socket.emit.bind(a.socket);
+	a.socket.emit = (event, data) => {
+		if (!["buy", "send", "secondhands", "lostandfound"].includes(event)) return original(event, data);
+		actions.push({ event, data: structuredClone(data) });
+		setImmediate(() => {
+			if (event === "buy") {
+				assert.equal(a.c.map, "main");
+				assert(Math.hypot(a.c.real_x + 35, a.c.real_y + 162) < 10);
+				const item = a.c.items.find((i) => i?.name === data.name && !i.l);
+				if (item) item.q += data.quantity;
+				else a.c.items.push({ name: data.name, q: data.quantity });
+				a.c.gold -= D.items[data.name].g * data.quantity;
+				context.resolve_deferreds("buy", { success: true });
+			} else if (event === "send") {
+				assert.equal(data.name, "Fighter");
+				assert(!away);
+				a.c.items[data.num].q -= data.q;
+				if (!a.c.items[data.num].q) a.c.items[data.num] = null;
+				context.resolve_deferreds("send", { success: true });
+			} else
+				original("game_response", {
+					place: event,
+					response: "data",
+					request_id: data.request_id,
+					items: [{ name: "staff", level: 0, rid: "stock" }],
+				});
+		});
+		return true;
+	};
+	t.after(() => a.runtime.detach());
+	function arrive() {
+		a.c.map = context.smart.map;
+		a.c.real_x = context.smart.x;
+		a.c.real_y = context.smart.y;
+		context.smart.moving = false;
+		if (!away)
+			context.parent.entities.Fighter = { name: "Fighter", type: "character", map: "main", real_x: 10, real_y: 10 };
+		context.smart.on_done(true);
+	}
+	return { a, context, actions, shown, arrive };
+}
+test("published delivery runs through native CODE and uses carried potions before buying", async (t) => {
+	for (const items of [
+		[
+			{ name: "hpotx", q: 50 },
+			{ name: "mpotx", q: 50 },
+		],
+		[
+			{ name: "hpot0", q: 10 },
+			{ name: "mpotx", q: 50 },
+		],
+	]) {
+		const f = nativeMerchant(t, items);
+		const run = vm.runInContext(
+			merchantExample("docs/tutorial/merchant-supplies.html", "merchant-delivery-code"),
+			f.context,
+		);
+		f.arrive();
+		if (items[0].q < 40) {
+			await new Promise((resolve) => setImmediate(resolve));
+			await new Promise((resolve) => setImmediate(resolve));
+			f.arrive();
+		}
+		await run;
+		assert.equal(f.shown.at(-1).delivered, true);
+		const buys = f.actions.filter((a) => a.event === "buy");
+		assert.equal(buys.length, items[0].q < 40 ? 1 : 0);
+		if (buys.length) assert.deepEqual(buys[0].data, { name: "hpot0", quantity: 30 });
+		assert.equal(
+			f.a.c.items.reduce((n, i) => n + (i?.name.startsWith("hpot") ? i.q : 0), 0),
+			items[0].q < 40 ? 20 : 30,
+		);
+	}
+	const gone = nativeMerchant(
+		t,
+		[
+			{ name: "hpotx", q: 50 },
+			{ name: "mpotx", q: 50 },
+		],
+		true,
+	);
+	const run = vm.runInContext(
+		merchantExample("docs/tutorial/merchant-supplies.html", "merchant-delivery-code"),
+		gone.context,
+	);
+	gone.arrive();
+	await run;
+	assert.equal(gone.actions.length, 0, "no delivery to a missing recipient");
+});
+test("published resale runs through native travel and request-id market responses without spending", async (t) => {
+	const f = nativeMerchant(t, []);
+	vm.runInContext("get_progression()", f.context);
+	f.a.socket.emit("entities", {
+		players: [
+			{
+				id: "Buyer",
+				stand: true,
+				slots: { trade1: { name: "staff", level: 0, b: true, q: 1, price: 35000, rid: "bid" } },
+			},
+		],
+	});
+	const old = globalThis.calculate_item_value;
+	globalThis.calculate_item_value = D.calculate_item_value;
+	try {
+		const run = vm.runInContext(
+			merchantExample("docs/guide/markets-and-trading.html", "merchant-resale-code"),
+			f.context,
+		);
+		f.arrive();
+		await run;
+		assert(f.shown[0].resale);
+		assert.equal(f.shown[0].resale.proceeds, 34650);
+		assert.deepEqual(
+			f.actions.map((a) => a.event),
+			["secondhands"],
+		);
+	} finally {
+		if (old) globalThis.calculate_item_value = old;
+		else delete globalThis.calculate_item_value;
+	}
+});
+
+test("published personal restocking counts carried large potions", async (t) => {
+	const f = nativeMerchant(t, [
+		{ name: "hpotx", q: 1000 },
+		{ name: "mpotx", q: 9722 },
+	]);
+	await vm.runInContext(merchantExample("docs/guide/shops-and-selling.html", "shop-restock-code"), f.context);
+	assert.deepEqual(f.actions, []);
+	assert.equal(f.shown[0].hp, 1000);
+	assert.equal(f.shown[0].mp, 9722);
 });

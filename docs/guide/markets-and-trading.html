@@ -9,7 +9,7 @@
 	<div class="guide-card">{{ phrase_html("docs.guide.markets-and-trading.nearby-players-open-a-visible-merchant-s-stand") }}</div>
 </div>
 
-<div class="guide-flow" style="border-color:#2F917A" data-guide-visual="market-listings">
+<div class="guide-flow" style="border-color: #2f917a" data-guide-visual="market-listings">
 	<div class="guide-flow-node">{{ phrase_html("docs.guide.markets-and-trading.your-staff-9") }}</div>
 	<div class="guide-flow-arrow">→</div>
 	<div class="guide-flow-node">{{ phrase_html("docs.guide.markets-and-trading.sale-set-quantity-price") }}</div>
@@ -32,6 +32,7 @@
 
 <div class="divider"></div>
 <div class="title mt15">{{ phrase("docs.guide.markets-and-trading.code-list-and-buy") }}</div>
+<!-- prettier-ignore -->
 <div class="code">async function open_example_shop() {
 	await open_stand();
 
@@ -46,6 +47,7 @@
 }
 
 open_example_shop().catch(show_json);</div>
+<!-- prettier-ignore -->
 <div class="code">async function inspect_nearby_listing(player_name, slot) {
 	var merchant = get_player(player_name);
 	var listing = merchant &amp;&amp; merchant.slots[slot];
@@ -60,33 +62,88 @@ open_example_shop().catch(show_json);</div>
 
 <div class="divider"></div>
 <div class="title mt15">{{ phrase("docs.guide.markets-and-trading.code-recovered-markets") }}</div>
-<div class="code">async function inspect_recovered_items() {
-	var ponty = await get_secondhands();
-	show_json(ponty.items);
-	// if (ponty.items.length) await buy_secondhand(ponty.items[0]);
-
-	var found = await get_lost_and_found();
-	show_json(found.items);
-	// if (found.items.length) await buy_lost_and_found(found.items[0]);
+<p>{{ phrase("docs.merchant.resale") }}</p>
+<p style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap">
+	<span class="tutorial-npc" data-npc="secondhands"></span><span>Ponty · Mainland<br /><span class="tutorial-travel" data-type="npc" data-target="secondhands"></span></span
+	><span class="tutorial-npc" data-npc="lostandfound"></span><span>Ron · Wizard's Crib<br /><span class="tutorial-travel" data-type="npc" data-target="lostandfound"></span></span>
+</p>
+<p>{{ phrase("docs.merchant.resale_code") }}</p>
+<!-- prettier-ignore -->
+<div class="code" id="merchant-resale-code">get_progression();
+async function inspect_resale(market) {
+	if (character.ctype !== "merchant") return;
+	if (!["secondhands", "lostandfound"].includes(market)) return;
+	await smart_move(find_npc(market));
+	var stock = market === "secondhands"
+		? await get_secondhands()
+		: await get_lost_and_found();
+	var advice = get_progression({ goal: { kind: "trade", market }, spendLimit: 100000 });
+	var row = advice.rows.find(row =&gt; row.kind === "market" &amp;&amp; row.action.npc === market);
+	show_json({ stock: stock.items, resale: row ? row.action.quote : null });
 }
-
-inspect_recovered_items().catch(show_json);</div>
+inspect_resale("secondhands").catch(show_json);</div>
 <p>{{ phrase_html("docs.guide.markets-and-trading.ron-refuses-the-listing-request-until-this-character") }}</p>
 <p>{{ phrase_html("docs.guide.markets-and-trading.recovered-market-references-get-secondhands-buy-secondhand-get") }}</p>
 
+<p>
+	<span class="rlabel clickable" onclick="load_documentation('get_progression')">get_progression</span> · <span class="rlabel clickable" onclick="load_documentation('smart_move')">smart_move</span>
+</p>
 <div class="guide-related">{{ phrase_html("docs.guide.markets-and-trading.see-also-shops-and-selling-exchanges-and-quests") }}</div>
 
 <script>
-	$(".market-divian").html(sprite(G.npcs.standmerchant.skin, { height: 58 }));
-	$(".market-ponty").html(sprite(G.npcs.secondhands.skin, { height: 58 }));
-	$(".market-ron").html(sprite(G.npcs.lostandfound.skin, { height: 58 }));
-	$(".market-stand").html(item_container({ skin: G.items.stand0.skin }, { name: "stand0" }));
-	$(".market-staff").html(item_container({ skin: G.items.staff.skin }, { name: "staff", level: 9 }));
-	$(".market-wishlist").html(item_container({ skin: G.items.staff.skin }, { name: "staff", level: 9 }));
+	if (!window.no_graphics && !window.no_html) {
+		render_tutorial_items();
+		$(".market-divian").html(sprite(G.npcs.standmerchant.skin, { height: 58 }));
+		$(".market-ponty").html(sprite(G.npcs.secondhands.skin, { height: 58 }));
+		$(".market-ron").html(sprite(G.npcs.lostandfound.skin, { height: 58 }));
+		$(".market-stand").html(item_container({ skin: G.items.stand0.skin }, { name: "stand0" }));
+		$(".market-staff").html(item_container({ skin: G.items.staff.skin }, { name: "staff", level: 9 }));
+		$(".market-wishlist").html(item_container({ skin: G.items.staff.skin }, { name: "staff", level: 9 }));
+	}
 </script>
 
 <style>
-	.guide-kicker{color:#2A7F6B;font-size:18px;font-weight:bold;letter-spacing:2px}.guide-title{color:#236353;font-size:44px;line-height:48px;margin:2px 0 12px}.title{color:#236353;font-size:36px;margin-top:15px}.divider{margin-top:15px;height:5px;background-color:#A2A2A2;margin-left:-26px;margin-right:-26px}.guide-note{border-left:6px solid #368C78;background:#DCEDE8;padding:10px 14px;margin:12px 0}.guide-related{border-top:2px dotted #AAA;margin-top:18px;padding-top:10px;color:#666}.guide-related span{color:#26735E;cursor:pointer;text-decoration:underline}
+	.guide-kicker {
+		color: #2a7f6b;
+		font-size: 18px;
+		font-weight: bold;
+		letter-spacing: 2px;
+	}
+	.guide-title {
+		color: #236353;
+		font-size: 44px;
+		line-height: 48px;
+		margin: 2px 0 12px;
+	}
+	.title {
+		color: #236353;
+		font-size: 36px;
+		margin-top: 15px;
+	}
+	.divider {
+		margin-top: 15px;
+		height: 5px;
+		background-color: #a2a2a2;
+		margin-left: -26px;
+		margin-right: -26px;
+	}
+	.guide-note {
+		border-left: 6px solid #368c78;
+		background: #dcede8;
+		padding: 10px 14px;
+		margin: 12px 0;
+	}
+	.guide-related {
+		border-top: 2px dotted #aaa;
+		margin-top: 18px;
+		padding-top: 10px;
+		color: #666;
+	}
+	.guide-related span {
+		color: #26735e;
+		cursor: pointer;
+		text-decoration: underline;
+	}
 </style>
 
 <p>{{ phrase_html("docs.guide.markets-and-trading.merrit-s-visits-keep-an-open-stocked-stand") }}</p>

@@ -40,7 +40,7 @@
 	"docs.tutorial.new.merchant_intro": "商人は戦う仲間にポーションを届け、戦利品を持ち帰り、露店を開けます。まずは高い買い物より、少量の物資を届けてみましょう。通信を開いて「キャラクター」を選び、戦うキャラクターと同じサーバーで商人も起動します。まだ商人を作っていなければ、キャラクター選択ページで作成してください。",
 	"docs.tutorial.new.merchant_budget": "手動で商人に資金を渡すには、戦うキャラクターでMainlandの銀行に入り、Mr. Richにゴールドを預けてから外に出ます。次に商人で入って引き出します。自分のキャラクターが銀行に入れるのは同時に1人だけです。露店や寄付に使う前に、戦う仲間の次のポーション代を確保しましょう。",
 	"docs.tutorial.new.supplies_manual": "Mainlandの町の広場で、Gabrielの隣にいるErnisがHP・MPポーションを売っています。Ernisを右クリックし、ポーションをクリックして数量を指定し、少量買いましょう。手動で分けるには、銀行のアイテム窓口に預けて外に出てから、別のキャラクターで受け取ります。銀行を使わず直接届けるには、受取人の近くに立ち、下のCODE例を使ってください。",
-	"docs.tutorial.new.supplies_code": "FriendNameを近くにいる自分のキャラクター名に変えてください。この例はHPポーションを20個買ってから10個送ります。購入には近くの売り手かComputerが、送信には近くに受取人が必要です。",
+	"docs.tutorial.new.supplies_code": "同じサーバーで、商人と自分の戦闘役を同じパーティーに入れよう。戦闘役にポーションが必要なときに一度実行します。コードはパーティー内の自分の戦闘役を1人選び、手持ちのポーションを先に使い、不足分をErnisから購入してHPとMPのポーションを20個ずつ届けます。各20個と4,000ゴールドは商人に残します。大型ポーションも数えます。到着時に戦闘役が近くにいなければ停止します。",
 	"docs.tutorial.new.shop_manual": "最初の露店は、Mainlandの町の広場から南にいるDivianのところで準備しましょう。右クリックして露店を買うボタンを選び、店内のMerchant Standをクリックして40,000ゴールドで購入します。ポーション代は残しておきましょう。お金に余裕ができてからこのレッスンに戻っても大丈夫です。",
 	"docs.tutorial.new.shop_code": "インベントリにMerchant Standがあれば、これで露店を開けます。最初の出品は手動で行い、ほかのプレイヤーに提示する前にアイテムと値段を確認しましょう。",
 	"docs.tutorial.new.xp_trade": "プレイヤー取引：商人はプレイヤーの露店で対象となる売買をするとXPを得ます。XPは取引の税額に基づきます。自分のキャラクター同士の取引は対象外です。",
@@ -2039,7 +2039,7 @@
 	"docs.guide.shops-and-selling.4-choose-currency-when-needed-buy-uses-the": "<b>4. 必要なら通貨を選ぶ</b><span class=\"dlabel\">buy()</span>は店で利用可能な通貨を使います。一方の通貨を使わせたくない場合は、ゴールド専用またはシェル専用の関数を使ってください。",
 	"docs.guide.shops-and-selling.buying": "購入",
 	"docs.guide.shops-and-selling.code-sales-do-not-open-a-confirmation-verify": "CODEでの売却では確認画面は開きません。売る直前に、現在の枠からアイテム名、レベル、個数、特性、能力値、ロックの印を確認してください。",
-	"docs.guide.shops-and-selling.ernis-keeps-adventurers-moving-health-and-mana-potions": "<b>Ernisが冒険を支えます</b>HPとMPのポーションは個数を指定して買えます。購入前に、アイテムのポップアップで単価と通貨を確認できます。",
+	"docs.guide.shops-and-selling.ernis-keeps-adventurers-moving-health-and-mana-potions": "<b>Ernisからポーションを買う</b><br>売り手はErnisです。自分で使うか、自分の戦闘役に届けるポーションをここで購入します。購入前に数量と合計額を確認しよう。",
 	"docs.guide.shops-and-selling.merrit-s-visits-keep-an-open-stocked-stand": "<b>Merritの訪問：</b>品物を並べた露店を同じ場所で2分間開いておきます。アカウントごとに1時間に1つ荷物を受け取れます。固定NPCから40pxを超える距離を取り、店同士にも間隔を空けてください。先に開いた店がその場所を使い続けられます。<span class=\"rlabel\" onclick=\"render_merrit_info()\">Merrit：詳しいルールと交換確率</span>。",
 	"docs.guide.shops-and-selling.nearby-merchant": "<span class=\"guide-flow-icon shop-ernis\"></span><span class=\"guide-flow-label\">近くの商人</span>",
 	"docs.guide.shops-and-selling.npc-merchants-keep-dependable-stock-at-fixed-prices": "NPCの店には、固定価格の安定した品ぞろえがあります。必要な品を扱う商人から補給し、不要な持ち物は通常の商人の画面を開いて売りましょう。",
@@ -2478,5 +2478,8 @@
 	"docs.guide.rime-djinn.ui": "Djinnを選択すると、殻の残り時間と、壊すために必要な残りダメージを確認できます。詳細は能力か状態アイコンをクリックしてください。殻を壊すと、5秒間「割れた殻」が表示されます。スタンや深い凍結でも壊せます。",
 	"docs.guide.rime-djinn.rewards": "貢献者は通常の協力戦闘ルールに従い、XP、ドロップ、Trackerの討伐記録を共有します。ダメージを与える、攻撃を受ける、回復する行動が貢献になります。Rimeglassなどの素材を集め、LeoでDjinn Crown、Cove Mantle、Stillwater Lensを製作しましょう。3つとも直接ドロップすることもあります。",
 	"docs.guide.rime-djinn.code_combat": "Frozen Coveで生存し、攻撃範囲内にいて、十分なMPと攻撃の準備があるときに1回実行してください。仲間とすでに戦っているDjinnも選択します。殻のmsは残りミリ秒、remainingは必要ダメージを示し、rimeexposedは殻が壊れた状態を示します。",
-	"docs.guide.rime-djinn.code_craft": "Leoの近くかComputerを使える状態で、十分なゴールド、空き枠、ロックされていない全材料をインベントリに用意して実行してください。Helmet +0を使います。他のレシピではdjinncrownをcovemantleまたはstillwaterlensに替え、それぞれCape +0またはOrb of Intelligence +0を使ってください。"
+	"docs.guide.rime-djinn.code_craft": "Leoの近くかComputerを使える状態で、十分なゴールド、空き枠、ロックされていない全材料をインベントリに用意して実行してください。Helmet +0を使います。他のレシピではdjinncrownをcovemantleまたはstillwaterlensに替え、それぞれCape +0またはOrb of Intelligence +0を使ってください。",
+	"docs.merchant.resale": "まず余った戦利品を売ろう。Pontyの中古品をプレイヤーの買取注文と比較します。寄付後はRonのLost & Foundも仕入れ先になります。これらはスタック全体を購入するため、総費用と自分の売上税を引いた受取額を比べよう。消耗品用の資金と所持品の空き枠を残します。出品価格だけでは需要は分かりません。買い手がいなければ待つか、売れ残っても困らない少量だけを出品しよう。",
+	"docs.merchant.resale_code": "get_progression()を呼び出してからプレイヤーの露店を訪れ、ガイドに買取注文を確認させよう。この例はPontyへ移動し、購入せずに在庫を確認します。Ronのサービスを解放した後はlostandfoundを指定します。最近の買取注文でスタック全体を売れ、税引き後に利益が残る場合だけ転売候補が表示されます。",
+	"docs.merchant.progression": "商人は品物を並べた露店から始め、その後は取引で利益を目指します。XPのための狩りには誘導しません。ガイドは最近確認したPontyやLost & Foundの在庫とプレイヤーの買取注文を、売上税も含めて比較します。確認を提案するだけで購入はしません。ポーションの通知はすべてのサイズを数え、店番中は表示されません。"
 }

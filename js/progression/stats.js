@@ -252,6 +252,9 @@
 			calculate_item_properties = helpers.itemProperties;
 		function recalculate_vxy() {}
 		function server_log() {}
+		function weapon_stat_attack(type, stats, weapon_attack) {
+			return weapon_attack * (type === "paladin" ? stats.str / 20 + stats.int / 40 : stats[(G.classes[type] || G.classes.merchant).main_stat] / 20);
+		}
 		var stat_to_attr = {
 			str: "str",
 			int: "int",
@@ -564,11 +567,7 @@
 				player.stealth = true;
 			}
 			item_attack = max(item_attack, 5);
-			if (player.type == "paladin") {
-				player.attack += item_attack * (player.str / 20.0 + player.int / 40.0);
-			} else {
-				player.attack += item_attack * (player[class_def.main_stat] / 20.0);
-			}
+			player.attack += weapon_stat_attack(player.type, player, item_attack);
 			player.attack += player.a_attack;
 			if (player.type == "priest") {
 				player.attack *= 1.6;

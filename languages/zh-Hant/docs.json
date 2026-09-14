@@ -40,7 +40,7 @@
 	"docs.tutorial.new.merchant_intro": "商人可以給戰鬥角色送藥水、把戰利品帶回家，也能開店。先試著送一小批補給，不必急著買昂貴的東西。開啟通訊，選擇「角色」，在戰鬥角色所在的伺服器同時開啟商人。如果還沒有商人，請先在角色選擇頁面建立一個。",
 	"docs.tutorial.new.merchant_budget": "要手動給商人啟動資金，先讓戰鬥角色進入Mainland的銀行，把一些金幣存到Mr. Rich那裡，然後離開。再讓商人進去領錢。你的角色同時只能有一個在銀行裡。購買攤位或捐贈之前，先給戰鬥角色留夠下一批藥水的錢。",
 	"docs.tutorial.new.supplies_manual": "Mainland城鎮廣場上，Gabriel旁邊的Ernis出售HP和MP藥水。右鍵點擊Ernis，再點擊藥水，設定數量，買一小疊。要手動分享藥水，先交給銀行的物品櫃員保管，離開銀行後，再用另一個角色領取。若想不經過銀行直接送貨，請站到收貨人附近，使用下方的CODE範例。",
-	"docs.tutorial.new.supplies_code": "將FriendName替換為附近己方角色的名字。此範例購買20瓶HP藥水，然後傳送10瓶。購買需要附近有商人或持有Computer；傳送需要收件人在附近。",
+	"docs.tutorial.new.supplies_code": "在同一伺服器，讓商人與自己的一名戰鬥角色組隊。戰鬥角色需要藥水時執行一次。程式會選擇隊中屬於你的戰鬥角色，優先使用隨身藥水，向Ernis補買不足部分，再送出20瓶HP藥水和20瓶MP藥水。商人會保留每種20瓶以及4,000金幣。大藥水也計入數量。如果抵達時戰鬥角色已不在附近，程式就會停止。",
 	"docs.tutorial.new.shop_manual": "第一次開店，先去找Mainland城鎮廣場南面的Divian。右鍵點擊她，選擇購買攤位的按鈕，再點擊店裡的Merchant Stand，花40,000金幣購買。記得留夠藥水錢；等買得起時再回來學這一課也可以。",
 	"docs.tutorial.new.shop_code": "背包中有Merchant Stand時，這會開啟攤位。請手動新增第一件商品，以便在向其他玩家出售前檢查物品與價格。",
 	"docs.tutorial.new.xp_trade": "玩家交易：商人透過玩家攤位進行符合條件的買賣可獲得XP。XP按交易稅計算。自己的角色之間的交易不計入。",
@@ -2039,7 +2039,7 @@
 	"docs.guide.shops-and-selling.4-choose-currency-when-needed-buy-uses-the": "<b>4. 必要時指定貨幣</b><span class=\"dlabel\">buy()</span>使用可用的商店貨幣。必須禁止使用另一種貨幣時，請呼叫明確的金幣或貝殼購買函式。",
 	"docs.guide.shops-and-selling.buying": "購買",
 	"docs.guide.shops-and-selling.code-sales-do-not-open-a-confirmation-verify": "CODE出售不會彈出確認。出售前請立即核對目前背包格的物品名稱、等級、數量、特殊性質、屬性和鎖定標記。",
-	"docs.guide.shops-and-selling.ernis-keeps-adventurers-moving-health-and-mana-potions": "<b>Ernis為冒險者補給</b>生命和魔力藥水按數量出售。購買前，物品彈出視窗會顯示單價和貨幣。",
+	"docs.guide.shops-and-selling.ernis-keeps-adventurers-moving-health-and-mana-potions": "<b>向Ernis購買藥水</b><br>Ernis是賣家。你的角色在這裡購買自用或送給自己戰鬥角色的藥水。購買前確認數量和總價。",
 	"docs.guide.shops-and-selling.merrit-s-visits-keep-an-open-stocked-stand": "<b>Merrit來訪：</b>在同一位置保持攤位開放且有貨兩分鐘。每個帳號每小時可收到一個包裹。與固定NPC保持超過40px的距離，並在攤位之間留出空間；先開張的攤位保留原位。<span class=\"rlabel\" onclick=\"render_merrit_info()\">Merrit：完整規則與兌換機率</span>。",
 	"docs.guide.shops-and-selling.nearby-merchant": "<span class=\"guide-flow-icon shop-ernis\"></span><span class=\"guide-flow-label\">附近商人</span>",
 	"docs.guide.shops-and-selling.npc-merchants-keep-dependable-stock-at-fixed-prices": "NPC商人提供穩定庫存和固定價格。向持有對應商品的商人購買補給；開啟任意普通商人介面時，都可出售不需要的背包物品。",
@@ -2478,5 +2478,8 @@
 	"docs.guide.rime-djinn.ui": "選取Djinn可查看外殼倒數和破殼還需要的傷害。點擊「能力」或狀態圖示可查看詳細資訊。破殼後會顯示「裂殼」，持續5秒。擊暈或深度凍結也能破殼。",
 	"docs.guide.rime-djinn.rewards": "貢獻者依一般合作規則分享XP、掉落物與Tracker擊殺紀錄。造成傷害、承受攻擊和治療都能貢獻。收集Rimeglass等材料後，找Leo製作Djinn Crown、Cove Mantle或Stillwater Lens。這三件裝備也可能直接掉落。",
 	"docs.guide.rime-djinn.code_combat": "在Frozen Cove存活、位於攻擊範圍內、MP足夠且攻擊已就緒時，執行一次此範例。它也會選取已和同伴交戰的Djinn。外殼的ms欄位提供剩餘毫秒數，remaining提供所需傷害；rimeexposed表示外殼已破。",
-	"docs.guide.rime-djinn.code_craft": "在Leo附近或有Computer時執行，並備妥足夠金幣、背包空位，以及放在背包中且已解鎖的所有材料。使用Helmet +0。其他配方請將djinncrown改為covemantle或stillwaterlens，分別使用Cape +0或Orb of Intelligence +0。"
+	"docs.guide.rime-djinn.code_craft": "在Leo附近或有Computer時執行，並備妥足夠金幣、背包空位，以及放在背包中且已解鎖的所有材料。使用Helmet +0。其他配方請將djinncrown改為covemantle或stillwaterlens，分別使用Cape +0或Orb of Intelligence +0。",
+	"docs.merchant.resale": "先出售多餘戰利品。在Ponty處，將二手庫存與玩家收購訂單比較。捐款後，Ron的Lost & Found也是貨源。這些商品必須整組購買：比較整組總成本與扣除你的銷售稅後能收到的買家付款。留足補給金幣及背包空位。標價不能證明需求。沒有買家時就等待，或只上架少量即使積壓也能負擔的商品。",
+	"docs.merchant.resale_code": "呼叫get_progression()，再造訪玩家攤位，讓指南看到收購訂單。此範例會前往Ponty檢查庫存，不會購買。解鎖Ron的服務後，可使用lostandfound。只有最近的收購訂單能收下整組物品，且稅後仍有利潤時，才會顯示轉售機會。",
+	"docs.merchant.progression": "商人先開設有貨的攤位，接著透過交易獲利，不會被引導去刷怪賺XP。指南將最近看到的Ponty或Lost & Found庫存與玩家收購訂單比較，並計入你的銷售稅。它只建議檢查，不會購買。藥水提醒統計所有規格，經營商店時不會出現。"
 }

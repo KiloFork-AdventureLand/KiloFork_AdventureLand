@@ -625,7 +625,7 @@ module.exports = {
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.shortfall": "Save {gold} more gold before starting.",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
-	"progression.reserve": "Keep {gold} gold for potions.",
+	"progression.reserve": "Keep {gold} gold in reserve.",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.complete": "Goal reached! Choose what to work toward next.",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
@@ -665,7 +665,7 @@ module.exports = {
 	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.action.recover": "Recover before the next fight",
 	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
-	"progression.action.supplies": "Restock potions",
+	"progression.action.supplies": "Restock {stat} potions",
 	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.action.shop": "Open and stock your stand",
 	// Progression guide: compact advice title. Preserve named parameters, native item/map/NPC names and CODE identifiers.
@@ -691,7 +691,7 @@ module.exports = {
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.reason.recover": "Resurrect if needed, then restore HP and MP.",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
-	"progression.reason.supplies": "Keep both HP and MP potions ready.",
+	"progression.reason.supplies": "Ready: {hp} HP potions, {mp} MP potions.",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"progression.reason.shop": "Use a stand, list spare items, and keep supplies funded.",
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
@@ -805,4 +805,37 @@ module.exports = {
 	"progression.reason.level": "Farm for experience; levels increase your character's stats.",
 	// Progression: opens the existing recipe interface; it does not spend ingredients.
 	"progression.recipe.open": "View recipe",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.goal.trade": "Trade for profit",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.goal.trade_hint": "Keep your shop stocked; buy only with a resale plan.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.action.market": "Check {npc}'s stock",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.reason.market": "Look for items wanted by player buy orders.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.reason.market_found": "{item}: possible {gold} gold profit after tax.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.reason.market_empty": "No affordable match in recently seen stock and buy orders.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.reason.market_unlock": "Donate to Ron to unlock Lost & Found. Keep your reserve.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.reason.market_space": "Free an inventory slot before buying more stock.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.action.shop_keep": "Keep your shop stocked",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.reason.shop_keep": "Sell spare loot and materials. An open stand also earns XP.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.how.market": "Right-click {npc} to browse. Check the whole stack's price and a buyer's offer before purchasing.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.market.quote": "Stack: {quantity}. Cost: {cost} gold. After-tax sale: {proceeds} gold. Possible profit: {profit} gold.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.market.buyer": "{buyer} recently wanted this item. Recheck their order, funds and space; the sale is not guaranteed.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.how.shop":
+		"List spare loot and gathered materials, then keep your stand open for customers and XP. Compare prices before restocking. Save gold for supplies; a high asking price does not prove an item will sell.",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.action.unlock_potions": "Unlock your {stat} potions",
+	// Merchant guide: read-only resale research, full-stack costs, tax, and personal supplies. Preserve NPC/item names and named values; profit is only a possibility.
+	"progression.how.unlock_potions": "You have enough potions in locked stacks. Unlock them in your inventory before use.",
 };

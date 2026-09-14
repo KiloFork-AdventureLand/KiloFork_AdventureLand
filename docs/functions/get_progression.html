@@ -2,6 +2,7 @@
 <p>{{ phrase("docs.progression.code") }}</p>
 <p>{{ phrase("docs.progression.api") }}</p>
 <p>{{ phrase("docs.progression.resources") }}</p>
+<p>{{ phrase("docs.merchant.progression") }}</p>
 <!-- prettier-ignore -->
 <div class="code">var advice = get_progression({
     goal: { kind: "stat", metric: "attack", target: 1500 },
@@ -17,7 +18,9 @@ show_json(advice.rows);</div>
     { kind: "farm", monster: "bee", map: "main" },
     { kind: "encounter", monster: "snowman" },
     { kind: "gold", target: 1000000 },
-    { kind: "gather", skill: "fishing" }
+    { kind: "gather", skill: "fishing" },
+    { kind: "trade", market: "secondhands" },
+    { kind: "trade", market: "lostandfound" }
 ];
 show_json(get_progression({ goal: goals[0] }).plans);</div>
 <p><a href="/docs/guide/progression/progression-guide">{{ phrase("directory.guide.progression-guide.title") }}</a></p>
