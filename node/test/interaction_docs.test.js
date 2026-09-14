@@ -3,6 +3,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");
 const vm = require("node:vm");
+const { read, extract } = require("./helpers/server_vm");
 
 const root = path.resolve(__dirname, "../..");
 
@@ -21,6 +22,92 @@ function articlePath(name) {
 const docs = loadGlobal("docs/directory.js", "docs");
 const npcs = loadGlobal("design/npcs.js", "npcs");
 const maps = loadGlobal("design/maps.js", "maps");
+
+test("CODE search finds VS Code setup in both search interfaces", () => {
+	const context = vm.createContext({
+		G: { docs, items: {} },
+		is_array: Array.isArray,
+		in_arr: (value, array) => array.includes(value),
+		phrase: { html: (id) => id },
+		csearch_value: undefined,
+		codesearch_value: undefined,
+	});
+	vm.runInContext(extract(read("js/html.js"), "csearch_logic"), context);
+	for (const place of [undefined, "ui"]) {
+		for (const value of [
+			"vscode",
+			"VS Code",
+			"VSCODE",
+			"Visual Studio Code",
+			"plugin",
+			"extension",
+			"Cursor",
+			"sync",
+		]) {
+			let output;
+			context.$ = (selector) => ({
+				val: () => value,
+				hide() {},
+				show() {},
+				remove() {},
+				html(html) {
+					assert.equal(selector, place === "ui" ? "#codelog" : ".cdocssearch");
+					output = html;
+				},
+			});
+			context.csearch_logic(place);
+			assert.ok(output.includes('open_guide("8-code-slots-and-files"'), value);
+		}
+	}
+	const article = read("docs/articles/8-code-slots-and-files.html");
+	const phrases = require("../../languages/en/docs");
+	const link = "docs.articles.8-code-slots-and-files.type-codes-in-chat-or-open-adventure-land";
+	assert.ok(article.includes(link));
+	assert.match(phrases[link], /href='\/vscode'/);
+});
+
+test("CODE search preserves function, game-data and regular-expression searches", () => {
+	let value, output;
+	const context = vm.createContext({
+		G: { docs, items: {} },
+		is_array: Array.isArray,
+		in_arr: (entry, array) => array.includes(entry),
+		phrase: { html: (id) => id },
+		codesearch_value: undefined,
+		$: () => ({
+			val: () => value,
+			remove() {},
+			html(html) {
+				output = html;
+			},
+		}),
+	});
+	vm.runInContext(extract(read("js/html.js"), "csearch_logic"), context);
+	for (const [query, expected] of [
+		["SEND_GOLD", 'name:"send_gold"'],
+		["[F]", 'name:"send_gold"'],
+		["[G]", 'render_data_reference([],"items")'],
+		["^send_(gold|item)$", 'name:"send_item"'],
+		["[", "interface.csearch_logic.none_found"],
+		["(", "interface.csearch_logic.none_found"],
+		["", 'name:"send_gold"'],
+	]) {
+		value = query;
+		context.csearch_logic("ui");
+		assert.ok(output.includes(expected), query);
+	}
+});
+
+test("MCP docs search shares the VS Code aliases", async () => {
+	const context = vm.createContext({ docs });
+	const source = read("mcp_api.js");
+	vm.runInContext(extract(source, "mcp_api_doc_entries") + "\n" + extract(source, "mcp_api_list_docs"), context);
+	for (const query of ["vscode", "VS Code", "Visual Studio Code", "plugin", "extension", "Cursor"]) {
+		const result = await context.mcp_api_list_docs({ query });
+		const article = result.articles.find((entry) => entry.name === "8-code-slots-and-files");
+		assert.equal(article?.docs_url, "https://adventure.land/docs/guide/code/8-code-slots-and-files", query);
+	}
+});
 
 function decodeCodeHtml(source) {
 	return source

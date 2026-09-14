@@ -4345,13 +4345,20 @@ function csearch_logic(place) {
 	}
 	if (value.length || place == "ui") {
 		var html = "";
+		var query;
+		try {
+			query = new RegExp(value, "i");
+		} catch (e) {
+			// Keep searching while a regular expression is still being typed.
+			query = new RegExp(value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i");
+		}
 		if (place == "ui") {
 		} else {
 			$(".cdocsbuttons").hide();
 			$(".cdocssearch").show();
 		}
 		G.docs.references.forEach(function (ref) {
-			if (ref[2].search(value) !== -1 || (place == "ui" && !value)) {
+			if (ref[2].search(query) !== -1 || (place == "ui" && !value)) {
 				one = true;
 				if (!place)
 					html +=
@@ -4382,7 +4389,7 @@ function csearch_logic(place) {
 		// console.log(articles);
 		articles.forEach(function (article) {
 			if (!article[2]) return;
-			if (article[2].search(value) !== -1 || (place == "ui" && !value)) {
+			if (article[2].search(query) !== -1 || (place == "ui" && !value)) {
 				one = true;
 				if (!place)
 					html +=
@@ -4399,7 +4406,7 @@ function csearch_logic(place) {
 			}
 		});
 		G.docs.javascript.forEach(function (ref) {
-			if (ref[1].search(value) !== -1 || (place == "ui" && !value)) {
+			if (ref[1].search(query) !== -1 || (place == "ui" && !value)) {
 				one = true;
 				if (!place)
 					html +=
@@ -4414,7 +4421,7 @@ function csearch_logic(place) {
 			}
 		});
 		for (var name in G) {
-			if (name.search(value) !== -1 || value == "[G]" || (place == "ui" && !value)) {
+			if (name.search(query) !== -1 || value == "[G]" || (place == "ui" && !value)) {
 				one = true;
 				if (!place)
 					html +=
@@ -4439,7 +4446,7 @@ function csearch_logic(place) {
 			}
 		}
 		G.docs.functions.forEach(function (n) {
-			if (n.search(value) == -1 && value != "[F]" && !(place == "ui" && !value)) return;
+			if (n.search(query) == -1 && value != "[F]" && !(place == "ui" && !value)) return;
 			if (in_arr(n, G.docs.documented)) {
 				if (!place)
 					html +=

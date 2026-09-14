@@ -749,7 +749,12 @@ docs = {
 					],
 				],
 				["6-items101", "Items 101", "items", "#E28A27"],
-				["8-code-slots-and-files", "Code Slots and Files", "files,slots,save,local,load_code,require_code,modules,exports,dependencies", "#7E8895"],
+				[
+					"8-code-slots-and-files",
+					"Code Slots and Files",
+					"files,slots,save,local,load_code,require_code,modules,exports,dependencies,vscode,vs code,visual studio code,cursor,extension,plugin,vsix,sync",
+					"#7E8895",
+				],
 				["code-api", "CODE API and Promises", "api,functions,promises,async,await,errors", "#5CA9D6"],
 				["7-using-skills", "Using Skills", "skills", "#E24148"],
 				["persistent-values", "Add Persistence!", "get,set", "#7A8EE4"],
