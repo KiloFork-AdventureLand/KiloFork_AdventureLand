@@ -3603,6 +3603,8 @@ events.dreams={
 		]
 	},
 	"merchant_stock": [
+		["cave_tunnelaxe",6000],
+		["cave_reedscythe",2500],
 		[
 			"broom",
 			48000

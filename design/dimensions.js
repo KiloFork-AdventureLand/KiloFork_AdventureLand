@@ -1156,3 +1156,5 @@ for (var pair of [["cave_bat","bat"],["cave_rat","rat"],["cave_wolf","wolf"],["c
 if(typeof module!=="undefined") module.exports={dimensions,positions};
 
 Object.assign(positions, {"cave_blackstaff": ["rawitems", 9, 4], "cave_backstabber": ["rawitems", 10, 4], "cave_amber": ["rawitems", 11, 4], "cave_info": ["rawitems", 12, 4]});
+
+Object.assign(positions, {"cave_tunnelaxe": ["rawitems", 14, 4], "cave_reedscythe": ["rawitems", 15, 4], "cave_deepaxe": ["rawitems", 16, 4], "cave_ambercoat": ["rawitems", 17, 4]});

@@ -2194,6 +2194,30 @@ var armor={
 		"explanation":"The fingers are reinforced. The palms make no sound at all.",
 		"g":420000,
 	},
+	"cave_ambercoat":{
+		"type": "chest",
+		"tier": 3,
+		"skin": "cave_ambercoat",
+		"scroll": true,
+		"hp": 100,
+		"upgrade": {
+			"hp": 20,
+			"mp": 15,
+			"evasion": 0.15,
+			"luck": 0.25
+		},
+		"name": "Amberweave Coat",
+		"explanation": "Warm amber is woven into its lining.",
+		"g": 480000,
+		"exclusive": true,
+		"cx": {
+			"accent": "#DFB766"
+		},
+		"mp": 120,
+		"evasion": 2,
+		"luck": 3
+	},
+
 }
 for(var name in armor){
 	//import logging; logging.info(name)
@@ -4616,6 +4640,75 @@ var weapons={
 		"g":360000,
 		"cx":{"accent":"#426E9C"},
 	},
+	"cave_tunnelaxe":{
+		"type": "weapon",
+		"wtype": "axe",
+		"tier": 2,
+		"skin": "cave_tunnelaxe",
+		"damage_type": "physical",
+		"upgrade": {
+			"str": 0.25,
+			"armor": 2,
+			"apiercing": 2
+		},
+		"name": "Tunnel Axe",
+		"explanation": "A stout axe for roots, ribs and stubborn doors.",
+		"g": 48000,
+		"exclusive": true,
+		"cx": {
+			"accent": "#7E9CA2"
+		},
+		"str": 2,
+		"armor": 16,
+		"apiercing": 8,
+		"courage": 1
+	},
+	"cave_reedscythe":{
+		"type": "weapon",
+		"wtype": "scythe",
+		"tier": 1,
+		"skin": "cave_reedscythe",
+		"damage_type": "physical",
+		"upgrade": {
+			"dex": 0.25,
+			"mp": 15
+		},
+		"name": "Reed Scythe",
+		"explanation": "Made to clear a path.",
+		"g": 16000,
+		"exclusive": true,
+		"cx": {
+			"accent": "#8DA8A2"
+		},
+		"dex": 2,
+		"mp": 120,
+		"speed": 3,
+		"evasion": 1
+	},
+	"cave_deepaxe":{
+		"type": "weapon",
+		"wtype": "axe",
+		"tier": 3,
+		"skin": "cave_deepaxe",
+		"damage_type": "physical",
+		"upgrade": {
+			"str": 0.5,
+			"apiercing": 4,
+			"crit": 0.125
+		},
+		"name": "Deepvein Axe",
+		"explanation": "A pale seam runs through the dark blade.",
+		"g": 480000,
+		"exclusive": true,
+		"cx": {
+			"accent": "#D5A653"
+		},
+		"str": 4,
+		"apiercing": 30,
+		"crit": 2,
+		"lifesteal": 1
+	},
+
 }
 
 for(var name in weapons){

@@ -1518,4 +1518,4 @@ module.exports = {
 };
 
 // Cave release highlight.
-module.exports["update.14_09_26.cave"] = "Enter the Cave of Many Dreams with your party. You have 24 minutes to explore changing floors, vote on encounters and find cave equipment. Dying inside costs no XP or gold.";
+module.exports["update.14_09_26.cave"] = "Enter the Cave of Many Dreams with your party. Explore changing floors, earn 10× enemy XP and spend cave gold at merchants. Find axes and scythes, or trade Cave Amber to craft rare equipment. Dying inside costs no XP or gold.";

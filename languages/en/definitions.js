@@ -3164,3 +3164,11 @@ module.exports = {
 	// Progression guide: HUD, settings or guide explanation. Preserve named parameters, native item/map/NPC names and CODE identifiers.
 	"directory.guide.progression-guide.title": "Progression Guide",
 };
+
+// Cave equipment descriptions, shown through the normal item tooltip. Proper item names remain unchanged.
+Object.assign(module.exports, {
+  "item.cave_tunnelaxe.explanation": "A stout axe for roots, ribs and stubborn doors.",
+  "item.cave_reedscythe.explanation": "Made to clear a path.",
+  "item.cave_deepaxe.explanation": "A pale seam runs through the dark blade.",
+  "item.cave_ambercoat.explanation": "Warm amber is woven into its lining."
+});

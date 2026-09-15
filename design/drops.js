@@ -1626,10 +1626,10 @@ if (typeof module !== "undefined") module.exports = { drops: drops };
 
 
 // Weighted encounter rewards use chest_exchange and the ordinary item creation path.
-drops.cave_parcel=[[60,"cave_amber",1],[22,"cave_amber",2],[10,"scroll1"],[5,"gem1"],[2,"cave_locktooth"],[1,"cave_mothsteps"]];
-drops.cave_rescue=[[65,"cave_amber",2],[20,"cave_amber",3],[10,"gem1"],[3,"cave_counterweight"],[2,"cave_mothsteps"]];
-drops.cave_boss=[[65,"cave_amber",3],[15,"cave_locktooth"],[12,"cave_counterweight"],[8,"cave_mothsteps"]];
-drops.cave_finish=[[55,"cave_amber",5],[15,"cave_locktooth"],[15,"cave_counterweight"],[10,"cave_mothsteps"],[5,"cave_loaded_die"]];
+drops.cave_parcel=[[50,"cave_amber",1],[22,"cave_amber",2],[10,"scroll1"],[5,"gem1"],[2,"cave_locktooth"],[1,"cave_mothsteps"],[5,"cave_tunnelaxe"],[5,"cave_reedscythe"]];
+drops.cave_rescue=[[60,"cave_amber",2],[20,"cave_amber",3],[10,"gem1"],[3,"cave_counterweight"],[2,"cave_mothsteps"],[5,"cave_tunnelaxe"]];
+drops.cave_boss=[[55,"cave_amber",3],[15,"cave_locktooth"],[12,"cave_counterweight"],[8,"cave_mothsteps"],[10,"cave_tunnelaxe"]];
+drops.cave_finish=[[45,"cave_amber",5],[15,"cave_locktooth"],[15,"cave_counterweight"],[10,"cave_mothsteps"],[5,"cave_loaded_die"],[10,"cave_tunnelaxe"]];
 drops.cave_darkmage=[[1,"cave_blackstaff"]];
 drops.cave_rogue_weapon=[[1,"cave_backstabber"]];
 for(var cave_monster of ["cave_bat","cave_rat","cave_crab","cave_guard","cave_wolf"])
@@ -1637,10 +1637,12 @@ for(var cave_monster of ["cave_bat","cave_rat","cave_crab","cave_guard","cave_wo
 
 
 // Quiet hollows pay once per cleared wave, at most three waves each.
-drops.cave_farm=[[65,"cave_amber",1],[20,"cave_amber",2],[10,"scroll1"],[3,"cave_locktooth"],[2,"cave_mothsteps"]];
+drops.cave_farm=[[57,"cave_amber",1],[20,"cave_amber",2],[10,"scroll1"],[3,"cave_locktooth"],[2,"cave_mothsteps"],[4,"cave_tunnelaxe"],[4,"cave_reedscythe"]];
 
 // Local cave creatures supply existing crafts; no ordinary-world rare pool is inherited.
 drops.monsters.cave_spider=[[0.08,"cave_amber",1],[0.03,"spidersilk",1]];
 drops.monsters.cave_scorpion=[[0.08,"cave_amber",1],[0.03,"cscale",1]];
 drops.monsters.cave_snake=[[0.08,"cave_amber",1],[0.03,"snakeoil",1]];
 drops.monsters.cave_broodmother=[[1,"cave_amber",1],[0.1,"spidersilk",1]];
+
+drops.cave_finish_bonus=[[0.001,"cave_deepaxe"],[0.001,"cave_ambercoat"]];

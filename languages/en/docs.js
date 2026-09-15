@@ -6044,3 +6044,12 @@ Object.assign(module.exports, {
   "docs.cave.keeper_source": "Defeat Lockbreaker, the Sentinel or the Mothkeeper and their guards. Each keeper gives one reward from this table and a chest with 4,000 cave gold.",
   "docs.cave.finish_source": "Finish all three objectives on floor 3. The party receives one extra reward from this table and a chest with 10,000 cave gold and 5 Amber. This is in addition to the Mothkeeper’s reward."
 });
+
+// Cave equipment: ordinary shops, Cole's recipes, fixed completion bonuses and the exact crafting CODE example. Item and NPC names stay unchanged.
+Object.assign(module.exports, {
+  "docs.cave.rare_crafts_heading": "Rare finds",
+  "docs.cave.rare_crafts": "Deepvein Axe and Amberweave Coat each have a separate 0.1% chance to drop when your party completes floor 3. Each item goes to one original party member. Luck does not change these two chances. Cole can also craft both items with Cave Amber and other ingredients.",
+  "docs.cave.common_weapons": "Tunnel Axe and Reed Scythe can come from cave rewards or merchants. Gabriel also sells Reed Scythe in Mainland for 16,000 gold. Cole can craft either weapon.",
+  "docs.cave.craft": "Bring Cave Amber and the recipe ingredients to Cole in Mainland. Click an item below to see its recipe. Deepvein Axe uses an unupgraded Tunnel Axe. You can trade Amber with other players.",
+  "docs.cave.craft_code": "Stand near Cole with 8 Cave Amber, an unupgraded Blade, an unupgraded Wooden Basher and 12,000 gold. Keep all the Amber in one inventory slot. This crafts one Tunnel Axe."
+});

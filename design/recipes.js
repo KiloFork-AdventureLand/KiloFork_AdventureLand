@@ -1214,3 +1214,88 @@ Object.assign(craft, {
     ]
   }
 });
+
+Object.assign(craft, {
+  "cave_tunnelaxe": {
+    "cost": 12000,
+    "items": [
+      [
+        8,
+        "cave_amber"
+      ],
+      [
+        1,
+        "blade",
+        0
+      ],
+      [
+        1,
+        "wbasher",
+        0
+      ]
+    ]
+  },
+  "cave_reedscythe": {
+    "cost": 500,
+    "items": [
+      [
+        1,
+        "wbasher",
+        0
+      ],
+      [
+        1,
+        "blade",
+        0
+      ],
+      [
+        1,
+        "spidersilk"
+      ]
+    ]
+  },
+  "cave_deepaxe": {
+    "cost": 480000,
+    "items": [
+      [
+        400,
+        "cave_amber"
+      ],
+      [
+        1,
+        "cave_tunnelaxe",
+        0
+      ],
+      [
+        10,
+        "gemfragment"
+      ],
+      [
+        20,
+        "leather"
+      ]
+    ]
+  },
+  "cave_ambercoat": {
+    "cost": 360000,
+    "items": [
+      [
+        300,
+        "cave_amber"
+      ],
+      [
+        1,
+        "coat",
+        0
+      ],
+      [
+        30,
+        "spidersilk"
+      ],
+      [
+        20,
+        "cscale"
+      ]
+    ]
+  }
+});

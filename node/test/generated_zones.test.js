@@ -1038,10 +1038,12 @@ test("cave reward percentages come from the live table; ordinary drop displays k
 		const html = c.render_drop([1, "open", table], 1, "gray", "percent");
 		const percentages = Array.from(html.matchAll(/>([\d.]+)%<\/div>/g), (m) => Number(m[1]));
 		const total = G.drops[table].reduce((sum, row) => sum + row[0], 0);
-		assert.deepEqual(
-			percentages,
-			Array.from(G.drops[table], (row) => Number(G.to_pretty_float((row[0] / total) * 100))),
-		);
+		assert.equal(percentages.length, G.drops[table].length);
+		G.drops[table].forEach((row, index) => {
+			// The UI prints two decimals. Compare the chance without truncating a
+			// floating-point intermediate such as 56.99999999999999 a second time.
+			assert.ok(Math.abs(percentages[index] - (row[0] * 100) / total) < 0.011);
+		});
 	}
 	assert.match(c.render_drop([0.1, "cave_amber", 1], 1, "gray"), /1 \/ 10/);
 });
