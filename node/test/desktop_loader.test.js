@@ -150,6 +150,12 @@ test("all offline loader phrases match their sources in every registered languag
 		}
 		assert.equal(source[ids[2]].split("hello@adventure.land").length, 2);
 		assert.match(source[ids[2]], /VPN/);
+		assert.equal(source[ids[2]].split("https://adventure.land").length, 2);
+		const pages =
+			code === "en"
+				? require("../../languages/en/pages")
+				: JSON.parse(fs.readFileSync(path.join(root, "languages", code, "pages.json")));
+		assert.ok(source[ids[2]].includes(pages["pages.steam_signup.title"]), code + " signup label");
 		assert.equal(source["desktop.support"].split("hello@adventure.land").length, 2);
 	}
 	assert.equal(
@@ -196,6 +202,8 @@ test("Yes switches once; the same card gives translated help after 60 seconds to
 	assert.equal(app.elements["compatibility-button"].hidden, true);
 	assert.match(app.elements["compatibility-help"].textContent, /перезагрузить игру/);
 	assert.match(app.elements["compatibility-help"].textContent, /hello@adventure.land/);
+	assert.match(app.elements["compatibility-help"].textContent, /https:\/\/adventure\.land/);
+	assert.match(app.elements["compatibility-help"].textContent, /Зарегистрироваться через Steam/);
 });
 
 test("opting in after 60 seconds also shows the follow-up; a fresh loader has no saved route", async () => {

@@ -13,6 +13,6 @@ module.exports = {
 	"desktop.compatibility_help": "You may have an internet or ISP problem. If your ISP is the problem, compatibility mode may help. Would you like to use it for this session?",
 	// The single confirmation button beneath desktop.compatibility_help.
 	"desktop.compatibility_yes": "Yes",
-	// Native loader after 60 seconds total, if compatibility mode is active. Keep VPN and hello@adventure.land unchanged.
-	"desktop.compatibility_retry": "Please try reloading the game. Check your connection and whether your ISP is blocking it. Try a VPN if you have one, or contact hello@adventure.land.",
+	// Native loader after 60 seconds total, if compatibility mode is active. Keep VPN, Steam, URL and email unchanged; match the translated pages.steam_signup.title button.
+	"desktop.compatibility_retry": "Please try reloading the game. Check your connection and whether your ISP is blocking it. Try a VPN if you have one, or contact hello@adventure.land. You can also play in your browser: open https://adventure.land and choose “Sign Up with Steam”.",
 };

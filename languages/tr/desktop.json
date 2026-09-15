@@ -6,5 +6,5 @@
 	"desktop.close_confirmation": "Adventure Land'i kapatmak istediğinizden emin misiniz?",
 	"desktop.compatibility_help": "İnternetinizde veya internet servis sağlayıcınızda bir sorun olabilir. Sorun sağlayıcınızdaysa uyumluluk modu yardımcı olabilir. Bu oturumda kullanmak ister misiniz?",
 	"desktop.compatibility_yes": "Evet",
-	"desktop.compatibility_retry": "Lütfen oyunu yeniden yüklemeyi deneyin. Bağlantınızı ve internet servis sağlayıcınızın bağlantıyı engelleyip engellemediğini kontrol edin. Varsa bir VPN deneyin veya hello@adventure.land adresine yazın."
+	"desktop.compatibility_retry": "Lütfen oyunu yeniden yüklemeyi deneyin. Bağlantınızı ve internet servis sağlayıcınızın bağlantıyı engelleyip engellemediğini kontrol edin. Varsa bir VPN deneyin veya hello@adventure.land adresine yazın. Tarayıcınızdan da oynayabilirsiniz: https://adventure.land adresini açıp “Steam ile Kaydol” seçeneğini seçin."
 }

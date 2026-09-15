@@ -6,5 +6,5 @@
 	"desktop.close_confirmation": "Bạn có chắc muốn đóng Adventure Land không?",
 	"desktop.compatibility_help": "Kết nối internet hoặc nhà mạng của bạn có thể đang gặp sự cố. Nếu sự cố đến từ nhà mạng, chế độ tương thích có thể hữu ích. Bạn có muốn dùng chế độ này trong phiên hiện tại không?",
 	"desktop.compatibility_yes": "Có",
-	"desktop.compatibility_retry": "Hãy thử tải lại trò chơi. Kiểm tra kết nối và xem nhà mạng có đang chặn kết nối không. Thử dùng VPN nếu có, hoặc liên hệ hello@adventure.land."
+	"desktop.compatibility_retry": "Hãy thử tải lại trò chơi. Kiểm tra kết nối và xem nhà mạng có đang chặn kết nối không. Thử dùng VPN nếu có, hoặc liên hệ hello@adventure.land. Bạn cũng có thể chơi trên trình duyệt: mở https://adventure.land và chọn “Đăng ký bằng Steam”."
 }

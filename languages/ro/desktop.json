@@ -6,5 +6,5 @@
 	"desktop.close_confirmation": "Sigur vrei să închizi Adventure Land?",
 	"desktop.compatibility_help": "Este posibil să fie o problemă cu internetul sau furnizorul tău. Dacă problema este la furnizor, modul de compatibilitate poate ajuta. Vrei să-l folosești în această sesiune?",
 	"desktop.compatibility_yes": "Da",
-	"desktop.compatibility_retry": "Încearcă să reîncarci jocul. Verifică-ți conexiunea și dacă furnizorul de internet o blochează. Încearcă un VPN dacă ai unul la dispoziție sau scrie la hello@adventure.land."
+	"desktop.compatibility_retry": "Încearcă să reîncarci jocul. Verifică-ți conexiunea și dacă furnizorul de internet o blochează. Încearcă un VPN dacă ai unul la dispoziție sau scrie la hello@adventure.land. Poți juca și în browser: deschide https://adventure.land și alege „Înscriere prin Steam”."
 }

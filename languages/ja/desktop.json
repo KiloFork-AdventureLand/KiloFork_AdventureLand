@@ -6,5 +6,5 @@
 	"desktop.close_confirmation": "Adventure Landを終了してもよろしいですか？",
 	"desktop.compatibility_help": "インターネット接続またはプロバイダーに問題がある可能性があります。プロバイダーが原因の場合は、互換モードで改善することがあります。このセッションで使用しますか？",
 	"desktop.compatibility_yes": "はい",
-	"desktop.compatibility_retry": "ゲームを再読み込みしてみてください。接続状態と、プロバイダーが接続をブロックしていないかを確認してください。利用できるVPNがあれば試すか、hello@adventure.landまでご連絡ください。"
+	"desktop.compatibility_retry": "ゲームを再読み込みしてみてください。接続状態と、プロバイダーが接続をブロックしていないかを確認してください。利用できるVPNがあれば試すか、hello@adventure.landまでご連絡ください。 ブラウザーでもプレイできます。https://adventure.land を開き、「Steamで新規登録」を選んでください。"
 }
