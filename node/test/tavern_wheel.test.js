@@ -272,9 +272,13 @@ test("the client spin always parks the decided slice under the pointer", () => {
 		wheel_set_busy: (busy) => calls.push("busy:" + busy),
 		wheel_sound: (name) => calls.push("sound:" + name),
 		wheel_animate: () => calls.push("animate"),
+		wheel_map_spin: (index, ms) => calls.push("map:" + index),
 	});
 	vm.runInContext(source.slice(0, source.indexOf("function wheel_rgb(")), c);
-	vm.runInContext(extract(source, "wheel_definition") + "\n" + extract(source, "wheel_start"), c);
+	vm.runInContext(
+		extract(source, "wheel_definition") + "\n" + extract(source, "wheel_plan") + "\n" + extract(source, "wheel_start"),
+		c,
+	);
 	const TAU = Math.PI * 2,
 		step = TAU / wheel.slices.length;
 	for (let index = 0; index < wheel.slices.length; index++) {
@@ -290,11 +294,11 @@ test("the client spin always parks the decided slice under the pointer", () => {
 		}
 	}
 	assert.ok(calls.includes("sound:whoosh") && calls.includes("animate"));
-	c.map_machines.wheel = {};
 	c.character.name = "B";
 	c.tavern_wheel.spin = null;
+	calls.length = 0;
 	c.wheel_start({ player: "A", index: 2, ms: 4000 });
-	assert.equal(c.map_machines.wheel.spinning, 4000, "bystanders still see the machine turn");
+	assert.ok(calls.includes("map:2"), "bystanders still see the floor wheel turn");
 	assert.equal(c.tavern_wheel.spin, null, "only the spinner's panel animates");
 });
 
@@ -367,10 +371,13 @@ function wheelClient(now) {
 		wheel_sound: (name) => calls.push("sound:" + name),
 		wheel_change: () => calls.push("change"),
 		wheel_draw: () => calls.push("draw"),
+		wheel_map_spin: () => calls.push("map-spin"),
+		wheel_map_settle: () => calls.push("map-settle"),
 	});
 	vm.runInContext(source.slice(0, source.indexOf("function wheel_rgb(")), c);
 	for (const name of [
 		"wheel_definition",
+		"wheel_plan",
 		"wheel_rest_rotation",
 		"wheel_slice_at",
 		"wheel_set_busy",

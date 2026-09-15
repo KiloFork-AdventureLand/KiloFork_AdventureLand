@@ -5251,15 +5251,8 @@ function update_sprite(sprite) {
 			}
 		}
 
-		if (sprite.mtype == "slots" || sprite.mtype == "wheel") {
-			if (sprite.spinning) {
-				if (!(sprite.updates % 2)) {
-					sprite.cskin = "" + ((parseInt(sprite.cskin) + 1) % 3);
-					sprite.texture = textures[sprite.mtype][sprite.cskin];
-				}
-				if (sprite.spinning < new Date()) sprite.spinning = false;
-			}
-		}
+		if (sprite.mtype == "slots") slots_map_update(sprite);
+		if (sprite.mtype == "wheel") wheel_map_update(sprite);
 	}
 
 	if (sprite.type == "chest" && sprite.openning) {
@@ -6500,6 +6493,9 @@ function add_machine(machine) {
 		// sprite.shuffling=true;
 		sprite.shuffle_speed = 100;
 	}
+
+	if (machine.type == "wheel") wheel_map_attach(sprite);
+	if (machine.type == "slots") slots_map_attach(sprite);
 
 	function machine_click(event) {
 		if (machine.type == "dice") render_dice(); // add_log("Curious device","gray");//

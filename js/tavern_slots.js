@@ -123,7 +123,7 @@ function slots_sound(name) {
 // Everyone in view sees the machine shake; the player's own reels run towards the decided stops.
 function slots_start(data) {
 	if (no_graphics) return;
-	if (map_machines.slots) map_machines.slots.spinning = future_ms(data.ms || 3600);
+	slots_map_spin(data.stops, data.ms || 3600);
 	if (data.player != character.name || !data.stops) return;
 	var slots = slots_definition();
 	if (!slots) return;
@@ -169,9 +169,10 @@ function slots_show_result() {
 	tavern_slots.busy = false;
 	tavern_slots.flash = { start: performance.now(), duration: data.won ? 2400 : 900, won: !!data.won };
 	$(".slotsspin").css({ opacity: 1, "pointer-events": "" });
-	$(".slotshint").html(data.won ? "<span class='gold'>+" + to_pretty_num(data.net) + "</span>" : "<span style='color: #E05A4A'>-" + to_pretty_num(data.gold) + "</span>");
+	// Amounts show the prize as listed on the pay table; the house line explains the cut.
+	$(".slotshint").html(data.won ? "<span class='gold'>+" + to_pretty_num(data.prize) + "</span>" : "<span style='color: #E05A4A'>-" + to_pretty_num(data.gold) + "</span>");
 	slots_sound(data.won ? "coins" : "drop");
-	if (data.won && data.net >= 10000000) slots_sound("level_up");
+	if (data.won && data.prize >= 10000000) slots_sound("level_up");
 	setTimeout(function () {
 		if (!tavern_slots.spin && !tavern_slots.busy) slots_set_busy(false);
 	}, 3000);
@@ -183,11 +184,12 @@ function slots_tavern_event(data) {
 	data.won = data.event == "won";
 	if (player) {
 		if (data.won) {
-			d_text("+" + to_pretty_num(data.net), player, { color: "gold" });
-			if (data.net >= 100000000) confetti_shower(player, 2);
-			else if (data.net >= 10000000) confetti_shower(player, 1);
+			d_text("+" + to_pretty_num(data.prize), player, { color: "gold" });
+			if (data.prize >= 100000000) confetti_shower(player, 2);
+			else if (data.prize >= 10000000) confetti_shower(player, 1);
 		} else d_text("-" + to_pretty_num(data.gold), player, { color: "#E05A4A" });
 	}
+	slots_map_show(data.symbols);
 	if (player && player.me) slots_settle(data);
 }
 
@@ -333,4 +335,98 @@ function slots_draw(now) {
 	// Coin tray.
 	box(20, H - 7, W - 40, 4, "#7D5644");
 	box(22, H - 6, W - 44, 2, "#40374B");
+}
+
+// The cabinet on the Tavern floor shows the same reels in its three window cells: a tiny quarter-scale sprite of each
+// symbol, flickering while the machine shakes and resting on the drawn symbols, for every player in view.
+var tavern_slots_map = { sprite: null, cells: null, textures: {}, spin: null, symbols: null };
+
+function slots_item_texture(name) {
+	var cached = tavern_slots_map.textures[name];
+	if (cached) return cached;
+	var pos = G.positions[name];
+	if (!pos) return null;
+	var pack = G.imagesets[pos[0] || "pack_20"],
+		base = PIXI.utils.BaseTextureCache[pack.file];
+	if (!base) return null;
+	var texture = new PIXI.Texture(base, new PIXI.Rectangle(pos[1] * pack.size, pos[2] * pack.size, pack.size, pack.size));
+	tavern_slots_map.textures[name] = texture;
+	return texture;
+}
+
+function slots_map_attach(sprite) {
+	if (no_graphics || typeof PIXI == "undefined" || !slots_definition()) return;
+	var cells = [];
+	for (var i = 0; i < 3; i++) {
+		var cell = new PIXI.Container();
+		cell.x = -10 + 7 * i;
+		cell.y = -21;
+		cell.visible = false;
+		var back = new PIXI.Graphics();
+		back.beginFill(0xd7d7d7);
+		back.drawRect(0, 0, 6, 6);
+		back.endFill();
+		cell.addChild(back);
+		var icon = new PIXI.Sprite(PIXI.Texture.EMPTY);
+		icon.scale.set(0.25, 0.25);
+		cell.addChild(icon);
+		cell.icon = icon;
+		sprite.addChild(cell);
+		cells.push(cell);
+	}
+	tavern_slots_map = { sprite: sprite, cells: cells, textures: tavern_slots_map.textures, spin: null, symbols: tavern_slots_map.symbols };
+	if (tavern_slots_map.symbols) slots_map_show(tavern_slots_map.symbols);
+}
+
+function slots_map_place(index, name) {
+	var m = tavern_slots_map,
+		texture = name && slots_item_texture(name);
+	if (!m.cells || !texture) return;
+	m.cells[index].icon.texture = texture;
+	m.cells[index].visible = true;
+}
+
+function slots_map_spin(stops, ms) {
+	if (no_graphics || !tavern_slots_map.cells || !stops) return;
+	var now = performance.now();
+	tavern_slots_map.sprite.spinning = future_ms(ms - 300);
+	tavern_slots_map.spin = { stops: stops, stop: [now + 1500, now + 2100, now + 2700], next: 0 };
+}
+
+function slots_map_show(symbols) {
+	if (no_graphics || !symbols) return;
+	tavern_slots_map.symbols = symbols;
+	tavern_slots_map.spin = null;
+	for (var i = 0; i < symbols.length; i++) slots_map_place(i, symbols[i]);
+}
+
+function slots_map_update(sprite) {
+	var m = tavern_slots_map;
+	if (no_graphics || !m.cells || m.sprite != sprite) return;
+	if (sprite.spinning) {
+		if (!(sprite.updates % 2)) {
+			sprite.cskin = "" + ((parseInt(sprite.cskin) + 1) % 3);
+			sprite.texture = textures[sprite.mtype][sprite.cskin];
+		}
+		if (sprite.spinning < new Date()) {
+			sprite.spinning = false;
+			sprite.cskin = "0";
+			sprite.texture = textures[sprite.mtype][0];
+		}
+	}
+	var spin = m.spin,
+		slots = slots_definition();
+	if (!spin || !slots) return;
+	var now = performance.now(),
+		done = true;
+	for (var r = 0; r < 3; r++) {
+		var reel = slots.reels[r];
+		if (now >= spin.stop[r]) slots_map_place(r, reel[spin.stops[r]]);
+		else {
+			done = false;
+			if (now >= spin.next) slots_map_place(r, reel[floor(Math.random() * reel.length)]);
+		}
+	}
+	if (now >= spin.next) spin.next = now + 70;
+	if (done) slots_map_show(spin.stops.map((stop, r) => slots.reels[r][stop]));
 }

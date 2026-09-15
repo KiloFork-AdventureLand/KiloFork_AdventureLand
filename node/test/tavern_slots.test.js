@@ -300,6 +300,7 @@ test("the client parks every reel exactly on the decided stop", () => {
 		slots_set_busy: (busy) => calls.push("busy:" + busy),
 		slots_sound: (name) => calls.push("sound:" + name),
 		slots_animate: () => calls.push("animate"),
+		slots_map_spin: (stops, ms) => calls.push("map:" + ms),
 	});
 	vm.runInContext(source.slice(0, source.indexOf("function slots_definition(")), c);
 	vm.runInContext(
@@ -327,12 +328,12 @@ test("the client parks every reel exactly on the decided stop", () => {
 		});
 		assert.equal(c.tavern_slots.spin.end, 1000 + 1500 + 2 * 600 + 200);
 	}
-	assert.ok(calls.includes("sound:whoosh") && calls.includes("animate"));
-	c.map_machines.slots = {};
+	assert.ok(calls.includes("sound:whoosh") && calls.includes("animate") && calls.includes("map:3600"));
 	c.character.name = "B";
 	c.tavern_slots.spin = null;
+	calls.length = 0;
 	c.slots_start({ player: "A", stops: [0, 0, 0], ms: 3600 });
-	assert.equal(c.map_machines.slots.spinning, 3600, "bystanders still see the machine shake");
+	assert.ok(calls.includes("map:3600"), "bystanders still see the cabinet reels run");
 	assert.equal(c.tavern_slots.spin, null, "only the player's own reels run");
 });
 
