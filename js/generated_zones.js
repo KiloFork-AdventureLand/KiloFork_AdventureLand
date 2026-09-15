@@ -343,7 +343,7 @@ function decorate_cave_gate(gate) {
 	gate.cave_flames=[];
 	for (var x of [-48,32]) {
 		piece("dungeon",16,304,16,32,x,-12);
-		var flame=piece("custom_a",0,0,16,16,x,-16);
+		var flame=piece("custom_a",0,0,16,16,x,-12);
 		gate.cave_flames.push(flame);
 	}
 	// Place the portal over the empty doorway, below the stone rim.
