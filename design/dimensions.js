@@ -1,5 +1,5 @@
 var dimensions={ //by trial+error using game.js/border_mode=true
-	"rimedjinn":[42,40,0],
+	"rimedjinn":[42,49,0],
 	//width, height, width-disp, base.h, base.v
 	// sprite: [3] positive-> goes left | negative-> goes right
 	"default_character":[26,35],
