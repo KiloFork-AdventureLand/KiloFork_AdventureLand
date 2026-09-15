@@ -3,6 +3,17 @@ setInterval(function () {
 	if ($(":focus").length) last_focus = new Date();
 }, 120);
 
+function comm_login(button) {
+	var form = $(button).closest(".imodal"),
+		error = form.find(".comm-login-error");
+	error.empty();
+	return api_call("signup_or_login", { email: form.find(".theemail").val(), password: form.find(".thepassword").val(), only_login: true, mobile: true }, { disable: $(button) }).catch(function (data) {
+		error.html(phrase.error(data.reason));
+		position_modals();
+		return data;
+	});
+}
+
 function touch_startify() {
 	return;
 	$("[onclick]").each(function () {

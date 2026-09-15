@@ -10,6 +10,7 @@ const localization = require("../../languages");
 const selection = "htmls/contents/selection.html";
 const reset = "htmls/contents/password_reset.html";
 const settings = "htmls/contents/settings.html";
+const hub = "htmls/comm.html";
 
 function handlers(file, method) {
 	return [...read(file).matchAll(/onclick="([^"]*)"/g)]
@@ -24,10 +25,31 @@ function runtime(inside = "selection") {
 		confirmations = [];
 	const values = { ".dcharactername": "TestRanger", ".dcharactername2": "TestRanger" };
 	const button = { disabled: false };
+	const login = { message: "", email: "fixture@example.invalid", password: "fixture", positions: 0 };
+	const loginError = {
+		empty() {
+			login.message = "";
+		},
+		html(value) {
+			login.message = value;
+		},
+	};
+	const form = {
+		find(selector) {
+			if (selector === ".comm-login-error") return loginError;
+			assert.ok([".theemail", ".thepassword"].includes(selector));
+			return { val: () => login[selector === ".theemail" ? "email" : "password"] };
+		},
+	};
 	let message = "",
 		reloads = 0;
 	function $(target) {
 		return {
+			closest(selector) {
+				assert.equal(target, button);
+				assert.equal(selector, ".imodal");
+				return form;
+			},
 			val: () => values[target] || "fixture",
 			addClass: () => {
 				target.disabled = true;
@@ -67,6 +89,7 @@ function runtime(inside = "selection") {
 		event: {},
 		add_log: (text, color) => errors.push({ text, color }),
 		handle_information: (rows) => information.push(...rows),
+		position_modals: () => login.positions++,
 		show_confirm: (text, yes, no, confirm) => confirmations.push(confirm),
 		location: {
 			reload() {
@@ -85,6 +108,7 @@ function runtime(inside = "selection") {
 		confirmations,
 		button,
 		values,
+		login,
 		get message() {
 			return message;
 		},
@@ -98,6 +122,55 @@ function runtime(inside = "selection") {
 }
 
 const settle = () => new Promise(setImmediate);
+
+test("Hub login shows translated failures inside the form and allows retry", async () => {
+	const template = read(hub);
+	const handler = [...template.matchAll(/onclick="([^"]*)"/g)].find((match) =>
+		match[1].includes("comm_login(this)"),
+	)[1];
+	const loginTemplate = template.slice(template.indexOf('<div id="login"'), template.indexOf('<div id="bottom"'));
+	assert.match(loginTemplate, /class="comm-login-error mt5" role="alert"/);
+	for (const reason of [
+		"wrong_password",
+		"email_not_found",
+		"invalid_field",
+		"network_error",
+		"timeout",
+		"empty_response",
+	]) {
+		const ui = runtime("com");
+		load(ui.context, "js/comm.js", ["comm_login"]);
+		vm.runInContext(read("js/phrases.js"), ui.context);
+		ui.context.phrase.load("de", localization.catalog("de"));
+		ui.click(handler);
+		assert.equal(ui.requests[0].args.url, "/api/signup_or_login");
+		assert.deepEqual(JSON.parse(ui.requests[0].args.data), {
+			email: ui.login.email,
+			password: ui.login.password,
+			only_login: true,
+			mobile: true,
+		});
+		assert.equal(ui.button.disabled, true);
+		if (reason === "empty_response") ui.requests[0].done(null);
+		else if (reason === "network_error" || reason === "timeout")
+			ui.requests[0].fail({ status: 0 }, reason, "unavailable");
+		else ui.requests[0].done({ failed: true, reason });
+		await settle();
+		assert.equal(ui.login.message, localization.phrase_html("error." + reason, {}, "de"));
+		assert.deepEqual(ui.errors, [], "Hub does not send errors to its absent game log");
+		assert.equal(ui.login.positions, 1);
+		assert.equal(ui.button.disabled, false);
+		ui.login.password = "corrected fixture";
+		ui.click(handler);
+		assert.equal(ui.login.message, "", "retry clears the previous error");
+		assert.equal(JSON.parse(ui.requests[1].args.data).password, ui.login.password);
+		ui.requests[1].done({ success: true, infs: [{ type: "refresh" }] });
+		await settle();
+		assert.deepEqual(ui.information, [{ type: "refresh" }], "successful Hub login keeps the normal page refresh");
+		assert.equal(ui.login.message, "");
+		assert.equal(ui.button.disabled, false);
+	}
+});
 
 test("account forms show one translated failure and re-enable their buttons", async () => {
 	const actions = [
