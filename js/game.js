@@ -1022,6 +1022,7 @@ function update_overlays() {
 		else if (seconds < 10) seconds = "0" + seconds;
 		$(".abtime").html("0" + minutes + ":" + seconds);
 	}
+	update_cave_hud();
 	if (character && character.moving && options.code_fx && stage.cfilter_ascii) remove_code_fx();
 	showhide_quirks_logic();
 }
@@ -2597,6 +2598,7 @@ function init_socket(args) {
 		});
 	}
 	socket.on("ui", function (data) {
+		if (data.type === "cave_enter") { cave_entry_animation(data); return; }
 		if (data.event) call_code_function("trigger_event", (data.event === true && data.type) || data.event, data);
 		if (data.cevent && data.name == character.name) call_code_function("trigger_character_event", (data.cevent === true && data.type) || data.cevent, data);
 		// show_json(data);
@@ -4938,6 +4940,10 @@ function cosmetic_emote_logic(player) {
 
 function update_sprite(sprite) {
 	if (!sprite || !sprite.stype) return;
+	if (character?.cave?.paused && (sprite.type === "character" || sprite.type === "monster" || sprite.atype === "map" || sprite.atype === "xmap")) {
+		sprite.last_ms = sprite.last_update = sprite.last_frame = new Date();
+		return;
+	}
 	if (sprite.atype == "shield_slam_item") {
 		update_shield_slam_item(sprite);
 		return;
@@ -6602,6 +6608,7 @@ function add_animatable(name, data) {
 	animatable.y = data.y;
 	animatable.anchor.set(0.5, 1);
 	animatable.type = "animatable";
+	if (name === "dreams_gate") decorate_cave_gate(animatable);
 	if (data.role) {
 		animatable.role = data.role;
 		animatable.interactive = animatable.buttonMode = true;
@@ -7372,6 +7379,7 @@ function draw(arg1, manual_draw) {
 	// cframe_ms=min(2000,cframe_ms); // so the game won't freeze after a lengthy sleep - no need [26/07/16]
 	//console.log(cframe_ms); console.log(map.x+" "+map.y);
 	if (cframe_ms > ((Dev && 200) || 10000)) console.log("cframe_ms is " + cframe_ms);
+	if (character?.cave?.paused) cframe_ms = mframe_ms = 0;
 	while (cframe_ms > 0) {
 		if (character && character.moving) {
 			moved = true;
@@ -7437,6 +7445,7 @@ function draw(arg1, manual_draw) {
 	});
 	for (var id in chests) if (chests[id].openning) update_sprite(chests[id]);
 	for (var id in map_animations) update_sprite(map_animations[id]);
+	draw_cave_entrance();
 	stop_timer("draw", "sprites");
 
 	stop_timer("draw", "before_render");

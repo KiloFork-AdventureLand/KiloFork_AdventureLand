@@ -1,5 +1,6 @@
 <div style="width:600px;max-width:100%;font-size:24px;line-height:1.3">
 <div style="font-size:32px">Cave of Many Dreams</div>
+<div id="cave-information"></div><hr>
 <p>{{ phrase("docs.cave.intro") }}</p>
 <p>{{ phrase("docs.cave.time") }}</p>
 <p>{{ phrase("docs.cave.travel") }}</p>
@@ -37,9 +38,18 @@ character.on("cave", async function(state) {
         show_json(error);
     }
 });</div>
-<p><a href="/docs/function/cave_enter">cave_enter</a> · <a href="/docs/function/cave_reply">cave_reply</a> · <a href="/docs/function/cave_buy">cave_buy</a> · <a href="/docs/function/cave_exit">cave_exit</a></p></div>
+<p>{{ phrase("docs.cave.pause_code") }}</p>
+<div class="code">var visit = await cave_info();
+show_json(visit);
+
+setInterval(function() {
+    if (character.cave &amp;&amp; character.cave.paused) return;
+    // Your usual fighting or farming code goes here.
+}, 250);</div>
+<p><a href="/docs/function/cave_info">cave_info</a> · <a href="/docs/function/cave_enter">cave_enter</a> · <a href="/docs/function/cave_reply">cave_reply</a> · <a href="/docs/function/cave_buy">cave_buy</a> · <a href="/docs/function/cave_exit">cave_exit</a></p></div>
 <script>
 $(function() {
+ if(typeof update_cave_info === "function") { update_cave_info(); cave_load_visit(); }
  $(".cave-guide-parcels").html(render_drop([1,"open","cave_parcel"],1,"#858B8E"));
  $(".cave-guide-finish").html(render_drop([1,"open","cave_finish"],1,"#858B8E"));
  $(".cave-guide-rares").html(["cave_darkmage","cave_rogue_weapon"].map(function(table) { return render_drop([1,"open",table],1,"#858B8E"); }).join("<br>"));

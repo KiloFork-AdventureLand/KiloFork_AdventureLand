@@ -2974,7 +2974,11 @@ function new_worker(num) {
 		if (data.type == "monster_move") {
 			var instance = instances[data.in];
 			var monster = instance && instance.monsters[data.id];
-			if (!monster || (data.path_token !== undefined && data.path_token !== monster.zone_actor?.path_token)) {
+			if (
+				!monster ||
+				instance.frozen ||
+				(data.path_token !== undefined && data.path_token !== monster.zone_actor?.path_token)
+			) {
 				return;
 			}
 			monster.working = false;

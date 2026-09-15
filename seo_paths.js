@@ -64,6 +64,7 @@ const DOCS_PATHS = [
 	"/docs/guide/cave-of-many-dreams",
 	"/docs/guide/world/cave-of-many-dreams",
 	"/docs/function/cave_enter",
+	"/docs/function/cave_info",
 	"/docs/function/cave_reply",
 	"/docs/function/cave_buy",
 	"/docs/function/cave_exit",

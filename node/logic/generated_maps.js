@@ -10,6 +10,10 @@ var generated_layout_queue = require("./logic/generated_layouts").createLayoutQu
 }));
 var generated_last_tick = 0;
 
+function generated_clock(record, now = Date.now()) {
+	return record.paused_at || now;
+}
+
 function generated_member(record, player) {
 	return record && player && record.members.find((m) => m.character === player.real_id && m.owner === player.owner);
 }
@@ -21,7 +25,15 @@ function generated_can_enter(player, instance) {
 		from = generated_entry(player);
 	if (!to && !from) return true;
 	if (player.zone_transfer && player.zone_transfer === (instance && instance.name)) return true;
-	if (!to || !from || to.record !== from.record || to.record.closing || to.record.expires <= Date.now()) return false;
+	if (
+		!to ||
+		!from ||
+		to.record !== from.record ||
+		to.record.closing ||
+		to.record.paused_at ||
+		to.record.expires <= generated_clock(to.record)
+	)
+		return false;
 	var member = generated_member(to.record, player);
 	return !!(
 		member &&
@@ -78,6 +90,7 @@ function install_generated_floor(record, floor) {
 	var instance = create_instance(floor.key, floor.key);
 	instance.operators = 0;
 	instance.info.zone = { run: record.key, floor: floor.definition.generated.floor, expires: record.expires };
+	if (record.paused_at) freeze_instance(instance, Date.now());
 }
 function install_generated_run(record, floors) {
 	if (floors.length !== 1 || generated_runs[record.key]) throw Error("invalid_zone");
@@ -115,7 +128,8 @@ async function ensure_generated_floor(record, index) {
 		record.building[key] = generated_layout_queue
 			.build({ zone: record.zone, seed: record.seed, key: record.key, exit_spawn: record.exit_spawn, floor: index })
 			.then((floors) => {
-				if (record.closing || record.expires <= Date.now() || !generated_runs[record.key]) throw Error("cave_closed");
+				if (record.closing || record.expires <= generated_clock(record) || !generated_runs[record.key])
+					throw Error("cave_closed");
 				install_generated_floor(record, floors[0]);
 			})
 			.finally(() => {
@@ -130,7 +144,8 @@ async function generated_use_door(player, data) {
 	if (!record || !can_walk(player) || player.rip) throw Error("use_exit");
 	var member = generated_member(record, player),
 		index = record.floors.indexOf(data.to);
-	if (!member || member.left || record.closing || record.expires <= Date.now()) throw Error("cave_closed");
+	if (!member || member.left || record.closing || record.expires <= generated_clock(record)) throw Error("cave_closed");
+	if (record.paused_at) throw Error("cave_paused");
 	var door = G.maps[source].doors.find((d) => d[4] === data.to && (d[5] || 0) === (data.s || 0));
 	function reachable() {
 		if (!door || player.map !== source || !check_player(player)) return false;
@@ -207,6 +222,7 @@ function generated_exit(player, reason) {
 	if (!entry) return false;
 	var record = entry.record,
 		member = generated_member(record, player);
+	release_frozen_player(player);
 	if (member && !member.left) {
 		member.left = true;
 		member.left_reason = reason;
@@ -215,7 +231,7 @@ function generated_exit(player, reason) {
 			.updateOne({ _id: "member:" + member.character, run: record.key }, { $set: { active: false } })
 			.catch((e) => log_trace("zone exit", e));
 	}
-	player.socket.emit("cave", { type: "ended", reason });
+	player.socket.emit("cave", { type: "ended", reason, state: record.cave ? cave_snapshot(record, player) : null });
 	delete player.cave;
 	generated_transport(player, "main", record.exit_spawn, 1);
 	return true;
@@ -251,7 +267,7 @@ function generated_maps_tick() {
 	generated_last_tick = now;
 	for (var key in generated_runs) {
 		var record = generated_runs[key];
-		if (record.expires <= now) {
+		if (record.expires <= generated_clock(record, now)) {
 			destroy_generated_run(key);
 			continue;
 		}
@@ -356,6 +372,8 @@ async function open_generated_zone(player) {
 		var seed = crypto.randomBytes(16).toString("hex");
 		var floors = await prepare_generated_run(seed, key, exit_spawn);
 		generated_admission(player, members);
+		await cave_enter_effect(members, key);
+		generated_admission(player, members);
 		if (
 			members.some((p) => get_player(p.name) !== p) ||
 			generated_party(player).some((p) => !members.includes(p)) ||
@@ -414,6 +432,15 @@ function generated_daily_window(home, now = Date.now()) {
 	var offset = TIMEO[region_name] * 60 * 60 * 1000;
 	var midnight = Math.floor((now + offset) / 86400000) * 86400000;
 	return { home, resets: midnight + 86400000 - offset };
+}
+
+async function generated_visit_info(player) {
+	var window = generated_daily_window(player.p.home || region + server_name);
+	var daily = await db
+		.collection("GeneratedZone")
+		.findOne({ _id: "daily:dreams:" + player.owner }, { projection: { resets: 1, state: 1, lease: 1 } });
+	var used = daily && daily.resets > Date.now() && (daily.state === "active" || daily.lease > Date.now());
+	return { available: !used, resets: used ? daily.resets : window.resets, home: window.home, server_time: Date.now() };
 }
 
 // Movement workers keep only their assigned generated floors, including after a worker restart.

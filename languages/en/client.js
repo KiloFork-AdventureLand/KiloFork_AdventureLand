@@ -538,10 +538,10 @@ Object.assign(module.exports, {
   "cave.keeper": "Bring your party close. One visit per account each day. You have 24 minutes inside. Once you leave, you cannot return.",
   "cave.enter": "Enter together",
   "cave.exit": "Exit",
-  "cave.purse": "Cave purse: {gold} gold · {amber} Amber",
+  "cave.purse": "Shared purse: {gold} gold · {amber} Amber",
   "cave.vote_done": "The party has decided.",
-  "cave.seconds": "Choose in {seconds} seconds. One vote per character.",
-  "cave.fallback": "Ties or no votes: {fallback}.",
+  "cave.seconds": "Choose in {seconds} seconds.",
+  "cave.fallback": "If nobody wins the vote: {fallback}.",
   "cave.shop_rule": "You pay. One random party member gets the item. There is only one copy.",
   "cave.sold": "Sold",
   "cave.buy": "Buy for {gold} gold",
@@ -580,3 +580,41 @@ module.exports["cave.recipes"] = "See the recipes";
 
 // Cave entry directions in the existing NPC dialogue.
 module.exports["cave.find_seals"] = "Three seals hold the stairs shut. Clear these rooms. You can explore the other rooms along the way.";
+
+// Cave playtest UI. Translations wait for approval after testing.
+Object.assign(module.exports, {
+	"cave.clock_running": "Cave · {time}",
+	"cave.clock_paused": "Paused · {time}",
+	"cave.vote_clock": "Choose · {seconds}s",
+	"cave.paused_choice": "The cave is paused while your party chooses.",
+	"cave.one_vote": "One vote for each character.",
+	"cave.vote_recorded": "Your vote is in. Waiting for the party.",
+	"cave.result": "Chosen: {reply}",
+	"cave.no_reply": "Walk away",
+	"cave.keep_going": "The cave has resumed. You can keep going.",
+	"cave.checking_visit": "Checking your daily visit…",
+	"cave.visit_ready": "Cave visit available",
+	"cave.visit_cooldown": "Next visit: {hours}h {minutes}m · {home}",
+	"cave.error.cave_paused": "Your party is choosing. The cave will resume when the vote ends.",
+	"cave.purse_help": "This belongs to the party. It is not in your inventory yet. It pays out to random original party members when someone leaves or the visit ends.",
+	"cave.purse_added": "{reward} → shared purse",
+	"cave.shop_distance": "Move closer to the merchant to buy.",
+	"cave.reward_to": "{name}: {item}",
+	"cave.you": "You",
+	"cave.inventory_slot": "In inventory, slot {slot}",
+	"cave.carried_gold": "Added to carried gold",
+	"cave.in_mail": "In a letter from Dorr—claim it in MAIL",
+	"cave.mail_pending": "Dorr is sending it by mail",
+	"cave.recent_rewards": "Recent rewards and where they went",
+	"cave.objectives": "Open the stairs",
+	"cave.supplies_label": "Tools for this visit:",
+	"cave.supply.tool": "pry bar",
+	"cave.supply.lamp": "lamp",
+	"cave.supply.decoy": "guard bait",
+	"cave.supply.truce": "guard pass",
+	"cave.hunt_clock": "Hunt: {kills}/{count} · {time}",
+	"cave.practice_clock": "{name}: {hp} HP · {time}",
+});
+// Cave visit status and entry.
+module.exports["cave.error.cave_entering"] = "The cave is taking you inside. Hold on!";
+module.exports["cave.floor_location"] = "Floor {floor} · {x}, {y}";

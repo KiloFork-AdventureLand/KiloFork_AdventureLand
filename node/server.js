@@ -91,7 +91,9 @@ eval("" + fs.readFileSync(path.resolve(__dirname, "logic/encouragement.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/character_sessions.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/chat.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/generated_maps.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/instance_pause.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/cave_of_many_dreams.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern_wheel.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "../version.js")));
 var precomputed_bfs_path = path.resolve(__dirname, "precomputed_map_data.js");
 if (fs.existsSync(precomputed_bfs_path)) eval("" + fs.readFileSync(precomputed_bfs_path));
@@ -3074,6 +3076,8 @@ function issue_player_award(attacker, target) {
 }
 
 function commence_attack(attacker, target, atype) {
+	if (instance_is_frozen(attacker) || instance_is_frozen(target))
+		return { failed: true, reason: "cave_paused", place: atype };
 	if ((attacker.zone_actor || target.zone_actor) && G.skills[atype].hostile && !cave_hostile(attacker, target))
 		return { failed: true, reason: "friendly_target", place: atype, id: target.id };
 	if (
@@ -4793,7 +4797,7 @@ function init_socket_io(socket_server) {
 						socket.emit("limitdcreport", { calls: socket.calls, climit: climit, total: socket.total_calls });
 						socket.emit("disconnect_reason", "limitdc");
 						socket.disconnect();
-					} else {
+					} else if (!instance_block_action(players[socket.id], method, data)) {
 						f(data);
 					}
 				} catch (e) {
@@ -13324,6 +13328,7 @@ function new_monster_f(instance, map_def, args) {
 }
 
 function start_moving_element(monster) {
+	if (instance_is_frozen(monster)) return;
 	// var last.move=monster.moving&&monster.last.move;
 	if (!monster.moving) {
 		monster.last.move = new Date();
@@ -13655,7 +13660,7 @@ function rage_logic(instance) {
 }
 
 function update_instance(instance) {
-	if (instance.paused) {
+	if (instance.paused || instance.frozen) {
 		return;
 	}
 	instance.operators = 0;
@@ -14305,7 +14310,7 @@ function update_instance(instance) {
 
 	for (var id in instance.players) {
 		var player = instance.players[id];
-		if (!player) {
+		if (!player || player.zone_entering) {
 			continue;
 		}
 		for (var name in player.s) {
@@ -15997,6 +16002,7 @@ function projectiles_loop() {
 	var now = new Date();
 	for (var id in projectiles) {
 		try {
+			if (instance_is_frozen(projectiles[id].attacker) || instance_is_frozen(projectiles[id].target)) continue;
 			if (projectiles[id].eta <= now) {
 				var projectile = projectiles[id];
 				delete projectiles[id];

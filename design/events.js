@@ -114,18 +114,19 @@ events.dreams={
 			"actor": "dice_operator",
 			"group": "mixed",
 			"kind": "dice",
-			"text": "One roll each. Read your bet before you shake the cup.",
+			"text": "Pick a bet, then roll the die once for the party. We use gold or Amber from your shared purse. The winnings shown include your stake.",
 			"options": [
 				{
 					"id": "small",
-					"label": "Bet 2,000 cave gold: win on 4–6",
+					"label": "Bet 2,000 shared gold; roll 4–6 for 4,000",
 					"effect": "dice",
 					"cost": 2000,
-					"win": 4000
+					"win": 4000,
+					"offer": true
 				},
 				{
 					"id": "large",
-					"label": "Bet 5,000 cave gold: win on 4–6",
+					"label": "Bet 5,000 shared gold; roll 4–6 for 10,000",
 					"effect": "dice",
 					"cost": 5000,
 					"win": 10000
@@ -145,12 +146,12 @@ events.dreams={
 				},
 				{
 					"id": "favor",
-					"label": "Roll for a guide: lose and fight a collector",
+					"label": "Roll 4–6 for a helper; 1–3 brings two guards",
 					"effect": "favor"
 				},
 				{
 					"id": "door",
-					"label": "Let the die choose a guarded room",
+					"label": "Roll for a fight: four rats or four crabs",
 					"effect": "dice_room"
 				}
 			]
@@ -161,7 +162,7 @@ events.dreams={
 			"actor": "archive_vendor",
 			"group": "mixed",
 			"kind": "parcel",
-			"text": "Someone paid for this box and never came back. Something inside keeps knocking.",
+			"text": "This box has been here for days. I can sell it to you, but I should warn you: it rattles when nobody touches it.",
 			"options": [
 				{
 					"id": "e02_0",
@@ -170,18 +171,19 @@ events.dreams={
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "Inside: a parcel, and a very angry note.",
+							"text": "You open the box and take what is inside.",
 							"reward": "cave_parcel"
 						},
 						{
 							"weight": 1,
-							"text": "The owner heard you. Three guards are coming.",
+							"text": "The alarm rings. Three guards come for the box.",
 							"fight": [
 								"cave_guard",
 								3
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e02_1",
@@ -199,16 +201,17 @@ events.dreams={
 				{
 					"id": "e02_2",
 					"label": "Spend 20 seconds checking the trap.",
-					"effect": "careful"
+					"effect": "careful",
+					"result": "We will check it for 20 seconds, then collect the supplies."
 				},
 				{
 					"id": "e02_3",
 					"effect": "venture",
-					"label": "Pay the owner 2,000 cave gold.",
+					"label": "Buy the box for 2,000 shared gold",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "The owner hands over the parcel.",
+							"text": "The seller opens the box for you.",
 							"reward": "cave_parcel"
 						}
 					],
@@ -231,7 +234,7 @@ events.dreams={
 				},
 				{
 					"id": "e02_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -242,7 +245,7 @@ events.dreams={
 			"actor": "monster_handler",
 			"group": "mixed",
 			"kind": "lure",
-			"text": "The big one swallowed the key. We can draw it out with these rats.",
+			"text": "I keep rats for the wolves. You can help me clear the pen, buy some bait, or take the tame one with you.",
 			"options": [
 				{
 					"id": "e03_0",
@@ -257,7 +260,8 @@ events.dreams={
 								6
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e03_1",
@@ -320,47 +324,48 @@ events.dreams={
 				},
 				{
 					"id": "e03_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
 		},
 		{
 			"id": "e04",
-			"name": "The Hot Metal",
+			"name": "The Hot Forge",
 			"actor": "inventor",
 			"group": "mixed",
 			"kind": "forge",
-			"text": "The metal is ready. Strike now, or cool it first. It may crack if we rush.",
+			"text": "There is a supply box stuck behind the hot forge. We can force it out, buy a cooled one, or leave it alone.",
 			"options": [
 				{
 					"id": "e04_0",
 					"effect": "venture",
-					"label": "Hammer the glowing blade. It may wake the forge.",
+					"label": "Pull the box out now; the guards may hear",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "The blade came free.",
+							"text": "You pull the supply box free.",
 							"reward": "cave_boss"
 						},
 						{
 							"weight": 1,
-							"text": "The forge keeper wants it back.",
+							"text": "The forge guard heard you. He calls his men.",
 							"fight": [
 								"cave_lockbreaker",
 								1
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e04_1",
 					"effect": "venture",
-					"label": "Pay 4 Amber for a cold cast.",
+					"label": "Buy the cooled box for 4 shared Amber",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "The smith opens a cooled mold.",
+							"text": "The smith hands over the cooled supply box.",
 							"reward": "cave_parcel"
 						}
 					],
@@ -398,18 +403,18 @@ events.dreams={
 				{
 					"id": "e04_4",
 					"effect": "venture",
-					"label": "Take the metal scraps: 2 Amber.",
+					"label": "Sell the scraps to the smith for 2 Amber",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "The smith pushes the scraps across the bench.",
+							"text": "The smith buys the scraps. The Amber goes into the shared purse.",
 							"amber": 2
 						}
 					]
 				},
 				{
 					"id": "e04_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -420,20 +425,21 @@ events.dreams={
 			"actor": "pact_broker",
 			"group": "mixed",
 			"kind": "hire",
-			"text": "I can fight beside you. My price is the next reward we find.",
+			"text": "Need another sword? Pay me now and I will fight beside you. Or take a chance on the guard offering to lead you for free.",
 			"options": [
 				{
 					"id": "e05_0",
 					"effect": "venture",
-					"label": "Hire the guard for 2,000 cave gold.",
+					"label": "Hire the guard for 2,000 shared gold",
 					"outcomes": [
 						{
 							"weight": 1,
 							"text": "I will watch your back.",
-							"ally": "cave_npc"
+							"join": true
 						}
 					],
-					"cost": 2000
+					"cost": 2000,
+					"offer": true
 				},
 				{
 					"id": "e05_1",
@@ -443,7 +449,7 @@ events.dreams={
 						{
 							"weight": 1,
 							"text": "A deal is a deal. Follow me.",
-							"ally": "cave_npc"
+							"join": true
 						},
 						{
 							"weight": 1,
@@ -501,7 +507,7 @@ events.dreams={
 				},
 				{
 					"id": "e05_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -512,37 +518,39 @@ events.dreams={
 			"actor": "cave_cartographer",
 			"group": "mixed",
 			"kind": "rescue",
-			"text": "Help! They have me cornered. My tools are yours if we get out.",
+			"text": "Wolves have cornered {npc}. “Help me! Kill these wolves and I will share what is in my pack.” You could also wait and search the pack if the wolves kill them.",
 			"options": [
 				{
 					"id": "save",
-					"label": "Fight the monsters and save them",
-					"effect": "save"
+					"label": "Save {npc}: fight the wolves",
+					"effect": "save",
+					"offer": true
 				},
 				{
 					"id": "watch",
-					"label": "Stand back and see who survives",
+					"label": "Wait; loot the pack if {npc} dies",
 					"effect": "watch"
 				},
 				{
 					"id": "lure",
-					"label": "Draw the monsters toward us",
-					"effect": "lure"
+					"label": "Draw the wolves away from {npc}",
+					"effect": "lure",
+					"offer": true
 				},
 				{
 					"id": "aid",
-					"label": "Hire them after the fight: 2,000 cave gold",
+					"label": "Save and hire {npc} for 2,000 shared gold",
 					"effect": "hire",
 					"cost": 2000
 				},
 				{
 					"id": "finish",
-					"label": "Attack the traveler and the monsters.",
+					"label": "Attack {npc} and the wolves",
 					"effect": "both"
 				},
 				{
 					"id": "cover",
-					"label": "Cover their escape. They leave a smaller reward.",
+					"label": "Bring {npc} behind us; take a smaller reward",
 					"effect": "cover"
 				}
 			]
@@ -553,7 +561,7 @@ events.dreams={
 			"actor": "expedition_captain",
 			"group": "mixed",
 			"kind": "disguise",
-			"text": "These coats might fool the sentries. Unless they recognize my face.",
+			"text": "I took these coats from the guards. A coat will get you past one guardroom. The captain may notice if you take his.",
 			"options": [
 				{
 					"id": "e07_0",
@@ -568,12 +576,13 @@ events.dreams={
 							]
 						}
 					],
-					"amber": 2
+					"amber": 2,
+					"offer": true
 				},
 				{
 					"id": "e07_1",
 					"effect": "venture",
-					"label": "Steal the captain’s coat.",
+					"label": "Steal the captain’s coat; he may catch us",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -625,18 +634,18 @@ events.dreams={
 				{
 					"id": "e07_4",
 					"effect": "venture",
-					"label": "Search the pockets.",
+					"label": "Search the pockets for supplies",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "Someone left a parcel in the lining.",
+							"text": "You find a bundle of supplies in the lining.",
 							"reward": "cave_parcel"
 						}
 					]
 				},
 				{
 					"id": "e07_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -647,7 +656,7 @@ events.dreams={
 			"actor": "monster_handler",
 			"group": "mixed",
 			"kind": "arena",
-			"text": "One gate holds crabs. The other holds wolves. Clear either pen and the purse is yours.",
+			"text": "Pick a pen and fight what is inside. Win and you get something from my supply box. There are crabs, bats, wolves—and one very large Lockbreaker.",
 			"options": [
 				{
 					"id": "e08_0",
@@ -662,12 +671,13 @@ events.dreams={
 								3
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e08_1",
 					"effect": "venture",
-					"label": "Choose six bats. Keep them off your priest.",
+					"label": "Fight six bats",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -732,7 +742,7 @@ events.dreams={
 				},
 				{
 					"id": "e08_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -743,7 +753,7 @@ events.dreams={
 			"actor": "inventor",
 			"group": "mixed",
 			"kind": "construct",
-			"text": "It only needs a power stone. I think it still knows who built it.",
+			"text": "This golem has not moved in years. A proper repair costs 4 Amber. That loose stone might also wake it, but I cannot promise it will like us.",
 			"options": [
 				{
 					"id": "e09_0",
@@ -756,7 +766,8 @@ events.dreams={
 							"ally": "cave_sentinel"
 						}
 					],
-					"amber": 4
+					"amber": 4,
+					"offer": true
 				},
 				{
 					"id": "e09_1",
@@ -796,11 +807,11 @@ events.dreams={
 				{
 					"id": "e09_3",
 					"effect": "venture",
-					"label": "Salvage the broken plates: 2 Amber.",
+					"label": "Sell the broken plates for 2 Amber",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "The old joints fall apart.",
+							"text": "The mechanic buys the plates and pays 2 Amber.",
 							"amber": 2
 						}
 					]
@@ -808,11 +819,12 @@ events.dreams={
 				{
 					"id": "e09_4",
 					"label": "Spend 20 seconds opening its storage hatch.",
-					"effect": "careful"
+					"effect": "careful",
+					"result": "We will check it for 20 seconds, then collect the supplies."
 				},
 				{
 					"id": "e09_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -823,12 +835,13 @@ events.dreams={
 			"actor": "monster_handler",
 			"group": "mixed",
 			"kind": "wolves",
-			"text": "Do not pull the red chain. Those wolves are level 100. They bite from both sides.",
+			"text": "The red chain opens the big pen. There are six level 100 wolves inside. Try the smaller pen if you want a fight you might survive.",
 			"options": [
 				{
 					"id": "e10_0",
 					"label": "Pull the red chain: six level 100 wolves.",
-					"effect": "wolves"
+					"effect": "wolves",
+					"offer": true
 				},
 				{
 					"id": "e10_1",
@@ -848,7 +861,7 @@ events.dreams={
 				{
 					"id": "e10_2",
 					"effect": "venture",
-					"label": "Buy bait for 2 Amber. Turn a patrol against itself.",
+					"label": "Buy bait for 2 shared Amber",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -895,7 +908,7 @@ events.dreams={
 				},
 				{
 					"id": "e10_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -906,37 +919,39 @@ events.dreams={
 			"actor": "duelist",
 			"group": "mixed",
 			"kind": "conflict",
-			"text": "I carried the chest here. She says the key makes it hers. Decide before we draw our swords.",
+			"text": "{npc} carried the chest here. {rival} has its key. Both want to keep it, and neither will back down. You can help one, fight both, or let them settle it.",
 			"options": [
 				{
 					"id": "left",
-					"label": "Stand with the first fighter",
-					"effect": "left"
+					"label": "Help {npc} fight {rival}",
+					"effect": "left",
+					"offer": true
 				},
 				{
 					"id": "right",
-					"label": "Stand with the second fighter",
-					"effect": "right"
+					"label": "Help {rival} fight {npc}",
+					"effect": "right",
+					"offer": true
 				},
 				{
 					"id": "neither",
-					"label": "Take no side",
+					"label": "Let them fight; collect what is left",
 					"effect": "neither"
 				},
 				{
 					"id": "both",
-					"label": "Fight both of them",
+					"label": "Fight both and take the chest",
 					"effect": "both"
 				},
 				{
 					"id": "peace",
-					"label": "Offer 3,000 cave gold for peace",
+					"label": "Pay 3,000 shared gold to stop the fight",
 					"effect": "peace",
 					"cost": 3000
 				},
 				{
 					"id": "testimony",
-					"label": "Back the stronger fighter",
+					"label": "Help whichever fighter hits harder",
 					"effect": "testimony"
 				}
 			]
@@ -947,7 +962,7 @@ events.dreams={
 			"actor": "bell_keeper",
 			"group": "mixed",
 			"kind": "bell",
-			"text": "The short rope opens the lock. The long rope calls the guards. The labels fell off.",
+			"text": "These ropes ring the guard bells. The short one calls three guards. The long one calls their keeper. The red one opens the wolf pen.",
 			"options": [
 				{
 					"id": "e12_0",
@@ -962,7 +977,8 @@ events.dreams={
 								3
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e12_1",
@@ -1001,11 +1017,12 @@ events.dreams={
 				{
 					"id": "e12_4",
 					"label": "Use a pry bar to open the bell’s base.",
-					"effect": "use_tool"
+					"effect": "use_tool",
+					"needs": "tool"
 				},
 				{
 					"id": "e12_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -1016,7 +1033,7 @@ events.dreams={
 			"actor": "inventor",
 			"group": "mixed",
 			"kind": "magnet",
-			"text": "It pulls metal out of the cracks. Last time it pulled an entire suit of armor.",
+			"text": "The magnet pulls loose metal out of the walls. Turn it too high and it may pull the armored sentinel over here too.",
 			"options": [
 				{
 					"id": "e13_0",
@@ -1036,16 +1053,17 @@ events.dreams={
 								1
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e13_1",
 					"effect": "venture",
-					"label": "Collect the loose metal: 2 Amber.",
+					"label": "Sell the loose metal for 2 Amber",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "Small pieces are safer.",
+							"text": "The operator buys the metal and pays 2 Amber.",
 							"amber": 2
 						}
 					]
@@ -1081,7 +1099,7 @@ events.dreams={
 				{
 					"id": "e13_4",
 					"effect": "venture",
-					"label": "Take a magnetic latch as a pry tool.",
+					"label": "Take the magnetic latch to open stuck hatches",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1094,7 +1112,7 @@ events.dreams={
 				},
 				{
 					"id": "e13_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -1105,53 +1123,55 @@ events.dreams={
 			"actor": "expedition_captain",
 			"group": "mixed",
 			"kind": "conflict",
-			"text": "One of us is carrying stolen cargo. He says it is me.",
+			"text": "{npc} and {rival} both claim this delivery. Each says the other stole it. They are about to fight over the crate.",
 			"options": [
 				{
 					"id": "left",
-					"label": "Stand with the first fighter",
-					"effect": "left"
+					"label": "Help {npc} fight {rival}",
+					"effect": "left",
+					"offer": true
 				},
 				{
 					"id": "right",
-					"label": "Stand with the second fighter",
-					"effect": "right"
+					"label": "Help {rival} fight {npc}",
+					"effect": "right",
+					"offer": true
 				},
 				{
 					"id": "neither",
-					"label": "Take no side",
+					"label": "Let them fight; collect what is left",
 					"effect": "neither"
 				},
 				{
 					"id": "both",
-					"label": "Fight both of them",
+					"label": "Fight both and take the chest",
 					"effect": "both"
 				},
 				{
 					"id": "peace",
-					"label": "Offer 3,000 cave gold for peace",
+					"label": "Pay 3,000 shared gold to stop the fight",
 					"effect": "peace",
 					"cost": 3000
 				},
 				{
 					"id": "testimony",
-					"label": "Back the stronger fighter",
+					"label": "Help whichever fighter hits harder",
 					"effect": "testimony"
 				}
 			]
 		},
 		{
 			"id": "e15",
-			"name": "Edda’s Letter",
+			"name": "Letter to the Captain",
 			"actor": "prisoner",
 			"group": "mixed",
 			"kind": "letter",
-			"text": "Give this to the captain, or help me burn it. He must not read it while I am here.",
+			"text": "I need this letter delivered to the captain. He may pay you for it. He may also blame you for what it says. Your choice.",
 			"options": [
 				{
 					"id": "e15_0",
 					"effect": "venture",
-					"label": "Give the sealed letter to the captain.",
+					"label": "Deliver the letter; the captain may blame us",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1167,7 +1187,8 @@ events.dreams={
 								2
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e15_1",
@@ -1187,12 +1208,12 @@ events.dreams={
 				{
 					"id": "e15_2",
 					"effect": "venture",
-					"label": "Pay 2,000 cave gold for a guide instead.",
+					"label": "Hire the messenger for 2,000 shared gold",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "Edda takes the long way around the guards.",
-							"ally": "cave_npc"
+							"text": "The messenger joins your party as a helper.",
+							"join": true
 						}
 					],
 					"cost": 2000
@@ -1200,7 +1221,7 @@ events.dreams={
 				{
 					"id": "e15_3",
 					"effect": "venture",
-					"label": "Take Edda’s spare lamp.",
+					"label": "Take the messenger’s spare lamp",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1213,12 +1234,13 @@ events.dreams={
 				},
 				{
 					"id": "e15_4",
-					"label": "Read the letter carefully: 20 seconds.",
-					"effect": "careful"
+					"label": "Read the letter for 20 seconds, then collect the supplies",
+					"effect": "careful",
+					"result": "We will check it for 20 seconds, then collect the supplies."
 				},
 				{
 					"id": "e15_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -1229,12 +1251,12 @@ events.dreams={
 			"actor": "monster_handler",
 			"group": "mixed",
 			"kind": "trade",
-			"text": "My crate is sealed. Yours smells like Amber. Want to trade?",
+			"text": "Two crates were left on my cart. You can take the sealed one, pay to open both, or help me with the guards watching the other one.",
 			"options": [
 				{
 					"id": "e16_0",
 					"effect": "venture",
-					"label": "Swap your sealed crate for theirs.",
+					"label": "Take the sealed crate; it may contain bats",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1250,7 +1272,8 @@ events.dreams={
 								6
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e16_1",
@@ -1283,7 +1306,7 @@ events.dreams={
 				{
 					"id": "e16_3",
 					"effect": "venture",
-					"label": "Sell the empty crates for 1,500 cave gold.",
+					"label": "Sell the trader’s empty crates for 1,500 gold",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1308,7 +1331,7 @@ events.dreams={
 				},
 				{
 					"id": "e16_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -1319,7 +1342,7 @@ events.dreams={
 			"actor": "pact_broker",
 			"group": "mixed",
 			"kind": "shadow",
-			"text": "It copies the strongest person it sees. Send one of us forward.",
+			"text": "That dark patch copies the strongest fighter in your party. Step into it and you will have to fight the copy. There is a supply box behind it.",
 			"options": [
 				{
 					"id": "e17_0",
@@ -1331,7 +1354,8 @@ events.dreams={
 							"text": "Your shadow steps away from your feet.",
 							"shadow": true
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e17_1",
@@ -1383,11 +1407,12 @@ events.dreams={
 				{
 					"id": "e17_4",
 					"label": "Watch the shadow for 20 seconds.",
-					"effect": "careful"
+					"effect": "careful",
+					"result": "We will check it for 20 seconds, then collect the supplies."
 				},
 				{
 					"id": "e17_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -1398,7 +1423,7 @@ events.dreams={
 			"actor": "inventor",
 			"group": "mixed",
 			"kind": "lift",
-			"text": "The lift is stuck. Hold off the creatures while I turn the wheel.",
+			"text": "The lift is stuck with a supply cage below us. Turn the wheel or pry open the service hatch. Something is moving down there.",
 			"options": [
 				{
 					"id": "e18_0",
@@ -1418,7 +1443,8 @@ events.dreams={
 								8
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e18_1",
@@ -1428,7 +1454,7 @@ events.dreams={
 						{
 							"weight": 1,
 							"text": "I am done guarding a broken lift.",
-							"ally": "cave_npc"
+							"join": true
 						}
 					],
 					"cost": 2000
@@ -1436,16 +1462,17 @@ events.dreams={
 				{
 					"id": "e18_2",
 					"label": "Pry open the service hatch.",
-					"effect": "use_tool"
+					"effect": "use_tool",
+					"needs": "tool"
 				},
 				{
 					"id": "e18_3",
 					"effect": "venture",
-					"label": "Salvage the cable: 2 Amber.",
+					"label": "Sell the loose cable for 2 Amber",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "The loose cable comes free.",
+							"text": "The lift keeper buys the cable and pays 2 Amber.",
 							"amber": 2
 						}
 					]
@@ -1467,7 +1494,7 @@ events.dreams={
 				},
 				{
 					"id": "e18_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -1478,12 +1505,12 @@ events.dreams={
 			"actor": "fungus_farmer",
 			"group": "mixed",
 			"kind": "mushroom",
-			"text": "The pale ones hide Amber. The spotted ones attract spiders. I sorted them in the dark.",
+			"text": "I grow mushrooms to sell for Amber. The plain patch is safe. The spotted patch pays more, but picking it may wake the bats.",
 			"options": [
 				{
 					"id": "e19_0",
 					"effect": "venture",
-					"label": "Pick the spotted mushrooms.",
+					"label": "Pick the spotted patch; it may wake bats",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1499,12 +1526,13 @@ events.dreams={
 								6
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e19_1",
 					"effect": "venture",
-					"label": "Pick the plain ones: 2 Amber.",
+					"label": "Pick the plain patch for 2 Amber",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1549,48 +1577,50 @@ events.dreams={
 				},
 				{
 					"id": "e19_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
 		},
 		{
 			"id": "e20",
-			"name": "Hire a Thief",
+			"name": "The Cornered Rogue",
 			"actor": "prisoner",
 			"group": "mixed",
 			"kind": "rogue",
-			"text": "The rogue fights with two daggers. Monsters are closing in. He has seen you watching.",
+			"text": "Wolves are attacking a rogue with two daggers. You can save him or wait and loot his body if he dies. He keeps watching your backs, even while he fights.",
 			"options": [
 				{
 					"id": "save",
-					"label": "Fight the monsters and save them",
-					"effect": "save"
+					"label": "Save {npc}: fight the wolves",
+					"effect": "save",
+					"offer": true
 				},
 				{
 					"id": "watch",
-					"label": "Stand back and see who survives",
+					"label": "Wait; loot the pack if {npc} dies",
 					"effect": "watch"
 				},
 				{
 					"id": "lure",
-					"label": "Draw the monsters toward us",
-					"effect": "lure"
+					"label": "Draw the wolves away from {npc}",
+					"effect": "lure",
+					"offer": true
 				},
 				{
 					"id": "aid",
-					"label": "Hire them after the fight: 2,000 cave gold",
+					"label": "Save and hire {npc} for 2,000 shared gold",
 					"effect": "hire",
 					"cost": 2000
 				},
 				{
 					"id": "finish",
-					"label": "Attack the traveler and the monsters.",
+					"label": "Attack {npc} and the wolves",
 					"effect": "both"
 				},
 				{
 					"id": "cover",
-					"label": "Cover their escape. They leave a smaller reward.",
+					"label": "Bring {npc} behind us; take a smaller reward",
 					"effect": "cover"
 				}
 			]
@@ -1601,12 +1631,12 @@ events.dreams={
 			"actor": "cave_cartographer",
 			"group": "mixed",
 			"kind": "route",
-			"text": "I know a shorter way. There is a locked guardroom in the middle of it.",
+			"text": "I sell guard passes and mark supply rooms on maps. I also know a shortcut, but three guards are using it right now.",
 			"options": [
 				{
 					"id": "e21_0",
 					"effect": "venture",
-					"label": "Buy a guard’s pass for 3 Amber. Skip one guardroom.",
+					"label": "Buy a pass for 3 shared Amber; skip one guardroom",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1616,7 +1646,8 @@ events.dreams={
 							]
 						}
 					],
-					"amber": 3
+					"amber": 3,
+					"offer": true
 				},
 				{
 					"id": "e21_1",
@@ -1661,7 +1692,7 @@ events.dreams={
 						{
 							"weight": 1,
 							"text": "The mapmaker packs her things.",
-							"ally": "cave_npc"
+							"join": true
 						}
 					],
 					"cost": 2000
@@ -1682,7 +1713,7 @@ events.dreams={
 				},
 				{
 					"id": "e21_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -1693,7 +1724,7 @@ events.dreams={
 			"actor": "inventor",
 			"group": "mixed",
 			"kind": "pressure",
-			"text": "One more turn might release the chest. It might also break the cage behind us.",
+			"text": "The chest is caught in this old machine. Turn the wheel to free it, or release the pressure slowly. The sentinel is sleeping beside the pipes.",
 			"options": [
 				{
 					"id": "e22_0",
@@ -1713,7 +1744,8 @@ events.dreams={
 								1
 							]
 						}
-					]
+					],
+					"offer": true
 				},
 				{
 					"id": "e22_1",
@@ -1733,28 +1765,30 @@ events.dreams={
 				{
 					"id": "e22_2",
 					"label": "Open the valve slowly: 20 seconds.",
-					"effect": "careful"
+					"effect": "careful",
+					"result": "We will check it for 20 seconds, then collect the supplies."
 				},
 				{
 					"id": "e22_3",
 					"label": "Use a pry bar on the jammed latch.",
-					"effect": "use_tool"
+					"effect": "use_tool",
+					"needs": "tool"
 				},
 				{
 					"id": "e22_4",
 					"effect": "venture",
-					"label": "Take the loose fittings: 2 Amber.",
+					"label": "Sell the loose fittings for 2 Amber",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "The fittings are cold enough to carry.",
+							"text": "The mechanic buys the fittings and pays 2 Amber.",
 							"amber": 2
 						}
 					]
 				},
 				{
 					"id": "e22_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -1765,12 +1799,13 @@ events.dreams={
 			"actor": "expedition_captain",
 			"group": "mixed",
 			"kind": "escort",
-			"text": "Keep those bats away from the crate. I need to reach the next landing.",
+			"text": "Help me get this crate to the stairs. I will pay 3,000 cave gold and share my supplies when we arrive. Or we can open it here.",
 			"options": [
 				{
 					"id": "e23_0",
 					"label": "Escort the porter to the stairs.",
-					"effect": "escort"
+					"effect": "escort",
+					"offer": true
 				},
 				{
 					"id": "e23_1",
@@ -1807,15 +1842,9 @@ events.dreams={
 				},
 				{
 					"id": "e23_3",
-					"effect": "venture",
-					"label": "Keep the porter as a guard instead.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "He sets down the crate and draws a sword.",
-							"ally": "cave_npc"
-						}
-					]
+					"effect": "guide",
+					"label": "Ask the porter to fight beside us",
+					"result": "The porter puts down the crate and joins you."
 				},
 				{
 					"id": "e23_4",
@@ -1833,7 +1862,7 @@ events.dreams={
 				},
 				{
 					"id": "e23_5",
-					"label": "Leave it alone.",
+					"label": "Leave this and keep going.",
 					"effect": "leave"
 				}
 			]
@@ -1844,37 +1873,39 @@ events.dreams={
 			"actor": "prisoner",
 			"group": "mixed",
 			"kind": "twins",
-			"text": "She says she is me. One of us is a thief. Look at our weapons before you decide.",
+			"text": "{npc} and {rival} are dressed alike. Both claim to be the prisoner you came to find. They have drawn their weapons. Who will you help?",
 			"options": [
 				{
 					"id": "left",
-					"label": "Stand with the first fighter",
-					"effect": "left"
+					"label": "Help {npc} fight {rival}",
+					"effect": "left",
+					"offer": true
 				},
 				{
 					"id": "right",
-					"label": "Stand with the second fighter",
-					"effect": "right"
+					"label": "Help {rival} fight {npc}",
+					"effect": "right",
+					"offer": true
 				},
 				{
 					"id": "neither",
-					"label": "Take no side",
+					"label": "Let them fight; collect what is left",
 					"effect": "neither"
 				},
 				{
 					"id": "both",
-					"label": "Fight both of them",
+					"label": "Fight both and take the chest",
 					"effect": "both"
 				},
 				{
 					"id": "peace",
-					"label": "Offer 3,000 cave gold for peace",
+					"label": "Pay 3,000 shared gold to stop the fight",
 					"effect": "peace",
 					"cost": 3000
 				},
 				{
 					"id": "testimony",
-					"label": "Back the stronger fighter",
+					"label": "Help whichever fighter hits harder",
 					"effect": "testimony"
 				}
 			]
@@ -1885,37 +1916,39 @@ events.dreams={
 			"actor": "prisoner",
 			"group": "mixed",
 			"kind": "conflict",
-			"text": "The captain wants me back in chains. He has the key. I have proof he sold the last patrol.",
+			"text": "{rival} wants to put {npc} back in chains. The prisoner says the captain sold out the last patrol. They are about to fight.",
 			"options": [
 				{
 					"id": "left",
-					"label": "Stand with the first fighter",
-					"effect": "left"
+					"label": "Help {npc} fight {rival}",
+					"effect": "left",
+					"offer": true
 				},
 				{
 					"id": "right",
-					"label": "Stand with the second fighter",
-					"effect": "right"
+					"label": "Help {rival} fight {npc}",
+					"effect": "right",
+					"offer": true
 				},
 				{
 					"id": "neither",
-					"label": "Take no side",
+					"label": "Let them fight; collect what is left",
 					"effect": "neither"
 				},
 				{
 					"id": "both",
-					"label": "Fight both of them",
+					"label": "Fight both and take the chest",
 					"effect": "both"
 				},
 				{
 					"id": "peace",
-					"label": "Offer 3,000 cave gold for peace",
+					"label": "Pay 3,000 shared gold to stop the fight",
 					"effect": "peace",
 					"cost": 3000
 				},
 				{
 					"id": "testimony",
-					"label": "Back the stronger fighter",
+					"label": "Help whichever fighter hits harder",
 					"effect": "testimony"
 				}
 			]
@@ -1926,40 +1959,48 @@ events.dreams={
 			"actor": "cave_cartographer",
 			"group": "bad",
 			"kind": "collapse",
-			"text": "The ceiling is coming down. Drop the tools or stay and fight your way clear.",
+			"text": "A rockfall has blocked the passage. The guards want payment to clear it. You can pay, fight them, or spend time digging another way through.",
 			"options": [
 				{
-					"id": "pay",
-					"label": "Lose 3,000 cave gold and move on",
+					"id": "e26_0",
+					"label": "Pay 3,000 shared gold to dig through",
 					"effect": "pay",
-					"cost": 3000
+					"cost": 3000,
+					"offer": true,
+					"result": "The guards take the payment and let you through."
 				},
 				{
-					"id": "fight",
-					"label": "Fight through the guards",
-					"effect": "bad_fight"
+					"id": "e26_1",
+					"label": "Fight the three guards",
+					"effect": "bad_fight",
+					"offer": true,
+					"result": "The guards draw their weapons. There is no reward for this fight."
 				},
 				{
-					"id": "drop",
-					"label": "Leave 2 Amber behind",
+					"id": "e26_2",
+					"label": "Pay 2 shared Amber instead",
 					"effect": "pay",
-					"amber": 2
+					"amber": 2,
+					"result": "The guards accept the Amber and let you through."
 				},
 				{
-					"id": "brace",
-					"label": "Brace for the first pack",
-					"effect": "bad_fight"
+					"id": "e26_3",
+					"label": "Pay 1,000 gold and spend 30 seconds getting past",
+					"effect": "time",
+					"cost": 1000,
+					"seconds": 30
 				},
 				{
-					"id": "wait",
-					"label": "Wait: lose 45 seconds",
+					"id": "e26_4",
+					"label": "Wait for a way past; lose 45 seconds",
 					"effect": "time",
 					"seconds": 45
 				},
 				{
-					"id": "rush",
-					"label": "Rush through: fight two packs",
-					"effect": "bad_double"
+					"id": "e26_5",
+					"label": "Force our way through; fight six guards",
+					"effect": "bad_double",
+					"result": "You force your way in. Six guards block the way."
 				}
 			]
 		},
@@ -1969,40 +2010,48 @@ events.dreams={
 			"actor": "collector",
 			"group": "bad",
 			"kind": "toll",
-			"text": "Pay from your cave purse, or deal with my guards.",
+			"text": "This guard will not let you pass for free. Pay with cave gold or Amber, fight his men, or wait for the patrol to move.",
 			"options": [
 				{
-					"id": "pay",
-					"label": "Lose 3,000 cave gold and move on",
+					"id": "e27_0",
+					"label": "Pay 3,000 shared gold to let us pass",
 					"effect": "pay",
-					"cost": 3000
+					"cost": 3000,
+					"offer": true,
+					"result": "The guards take the payment and let you through."
 				},
 				{
-					"id": "fight",
-					"label": "Fight through the guards",
-					"effect": "bad_fight"
+					"id": "e27_1",
+					"label": "Fight the three guards",
+					"effect": "bad_fight",
+					"offer": true,
+					"result": "The guards draw their weapons. There is no reward for this fight."
 				},
 				{
-					"id": "drop",
-					"label": "Leave 2 Amber behind",
+					"id": "e27_2",
+					"label": "Pay 2 shared Amber instead",
 					"effect": "pay",
-					"amber": 2
+					"amber": 2,
+					"result": "The guards accept the Amber and let you through."
 				},
 				{
-					"id": "brace",
-					"label": "Brace for the first pack",
-					"effect": "bad_fight"
+					"id": "e27_3",
+					"label": "Pay 1,000 gold and spend 30 seconds getting past",
+					"effect": "time",
+					"cost": 1000,
+					"seconds": 30
 				},
 				{
-					"id": "wait",
-					"label": "Wait: lose 45 seconds",
+					"id": "e27_4",
+					"label": "Wait for a way past; lose 45 seconds",
 					"effect": "time",
 					"seconds": 45
 				},
 				{
-					"id": "rush",
-					"label": "Rush through: fight two packs",
-					"effect": "bad_double"
+					"id": "e27_5",
+					"label": "Force our way through; fight six guards",
+					"effect": "bad_double",
+					"result": "You force your way in. Six guards block the way."
 				}
 			]
 		},
@@ -2012,40 +2061,48 @@ events.dreams={
 			"actor": "bell_keeper",
 			"group": "bad",
 			"kind": "alarm",
-			"text": "The bell is ringing. We can muffle it, but one pack is already coming.",
+			"text": "The alarm rope snapped. Guards are coming. The bell keeper can call them off for a fee, or you can deal with them yourself.",
 			"options": [
 				{
-					"id": "pay",
-					"label": "Lose 3,000 cave gold and move on",
+					"id": "e28_0",
+					"label": "Pay 3,000 shared gold to stop the alarm",
 					"effect": "pay",
-					"cost": 3000
+					"cost": 3000,
+					"offer": true,
+					"result": "The guards take the payment and let you through."
 				},
 				{
-					"id": "fight",
-					"label": "Fight through the guards",
-					"effect": "bad_fight"
+					"id": "e28_1",
+					"label": "Fight the three guards",
+					"effect": "bad_fight",
+					"offer": true,
+					"result": "The guards draw their weapons. There is no reward for this fight."
 				},
 				{
-					"id": "drop",
-					"label": "Leave 2 Amber behind",
+					"id": "e28_2",
+					"label": "Pay 2 shared Amber instead",
 					"effect": "pay",
-					"amber": 2
+					"amber": 2,
+					"result": "The guards accept the Amber and let you through."
 				},
 				{
-					"id": "brace",
-					"label": "Brace for the first pack",
-					"effect": "bad_fight"
+					"id": "e28_3",
+					"label": "Pay 1,000 gold and spend 30 seconds getting past",
+					"effect": "time",
+					"cost": 1000,
+					"seconds": 30
 				},
 				{
-					"id": "wait",
-					"label": "Wait: lose 45 seconds",
+					"id": "e28_4",
+					"label": "Wait for a way past; lose 45 seconds",
 					"effect": "time",
 					"seconds": 45
 				},
 				{
-					"id": "rush",
-					"label": "Rush through: fight two packs",
-					"effect": "bad_double"
+					"id": "e28_5",
+					"label": "Force our way through; fight six guards",
+					"effect": "bad_double",
+					"result": "You force your way in. Six guards block the way."
 				}
 			]
 		},
@@ -2055,40 +2112,48 @@ events.dreams={
 			"actor": "expedition_captain",
 			"group": "bad",
 			"kind": "cargo",
-			"text": "The cart is blocking the passage. Leave the cargo, or hold them off while I pull.",
+			"text": "A loaded cart is stuck in the passage. Its guards want payment before they move it. You can pay, force your way past, or wait for them to unload.",
 			"options": [
 				{
-					"id": "pay",
-					"label": "Lose 3,000 cave gold and move on",
+					"id": "e29_0",
+					"label": "Pay 3,000 shared gold to move the cart",
 					"effect": "pay",
-					"cost": 3000
+					"cost": 3000,
+					"offer": true,
+					"result": "The guards take the payment and let you through."
 				},
 				{
-					"id": "fight",
-					"label": "Fight through the guards",
-					"effect": "bad_fight"
+					"id": "e29_1",
+					"label": "Fight the three guards",
+					"effect": "bad_fight",
+					"offer": true,
+					"result": "The guards draw their weapons. There is no reward for this fight."
 				},
 				{
-					"id": "drop",
-					"label": "Leave 2 Amber behind",
+					"id": "e29_2",
+					"label": "Pay 2 shared Amber instead",
 					"effect": "pay",
-					"amber": 2
+					"amber": 2,
+					"result": "The guards accept the Amber and let you through."
 				},
 				{
-					"id": "brace",
-					"label": "Brace for the first pack",
-					"effect": "bad_fight"
+					"id": "e29_3",
+					"label": "Pay 1,000 gold and spend 30 seconds getting past",
+					"effect": "time",
+					"cost": 1000,
+					"seconds": 30
 				},
 				{
-					"id": "wait",
-					"label": "Wait: lose 45 seconds",
+					"id": "e29_4",
+					"label": "Wait for a way past; lose 45 seconds",
 					"effect": "time",
 					"seconds": 45
 				},
 				{
-					"id": "rush",
-					"label": "Rush through: fight two packs",
-					"effect": "bad_double"
+					"id": "e29_5",
+					"label": "Force our way through; fight six guards",
+					"effect": "bad_double",
+					"result": "You force your way in. Six guards block the way."
 				}
 			]
 		},
@@ -2098,40 +2163,48 @@ events.dreams={
 			"actor": "pact_broker",
 			"group": "bad",
 			"kind": "debt",
-			"text": "That receipt belongs to someone who owes us money. We are collecting.",
+			"text": "The collector thinks you took a debtor’s receipt. Pay him to leave you alone, fight his guards, or wait while he checks the name.",
 			"options": [
 				{
-					"id": "pay",
-					"label": "Lose 3,000 cave gold and move on",
+					"id": "e30_0",
+					"label": "Pay 3,000 shared gold to settle the debt",
 					"effect": "pay",
-					"cost": 3000
+					"cost": 3000,
+					"offer": true,
+					"result": "The guards take the payment and let you through."
 				},
 				{
-					"id": "fight",
-					"label": "Fight through the guards",
-					"effect": "bad_fight"
+					"id": "e30_1",
+					"label": "Fight the three guards",
+					"effect": "bad_fight",
+					"offer": true,
+					"result": "The guards draw their weapons. There is no reward for this fight."
 				},
 				{
-					"id": "drop",
-					"label": "Leave 2 Amber behind",
+					"id": "e30_2",
+					"label": "Pay 2 shared Amber instead",
 					"effect": "pay",
-					"amber": 2
+					"amber": 2,
+					"result": "The guards accept the Amber and let you through."
 				},
 				{
-					"id": "brace",
-					"label": "Brace for the first pack",
-					"effect": "bad_fight"
+					"id": "e30_3",
+					"label": "Pay 1,000 gold and spend 30 seconds getting past",
+					"effect": "time",
+					"cost": 1000,
+					"seconds": 30
 				},
 				{
-					"id": "wait",
-					"label": "Wait: lose 45 seconds",
+					"id": "e30_4",
+					"label": "Wait for a way past; lose 45 seconds",
 					"effect": "time",
 					"seconds": 45
 				},
 				{
-					"id": "rush",
-					"label": "Rush through: fight two packs",
-					"effect": "bad_double"
+					"id": "e30_5",
+					"label": "Force our way through; fight six guards",
+					"effect": "bad_double",
+					"result": "You force your way in. Six guards block the way."
 				}
 			]
 		},
@@ -2141,37 +2214,41 @@ events.dreams={
 			"actor": "archive_vendor",
 			"group": "positive",
 			"kind": "merchant",
-			"text": "One item. One sale. You pay, and the cave chooses who gets it.",
+			"text": "I have one item for sale. Have a look. Whoever buys it pays from their own gold, but a random member of the original party gets it.",
 			"options": [
 				{
-					"id": "buy",
-					"label": "Buy the item shown",
-					"effect": "buy"
+					"id": "e31_0",
+					"label": "Open the shop",
+					"effect": "inspect",
+					"offer": true,
+					"result": "The shop is open. Inspect the item, then buy it with your own gold if you want it."
 				},
 				{
-					"id": "leave",
-					"label": "Leave it alone",
+					"id": "e31_1",
+					"label": "Keep our gold and move on.",
 					"effect": "leave"
 				},
 				{
-					"id": "inspect",
-					"label": "Check the item first",
-					"effect": "inspect"
+					"id": "e31_2",
+					"label": "Ask where the item came from",
+					"effect": "story",
+					"result": "I bought it when the old shop cleared its shelves. This is the last one I have."
 				},
 				{
-					"id": "decline",
-					"label": "Keep our gold",
+					"id": "e31_3",
+					"label": "Check the price and the item",
+					"effect": "inspect",
+					"result": "There is one copy at the price shown. No bidding and no second sale."
+				},
+				{
+					"id": "e31_4",
+					"label": "We do not need it.",
 					"effect": "leave"
 				},
 				{
-					"id": "reserve",
-					"label": "Leave it for someone else",
+					"id": "e31_5",
+					"label": "Leave it for another day.",
 					"effect": "leave"
-				},
-				{
-					"id": "story",
-					"label": "Ask where it came from",
-					"effect": "story"
 				}
 			]
 		},
@@ -2181,37 +2258,40 @@ events.dreams={
 			"actor": "monster_handler",
 			"group": "positive",
 			"kind": "hunt",
-			"text": "Kill six crabs in 90 seconds. I will pay for every clean sweep. One try.",
+			"text": "These crabs keep breaking out of their pens. Pick a hunt. Kill all the marked crabs before time runs out and I will pay you.",
 			"options": [
 				{
+					"id": "e32_0",
+					"label": "Kill 6 crabs in 90s for supplies, 5,000 gold and 2 Amber",
 					"effect": "hunt",
-					"label": "Start the regular timed hunt.",
-					"id": "e32_0"
+					"offer": true
 				},
 				{
+					"id": "e32_1",
+					"label": "Kill 12 crabs in 90s for twice the supplies",
 					"effect": "hunt_double",
-					"label": "Hunt twice as many for two parcels.",
-					"id": "e32_1"
+					"offer": true
 				},
 				{
+					"id": "e32_2",
+					"label": "Kill 3 crabs in 90s for 2 Amber",
 					"effect": "hunt_quick",
-					"label": "Hunt half as many for 2 Amber.",
-					"id": "e32_2"
+					"offer": true
 				},
 				{
-					"effect": "hunt_helper",
-					"label": "Take a helper. Earn one parcel.",
-					"id": "e32_3"
+					"id": "e32_3",
+					"label": "Take a helper: 6 crabs in 90s",
+					"effect": "hunt_helper"
 				},
 				{
-					"effect": "hunt_late",
-					"label": "Take 30 extra seconds. Earn 2 Amber.",
-					"id": "e32_4"
+					"id": "e32_4",
+					"label": "Take 120s to kill 6 crabs; earn 2 Amber",
+					"effect": "hunt_late"
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e32_5"
+					"id": "e32_5",
+					"label": "Skip this hunt.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -2221,37 +2301,40 @@ events.dreams={
 			"actor": "bell_keeper",
 			"group": "positive",
 			"kind": "hunt_bats",
-			"text": "Eight bats in 75 seconds. They stole the keys off my belt.",
+			"text": "The bats stole my keys again. Pick a hunt. Kill all the marked bats before time runs out and I will give you a reward.",
 			"options": [
 				{
+					"id": "e33_0",
+					"label": "Kill 8 bats in 75s for supplies, 5,000 gold and 2 Amber",
 					"effect": "hunt",
-					"label": "Start the regular timed hunt.",
-					"id": "e33_0"
+					"offer": true
 				},
 				{
+					"id": "e33_1",
+					"label": "Kill 16 bats in 75s for twice the supplies",
 					"effect": "hunt_double",
-					"label": "Hunt twice as many for two parcels.",
-					"id": "e33_1"
+					"offer": true
 				},
 				{
+					"id": "e33_2",
+					"label": "Kill 4 bats in 75s for 2 Amber",
 					"effect": "hunt_quick",
-					"label": "Hunt half as many for 2 Amber.",
-					"id": "e33_2"
+					"offer": true
 				},
 				{
-					"effect": "hunt_helper",
-					"label": "Take a helper. Earn one parcel.",
-					"id": "e33_3"
+					"id": "e33_3",
+					"label": "Take a helper: 8 bats in 75s",
+					"effect": "hunt_helper"
 				},
 				{
-					"effect": "hunt_late",
-					"label": "Take 30 extra seconds. Earn 2 Amber.",
-					"id": "e33_4"
+					"id": "e33_4",
+					"label": "Take 105s to kill 8 bats; earn 2 Amber",
+					"effect": "hunt_late"
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e33_5"
+					"id": "e33_5",
+					"label": "Skip this hunt.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -2261,37 +2344,40 @@ events.dreams={
 			"actor": "collector",
 			"group": "positive",
 			"kind": "hunt_rats",
-			"text": "Ten rats in 60 seconds. Bring me a quiet room and I will open my purse.",
+			"text": "The rats are chewing through my stock. Pick a hunt. Kill all the marked rats before time runs out and I will pay you.",
 			"options": [
 				{
+					"id": "e34_0",
+					"label": "Kill 10 rats in 60s for supplies, 5,000 gold and 2 Amber",
 					"effect": "hunt",
-					"label": "Start the regular timed hunt.",
-					"id": "e34_0"
+					"offer": true
 				},
 				{
+					"id": "e34_1",
+					"label": "Kill 20 rats in 60s for twice the supplies",
 					"effect": "hunt_double",
-					"label": "Hunt twice as many for two parcels.",
-					"id": "e34_1"
+					"offer": true
 				},
 				{
+					"id": "e34_2",
+					"label": "Kill 5 rats in 60s for 2 Amber",
 					"effect": "hunt_quick",
-					"label": "Hunt half as many for 2 Amber.",
-					"id": "e34_2"
+					"offer": true
 				},
 				{
-					"effect": "hunt_helper",
-					"label": "Take a helper. Earn one parcel.",
-					"id": "e34_3"
+					"id": "e34_3",
+					"label": "Take a helper: 10 rats in 60s",
+					"effect": "hunt_helper"
 				},
 				{
-					"effect": "hunt_late",
-					"label": "Take 30 extra seconds. Earn 2 Amber.",
-					"id": "e34_4"
+					"id": "e34_4",
+					"label": "Take 90s to kill 10 rats; earn 2 Amber",
+					"effect": "hunt_late"
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e34_5"
+					"id": "e34_5",
+					"label": "Skip this hunt.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -2301,69 +2387,64 @@ events.dreams={
 			"actor": "expedition_captain",
 			"group": "positive",
 			"kind": "escort_safe",
-			"text": "Walk me to the stairs. I will give you the parcel when we arrive.",
+			"text": "I lost the rest of my caravan. Walk me to the stairs and I will pay 3,000 cave gold and share my supplies. I can carry a weapon if you need help.",
 			"options": [
 				{
 					"id": "e35_0",
-					"label": "Walk together to the stairs",
-					"effect": "escort"
+					"label": "Walk {npc} to the stairs for a reward",
+					"effect": "escort",
+					"offer": true
 				},
 				{
+					"id": "e35_1",
+					"label": "Ask {npc} to join us as a fighter",
+					"effect": "guide",
+					"result": "{npc} draws a weapon and joins you."
+				},
+				{
+					"id": "e35_2",
+					"label": "Borrow a lamp for the walk",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
-						}
-					],
-					"id": "e35_1"
-				},
-				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
+							"text": "Keep the lamp. It may help with the moths.",
 							"flags": [
 								"lamp"
 							]
 						}
-					],
-					"id": "e35_2"
+					]
 				},
 				{
+					"id": "e35_3",
+					"label": "Ask for a pry bar for the locked hatches",
 					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "Keep it out of your food bag.",
+							"text": "Here. This one still has a good edge.",
 							"flags": [
-								"decoy"
+								"tool"
 							]
 						}
-					],
-					"id": "e35_3"
+					]
 				},
 				{
+					"id": "e35_4",
+					"label": "Take 1 Amber instead of escorting",
 					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "Good luck down there.",
+							"text": "I can spare this much. Good luck.",
 							"amber": 1
 						}
-					],
-					"id": "e35_4"
+					]
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e35_5"
+					"id": "e35_5",
+					"label": "Sorry. We cannot take you with us.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -2373,69 +2454,71 @@ events.dreams={
 			"actor": "collector",
 			"group": "positive",
 			"kind": "recipes",
-			"text": "Amber holds an edge better than it looks. Cole can make something from it.",
+			"text": "Cole can turn Cave Amber into equipment. I have his recipes and a few spare materials. What would help you?",
 			"options": [
 				{
 					"id": "e36_0",
-					"label": "Show me the recipes",
-					"effect": "recipes"
+					"label": "Show Cole’s recipes",
+					"effect": "recipes",
+					"offer": true,
+					"result": "Take your Amber to Cole in Mainland. These are the things he can make."
 				},
 				{
+					"id": "e36_1",
+					"label": "Take a sample: 1 Amber",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
+							"text": "Show this to Cole when you get back.",
+							"amber": 1
 						}
-					],
-					"id": "e36_1"
+					]
 				},
 				{
+					"id": "e36_2",
+					"label": "Borrow a pry bar to find more supplies",
 					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "There is enough oil left.",
+							"text": "Use it on a locked hatch.",
+							"flags": [
+								"tool"
+							]
+						}
+					]
+				},
+				{
+					"id": "e36_3",
+					"label": "Borrow the spare lamp",
+					"effect": "venture",
+					"outcomes": [
+						{
+							"weight": 1,
+							"text": "The moths gather around its light.",
 							"flags": [
 								"lamp"
 							]
 						}
-					],
-					"id": "e36_2"
+					]
 				},
 				{
+					"id": "e36_4",
+					"label": "Ask the smith’s helper to join us",
 					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
+							"text": "The smith’s helper comes with you.",
+							"ally": "cave_npc"
 						}
-					],
-					"id": "e36_3"
+					]
 				},
 				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
-							"amber": 1
-						}
-					],
-					"id": "e36_4"
-				},
-				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e36_5"
+					"id": "e36_5",
+					"label": "We will visit Cole later.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -2445,69 +2528,46 @@ events.dreams={
 			"actor": "dice_operator",
 			"group": "positive",
 			"kind": "practice_dice",
-			"text": "No stake this time. Roll a six and I will give you a piece of Amber.",
+			"text": "Want a free roll? Roll a six and I will put 1 Amber in the shared purse. No bet this time.",
 			"options": [
 				{
 					"id": "e37_0",
-					"label": "Roll once",
+					"label": "Roll for free; a six wins 1 Amber",
+					"effect": "free_die",
+					"offer": true
+				},
+				{
+					"id": "e37_1",
+					"label": "Ask how the Loaded Die works",
+					"effect": "story",
+					"result": "Wear a Loaded Die in your orb slot. If a roll misses, it gives the party one reroll per visit."
+				},
+				{
+					"id": "e37_2",
+					"label": "Ask the dealer to roll for us",
 					"effect": "free_die"
 				},
 				{
+					"id": "e37_3",
+					"label": "Ask the dealer to come along instead",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
+							"text": "I am tired of sitting here. Let us go.",
+							"join": true
 						}
-					],
-					"id": "e37_1"
+					]
 				},
 				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e37_2"
+					"id": "e37_4",
+					"label": "Save the game for later.",
+					"effect": "leave"
 				},
 				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e37_3"
-				},
-				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
-							"amber": 1
-						}
-					],
-					"id": "e37_4"
-				},
-				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e37_5"
+					"id": "e37_5",
+					"label": "No thanks. We do not want to roll.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -2517,141 +2577,114 @@ events.dreams={
 			"actor": "cave_cartographer",
 			"group": "positive",
 			"kind": "tool",
-			"text": "Take the pry bar or the spare lamp. Either one may help with the next room.",
+			"text": "Take something from my tool bag. A pry bar opens locked hatches. A lamp helps with the moths. I have bait for the guards too.",
 			"options": [
 				{
 					"id": "e38_0",
-					"label": "Take the pry bar",
-					"effect": "tool"
+					"label": "Take a pry bar for locked hatches",
+					"effect": "tool",
+					"offer": true,
+					"result": "You take the pry bar. It stays in your cave supplies."
 				},
 				{
+					"id": "e38_1",
+					"label": "Take a lamp for the moths",
+					"effect": "lamp",
+					"offer": true,
+					"result": "You take the lamp. It stays in your cave supplies."
+				},
+				{
+					"id": "e38_2",
+					"label": "Take bait for the next guard patrol",
+					"effect": "decoy",
+					"result": "You pack the bait. One guard in the next patrol will turn on the others."
+				},
+				{
+					"id": "e38_3",
+					"label": "Ask the toolmaker to come with us",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
+							"text": "I will bring my tools and watch your back.",
+							"join": true
 						}
-					],
-					"id": "e38_1"
+					]
 				},
 				{
+					"id": "e38_4",
+					"label": "Trade the scrap for 1 Amber",
 					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e38_2"
-				},
-				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e38_3"
-				},
-				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
+							"text": "The toolmaker gives you 1 Amber for the scrap.",
 							"amber": 1
 						}
-					],
-					"id": "e38_4"
+					]
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e38_5"
+					"id": "e38_5",
+					"label": "We have what we need.",
+					"effect": "leave"
 				}
 			]
 		},
 		{
 			"id": "e39",
-			"name": "Plant Something",
+			"name": "The Amber Garden",
 			"actor": "fungus_farmer",
 			"group": "positive",
 			"kind": "plant",
-			"text": "Choose a patch. I will give you what grows before you leave this floor.",
+			"text": "These seeds grow Amber in a minute. Plant some and I will put 3 Amber in the shared purse when they are ready. You can explore while they grow.",
 			"options": [
 				{
 					"id": "e39_0",
-					"label": "Plant the pale seeds",
-					"effect": "plant"
+					"label": "Plant a crop; collect 3 Amber after one minute",
+					"effect": "plant",
+					"offer": true,
+					"result": "The seeds are planted. I will put the Amber in your shared purse when it is ready."
 				},
 				{
+					"id": "e39_1",
+					"label": "Take 1 Amber now instead",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
-						}
-					],
-					"id": "e39_1"
-				},
-				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e39_2"
-				},
-				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e39_3"
-				},
-				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
+							"text": "Here is one from the last crop.",
 							"amber": 1
 						}
-					],
-					"id": "e39_4"
+					]
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e39_5"
+					"id": "e39_2",
+					"label": "Take mushroom bait for the next patrol",
+					"effect": "decoy",
+					"result": "Keep the bait sealed until you reach the guards."
+				},
+				{
+					"id": "e39_3",
+					"label": "Ask the farmhand to join us",
+					"effect": "venture",
+					"outcomes": [
+						{
+							"weight": 1,
+							"text": "The farmhand leaves the garden and comes with you.",
+							"ally": "cave_npc"
+						}
+					]
+				},
+				{
+					"id": "e39_4",
+					"label": "Borrow the farmer’s spare lamp",
+					"effect": "lamp",
+					"result": "Take it. I have another by the seed beds."
+				},
+				{
+					"id": "e39_5",
+					"label": "Leave the seeds with the farmer.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -2661,69 +2694,45 @@ events.dreams={
 			"actor": "duelist",
 			"group": "positive",
 			"kind": "practice",
-			"text": "Break my guard in 30 seconds. I will stop before anyone gets hurt.",
+			"text": "Want to spar? Beat me before the timer ends and you win a prize. I will stop at 1 HP, and my blows cannot kill you.",
 			"options": [
 				{
 					"id": "e40_0",
-					"label": "Start the practice bout",
-					"effect": "practice"
+					"label": "Try the 30-second fight for a supply prize",
+					"effect": "practice",
+					"offer": true
 				},
 				{
-					"effect": "venture",
-					"label": "Ask for someone to come with us.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
-						}
-					],
-					"id": "e40_1"
+					"id": "e40_1",
+					"label": "Try an easier fight for 1 Amber",
+					"effect": "practice",
+					"offer": true,
+					"guard": 0.5,
+					"reward_amber": 1
 				},
 				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e40_2"
+					"id": "e40_2",
+					"label": "Win within 15 seconds for a supply prize",
+					"effect": "practice",
+					"offer": true,
+					"seconds": 15
 				},
 				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e40_3"
+					"id": "e40_3",
+					"label": "Ask {npc} to fight beside us instead",
+					"effect": "guide",
+					"result": "{npc}: A real fight sounds better. I will come with you."
 				},
 				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
-							"amber": 1
-						}
-					],
-					"id": "e40_4"
+					"id": "e40_4",
+					"label": "Take a 20-second lesson and the trainer’s supplies",
+					"effect": "careful",
+					"result": "Watch my feet. I will give you the spare supplies when we finish."
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e40_5"
+					"id": "e40_5",
+					"label": "No thanks. We do not want to spar.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -2733,141 +2742,107 @@ events.dreams={
 			"actor": "collector",
 			"group": "positive",
 			"kind": "exchange",
-			"text": "I will trade two Amber for my wrapped parcel. You can keep your Amber instead.",
+			"text": "I will trade my supply box for 2 Amber from the shared purse. Or take one of these smaller things for the road.",
 			"options": [
 				{
 					"id": "e41_0",
-					"label": "Trade 2 Amber for a parcel",
-					"effect": "exchange"
+					"label": "Trade 2 shared Amber for the supply box",
+					"effect": "exchange",
+					"offer": true,
+					"amber": 2,
+					"result": "The trader takes the Amber and opens the box."
 				},
 				{
+					"id": "e41_1",
+					"label": "Borrow a pry bar instead",
+					"effect": "tool",
+					"result": "Take the spare pry bar. No charge."
+				},
+				{
+					"id": "e41_2",
+					"label": "Take the trader’s spare lamp",
+					"effect": "lamp",
+					"result": "The lamp still has oil. Take it."
+				},
+				{
+					"id": "e41_3",
+					"label": "Take bait for the next patrol",
+					"effect": "decoy",
+					"result": "This should start an argument between the guards."
+				},
+				{
+					"id": "e41_4",
+					"label": "Ask the trader’s guard to join us",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
+							"text": "The guard agrees to come with you.",
 							"ally": "cave_npc"
 						}
-					],
-					"id": "e41_1"
+					]
 				},
 				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e41_2"
-				},
-				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e41_3"
-				},
-				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
-							"amber": 1
-						}
-					],
-					"id": "e41_4"
-				},
-				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e41_5"
+					"id": "e41_5",
+					"label": "Keep our Amber.",
+					"effect": "leave"
 				}
 			]
 		},
 		{
 			"id": "e42",
-			"name": "A Door for the Rat",
+			"name": "The Rat’s Shortcuts",
 			"actor": "monster_handler",
 			"group": "positive",
 			"kind": "ratdoor",
-			"text": "That rat knows a way under the wall. Follow it and I will mark the next room.",
+			"text": "My rat keeps finding rooms the guards missed. I can mark them on your map, or let the rat follow you.",
 			"options": [
 				{
 					"id": "e42_0",
-					"label": "Mark the next room",
-					"effect": "reveal"
+					"label": "Mark the rooms the rat found",
+					"effect": "reveal",
+					"offer": true
 				},
 				{
+					"id": "e42_1",
+					"label": "Let the rat follow us",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
+							"text": "The rat follows you out of the room.",
+							"ally": "cave_rat"
 						}
-					],
-					"id": "e42_1"
+					]
 				},
 				{
+					"id": "e42_2",
+					"label": "Borrow a lamp to check the wall",
+					"effect": "lamp",
+					"result": "Here. You can keep the lamp for this visit."
+				},
+				{
+					"id": "e42_3",
+					"label": "Take the pry bar by the rat’s hole",
+					"effect": "tool",
+					"result": "You take the pry bar from beside the wall."
+				},
+				{
+					"id": "e42_4",
+					"label": "Take the Amber the rat brought back",
 					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e42_2"
-				},
-				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e42_3"
-				},
-				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
+							"text": "The rat drops 1 Amber into the shared purse.",
 							"amber": 1
 						}
-					],
-					"id": "e42_4"
+					]
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e42_5"
+					"id": "e42_5",
+					"label": "Leave the rat with its keeper.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -2877,213 +2852,160 @@ events.dreams={
 			"actor": "expedition_captain",
 			"group": "positive",
 			"kind": "decoy",
-			"text": "I can keep one guard busy. Tell me which fight you want help with.",
+			"text": "The guards are arguing about stolen supplies. Take this bait and one guard in the next patrol will turn on the others.",
 			"options": [
 				{
 					"id": "e43_0",
-					"label": "Help with our next fight",
-					"effect": "decoy"
+					"label": "Take bait for the next guard patrol",
+					"effect": "decoy",
+					"offer": true,
+					"result": "The bait is ready. One guard in the next patrol will turn on the others."
 				},
 				{
-					"effect": "venture",
-					"label": "Ask for someone to come with us.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
-						}
-					],
-					"id": "e43_1"
+					"id": "e43_1",
+					"label": "Ask {npc} to fight beside us",
+					"effect": "guide",
+					"result": "{npc}: All right. I will come with you."
 				},
 				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e43_2"
+					"id": "e43_2",
+					"label": "Mark the rooms the guards avoid",
+					"effect": "reveal"
 				},
 				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e43_3"
+					"id": "e43_3",
+					"label": "Borrow a lamp from the lookout",
+					"effect": "lamp",
+					"result": "You take the lookout’s spare lamp."
 				},
 				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
-							"amber": 1
-						}
-					],
-					"id": "e43_4"
+					"id": "e43_4",
+					"label": "Borrow the tool used to open the supply hatch",
+					"effect": "tool",
+					"result": "You take the pry bar."
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e43_5"
+					"id": "e43_5",
+					"label": "We will deal with the guards ourselves.",
+					"effect": "leave"
 				}
 			]
 		},
 		{
 			"id": "e44",
-			"name": "Check the Maker’s Mark",
+			"name": "Find the Rogue",
 			"actor": "archive_vendor",
 			"group": "positive",
 			"kind": "appraise",
-			"text": "I can tell you what the rogue is holding. Look at the blades before you trust him.",
+			"text": "Looking for the rogue? I can mark where I saw him. Check both daggers before you decide whether to help him.",
 			"options": [
 				{
 					"id": "e44_0",
-					"label": "Mark the next room",
-					"effect": "reveal"
+					"label": "Mark where the rogue was seen",
+					"effect": "appraise",
+					"offer": true
 				},
 				{
+					"id": "e44_1",
+					"label": "Explain how to spot the rare dagger",
+					"effect": "story",
+					"result": "The rare dagger is called Last Word. Look at the rogue’s equipped weapons. He only drops it if monsters kill him before he turns on you."
+				},
+				{
+					"id": "e44_2",
+					"label": "Ask {npc} to join us",
+					"effect": "guide",
+					"result": "{npc}: I will help, but keep an eye on that rogue."
+				},
+				{
+					"id": "e44_3",
+					"label": "Borrow a lamp to see the blades",
+					"effect": "lamp",
+					"result": "Take the spare lamp."
+				},
+				{
+					"id": "e44_4",
+					"label": "Take a sample of the local Amber",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
-						}
-					],
-					"id": "e44_1"
-				},
-				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e44_2"
-				},
-				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e44_3"
-				},
-				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
+							"text": "The appraiser gives you 1 Amber.",
 							"amber": 1
 						}
-					],
-					"id": "e44_4"
+					]
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e44_5"
+					"id": "e44_5",
+					"label": "We will look for him ourselves.",
+					"effect": "leave"
 				}
 			]
 		},
 		{
 			"id": "e45",
-			"name": "Show Edda the Way Out",
+			"name": "The Lost Traveler",
 			"actor": "prisoner",
 			"group": "positive",
 			"kind": "escort_safe",
-			"text": "Let me follow you to the stairs. I still have my last wages.",
+			"text": "I cannot find the stairs. Let me follow you there and I will pay 3,000 cave gold and share the supplies I have left.",
 			"options": [
 				{
 					"id": "e45_0",
-					"label": "Walk together to the stairs",
-					"effect": "escort"
+					"label": "Walk {npc} to the stairs for a reward",
+					"effect": "escort",
+					"offer": true
 				},
 				{
+					"id": "e45_1",
+					"label": "Ask {npc} to join us as a fighter",
+					"effect": "guide",
+					"result": "{npc} draws a weapon and joins you."
+				},
+				{
+					"id": "e45_2",
+					"label": "Borrow a lamp for the walk",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
-						}
-					],
-					"id": "e45_1"
-				},
-				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
+							"text": "Keep the lamp. It may help with the moths.",
 							"flags": [
 								"lamp"
 							]
 						}
-					],
-					"id": "e45_2"
+					]
 				},
 				{
+					"id": "e45_3",
+					"label": "Ask for a pry bar for the locked hatches",
 					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "Keep it out of your food bag.",
+							"text": "Here. This one still has a good edge.",
 							"flags": [
-								"decoy"
+								"tool"
 							]
 						}
-					],
-					"id": "e45_3"
+					]
 				},
 				{
+					"id": "e45_4",
+					"label": "Take 1 Amber instead of escorting",
 					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "Good luck down there.",
+							"text": "I can spare this much. Good luck.",
 							"amber": 1
 						}
-					],
-					"id": "e45_4"
+					]
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e45_5"
+					"id": "e45_5",
+					"label": "Sorry. We cannot take you with us.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -3093,37 +3015,41 @@ events.dreams={
 			"actor": "collector",
 			"group": "positive",
 			"kind": "merchant",
-			"text": "I found this in a shop that closed years ago. This is my only copy.",
+			"text": "This came from a shop that closed years ago. I have one copy. The buyer pays, and a random member of your original party gets it.",
 			"options": [
 				{
-					"id": "buy",
-					"label": "Buy the item shown",
-					"effect": "buy"
+					"id": "e46_0",
+					"label": "Open the shop",
+					"effect": "inspect",
+					"offer": true,
+					"result": "The shop is open. Inspect the item, then buy it with your own gold if you want it."
 				},
 				{
-					"id": "leave",
-					"label": "Leave it alone",
+					"id": "e46_1",
+					"label": "Keep our gold and move on.",
 					"effect": "leave"
 				},
 				{
-					"id": "inspect",
-					"label": "Check the item first",
-					"effect": "inspect"
+					"id": "e46_2",
+					"label": "Ask where the item came from",
+					"effect": "story",
+					"result": "I bought it when the old shop cleared its shelves. This is the last one I have."
 				},
 				{
-					"id": "decline",
-					"label": "Keep our gold",
+					"id": "e46_3",
+					"label": "Check the price and the item",
+					"effect": "inspect",
+					"result": "There is one copy at the price shown. No bidding and no second sale."
+				},
+				{
+					"id": "e46_4",
+					"label": "We do not need it.",
 					"effect": "leave"
 				},
 				{
-					"id": "reserve",
-					"label": "Leave it for someone else",
+					"id": "e46_5",
+					"label": "Leave it for another day.",
 					"effect": "leave"
-				},
-				{
-					"id": "story",
-					"label": "Ask where it came from",
-					"effect": "story"
 				}
 			]
 		},
@@ -3133,69 +3059,53 @@ events.dreams={
 			"actor": "fungus_farmer",
 			"group": "positive",
 			"kind": "moths",
-			"text": "Keep the lamp still. The moths will settle, and I can catch one without hurting it.",
+			"text": "The moths gathered around a pair of boots in the wall. A steady lamp will draw them away. Without a lamp, I can only collect some Amber for you.",
 			"options": [
 				{
 					"id": "e47_0",
-					"label": "Hold the lamp steady",
-					"effect": "moths"
+					"label": "Use our lamp to uncover the boots",
+					"effect": "moths",
+					"offer": true
 				},
 				{
+					"id": "e47_1",
+					"label": "Take 2 Amber without disturbing the moths",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
+							"text": "I found these beside the nest.",
+							"amber": 2
 						}
-					],
-					"id": "e47_1"
+					]
 				},
 				{
+					"id": "e47_2",
+					"label": "Borrow a lamp for another moth nest",
+					"effect": "lamp",
+					"result": "Take this lamp. Keep it steady when you find another nest."
+				},
+				{
+					"id": "e47_3",
+					"label": "Ask the moth keeper to follow us",
 					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
+							"text": "Let me put the lid on this jar. I will come with you.",
+							"join": true
 						}
-					],
-					"id": "e47_2"
+					]
 				},
 				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e47_3"
+					"id": "e47_4",
+					"label": "Mark the nearby rooms on our map",
+					"effect": "reveal"
 				},
 				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
-							"amber": 1
-						}
-					],
-					"id": "e47_4"
-				},
-				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e47_5"
+					"id": "e47_5",
+					"label": "Leave the moths alone.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -3205,69 +3115,42 @@ events.dreams={
 			"actor": "cave_cartographer",
 			"group": "positive",
 			"kind": "send",
-			"text": "You can send some of your cave purse home now. It will be safe if the rest goes wrong.",
+			"text": "Need gold to spend at a shop? I can take up to 5,000 from the shared purse and give it to one random party member now.",
 			"options": [
 				{
 					"id": "e48_0",
-					"label": "Send 5,000 cave gold home",
-					"effect": "bank"
+					"label": "Pay out up to 5,000 shared gold now",
+					"effect": "bank",
+					"offer": true
 				},
 				{
-					"effect": "venture",
-					"label": "Ask for someone to come with us.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
-						}
-					],
-					"id": "e48_1"
+					"id": "e48_1",
+					"label": "Ask how the purse is shared",
+					"effect": "story",
+					"result": "Purse gold goes to one random original party member when someone leaves. Amber is shared the same way. Dying does not cost you either."
 				},
 				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e48_2"
+					"id": "e48_2",
+					"label": "Ask the porter to join us",
+					"effect": "guide",
+					"result": "{npc} leaves the desk and comes with you."
 				},
 				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e48_3"
+					"id": "e48_3",
+					"label": "Borrow a lamp for the return trip",
+					"effect": "lamp",
+					"result": "You take the porter’s spare lamp."
 				},
 				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
-							"amber": 1
-						}
-					],
-					"id": "e48_4"
+					"id": "e48_4",
+					"label": "Take a pry bar from the supply cart",
+					"effect": "tool",
+					"result": "You take the spare pry bar."
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e48_5"
+					"id": "e48_5",
+					"label": "Keep the gold in the shared purse.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -3277,69 +3160,56 @@ events.dreams={
 			"actor": "inventor",
 			"group": "positive",
 			"kind": "tool",
-			"text": "A wedge opens locks. A lamp keeps moths still. Pick whichever you need.",
+			"text": "I can make a pry bar from these hinges, or refill a lamp. Pick one. You can keep it for the rest of this visit.",
 			"options": [
 				{
 					"id": "e49_0",
-					"label": "Take the pry bar",
-					"effect": "tool"
+					"label": "Take a pry bar for locked hatches",
+					"effect": "tool",
+					"offer": true,
+					"result": "You take the pry bar. It stays in your cave supplies."
 				},
 				{
+					"id": "e49_1",
+					"label": "Take a lamp for the moths",
+					"effect": "lamp",
+					"offer": true,
+					"result": "You take the lamp. It stays in your cave supplies."
+				},
+				{
+					"id": "e49_2",
+					"label": "Take bait for the next guard patrol",
+					"effect": "decoy",
+					"result": "You pack the bait. One guard in the next patrol will turn on the others."
+				},
+				{
+					"id": "e49_3",
+					"label": "Ask the toolmaker to come with us",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
+							"text": "I will bring my tools and watch your back.",
+							"join": true
 						}
-					],
-					"id": "e49_1"
+					]
 				},
 				{
+					"id": "e49_4",
+					"label": "Trade the scrap for 1 Amber",
 					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e49_2"
-				},
-				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e49_3"
-				},
-				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
+							"text": "The toolmaker gives you 1 Amber for the scrap.",
 							"amber": 1
 						}
-					],
-					"id": "e49_4"
+					]
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e49_5"
+					"id": "e49_5",
+					"label": "We have what we need.",
+					"effect": "leave"
 				}
 			]
 		},
@@ -3349,69 +3219,50 @@ events.dreams={
 			"actor": "bell_keeper",
 			"group": "positive",
 			"kind": "farewell",
-			"text": "You made it this far. Take the Amber or open the little box.",
+			"text": "Take a gift before you go: some Amber, something from my supply box, or a spare tool. You only get one.",
 			"options": [
 				{
 					"id": "e50_0",
 					"label": "Take 2 Amber",
-					"effect": "gift"
+					"effect": "gift",
+					"offer": true,
+					"result": "Here. Put these in the shared purse."
 				},
 				{
+					"id": "e50_1",
+					"label": "Open the little supply box",
 					"effect": "venture",
-					"label": "Ask for someone to come with us.",
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "A traveler picks up a weapon.",
-							"ally": "cave_npc"
+							"text": "You open the farewell gift.",
+							"reward": "cave_parcel",
+							"offer": true
 						}
-					],
-					"id": "e50_1"
+					]
 				},
 				{
-					"effect": "venture",
-					"label": "Take a lamp for the lower rooms.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "There is enough oil left.",
-							"flags": [
-								"lamp"
-							]
-						}
-					],
-					"id": "e50_2"
+					"id": "e50_2",
+					"label": "Take a spare lamp",
+					"effect": "lamp",
+					"result": "Take the lamp. You may still need it."
 				},
 				{
-					"effect": "venture",
-					"label": "Take bait to distract the next patrol.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Keep it out of your food bag.",
-							"flags": [
-								"decoy"
-							]
-						}
-					],
-					"id": "e50_3"
+					"id": "e50_3",
+					"label": "Take a spare pry bar",
+					"effect": "tool",
+					"result": "You take the spare pry bar."
 				},
 				{
-					"effect": "venture",
-					"label": "Take 1 Amber and keep moving.",
-					"outcomes": [
-						{
-							"weight": 1,
-							"text": "Good luck down there.",
-							"amber": 1
-						}
-					],
-					"id": "e50_4"
+					"id": "e50_4",
+					"label": "Ask {npc} to stay with us",
+					"effect": "guide",
+					"result": "{npc}: I can stay a little longer. Lead the way."
 				},
 				{
-					"label": "Leave it alone.",
-					"effect": "leave",
-					"id": "e50_5"
+					"id": "e50_5",
+					"label": "Thanks. We have enough.",
+					"effect": "leave"
 				}
 			]
 		}

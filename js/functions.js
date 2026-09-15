@@ -1302,6 +1302,7 @@ function map_keys_and_skills() {
 
 var last_move = new Date();
 function move(x, y, code) {
+	if (character?.cave?.paused || character?.cave_entering) return code ? Promise.reject({ reason: character.cave_entering ? "cave_entering" : "cave_paused" }) : undefined;
 	var map = map,
 		move = calculate_move(character, parseFloat(x) || 0, parseFloat(y) || 0);
 	// alert(move.x+" "+move.y);

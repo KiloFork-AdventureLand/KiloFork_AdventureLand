@@ -45,12 +45,17 @@ function fixture() {
 		get_player: () => p,
 		check_player: () => true,
 		db: {},
+		instances: {},
+		projectiles: {},
+		freeze_instance() {},
+		resume_frozen_instance() {},
 		cave_publish() {},
 		cave_apply() {},
 		cave_say() {},
 		TIMEO: { EU: 1, US: -5, ASIA: 7 },
 	});
 	load(c, "node/logic/generated_maps.js", [
+		"generated_clock",
 		"generated_entry",
 		"generated_member",
 		"generated_can_enter",
@@ -61,6 +66,10 @@ function fixture() {
 		"cave_random",
 		"cave_pick",
 		"cave_shuffle",
+		"cave_receipt",
+		"cave_reply_label",
+		"cave_pause",
+		"cave_resume",
 		"cave_credit",
 		"cave_resolve_vote",
 		"cave_interaction",
@@ -184,6 +193,12 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	c.render_cave_status();
 	c.render_cave_choice();
 	c.cave_manual("enter");
+	c.cave_entry_animation({ names: ["A"], duration: 1800 });
+	c.draw_cave_entrance();
+	c.decorate_cave_gate({});
+	c.cave_gate_piece("outside", 0, 0, 16, 16);
+	c.update_cave_hud(true);
+	c.update_cave_info();
 	load(c, "js/game.js", ["add_animatable"]);
 	assert.equal(c.add_animatable("dreams_gate", {}), undefined);
 	c.prune_generated_maps();
@@ -273,6 +288,7 @@ test("admission reserves one daily visit per account and rejects a used companio
 		simple_distance: () => 0,
 		get_player: (name) => members.find((p) => p.name === name),
 		prepare_generated_run: async () => [],
+		cave_enter_effect: async () => {},
 		install_generated_run: (run) => {
 			run.floors = ["floor"];
 		},
@@ -318,11 +334,15 @@ test("passing a rescue or a dispute lets the NPC fight continue", () => {
 		throw Error("The fight must continue");
 	};
 	load(c, "node/logic/cave_of_many_dreams.js", ["cave_apply"]);
-	const rescue = { rescue: true, actors: [], encounter: { group: "mixed" } };
+	const rescue = { rescue: true, npc: { name: "Rin" }, actors: [], encounter: { group: "mixed" } };
 	c.cave_apply(run, rescue, { effect: "leave" });
 	assert.equal(rescue.decision, "watch");
 	assert.equal(rescue.saving, false);
-	const dispute = { npc: { zone_actor: {} }, rival: { zone_actor: {} }, encounter: { group: "mixed" } };
+	const dispute = {
+		npc: { name: "Rin", zone_actor: {} },
+		rival: { name: "Kell", zone_actor: {} },
+		encounter: { group: "mixed" },
+	};
 	c.cave_apply(run, dispute, { effect: "leave" });
 	assert.equal(dispute.conflict, true);
 	assert.equal(dispute.npc.zone_actor.prey, dispute.rival);
@@ -364,4 +384,35 @@ test("generated doors reach the walkable threshold and the return door performs 
 	p.rip = true;
 	await c.cave_interaction(p, { action: "exit" });
 	assert.equal(exits, 2);
+});
+
+test("hiring the speaking NPC keeps that actor, name and appearance", () => {
+	const { c, run } = fixture(),
+		npc = { name: "Rin", skin: "cmale", cx: { hat: "hat1" }, zone_actor: { side: "neutral" } };
+	const encounter = G.events.dreams.encounters.find((e) => e.id === "e05"),
+		room = { id: "guard", npc, encounter, actors: [npc] };
+	run.cave = { gold: 5000, amber: 0, flags: {}, rooms: [room], actors: new Set([npc]) };
+	c.cave_complete = () => {
+		room.done = true;
+	};
+	c.cave_credit = () => {};
+	c.cave_spawn = () => {
+		throw Error("The speaker must join without creating a replacement NPC");
+	};
+	load(c, "node/logic/cave_of_many_dreams.js", [
+		"cave_apply",
+		"cave_venture",
+		"cave_follow_actor",
+		"cave_add_follower",
+	]);
+	c.cave_apply(run, room, encounter.options[0]);
+	assert.equal(room.npc, npc);
+	assert.equal(npc.name, "Rin");
+	assert.equal(npc.skin, "cmale");
+	assert.equal(npc.zone_actor.side, "ally");
+	assert.equal(npc.zone_actor.follow, true);
+	assert.equal(npc.zone_actor.idle, false);
+	assert.equal(run.cave.actors.size, 1);
+	assert.equal(run.cave.gold, 3000);
+	assert.equal(room.done, true);
 });
