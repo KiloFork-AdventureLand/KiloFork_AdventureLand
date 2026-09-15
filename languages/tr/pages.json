@@ -1,4 +1,5 @@
 {
+	"pages.steam_signup.client_help": "Bu özellik, oyun istemcisini çalıştırmakta sorun yaşayan oyunculara yardımcı olur.",
 	"pages.steam_signup.title": "Steam ile Kaydol",
 	"pages.steam_signup.intro": "Steam'de Adventure Land'e sahip misin? Satın aldığını doğrulayarak hesap oluşturabilir ve tarayıcında oynayabilirsin.",
 	"pages.steam_signup.verified": "Steam sahipliği doğrulandı. Adventure Land hesabın için bir e-posta adresi ve şifre seç.",

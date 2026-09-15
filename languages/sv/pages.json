@@ -1,4 +1,5 @@
 {
+	"pages.steam_signup.client_help": "Den här funktionen hjälper spelare som har problem med att köra spelklienten.",
 	"pages.steam_signup.title": "Registrera dig med Steam",
 	"pages.steam_signup.intro": "Äger du Adventure Land på Steam? Bekräfta ditt köp för att skapa ett konto och spela i webbläsaren.",
 	"pages.steam_signup.verified": "Det är bekräftat att du äger spelet på Steam. Välj en e-postadress och ett lösenord för ditt Adventure Land-konto.",

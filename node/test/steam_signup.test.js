@@ -463,7 +463,7 @@ test("all signup phrases are translated and the actual forms render in every sup
 	const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(root), { autoescape: true });
 	env.addFilter("to_json", JSON.stringify);
 	const ids = Object.keys(localization.catalog("en")).filter((id) => id.startsWith("pages.steam_signup."));
-	assert.equal(ids.length, 6);
+	assert.equal(ids.length, 7);
 	for (const { code } of require("../../js/phrases").languages) {
 		const catalog =
 			code === "en"
@@ -472,7 +472,8 @@ test("all signup phrases are translated and the actual forms render in every sup
 		for (const id of ids) {
 			assert.ok(catalog[id], code + ": " + id);
 			assert.ok(!/[{}<>]/.test(catalog[id]), code + ": unexpected placeholder or markup");
-			assert.ok(catalog[id].includes("Steam"), code + ": preserve Steam");
+			if (localization.catalog("en")[id].includes("Steam"))
+				assert.ok(catalog[id].includes("Steam"), code + ": preserve Steam");
 			if (code !== "en") assert.notEqual(catalog[id], localization.catalog("en")[id], code + ": untranslated");
 		}
 		env.addGlobal("phrase", (id, params) => localization.phrase(id, params, code));

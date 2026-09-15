@@ -1,4 +1,5 @@
 {
+	"pages.steam_signup.client_help": "ฟีเจอร์นี้ช่วยผู้เล่นที่มีปัญหาในการเปิดไคลเอนต์เกม",
 	"pages.steam_signup.title": "สมัครสมาชิกด้วย Steam",
 	"pages.steam_signup.intro": "มี Adventure Land บน Steam อยู่แล้วใช่ไหม? ยืนยันการซื้อเพื่อสร้างบัญชีและเล่นผ่านเบราว์เซอร์ได้เลย",
 	"pages.steam_signup.verified": "ยืนยันแล้วว่าคุณมีเกมบน Steam เลือกอีเมลและรหัสผ่านสำหรับบัญชี Adventure Land ของคุณ",

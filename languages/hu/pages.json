@@ -1,4 +1,5 @@
 {
+	"pages.steam_signup.client_help": "Ez a funkció azoknak a játékosoknak segít, akiknek gondot okoz a játékkliens futtatása.",
 	"pages.steam_signup.title": "Regisztráció Steammel",
 	"pages.steam_signup.intro": "Megvan az Adventure Land a Steamen? Igazold a vásárlást, hozz létre fiókot, és játssz a böngésződben.",
 	"pages.steam_signup.verified": "Sikeresen ellenőriztük, hogy rendelkezel a játékkal a Steamen. Válassz e-mail-címet és jelszót az Adventure Land-fiókodhoz.",

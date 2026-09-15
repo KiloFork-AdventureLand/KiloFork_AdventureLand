@@ -1,4 +1,5 @@
 {
+	"pages.steam_signup.client_help": "Cette fonctionnalité aide les joueurs qui ont du mal à lancer le client du jeu.",
 	"pages.steam_signup.title": "S’inscrire avec Steam",
 	"pages.steam_signup.intro": "Tu possèdes Adventure Land sur Steam ? Vérifie ton achat pour créer un compte et jouer dans ton navigateur.",
 	"pages.steam_signup.verified": "La possession du jeu sur Steam est confirmée. Choisis une adresse e-mail et un mot de passe pour ton compte Adventure Land.",

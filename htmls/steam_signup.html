@@ -32,6 +32,7 @@
 				</form>
 			{% elif state %}
 				<p>{{ phrase("pages.steam_signup.intro") }}</p>
+				<p>{{ phrase("pages.steam_signup.client_help") }}</p>
 				<form method="post" action="/steam-signup/start">
 					<input type="hidden" name="state" value="{{state}}">
 					<button class="gamebutton block clickable mt5" type="submit">{{ phrase("pages.steam_signup.title") }}</button>

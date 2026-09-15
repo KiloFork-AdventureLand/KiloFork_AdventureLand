@@ -1,4 +1,5 @@
 {
+	"pages.steam_signup.client_help": "تساعد هذه الميزة اللاعبين الذين يواجهون صعوبة في تشغيل تطبيق اللعبة.",
 	"pages.steam_signup.title": "تسجيل حساب عبر Steam",
 	"pages.steam_signup.intro": "هل تملك Adventure Land على Steam؟ أكّد شراءك لإنشاء حساب واللعب في متصفحك.",
 	"pages.steam_signup.verified": "تم التأكد من ملكيتك للعبة على Steam. اختر بريدًا إلكترونيًا وكلمة مرور لحسابك في Adventure Land.",

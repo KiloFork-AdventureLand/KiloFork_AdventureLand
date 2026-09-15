@@ -4,6 +4,8 @@ module.exports = {
 	"pages.steam_signup.title": "Sign Up with Steam",
 	// Browser signup introduction. Steam verifies ownership before the player chooses Adventure Land credentials. Keep Adventure Land and Steam unchanged.
 	"pages.steam_signup.intro": "Own Adventure Land on Steam? Verify your purchase to create an account and play in your browser.",
+	// Below the browser signup introduction. The game client means the installed desktop application, not the player or browser.
+	"pages.steam_signup.client_help": "This feature helps players who have trouble running the game client.",
 	// Shown after Steam verification, above the new account email/password form. These are Adventure Land credentials, not Steam credentials.
 	"pages.steam_signup.verified": "Steam ownership verified. Choose an email and password for your Adventure Land account.",
 	// Invalid, canceled, replayed or expired Steam signup verification. The normal game login session has not expired.

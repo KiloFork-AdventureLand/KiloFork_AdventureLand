@@ -1,4 +1,5 @@
 {
+	"pages.steam_signup.client_help": "Ця функція допомагає гравцям, які мають проблеми із запуском клієнта гри.",
 	"pages.steam_signup.title": "Зареєструватися через Steam",
 	"pages.steam_signup.intro": "Маєш Adventure Land у Steam? Підтвердь покупку, щоб створити обліковий запис і грати в браузері.",
 	"pages.steam_signup.verified": "Володіння грою в Steam підтверджено. Вибери адресу електронної пошти та пароль для облікового запису Adventure Land.",

@@ -1,4 +1,5 @@
 {
+	"pages.steam_signup.client_help": "此功能旨在協助無法順利執行遊戲用戶端的玩家。",
 	"pages.steam_signup.title": "透過Steam註冊",
 	"pages.steam_signup.intro": "你在Steam上擁有Adventure Land嗎？驗證購買後即可建立帳號，在瀏覽器中遊玩。",
 	"pages.steam_signup.verified": "已確認你在Steam上擁有本遊戲。請為Adventure Land帳號設定電子郵件地址和密碼。",

@@ -1,4 +1,5 @@
 {
+	"pages.steam_signup.client_help": "Tämä toiminto auttaa pelaajia, joilla on vaikeuksia peliohjelman käytössä.",
 	"pages.steam_signup.title": "Rekisteröidy Steamilla",
 	"pages.steam_signup.intro": "Omistatko pelin Adventure Land Steamissa? Vahvista ostoksesi, luo tili ja pelaa selaimessa.",
 	"pages.steam_signup.verified": "Pelin omistus Steamissa on vahvistettu. Valitse sähköpostiosoite ja salasana Adventure Land -tilillesi.",
