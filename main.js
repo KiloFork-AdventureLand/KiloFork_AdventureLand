@@ -98,6 +98,25 @@ try {
 
 // ==================== ROUTES ====================
 
+var steam_signup = require("./steam_signup").create_steam_signup({
+	key: () => keys.steam_publisher_web_apikey,
+	get_user,
+	purify_email,
+	local_origin: Local ? options.base_url : null,
+	signup(args, grant) {
+		args.res.infs = [];
+		return signup_or_login_api(args, grant);
+	},
+	async render(req, res, form) {
+		var domain = await get_domain(req);
+		res.send(nunjucks.render("htmls/steam_signup.html", { domain, ...form }));
+	},
+});
+app.get("/steam-signup", steam_signup.page);
+app.post("/steam-signup/start", steam_signup.start);
+app.get("/steam-signup/callback", steam_signup.callback);
+app.post("/steam-signup/complete", steam_signup.complete);
+
 // Main page / Selection
 app.get("/", async (req, res, next) => {
 	var user = await get_user(req),

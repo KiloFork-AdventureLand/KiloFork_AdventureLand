@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Rekisteröidy Steamilla",
+	"pages.steam_signup.intro": "Omistatko pelin Adventure Land Steamissa? Vahvista ostoksesi, luo tili ja pelaa selaimessa.",
+	"pages.steam_signup.verified": "Pelin omistus Steamissa on vahvistettu. Valitse sähköpostiosoite ja salasana Adventure Land -tilillesi.",
+	"pages.steam_signup.failed": "Steam-vahvistus epäonnistui tai vanhentui. Yritä uudelleen.",
+	"pages.steam_signup.not_owned": "Tämä Steam-tili ei omista peliä Adventure Land.",
+	"pages.steam_signup.unavailable": "Steam-vahvistus ei ole nyt käytettävissä. Yritä myöhemmin uudelleen.",
 	"pages.hub.title": "Hub - {name}",
 	"pages.contents.selection_features.upcoming": "TULOSSA",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land – päivitystiedot",

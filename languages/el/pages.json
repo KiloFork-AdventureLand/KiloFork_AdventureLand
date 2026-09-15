@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Εγγραφή μέσω Steam",
+	"pages.steam_signup.intro": "Έχεις το Adventure Land στο Steam; Επιβεβαίωσε την αγορά σου για να δημιουργήσεις λογαριασμό και να παίξεις στο πρόγραμμα περιήγησής σου.",
+	"pages.steam_signup.verified": "Επιβεβαιώθηκε ότι έχεις το παιχνίδι στο Steam. Διάλεξε email και κωδικό πρόσβασης για τον λογαριασμό σου στο Adventure Land.",
+	"pages.steam_signup.failed": "Η επαλήθευση Steam απέτυχε ή έληξε. Δοκίμασε ξανά.",
+	"pages.steam_signup.not_owned": "Αυτός ο λογαριασμός Steam δεν έχει το Adventure Land.",
+	"pages.steam_signup.unavailable": "Η επαλήθευση Steam δεν είναι διαθέσιμη αυτή τη στιγμή. Δοκίμασε ξανά αργότερα.",
 	"pages.hub.title": "Hub - {name}",
 	"pages.contents.selection_features.upcoming": "ΠΡΟΣΕΧΩΣ",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Σημειώσεις ενημερώσεων",

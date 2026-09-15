@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "สมัครสมาชิกด้วย Steam",
+	"pages.steam_signup.intro": "มี Adventure Land บน Steam อยู่แล้วใช่ไหม? ยืนยันการซื้อเพื่อสร้างบัญชีและเล่นผ่านเบราว์เซอร์ได้เลย",
+	"pages.steam_signup.verified": "ยืนยันแล้วว่าคุณมีเกมบน Steam เลือกอีเมลและรหัสผ่านสำหรับบัญชี Adventure Land ของคุณ",
+	"pages.steam_signup.failed": "การยืนยัน Steam ล้มเหลวหรือหมดอายุแล้ว โปรดลองอีกครั้ง",
+	"pages.steam_signup.not_owned": "บัญชี Steam นี้ไม่มี Adventure Land",
+	"pages.steam_signup.unavailable": "ขณะนี้ไม่สามารถยืนยัน Steam ได้ โปรดลองอีกครั้งในภายหลัง",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "เร็ว ๆ นี้",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - บันทึกอัปเดต",

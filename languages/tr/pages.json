@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Steam ile Kaydol",
+	"pages.steam_signup.intro": "Steam'de Adventure Land'e sahip misin? Satın aldığını doğrulayarak hesap oluşturabilir ve tarayıcında oynayabilirsin.",
+	"pages.steam_signup.verified": "Steam sahipliği doğrulandı. Adventure Land hesabın için bir e-posta adresi ve şifre seç.",
+	"pages.steam_signup.failed": "Steam doğrulaması başarısız oldu veya süresi doldu. Lütfen tekrar dene.",
+	"pages.steam_signup.not_owned": "Bu Steam hesabı Adventure Land'e sahip değil.",
+	"pages.steam_signup.unavailable": "Steam doğrulaması şu anda kullanılamıyor. Lütfen daha sonra tekrar dene.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "YAKINDA",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Güncelleme Notları",

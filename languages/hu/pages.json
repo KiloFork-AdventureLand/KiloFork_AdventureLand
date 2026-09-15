@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Regisztráció Steammel",
+	"pages.steam_signup.intro": "Megvan az Adventure Land a Steamen? Igazold a vásárlást, hozz létre fiókot, és játssz a böngésződben.",
+	"pages.steam_signup.verified": "Sikeresen ellenőriztük, hogy rendelkezel a játékkal a Steamen. Válassz e-mail-címet és jelszót az Adventure Land-fiókodhoz.",
+	"pages.steam_signup.failed": "A Steam-ellenőrzés sikertelen volt vagy lejárt. Próbáld újra.",
+	"pages.steam_signup.not_owned": "Ez a Steam-fiók nem rendelkezik az Adventure Land játékkal.",
+	"pages.steam_signup.unavailable": "A Steam-ellenőrzés jelenleg nem érhető el. Próbáld újra később.",
 	"pages.hub.title": "Hub - {name}",
 	"pages.contents.selection_features.upcoming": "HAMAROSAN",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land – Frissítési jegyzetek",

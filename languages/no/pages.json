@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Registrer deg med Steam",
+	"pages.steam_signup.intro": "Eier du Adventure Land på Steam? Bekreft kjøpet ditt for å opprette en konto og spille i nettleseren.",
+	"pages.steam_signup.verified": "Det er bekreftet at du eier spillet på Steam. Velg en e-postadresse og et passord for Adventure Land-kontoen din.",
+	"pages.steam_signup.failed": "Steam-bekreftelsen mislyktes eller har utløpt. Prøv igjen.",
+	"pages.steam_signup.not_owned": "Denne Steam-kontoen eier ikke Adventure Land.",
+	"pages.steam_signup.unavailable": "Steam-bekreftelse er ikke tilgjengelig akkurat nå. Prøv igjen senere.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "KOMMENDE",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land – oppdateringsnotater",

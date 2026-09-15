@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Înscriere prin Steam",
+	"pages.steam_signup.intro": "Ai Adventure Land pe Steam? Verifică achiziția pentru a crea un cont și a juca în browser.",
+	"pages.steam_signup.verified": "Am confirmat că deții jocul pe Steam. Alege un e-mail și o parolă pentru contul tău Adventure Land.",
+	"pages.steam_signup.failed": "Verificarea Steam a eșuat sau a expirat. Încearcă din nou.",
+	"pages.steam_signup.not_owned": "Acest cont Steam nu deține Adventure Land.",
+	"pages.steam_signup.unavailable": "Verificarea Steam nu este disponibilă momentan. Încearcă din nou mai târziu.",
 	"pages.hub.title": "Hub - {name}",
 	"pages.contents.selection_features.upcoming": "ÎN CURÂND",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Note de actualizare",

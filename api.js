@@ -81,7 +81,8 @@ function load_bank_api(args) {
 	return { success: true, gold: bank.gold, packs: packs };
 }
 
-async function signup_or_login_api(args) {
+// steam_signup is trusted server context from the verified OpenID route, never API input.
+async function signup_or_login_api(args, steam_signup) {
 	var domain = await get_domain(args.req),
 		email = args.email,
 		password = args.password,
@@ -89,7 +90,8 @@ async function signup_or_login_api(args) {
 
 	if (existing && existing.server && msince(existing.last_online) < 15 && msince(gf(existing, "last_auth", really_old)) < 15) return { failed: true, reason: "cant_login_inside_bank" };
 
-	if (!domain.electron && !domain.tauri && !args.only_login && !Dev) return { failed: true, reason: "cant_signup_on_web" };
+	if (steam_signup && (!args.only_signup || args.only_login || existing)) return { failed: true, reason: "already_signed_up" };
+	if (!domain.electron && !domain.tauri && !args.only_login && !Dev && !steam_signup) return { failed: true, reason: "cant_signup_on_web" };
 
 	if (existing && !args.only_signup) {
 		if (existing.password == hash_password(password, gf(existing, "salt", "5"))) {
@@ -134,6 +136,7 @@ async function signup_or_login_api(args) {
 	var R = await tx(
 		async () => {
 			if (await tx_get("MK_email-" + A.email)) ex("email_exists");
+			if (A.steam_signup && await tx_get("MK_steam-signup-" + A.steam_signup.id)) ex("steam_signup_used");
 			var salt = random_string(20);
 			var hpassword = hash_password(A.password, salt);
 			R.user = {
@@ -152,8 +155,8 @@ async function signup_or_login_api(args) {
 				worth: 0,
 				language: A.language,
 				language_set: A.language_set,
-				platform: "",
-				pid: "",
+				platform: A.steam_signup ? "steam" : "",
+				pid: A.steam_signup ? A.steam_signup.steamid : "",
 				guild: "",
 				server: "",
 				friends: [],
@@ -178,13 +181,15 @@ async function signup_or_login_api(args) {
 			R.auth = get_new_auth(R.user);
 			await tx_save(R.user);
 			await tx_save({ _id: "MK_email-" + A.email, type: "email", phrase: A.email, owner: get_id(R.user), created: new Date() });
+			if (A.steam_signup) await tx_save({ _id: "MK_steam-signup-" + A.steam_signup.id, type: "steam_signup", owner: get_id(R.user), created: new Date() });
 		},
 		{
 			email: email,
 			password: password,
 			signupth: signupth,
 			referrer: referrer,
-			slots: domain.electron || domain.tauri ? 8 : 5,
+			slots: domain.electron || domain.tauri || steam_signup ? 8 : 5,
+			steam_signup: steam_signup || null,
 			ip: get_ip(args.req),
 			country: get_country(args.req),
 			language: domain.language,

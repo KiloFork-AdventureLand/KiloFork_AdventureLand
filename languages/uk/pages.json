@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Зареєструватися через Steam",
+	"pages.steam_signup.intro": "Маєш Adventure Land у Steam? Підтвердь покупку, щоб створити обліковий запис і грати в браузері.",
+	"pages.steam_signup.verified": "Володіння грою в Steam підтверджено. Вибери адресу електронної пошти та пароль для облікового запису Adventure Land.",
+	"pages.steam_signup.failed": "Перевірка Steam не вдалася або термін її дії минув. Спробуй ще раз.",
+	"pages.steam_signup.not_owned": "Цей обліковий запис Steam не має Adventure Land.",
+	"pages.steam_signup.unavailable": "Перевірка Steam зараз недоступна. Спробуй пізніше.",
 	"pages.hub.title": "Hub - {name}",
 	"pages.contents.selection_features.upcoming": "НЕЗАБАРОМ",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land — нотатки про оновлення",

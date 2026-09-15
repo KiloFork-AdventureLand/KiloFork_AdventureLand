@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Зарегистрироваться через Steam",
+	"pages.steam_signup.intro": "У тебя есть Adventure Land в Steam? Подтверди покупку, чтобы создать аккаунт и играть в браузере.",
+	"pages.steam_signup.verified": "Владение игрой в Steam подтверждено. Выбери адрес электронной почты и пароль для аккаунта Adventure Land.",
+	"pages.steam_signup.failed": "Проверка Steam не удалась или срок её действия истёк. Попробуй ещё раз.",
+	"pages.steam_signup.not_owned": "На этом аккаунте Steam нет Adventure Land.",
+	"pages.steam_signup.unavailable": "Проверка Steam сейчас недоступна. Попробуй позже.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "СКОРО",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land — новости обновлений",

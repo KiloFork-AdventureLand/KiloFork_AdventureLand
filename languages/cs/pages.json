@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Zaregistrovat se přes Steam",
+	"pages.steam_signup.intro": "Máš Adventure Land na Steamu? Ověř svůj nákup, vytvoř si účet a hraj v prohlížeči.",
+	"pages.steam_signup.verified": "Vlastnictví hry na Steamu bylo ověřeno. Zvol si e-mail a heslo pro svůj účet Adventure Land.",
+	"pages.steam_signup.failed": "Ověření přes Steam selhalo nebo vypršelo. Zkus to znovu.",
+	"pages.steam_signup.not_owned": "Tento účet na Steamu nevlastní Adventure Land.",
+	"pages.steam_signup.unavailable": "Ověření přes Steam teď není dostupné. Zkus to později.",
 	"pages.hub.title": "Hub - {name}",
 	"pages.contents.selection_features.upcoming": "JIŽ BRZY",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land – novinky v aktualizacích",

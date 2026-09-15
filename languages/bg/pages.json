@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Регистрация чрез Steam",
+	"pages.steam_signup.intro": "Имаш Adventure Land в Steam? Потвърди покупката си, за да създадеш акаунт и да играеш в браузъра.",
+	"pages.steam_signup.verified": "Притежаването на играта в Steam е потвърдено. Избери имейл и парола за своя акаунт в Adventure Land.",
+	"pages.steam_signup.failed": "Проверката чрез Steam е неуспешна или е изтекла. Опитай отново.",
+	"pages.steam_signup.not_owned": "Този Steam акаунт не притежава Adventure Land.",
+	"pages.steam_signup.unavailable": "Проверката чрез Steam в момента не е достъпна. Опитай отново по-късно.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "ПРЕДСТОИ",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Бележки за обновленията",

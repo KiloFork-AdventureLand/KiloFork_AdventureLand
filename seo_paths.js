@@ -1,4 +1,5 @@
 const PUBLIC_PATHS = ["/", "/docs", "/linux", "/mainframe", "/vscode", "/hub"];
+// /steam-signup and its callbacks are private, noindex account routes, not sitemap entries.
 
 const DOCS_PATHS = [
 	"/docs/code",

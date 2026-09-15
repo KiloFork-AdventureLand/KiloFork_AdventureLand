@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Registreren met Steam",
+	"pages.steam_signup.intro": "Heb je Adventure Land op Steam? Bevestig je aankoop om een account aan te maken en in je browser te spelen.",
+	"pages.steam_signup.verified": "Het bezit van het spel op Steam is bevestigd. Kies een e-mailadres en wachtwoord voor je Adventure Land-account.",
+	"pages.steam_signup.failed": "De Steam-verificatie is mislukt of verlopen. Probeer het opnieuw.",
+	"pages.steam_signup.not_owned": "Dit Steam-account heeft Adventure Land niet.",
+	"pages.steam_signup.unavailable": "Steam-verificatie is momenteel niet beschikbaar. Probeer het later opnieuw.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "BINNENKORT",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Updatenotities",

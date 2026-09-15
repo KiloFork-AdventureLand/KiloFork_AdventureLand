@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Steamで新規登録",
+	"pages.steam_signup.intro": "SteamでAdventure Landをお持ちですか？購入を確認してアカウントを作成すれば、ブラウザーでプレイできます。",
+	"pages.steam_signup.verified": "Steamでのゲーム所有を確認しました。Adventure Landアカウント用のメールアドレスとパスワードを設定してください。",
+	"pages.steam_signup.failed": "Steamの認証に失敗したか、有効期限が切れました。もう一度お試しください。",
+	"pages.steam_signup.not_owned": "このSteamアカウントはAdventure Landを所有していません。",
+	"pages.steam_signup.unavailable": "現在Steamの認証を利用できません。しばらくしてからもう一度お試しください。",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "近日登場",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - 更新情報",

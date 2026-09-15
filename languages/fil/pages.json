@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Magparehistro gamit ang Steam",
+	"pages.steam_signup.intro": "May Adventure Land ka sa Steam? I-verify ang pagbili mo para gumawa ng account at maglaro sa browser.",
+	"pages.steam_signup.verified": "Nakumpirmang pag-aari mo ang laro sa Steam. Pumili ng email at password para sa iyong Adventure Land account.",
+	"pages.steam_signup.failed": "Nabigo o nag-expire ang pag-verify sa Steam. Pakisubukang muli.",
+	"pages.steam_signup.not_owned": "Hindi pag-aari ng Steam account na ito ang Adventure Land.",
+	"pages.steam_signup.unavailable": "Hindi available ang pag-verify sa Steam sa ngayon. Pakisubukang muli mamaya.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "PARATING",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Mga Tala ng Update",

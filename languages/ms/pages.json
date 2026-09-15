@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Daftar dengan Steam",
+	"pages.steam_signup.intro": "Sudah memiliki Adventure Land di Steam? Sahkan pembelian anda untuk mencipta akaun dan bermain dalam pelayar.",
+	"pages.steam_signup.verified": "Pemilikan permainan di Steam telah disahkan. Pilih e-mel dan kata laluan untuk akaun Adventure Land anda.",
+	"pages.steam_signup.failed": "Pengesahan Steam gagal atau telah tamat tempoh. Sila cuba lagi.",
+	"pages.steam_signup.not_owned": "Akaun Steam ini tidak memiliki Adventure Land.",
+	"pages.steam_signup.unavailable": "Pengesahan Steam tidak tersedia buat masa ini. Sila cuba lagi kemudian.",
 	"pages.hub.title": "Hub - {name}",
 	"pages.contents.selection_features.upcoming": "AKAN DATANG",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Nota Kemas Kini",

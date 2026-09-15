@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Registrarse con Steam",
+	"pages.steam_signup.intro": "¿Tienes Adventure Land en Steam? Verifica tu compra para crear una cuenta y jugar en el navegador.",
+	"pages.steam_signup.verified": "Se ha verificado que tienes el juego en Steam. Elige un correo electrónico y una contraseña para tu cuenta de Adventure Land.",
+	"pages.steam_signup.failed": "La verificación de Steam ha fallado o ha caducado. Inténtalo de nuevo.",
+	"pages.steam_signup.not_owned": "Esta cuenta de Steam no tiene Adventure Land.",
+	"pages.steam_signup.unavailable": "La verificación de Steam no está disponible ahora mismo. Inténtalo más tarde.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "PRÓXIMAMENTE",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Notas de actualización",

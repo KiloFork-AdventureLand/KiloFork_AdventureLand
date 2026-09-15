@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "透過Steam註冊",
+	"pages.steam_signup.intro": "你在Steam上擁有Adventure Land嗎？驗證購買後即可建立帳號，在瀏覽器中遊玩。",
+	"pages.steam_signup.verified": "已確認你在Steam上擁有本遊戲。請為Adventure Land帳號設定電子郵件地址和密碼。",
+	"pages.steam_signup.failed": "Steam驗證失敗或已過期。請再試一次。",
+	"pages.steam_signup.not_owned": "此Steam帳號未擁有Adventure Land。",
+	"pages.steam_signup.unavailable": "目前無法進行Steam驗證。請稍後再試。",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "即將推出",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - 更新說明",

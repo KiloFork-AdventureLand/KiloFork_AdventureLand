@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Đăng ký bằng Steam",
+	"pages.steam_signup.intro": "Bạn có Adventure Land trên Steam? Xác minh giao dịch mua để tạo tài khoản và chơi trên trình duyệt.",
+	"pages.steam_signup.verified": "Đã xác nhận bạn sở hữu trò chơi trên Steam. Chọn email và mật khẩu cho tài khoản Adventure Land của bạn.",
+	"pages.steam_signup.failed": "Xác minh Steam thất bại hoặc đã hết hạn. Vui lòng thử lại.",
+	"pages.steam_signup.not_owned": "Tài khoản Steam này không sở hữu Adventure Land.",
+	"pages.steam_signup.unavailable": "Hiện không thể xác minh Steam. Vui lòng thử lại sau.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "SẮP CÓ",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - Ghi chú cập nhật",

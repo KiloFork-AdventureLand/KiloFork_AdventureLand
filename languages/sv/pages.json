@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Registrera dig med Steam",
+	"pages.steam_signup.intro": "Äger du Adventure Land på Steam? Bekräfta ditt köp för att skapa ett konto och spela i webbläsaren.",
+	"pages.steam_signup.verified": "Det är bekräftat att du äger spelet på Steam. Välj en e-postadress och ett lösenord för ditt Adventure Land-konto.",
+	"pages.steam_signup.failed": "Steam-verifieringen misslyckades eller har gått ut. Försök igen.",
+	"pages.steam_signup.not_owned": "Det här Steam-kontot äger inte Adventure Land.",
+	"pages.steam_signup.unavailable": "Steam-verifieringen är inte tillgänglig just nu. Försök igen senare.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "KOMMANDE",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land – Uppdateringsnyheter",

@@ -2,6 +2,7 @@
 	<div id="pagewrapped" class="loginorselection hidewithmodals">
 		{% if domain.purchase_mode and not domain.electron and not domain.tauri %}
 			<div id="loginbuttons">
+				<a class="textbutton block mb4" href="/steam-signup">{{ phrase("pages.steam_signup.title") }}</a>
 				<div class="whiteheader mb4">{{ phrase_html("pages.contents.login.purchase-on-steam-live") }}</div>
 				<div class="whiteheader mb4">{{ phrase_html("pages.contents.login.purchase-on-mac-app-store-live") }}</div>
 				{% if domain.Dev %}

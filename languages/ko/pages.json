@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "Steam으로 가입",
+	"pages.steam_signup.intro": "Steam에서 Adventure Land를 보유하고 있나요? 구매 내역을 확인하면 계정을 만들고 브라우저에서 플레이할 수 있습니다.",
+	"pages.steam_signup.verified": "Steam에서 게임을 보유하고 있음을 확인했습니다. Adventure Land 계정에 사용할 이메일과 비밀번호를 정해 주세요.",
+	"pages.steam_signup.failed": "Steam 인증에 실패했거나 인증이 만료되었습니다. 다시 시도해 주세요.",
+	"pages.steam_signup.not_owned": "이 Steam 계정은 Adventure Land를 보유하고 있지 않습니다.",
+	"pages.steam_signup.unavailable": "현재 Steam 인증을 이용할 수 없습니다. 나중에 다시 시도해 주세요.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "출시 예정",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - 업데이트 소식",

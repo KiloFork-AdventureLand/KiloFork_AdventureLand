@@ -1,5 +1,17 @@
 // English page catalog. Usage notes protect code, names and dynamic parameters.
 module.exports = {
+	// Browser signup page and entry button. Creates a NEW Adventure Land account, not a Steam login to an existing account. Keep Steam unchanged.
+	"pages.steam_signup.title": "Sign Up with Steam",
+	// Browser signup introduction. Steam verifies ownership before the player chooses Adventure Land credentials. Keep Adventure Land and Steam unchanged.
+	"pages.steam_signup.intro": "Own Adventure Land on Steam? Verify your purchase to create an account and play in your browser.",
+	// Shown after Steam verification, above the new account email/password form. These are Adventure Land credentials, not Steam credentials.
+	"pages.steam_signup.verified": "Steam ownership verified. Choose an email and password for your Adventure Land account.",
+	// Invalid, canceled, replayed or expired Steam signup verification. The normal game login session has not expired.
+	"pages.steam_signup.failed": "Steam verification failed or expired. Please try again.",
+	// Steam says the authenticated Steam account has no active Adventure Land license.
+	"pages.steam_signup.not_owned": "This Steam account does not own Adventure Land.",
+	// Temporary Steam verification/network failure. No existing account or game login changes.
+	"pages.steam_signup.unavailable": "Steam verification is unavailable right now. Please try again later.",
 	// htmls/comm.html: Title of the external Hub page. Keep Hub unchanged; {name} is the game name.
 	"pages.hub.title": "Hub - {name}",
 	// htmls/contents/selection_features.html: Compact tab above the upcoming-content cards, sized like the close control. Use uppercase where supported.

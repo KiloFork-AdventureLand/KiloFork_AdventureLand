@@ -1,4 +1,10 @@
 {
+	"pages.steam_signup.title": "تسجيل حساب عبر Steam",
+	"pages.steam_signup.intro": "هل تملك Adventure Land على Steam؟ أكّد شراءك لإنشاء حساب واللعب في متصفحك.",
+	"pages.steam_signup.verified": "تم التأكد من ملكيتك للعبة على Steam. اختر بريدًا إلكترونيًا وكلمة مرور لحسابك في Adventure Land.",
+	"pages.steam_signup.failed": "فشل التحقق عبر Steam أو انتهت صلاحيته. يرجى المحاولة مجددًا.",
+	"pages.steam_signup.not_owned": "حساب Steam هذا لا يملك Adventure Land.",
+	"pages.steam_signup.unavailable": "التحقق عبر Steam غير متاح حاليًا. يرجى المحاولة لاحقًا.",
   "pages.hub.title": "Hub - {name}",
   "pages.contents.selection_features.upcoming": "قريبًا",
 	"pages.allnotes.adventure-land-update-notes": "Adventure Land - ملاحظات التحديث",
