@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "Server III",
 	"docs.guide.tavern-games.tier-iv": "Server IV+ e PVP",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Lasciare il tavolo.</b> Premi Lascia il tavolo, allontanati dallo sgabello, usa una porta o disconnettiti e te ne andrai dopo la mano in corso; il tuo stack torna per intero nella tua borsa. Un posto disconnesso conserva lo stack: l'orologio continua a scorrere, i bui vengono messi per altre due mani, poi il posto va in pausa e viene incassato dopo cinque minuti. Un riavvio annulla la mano in corso e restituisce ogni puntata. Prima di ogni distribuzione il tavolo pubblica un impegno sul mazzo mescolato e, dopo la mano, la chiave e l'ordine del mazzo che lo verificano.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Gioca una mano"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Gioca una mano",
+	"docs.articles.hub.viewing_items": "Dopo aver effettuato l’accesso, scegli {bank} per vedere gli oggetti e l’oro salvati in banca. Mentre osservi un personaggio, scegli {inventory} o {equipment}. Fai clic su un oggetto per vederne i dettagli. Da queste schermate non puoi spostare né equipaggiare oggetti."
 }

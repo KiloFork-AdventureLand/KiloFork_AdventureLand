@@ -1414,6 +1414,7 @@ function render_slots(player, args) {
 				{
 					skin: skin,
 					onclick:
+						(args.onclick && args.onclick(slot)) ||
 						(args.merchant && "mslot_click('" + player.name + "','" + slot + "')") ||
 						(args.gallery && window["slots" + player.name] && "pslot_click('" + player.name + "','" + slot + "')") ||
 						(args.gallery && "render_item_info('" + current.name + "'," + current.level + ")") ||
@@ -1422,7 +1423,7 @@ function render_slots(player, args) {
 					id: id,
 					cid: cid,
 					draggable: player.me,
-					sname: player.me && slot,
+					sname: player.me ? slot : undefined,
 					shade: shade,
 					s_op: op,
 					slot: slot,
@@ -1616,45 +1617,65 @@ function render_gold_npc() {
 }
 
 var last_rendered_items = "items0";
-function render_items_npc(pack) {
-	tut("bank");
-	if (!character.user) return;
+function render_items_npc(pack, args) {
+	args = args || {};
+	var bank = args.bank || (character && character.user),
+		columns = args.columns || 7;
+	if (!bank) return;
+	if (!args.bank) tut("bank");
 	if (!pack) pack = last_rendered_items;
-	if (pack && !character.user[pack]) {
+	if (pack && !bank[pack]) {
+		if (args.bank) return "";
 		render_interaction("unlock_" + pack, undefined, { pack: pack });
 		topleft_npc = "items";
 		rendered_target = topleft_npc;
 		last_rendered_items = pack; // needs to be after render_interaction
 		return;
 	}
-	last_rendered_items = pack;
-	reset_inventory(1);
-	topleft_npc = "items";
-	rendered_target = topleft_npc;
+	if (!args.bank) {
+		last_rendered_items = pack;
+		reset_inventory(1);
+		topleft_npc = "items";
+		rendered_target = topleft_npc;
+	}
 	var collection = [],
 		last = 0,
-		items = character.user[pack] || [];
+		items = bank[pack] || [];
 	var html = "<div style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; display: inline-block' class='dcontain'>";
-	for (var i = 0; i < Math.ceil(max(character.isize, items.length) / 7); i++) {
-		html += "<div>";
-		for (var j = 0; j < 7; j++) {
+	if (args.bank) html = "<div class='dcontain'>";
+	for (var i = 0; i < Math.ceil(max(args.bank ? 42 : character.isize, items.length) / columns); i++) {
+		html += args.bank ? "<div style='white-space: nowrap'>" : "<div>";
+		for (var j = 0; j < columns; j++) {
 			var current = null;
 			if (last < items.length) current = items[last++];
 			else last++;
 			if (current) {
 				var id = "citem" + (last - 1),
-					item = G.items[current.name],
-					skin = item.skin;
+					item = G.items[current.name] || G.items.placeholder_m,
+					skin = current.skin || item.skin;
 				if (current.expires) skin = item.skin_a;
-				html += item_container({ skin: skin, def: item, id: "str" + id, draggable: true, strnum: last - 1, snum: last - 1 }, current);
+				html += item_container(
+					{
+						skin: skin,
+						def: item,
+						id: "str" + id,
+						draggable: !args.bank,
+						strnum: args.bank ? undefined : last - 1,
+						snum: args.bank ? undefined : last - 1,
+						onclick: args.onclick && args.onclick(last - 1),
+					},
+					current,
+				);
 				collection.push({ id: id, item: item, name: current.name, actual: current, num: last - 1, npc: true });
 			} else {
-				html += item_container({ size: 40, draggable: true, strnum: last - 1 });
+				html += item_container({ size: 40, draggable: !args.bank, strnum: args.bank ? undefined : last - 1 });
 			}
 		}
 		html += "</div>";
 	}
-	html += "</div><div id='storage-item' class='rendercontainer' style='display: inline-block; vertical-align: top; margin-left: 5px'></div>";
+	html += "</div>";
+	if (args.bank) return html;
+	html += "<div id='storage-item' class='rendercontainer' style='display: inline-block; vertical-align: top; margin-left: 5px'></div>";
 	render_ui_panel("#topleftcornerui", html);
 	for (var i = 0; i < collection.length; i++) {
 		var entity = collection[i];
@@ -1742,42 +1763,43 @@ function update_inventory() {
 }
 
 function render_inventory(reset) {
+	var character = is_comm ? observing : window.character;
 	var last = 0,
 		right_style = "text-align: right",
 		rids = [];
-	if (inventory && !reset) {
+	if (!is_comm && inventory && !reset) {
 		$("#bottomleftcorner").html("");
 		/*$("#theinventory").remove();*/ inventory = false;
 		return;
 	} else if (reset && !inventory) reset = false;
+	if (!character) return;
 	if (!reset) unread_chat = 0;
 	if (!reset) inventory_opened_for = null;
 	var html = "",
 		columns = 7;
-	if (is_comm) columns = 5;
-	var character = window.character;
-	if (is_comm) character = observing;
+	if (is_comm) {
+		columns = Math.max(1, Math.min(7, Math.floor((viewport_width() - 44) / 54)));
+		comm_items.inventory = character.items.slice();
+	}
 	// Overflow can add or remove rows; updating existing slots cannot resize the grid.
-	if (reset && $(".theinventory [data-cnum]").length == Math.ceil(max(character.isize, character.items.length) / columns) * columns) return update_inventory();
+	if (!is_comm && reset && $(".theinventory [data-cnum]").length == Math.ceil(max(character.isize, character.items.length) / columns) * columns) return update_inventory();
 	if (!reset && !is_comm)
 		html +=
 			"<div style='background-color: black; border: 5px solid gray; margin-bottom: -5px; padding: 2px 16px 2px 16px; font-size: 24px; vertical-align: bottom; display: none; color: #FCB136' class='newchatui clickable' onclick='stpr(event); render_inventory()'>" +
 			phrase.html("interface.inventory.12_new_chat_messages") +
 			"</div><div></div>";
-	if (is_comm) html += "<div onclick='hide_modal()'>";
+	html += "<div style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; display: inline-block; vertical-align: bottom' class='dcontain theinventory'>";
 	html +=
-		"<div style='background-color: black; border: 5px solid gray; padding: 2px; font-size: 24px; display: inline-block; vertical-align: bottom; " +
-		((is_comm && "margin-top: 40px; margin-bottom: 40px") || "") +
-		"' class='dcontain theinventory'>";
-	if (!is_comm)
-		html +=
-			"<button type='button' class='gamebutton ui-close ui-close-word inventory-close' title='" +
-			phrase.html("interface.inventory.close_inventory") +
-			"' aria-label='" +
-			phrase.html("interface.inventory.close_inventory") +
-			"' onpointerdown='stpr(event)' onclick='btc(event); render_inventory()'><span aria-hidden='true'>" +
-			phrase.html("interface.inventory.close") +
-			"</span></button>";
+		"<button type='button' class='gamebutton ui-close ui-close-word inventory-close' title='" +
+		phrase.html("interface.inventory.close_inventory") +
+		"' aria-label='" +
+		phrase.html("interface.inventory.close_inventory") +
+		"' onpointerdown='stpr(event)' onclick='btc(event); " +
+		(is_comm ? "hide_modal()" : "render_inventory()") +
+		"'><span aria-hidden='true'>" +
+		phrase.html("interface.inventory.close") +
+		"</span></button>";
+	if (is_comm) html += "<div style='padding: 4px'>" + comm_chat_escape(character.name) + "</div>";
 	if (c_enabled) {
 		if (is_comm) {
 			html += "<div style='padding: 4px; display: inline-block;'>"; // '
@@ -1789,8 +1811,7 @@ function render_inventory(reset) {
 				"</span>: <span class='cashnum'>" +
 				to_pretty_num(character.cash || 0) +
 				"</span></div>";
-			html += "<div style='border-bottom: 5px solid gray; margin-bottom: 2px; margin-left: -5px; margin-right: -5px'></div>";
-			right_style = "";
+			right_style = " display: inline-block; float: right";
 		} else if (is_tauri) {
 			html += "<div style='padding: 4px; display: inline-block' class='clickable' onclick='pcs(event); shells_click()'>"; // '
 			html +=
@@ -1836,7 +1857,7 @@ function render_inventory(reset) {
 		"</span></div>";
 	html += "<div style='border-bottom: 5px solid gray; margin-bottom: 2px; margin-left: -5px; margin-right: -5px'></div>";
 	for (var i = 0; i < Math.ceil(max(character.isize, character.items.length) / columns); i++) {
-		html += "<div>";
+		html += is_comm ? "<div style='white-space: nowrap'>" : "<div>";
 		for (var j = 0; j < columns; j++) {
 			var current = null,
 				id = "citem" + last,
@@ -1851,8 +1872,8 @@ function render_inventory(reset) {
 					var name = (current.p && current.p.name) || "placeholder_m";
 					html += item_container({
 						shade: G.items[name].skin,
-						onclick: "inventory_click(" + last + ",event)",
-						onmousedown: "inventory_middle(" + last + ",event)",
+						onclick: is_comm ? undefined : "inventory_click(" + last + ",event)",
+						onmousedown: is_comm ? undefined : "inventory_middle(" + last + ",event)",
 						def: item,
 						id: id,
 						cid: cc_id,
@@ -1868,21 +1889,30 @@ function render_inventory(reset) {
 					rids[last] = rid;
 				} else {
 					html += item_container(
-						{ skin: skin, onclick: "inventory_click(" + last + ",event)", onmousedown: "inventory_middle(" + last + ",event)", def: item, id: id, cid: cc_id, draggable: true, num: last, cnum: last },
+						{
+							skin: skin,
+							onclick: is_comm ? "comm_item_click('inventory'," + last + ")" : "inventory_click(" + last + ",event)",
+							onmousedown: is_comm ? undefined : "inventory_middle(" + last + ",event)",
+							def: item,
+							id: id,
+							cid: cc_id,
+							draggable: !is_comm,
+							num: is_comm ? undefined : last,
+							cnum: last,
+						},
 						current,
 					);
 				}
 			} else {
-				html += item_container({ size: 40, draggable: true, cnum: last, cid: cc_id });
+				html += item_container({ size: 40, draggable: !is_comm, cnum: last, cid: cc_id });
 			}
 			last++;
 		}
 		html += "</div>";
 	}
 	html += "</div>";
-	if (is_comm) html += "</div>";
 	cache_i = character.items.slice();
-	if (is_comm) return show_modal(html, { wrap: false });
+	if (is_comm) return show_modal(html, { wrap: false, hideinbackground: true });
 	inventory = true;
 	if (!reset) {
 		html += "<div class='inventory-item' style='display: inline-block; vertical-align: top; margin-left: 5px'></div>";

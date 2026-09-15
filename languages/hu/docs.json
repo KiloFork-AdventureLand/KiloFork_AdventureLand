@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "III szerverek",
 	"docs.guide.tavern-games.tier-iv": "IV+ és PVP szerverek",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Az asztal elhagyása.</b> Nyomd meg a Távozást, sétálj el a széktől, használj egy ajtót vagy jelentkezz ki, és a folyó leosztás után távozol; a zsetonjaid teljes egészében visszakerülnek az erszényedbe. A megszakadt kapcsolatú hely megtartja a zsetonjait: az óra tovább jár, még két leosztásban felkerülnek a vakok, aztán a hely kiül, és öt perc múlva kifizetik. Az újraindítás érvényteleníti a folyó leosztást, és minden tétet visszaad. Az asztal minden osztás előtt közzéteszi a megkevert pakli elkötelezettségét, a leosztás után pedig az azt igazoló kulcsot és paklisorrendet.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Egy leosztás lejátszása"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Egy leosztás lejátszása",
+	"docs.articles.hub.viewing_items": "Bejelentkezés után válaszd a {bank} lehetőséget a bankban tárolt tárgyak és arany mentett adatainak megtekintéséhez. Egy karakter megfigyelése közben válaszd a {inventory} vagy a {equipment} lehetőséget. Kattints egy tárgyra a részletekért. Ezekben az ablakokban nem lehet tárgyakat mozgatni vagy felszerelni."
 }

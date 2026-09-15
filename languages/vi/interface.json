@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} chơi tiếp",
 	"interface.poker.log.dc": "{name} mất kết nối",
 	"interface.poker.log.back": "{name} đã quay lại",
-	"interface.poker.log.void": "Ván bài đã bị hủy và mọi cược được hoàn lại"
+	"interface.poker.log.void": "Ván bài đã bị hủy và mọi cược được hoàn lại",
+	"interface.hub.bank": "NGÂN HÀNG",
+	"interface.hub.equipment": "TRANG BỊ",
+	"interface.hub.pack": "Ngăn {number}",
+	"interface.hub.saved_bank": "Nội dung ngân hàng đã lưu. Những thay đổi gần đây có thể chưa hiển thị."
 }

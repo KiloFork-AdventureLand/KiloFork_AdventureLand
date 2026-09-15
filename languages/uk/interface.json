@@ -942,5 +942,9 @@
 	"interface.poker.log.in": "{name} знову в грі",
 	"interface.poker.log.dc": "{name} втратив зв'язок",
 	"interface.poker.log.back": "{name} повернувся",
-	"interface.poker.log.void": "Роздачу скасовано, усі ставки повернуто"
+	"interface.poker.log.void": "Роздачу скасовано, усі ставки повернуто",
+	"interface.hub.bank": "БАНК",
+	"interface.hub.equipment": "СПОРЯДЖЕННЯ",
+	"interface.hub.pack": "Комірка {number}",
+	"interface.hub.saved_bank": "Збережений вміст банку. Останні зміни можуть ще не відображатися."
 }

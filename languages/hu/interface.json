@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} visszaült",
 	"interface.poker.log.dc": "{name} kapcsolata megszakadt",
 	"interface.poker.log.back": "{name} visszatért",
-	"interface.poker.log.void": "A leosztást érvénytelenítették, minden tét visszajárt"
+	"interface.poker.log.void": "A leosztást érvénytelenítették, minden tét visszajárt",
+	"interface.hub.bank": "BANK",
+	"interface.hub.equipment": "FELSZERELÉS",
+	"interface.hub.pack": "{number}. rekesz",
+	"interface.hub.saved_bank": "A bank mentett tartalma. A legutóbbi változások még nem feltétlenül láthatók."
 }

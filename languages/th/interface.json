@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} กลับมาเล่นแล้ว",
 	"interface.poker.log.dc": "{name} หลุดการเชื่อมต่อ",
 	"interface.poker.log.back": "{name} กลับมาแล้ว",
-	"interface.poker.log.void": "มือนี้ถูกยกเลิกและคืนเงินเดิมพันทั้งหมดแล้ว"
+	"interface.poker.log.void": "มือนี้ถูกยกเลิกและคืนเงินเดิมพันทั้งหมดแล้ว",
+	"interface.hub.bank": "ธนาคาร",
+	"interface.hub.equipment": "อุปกรณ์",
+	"interface.hub.pack": "ช่องเก็บของ {number}",
+	"interface.hub.saved_bank": "ข้อมูลธนาคารที่บันทึกไว้ การเปลี่ยนแปลงล่าสุดอาจยังไม่แสดง"
 }

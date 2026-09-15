@@ -942,5 +942,9 @@
 	"interface.poker.log.in": "{name} снова в игре",
 	"interface.poker.log.dc": "{name} потерял связь",
 	"interface.poker.log.back": "{name} вернулся",
-	"interface.poker.log.void": "Раздача отменена, все ставки возвращены"
+	"interface.poker.log.void": "Раздача отменена, все ставки возвращены",
+	"interface.hub.bank": "БАНК",
+	"interface.hub.equipment": "СНАРЯЖЕНИЕ",
+	"interface.hub.pack": "Ячейка {number}",
+	"interface.hub.saved_bank": "Сохранённое содержимое банка. Последние изменения могут ещё не отображаться."
 }

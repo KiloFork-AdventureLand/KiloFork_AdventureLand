@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} main lagi",
 	"interface.poker.log.dc": "{name} kehilangan koneksi",
 	"interface.poker.log.back": "{name} kembali",
-	"interface.poker.log.void": "Ronde dibatalkan dan semua taruhan dikembalikan"
+	"interface.poker.log.void": "Ronde dibatalkan dan semua taruhan dikembalikan",
+	"interface.hub.bank": "BANK",
+	"interface.hub.equipment": "PERLENGKAPAN",
+	"interface.hub.pack": "Kompartemen {number}",
+	"interface.hub.saved_bank": "Isi bank yang tersimpan. Perubahan terbaru mungkin belum terlihat."
 }

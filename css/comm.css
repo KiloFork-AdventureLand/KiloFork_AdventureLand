@@ -18,7 +18,7 @@
 	flex-direction: column;
 }
 #comm-chat button,
-#comm-chat-toggle {
+#bottom > button {
 	font-family: var(--pixel-font, pixel);
 	cursor: pointer;
 }

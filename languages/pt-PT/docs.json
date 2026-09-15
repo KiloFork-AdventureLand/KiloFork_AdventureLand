@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "Servidores III",
 	"docs.guide.tavern-games.tier-iv": "Servidores IV+ e PVP",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Sair da mesa.</b> Carrega em Sair, afasta-te do banco, usa uma porta ou sai do jogo e sais depois da mão atual; o teu stack volta por inteiro à tua bolsa. Um lugar desligado mantém o stack: o relógio continua a correr, os blinds são pagos por mais duas mãos, depois o lugar entra em pausa e é pago passados cinco minutos. Um reinício anula a mão em curso e devolve todas as apostas. Antes de cada distribuição a mesa publica um compromisso sobre o baralho baralhado e, depois da mão, a chave e a ordem do baralho que o verificam.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Jogar uma mão"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Jogar uma mão",
+	"docs.articles.hub.viewing_items": "Depois de iniciares sessão, escolhe {bank} para veres os itens e o ouro guardados no banco. Enquanto observas uma personagem, escolhe {inventory} ou {equipment}. Clica num item para veres os detalhes. Nestas vistas, não podes mover nem equipar itens."
 }

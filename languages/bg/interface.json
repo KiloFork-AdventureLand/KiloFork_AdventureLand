@@ -930,5 +930,9 @@
 	"interface.poker.log.in": "{name} се върна в играта",
 	"interface.poker.log.dc": "{name} загуби връзка",
 	"interface.poker.log.back": "{name} се върна",
-	"interface.poker.log.void": "Раздаването беше анулирано и всеки залог върнат"
+	"interface.poker.log.void": "Раздаването беше анулирано и всеки залог върнат",
+	"interface.hub.bank": "БАНКА",
+	"interface.hub.equipment": "ЕКИПИРОВКА",
+	"interface.hub.pack": "Отделение {number}",
+	"interface.hub.saved_bank": "Запазено съдържание на банката. Последните промени може още да не се виждат."
 }

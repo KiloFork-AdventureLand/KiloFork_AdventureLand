@@ -310,6 +310,8 @@ module.exports = {
 	"docs.articles.hub.title": '<span class="dlabel">Hub &amp; Chat</span>',
 	// docs/articles/hub.html: Opening directions. Preserve the /hub link and the CHAT control name.
 	"docs.articles.hub.introduction": 'Open <a href="/hub">Hub</a> to watch your characters and chat. CHAT starts open on the server you are viewing. You can read server chat before logging in.',
+	// HUB viewing directions. bank, inventory and equipment are the translated button labels. These are read-only item views.
+	"docs.articles.hub.viewing_items": "After logging in, choose {bank} to view saved bank items and gold. While watching a character, choose {inventory} or {equipment}. Click any item for details. These views cannot move or equip items.",
 	// Image descriptions reused from the approved localized comic editions.
 	"docs.lore.page1.alt": "A goo interrupts a hunt. Someone is speaking through it, asking not to be sent back.",
 	"docs.lore.page2.alt": "Patch traces the voice to a worker outside. He offers to help her escape as a robot approaches.",

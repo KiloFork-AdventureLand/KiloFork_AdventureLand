@@ -934,5 +934,9 @@
 	"interface.poker.log.in": "{name} a revenit în joc",
 	"interface.poker.log.dc": "{name} a pierdut conexiunea",
 	"interface.poker.log.back": "{name} s-a întors",
-	"interface.poker.log.void": "Mâna a fost anulată și fiecare pariu a fost returnat"
+	"interface.poker.log.void": "Mâna a fost anulată și fiecare pariu a fost returnat",
+	"interface.hub.bank": "BANCĂ",
+	"interface.hub.equipment": "ECHIPAMENT",
+	"interface.hub.pack": "Compartimentul {number}",
+	"interface.hub.saved_bank": "Conținutul salvat al băncii. Este posibil ca modificările recente să nu fie încă vizibile."
 }

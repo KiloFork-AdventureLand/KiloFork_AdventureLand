@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "Bumalik na sa laro si {name}",
 	"interface.poker.log.dc": "Nawalan ng koneksyon si {name}",
 	"interface.poker.log.back": "Nakabalik na si {name}",
-	"interface.poker.log.void": "Binawi ang kamay at naibalik ang bawat taya"
+	"interface.poker.log.void": "Binawi ang kamay at naibalik ang bawat taya",
+	"interface.hub.bank": "BANGKO",
+	"interface.hub.equipment": "KAGAMITAN",
+	"interface.hub.pack": "Lalagyan {number}",
+	"interface.hub.saved_bank": "Naka-save na laman ng bangko. Maaaring hindi pa makita ang mga kamakailang pagbabago."
 }

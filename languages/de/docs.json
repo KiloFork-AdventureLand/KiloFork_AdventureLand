@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "III-Server",
 	"docs.guide.tavern-games.tier-iv": "IV+- und PVP-Server",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Den Tisch verlassen.</b> Drück auf Verlassen, geh vom Hocker weg, benutze eine Tür oder logg dich aus, und du gehst nach der laufenden Hand; dein Stack kehrt vollständig in deine Börse zurück. Ein getrennter Platz behält seinen Stack: Die Uhr läuft weiter, zwei weitere Hände lang werden Blinds gesetzt, dann setzt der Platz aus und wird nach fünf Minuten ausgezahlt. Ein Neustart annulliert die laufende Hand und gibt jeden Einsatz zurück. Vor jeder Ausgabe veröffentlicht der Tisch eine Bindung an das gemischte Deck und nach der Hand den Schlüssel und die Deckreihenfolge, mit denen sie sich prüfen lässt.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Eine Hand spielen"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Eine Hand spielen",
+	"docs.articles.hub.viewing_items": "Wähle nach der Anmeldung {bank}, um die gespeicherten Gegenstände und das Gold in deiner Bank anzusehen. Wähle beim Beobachten eines Charakters {inventory} oder {equipment}. Klicke auf einen Gegenstand, um seine Details zu sehen. In diesen Ansichten kannst du keine Gegenstände verschieben oder anlegen."
 }

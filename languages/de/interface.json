@@ -930,5 +930,9 @@
 	"interface.poker.log.in": "{name} spielt wieder mit",
 	"interface.poker.log.dc": "{name} hat die Verbindung verloren",
 	"interface.poker.log.back": "{name} ist zurück",
-	"interface.poker.log.void": "Die Hand wurde annulliert und jeder Einsatz zurückgegeben"
+	"interface.poker.log.void": "Die Hand wurde annulliert und jeder Einsatz zurückgegeben",
+	"interface.hub.bank": "BANK",
+	"interface.hub.equipment": "AUSRÜSTUNG",
+	"interface.hub.pack": "Fach {number}",
+	"interface.hub.saved_bank": "Gespeicherter Bankinhalt. Neuere Änderungen sind möglicherweise noch nicht sichtbar."
 }

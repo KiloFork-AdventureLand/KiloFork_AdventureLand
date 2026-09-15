@@ -930,5 +930,9 @@
 	"interface.poker.log.in": "{name} spiller med igjen",
 	"interface.poker.log.dc": "{name} mistet forbindelsen",
 	"interface.poker.log.back": "{name} er tilbake",
-	"interface.poker.log.void": "Hånden ble annullert og hver innsats ble gitt tilbake"
+	"interface.poker.log.void": "Hånden ble annullert og hver innsats ble gitt tilbake",
+	"interface.hub.bank": "BANK",
+	"interface.hub.equipment": "UTSTYR",
+	"interface.hub.pack": "Rom {number}",
+	"interface.hub.saved_bank": "Lagret bankinnhold. De siste endringene vises kanskje ikke ennå."
 }

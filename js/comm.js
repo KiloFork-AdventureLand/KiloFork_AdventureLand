@@ -1,7 +1,73 @@
-var last_focus = new Date();
-setInterval(function () {
-	if ($(":focus").length) last_focus = new Date();
-}, 120);
+var comm_items = { inventory: [], equipment: {}, bank: {} };
+
+function comm_item_click(collection, index, pack) {
+	var items = collection == "bank" ? comm_items.bank[pack] : comm_items[collection],
+		item = items && items[index];
+	if (!item || item.name == "placeholder") return;
+	show_modal(render_item("html", { item: G.items[item.name], actual: item, readonly: true }), { wrap: false, hideinbackground: true });
+}
+
+function render_comm_equipment() {
+	if (!observing || !observing.slots) return;
+	comm_items.equipment = Object.assign({}, observing.slots);
+	var player = Object.assign({}, observing, { slots: comm_items.equipment, me: false, stand: false });
+	var html = "<div style='background: black; border: 5px solid gray; padding: 20px; font-size: 24px'>";
+	html += "<div class='mb5'>" + comm_chat_escape(player.name) + "</div>";
+	html += render_slots(player, {
+		pure: true,
+		onclick: function (slot) {
+			return "comm_item_click('equipment','" + slot + "')";
+		},
+	});
+	show_modal(html + "</div>", { wrap: false, hideinbackground: true });
+}
+
+function render_comm_bank(button) {
+	if (!user_id) return;
+	return api_call("load_bank", {}, { disable: $(button), timeout: 10000 }).then(
+		function (data) {
+			comm_items.bank = data.packs;
+			var columns = Math.max(1, Math.min(7, Math.floor((viewport_width() - 54) / 54))),
+				html = "<div style='background: black; border: 5px solid gray; padding: 2px; font-size: 24px; width: " + (columns * 54 + 4) + "px'>";
+			html +=
+				"<div style='padding: 4px'><span class='cbold'>" +
+				phrase.html("interface.hub.bank") +
+				"</span> · <span class='gold'>" +
+				phrase.html("interface.inventory.gold") +
+				"</span>: " +
+				to_pretty_num(data.gold) +
+				"</div>";
+			html += "<div class='gray' style='padding: 4px; font-size: 20px; line-height: 22px'>" + phrase.html("interface.hub.saved_bank") + "</div>";
+			html +=
+				"<select class='selectioninput' style='width: 100%; box-sizing: border-box; margin-bottom: 5px' aria-label='" +
+				phrase.html("interface.hub.bank") +
+				"' onchange='render_comm_bank_pack(this.value)'>";
+			Object.keys(data.packs).forEach(function (pack) {
+				html += "<option value='" + pack + "'>" + phrase.html("interface.hub.pack", { number: Number(pack.slice(5)) + 1 }) + "</option>";
+			});
+			html += "</select><div class='comm-bank-pack'></div></div>";
+			show_modal(html, { wrap: false, hideinbackground: true });
+			render_comm_bank_pack(Object.keys(data.packs)[0]);
+		},
+		function (error) {
+			show_modal(phrase.error(error.reason), { hideinbackground: true });
+		},
+	);
+}
+
+function render_comm_bank_pack(pack) {
+	if (!comm_items.bank[pack]) return;
+	$(".comm-bank-pack:last").html(
+		render_items_npc(pack, {
+			bank: comm_items.bank,
+			columns: Math.max(1, Math.min(7, Math.floor((viewport_width() - 54) / 54))),
+			onclick: function (index) {
+				return "comm_item_click('bank'," + index + ",'" + pack + "')";
+			},
+		}),
+	);
+	position_modals();
+}
 
 function comm_login(button) {
 	var form = $(button).closest(".imodal"),

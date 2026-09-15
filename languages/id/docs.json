@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "Server III",
 	"docs.guide.tavern-games.tier-iv": "Server IV+ dan PVP",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Meninggalkan meja.</b> Tekan Tinggalkan, menjauh dari bangkumu, pakai pintu, atau keluar dari permainan, dan kamu pergi setelah ronde saat ini; stack-mu kembali utuh ke kantongmu. Kursi yang terputus tetap menyimpan stack-nya: jam terus berjalan, blind dipasang selama dua ronde lagi, lalu kursi istirahat dan dicairkan setelah lima menit. Mulai ulang membatalkan ronde yang berlangsung dan mengembalikan semua taruhan. Sebelum setiap pembagian, meja mengumumkan komitmen atas dek yang sudah dikocok, dan setelah ronde, kunci serta urutan dek yang membuktikannya.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Mainkan satu ronde"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Mainkan satu ronde",
+	"docs.articles.hub.viewing_items": "Setelah masuk, pilih {bank} untuk melihat item dan emas bank yang tersimpan. Saat menonton karakter, pilih {inventory} atau {equipment}. Klik item untuk melihat detailnya. Tampilan ini tidak dapat digunakan untuk memindahkan atau mengenakan item."
 }

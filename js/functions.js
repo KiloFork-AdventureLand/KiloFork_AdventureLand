@@ -338,9 +338,6 @@ function show_opensource_info() {
 function hide_modal(force) {
 	var old_url = null,
 		new_url = null;
-	if (window.is_comm && mssince(last_focus) < 320) {
-		return;
-	}
 	if (
 		!force &&
 		$('.modal:last input.mprotected[type="text"], .modal:last input.mprotected[type="email"], .modal:last input.mprotected[type="password"], .modal:last textarea.mprotected').filter(function () {

@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} 님이 다시 참여",
 	"interface.poker.log.dc": "{name} 님의 연결이 끊김",
 	"interface.poker.log.back": "{name} 님이 돌아옴",
-	"interface.poker.log.void": "핸드가 무효 처리되어 모든 베팅이 반환되었습니다"
+	"interface.poker.log.void": "핸드가 무효 처리되어 모든 베팅이 반환되었습니다",
+	"interface.hub.bank": "은행",
+	"interface.hub.equipment": "장비",
+	"interface.hub.pack": "보관함 {number}",
+	"interface.hub.saved_bank": "저장된 은행 내용입니다. 최근 변경 사항은 아직 표시되지 않을 수 있습니다."
 }

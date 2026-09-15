@@ -930,5 +930,9 @@
 	"interface.poker.log.in": "{name} doet weer mee",
 	"interface.poker.log.dc": "{name} heeft de verbinding verloren",
 	"interface.poker.log.back": "{name} is terug",
-	"interface.poker.log.void": "De hand is ongeldig verklaard en elke inzet is teruggegeven"
+	"interface.poker.log.void": "De hand is ongeldig verklaard en elke inzet is teruggegeven",
+	"interface.hub.bank": "BANK",
+	"interface.hub.equipment": "UITRUSTING",
+	"interface.hub.pack": "Vak {number}",
+	"interface.hub.saved_bank": "Opgeslagen bankinhoud. Recente wijzigingen zijn mogelijk nog niet zichtbaar."
 }

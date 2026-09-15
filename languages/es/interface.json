@@ -931,5 +931,9 @@
 	"interface.poker.log.in": "{name} vuelve a la mesa",
 	"interface.poker.log.dc": "{name} perdió la conexión",
 	"interface.poker.log.back": "{name} ha vuelto",
-	"interface.poker.log.void": "La mano se anuló y se devolvió cada apuesta"
+	"interface.poker.log.void": "La mano se anuló y se devolvió cada apuesta",
+	"interface.hub.bank": "BANCO",
+	"interface.hub.equipment": "EQUIPO",
+	"interface.hub.pack": "Compartimento {number}",
+	"interface.hub.saved_bank": "Contenido guardado del banco. Puede que los cambios recientes aún no aparezcan."
 }

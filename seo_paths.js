@@ -46,6 +46,7 @@ const DOCS_PATHS = [
 	"/docs/guide/adventure-mcp",
 	"/docs/guide/mainframe",
 	"/docs/guide/hub",
+	"/docs/ref/hub",
 	"/docs/tutorial",
 	"/docs/tutorial/js-hello",
 	"/docs/tutorial/tracktrix",

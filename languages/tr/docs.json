@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "III sunucuları",
 	"docs.guide.tavern-games.tier-iv": "IV+ ve PVP sunucuları",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Masadan ayrılmak.</b> Ayrıl'a bas, taburenden uzaklaş, bir kapı kullan ya da çıkış yap; mevcut elden sonra ayrılırsın ve kasan kesene eksiksiz döner. Bağlantısı kopan bir koltuk kasasını korur: saat işlemeye devam eder, iki el daha kör yatırılır, sonra koltuk mola verir ve beş dakika sonra kasası iade edilir. Yeniden başlatma devam eden eli iptal eder ve her bahsi geri verir. Masa her dağıtımdan önce karıştırılmış desteye dair bir taahhüt, elden sonra da bunu doğrulayan anahtarı ve deste sırasını yayımlar.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Bir El Oyna"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Bir El Oyna",
+	"docs.articles.hub.viewing_items": "Giriş yaptıktan sonra bankadaki kayıtlı eşyaları ve altını görmek için {bank} seçeneğini seç. Bir karakteri izlerken {inventory} veya {equipment} seçeneğini seç. Ayrıntılar için bir eşyaya tıkla. Bu görünümlerden eşya taşıyamaz veya kuşanamazsın."
 }

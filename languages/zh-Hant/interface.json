@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} 回座",
 	"interface.poker.log.dc": "{name} 斷線了",
 	"interface.poker.log.back": "{name} 回來了",
-	"interface.poker.log.void": "本局作廢，所有下注已退回"
+	"interface.poker.log.void": "本局作廢，所有下注已退回",
+	"interface.hub.bank": "銀行",
+	"interface.hub.equipment": "裝備",
+	"interface.hub.pack": "儲物欄 {number}",
+	"interface.hub.saved_bank": "已儲存的銀行內容。最近的變更可能尚未顯示。"
 }

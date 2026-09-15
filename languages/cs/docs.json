@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "Servery III",
 	"docs.guide.tavern-games.tier-iv": "Servery IV+ a PVP",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Odchod od stolu.</b> Stiskni Odejít, odejdi od stoličky, použij dveře nebo se odhlas a odejdeš po aktuálním rozdání; tvůj stack se vrátí do měšce celý. Odpojené místo si drží stack: hodiny běží dál, blindy se sázejí ještě dvě rozdání, pak místo pauzíruje a po pěti minutách je vyplaceno. Restart zruší probíhající rozdání a vrátí každou sázku. Před každým rozdáním stůl zveřejní závazek k zamíchanému balíčku a po rozdání klíč a pořadí balíčku, které ho ověřují.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Zahraj rozdání"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Zahraj rozdání",
+	"docs.articles.hub.viewing_items": "Po přihlášení zvol {bank} a prohlédni si uložené předměty a zlato v bance. Při sledování postavy zvol {inventory} nebo {equipment}. Kliknutím na předmět zobrazíš podrobnosti. V těchto oknech nelze předměty přesouvat ani nasazovat."
 }

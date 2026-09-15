@@ -942,5 +942,9 @@
 	"interface.poker.log.in": "{name} wraca do gry",
 	"interface.poker.log.dc": "{name} stracił połączenie",
 	"interface.poker.log.back": "{name} wrócił",
-	"interface.poker.log.void": "Rozdanie unieważniono, a każdy zakład zwrócono"
+	"interface.poker.log.void": "Rozdanie unieważniono, a każdy zakład zwrócono",
+	"interface.hub.bank": "BANK",
+	"interface.hub.equipment": "WYPOSAŻENIE",
+	"interface.hub.pack": "Schowek {number}",
+	"interface.hub.saved_bank": "Zapisana zawartość banku. Ostatnie zmiany mogą nie być jeszcze widoczne."
 }

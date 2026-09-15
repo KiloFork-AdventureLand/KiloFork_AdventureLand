@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "Serveurs III",
 	"docs.guide.tavern-games.tier-iv": "Serveurs IV+ et PVP",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Quitter la table.</b> Appuyez sur Quitter, éloignez-vous de votre tabouret, utilisez une porte ou déconnectez-vous : vous partez après la main en cours, et votre tapis revient intégralement dans votre bourse. Un siège déconnecté garde son tapis : l'horloge continue de tourner, les blindes sont payées pendant deux mains de plus, puis le siège passe en pause et est encaissé au bout de cinq minutes. Un redémarrage annule la main en cours et rend chaque mise. Avant chaque distribution, la table publie un engagement sur le paquet mélangé, et après la main, la clé et l'ordre du paquet qui le vérifient.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE : jouer une main"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE : jouer une main",
+	"docs.articles.hub.viewing_items": "Après la connexion, choisissez {bank} pour consulter les objets et l’or sauvegardés en banque. Lorsque vous observez un personnage, choisissez {inventory} ou {equipment}. Cliquez sur un objet pour voir ses détails. Ces vues ne permettent ni de déplacer ni d’équiper des objets."
 }

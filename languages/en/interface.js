@@ -1,4 +1,12 @@
 module.exports = {
+	// HUB account button and bank viewer heading. Opens saved bank items and gold, without moving them.
+	"interface.hub.bank": "BANK",
+	// HUB button for the watched character's equipped item slots, not account character slots or CODE slots.
+	"interface.hub.equipment": "EQUIPMENT",
+	// HUB bank pack selector. number is the one-based pack number (1–48).
+	"interface.hub.pack": "Pack {number}",
+	// HUB bank viewer. The HTTP view reads saved account data, which may lag behind changes made in game.
+	"interface.hub.saved_bank": "Saved bank contents. Recent changes may not appear yet.",
 	// Compact selected-monster line. seconds is a formatted remaining duration; damage is the exact remaining damage needed to break its shell, not monster HP. Preserve both placeholders.
 	"interface.monster.rime_shell_progress": "{seconds}s · {damage} damage left",
 	// Anniversary reward feedback in the existing log/INFO or guide. Keep character.anniversary, rewarded and reason as CODE identifiers; preserve names and placeholders.

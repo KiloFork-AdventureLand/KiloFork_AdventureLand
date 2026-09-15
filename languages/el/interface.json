@@ -930,5 +930,9 @@
 	"interface.poker.log.in": "{name} επέστρεψε στο παιχνίδι",
 	"interface.poker.log.dc": "{name} έχασε τη σύνδεση",
 	"interface.poker.log.back": "{name} επέστρεψε",
-	"interface.poker.log.void": "Το χέρι ακυρώθηκε και κάθε ποντάρισμα επιστράφηκε"
+	"interface.poker.log.void": "Το χέρι ακυρώθηκε και κάθε ποντάρισμα επιστράφηκε",
+	"interface.hub.bank": "ΤΡΑΠΕΖΑ",
+	"interface.hub.equipment": "ΕΞΟΠΛΙΣΜΟΣ",
+	"interface.hub.pack": "Θήκη {number}",
+	"interface.hub.saved_bank": "Αποθηκευμένο περιεχόμενο τράπεζας. Οι πρόσφατες αλλαγές ενδέχεται να μην εμφανίζονται ακόμη."
 }

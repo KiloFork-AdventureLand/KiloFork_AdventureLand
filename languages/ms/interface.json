@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} sambung semula",
 	"interface.poker.log.dc": "{name} terputus sambungan",
 	"interface.poker.log.back": "{name} kembali",
-	"interface.poker.log.void": "Pusingan dibatalkan dan setiap taruhan dipulangkan"
+	"interface.poker.log.void": "Pusingan dibatalkan dan setiap taruhan dipulangkan",
+	"interface.hub.bank": "BANK",
+	"interface.hub.equipment": "KELENGKAPAN",
+	"interface.hub.pack": "Ruang {number}",
+	"interface.hub.saved_bank": "Kandungan bank yang disimpan. Perubahan terkini mungkin belum dipaparkan."
 }

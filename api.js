@@ -71,6 +71,16 @@ function get_referrer(req, ip) {
 
 // ==================== AUTH / ACCOUNT ====================
 
+function load_bank_api(args) {
+	var bank = user_to_server(args.user),
+		packs = {};
+	for (var i = 0; i < 48; i++) {
+		var pack = "items" + i;
+		if (Array.isArray(bank[pack])) packs[pack] = bank[pack].slice(0, 42);
+	}
+	return { success: true, gold: bank.gold, packs: packs };
+}
+
 async function signup_or_login_api(args) {
 	var domain = await get_domain(args.req),
 		email = args.email,
@@ -2085,6 +2095,7 @@ var REF = {
 	revoke_token: { F: revoke_token_api, P: true, U: true },
 
 	servers_and_characters: { F: servers_and_characters_api, P: true, U: true },
+	load_bank: { F: load_bank_api, P: true, U: true },
 	create_character: {
 		F: create_character_api,
 		P: true,

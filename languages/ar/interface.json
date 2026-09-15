@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} عاد إلى اللعب",
 	"interface.poker.log.dc": "{name} فقد الاتصال",
 	"interface.poker.log.back": "{name} عاد",
-	"interface.poker.log.void": "أُلغيت الجولة وأُعيد كل رهان"
+	"interface.poker.log.void": "أُلغيت الجولة وأُعيد كل رهان",
+	"interface.hub.bank": "البنك",
+	"interface.hub.equipment": "المعدات",
+	"interface.hub.pack": "الخانة {number}",
+	"interface.hub.saved_bank": "محتويات البنك المحفوظة. قد لا تظهر التغييرات الأخيرة بعد."
 }

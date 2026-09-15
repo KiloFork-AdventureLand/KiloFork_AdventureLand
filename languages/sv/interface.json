@@ -930,5 +930,9 @@
 	"interface.poker.log.in": "{name} är med igen",
 	"interface.poker.log.dc": "{name} tappade anslutningen",
 	"interface.poker.log.back": "{name} är tillbaka",
-	"interface.poker.log.void": "Given ogiltigförklarades och varje insats återlämnades"
+	"interface.poker.log.void": "Given ogiltigförklarades och varje insats återlämnades",
+	"interface.hub.bank": "BANK",
+	"interface.hub.equipment": "UTRUSTNING",
+	"interface.hub.pack": "Fack {number}",
+	"interface.hub.saved_bank": "Sparat bankinnehåll. De senaste ändringarna kanske inte syns ännu."
 }

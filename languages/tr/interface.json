@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} oyuna döndü",
 	"interface.poker.log.dc": "{name} bağlantısını kaybetti",
 	"interface.poker.log.back": "{name} geri döndü",
-	"interface.poker.log.void": "El iptal edildi ve tüm bahisler iade edildi"
+	"interface.poker.log.void": "El iptal edildi ve tüm bahisler iade edildi",
+	"interface.hub.bank": "BANKA",
+	"interface.hub.equipment": "EKİPMAN",
+	"interface.hub.pack": "Bölme {number}",
+	"interface.hub.saved_bank": "Kaydedilmiş banka içeriği. Son değişiklikler henüz görünmeyebilir."
 }

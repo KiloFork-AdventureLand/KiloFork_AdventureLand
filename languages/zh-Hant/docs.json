@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "III 伺服器",
 	"docs.guide.tavern-games.tier-iv": "IV+ 與 PVP 伺服器",
 	"docs.guide.tavern-games.leaving-the-table": "<b>離開牌桌。</b>按下離桌、走離凳子、使用門或登出，你都會在本局結束後離桌，籌碼全額退回錢袋。斷線的座位保留籌碼：計時繼續，再下兩局盲注，隨後該座位暫離，並在五分鐘後結算。重新啟動會使進行中的一局作廢並退回所有下注。每次發牌前牌桌公布對洗好牌組的承諾，本局結束後公布用於驗證的金鑰和牌組順序。",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE：玩一局"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE：玩一局",
+	"docs.articles.hub.viewing_items": "登入後，選擇{bank}查看已儲存的銀行物品和金幣。觀戰角色時，選擇{inventory}或{equipment}。點擊物品可查看詳細資訊。這些畫面無法移動或裝備物品。"
 }

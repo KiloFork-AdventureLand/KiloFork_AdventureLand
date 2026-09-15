@@ -929,5 +929,9 @@
 	"interface.poker.log.in": "{name} jatkaa peliä",
 	"interface.poker.log.dc": "{name} menetti yhteyden",
 	"interface.poker.log.back": "{name} on palannut",
-	"interface.poker.log.void": "Käsi mitätöitiin ja jokainen panos palautettiin"
+	"interface.poker.log.void": "Käsi mitätöitiin ja jokainen panos palautettiin",
+	"interface.hub.bank": "PANKKI",
+	"interface.hub.equipment": "VARUSTEET",
+	"interface.hub.pack": "Lokero {number}",
+	"interface.hub.saved_bank": "Pankin tallennettu sisältö. Viimeisimmät muutokset eivät ehkä vielä näy."
 }

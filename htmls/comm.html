@@ -139,6 +139,7 @@
 		<div id="observeui" class="hidden">
 			<div class="gamebutton block mb5" onclick="socket.emit('o:home')">{{ phrase("pages.comm.home-in") }}</div>
 			<div class="gamebutton block mb5" onclick="render_inventory()">{{ phrase("pages.comm.inventory") }}</div>
+			<div class="gamebutton block mb5" onclick="render_comm_equipment()">{{ phrase("interface.hub.equipment") }}</div>
 			<div class="gamebutton block mb5" onclick="show_commander()">{{ phrase("pages.comm.command") }}</div>
 		</div>
 		<div class='disconnected hidden' style='color: red'>{{ phrase("pages.comm.x-disconnected") }}</div>
@@ -161,6 +162,7 @@
 				<div></div>
 				<button type="button" id="comm-chat-toggle" class="gamebutton" onclick="toggle_comm_chat()" aria-expanded="true" aria-controls="comm-chat">{{ phrase("pages.comm.chat") }}</button>
 				<a class="gamebutton" style='min-width: 120px; max-width: 240px; margin-right: 5px; text-decoration: none' href="/mainframe">{{ phrase("pages.comm.mainframe") }}</a>
+				<button type="button" class="gamebutton mr5" onclick="render_comm_bank(this)">{{ phrase("interface.hub.bank") }}</button>
 				<div class="gamebutton" style='min-width: 120px; max-width: 240px' onclick="toggle_ui()">{{ phrase("pages.comm.toggle") }}</div>
 			{% endif %}
 		</div>

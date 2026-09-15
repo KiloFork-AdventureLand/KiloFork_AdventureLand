@@ -934,5 +934,9 @@
 	"interface.poker.log.in": "{name} è rientrato",
 	"interface.poker.log.dc": "{name} ha perso la connessione",
 	"interface.poker.log.back": "{name} è tornato",
-	"interface.poker.log.void": "La mano è stata annullata e ogni puntata restituita"
+	"interface.poker.log.void": "La mano è stata annullata e ogni puntata restituita",
+	"interface.hub.bank": "BANCA",
+	"interface.hub.equipment": "EQUIPAGGIAMENTO",
+	"interface.hub.pack": "Scomparto {number}",
+	"interface.hub.saved_bank": "Contenuto salvato della banca. Le modifiche recenti potrebbero non essere ancora visibili."
 }

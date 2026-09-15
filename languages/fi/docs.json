@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "III-palvelimet",
 	"docs.guide.tavern-games.tier-iv": "IV+- ja PVP-palvelimet",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Pöydästä poistuminen.</b> Paina Poistu, kävele pois jakkaraltasi, käytä ovea tai kirjaudu ulos, niin poistut nykyisen käden jälkeen; pelimerkkisi palaavat kokonaan kukkaroosi. Yhteyden menettänyt paikka pitää pelimerkkinsä: kello käy edelleen, blindit maksetaan vielä kahden käden ajan, sitten paikka jää tauolle ja maksetaan ulos viiden minuutin kuluttua. Uudelleenkäynnistys mitätöi käynnissä olevan käden ja palauttaa jokaisen panoksen. Ennen jokaista jakoa pöytä julkaisee sitoumuksen sekoitettuun pakkaan ja käden jälkeen avaimen sekä pakan järjestyksen, joilla sen voi tarkistaa.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Pelaa käsi"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Pelaa käsi",
+	"docs.articles.hub.viewing_items": "Kirjaudu sisään ja valitse {bank}, niin näet pankkiin tallennetut esineet ja kullan. Kun seuraat hahmoa, valitse {inventory} tai {equipment}. Näet esineen tiedot napsauttamalla sitä. Näissä näkymissä ei voi siirtää eikä pukea esineitä."
 }

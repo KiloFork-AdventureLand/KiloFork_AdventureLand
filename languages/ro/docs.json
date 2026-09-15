@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "Serverele III",
 	"docs.guide.tavern-games.tier-iv": "Serverele IV+ și PVP",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Plecarea de la masă.</b> Apasă Pleacă, îndepărtează-te de scaun, folosește o ușă sau deconectează-te și pleci după mâna curentă; stackul tău revine integral în pungă. Un loc deconectat își păstrează stackul: ceasul merge mai departe, blindurile se pun încă două mâini, apoi locul intră în pauză și este plătit după cinci minute. O repornire anulează mâna în desfășurare și returnează fiecare pariu. Înaintea fiecărei împărțiri masa publică un angajament asupra pachetului amestecat, iar după mână cheia și ordinea pachetului care îl verifică.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Joacă o mână"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Joacă o mână",
+	"docs.articles.hub.viewing_items": "După autentificare, alege {bank} pentru a vedea obiectele și aurul salvate în bancă. Când urmărești un personaj, alege {inventory} sau {equipment}. Apasă pe un obiect pentru detalii. Din aceste ferestre nu poți muta sau echipa obiecte."
 }

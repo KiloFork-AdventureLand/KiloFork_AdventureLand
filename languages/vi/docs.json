@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "Máy chủ III",
 	"docs.guide.tavern-games.tier-iv": "Máy chủ IV+ và PVP",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Rời bàn.</b> Nhấn Rời bàn, đi khỏi ghế, dùng cửa hoặc đăng xuất, bạn sẽ rời bàn sau ván hiện tại; chip của bạn trở về túi đầy đủ. Ghế bị mất kết nối giữ nguyên chip: đồng hồ vẫn chạy, blind được đặt thêm hai ván nữa, rồi ghế tạm nghỉ và được thanh toán sau năm phút. Khởi động lại sẽ hủy ván đang chơi và hoàn lại mọi cược. Trước mỗi lần chia, bàn công bố một cam kết về bộ bài đã xáo, và sau ván công bố khóa cùng thứ tự bộ bài để kiểm chứng.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Chơi một ván"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Chơi một ván",
+	"docs.articles.hub.viewing_items": "Sau khi đăng nhập, chọn {bank} để xem vật phẩm và vàng đã lưu trong ngân hàng. Khi đang theo dõi một nhân vật, chọn {inventory} hoặc {equipment}. Nhấp vào vật phẩm để xem chi tiết. Các màn hình này không cho phép di chuyển hoặc trang bị vật phẩm."
 }

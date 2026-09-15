@@ -2542,5 +2542,6 @@
 	"docs.guide.tavern-games.tier-iii": "Servidores III",
 	"docs.guide.tavern-games.tier-iv": "Servidores IV+ y PVP",
 	"docs.guide.tavern-games.leaving-the-table": "<b>Dejar la mesa.</b> Presiona Salir, aléjate de tu banco, usa una puerta o cierra sesión y te irás al terminar la mano actual; tu stack vuelve completo a tu bolsa. Un asiento desconectado conserva su stack: el reloj sigue corriendo, se ponen las ciegas dos manos más, luego el asiento entra en pausa y se le devuelve el stack a los cinco minutos. Un reinicio anula la mano en curso y devuelve cada apuesta. Antes de cada reparto la mesa publica un compromiso sobre la baraja mezclada y, tras la mano, la clave y el orden de la baraja que lo verifican.",
-	"docs.guide.tavern-games.code-play-a-hand": "CODE: Jugar una mano"
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Jugar una mano",
+	"docs.articles.hub.viewing_items": "Después de iniciar sesión, elige {bank} para ver los objetos y el oro guardados en el banco. Mientras observas a un personaje, elige {inventory} o {equipment}. Haz clic en un objeto para ver sus detalles. Desde estas vistas no puedes mover ni equipar objetos."
 }

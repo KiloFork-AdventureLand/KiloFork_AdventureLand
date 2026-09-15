@@ -938,5 +938,9 @@
 	"interface.poker.log.in": "{name} je zpět ve hře",
 	"interface.poker.log.dc": "{name} ztratil spojení",
 	"interface.poker.log.back": "{name} je zpět",
-	"interface.poker.log.void": "Rozdání bylo zrušeno a každá sázka vrácena"
+	"interface.poker.log.void": "Rozdání bylo zrušeno a každá sázka vrácena",
+	"interface.hub.bank": "BANKA",
+	"interface.hub.equipment": "VÝBAVA",
+	"interface.hub.pack": "Přihrádka {number}",
+	"interface.hub.saved_bank": "Uložený obsah banky. Nedávné změny se ještě nemusí zobrazovat."
 }
