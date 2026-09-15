@@ -13,7 +13,8 @@ function tavern_poker_now() {
 
 function tavern_poker_tier() {
 	var def = tavern_poker_definition();
-	if (is_pvp || !def.blinds[server_name]) return "IV";
+	if (is_pvp) return def.blinds.PVP ? "PVP" : "IV";
+	if (!def.blinds[server_name]) return "IV";
 	return server_name;
 }
 
@@ -83,6 +84,24 @@ function tavern_poker_stool(seat) {
 	var machine = tavern_poker_machine(),
 		stool = tavern_poker_definition().stools[seat.index];
 	return { x: machine.x + stool[0], y: machine.y + stool[1] };
+}
+
+// The free stool the character stands next to, within the definition's reach, or -1.
+function tavern_poker_reach(player) {
+	var def = tavern_poker_definition(),
+		table = tavern_poker_table(),
+		machine = tavern_poker_machine(),
+		best = -1,
+		best_d = def.reach * def.reach + 1;
+	if (player.map != "tavern" || player.in != "tavern") return -1;
+	for (var i = 0; i < def.stools.length; i++) {
+		if (table.seats[i]) continue;
+		var dx = player.x - (machine.x + def.stools[i][0]),
+			dy = player.y - (machine.y + def.stools[i][1]),
+			d = dx * dx + dy * dy;
+		if (d < best_d) ((best = i), (best_d = d));
+	}
+	return best;
 }
 
 function tavern_poker_far(player, x, y, limit) {
@@ -233,6 +252,8 @@ function tavern_poker_state() {
 		tier: tavern_poker_tier(),
 		blinds: blinds,
 		buyin: [def.buyin[0] * blinds[1], def.buyin[1] * blinds[1]],
+		stools: def.stools,
+		reach: def.reach,
 		rake: def.rake,
 		rake_cap: def.rake_cap * blinds[1],
 		action_ms: def.action_ms,
@@ -320,7 +341,12 @@ function tavern_poker_request(player, data) {
 	var event = data.event;
 	if (event == "info") {
 		tavern_poker_send(player);
-		return done({ table: tavern_poker_state() });
+		var mine = tavern_poker_seat_of(player),
+			table = tavern_poker_table(),
+			view = tavern_poker_state();
+		view.me = mine ? mine.index : -1;
+		view.cards = mine && table.hand && table.hand.entries.indexOf(mine) != -1 ? mine.cards.slice() : [];
+		return done({ table: view });
 	}
 	if (player.map != "tavern" || player.in != "tavern") return fail("not_in_tavern");
 	if (event == "join") return tavern_poker_join(player, data, fail, done);
@@ -358,10 +384,12 @@ function tavern_poker_join(player, data, fail, done) {
 	}
 	for (var i = 0; i < table.seats.length; i++)
 		if (table.seats[i] && table.seats[i].owner == player.owner) return fail("poker_seated");
-	var index = data.seat === undefined || data.seat === null ? -1 : parseInt(data.seat);
-	if (index == -1) for (var i = 0; i < table.seats.length; i++) if (!table.seats[i] && index == -1) index = i;
-	if (!(index >= 0 && index < table.seats.length)) return fail("poker_full");
-	if (table.seats[index]) return fail("poker_seat_taken");
+	// You sit on the stool you stand next to; a requested seat has to be that stool.
+	var index = tavern_poker_reach(player),
+		wanted = data.seat === undefined || data.seat === null ? -1 : parseInt(data.seat);
+	if (wanted >= 0 && wanted < table.seats.length && table.seats[wanted]) return fail("poker_seat_taken");
+	if (!table.seats.some((s) => !s)) return fail("poker_full");
+	if (index < 0 || (wanted >= 0 && wanted != index)) return fail("poker_stool_far");
 	if (gold < min || gold > max) return fail("poker_buyin", { min: min, max: max });
 	if (gold > player.gold) return fail("gold_not_enough");
 	player.gold -= gold;

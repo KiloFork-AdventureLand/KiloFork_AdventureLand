@@ -934,5 +934,9 @@
 	"interface.hub.equipment": "EKİPMAN",
 	"interface.hub.pack": "Bölme {number}",
 	"interface.hub.saved_bank": "Kaydedilmiş banka içeriği. Son değişiklikler henüz görünmeyebilir.",
-	"interface.tavern.refunded": "Bahis iade edildi"
+	"interface.tavern.refunded": "Bahis iade edildi",
+	"interface.poker.walk_to_sit": "Oturmak için yaklaş",
+	"interface.poker.three_quarter_pot": "¾ POT",
+	"interface.poker.pot_x": "{x}× POT",
+	"interface.poker.bb_x": "{x} BB"
 }

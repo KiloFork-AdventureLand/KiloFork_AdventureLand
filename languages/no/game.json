@@ -449,5 +449,6 @@
 	"response.poker_in_hand": "Vent til hånden er over",
 	"response.poker_broke": "Kjøp inn igjen for å fortsette å spille",
 	"response.poker_unavailable": "Pokerbordet er stengt akkurat nå",
-	"response.tavern_closing": "Tavernaens spill er stengt mens serveren starter på nytt"
+	"response.tavern_closing": "Tavernaens spill er stengt mens serveren starter på nytt",
+	"response.poker_stool_far": "Stå ved siden av en ledig krakk for å sette deg"
 }

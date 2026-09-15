@@ -947,5 +947,9 @@
 	"interface.hub.equipment": "СНАРЯЖЕНИЕ",
 	"interface.hub.pack": "Ячейка {number}",
 	"interface.hub.saved_bank": "Сохранённое содержимое банка. Последние изменения могут ещё не отображаться.",
-	"interface.tavern.refunded": "Ставка возвращена"
+	"interface.tavern.refunded": "Ставка возвращена",
+	"interface.poker.walk_to_sit": "Подойдите, чтобы сесть",
+	"interface.poker.three_quarter_pot": "¾ БАНКА",
+	"interface.poker.pot_x": "{x}× БАНК",
+	"interface.poker.bb_x": "{x} BB"
 }

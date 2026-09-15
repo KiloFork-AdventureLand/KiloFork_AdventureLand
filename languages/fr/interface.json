@@ -935,5 +935,9 @@
 	"interface.hub.equipment": "ÉQUIPEMENT",
 	"interface.hub.pack": "Compartiment {number}",
 	"interface.hub.saved_bank": "Contenu sauvegardé de la banque. Les changements récents peuvent ne pas encore apparaître.",
-	"interface.tavern.refunded": "Mise rendue"
+	"interface.tavern.refunded": "Mise rendue",
+	"interface.poker.walk_to_sit": "Approchez-vous pour vous asseoir",
+	"interface.poker.three_quarter_pot": "¾ POT",
+	"interface.poker.pot_x": "{x}× POT",
+	"interface.poker.bb_x": "{x} BB"
 }

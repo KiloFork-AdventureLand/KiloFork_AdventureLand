@@ -934,5 +934,9 @@
 	"interface.hub.equipment": "VARUSTEET",
 	"interface.hub.pack": "Lokero {number}",
 	"interface.hub.saved_bank": "Pankin tallennettu sisältö. Viimeisimmät muutokset eivät ehkä vielä näy.",
-	"interface.tavern.refunded": "Panos palautettu"
+	"interface.tavern.refunded": "Panos palautettu",
+	"interface.poker.walk_to_sit": "Kävele lähemmäs istuaksesi",
+	"interface.poker.three_quarter_pot": "¾ POTTI",
+	"interface.poker.pot_x": "{x}× POTTI",
+	"interface.poker.bb_x": "{x} BB"
 }

@@ -934,5 +934,9 @@
 	"interface.hub.equipment": "KAGAMITAN",
 	"interface.hub.pack": "Lalagyan {number}",
 	"interface.hub.saved_bank": "Naka-save na laman ng bangko. Maaaring hindi pa makita ang mga kamakailang pagbabago.",
-	"interface.tavern.refunded": "Ibinalik ang taya"
+	"interface.tavern.refunded": "Ibinalik ang taya",
+	"interface.poker.walk_to_sit": "Lumapit para umupo",
+	"interface.poker.three_quarter_pot": "¾ POT",
+	"interface.poker.pot_x": "{x}× POT",
+	"interface.poker.bb_x": "{x} BB"
 }

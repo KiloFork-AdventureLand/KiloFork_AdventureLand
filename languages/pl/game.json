@@ -449,5 +449,6 @@
 	"response.poker_in_hand": "Poczekaj na koniec rozdania",
 	"response.poker_broke": "Wpłać ponownie, aby grać dalej",
 	"response.poker_unavailable": "Stół pokerowy jest teraz zamknięty",
-	"response.tavern_closing": "Gry tawerny są zamknięte, dopóki serwer się restartuje"
+	"response.tavern_closing": "Gry tawerny są zamknięte, dopóki serwer się restartuje",
+	"response.poker_stool_far": "Stań obok wolnego stołka, aby usiąść"
 }

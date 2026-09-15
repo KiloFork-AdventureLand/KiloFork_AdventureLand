@@ -934,5 +934,9 @@
 	"interface.hub.equipment": "FELSZERELÉS",
 	"interface.hub.pack": "{number}. rekesz",
 	"interface.hub.saved_bank": "A bank mentett tartalma. A legutóbbi változások még nem feltétlenül láthatók.",
-	"interface.tavern.refunded": "Tét visszaadva"
+	"interface.tavern.refunded": "Tét visszaadva",
+	"interface.poker.walk_to_sit": "Lépj közelebb, hogy leülj",
+	"interface.poker.three_quarter_pot": "¾ KASSZA",
+	"interface.poker.pot_x": "{x}× KASSZA",
+	"interface.poker.bb_x": "{x} BB"
 }

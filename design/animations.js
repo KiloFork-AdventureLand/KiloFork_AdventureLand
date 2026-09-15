@@ -665,6 +665,10 @@ var animations={
 		"frames":12,
 		"alpha":0.4,
 	},
+	"poker_win":{
+		"file":"/images/sprites/animations/poker_win.png?v=1", // gold coins bursting from a won pot at the Tavern table
+		"frames":8,
+	},
 };
 
 // When loaded via eval(), projectiles is already in scope; when loaded standalone, require it

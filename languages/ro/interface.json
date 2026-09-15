@@ -939,5 +939,9 @@
 	"interface.hub.equipment": "ECHIPAMENT",
 	"interface.hub.pack": "Compartimentul {number}",
 	"interface.hub.saved_bank": "Conținutul salvat al băncii. Este posibil ca modificările recente să nu fie încă vizibile.",
-	"interface.tavern.refunded": "Miză returnată"
+	"interface.tavern.refunded": "Miză returnată",
+	"interface.poker.walk_to_sit": "Apropie-te ca să te așezi",
+	"interface.poker.three_quarter_pot": "¾ POT",
+	"interface.poker.pot_x": "{x}× POT",
+	"interface.poker.bb_x": "{x} BB"
 }

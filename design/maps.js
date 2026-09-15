@@ -1026,9 +1026,9 @@ var maps = {
 			{
 				type: "poker",
 				set: "custom",
-				frames: [[0, 26 * 16, 116, 62]],
+				frames: [[0, 26 * 16, 96, 48]],
 				x: -168,
-				y: -30,
+				y: -52,
 			},
 		],
 		drop_norm: 1000,

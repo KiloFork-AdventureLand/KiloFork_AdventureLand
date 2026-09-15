@@ -449,5 +449,6 @@
 	"response.poker_in_hand": "Espera a que termine la mano",
 	"response.poker_broke": "Vuelve a entrar para seguir jugando",
 	"response.poker_unavailable": "La mesa de póker está cerrada ahora mismo",
-	"response.tavern_closing": "Los juegos de la taberna están cerrados mientras el servidor se reinicia"
+	"response.tavern_closing": "Los juegos de la taberna están cerrados mientras el servidor se reinicia",
+	"response.poker_stool_far": "Ponte junto a un taburete libre para sentarte"
 }

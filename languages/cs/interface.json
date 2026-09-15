@@ -943,5 +943,9 @@
 	"interface.hub.equipment": "VÝBAVA",
 	"interface.hub.pack": "Přihrádka {number}",
 	"interface.hub.saved_bank": "Uložený obsah banky. Nedávné změny se ještě nemusí zobrazovat.",
-	"interface.tavern.refunded": "Sázka vrácena"
+	"interface.tavern.refunded": "Sázka vrácena",
+	"interface.poker.walk_to_sit": "Přistup blíž a posaď se",
+	"interface.poker.three_quarter_pot": "¾ POTU",
+	"interface.poker.pot_x": "{x}× POT",
+	"interface.poker.bb_x": "{x} BB"
 }

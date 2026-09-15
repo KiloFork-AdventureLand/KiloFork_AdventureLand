@@ -470,6 +470,8 @@ module.exports = {
 	// js/tavern_poker.js; label of an unoccupied seat.
 	"interface.poker.empty_seat": "Empty seat",
 	// js/tavern_poker.js; button on an empty seat that opens the buy-in entry. Compact uppercase label.
+	// js/tavern_poker.js, empty seat hint when the character is not next to that stool; clicking it walks there.
+	"interface.poker.walk_to_sit": "Walk up to sit",
 	"interface.poker.join": "JOIN",
 	// js/tavern_poker.js; button that confirms the typed buy-in amount. Compact uppercase label.
 	"interface.poker.buy_in": "BUY IN",
@@ -507,6 +509,12 @@ module.exports = {
 	"interface.poker.min": "MIN",
 	// js/tavern_poker.js; preset button: raise by half the pot. Compact uppercase label.
 	"interface.poker.half_pot": "½ POT",
+	// js/tavern_poker.js, raise preset: three quarters of the pot. Keep it as short as the others.
+	"interface.poker.three_quarter_pot": "¾ POT",
+	// js/tavern_poker.js, raise preset: a multiple of the pot. {x} = 1.5 or 2.
+	"interface.poker.pot_x": "{x}× POT",
+	// js/tavern_poker.js, raise preset: a raise to a number of big blinds. {x} = 2 or 3.
+	"interface.poker.bb_x": "{x} BB",
 	// js/tavern_poker.js; preset button: raise by the whole pot. Compact uppercase label.
 	"interface.poker.pot": "POT",
 	// js/tavern_poker.js; action button: bet the whole stack. Compact uppercase poker term.

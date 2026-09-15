@@ -934,5 +934,9 @@
 	"interface.hub.equipment": "装備",
 	"interface.hub.pack": "保管枠 {number}",
 	"interface.hub.saved_bank": "保存済みの銀行の中身です。最近の変更はまだ反映されていない場合があります。",
-	"interface.tavern.refunded": "賭け金返却"
+	"interface.tavern.refunded": "賭け金返却",
+	"interface.poker.walk_to_sit": "近づいて座る",
+	"interface.poker.three_quarter_pot": "¾ ポット",
+	"interface.poker.pot_x": "{x}× ポット",
+	"interface.poker.bb_x": "{x} BB"
 }

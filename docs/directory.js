@@ -504,7 +504,7 @@ docs = {
 		tavern: {
 			title: "Tavern Games",
 			article: "tavern-games",
-			icon: "xshot",
+			icon: "ale",
 			summary: "Read the house rules before placing a dice, slots or wheel wager, or sitting down at the Hold'em table.",
 			functions: ["get_tavern_info", "bet_dice", "play_slots", "bet_wheel", "get_poker_table", "poker_join", "poker_leave", "poker_act", "poker_sit_out", "poker_sit_in"],
 			proximity: true,

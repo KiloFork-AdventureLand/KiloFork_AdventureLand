@@ -147,6 +147,14 @@ function fixture(options = {}) {
 	};
 }
 
+// A character next to a stool, as the table requires before a buy-in.
+function stand(player, seat) {
+	const machine = G.maps.tavern.machines.find((m) => m.type == "poker"),
+		stool = games.poker.stools[seat];
+	player.x = machine.x + stool[0];
+	player.y = machine.y + stool[1];
+}
+
 // Every game with something at stake: a dice bet, a turning wheel, turning reels and a poker hand with chips in the pot.
 function wager_everywhere(f) {
 	const a = f.login("Dicer"),
@@ -163,6 +171,8 @@ function wager_everywhere(f) {
 	s.bet({ type: "slots", request_id: "slots-s" });
 	assert.equal(s.gold, 8000000000 - games.slots.gold);
 	assert.ok(s.q.slots);
+	stand(d, 1);
+	stand(e, 0);
 	assert.equal(d.poker({ event: "join", gold: 100 * BB, request_id: "join-d" }).success, true);
 	assert.equal(e.poker({ event: "join", gold: 100 * BB, request_id: "join-e" }).success, true);
 	f.tick(6000);
@@ -225,7 +235,7 @@ test("a restart returns every unfinished wager, voids the hand and cashes every 
 		);
 	for (const player of [d, e])
 		assert.ok(
-			player.messages().some((m) => /leave the poker table with 2000000000/.test(m)),
+			player.messages().some((m) => m.indexOf("leave the poker table with " + 100 * BB) != -1),
 			player.name + " was cashed out in full",
 		);
 	// The floor and the panels learn about it: the wheel stops on its decided slice, the reels show their symbols.
@@ -250,6 +260,8 @@ test("nothing starts while the Tavern is closing: bets, spins, joins and deals a
 		s = f.login("Puller"),
 		d = f.login("Dealer"),
 		e = f.login("Caller");
+	stand(d, 1);
+	stand(e, 0);
 	assert.equal(d.poker({ event: "join", gold: 100 * BB, request_id: "join-d" }).success, true);
 	assert.equal(e.poker({ event: "join", gold: 100 * BB, request_id: "join-e" }).success, true);
 	f.c.server.shutdown = true;
@@ -318,6 +330,8 @@ test("the exit waits for refund transactions still in flight, but never for a st
 	const f = fixture({ tx: () => new Promise((resolve) => (settle = resolve)) }),
 		d = f.login("Dealer"),
 		e = f.login("Caller");
+	stand(d, 1);
+	stand(e, 0);
 	assert.equal(d.poker({ event: "join", gold: 100 * BB, request_id: "join-d" }).success, true);
 	assert.equal(e.poker({ event: "join", gold: 100 * BB, request_id: "join-e" }).success, true);
 	d.disconnect();

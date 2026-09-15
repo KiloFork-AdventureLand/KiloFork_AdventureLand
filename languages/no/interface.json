@@ -935,5 +935,9 @@
 	"interface.hub.equipment": "UTSTYR",
 	"interface.hub.pack": "Rom {number}",
 	"interface.hub.saved_bank": "Lagret bankinnhold. De siste endringene vises kanskje ikke ennå.",
-	"interface.tavern.refunded": "Innsats gitt tilbake"
+	"interface.tavern.refunded": "Innsats gitt tilbake",
+	"interface.poker.walk_to_sit": "Gå bort for å sette deg",
+	"interface.poker.three_quarter_pot": "¾ POTT",
+	"interface.poker.pot_x": "{x}× POTT",
+	"interface.poker.bb_x": "{x} BB"
 }

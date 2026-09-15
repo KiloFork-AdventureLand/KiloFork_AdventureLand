@@ -6202,7 +6202,7 @@ function pcs(type) {
 }
 
 var audio_sound_names = {
-	music: ["christmas", "horror01", "horror02", "casual05", "casual02", "rpg07", "rpg08", "rpg10", "rpg14", "rpg16", "cave_exploration", "cave_choices"],
+	music: ["christmas", "horror01", "horror02", "casual05", "casual02", "rpg07", "rpg08", "rpg10", "rpg14", "rpg16", "cave_exploration", "cave_choices", "poker"],
 	sfx: ["click", "fx_explosion", "coin_collect", "drop_egg", "hit_8bit", "magic_8bit", "use_8bit", "chat", "walk", "drop", "open", "whoosh", "reflect", "crackle01", "crackle0", "level_up"],
 };
 
@@ -6271,6 +6271,10 @@ function init_fx() {
 	sounds.coin_collect = new Howl({
 		src: [url_factory("/sounds/fx/pop_plink.wav")],
 		volume: 0.2, // 0.1 for Coin's
+	});
+	sounds.poker_win = new Howl({
+		src: [url_factory("/sounds/fx/poker_win.wav?v=1")],
+		volume: 0.35, // a won pot at the Tavern table
 	});
 	sounds.drop_egg = new Howl({
 		src: [url_factory("/sounds/fx/ANIMAL_Duck_08_mono.wav")],
@@ -6361,6 +6365,13 @@ function init_music() {
 		src: [url_factory("/sounds/loops/christmas.ogg")],
 		volume: 0.2 * music_level,
 		autoplay: false,
+		loop: true,
+	});
+	sounds.poker = new Howl({
+		src: [url_factory("/sounds/loops/poker_loop.ogg?v=1")],
+		volume: 0.2 * music_level,
+		autoplay: false,
+		preload: false,
 		loop: true,
 	});
 	["exploration", "choices"].forEach(function (track) {
@@ -6454,6 +6465,7 @@ function reflect_music() {
 		return;
 	}
 	if (current_map == "tavern") the_music = sounds.rpg10;
+	if (current_map == "tavern" && typeof poker_me == "function" && poker_me() && sounds.poker) the_music = sounds.poker;
 	if (in_arr(current_map, ["cave", "halloween", "spookytown"]) || current_map.startsWith("level")) the_music = sounds.rpg14;
 	if (current_map.startsWith("winter_inn")) the_music = sounds.rpg16;
 	if (current_map == "desertland") the_music = sounds.rpg07;

@@ -935,5 +935,9 @@
 	"interface.hub.equipment": "UITRUSTING",
 	"interface.hub.pack": "Vak {number}",
 	"interface.hub.saved_bank": "Opgeslagen bankinhoud. Recente wijzigingen zijn mogelijk nog niet zichtbaar.",
-	"interface.tavern.refunded": "Inzet terug"
+	"interface.tavern.refunded": "Inzet terug",
+	"interface.poker.walk_to_sit": "Loop erheen om te zitten",
+	"interface.poker.three_quarter_pot": "¾ POT",
+	"interface.poker.pot_x": "{x}× POT",
+	"interface.poker.bb_x": "{x} BB"
 }

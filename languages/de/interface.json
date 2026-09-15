@@ -935,5 +935,9 @@
 	"interface.hub.equipment": "AUSRÜSTUNG",
 	"interface.hub.pack": "Fach {number}",
 	"interface.hub.saved_bank": "Gespeicherter Bankinhalt. Neuere Änderungen sind möglicherweise noch nicht sichtbar.",
-	"interface.tavern.refunded": "Einsatz zurück"
+	"interface.tavern.refunded": "Einsatz zurück",
+	"interface.poker.walk_to_sit": "Geh näher, um dich zu setzen",
+	"interface.poker.three_quarter_pot": "¾ POT",
+	"interface.poker.pot_x": "{x}× POT",
+	"interface.poker.bb_x": "{x} BB"
 }

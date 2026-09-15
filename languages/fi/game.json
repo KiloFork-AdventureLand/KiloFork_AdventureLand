@@ -449,5 +449,6 @@
 	"response.poker_in_hand": "Odota käden päättymistä",
 	"response.poker_broke": "Osta sisään uudelleen jatkaaksesi peliä",
 	"response.poker_unavailable": "Pokeripöytä on juuri nyt suljettu",
-	"response.tavern_closing": "Tavernan pelit ovat kiinni, kun palvelin käynnistyy uudelleen"
+	"response.tavern_closing": "Tavernan pelit ovat kiinni, kun palvelin käynnistyy uudelleen",
+	"response.poker_stool_far": "Seiso vapaan jakkaran vieressä istuaksesi"
 }

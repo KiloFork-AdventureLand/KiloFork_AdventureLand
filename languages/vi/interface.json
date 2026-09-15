@@ -934,5 +934,9 @@
 	"interface.hub.equipment": "TRANG BỊ",
 	"interface.hub.pack": "Ngăn {number}",
 	"interface.hub.saved_bank": "Nội dung ngân hàng đã lưu. Những thay đổi gần đây có thể chưa hiển thị.",
-	"interface.tavern.refunded": "Đã hoàn tiền cược"
+	"interface.tavern.refunded": "Đã hoàn tiền cược",
+	"interface.poker.walk_to_sit": "Lại gần để ngồi",
+	"interface.poker.three_quarter_pot": "¾ POT",
+	"interface.poker.pot_x": "{x}× POT",
+	"interface.poker.bb_x": "{x} BB"
 }

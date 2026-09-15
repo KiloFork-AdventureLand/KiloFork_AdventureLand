@@ -177,9 +177,23 @@ function play_out(f, choose) {
 	assert.equal(hand.over, true, "the hand ended");
 }
 
+// A character standing next to a stool, as the table requires before a buy-in.
+function beside(f, player, index) {
+	const stool = poker.stools[index],
+		machine = G.maps.tavern.machines.find((m) => m.type == "poker");
+	player.x = machine.x + stool[0];
+	player.y = machine.y + stool[1];
+}
+
+// Each character walks up to the next free stool before buying in.
 function sit(f, names, buyin) {
 	return names.map((name) => {
 		const player = f.join_socket(name);
+		beside(
+			f,
+			player,
+			f.table().seats.findIndex((seat) => !seat),
+		);
 		const reply = player.request({ event: "join", gold: buyin || 100 * BB, request_id: "join-" + name });
 		assert.equal(reply.success, true, name + " could not sit: " + JSON.stringify(reply));
 		return player;
@@ -200,10 +214,11 @@ function acting(f) {
 test("the poker definition fixes one five-seat table with tiered blinds, a 40 to 200 big blind buy-in and a capped rake", () => {
 	assert.equal(poker.seats, 5);
 	assert.deepEqual(plain(poker.blinds), {
-		I: [1000000, 2000000],
-		II: [5000000, 10000000],
-		III: [10000000, 20000000],
-		IV: [100000000, 200000000],
+		I: [100000, 200000],
+		II: [1000000, 2000000],
+		III: [5000000, 10000000],
+		IV: [10000000, 20000000],
+		PVP: [100000000, 200000000],
 	});
 	assert.deepEqual(plain(poker.buyin), [40, 200]);
 	assert.equal(poker.rake, 2);
@@ -214,19 +229,19 @@ test("the poker definition fixes one five-seat table with tiered blinds, a 40 to
 	assert.ok(poker.action_ms >= 15000 && poker.bank_ms >= 15000 && poker.grace_ms >= 240000);
 	const machines = G.maps.tavern.machines.filter((machine) => machine.type === "poker");
 	assert.equal(machines.length, 1, "exactly one table in the Tavern");
-	assert.deepEqual(plain(machines[0].frames), [[0, 416, 116, 62]]);
+	assert.deepEqual(plain(machines[0].frames), [[0, 416, 96, 48]]);
 	const sheet = fs.readFileSync(path.join(__dirname, "../../images/tiles/map/custom.png"));
 	assert.equal(sheet.readUInt32BE(16), 480);
 	assert.equal(sheet.readUInt32BE(20), 480);
 	assert.equal(fs.existsSync(path.join(__dirname, "../../images/cards/poker.png")), true);
-	assert.match(read("design/sprites.js"), /custom\.png\?v=15/);
+	assert.match(read("design/sprites.js"), /custom\.png\?v=16/);
 });
 
 test("blinds follow the server tier and every other or PVP server plays the IV tier", () => {
-	assert.deepEqual(plain(fixture({ server: "I" }).c.tavern_poker_blinds()), [1000000, 2000000]);
-	assert.deepEqual(plain(fixture({ server: "II" }).c.tavern_poker_blinds()), [5000000, 10000000]);
-	assert.deepEqual(plain(fixture({ server: "III" }).c.tavern_poker_blinds()), [10000000, 20000000]);
-	assert.deepEqual(plain(fixture({ server: "IV" }).c.tavern_poker_blinds()), [100000000, 200000000]);
+	assert.deepEqual(plain(fixture({ server: "I" }).c.tavern_poker_blinds()), [100000, 200000]);
+	assert.deepEqual(plain(fixture({ server: "II" }).c.tavern_poker_blinds()), [1000000, 2000000]);
+	assert.deepEqual(plain(fixture({ server: "III" }).c.tavern_poker_blinds()), [5000000, 10000000]);
+	assert.deepEqual(plain(fixture({ server: "IV" }).c.tavern_poker_blinds()), [10000000, 20000000]);
 	assert.deepEqual(plain(fixture({ server: "PVP" }).c.tavern_poker_blinds()), [100000000, 200000000]);
 	assert.deepEqual(plain(fixture({ server: "III", pvp: true }).c.tavern_poker_blinds()), [100000000, 200000000]);
 	assert.equal(fixture({ server: "HARDCORE" }).c.tavern_poker_tier(), "IV");
@@ -312,8 +327,15 @@ test("joining escrows the buy-in on the seat, refuses bad buy-ins, far players, 
 	alt.owner = a.owner;
 	assert.equal(alt.request({ event: "join", gold: 100 * BB }).response, "poker_seated");
 	assert.equal(f.join_socket("B").request({ event: "join", gold: 100 * BB, seat: 1 }).response, "poker_seat_taken");
-	for (const name of ["C", "D", "E", "F"])
-		assert.equal(f.join_socket(name).request({ event: "join", gold: 100 * BB }).success, true);
+	for (const name of ["C", "D", "E", "F"]) {
+		const player = f.join_socket(name);
+		beside(
+			f,
+			player,
+			f.table().seats.findIndex((seat) => !seat),
+		);
+		assert.equal(player.request({ event: "join", gold: 100 * BB }).success, true);
+	}
 	assert.equal(f.join_socket("Late").request({ event: "join", gold: 100 * BB }).response, "poker_full");
 	assert.equal(
 		f.packets.filter((p) => p.event === "instance:poker").length >= 5,

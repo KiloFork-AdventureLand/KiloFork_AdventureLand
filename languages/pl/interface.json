@@ -947,5 +947,9 @@
 	"interface.hub.equipment": "WYPOSAŻENIE",
 	"interface.hub.pack": "Schowek {number}",
 	"interface.hub.saved_bank": "Zapisana zawartość banku. Ostatnie zmiany mogą nie być jeszcze widoczne.",
-	"interface.tavern.refunded": "Stawka zwrócona"
+	"interface.tavern.refunded": "Stawka zwrócona",
+	"interface.poker.walk_to_sit": "Podejdź, aby usiąść",
+	"interface.poker.three_quarter_pot": "¾ PULI",
+	"interface.poker.pot_x": "{x}× PULA",
+	"interface.poker.bb_x": "{x} BB"
 }

@@ -935,5 +935,9 @@
 	"interface.hub.equipment": "ΕΞΟΠΛΙΣΜΟΣ",
 	"interface.hub.pack": "Θήκη {number}",
 	"interface.hub.saved_bank": "Αποθηκευμένο περιεχόμενο τράπεζας. Οι πρόσφατες αλλαγές ενδέχεται να μην εμφανίζονται ακόμη.",
-	"interface.tavern.refunded": "Στοίχημα επιστράφηκε"
+	"interface.tavern.refunded": "Στοίχημα επιστράφηκε",
+	"interface.poker.walk_to_sit": "Πλησίασε για να καθίσεις",
+	"interface.poker.three_quarter_pot": "¾ ΠΟΤ",
+	"interface.poker.pot_x": "{x}× ΠΟΤ",
+	"interface.poker.bb_x": "{x} BB"
 }

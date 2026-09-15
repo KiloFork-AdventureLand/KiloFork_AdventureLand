@@ -934,5 +934,9 @@
 	"interface.hub.equipment": "PERLENGKAPAN",
 	"interface.hub.pack": "Kompartemen {number}",
 	"interface.hub.saved_bank": "Isi bank yang tersimpan. Perubahan terbaru mungkin belum terlihat.",
-	"interface.tavern.refunded": "Taruhan dikembalikan"
+	"interface.tavern.refunded": "Taruhan dikembalikan",
+	"interface.poker.walk_to_sit": "Mendekat untuk duduk",
+	"interface.poker.three_quarter_pot": "¾ POT",
+	"interface.poker.pot_x": "{x}× POT",
+	"interface.poker.bb_x": "{x} BB"
 }

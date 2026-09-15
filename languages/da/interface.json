@@ -935,5 +935,9 @@
 	"interface.hub.equipment": "UDSTYR",
 	"interface.hub.pack": "Rum {number}",
 	"interface.hub.saved_bank": "Gemt bankindhold. De seneste ændringer vises muligvis ikke endnu.",
-	"interface.tavern.refunded": "Indsats givet tilbage"
+	"interface.tavern.refunded": "Indsats givet tilbage",
+	"interface.poker.walk_to_sit": "Gå hen for at sætte dig",
+	"interface.poker.three_quarter_pot": "¾ PULJE",
+	"interface.poker.pot_x": "{x}× PULJE",
+	"interface.poker.bb_x": "{x} BB"
 }

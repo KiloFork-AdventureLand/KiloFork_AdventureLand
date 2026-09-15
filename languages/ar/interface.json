@@ -934,5 +934,9 @@
 	"interface.hub.equipment": "المعدات",
 	"interface.hub.pack": "الخانة {number}",
 	"interface.hub.saved_bank": "محتويات البنك المحفوظة. قد لا تظهر التغييرات الأخيرة بعد.",
-	"interface.tavern.refunded": "أُعيد الرهان"
+	"interface.tavern.refunded": "أُعيد الرهان",
+	"interface.poker.walk_to_sit": "اقترب لتجلس",
+	"interface.poker.three_quarter_pot": "¾ الوعاء",
+	"interface.poker.pot_x": "{x}× الوعاء",
+	"interface.poker.bb_x": "{x} BB"
 }

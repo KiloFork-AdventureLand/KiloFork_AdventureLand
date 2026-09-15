@@ -935,5 +935,9 @@
 	"interface.hub.equipment": "EQUIPAMENTO",
 	"interface.hub.pack": "Compartimento {number}",
 	"interface.hub.saved_bank": "Conteúdo guardado do banco. As alterações recentes podem ainda não aparecer.",
-	"interface.tavern.refunded": "Aposta devolvida"
+	"interface.tavern.refunded": "Aposta devolvida",
+	"interface.poker.walk_to_sit": "Aproxima-te para te sentares",
+	"interface.poker.three_quarter_pot": "¾ POTE",
+	"interface.poker.pot_x": "{x}× POTE",
+	"interface.poker.bb_x": "{x} BB"
 }

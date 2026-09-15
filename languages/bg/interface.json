@@ -935,5 +935,9 @@
 	"interface.hub.equipment": "ЕКИПИРОВКА",
 	"interface.hub.pack": "Отделение {number}",
 	"interface.hub.saved_bank": "Запазено съдържание на банката. Последните промени може още да не се виждат.",
-	"interface.tavern.refunded": "Залогът е върнат"
+	"interface.tavern.refunded": "Залогът е върнат",
+	"interface.poker.walk_to_sit": "Приближи се, за да седнеш",
+	"interface.poker.three_quarter_pot": "¾ ПОТ",
+	"interface.poker.pot_x": "{x}× ПОТ",
+	"interface.poker.bb_x": "{x} BB"
 }

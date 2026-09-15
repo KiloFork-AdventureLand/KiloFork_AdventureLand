@@ -1231,7 +1231,7 @@ var tilesets = {
 	dreamsv3: { file: "/images/tiles/map/dreams-v3.png?v=3" },
 	castle: { file: "/images/tiles/map/castle.png?v=2" },
 	custom2: { file: "/images/tiles/map/custom2.png?v=14" },
-	custom: { file: "/images/tiles/map/custom.png?v=15" },
+	custom: { file: "/images/tiles/map/custom.png?v=16" },
 	custom_a: { frames: 3, frame_width: 16, file: "/images/tiles/map/custom_a.png?v=5" },
 	doors: { file: "/images/tiles/map/doors.png" },
 	dungeon: { file: "/images/tiles/map/dungeon.png?v=5" },

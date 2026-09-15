@@ -947,5 +947,9 @@
 	"interface.hub.equipment": "СПОРЯДЖЕННЯ",
 	"interface.hub.pack": "Комірка {number}",
 	"interface.hub.saved_bank": "Збережений вміст банку. Останні зміни можуть ще не відображатися.",
-	"interface.tavern.refunded": "Ставку повернуто"
+	"interface.tavern.refunded": "Ставку повернуто",
+	"interface.poker.walk_to_sit": "Підійдіть, щоб сісти",
+	"interface.poker.three_quarter_pot": "¾ БАНКУ",
+	"interface.poker.pot_x": "{x}× БАНК",
+	"interface.poker.bb_x": "{x} BB"
 }

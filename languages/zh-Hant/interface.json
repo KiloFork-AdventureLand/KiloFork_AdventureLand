@@ -934,5 +934,9 @@
 	"interface.hub.equipment": "裝備",
 	"interface.hub.pack": "儲物欄 {number}",
 	"interface.hub.saved_bank": "已儲存的銀行內容。最近的變更可能尚未顯示。",
-	"interface.tavern.refunded": "下注已退回"
+	"interface.tavern.refunded": "下注已退回",
+	"interface.poker.walk_to_sit": "走近入座",
+	"interface.poker.three_quarter_pot": "¾ 底池",
+	"interface.poker.pot_x": "{x}× 底池",
+	"interface.poker.bb_x": "{x} BB"
 }

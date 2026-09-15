@@ -935,5 +935,9 @@
 	"interface.hub.equipment": "UTRUSTNING",
 	"interface.hub.pack": "Fack {number}",
 	"interface.hub.saved_bank": "Sparat bankinnehåll. De senaste ändringarna kanske inte syns ännu.",
-	"interface.tavern.refunded": "Insats återlämnad"
+	"interface.tavern.refunded": "Insats återlämnad",
+	"interface.poker.walk_to_sit": "Gå fram för att sätta dig",
+	"interface.poker.three_quarter_pot": "¾ POTT",
+	"interface.poker.pot_x": "{x}× POTT",
+	"interface.poker.bb_x": "{x} BB"
 }

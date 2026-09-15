@@ -56,18 +56,19 @@ var games={
 		// only the rake from each awarded pot. Blinds follow the server tier; servers named I/II/III use their tier, every
 		// other server and every PVP server uses the IV tier. Stacks are bought in for 40 to 200 big blinds.
 		"seats":5,
-		"blinds":{"I":[1000000,2000000],"II":[5000000,10000000],"III":[10000000,20000000],"IV":[100000000,200000000]},
+		"blinds":{"I":[100000,200000],"II":[1000000,2000000],"III":[5000000,10000000],"IV":[10000000,20000000],"PVP":[100000000,200000000]},
 		"buyin":[40,200], // in big blinds
 		"rake":2, // percent of each awarded pot
 		"rake_cap":10, // in big blinds, per pot
 		"action_ms":20000, // the clock for every decision
 		"bank_ms":30000, // a personal time bank that starts when the clock runs out, once per hand
 		"grace_ms":300000, // a disconnected or sitting-out seat is kept this long, then cashed out
-		"showdown_ms":6000, // pause after a hand before the next deal
+		"showdown_ms":10000, // pause after a hand before the next deal, long enough to enjoy a win
 		"between_ms":2500, // pause between streets when no decision is left, so the run-out can be watched
 		"blind_hands":2, // blinds a disconnected seat still posts before it sits out
-		"stools":[[-32,2],[0,2],[32,2],[-51,-24],[51,-24]], // where a seated character stands, relative to the table's anchor
-		"block":[-40,-56,39,-12], // the table top's walking obstacle, relative to the anchor; the client walks around it
+		"stools":[[-32,16],[0,16],[32,16],[-60,-28],[60,-28]], // where a seated character stands, relative to the table's anchor
+		"reach":40, // a character sits on the stool it stands next to, within this many pixels
+		"block":[-48,-48,48,-1], // the table's walking obstacle, relative to the anchor; the client walks around it
 		"ranks":["2","3","4","5","6","7","8","9","10","J","Q","K","A"],
 		"suits":["hearts","diamonds","clubs","spades"],
 		"hands":["high_card","pair","two_pair","three_of_a_kind","straight","flush","full_house","four_of_a_kind","straight_flush"],

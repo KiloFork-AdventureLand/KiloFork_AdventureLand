@@ -378,6 +378,8 @@ module.exports = {
 	"response.tavern_closing": "The Tavern's games are closed while the server restarts",
 	// js/tavern_poker.js, response poker_far: a join request came from too far away from the Tavern poker table.
 	"response.poker_far": "Walk closer to the poker table",
+	// js/tavern_poker.js, response poker_stool_far: a join needs the character next to a free stool (within 40 pixels), and a requested seat must be that stool.
+	"response.poker_stool_far": "Stand next to a free stool to sit down",
 	// js/tavern_poker.js, response poker_full: every seat is taken.
 	"response.poker_full": "The poker table is full",
 	// js/tavern_poker.js, response poker_seat_taken: someone sat down on the chosen seat first.
