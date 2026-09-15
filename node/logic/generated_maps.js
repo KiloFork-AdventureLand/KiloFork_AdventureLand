@@ -331,6 +331,9 @@ async function open_generated_zone(player) {
 		activated = false;
 	try {
 		for (var account of accounts.sort((a, b) => a.owner.localeCompare(b.owner))) {
+			// Dev visits do not read or consume the account's daily reservation.
+			// Character locks and all party admission checks still apply.
+			if (Dev && !Prod) continue;
 			var daily = "daily:dreams:" + account.owner,
 				window = generated_daily_window(account.p.home || region + server_name);
 			try {
@@ -436,6 +439,8 @@ function generated_daily_window(home, now = Date.now()) {
 
 async function generated_visit_info(player) {
 	var window = generated_daily_window(player.p.home || region + server_name);
+	if (Dev && !Prod)
+		return { available: true, unlimited: true, resets: window.resets, home: window.home, server_time: Date.now() };
 	var daily = await db
 		.collection("GeneratedZone")
 		.findOne({ _id: "daily:dreams:" + player.owner }, { projection: { resets: 1, state: 1, lease: 1 } });

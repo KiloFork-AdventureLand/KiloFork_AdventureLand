@@ -1071,4 +1071,4 @@ for(var npc in npcs){
 if(typeof module!=="undefined") module.exports={npcs};
 
 
-npcs.dreamkeeper={name:"Dorr",role:"dreamkeeper",skin:"mm_blue",type:"full",says:["The cave opens once a day. Bring your party close."],interaction:["You have 24 minutes. Choose your company carefully."]};
+npcs.dreamkeeper={name:"Dorr",role:"dreamkeeper",skin:"oldcitizen",type:"fullstatic",says:["Going inside? Bring your party close."],interaction:["You have 24 minutes inside. Stay together."]};

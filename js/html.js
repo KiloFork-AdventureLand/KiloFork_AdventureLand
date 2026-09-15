@@ -870,6 +870,12 @@ function render_server() {
 		html += "<div style='color:#F0B742;margin-top:1px'>" + phrase.html("interface.server.10_years") + "</div></div>";
 		content = true;
 	}
+	if (G.events.dreams) {
+		html += " <div class='gamebutton' id='cave-info-button' title='Cave of Many Dreams' style='padding:6px 8px;font-size:24px;line-height:18px' onclick='pcs(event);open_cave_info()'>";
+		html += "<div style='margin-top:-1px;margin-left:-3px;margin-right:-3px'>" + item_container({ skin: G.items.cave_amber.skin, bcolor: "black", draggable: false }) + "</div>";
+		html += "<div style='color:#CFD1D1;margin-top:1px'>" + phrase.html("cave.info_button") + "</div></div>";
+		content = true;
+	}
 	$("#serverinfo").html(html);
 	if (!content) $("#serverinfo").hide();
 	else $("#serverinfo").css("display", "flex");

@@ -56,6 +56,7 @@ var cave_ui_next = 0;
 var cave_notice_id = null;
 var cave_notice_until = 0;
 var cave_hud_width = 0;
+var cave_enter_pending = false;
 function cave_now() { return Date.now() + cave_server_offset; }
 function cave_time(ms) {
 	var seconds = Math.max(0, Math.ceil(ms / 1000));
@@ -80,7 +81,7 @@ function receive_cave_state(data) {
 	if (data.type === "ended") {
 		cave_open_choice = null;
 		if ($("#cave-vote,#cave-status").length) $("#topleftcornerui").empty();
-		if (cave_visit) cave_visit.available = false;
+		if (cave_visit) cave_visit.available = !!cave_visit.unlimited;
 		update_cave_hud(true); update_cave_info(); return;
 	}
 	var choice = data.state.choice;
@@ -106,19 +107,22 @@ function cave_request(action, fields) {
 }
 function cave_manual(action, fields) {
 	if (no_graphics) return;
-	var openingMap = current_map;
 	if (action === "enter") {
-		$("#topleftcornerui > div").text(phrase("cave.opening"));
-		if (character) start_animation(character, "transport");
+		if (cave_enter_pending) return;
+		cave_enter_pending = true;
+		render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,message:"<div id='cave-entry-status'>"+phrase.html("cave.checking_entry")+"</div>"});
 	}
 	return cave_request(action, fields).then(function(data) {
 		if (action === "enter") { $("#topleftcornerui").empty(); render_cave_status(); }
 		if (action === "vote" || action === "buy" || action === "talk") render_cave_choice();
 		return data;
 	}).catch(function(error) {
-		ui_log((phrase("cave.error." + error.reason) === "cave.error." + error.reason ? phrase("cave.error.generic") : phrase("cave.error." + error.reason)), "#C55E67");
+		var message = phrase("cave.error." + error.reason);
+		if (message === "cave.error." + error.reason) message = phrase("cave.error.generic");
+		if (action === "enter" && current_map === "main" && $("#cave-entry-status").length) render_cave_keeper(message);
+		ui_log(message, "#C55E67");
 	}).finally(function() {
-		if (action === "enter" && current_map === openingMap && character && character.animations.transport) stop_animation(character, "transport");
+		if (action === "enter") cave_enter_pending = false;
 	});
 }
 function cave_load_visit() {
@@ -138,6 +142,7 @@ function open_cave_info() {
 }
 function cave_visit_text() {
 	if (!cave_visit) return phrase("cave.checking_visit");
+	if (cave_visit.unlimited) return phrase("cave.visit_unlimited");
 	if (cave_visit.available || cave_visit.resets <= cave_now()) return phrase("cave.visit_ready");
 	var minutes = Math.max(0, Math.ceil((cave_visit.resets - cave_now()) / 60000));
 	return phrase("cave.visit_cooldown", { hours: Math.floor(minutes / 60), minutes: minutes % 60, home: cave_visit.home });
@@ -205,10 +210,11 @@ function update_cave_info() {
 	$("#cave-information").html(html);
 }
 function render_cave_status() { if (!no_graphics) update_cave_hud(true); }
-function render_cave_keeper() {
+function render_cave_keeper(message) {
 	if (no_graphics) return;
 	cave_load_visit();
-	render_interaction({auto:true,skin:"mm_blue",cx:{},message:"<div style='font-size:24px'>"+phrase.html("cave.keeper")+"</div>"});
+	var keeper = G.npcs.dreamkeeper;
+	render_interaction({auto:true,skin:keeper.skin,cx:keeper.cx || {},message:"<div style='font-size:24px'>"+(message?html_escape(message):phrase.html(cave_visit?.unlimited?"cave.keeper_dev":"cave.keeper"))+"</div>"});
 	$("#topleftcornerui > div").append("<div style='clear:both;float:right;margin-top:7px'><div class='slimbutton' onclick='cave_manual(\"enter\")'>"+phrase.html("cave.enter")+"</div> <div class='slimbutton' onclick='open_cave_info()'>INFO</div></div>");
 }
 function render_cave_choice() {
@@ -261,6 +267,12 @@ function decorate_cave_gate(gate) {
 	function piece(sheet,sx,sy,w,h,x,y) {
 		var sprite = cave_gate_piece(sheet,sx,sy,w,h); sprite.position.set(x,y); gate.addChild(sprite); return sprite;
 	}
+	// The roof projects back into the hill. Its cast shadow sits behind the
+	// stonework, while the lighter upper faces remain visible from above.
+	var shadow = new PIXI.Graphics(); gate.addChild(shadow);
+	shadow.beginFill(0x302732,0.35);
+	shadow.drawPolygon([-29,-27,-29,-39,-21,-51,-13,-59,-5,-63,13,-63,23,-57,31,-47,37,-31,37,-19,29,-19,21,-33,13,-43,-3,-47,-17,-35]);
+	shadow.endFill();
 	// Rock faces from Cave of Darkness, placed as a stepped arch. Straight sides
 	// descend to the ground; the crown rises into the cliff, leaving a deep opening.
 	for (var side of [-1,1]) {
@@ -270,6 +282,22 @@ function decorate_cave_gate(gate) {
 		piece("dungeon",224,176,16,16,side<0?-16:0,-48);
 	}
 	piece("dungeon",224,176,16,8,-8,-52);
+	var roof = new PIXI.Graphics(); gate.addChild(roof);
+	roof.beginFill(0xffffff);
+	roof.drawPolygon([-32,-24,-32,-34,-26,-46,-18,-56,-8,-62,8,-62,18,-56,26,-46,32,-34,32,-24,24,-32,16,-40,8,-48,-8,-48,-16,-40,-24,-32]);
+	roof.endFill();
+	// Use the shipped stone rim for the upper surface too; the mask turns its
+	// shoulders back into the hillside without stretching any source pixels.
+	var sample = cave_gate_piece("dungeon",224,176,16,8);
+	var surface = new PIXI.extras.TilingSprite(sample.texture,64,40); sample.destroy();
+	surface.position.set(-32,-62); surface.mask=roof; gate.addChild(surface);
+	var bevel = new PIXI.Graphics(); gate.addChild(bevel);
+	bevel.beginFill(0xb2a8be,0.23);
+	bevel.drawPolygon([-16,-48,-16,-54,-8,-60,8,-60,16,-54,16,-48,8,-52,-8,-52]);
+	bevel.endFill();
+	bevel.beginFill(0x222638,0.32);
+	bevel.drawPolygon([16,-53,19,-52,26,-43,32,-34,32,-24,24,-32,24,-38,16,-46]);
+	bevel.endFill();
 	// Small plants and the shipped brazier with its original three flame frames.
 	for (var x of [-30,17]) piece("outside",736,560,16,32,x,-43);
 	piece("outside",736,560,16,32,-8,-60);
@@ -295,6 +323,7 @@ function cave_entry_animation(data) {
 	}
 	cave_entry_scenes.push(scene);
 	if (scene.me) {
+		render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,message:"<div id='cave-entry-status'>"+phrase.html("cave.opening")+"</div>"});
 		if (character) character.cave_entering=true;
 		h_shake();
 		for (var delay of [0,500,1000]) draw_timeout(function(){ if (current_map==="main") v_shake(); },delay);
@@ -323,7 +352,10 @@ function draw_cave_entrance() {
 				}
 			}
 		}
-		if (done && scene.me && character) { delete character.cave_entering; if (current_map!=="main") v_shake(); }
+		if (done && scene.me && character) {
+			delete character.cave_entering;
+			if (current_map!=="main") { if ($("#cave-entry-status").length) $("#topleftcornerui").empty(); v_shake(); }
+		}
 		return !done;
 	});
 	var gate=animatables.dreams_gate;

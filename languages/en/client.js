@@ -535,6 +535,13 @@ module.exports = {
 // {gold}, {amber} and {seconds} are counts; {fallback} is the announced default choice.
 Object.assign(module.exports, {
   "cave.opening": "Dorr is opening the cave. Stay together.",
+  // Pending server admission; the entrance has not opened yet.
+  "cave.checking_entry": "Checking that everyone can enter…",
+  // Event shortcut beside the anniversary icon. Opens the Cave of Many Dreams guide.
+  "cave.info_button": "CAVE INFO",
+  // Only shown for visits on a non-production Dev server.
+  "cave.visit_unlimited": "Dev: unlimited visits",
+  "cave.keeper_dev": "Bring your party close. You have 24 minutes inside. You can start another visit after leaving on this Dev server.",
   "cave.keeper": "Bring your party close. One visit per account each day. You have 24 minutes inside. Once you leave, you cannot return.",
   "cave.enter": "Enter together",
   "cave.exit": "Exit",

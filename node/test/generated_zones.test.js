@@ -35,6 +35,8 @@ function fixture() {
 		Set,
 		Map,
 		console,
+		Dev: false,
+		Prod: false,
 		crypto: require("node:crypto"),
 		generated_runs: { run },
 		generated_maps: {
@@ -246,7 +248,7 @@ test("a cave gold letter can be claimed once by its assigned character", async (
 	assert.equal(events.at(-1).failed, true);
 });
 
-test("admission reserves one daily visit per account and rejects a used companion account", async () => {
+test("daily admission stays limited in production; Dev permits repeat visits but keeps character locks", async () => {
 	const { c, p } = fixture();
 	const members = [p, { ...p, name: "B", real_id: "b" }, { ...p, name: "C", real_id: "c", owner: "other" }];
 	for (const player of members)
@@ -259,6 +261,9 @@ test("admission reserves one daily visit per account and rejects a used companio
 		});
 	const claims = new Map();
 	const collection = {
+		async findOne(query) {
+			return claims.get(query._id);
+		},
 		async updateOne(query, update) {
 			if (claims.has(query._id)) throw Object.assign(Error("duplicate"), { code: 11000 });
 			claims.set(query._id, update.$set);
@@ -295,7 +300,7 @@ test("admission reserves one daily visit per account and rejects a used companio
 		cave_start() {},
 		generated_transport() {},
 	});
-	load(c, "node/logic/generated_maps.js", ["generated_admission", "open_generated_zone"]);
+	load(c, "node/logic/generated_maps.js", ["generated_admission", "open_generated_zone", "generated_visit_info"]);
 	await c.open_generated_zone(p);
 	assert.deepEqual([...claims.keys()].filter((id) => id.startsWith("daily:")).sort(), [
 		"daily:dreams:other",
@@ -306,6 +311,24 @@ test("admission reserves one daily visit per account and rejects a used companio
 	await assert.rejects(c.open_generated_zone(p), /daily_opening_used/);
 	assert.equal(claims.has("daily:dreams:other"), false, "failed admission returns its new reservation");
 	assert.equal(claims.get("daily:dreams:owner").state, "active", "another account's used visit stays used");
+	assert.equal((await c.generated_visit_info(p)).available, false);
+	const used = clone(claims.get("daily:dreams:owner"));
+	c.Dev = true;
+	assert.equal((await c.generated_visit_info(p)).unlimited, true);
+	await assert.rejects(c.open_generated_zone(p), /character_already_entering/);
+	const runs = new Set();
+	for (let i = 0; i < 2; i++) {
+		// Exit releases character claims; it never removes the daily account record.
+		for (const member of members) claims.delete("member:" + member.real_id);
+		runs.add((await c.open_generated_zone(p)).run);
+		assert.equal((await c.generated_visit_info(p)).available, true);
+		assert.deepEqual(clone(claims.get("daily:dreams:owner")), used);
+		assert.equal(claims.has("daily:dreams:other"), false);
+	}
+	assert.equal(runs.size, 2, "repeat entry creates a new run, never reopens the old one");
+	c.Prod = true;
+	assert.equal((await c.generated_visit_info(p)).available, false);
+	await assert.rejects(c.open_generated_zone(p), /daily_opening_used/);
 });
 
 test("Nera can use the doorway when a fallen character is beside a wall", () => {
