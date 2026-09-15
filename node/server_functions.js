@@ -4774,6 +4774,9 @@ function server_bfs2(map) {
 			[amap_step, 0],
 			[-amap_step, 0],
 		].forEach(function (m) {
+			// A discovered node already has a valid route. Rechecking every incoming
+			// edge repeats the same geometry work up to eight times per node.
+			if (visited[phash2(current[0] + m[0], current[1] + m[1])]) return;
 			if (
 				can_move({
 					map: map,

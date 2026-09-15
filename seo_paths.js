@@ -67,6 +67,7 @@ const DOCS_PATHS = [
 	"/docs/function/cave_info",
 	"/docs/function/cave_reply",
 	"/docs/function/cave_buy",
+	"/docs/function/cave_talk",
 	"/docs/function/cave_exit",
 	"/docs/ref/event-anniversary",
 	"/docs/guide/event-anniversary",

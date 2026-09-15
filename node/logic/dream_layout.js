@@ -169,12 +169,12 @@ function generate(seed, level = 0) {
 	// Scanning nearby boundaries also handles a corridor through a room's north edge.
 	function wallSocket(r) {
 		const candidates = [];
-		for (let y = Math.max(6, r.y - 12); y < Math.min(H - 8, r.y + r.h); y++)
-			for (let x = Math.max(6, r.x - 12); x < Math.min(W - 6, r.x + r.w + 12); x++) {
+		for (let y = 6; y < H - 8; y++)
+			for (let x = 6; x < W - 6; x++) {
 				let valid = true;
 				for (let dy = -4; dy < 0 && valid; dy++)
-					for (let dx = -2; dx < 2; dx++) if (grid[y + dy]?.[x + dx] !== 0) valid = false;
-				for (let dx = -2; dx < 2; dx++) if (grid[y]?.[x + dx] !== 1) valid = false;
+					for (let dx = -3; dx < 3; dx++) if (grid[y + dy]?.[x + dx] !== 0) valid = false;
+				for (let dx = -3; dx < 3; dx++) if (grid[y]?.[x + dx] !== 1) valid = false;
 				for (let dy = 1; dy < 8 && valid; dy++)
 					for (let dx = -3; dx <= 3; dx++) if (grid[y + dy]?.[x + dx] !== 1) valid = false;
 				if (valid) candidates.push({ x, y, cost: Math.abs(x - r.cx) + Math.abs(y - r.y) * 2 });
@@ -207,7 +207,7 @@ function generate(seed, level = 0) {
 			for (let x = r.x + 1; x < r.x + r.w - 1; x++) {
 				const landing = { x: Math.max(r.x + 4, Math.min(r.x + r.w - 4, x)), y: y + 4 };
 				let valid = true;
-				for (let dy = -2; dy < 0; dy++) for (let dx = -1; dx < 1; dx++) if (grid[y + dy]?.[x + dx] !== 1) valid = false;
+				for (let dy = -4; dy < 0; dy++) for (let dx = -3; dx < 3; dx++) if (grid[y + dy]?.[x + dx] !== 1) valid = false;
 				for (let dy = -3; dy <= 3 && valid; dy++)
 					for (let dx = -3; dx <= 3; dx++) if (grid[landing.y + dy]?.[landing.x + dx] !== 1) valid = false;
 				if (valid)
@@ -226,7 +226,7 @@ function generate(seed, level = 0) {
 		candidates.sort((a, b) => a.cost - b.cost || a.y - b.y || a.x - b.x);
 		for (const d of candidates) {
 			const wide = flood(
-				{ grid, blockers: [{ x: d.x * 16 - 16, y: d.y * 16 - 32, w: 32, h: 32 }] },
+				{ grid, blockers: [{ x: d.x * 16 - 48, y: d.y * 16 - 64, w: 96, h: 64 }] },
 				[first.cx, first.cy],
 				6,
 			);
@@ -243,13 +243,13 @@ function generate(seed, level = 0) {
 		for (let dy = -3; dy <= 3; dy++) for (let dx = -4; dx < 4; dx++) carve(d.landing.x + dx, d.landing.y + dy);
 	for (const d of doors)
 		if (d.placement === "floor")
-			for (let dy = -2; dy < 0; dy++) for (let dx = -1; dx < 1; dx++) carve(d.x + dx, d.y + dy);
+			for (let dy = -4; dy < 0; dy++) for (let dx = -3; dx < 3; dx++) carve(d.x + dx, d.y + dy);
 	const blockers = doors.map((d) => ({
 		id: d.id,
-		x: d.x * 16 - (d.placement === "wall" ? 24 : 16),
-		y: d.y * 16 - 32,
-		w: d.placement === "wall" ? 48 : 32,
-		h: 32,
+		x: d.x * 16 - 48,
+		y: d.y * 16 - 64,
+		w: 96,
+		h: 64,
 	}));
 	const reserved = (x, y) =>
 		doors.some((d) => Math.abs(x - d.x) < 7 && Math.abs(y - d.y) < 7) ||
@@ -258,11 +258,11 @@ function generate(seed, level = 0) {
 	for (const r of rooms) {
 		const typePool =
 			level === 0
-				? ["rock", "stalagmite", "torch", "rock"]
+				? ["rock", "stalagmite", "crystal", "web", "torch"]
 				: level === 1
 					? ["rock", "crystal", "barrel", "torch"]
 					: ["stalagmite", "rock", "web", "torch"];
-		for (let n = 0; n < Math.max(4, Math.floor((r.w + r.h) / 5)); n++) {
+		for (let n = 0; n < Math.max(6, Math.floor((r.w + r.h) / 4)); n++) {
 			const side = int(0, 3);
 			const x = side === 0 ? r.x + 1 : side === 1 ? r.x + r.w - 2 : int(r.x + 2, r.x + r.w - 3);
 			const y = side === 2 ? r.y + 1 : side === 3 ? r.y + r.h - 2 : int(r.y + 2, r.y + r.h - 3);
@@ -374,8 +374,8 @@ function validate(map) {
 	for (const d of map.doors)
 		if (!wide[d.landing.y * W + d.landing.x]) failures.push("Unreachable stair landing " + d.id);
 	for (const d of map.doors)
-		for (let dy = -2; dy < 0; dy++)
-			for (let dx = -1; dx < 1; dx++)
+		for (let dy = -4; dy < 0; dy++)
+			for (let dx = -3; dx < 3; dx++)
 				if (map.grid[d.y + dy]?.[d.x + dx] !== (d.placement === "wall" ? 0 : 1))
 					failures.push("Invalid stair footprint " + d.id);
 	if (map.width !== 272 || map.height !== 192) failures.push("Wrong map dimensions");
@@ -997,7 +997,21 @@ function ground(map) {
 		}
 	for (const d of map.doors) {
 		const im = images[p + (d.placement === "wall" ? "-return-door" : "-stairwell")];
-		ctx.drawImage(im, d.x * 16 - im.width / 2, d.y * 16 - im.height);
+		// Extend the native centre pieces; every source pixel remains one map pixel.
+		const edge = d.placement === "wall" ? 16 : 8;
+		for (let row = 0; row < 8; row++)
+			for (let col = 0; col < 12; col++) {
+				const dx = col * 8,
+					dy = row * 8;
+				const sx =
+					dx < edge ? dx : dx >= 96 - edge ? im.width - (96 - dx) : edge + ((dx - edge) % (im.width - edge * 2));
+				const sy = dy < 8 ? dy : dy >= 56 ? 24 : 8 + ((dy - 8) % 16);
+				ctx.drawImage(im, sx, sy, 8, 8, d.x * 16 - 48 + dx, d.y * 16 - 64 + dy, 8, 8);
+			}
+		ctx.depth = true;
+		actor(ctx, "torch", d.x * 16 - 64, d.y * 16 + 8);
+		actor(ctx, "torch", d.x * 16 + 64, d.y * 16 + 8);
+		ctx.depth = false;
 	}
 	const clearApproach = (b) =>
 		!map.doors.some(
@@ -1027,6 +1041,16 @@ function ground(map) {
 			if (r.id % 3 === 0 && clearApproach(moss) && floorUnder(moss)) ctx.drawImage(images["ruin-moss"], moss.x, moss.y);
 			const vine = { x: (r.x + r.w - 5) * 16 - 8, y: r.y * 16 - 56, w: 16, h: 48 };
 			if (r.id % 2 === 0 && clearApproach(vine)) actor(ctx, "ruin-vines", vine.x + 8, vine.y + 48);
+		}
+		// Small furnished corners and nesting clusters give even unoccupied rooms a purpose.
+		const centreX = (r.x + r.w / 2) * 16,
+			centreY = (r.y + r.h / 2) * 16;
+		props.push({ name: "web", x: centreX, y: centreY - 80 });
+		props.push({ name: p === "ruin" ? "ruin-idol" : "crystal", x: centreX - 48, y: centreY - 64 });
+		props.push({ name: "rock", x: centreX + 40, y: centreY - 80 });
+		if (r.id % 2 === 0) {
+			props.push({ name: "barrel", x: x - 64, y: y + 32 }, { name: "barrel", x: x - 48, y: y + 40 });
+			props.push({ name: "books", x: x - 30, y: y + 36 }, { name: "torch", x: x + 56, y: y + 32 });
 		}
 		if (r.actor || r.kind === "ledger") {
 			props.push({ name: "torch", x: x - 72, y: y + 12 }, { name: "barrel", x: x + 56, y: y + 16 });
@@ -1180,7 +1204,7 @@ function compileDungeon(seed, runKey, exitSpawn, processMap, floorIndex = 0) {
 					: dungeon.floors[d.target.floor].doors.findIndex((other) => other.id === d.target.door);
 				if (arrival < 0) throw Error("Unpaired stair");
 				// The click area includes the walkable threshold in front of the art.
-				return [d.x * 16, d.y * 16 + 16, d.placement === "wall" ? 48 : 32, 48, destination, arrival, n, "ordinary"];
+				return [d.x * 16, d.y * 16 + 16, 96, 80, destination, arrival, n, "ordinary"];
 			}),
 			npcs: [],
 			monsters: [],

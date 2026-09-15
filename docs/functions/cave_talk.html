@@ -1,0 +1,9 @@
+<p><span class="dlabel">cave_talk(room)</span></p>
+<p>{{ phrase("docs.cave.function.cave_talk") }}</p>
+<p>{{ phrase("docs.cave.failure") }}</p>
+<div class="code">var npc = get_target();
+if (npc &amp;&amp; npc.cave) {
+    var reply = await cave_talk(npc.cave.room);
+    if (reply.chat) game_log(reply.chat.name + ": " + reply.chat.text);
+}</div>
+<p></p><span class="redlabel">{{ phrase("docs.reference.source_code") }}</span>

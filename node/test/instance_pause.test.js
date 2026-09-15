@@ -145,7 +145,7 @@ test("the trainer always offers a real practice fight and reopening does not pau
 	const player = { cave_room: "old_conversation" };
 	c.cave_players = () => [player];
 	c.crypto = require("node:crypto");
-	load(c, "node/logic/cave_of_many_dreams.js", ["cave_random", "cave_pick", "cave_begin_vote"]);
+	load(c, "node/logic/cave_of_many_dreams.js", ["cave_random", "cave_pick", "cave_begin_vote", "cave_face"]);
 	run.members = [{ character: "a" }, { character: "b" }, { character: "c" }];
 	for (let i = 0; i < 50; i++) {
 		run.cave.vote = null;
@@ -198,6 +198,9 @@ test("entry cameras shake only for entrants; spectators see sprite motion withou
 		const c = vm.createContext({
 			Date: Clock,
 			Math,
+			G,
+			phrase: { html: (s) => s },
+			render_interaction() {},
 			PIXI: { Graphics },
 			no_graphics: false,
 			current_map: "main",

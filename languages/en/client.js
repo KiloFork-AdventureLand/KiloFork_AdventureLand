@@ -625,3 +625,13 @@ Object.assign(module.exports, {
 // Cave visit status and entry.
 module.exports["cave.error.cave_entering"] = "The cave is taking you inside. Hold on!";
 module.exports["cave.floor_location"] = "Floor {floor} · {x}, {y}";
+
+// Cave directions and compact controls. English playtest; translation awaits approval.
+Object.assign(module.exports, {
+ "cave.shared":"Shared purse", "cave.continue":"Continue", "cave.directions":"Directions",
+ "cave.stairs_down":"Stairs down", "cave.stairs_up":"Stairs up", "cave.door_exit":"Exit to Mainland",
+ "cave.locked":"Locked", "cave.open":"Open", "cave.walk_here":"Go", "cave.floor_short":"Floor {floor}",
+ "cave.camp_packs":"Pack {count}/3", "cave.supply.decoy":"patrol distraction", "cave.supply.message":"captain’s message",
+ "cave.purse_help":"Gold and Amber here belong to the party. They pay out when someone exits or time runs out.",
+ "cave.find_seals":"Defeat the guard camp and the floor keeper, then settle the marked encounter to open the stairs.",
+});

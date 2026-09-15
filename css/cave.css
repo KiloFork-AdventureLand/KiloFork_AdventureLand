@@ -1,0 +1,33 @@
+/* Cave screens use the game's native sprites, modal, dialogue and buttons. */
+#cave-hud { background:#111016; border:3px solid #696171; color:#ECE5D7; font-size:20px; min-width:245px; max-width:480px; }
+.cave-hud-row { display:flex; align-items:stretch; }
+#cave-hud .gamebutton { border:0; border-right:2px solid #696171; margin:0; padding:7px 10px; font-size:24px; }
+#cave-hud .cave-clock { color:#E1C4F3; flex:1; }
+#cave-hud .cave-exit { color:#DCA99B; border-right:0; }
+.cave-purse { display:flex; justify-content:center; align-items:center; gap:12px; padding:3px 10px; border-top:1px solid #49424F; cursor:pointer; }
+.cave-purse>span { display:inline-flex; align-items:center; gap:5px; }
+.cave-purse-label { color:#AAA0AD; font-size:18px; }
+.cave-reward-note,.cave-hunt-note { max-width:420px; }
+.cave-dialogue-modal .imodal { margin-top:80px; }
+.cave-dialogue-modal .cave-dialogue { width:560px; max-width:calc(100vw - 90px)!important; box-sizing:border-box; background:#1C1724!important; color:#EFE7D5!important; border-color:#8C729E!important; padding:18px!important; font-size:24px!important; text-align:left; }
+.cave-dialogue-title { color:#E9C081; font-size:30px; line-height:1; margin:0 0 7px; }
+.cave-speaker { color:#ADCAAE; font-size:20px; }
+.cave-dialogue-line { font-size:26px; line-height:1.12; margin:8px 0 12px; }
+.cave-scene { clear:both; display:flex; justify-content:center; flex-wrap:wrap; gap:10px; padding:8px 0; border-top:2px solid #4F425D; border-bottom:2px solid #4F425D; background:#15121C; }
+.cave-scene>div { width:62px; text-align:center; }
+.cave-scene small { display:block; font-size:16px; line-height:1; }
+.cave-dialogue .cave-reply { display:block; margin-top:8px; padding:10px; font-size:26px; line-height:1.05; white-space:normal; text-align:left; }
+.cave-choice-clock { color:#F0C574; }
+.cave-continue { float:right; margin-top:12px; border-color:#8DBD9A; }
+.cave-result { border-color:#8DBD9A!important; }
+.cave-direction-row { display:flex; gap:12px; align-items:center; justify-content:space-between; margin:10px 0; }
+.cave-direction-row small { display:block; color:#777; }
+.cave-guide { width:640px; max-width:100%; box-sizing:border-box; font-size:24px; line-height:1.2; text-align:left; }
+.cave-guide h3 { color:#72508B; font-size:30px; font-weight:normal; margin:22px 0 8px; }
+.cave-guide p { margin:12px 0; }
+.cave-guide hr { box-sizing:border-box; width:100%; margin:20px 0; }
+.cave-guide .CodeMirror { max-width:100%; font-size:16px; }
+.cave-guide-title { display:flex; align-items:center; gap:16px; color:#64477E; font-size:34px; }
+.cave-guide-facts { color:#816023; font-size:26px; margin:12px 0; }
+.cave-guide-crafts { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.cave-guide img { image-rendering:crisp-edges; image-rendering:pixelated; }

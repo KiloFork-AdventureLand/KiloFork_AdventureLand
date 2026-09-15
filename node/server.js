@@ -990,7 +990,7 @@ function monster_to_client(monster, events) {
 		data.cx = monster.cx;
 		data.slots = monster.slots;
 		data.name = monster.name;
-		data.cave = { room: monster.zone_actor.room, side: monster.zone_actor.side };
+		data.cave = { room: monster.zone_actor.room, side: monster.zone_actor.side, citizen: !!monster.zone_actor.citizen };
 	}
 	if (monster.pet) {
 		data.pet = true;

@@ -49,6 +49,7 @@ function prune_generated_maps() {
 var cave_client_state = null;
 var cave_last_state = null;
 var cave_open_choice = null;
+var cave_result_timer = null;
 var cave_visit = null;
 var cave_visit_request = null;
 var cave_server_offset = 0;
@@ -80,12 +81,23 @@ function receive_cave_state(data) {
 	if (no_graphics) return;
 	if (data.type === "ended") {
 		cave_open_choice = null;
+		if ($(".modal:last").hasClass("cave-dialogue-modal")) hide_modal();
 		if ($("#cave-vote,#cave-status").length) $("#topleftcornerui").empty();
 		if (cave_visit) cave_visit.available = !!cave_visit.unlimited;
 		update_cave_hud(true); update_cave_info(); return;
 	}
+	if (data.type === "chat" && data.chat) {
+		render_interaction({auto:true,skin:data.chat.skin,cx:data.chat.cx,message:"<span style='color:#725398'>"+html_escape(data.chat.name)+"</span><br>"+html_escape(data.chat.text)});
+		var speaker=Object.values(entities).find(e=>e.name===data.chat.name && e.cave);
+		if(speaker) d_text(data.chat.text,speaker,{color:"#C3DBAC"});
+	}
+	if (data.type === "cue" && data.cue && data.cue.map===current_map) {
+		var actor=get_entity(data.cue.actor);
+		if(actor) { d_text(data.cue.text,actor,{color:"#F2BB73"}); start_emblem(actor,"rr1",{frames:20}); }
+		ui_log(data.cue.text,"#F2BB73");
+	}
 	var choice = data.state.choice;
-	if (choice && (data.type === "choice" || $("#cave-vote").length &&
+	if (choice && (data.type === "choice" || data.type === "result" || $("#cave-vote").length &&
 		(!previous?.choice || previous.choice.id !== choice.id || previous.choice.resolved !== choice.resolved ||
 		JSON.stringify(previous.choice.votes) !== JSON.stringify(choice.votes) || previous.choice.shop?.sold !== choice.shop?.sold || previous.choice.shop?.nearby !== choice.shop?.nearby))) render_cave_choice();
 	update_cave_hud(true);
@@ -110,11 +122,11 @@ function cave_manual(action, fields) {
 	if (action === "enter") {
 		if (cave_enter_pending) return;
 		cave_enter_pending = true;
-		render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,message:"<div id='cave-entry-status'>"+phrase.html("cave.checking_entry")+"</div>"});
+		render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,cx:G.npcs.dreamkeeper.cx,message:"<div id='cave-entry-status'>"+phrase.html("cave.checking_entry")+"</div>"});
 	}
 	return cave_request(action, fields).then(function(data) {
 		if (action === "enter") { $("#topleftcornerui").empty(); render_cave_status(); }
-		if (action === "vote" || action === "buy" || action === "talk") render_cave_choice();
+		if (action === "vote" || action === "buy" || action === "talk" && !data.chat) render_cave_choice();
 		return data;
 	}).catch(function(error) {
 		var message = phrase("cave.error." + error.reason);
@@ -171,20 +183,20 @@ function update_cave_hud(force) {
 	var near = character && current_map === "main" && Math.hypot(character.real_x - 816, character.real_y - 1200) < 240;
 	if (!state && !near) { if ($("#cave-hud").length) { $("#cave-hud").remove(); reposition_ui(); } return; }
 	if (!$("#cave-hud").length) {
-		$("#topmid").append("<div id='cave-hud'><div class='gamebutton cave-clock' onclick='open_cave_info()'></div> <div class='gamebutton cave-vote-clock' onclick='render_cave_choice()'></div> <div class='gamebutton' onclick='open_cave_info()'>INFO</div> <div class='gamebutton cave-exit' onclick='cave_manual(\"exit\")'>" + phrase.html("cave.exit") + "</div><div><div class='gamebutton cave-purse' style='font-size:20px' onclick='open_cave_info()'></div></div><div class='cave-reward-note' style='margin-top:4px'></div><div class='cave-hunt-note'></div></div>");
+		$("#topmid").append("<div id='cave-hud'><div class='cave-hud-row'><div class='gamebutton cave-clock' onclick='open_cave_info()'></div><div class='gamebutton cave-vote-clock' onclick='render_cave_choice()'></div><div class='gamebutton' onclick='open_cave_info()'>INFO</div><div class='gamebutton cave-exit' onclick='cave_manual(\"exit\")'>"+phrase.html("cave.exit")+"</div></div><div class='cave-purse' onclick='open_cave_info()'></div><div class='cave-reward-note'></div><div class='cave-hunt-note'></div></div>");
 		reposition_ui();
 	}
 	$(".cave-exit,.cave-purse").toggle(!!state);
 	if (!state) { cave_load_visit(); $(".cave-clock").text(cave_visit_text()); $(".cave-vote-clock,.cave-reward-note,.cave-hunt-note").hide(); reposition_ui(); return; }
 	$(".cave-clock").text(phrase(state.paused ? "cave.clock_paused" : "cave.clock_running", {time:cave_time(cave_remaining(state))}));
-	$(".cave-purse").text(phrase("cave.purse", {gold:to_pretty_num(state.gold), amber:state.amber}));
+	$(".cave-purse").html("<span style='color:#F0C574'>"+phrase.html("cave.gold",{gold:to_pretty_num(state.gold)})+"</span><span>"+item_container({skin:G.items.cave_amber.skin,draggable:false},{name:"cave_amber",q:state.amber || 1},{r:1})+" <span style='color:#F0C574'>"+state.amber+"</span></span><span class='cave-purse-label'>"+phrase.html("cave.shared")+"</span>");
 	var choice = state.choice;
 	$(".cave-vote-clock").toggle(!!choice && !choice.resolved).text(phrase("cave.vote_clock", {seconds:Math.max(0,Math.ceil(((choice?.deadline || 0)-cave_now())/1000))}));
 	$(".cave-choice-clock").text(phrase("cave.seconds", {seconds:Math.max(0,Math.ceil(((choice?.deadline || 0)-cave_now())/1000))}));
 	var reward = state.rewards?.[state.rewards.length-1];
 	if (reward && reward.id !== cave_notice_id) {
 		cave_notice_id = reward.id; cave_notice_until = Date.now()+9000;
-		$(".cave-reward-note").html("<div class='gamebutton' style='font-size:20px;border-color:#85C76B'>" + cave_reward_html(reward) + "</div>");
+		$(".cave-reward-note").html("<div class='gamebutton' style='font-size:20px;border-color:#85C76B;white-space:normal'>" + cave_reward_html(reward) + "</div>");
 	}
 	$(".cave-reward-note").toggle(!!reward && Date.now() < cave_notice_until);
 	var tasks = (state.hunts || []).map(h => phrase.html("cave.hunt_clock", {kills:h.kills,count:h.count,time:cave_time(h.deadline-(state.paused?state.paused_at:cave_now()))}));
@@ -201,8 +213,13 @@ function update_cave_info() {
 		html += "<p>" + phrase.html(state.paused ? "cave.clock_paused" : "cave.clock_running", {time:cave_time(cave_remaining(state))}) + "</p>";
 		html += "<p>" + phrase.html("cave.purse",{gold:to_pretty_num(state.gold),amber:state.amber}) + "<br>" + phrase.html("cave.purse_help") + "</p>";
 		html += "<div class='slimbutton' onclick='cave_manual(\"exit\")'>" + phrase.html("cave.exit") + "</div><hr>";
-		html += "<p>"+phrase.html("cave.objectives")+"</p>";
-		state.objectives.forEach(o => { html += "<p>" + (o.done ? "✓ " : "• ") + html_escape(o.name) + " · " + phrase.html("cave.floor_location",{floor:o.floor+1,x:o.x,y:o.y}) + "</p>"; });
+		html += "<h3>"+phrase.html("cave.directions")+"</h3>";
+		(state.doors || []).forEach((d,index)=>{
+			var label=phrase(d.down?"cave.stairs_down":d.to==="main"?"cave.door_exit":"cave.stairs_up");
+			html += "<div class='cave-direction-row'><span style='color:"+(d.locked?"#AA7444":"#487448")+"'>"+html_escape(label)+" · "+phrase.html(d.locked?"cave.locked":"cave.open")+"</span><div class='slimbutton' onclick='cave_walk_to(\"door\","+index+")'>"+phrase.html("cave.walk_here")+"</div></div>";
+		});
+		html += "<p>"+phrase.html("cave.find_seals")+"</p>";
+		state.objectives.forEach((o,index) => { html += "<div class='cave-direction-row'><span>"+(o.done?"✓ ":"")+html_escape(o.name)+"<small>"+phrase.html("cave.floor_short",{floor:o.floor+1})+(o.kind==="farm"?" · "+phrase.html("cave.camp_packs",{count:o.waves||0}):"")+"</small></span>"+(!o.done?"<div class='slimbutton' onclick='cave_walk_to(\"room\","+index+")'>"+phrase.html("cave.walk_here")+"</div>":"")+"</div>"; });
 		if (state.supplies.length) html += "<hr><p>" + phrase.html("cave.supplies_label") + " " + state.supplies.map(s=>phrase.html("cave.supply."+s)).join(", ") + "</p>";
 	}
 	var rewards = (state || cave_last_state)?.rewards || [];
@@ -221,15 +238,17 @@ function render_cave_choice() {
 	if (no_graphics || !cave_client_state?.choice) return;
 	var choice = cave_client_state.choice, myVote = choice.votes[character.name || character.id];
 	cave_open_choice = choice.id;
-	var html = "<div id='cave-vote' style='font-size:24px;line-height:1.2'><div style='font-size:20px'>" + html_escape(choice.people[0]?.name || choice.title) + " · " + html_escape(choice.title) + "</div><p style='margin:8px 0'>" + html_escape(choice.text) + "</p></div>";
+	var html = "<div id='cave-vote'><div class='cave-dialogue-title'>"+html_escape(choice.title)+"</div><div class='cave-speaker'>"+html_escape(choice.people[0]?.name || "")+"</div>"+(!choice.resolved?"<p class='cave-dialogue-line'>"+html_escape(choice.text)+"</p>":"")+"</div>";
+	var scene=(choice.scene || []).filter(a=>a.id && a.name!==choice.people[0]?.name).slice(0,7);
+	if(scene.length) html += "<div class='cave-scene'>"+scene.map(a=>"<div title='"+html_escape(a.name)+"'>"+sprite(a.skin,{cx:a.cx || {},scale:2,width:52,height:64})+"<small style='color:"+(["enemy","predator"].includes(a.side)?"#E58A80":"#A9CDBA")+"'>"+html_escape(a.name)+"</small></div>").join("")+"</div>";
 	if (!choice.resolved) {
 		html += "<div style='clear:both;font-size:20px;margin:8px 0'>" + phrase.html("cave.paused_choice") + "<br><span class='cave-choice-clock'>"+phrase.html("cave.seconds",{seconds:Math.max(0,Math.ceil((choice.deadline-cave_now())/1000))})+"</span></div>";
-		if (choice.people.length > 1) html += "<div style='font-size:20px'>"+choice.people.map(p=>html_escape(p.name)+": "+p.hp+" HP · "+p.attack+" ATT").join("<br>")+"</div>";
+		if (choice.people.length > 1) html += "<div style='font-size:20px'>"+choice.people.map(p=>html_escape(p.name)+": "+to_pretty_num(p.hp)+" HP · "+to_pretty_num(Math.round(p.attack))+" ATT").join("<br>")+"</div>";
 		if (choice.people[0]?.cargo?.length) html += "<div style='font-size:20px;margin:6px 0'>"+phrase.html("cave.carries",{name:choice.people[0].name})+" "+choice.people[0].cargo.map(item=>item_container({skin:G.items[item.name].skin,def:G.items[item.name],draggable:false},item,{r:2})).join(" ")+"</div>";
 		choice.options.forEach(function(option,index) {
 			var voters = Object.keys(choice.votes).filter(n=>choice.votes[n]===option.id);
 			var disabled = myVote || option.unavailable;
-			html += "<div class='slimbutton cave-reply' style='display:block;white-space:normal;font-size:24px;line-height:1.15;margin-top:6px"+(disabled?";opacity:0.6":"")+"'" +
+			html += "<div class='slimbutton cave-reply' style='border-color:"+(index===0?"#82BDA8":"#AF90C8")+(disabled?";opacity:0.65":"")+"'" +
 				(disabled?"":" onclick='cave_manual(\"vote\",{choice:"+JSON.stringify(choice.id)+",option:"+JSON.stringify(option.id)+"})'") + ">" + html_escape(option.label) +
 				(voters.length?"<div style='font-size:18px'>"+html_escape(voters.join(", "))+"</div>":"")+(option.unavailable?"<div style='font-size:18px'>"+html_escape(option.unavailable)+"</div>":"")+"</div>";
 		});
@@ -246,7 +265,23 @@ function render_cave_choice() {
 		else if (choice.resolved && choice.shop.nearby) html += "<div class='slimbutton' onclick='cave_manual(\"buy\",{room:"+JSON.stringify(choice.shop.room)+"})'>"+phrase.html("cave.buy",{gold:to_pretty_num(choice.shop.price)})+"</div>";
 		else if (choice.resolved) html += "<div style='font-size:20px'>"+phrase.html("cave.shop_distance")+"</div>";
 	}
-	render_interaction({auto:true,skin:choice.skin || "mm_blue",cx:choice.cx,message:html});
+	if(choice.resolved) html += "<div class='slimbutton cave-continue' onclick='hide_modal()'>"+phrase.html("cave.continue")+"</div>";
+	var native=render_interaction({auto:true,skin:choice.skin || G.npcs.dreamkeeper.skin,cx:choice.cx,message:html},"return_html");
+	var content=$(native).addClass("cave-dialogue").toggleClass("cave-result",!!choice.resolved);
+	var existing=$(".cave-dialogue-modal .imodal");
+	if(existing.length) {
+		// Keep native stack order when a forced conversation takes focus over an open guide.
+		var modal=existing.closest(".modal"), index=$(".modal").index(modal);
+		if(index>=0 && index<modal_count-1) { modals.push(modals.splice(index,1)[0]); modal.appendTo(document.body); }
+		existing.empty().append(content);
+		add_ui_close(existing,"modal",{frame:false,label:"X"});
+		position_modals();
+	} else show_modal(content.prop("outerHTML"),{wrap:false,opacity:0.28,classes:"cave-dialogue-modal",close:{label:"X"}});
+	clearTimeout(cave_result_timer);
+	if(choice.resolved && !choice.shop && !choice.service) {
+		var id=choice.id;
+		cave_result_timer=setTimeout(function(){if(cave_client_state?.choice?.id===id && $(".modal:last").hasClass("cave-dialogue-modal") && $(".cave-result #cave-vote").length)hide_modal();},4500);
+	}
 }
 
 // Native atlas pieces keep the gate on the same pixel grid as Mainland.
@@ -267,12 +302,6 @@ function decorate_cave_gate(gate) {
 	function piece(sheet,sx,sy,w,h,x,y) {
 		var sprite = cave_gate_piece(sheet,sx,sy,w,h); sprite.position.set(x,y); gate.addChild(sprite); return sprite;
 	}
-	// The roof projects back into the hill. Its cast shadow sits behind the
-	// stonework, while the lighter upper faces remain visible from above.
-	var shadow = new PIXI.Graphics(); gate.addChild(shadow);
-	shadow.beginFill(0x302732,0.35);
-	shadow.drawPolygon([-29,-27,-29,-39,-21,-51,-13,-59,-5,-63,13,-63,23,-57,31,-47,37,-31,37,-19,29,-19,21,-33,13,-43,-3,-47,-17,-35]);
-	shadow.endFill();
 	// Rock faces from Cave of Darkness, placed as a stepped arch. Straight sides
 	// descend to the ground; the crown rises into the cliff, leaving a deep opening.
 	for (var side of [-1,1]) {
@@ -282,22 +311,6 @@ function decorate_cave_gate(gate) {
 		piece("dungeon",224,176,16,16,side<0?-16:0,-48);
 	}
 	piece("dungeon",224,176,16,8,-8,-52);
-	var roof = new PIXI.Graphics(); gate.addChild(roof);
-	roof.beginFill(0xffffff);
-	roof.drawPolygon([-32,-24,-32,-34,-26,-46,-18,-56,-8,-62,8,-62,18,-56,26,-46,32,-34,32,-24,24,-32,16,-40,8,-48,-8,-48,-16,-40,-24,-32]);
-	roof.endFill();
-	// Use the shipped stone rim for the upper surface too; the mask turns its
-	// shoulders back into the hillside without stretching any source pixels.
-	var sample = cave_gate_piece("dungeon",224,176,16,8);
-	var surface = new PIXI.extras.TilingSprite(sample.texture,64,40); sample.destroy();
-	surface.position.set(-32,-62); surface.mask=roof; gate.addChild(surface);
-	var bevel = new PIXI.Graphics(); gate.addChild(bevel);
-	bevel.beginFill(0xb2a8be,0.23);
-	bevel.drawPolygon([-16,-48,-16,-54,-8,-60,8,-60,16,-54,16,-48,8,-52,-8,-52]);
-	bevel.endFill();
-	bevel.beginFill(0x222638,0.32);
-	bevel.drawPolygon([16,-53,19,-52,26,-43,32,-34,32,-24,24,-32,24,-38,16,-46]);
-	bevel.endFill();
 	// Small plants and the shipped brazier with its original three flame frames.
 	for (var x of [-30,17]) piece("outside",736,560,16,32,x,-43);
 	piece("outside",736,560,16,32,-8,-60);
@@ -323,7 +336,7 @@ function cave_entry_animation(data) {
 	}
 	cave_entry_scenes.push(scene);
 	if (scene.me) {
-		render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,message:"<div id='cave-entry-status'>"+phrase.html("cave.opening")+"</div>"});
+		render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,cx:G.npcs.dreamkeeper.cx,message:"<div id='cave-entry-status'>"+phrase.html("cave.opening")+"</div>"});
 		if (character) character.cave_entering=true;
 		h_shake();
 		for (var delay of [0,500,1000]) draw_timeout(function(){ if (current_map==="main") v_shake(); },delay);
@@ -378,4 +391,22 @@ function draw_cave_entrance() {
 		light.beginFill([0x729d9e,0xa7d3d0,0x686c9c,0xd8ebcf][(i+frame)%4]);
 		light.drawRect(x,y,active?2:1,1); if (active && i%3===0) light.drawRect(x,y-1,1,3); light.endFill();
 	}
+}
+
+function cave_walk_to(kind,index) {
+	if(no_graphics || !cave_client_state) return;
+	var state=cave_client_state, point=kind==="door"?state.doors?.[index]:state.objectives?.[index];
+	if(!point) return;
+	var targetMap=point.map || "zone_"+state.run+"_"+point.floor;
+	hide_modal();
+	smart_smart_move("map",targetMap,{map:targetMap,x:point.x,y:point.y});
+}
+function decorate_cave_door(door,definition) {
+	if(no_graphics || !G.maps[current_map]?.generated) return;
+	var floor=G.maps[current_map].generated.floor, destination=G.maps[definition[4]];
+	door.name=phrase(destination?.generated?.floor>floor?"cave.stairs_down":definition[4]==="main"?"cave.door_exit":"cave.stairs_up");
+	door.color="#D4BAEB";
+	door.npc=true;
+	add_name_tag(door);
+	if(door.name_tag) door.name_tag.y=-78;
 }

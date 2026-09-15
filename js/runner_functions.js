@@ -2815,3 +2815,5 @@ function cave_info() { return parent.cave_request("info").then(function(data) { 
 function cave_reply(choice, option) { return parent.cave_request("vote", { choice: choice, option: option }); }
 function cave_buy(room) { return parent.cave_request("buy", { room: room }); }
 function cave_exit() { return parent.cave_request("exit"); }
+
+function cave_talk(room) { return parent.cave_request("talk", {room:room}); }

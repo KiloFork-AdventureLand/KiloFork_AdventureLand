@@ -1638,3 +1638,9 @@ for(var cave_monster of ["cave_bat","cave_rat","cave_crab","cave_guard","cave_wo
 
 // Quiet hollows pay once per cleared wave, at most three waves each.
 drops.cave_farm=[[65,"cave_amber",1],[20,"cave_amber",2],[10,"scroll1"],[3,"cave_locktooth"],[2,"cave_mothsteps"]];
+
+// Local cave creatures supply existing crafts; no ordinary-world rare pool is inherited.
+drops.monsters.cave_spider=[[0.08,"cave_amber",1],[0.03,"spidersilk",1]];
+drops.monsters.cave_scorpion=[[0.08,"cave_amber",1],[0.03,"cscale",1]];
+drops.monsters.cave_snake=[[0.08,"cave_amber",1],[0.03,"snakeoil",1]];
+drops.monsters.cave_broodmother=[[1,"cave_amber",1],[0.1,"spidersilk",1]];

@@ -1154,3 +1154,5 @@ Object.assign(positions, {"cave_locktooth": ["rawitems", 5, 4], "cave_counterwei
 for (var pair of [["cave_bat","bat"],["cave_rat","rat"],["cave_wolf","wolf"],["cave_sentinel","stoneworm"]]) dimensions[pair[0]] = dimensions[pair[1]].slice();
 
 if(typeof module!=="undefined") module.exports={dimensions,positions};
+
+Object.assign(positions, {"cave_blackstaff": ["rawitems", 9, 4], "cave_backstabber": ["rawitems", 10, 4], "cave_amber": ["rawitems", 11, 4], "cave_info": ["rawitems", 12, 4]});

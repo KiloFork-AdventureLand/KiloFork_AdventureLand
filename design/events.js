@@ -286,7 +286,7 @@ events.dreams={
 				{
 					"id": "e03_2",
 					"effect": "venture",
-					"label": "Buy the bait for 2 Amber. It will distract a patrol.",
+					"label": "Buy a rattling feed tin for 2 Amber",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -861,7 +861,7 @@ events.dreams={
 				{
 					"id": "e10_2",
 					"effect": "venture",
-					"label": "Buy bait for 2 shared Amber",
+					"label": "Buy a tin rattle for 2 shared Amber",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1549,7 +1549,7 @@ events.dreams={
 				{
 					"id": "e19_3",
 					"effect": "venture",
-					"label": "Ask for a sack of bait.",
+					"label": "Borrow the farmer’s empty seed tin.",
 					"outcomes": [
 						{
 							"weight": 1,
@@ -1955,15 +1955,15 @@ events.dreams={
 		},
 		{
 			"id": "e26",
-			"name": "The Ceiling Falls",
-			"actor": "cave_cartographer",
+			"name": "The Toll Patrol",
+			"actor": "expedition_captain",
 			"group": "bad",
 			"kind": "collapse",
-			"text": "A rockfall has blocked the passage. The guards want payment to clear it. You can pay, fight them, or spend time digging another way through.",
+			"text": "Three guards step in front of you. Their captain holds out a hand. “Pay the toll. Or try getting past us.”",
 			"options": [
 				{
 					"id": "e26_0",
-					"label": "Pay 3,000 shared gold to dig through",
+					"label": "Pay the 3,000 gold toll",
 					"effect": "pay",
 					"cost": 3000,
 					"offer": true,
@@ -1974,7 +1974,7 @@ events.dreams={
 					"label": "Fight the three guards",
 					"effect": "bad_fight",
 					"offer": true,
-					"result": "The guards draw their weapons. There is no reward for this fight."
+					"result": "The three guards draw their swords."
 				},
 				{
 					"id": "e26_2",
@@ -1998,9 +1998,9 @@ events.dreams={
 				},
 				{
 					"id": "e26_5",
-					"label": "Force our way through; fight six guards",
+					"label": "Threaten the captain; face six guards",
 					"effect": "bad_double",
-					"result": "You force your way in. Six guards block the way."
+					"result": "The captain calls in three more guards."
 				}
 			]
 		},
@@ -2025,7 +2025,7 @@ events.dreams={
 					"label": "Fight the three guards",
 					"effect": "bad_fight",
 					"offer": true,
-					"result": "The guards draw their weapons. There is no reward for this fight."
+					"result": "The three guards draw their swords."
 				},
 				{
 					"id": "e27_2",
@@ -2049,9 +2049,9 @@ events.dreams={
 				},
 				{
 					"id": "e27_5",
-					"label": "Force our way through; fight six guards",
+					"label": "Threaten the captain; face six guards",
 					"effect": "bad_double",
-					"result": "You force your way in. Six guards block the way."
+					"result": "The captain calls in three more guards."
 				}
 			]
 		},
@@ -2076,7 +2076,7 @@ events.dreams={
 					"label": "Fight the three guards",
 					"effect": "bad_fight",
 					"offer": true,
-					"result": "The guards draw their weapons. There is no reward for this fight."
+					"result": "The three guards draw their swords."
 				},
 				{
 					"id": "e28_2",
@@ -2100,9 +2100,9 @@ events.dreams={
 				},
 				{
 					"id": "e28_5",
-					"label": "Force our way through; fight six guards",
+					"label": "Threaten the captain; face six guards",
 					"effect": "bad_double",
-					"result": "You force your way in. Six guards block the way."
+					"result": "The captain calls in three more guards."
 				}
 			]
 		},
@@ -2127,7 +2127,7 @@ events.dreams={
 					"label": "Fight the three guards",
 					"effect": "bad_fight",
 					"offer": true,
-					"result": "The guards draw their weapons. There is no reward for this fight."
+					"result": "The three guards draw their swords."
 				},
 				{
 					"id": "e29_2",
@@ -2151,9 +2151,9 @@ events.dreams={
 				},
 				{
 					"id": "e29_5",
-					"label": "Force our way through; fight six guards",
+					"label": "Threaten the captain; face six guards",
 					"effect": "bad_double",
-					"result": "You force your way in. Six guards block the way."
+					"result": "The captain calls in three more guards."
 				}
 			]
 		},
@@ -2178,7 +2178,7 @@ events.dreams={
 					"label": "Fight the three guards",
 					"effect": "bad_fight",
 					"offer": true,
-					"result": "The guards draw their weapons. There is no reward for this fight."
+					"result": "The three guards draw their swords."
 				},
 				{
 					"id": "e30_2",
@@ -2202,9 +2202,9 @@ events.dreams={
 				},
 				{
 					"id": "e30_5",
-					"label": "Force our way through; fight six guards",
+					"label": "Threaten the captain; face six guards",
 					"effect": "bad_double",
-					"result": "You force your way in. Six guards block the way."
+					"result": "The captain calls in three more guards."
 				}
 			]
 		},
@@ -2577,7 +2577,7 @@ events.dreams={
 			"actor": "cave_cartographer",
 			"group": "positive",
 			"kind": "tool",
-			"text": "Take something from my tool bag. A pry bar opens locked hatches. A lamp helps with the moths. I have bait for the guards too.",
+			"text": "Take something from my tool bag. A pry bar opens locked hatches. A lamp helps with the moths. I also have a noisy decoy to draw a patrol away.",
 			"options": [
 				{
 					"id": "e38_0",
@@ -2595,9 +2595,9 @@ events.dreams={
 				},
 				{
 					"id": "e38_2",
-					"label": "Take bait for the next guard patrol",
+					"label": "Take the tin rattle",
 					"effect": "decoy",
-					"result": "You pack the bait. One guard in the next patrol will turn on the others."
+					"result": "You pack the rattle. It will draw the next patrol away for eight seconds."
 				},
 				{
 					"id": "e38_3",
@@ -2659,9 +2659,9 @@ events.dreams={
 				},
 				{
 					"id": "e39_2",
-					"label": "Take mushroom bait for the next patrol",
+					"label": "Take the farmer’s spare rattle",
 					"effect": "decoy",
-					"result": "Keep the bait sealed until you reach the guards."
+					"result": "Use the rattle when you reach a patrol. It will draw them away for eight seconds."
 				},
 				{
 					"id": "e39_3",
@@ -2766,7 +2766,7 @@ events.dreams={
 				},
 				{
 					"id": "e41_3",
-					"label": "Take bait for the next patrol",
+					"label": "Take a tin rattle for the road",
 					"effect": "decoy",
 					"result": "This should start an argument between the guards."
 				},
@@ -2852,14 +2852,14 @@ events.dreams={
 			"actor": "expedition_captain",
 			"group": "positive",
 			"kind": "decoy",
-			"text": "The guards are arguing about stolen supplies. Take this bait and one guard in the next patrol will turn on the others.",
+			"text": "“I used to lead those guards. Some would still listen to me. I can help you get past their camp, or come along myself.”",
 			"options": [
 				{
 					"id": "e43_0",
-					"label": "Take bait for the next guard patrol",
+					"label": "Take a message for a guard",
 					"effect": "decoy",
 					"offer": true,
-					"result": "The bait is ready. One guard in the next patrol will turn on the others."
+					"result": "“Show this to a guard. One of them will fight on your side.”"
 				},
 				{
 					"id": "e43_1",
@@ -2869,18 +2869,18 @@ events.dreams={
 				},
 				{
 					"id": "e43_2",
-					"label": "Mark the rooms the guards avoid",
+					"label": "Ask where the other travelers are",
 					"effect": "reveal"
 				},
 				{
 					"id": "e43_3",
-					"label": "Borrow a lamp from the lookout",
+					"label": "Borrow {npc}’s spare lamp",
 					"effect": "lamp",
-					"result": "You take the lookout’s spare lamp."
+					"result": "{npc} hands you a lamp."
 				},
 				{
 					"id": "e43_4",
-					"label": "Borrow the tool used to open the supply hatch",
+					"label": "Borrow {npc}’s pry bar",
 					"effect": "tool",
 					"result": "You take the pry bar."
 				},
@@ -3178,9 +3178,9 @@ events.dreams={
 				},
 				{
 					"id": "e49_2",
-					"label": "Take bait for the next guard patrol",
+					"label": "Take the tin rattle",
 					"effect": "decoy",
-					"result": "You pack the bait. One guard in the next patrol will turn on the others."
+					"result": "You pack the rattle. It will draw the next patrol away for eight seconds."
 				},
 				{
 					"id": "e49_3",
@@ -3635,3 +3635,35 @@ events.dreams={
 	"gold_limit": 60000,
 	"amber_limit": 36
 };
+
+// Small camps keep their own three finite packs. Their rewards still use the normal drop tables.
+events.dreams.camps = [
+ [
+  {name:"Amber Nest",packs:[[["cave_rat",6],["cave_spider",2]],[["cave_bat",6]],[["cave_broodmother",1],["cave_spider",3]]]},
+  {name:"Bat Roost",packs:[[["cave_bat",8]],[["cave_spider",6]],[["cave_broodmother",1],["cave_bat",4]]]},
+ ],
+ [
+  {name:"Flooded Hollow",packs:[[["cave_crab",7]],[["cave_snake",6]],[["cave_scorpion",2],["cave_crab",4]]]},
+  {name:"Guard Outpost",packs:[[["cave_guard",4],["cave_wolf",2]],[["cave_guard",4]],[["cave_guard",3],["cave_scorpion",3]]]},
+ ],
+ [
+  {name:"Venom Burrow",packs:[[["cave_snake",6],["cave_scorpion",2]],[["cave_spider",6]],[["cave_broodmother",1],["cave_scorpion",3]]]},
+  {name:"Deep Roost",packs:[[["cave_bat",6],["cave_spider",2]],[["cave_wolf",5]],[["cave_broodmother",1],["cave_bat",4]]]},
+ ],
+];
+events.dreams.travelers = [
+ {name:"Pip",skin:"mbody3f",cx:{head:"fmakeup02",hair:"hairdo105",back:"backpacks201"},says:["Excuse me! Heavy bag.","I came for Amber. Found mostly spiders.","The stairs are marked. I still get lost."]},
+ {name:"Bram",skin:"mbody4b",cx:{head:"mmakeup01",hair:"hairdo219",hat:"hat204",back:"backpacks200"},says:["Mind the bats. They sleep until you get close.","Dorr said this would be a short walk.","You look busy. I'll keep out of the way."]},
+ {name:"Lena",skin:"mbody5c",cx:{head:"fmakeup02",hair:"hairdo206",hat:"hat221"},says:["Someone down here is selling just one thing. Strange shop.","I heard shouting ahead. I took the long way.","If you find a blue scarf, it's mine."]},
+];
+
+events.dreams.cast.expedition_captain=[
+ {name:"Rusk",skin:"marmor10d",cx:{head:"mmakeup01",hair:"hairdo219",hat:"hat204",back:"backpacks200"}},
+ {name:"Aldren",skin:"marmor6e",cx:{head:"mmakeup04",hair:"hairdo206",back:"backpacks201"}},
+ {name:"Caro",skin:"marmor1a",cx:{head:"fmakeup02",hair:"hairdo105",hat:"hat221"}},
+];
+events.dreams.cast.bell_keeper=[
+ {name:"Orren",skin:"mbody4b",cx:{head:"mmakeup01",hair:"hairdo219",hat:"hat204"}},
+ {name:"Nera",skin:"mbody3f",cx:{head:"fmakeup02",hair:"hairdo105",back:"backpacks201"}},
+ {name:"Olin",skin:"mbody6b",cx:{head:"mmakeup04",hair:"hairdo206",back:"backpacks200"}},
+];

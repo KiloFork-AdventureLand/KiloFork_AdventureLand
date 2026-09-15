@@ -154,6 +154,32 @@ function cave_start(run) {
 			});
 		}
 	}
+	for (var i = 0; i < run.floors.length; i++) {
+		var homes = run.cave.rooms.filter((r) => r.floor === i && r.kind === "farm");
+		var travelers = cave_shuffle(G.events.dreams.travelers.slice());
+		for (var home of homes)
+			run.cave.rooms.push({
+				id: home.id + ":traveler",
+				kind: "citizen",
+				floor: i,
+				map: home.map,
+				x: home.x - 64,
+				y: home.y,
+				bounds: home.bounds,
+				actors: [],
+				enemies: [],
+				look: travelers.pop(),
+				started: false,
+				done: false,
+			});
+	}
+	for (var room of run.cave.rooms) {
+		if (["farm", "patrol"].includes(room.kind)) {
+			var camps = G.events.dreams.camps[room.floor];
+			room.camp = cave_pick(camps);
+			room.name = room.camp.name;
+		}
+	}
 	if (cave_random() < G.events.dreams.rare.darkmage) {
 		var rare = run.cave.rooms.find((r) => r.floor === 2 && r.kind === "encounter" && !r.required);
 		rare.kind = "darkmage";
@@ -165,7 +191,8 @@ function cave_spawn(run, room, type, side, offset = 0, look) {
 		return null;
 	var origin = safe_xy_nearby(room.map, room.x, room.y + 48);
 	if (!origin) return null;
-	var point = safe_xy_nearby(room.map, room.x + offset, room.y + 48) || origin;
+	var shift = typeof offset === "number" ? { x: offset, y: 48 } : offset;
+	var point = safe_xy_nearby(room.map, room.x + shift.x, room.y + shift.y) || origin;
 	var actor = new_monster(room.map, { type, position: [point.x, point.y], radius: 0, gold: 0 }, { temp: true });
 	if (!actor) return null;
 	actor.x = origin.x;
@@ -175,7 +202,16 @@ function cave_spawn(run, room, type, side, offset = 0, look) {
 	actor.y = placement.y;
 	var scale = 1 + Math.pow(run.level / 14, 2),
 		depth = 1 + room.floor * 0.32;
-	actor.zone_actor = { run: run.key, room: room.id, side, idle: side === "neutral", next: 0 };
+	actor.zone_actor = {
+		run: run.key,
+		room: room.id,
+		side,
+		idle: side === "neutral",
+		next: 0,
+		home: { x: actor.x, y: actor.y },
+		next_wander: Date.now() + 2000 + Math.floor(cave_random() * 3000),
+	};
+	actor.angle = Math.floor(cave_random() * 4) * 90;
 	actor.zone_stats = {
 		attack: Math.round((type === "cave_npc" || type === "cave_rogue" ? 18 : 12) * (1 + run.level / 5) * depth),
 		speed: 40 + Math.min(30, run.level / 3),
@@ -183,8 +219,17 @@ function cave_spawn(run, room, type, side, offset = 0, look) {
 		armor: Math.round(run.level * 1.5),
 		resistance: Math.round(run.level),
 	};
+	actor.name = G.monsters[type].name || type;
 	actor.level = run.level;
 	actor.hp = actor.max_hp = Math.round((["enemy", "predator"].includes(side) ? 130 : 700) * scale * depth);
+	// Preserve the species' pace and defenses as the cave scales with the party.
+	var species = G.monsters[type];
+	if (!species.humanoid && !["cave_lockbreaker", "cave_sentinel", "cave_mothkeeper", "cave_darkmage"].includes(type)) {
+		actor.zone_stats.speed = Math.max(24, Math.min(85, species.speed));
+		actor.zone_stats.frequency = Math.max(0.6, Math.min(1.8, species.frequency));
+		actor.zone_stats.armor += species.armor || 0;
+		actor.zone_stats.resistance += species.resistance || 0;
+	}
 	actor.xp = side === "enemy" ? Math.round(15 * Math.pow(run.level, 1.3)) : 0;
 	actor.gold = 0;
 	actor.mult = 1;
@@ -198,6 +243,22 @@ function cave_spawn(run, room, type, side, offset = 0, look) {
 		actor.name = look.name;
 		actor.skin = look.skin;
 		actor.cx = Object.assign({}, look.cx);
+	}
+	if (G.monsters[type].humanoid && !actor.cx?.head) {
+		actor.cx = Object.assign(
+			{
+				head: cave_pick(["mmakeup01", "fmakeup02", "mmakeup04"]),
+				hair: cave_pick(["hairdo105", "hairdo206", "hairdo219"]),
+			},
+			actor.cx,
+		);
+	}
+	if (type === "cave_guard") actor.slots = { mainhand: { name: "blade", level: 0 } };
+	if (type === "cave_broodmother") {
+		actor.hp = actor.max_hp = Math.round(600 * scale * depth);
+		actor.zone_stats.attack *= 1.6;
+		actor.zone_stats.speed = 28;
+		actor.zone_actor.brood = true;
 	}
 	if (type === "cave_darkmage") {
 		Object.assign(actor.zone_stats, { attack: 100000, frequency: 0.25, armor: 0, resistance: 0 });
@@ -238,30 +299,37 @@ function cave_spawn(run, room, type, side, offset = 0, look) {
 function cave_pack(run, room, type, count, side = "enemy") {
 	var pack = [];
 	for (var i = 0; i < count; i++) {
-		var recruit = type === "cave_guard" && side === "enemy" && run.cave.flags.decoy && i === 0;
-		var m = cave_spawn(run, room, type, recruit ? "ally" : side, (i - (count - 1) / 2) * 32);
-		if (m && recruit) {
-			delete run.cave.flags.decoy;
-			cave_follow_actor(run, m);
-			cave_say(run, "A guard takes your bait and turns on the patrol.");
-		}
+		var angle = (i * Math.PI * 2) / Math.max(1, count) + (room.waves || 0);
+		var radius = count === 1 ? 0 : 64 + (i % 2) * 32;
+		var m = cave_spawn(run, room, type, side, {
+			x: Math.round(Math.cos(angle) * radius),
+			y: Math.round(Math.sin(angle) * radius) + 24,
+		});
+
 		if (m) pack.push(m);
 	}
 	return pack;
 }
 function cave_activate(run, room) {
-	if (run.cave.actors.size > 52) return;
+	if (run.cave.actors.size > 52 || (!room.required && room.kind !== "citizen" && run.cave.issued >= 512)) return;
 	room.started = true;
-	if (room.kind === "patrol") {
-		for (var m of cave_pack(run, room, ["cave_rat", "cave_bat", "cave_crab"][room.floor], 2)) {
-			m.hp = m.max_hp = Math.ceil(m.max_hp * 0.6);
-			m.xp = Math.ceil(m.xp * 0.6);
+	if (room.kind === "citizen") {
+		room.npc = cave_spawn(run, room, "cave_npc", "neutral", 0, room.look);
+		if (!room.npc) {
+			room.started = false;
+			return;
 		}
+		room.npc.zone_actor.citizen = true;
+		room.npc.zone_stats.speed = 46;
+		calculate_monster_stats(room.npc);
 		return;
 	}
-	if (room.kind === "farm") {
-		room.waves++;
-		cave_pack(run, room, ["cave_rat", "cave_crab", "cave_bat"][room.floor], 4);
+	if (room.kind === "patrol" || room.kind === "farm") {
+		if (room.kind === "farm") room.waves++;
+		var camp = room.camp || G.events.dreams.camps[room.floor][0];
+		var pack = camp.packs[((room.waves || 1) - 1) % camp.packs.length];
+		for (var group of pack) cave_pack(run, room, group[0], room.kind === "patrol" ? Math.min(3, group[1]) : group[1]);
+		room.engaged = false;
 		return;
 	}
 	if (room.kind === "fight" && run.cave.flags.truce) {
@@ -271,11 +339,13 @@ function cave_activate(run, room) {
 		return;
 	}
 	if (room.kind === "fight") {
-		cave_pack(run, room, ["cave_rat", "cave_crab", "cave_bat"][room.floor], 5);
+		cave_pack(run, room, "cave_guard", 4);
+		cave_pack(run, room, ["cave_wolf", "cave_scorpion", "cave_spider"][room.floor], 2);
 		return;
 	}
 	if (room.kind === "boss") {
 		cave_spawn(run, room, ["cave_lockbreaker", "cave_sentinel", "cave_mothkeeper"][room.floor], "enemy");
+		cave_pack(run, room, room.floor === 2 ? "cave_bat" : "cave_guard", 2);
 		return;
 	}
 	if (room.kind === "darkmage") {
@@ -286,6 +356,14 @@ function cave_activate(run, room) {
 	var e = room.encounter,
 		look = cave_pick(G.events.dreams.cast[e.actor]);
 	room.npc = cave_spawn(run, room, e.kind === "rogue" ? "cave_rogue" : "cave_npc", "neutral", 0, look);
+	if (!room.npc) {
+		room.started = false;
+		return;
+	}
+	if (e.group === "bad") {
+		room.guards = cave_pack(run, room, "cave_guard", 3, "neutral");
+		for (var guard of room.guards) guard.zone_actor.staged = true;
+	}
 	if (["rescue", "rogue"].includes(e.kind)) {
 		room.npc.zone_actor.side = "victim";
 		room.npc.zone_actor.idle = false;
@@ -457,6 +535,23 @@ function cave_settle_purse(run, bankOnly = false) {
 function cave_complete(run, room) {
 	if (room.done) return;
 	room.done = true;
+	if (
+		room.npc &&
+		!room.npc.dead &&
+		!room.npc.zone_actor.follow &&
+		!room.stock &&
+		room.kind !== "revival" &&
+		!room.practice &&
+		!room.npc.zone_actor.betrayed
+	) {
+		room.npc.zone_actor.depart_at = Date.now() + 3500;
+		room.npc.zone_actor.idle = false;
+	}
+	for (var guard of room.guards || [])
+		if (!guard.dead && guard.zone_actor.side === "neutral") {
+			guard.zone_actor.depart_at = Date.now() + 1500;
+			guard.zone_actor.idle = false;
+		}
 	if (room.kind === "boss") {
 		cave_reward(run, room, "cave_boss");
 		cave_credit(run, 4000, 0);
@@ -487,7 +582,7 @@ function cave_begin_vote(run, room) {
 	var first = cave_pick(
 		affordable.length ? affordable : offers.length ? offers : e.options.filter((o) => o.effect !== "leave"),
 	);
-	var others = e.options.filter((o) => o !== first && (usable(first) || usable(o)));
+	var others = e.options.filter((o) => o !== first && usable(o));
 	var replies = [first, cave_pick(others.length ? others : e.options.filter((o) => o !== first))];
 	if (e.options.length === 2) replies = e.options.slice();
 	room.voted = true;
@@ -504,6 +599,9 @@ function cave_begin_vote(run, room) {
 	};
 	room.vote = state.vote;
 	for (var p of cave_players(run)) delete p.cave_room;
+	var listener = cave_players(run).find((p) => p.map === room.map && !p.rip);
+	if (listener && room.npc) cave_face(room.npc, room.rival || listener);
+	if (room.rival) cave_face(room.rival, room.npc);
 	cave_pause(run);
 	cave_publish(run, true);
 }
@@ -520,7 +618,18 @@ function cave_resume(run, now = Date.now()) {
 		for (var key of ["last_near", "harvest", "wait_until", "next_wave", "practice_end"]) if (room[key]) room[key] += ms;
 		if (room.hunt) room.hunt.deadline += ms;
 		for (var actor of [...room.actors, ...(room.saved || [])]) {
-			for (var key of ["next", "last_path", "jump_at"]) if (actor.zone_actor[key]) actor.zone_actor[key] += ms;
+			for (var key of [
+				"next",
+				"last_path",
+				"jump_at",
+				"next_wander",
+				"depart_at",
+				"windup",
+				"special_at",
+				"chat_until",
+				"distracted_until",
+			])
+				if (actor.zone_actor[key]) actor.zone_actor[key] += ms;
 		}
 	}
 	for (var key of run.floors) {
@@ -555,7 +664,8 @@ function cave_resolve_vote(run, now) {
 	} finally {
 		delete run.cave.resolving;
 	}
-	cave_publish(run);
+	// A result is an event, not a best-effort refresh of an already open panel.
+	cave_publish(run, "result");
 }
 function cave_apply(run, room, option) {
 	var state = run.cave,
@@ -756,12 +866,18 @@ function cave_apply(run, room, option) {
 				calculate_monster_stats(shadow);
 				return;
 			}
-			var pack = cave_pack(
-				run,
-				room,
-				wolves ? "cave_wolf" : "cave_guard",
-				wolves ? 6 : effect === "bad_double" ? 6 : 3,
-			);
+			var pack;
+			if (room.guards?.length && !wolves) {
+				pack = room.guards.filter((g) => !g.dead);
+				for (var guard of pack) {
+					guard.zone_actor.side = "enemy";
+					guard.zone_actor.idle = false;
+					room.enemies.push(guard);
+				}
+				if (effect === "bad_double") pack.push(...cave_pack(run, room, "cave_guard", 3));
+			} else
+				pack = cave_pack(run, room, wolves ? "cave_wolf" : "cave_guard", wolves ? 6 : effect === "bad_double" ? 6 : 3);
+			room.engaged = true;
 			if (wolves)
 				for (var m of pack) {
 					m.level = 100;
@@ -784,12 +900,16 @@ function cave_apply(run, room, option) {
 		}
 		cave_reward(run, room, "cave_parcel");
 	} else if (["tool", "lamp", "decoy"].includes(effect)) {
-		state.flags[effect] = true;
+		state.flags[effect === "decoy" && room.encounter.kind === "decoy" ? "message" : effect] = true;
 		if (!option.result)
 			cave_say(
 				run,
 				"Added to the party’s cave supplies: " +
-					{ tool: "a pry bar", lamp: "a lamp", decoy: "bait" }[effect] +
+					{
+						tool: "a pry bar",
+						lamp: "a lamp",
+						decoy: room.encounter.kind === "decoy" ? "a message for a guard" : "a patrol distraction",
+					}[effect] +
 					". You can use it at a later encounter.",
 			);
 	} else if (["guide", "escort"].includes(effect)) {
@@ -839,10 +959,24 @@ function cave_apply(run, room, option) {
 		cave_say(
 			run,
 			marked.length
-				? "Marked on your cave map: " +
-						marked.map((r) => r.encounter.name + " on floor " + (r.floor + 1) + " at " + r.x + ", " + r.y).join("; ") +
-						". Open INFO to see the locations."
+				? "I found " + marked.map((r) => r.encounter.name).join(" and ") + ". Use Directions in CAVE INFO to get there."
 				: "You have already checked the rooms I know about.",
+		);
+	}
+	if (effect === "story") {
+		var stories = {
+			merchant: "I bought a dusty shop's last crate. This was the only thing inside. Take a look if you like.",
+			practice_dice:
+				"A Loaded Die gives you one second roll per visit when your first roll loses. Wear it before you play.",
+			appraise:
+				"Look for a hooked blade with an ivory edge and a red spine. That's Last Word. He carries it beside a plain dagger.",
+			send: "Gold and Amber stay in the party purse until someone leaves. Then each payout goes to a random member of the party that entered.",
+		};
+		cave_say(
+			run,
+			room.npc.name +
+				": " +
+				(stories[room.encounter.kind] || "The stairs change every time I come here. I follow the torches."),
 		);
 	}
 	if (effect === "leave") cave_say(run, "You turn down the offer and move on.");
@@ -931,11 +1065,7 @@ function cave_death(attacker, target) {
 			drop: false,
 		});
 	}
-	if (
-		!room.no_reward &&
-		!room.hunt &&
-		["cave_bat", "cave_rat", "cave_crab", "cave_guard", "cave_wolf"].includes(target.type)
-	) {
+	if (!room.no_reward && !room.hunt && D.drops.monsters[target.type]) {
 		var recipient = attacker?.is_player ? attacker : cave_players(run)[0];
 		if (recipient) {
 			var drops = { items: [], gold: 0, cash: 0 };
@@ -949,6 +1079,8 @@ function cave_death(attacker, target) {
 				{ table_only: true },
 			);
 			for (var item of drops.items) if (item.name === "cave_amber") cave_credit(run, 0, item.q || 1);
+			var materials = drops.items.filter((item) => item.name !== "cave_amber");
+			if (materials.length) cave_deliver(run, "monster:" + target.id, materials);
 		}
 	}
 	state.actors.delete(target);
@@ -979,27 +1111,170 @@ function cave_move(actor, target, now) {
 		ty: target.y,
 	});
 }
+function cave_face(actor, target) {
+	if (!target || actor.moving) return;
+	var angle = Math.round((Math.atan2(target.y - actor.y, target.x - actor.x) * 180) / Math.PI);
+	if (Math.abs((actor.angle || 0) - angle) < 15) return;
+	actor.angle = angle;
+	actor.u = true;
+	actor.cid = (actor.cid || 0) + 1;
+}
+function cave_seen(actor, people) {
+	return people.some(
+		(p) =>
+			p.map === actor.map &&
+			Math.abs(p.x - actor.x) < (p.vision?.[0] || 700) + 96 &&
+			Math.abs(p.y - actor.y) < (p.vision?.[1] || 500) + 96,
+	);
+}
+function cave_cue(run, actor, text, kind) {
+	var cue = { id: ++run.cave.serial, actor: actor.id, text, kind, x: actor.x, y: actor.y, map: actor.map };
+	for (var p of cave_players(run))
+		if (p.map === actor.map) p.socket.emit("cave", { type: "cue", state: cave_snapshot(run, p), cue });
+}
 function cave_actor_tick(run, actor, now, people) {
 	var ai = actor.zone_actor;
-	if (ai.idle || actor.dead || is_disabled(actor)) return;
+	if (actor.dead || is_disabled(actor)) return;
 	var room = run.cave.rooms.find((r) => r.id === ai.room);
+	var nearby = people
+		.filter((p) => !p.rip && p.map === actor.map)
+		.sort((a, b) => simple_distance(actor, a) - simple_distance(actor, b));
+	if (ai.depart_at) {
+		if (now < ai.depart_at) return;
+		var door = G.maps[actor.map].spawns[0];
+		actor.zone_stats.speed = 90;
+		if (actor.speed !== 90) calculate_monster_stats(actor);
+		cave_move(actor, { x: door[0], y: door[1] }, now);
+		if (simple_distance(actor, { x: door[0], y: door[1] }) < 70 && !cave_seen(actor, people)) {
+			run.cave.actors.delete(actor);
+			remove_monster(actor);
+		}
+		return;
+	}
+	if (ai.idle) {
+		var listener = nearby[0];
+		if (listener && simple_distance(actor, listener) < 160) {
+			if (ai.citizen && now < (ai.chat_until || 0)) {
+				actor.moving = false;
+				actor.vx = actor.vy = 0;
+			}
+			cave_face(actor, room.rival && !room.voted ? (actor === room.rival ? room.npc : room.rival) : listener);
+		}
+		if (!actor.moving && now >= ai.next_wander && !ai.staged && now >= (ai.chat_until || 0)) {
+			ai.next_wander = now + 4000 + Math.floor(cave_random() * 4000);
+			var target;
+			if (ai.citizen) {
+				var stops = run.manifest[room.floor].definition.rooms.filter(
+					(r) => simple_distance(actor, r) > 160 && simple_distance(actor, r) < 800,
+				);
+				target = stops.length ? cave_pick(stops) : ai.home;
+			} else if (!listener || simple_distance(actor, listener) > 200) {
+				target = {
+					x: ai.home.x + Math.round(cave_random() * 80) - 40,
+					y: ai.home.y + Math.round(cave_random() * 60) - 30,
+				};
+			}
+			if (target) cave_move(actor, target, now);
+		}
+		return;
+	}
+	// Camps are already visible. They defend their patch until approached or attacked.
+	if (!room.engaged && ["patrol", "farm", "fight", "boss", "darkmage"].includes(room.kind)) {
+		if (ai.prey || actor.hp < actor.max_hp || nearby.some((p) => simple_distance(actor, p) < 210)) {
+			room.engaged = true;
+			if (run.cave.flags.decoy) {
+				delete run.cave.flags.decoy;
+				for (var member of room.enemies)
+					if (!member.dead) {
+						member.zone_actor.distracted_until = now + 8000;
+						member.zone_actor.distracted_to = { x: room.x - 112, y: room.y - 64 };
+					}
+				cave_cue(run, actor, "The patrol follows the distraction.", "neutral");
+			}
+			if (run.cave.flags.message) {
+				var guard = room.enemies.find((a) => !a.dead && a.type === "cave_guard");
+				if (guard) {
+					delete run.cave.flags.message;
+					guard.zone_actor.side = "ally";
+					delete guard.zone_actor.prey;
+					room.enemies = room.enemies.filter((a) => a !== guard);
+					if (cave_follow_actor(run, guard)) cave_cue(run, guard, "The captain sent you? I'm coming with you.", "ally");
+					else {
+						guard.zone_actor.side = "neutral";
+						guard.zone_actor.depart_at = now + 1500;
+					}
+				}
+			}
+			if (ai.boss || ai.brood) cave_cue(run, actor, actor.name + " turns toward you!", "danger");
+		} else {
+			if (nearby[0] && simple_distance(actor, nearby[0]) < 350) cave_face(actor, nearby[0]);
+			if (now >= ai.next_wander) {
+				ai.next_wander = now + 3000 + Math.floor(cave_random() * 5000);
+				cave_move(
+					actor,
+					{ x: ai.home.x + Math.round(cave_random() * 64) - 32, y: ai.home.y + Math.round(cave_random() * 64) - 32 },
+					now,
+				);
+			}
+			return;
+		}
+	}
+	if (ai.distracted_until > now) {
+		cave_move(actor, ai.distracted_to, now);
+		return;
+	}
+	// A rescue begins in sight of the party, so the victim cannot die off-screen.
+	if (room.rescue && !room.voted && !nearby.some((p) => simple_distance(p, room) < 350)) return;
 	if (ai.boss && ai.phase === 0 && actor.hp < actor.max_hp * 0.55) {
 		ai.phase = 1;
-		cave_pack(run, room, actor.type === "cave_mothkeeper" ? "cave_bat" : "cave_guard", 3);
 		actor.zone_stats.frequency *= 1.35;
 		calculate_monster_stats(actor);
-		cave_say(
+		cave_cue(
 			run,
-			actor.type === "cave_sentinel"
-				? "The sentinel drops its shield. Its guards are coming."
-				: "The keeper calls for help.",
+			actor,
+			actor.type === "cave_sentinel" ? "The sentinel is winding up. Move away!" : "Help me!",
+			"danger",
 		);
+		ai.windup = now + 2000;
 	}
-	var candidates = people.filter((p) => !p.rip && p.hp > 0 && !is_invinc(p) && !is_invis(p) && cave_hostile(actor, p));
+	if (ai.brood && !ai.hatched && actor.hp < actor.max_hp * 0.65) {
+		ai.hatched = true;
+		ai.windup = now + 2000;
+		cave_cue(run, actor, "The nest is hatching!", "danger");
+	}
+	if (ai.windup) {
+		if (now < ai.windup) return;
+		delete ai.windup;
+		if (actor.type === "cave_sentinel") {
+			var hit = nearby.filter((p) => simple_distance(actor, p) <= 120 && cave_hostile(actor, p));
+			for (var p of hit) {
+				var strike = commence_attack(actor, p, "attack");
+				for (var event of strike?.events || []) xy_emit(actor, event[0], event[1]);
+			}
+			xy_emit(actor, "ui", { type: "stomp", name: actor.id, ids: hit.map((p) => p.id) });
+		} else {
+			var hatch = cave_pack(
+				run,
+				room,
+				ai.brood ? "cave_spider" : actor.type === "cave_mothkeeper" ? "cave_bat" : "cave_guard",
+				ai.brood ? 4 : 3,
+			);
+			for (var child of hatch) {
+				var point = safe_xy_nearby(actor.map, actor.x + Math.round(cave_random() * 48) - 24, actor.y + 24);
+				if (point) {
+					child.x = point.x;
+					child.y = point.y;
+					child.abs = true;
+				}
+				child.zone_actor.next = now + 1200;
+			}
+		}
+	}
+	var candidates = nearby.filter((p) => p.hp > 0 && !is_invinc(p) && !is_invis(p) && cave_hostile(actor, p));
 	for (var other of room.actors)
 		if (other !== actor && !other.dead && cave_hostile(actor, other)) candidates.push(other);
 	if (ai.prey && !ai.prey.dead && cave_hostile(actor, ai.prey)) candidates = [ai.prey];
-	candidates = candidates.filter((p) => p.in === actor.in && simple_distance(actor, p) <= (ai.betrayed ? 200 : 800));
+	candidates = candidates.filter((p) => p.in === actor.in && simple_distance(actor, p) <= (ai.betrayed ? 200 : 650));
 	candidates.sort(
 		(a, b) =>
 			(actor.type === "cave_darkmage" ? Number(b.type === "mage") - Number(a.type === "mage") : 0) ||
@@ -1007,12 +1282,11 @@ function cave_actor_tick(run, actor, now, people) {
 	);
 	var target = candidates[0];
 	if (!target) {
-		if (ai.follow) {
-			var leader = people.find((p) => !p.rip && p.in === actor.in);
-			if (leader && simple_distance(actor, leader) > 65) cave_move(actor, leader, now);
-		}
+		if (ai.follow && nearby[0] && simple_distance(actor, nearby[0]) > 65) cave_move(actor, nearby[0], now);
+		else if (simple_distance(actor, ai.home) > 80) cave_move(actor, ai.home, now);
 		return;
 	}
+	cave_face(actor, target);
 	if (ai.betrayed && ai.jump !== target.id && now >= (ai.jump_at || 0)) {
 		var point = safe_xy_nearby(actor.map, target.x - 12, target.y + 12);
 		if (point) transport_monster_to(actor, actor.in, actor.map, point.x, point.y);
@@ -1047,7 +1321,7 @@ function cave_tick(run, now) {
 			cave_say(run, "The farmer adds 3 Amber to your shared purse.");
 		}
 		if (!generated_maps[room.map]) continue;
-		var occupied = people.some((p) => p.map === room.map && simple_distance(p, room) < 900);
+		var occupied = people.some((p) => p.map === room.map && simple_distance(p, room) < 1100);
 		if (occupied) {
 			room.last_near = now;
 			if (room.saved) cave_resume_floor(run, room.map, room);
@@ -1055,14 +1329,14 @@ function cave_tick(run, now) {
 			!room.saved &&
 			room.started &&
 			now - (room.last_near || (room.last_near = now)) > 15000 &&
-			!room.actors.some((a) => a.zone_actor.follow) &&
+			!room.actors.some((a) => !a.dead && (a.zone_actor.follow || a.zone_actor.depart_at || cave_seen(a, people))) &&
 			!(state.vote && !state.vote.resolved && state.vote.room === room)
 		) {
 			cave_suspend_floor(run, room.map, room);
 		}
 		if (room.saved) continue;
 		var nearby = people.filter((p) => !p.rip && p.map === room.map && simple_distance(p, room) < 280);
-		if (!room.started && nearby.length) cave_activate(run, room);
+		if (!room.started && occupied) cave_activate(run, room);
 		if (!room.started) continue;
 		if (
 			room.encounter &&
@@ -1072,7 +1346,7 @@ function cave_tick(run, now) {
 		)
 			cave_begin_vote(run, room);
 		if (run.paused_at) return;
-		if (room.done) continue;
+		if (room.kind === "citizen" || room.done) continue;
 		if (room.wait_until && now >= room.wait_until) {
 			cave_reward(run, room, "cave_parcel");
 			cave_complete(run, room);
@@ -1082,13 +1356,23 @@ function cave_tick(run, now) {
 			if (!room.next_wave) {
 				cave_reward(run, { id: room.id + ":wave:" + room.waves }, "cave_farm");
 				cave_credit(run, 1500, 1);
-				room.next_wave = now + 8000;
+				room.next_wave = now + 10000;
+				if (room.waves < 3) cave_say(run, room.name + ": Something is moving in the nest. Another pack in 10 seconds.");
 			}
 			if (room.waves >= 3) cave_complete(run, room);
-			else if (nearby.length && now >= room.next_wave) {
+			else if (occupied && now >= room.next_wave) {
 				room.next_wave = 0;
 				room.enemies = [];
 				cave_activate(run, room);
+				for (var newborn of room.enemies) {
+					var nest = safe_xy_nearby(room.map, room.x, room.y - 80);
+					if (nest) {
+						newborn.x = nest.x;
+						newborn.y = nest.y;
+					}
+					newborn.zone_actor.next = now + 1500;
+				}
+				cave_say(run, room.name + ": Pack " + room.waves + " is coming out of the nest!");
 			}
 			continue;
 		}
@@ -1198,22 +1482,53 @@ function cave_snapshot(run, player) {
 		floor,
 		gold: state.gold,
 		amber: state.amber,
-		supplies: ["tool", "lamp", "decoy", "truce"].filter((k) => state.flags[k]),
+		supplies: ["tool", "lamp", "decoy", "message", "truce"].filter((k) => state.flags[k]),
 		roster: run.members.map((m) => ({ name: m.name, left: m.left })),
+		doors: (run.manifest?.[floor]?.definition.doors || []).map((d, index) => ({
+			id: index,
+			x: run.manifest[floor].definition.spawns[index][0],
+			y: run.manifest[floor].definition.spawns[index][1],
+			map: player.map,
+			to: d[4],
+			down: G.maps[d[4]]?.generated?.floor > floor,
+			locked: G.maps[d[4]]?.generated?.floor > floor && !run.completed[floor],
+		})),
 		objectives: state.rooms
-			.filter((r) => (r.required && r.floor === floor) || r.revealed)
+			.filter((r) => ((r.required || r.kind === "farm") && r.floor === floor) || r.revealed)
 			.map((r) => ({
 				id: r.id,
 				x: r.x,
 				y: r.y,
 				done: r.done,
 				floor: r.floor,
-				name: r.encounter?.name || (r.kind === "boss" ? "Break the last seal" : "Clear the guardroom"),
+				kind: r.kind,
+				waves: r.kind === "farm" ? r.waves : undefined,
+				name:
+					r.encounter?.name ||
+					r.name ||
+					(r.kind === "boss"
+						? G.monsters[["cave_lockbreaker", "cave_sentinel", "cave_mothkeeper"][r.floor]].name
+						: "Guard camp"),
 			})),
 		choice: v
 			? {
 					id: v.id,
 					title: v.room.encounter.name,
+					kind: v.room.encounter.kind,
+					danger: v.room.encounter.group === "bad",
+					scene: v.room.actors
+						.filter((a) => !a.dead)
+						.slice(0, 10)
+						.map((a) => ({
+							id: a.id,
+							name: a.name,
+							skin: a.skin || G.monsters[a.type].skin || a.type,
+							cx: a.cx,
+							side: a.zone_actor.side,
+							hp: a.hp,
+							max_hp: a.max_hp,
+							slots: a.slots,
+						})),
 					text: cave_reply_label(v.room, { label: v.room.encounter.text }),
 					deadline: v.deadline,
 					resolved: v.resolved,
@@ -1283,7 +1598,7 @@ function cave_publish(run, open = false) {
 	for (var player of cave_players(run)) {
 		var state = cave_snapshot(run, player);
 		player.cave = state;
-		player.socket.emit("cave", { type: open ? "choice" : "state", state });
+		player.socket.emit("cave", { type: open === "result" ? "result" : open ? "choice" : "state", state });
 	}
 }
 async function cave_interaction(player, data) {
@@ -1308,6 +1623,19 @@ async function cave_interaction(player, data) {
 		var room = run.cave.rooms.find((r) => r.id === data.room);
 		if (!room?.npc || room.npc.dead || player.map !== room.map || simple_distance(player, room.npc) > 160)
 			throw Error("distance");
+		if (room.kind === "citizen") {
+			room.npc.zone_actor.chat_until = Date.now() + 4000;
+			room.npc.moving = false;
+			room.npc.vx = room.npc.vy = 0;
+			room.npc.working = false;
+			room.npc.zone_actor.path_token = null;
+			room.npc.u = true;
+			room.npc.cid = (room.npc.cid || 0) + 1;
+			cave_face(room.npc, player);
+			var chat = { name: room.npc.name, skin: room.npc.skin, cx: room.npc.cx, text: cave_pick(room.look.says) };
+			player.socket.emit("cave", { type: "chat", state: cave_snapshot(run, player), chat });
+			return { chat };
+		}
 		cave_begin_vote(run, room);
 		player.cave_room = room.id;
 		var state = cave_snapshot(run, player);
@@ -1364,6 +1692,7 @@ function cave_suspend_floor(run, map, onlyRoom) {
 		"slots",
 		"s",
 		"zone_stats",
+		"angle",
 	];
 	for (var room of run.cave.rooms.filter((r) => r.map === map && (!onlyRoom || r === onlyRoom))) {
 		if (room.saved) continue;
@@ -1376,12 +1705,14 @@ function cave_suspend_floor(run, map, onlyRoom) {
 				state.enemy = room.enemies.includes(a);
 				state.npc = room.npc === a;
 				state.rival = room.rival === a;
+				state.guard = room.guards?.includes(a);
 				run.cave.actors.delete(a);
 				if (onlyRoom) remove_monster(a);
 				return state;
 			});
 		room.actors = [];
 		room.enemies = [];
+		if (room.guards) room.guards = [];
 		room.npc = room.npc?.dead ? { dead: true } : null;
 		room.rival = room.rival?.dead ? { dead: true } : null;
 	}
@@ -1389,6 +1720,7 @@ function cave_suspend_floor(run, map, onlyRoom) {
 function cave_resume_floor(run, map, onlyRoom) {
 	var restored = new Map();
 	for (var room of run.cave.rooms.filter((r) => r.map === map && (!onlyRoom || r === onlyRoom))) {
+		if (run.cave.actors.size + (room.saved?.length || 0) > 64) continue;
 		for (var state of room.saved || []) {
 			var actor = new_monster(
 				map,
@@ -1400,6 +1732,7 @@ function cave_resume_floor(run, map, onlyRoom) {
 			delete actor.enemy;
 			delete actor.npc;
 			delete actor.rival;
+			delete actor.guard;
 			actor.socket = false_socket;
 			actor.zone_actor = Object.assign({}, state.zone_actor, { path_token: null });
 			actor.last_level = future_s(86400);
@@ -1410,6 +1743,7 @@ function cave_resume_floor(run, map, onlyRoom) {
 			if (state.enemy) room.enemies.push(actor);
 			if (state.npc) room.npc = actor;
 			if (state.rival) room.rival = actor;
+			if (state.guard) (room.guards || (room.guards = [])).push(actor);
 		}
 		delete room.saved;
 	}

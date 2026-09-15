@@ -591,6 +591,14 @@ function draw_entities() {
 
 function sync_entity(current, monster) {
 	adopt_soft_properties(current, monster); // previously only move_num, speed, dead
+	if (monster.cave && !monster.moving) {
+		// A traveler can stop mid-walk to speak, or the whole instance can pause.
+		current.moving=false;
+		current.vx=current.vy=0;
+		current.engaged_move=current.move_num;
+		current.real_x=monster.x; current.real_y=monster.y;
+		if(monster.angle!==undefined) { current.angle=monster.angle; set_direction(current); }
+	}
 
 	if (current.resync) {
 		// currently only set when the entity is new [03/08/16]
@@ -6559,6 +6567,7 @@ function add_door(door) {
 	if (is_mobile) sprite.on("mousedown", door_right_click).on("touchstart", door_right_click);
 	sprite.on("rightdown", door_right_click);
 	sprite.onrclick = door_right_click;
+	decorate_cave_door(sprite,door);
 	return sprite;
 }
 

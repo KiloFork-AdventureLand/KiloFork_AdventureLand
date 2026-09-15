@@ -1,6 +1,6 @@
 docs = {
 	functions: [
-		"cave_info", "cave_enter", "cave_reply", "cave_buy", "cave_exit",
+		"cave_info", "cave_enter", "cave_reply", "cave_buy", "cave_exit", "cave_talk",
 		//runner_functions
 		"get_progression",
 		"mode_resolve_all",
@@ -367,7 +367,7 @@ docs = {
 		c0: [[1, "open", "cosmo0"]],
 	},
 	interactions: {
-		dreams: {title:"Cave of Many Dreams",article:"cave-of-many-dreams",icon:"stonekey",summary:"Enter with your party. Vote, fight and find your way down in 24 minutes.",functions:["cave_info","cave_enter","cave_reply","cave_buy","cave_exit"],proximity:true},
+		dreams: {title:"Cave of Many Dreams",article:"cave-of-many-dreams",icon:"cave_info",summary:"Enter with your party. Vote, fight and find your way down in 24 minutes.",functions:["cave_info","cave_enter","cave_reply","cave_buy","cave_exit","cave_talk"],proximity:true},
 		anniversary: {
 			title: "Mira's Anniversary Workshop",
 			article: "event-anniversary",

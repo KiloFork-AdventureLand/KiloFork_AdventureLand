@@ -5848,19 +5848,19 @@ module.exports = {
 
 // Cave guide. English only during the user-approved test phase. Preserve CODE identifiers and numbers.
 Object.assign(module.exports, {
-  "docs.cave.intro": "Open CAVE INFO beside the event icons, or talk to Dorr in Mainland at 816,1200. Bring one party of up to three characters close to him, out of combat, then choose Enter together. Every account in the party uses its daily visit. It resets at midnight on that account’s home server. Characters sharing an account enter together on that one visit. Dev servers allow repeat visits for testing. The doorway lights up and pulls the party inside. Only entering players feel the camera shake; people nearby can see them being taken. The strongest character’s level sets the cave’s difficulty.",
-  "docs.cave.time": "You have 24 minutes of playing time. When an NPC stops the party for a vote, the whole cave pauses: movement, attacks, effects, skill cooldowns and hunts. The cave countdown stops too. The 20-second vote still counts down. Opening INFO or revisiting an old conversation does not pause the cave.",
-  "docs.cave.travel": "There are three floors. Clear the guardroom, settle the marked encounter and break the last seal on each floor to open the stairs. Other rooms are optional. Going down never extends the clock.",
-  "docs.cave.votes": "Each character gets one vote, including fallen characters. Every conversation offers two replies that fit what the NPC is asking. More than half the party agreeing ends the vote early. Otherwise, the reply with the most votes wins after 20 seconds. For a tie or no votes, the dialogue tells you what will happen. Each character can vote only once.",
-  "docs.cave.choices": "Look at the people and their weapons. A stronger fighter may win a dispute without your help. You can rescue someone, take a side, leave them to fight, or attack both. Some survivors will travel with you.",
-  "docs.cave.danger": "The red chain releases six level 100 wolves. A rare Dark Mage deals 100,000 magic damage and hunts mages first. Only a reflected spell kills him. You can avoid optional dangers.",
-  "docs.cave.rogue": "The cornered rogue carries two daggers. Sometimes one is Last Word. Only monsters killing him before a betrayal can release that blade. If he survives, he has a 50% chance to turn on you, jump behind nearby targets and attack very quickly within 200 range.",
-  "docs.cave.hunts": "Some travelers pay for killing a set number of marked monsters before their timer ends. Helpers can help with these kills. A larger hunt pays two parcels. Shorter or slower jobs pay Amber. Quiet rooms have three small waves, with a pause between them.",
-  "docs.cave.loot": "NPC rewards go to one random character from the original party, including characters who have left. Full bags or an offline character send the reward by mail to that character. Every item awarded here carries the Cave-found title. A merchant sells one item only: the buyer pays, and a random member of the original party gets it.",
-  "docs.cave.purse": "The countdown shows the party’s shared purse. Its gold and Amber are not in anyone’s inventory yet. Choices can spend from this purse. When someone leaves or the visit ends, its contents go to random original party members. Other item rewards go straight to the chosen character’s inventory, or to a letter from Dorr if their bags are full or they are offline. INFO lists recent rewards and where they went. The purse can earn up to 60,000 gold and 36 Amber in one visit; purchases and item rewards are separate.",
-  "docs.cave.exit": "Exit is beside the cave countdown and inside INFO. It works anywhere, even while fallen or during a vote. You can also use the first floor’s return doorway or call cave_exit(). Leaving is permanent for this visit. New characters cannot join, and magiport cannot move anyone into or out of the cave. A disconnect ends that character’s visit. When playing time runs out, the shared purse pays out and everyone still inside is sent out.",
-  "docs.cave.code": "cave_enter() requires the same nearby party as the manual entrance. Listen for character.on(\"cave\", ...). Read character.cave for the clock, objectives, votes, hunts and purse. The example below chooses a reply only when you set reply_id to one of the two IDs in the current choice.",
-  "docs.cave.failure": "The functions return Promises. Failed requests reject with a reason. Repeating your accepted vote returns the same receipt. A stale vote, a second purchase or a request after leaving cannot award anything.",
+  "docs.cave.intro": "Find Dorr at the vine-covered doorway in Mainland, near 816,1200. Bring your party close, out of combat, and choose Enter together.",
+  "docs.cave.time": "The cave pauses during a forced vote. Your 24-minute clock stops too. Each character has one vote, including fallen characters. You have 20 seconds to choose.",
+  "docs.cave.travel": "Follow the labelled doorways. Defeat the guard camp and floor keeper, then settle the marked encounter to open the next floor. Directions above can lead you to each room.",
+  "docs.cave.votes": "A majority settles the vote early. Otherwise, the reply with the most votes wins when time runs out. The conversation tells you what happens if nobody wins.",
+  "docs.cave.choices": "Rescue a traveler, take a side in a fight, hire help or take a risk. Look at their weapons and strength before you choose. Passing travelers can also stop for a quick chat; that does not pause the cave.",
+  "docs.cave.danger": "Some choices call in six level 100 wolves. The rare Dark Mage deals 100,000 magic damage and targets mages first. Only his own reflected spell can kill him.",
+  "docs.cave.rogue": "The cornered rogue has a 1% chance to carry Last Word. To get it, monsters must kill him before he betrays you. If he survives, there is a 50% chance he turns on you and attacks anyone within 200 pixels.",
+  "docs.cave.hunts": "Monster camps hold three packs with a reward for each clear. After each clear, the next pack comes out of the nest ten seconds later. The third pack is the last. Some travelers also offer timed hunts: kill the marked monsters before the hunt clock ends.",
+  "docs.cave.loot": "NPC rewards go to a random member of the original party. A one-item merchant works the same way: the buyer pays, but anyone in that party can receive the item. Items found here carry the Cave-found title.",
+  "docs.cave.purse": "Gold and Amber below the clock belong to the party. Choices can spend them. The purse pays out to random original party members when someone exits or time runs out. Item rewards go straight to a bag, or to MAIL if the recipient is offline or full.",
+  "docs.cave.exit": "Exit works anywhere, even while fallen or voting. Leaving or disconnecting ends your visit. Nobody can join later, and magiport cannot move anyone in or out. Time running out sends everyone home.",
+  "docs.cave.code": "Use cave_enter() beside Dorr. Read character.cave for the timer, purse, objectives and door locations. Set reply_id below to one of the current choice’s two option IDs.",
+  "docs.cave.failure": "These functions return Promises. A failed request rejects with a reason.",
   "docs.cave.story": "Dorr\u2019s story",
   "docs.cave.drops": "Things you can find",
   "docs.cave.rewards": "The last seal",
@@ -5877,10 +5877,10 @@ module.exports["docs.cave.function.cave_buy"]="Buys the merchant\u2019s one item
 module.exports["docs.cave.function.cave_exit"]="Exits from anywhere in the cave, including while fallen. You cannot return to this visit. Returns exited:true.";
 
 // Cave guide text.
-module.exports["docs.cave.death"] = "Dying here costs no XP, gold or items. Stay inside and Nera will offer to revive the fallen where they are, or bring them back to this floor’s doorway. Each character can vote, including fallen characters. Respawn calls Nera; Exit leaves the cave permanently.";
+module.exports["docs.cave.death"] = "You lose no XP, gold or items when you die here. Stay inside: Nera can revive you where you fell or bring you back to the doorway. Respawn calls Nera. Exit leaves the cave for good.";
 
 // Cave guide text.
-module.exports["docs.cave.supplies"] = "A lamp can lead the moths to Mothstep Boots. A pry bar opens locked hatches. Bait turns one guard against a patrol. A guard’s pass lets you skip one guardroom. Helpers fight beside you and can follow you downstairs. You can keep two helpers at a time.";
+module.exports["docs.cave.supplies"] = "A lamp can lead the moths to Mothstep Boots. A pry bar opens locked hatches. A distraction draws a patrol away for eight seconds. A former captain’s message can win a guard over. A guard’s pass lets you skip one guardroom. Helpers fight beside you and can follow you downstairs. You can keep two helpers at a time.";
 
 // Cave guide text.
 module.exports["docs.cave.craft"] = "Take Cave Amber to Cole to craft Locktooth, Counterweight Shield, Mothstep Boots or Loaded Die. The recipes also use familiar materials from outside the cave.";
@@ -5895,3 +5895,40 @@ module.exports["docs.cave.function.cave_enter"] = "Enter the Cave of Many Dreams
 module.exports["docs.cave.function.cave_info"] = "Checks this account’s daily cave visit from anywhere. Returns available, resets, home and server_time. Dev servers also return unlimited: true and allow repeat visits without using the daily visit. resets and server_time are timestamps in milliseconds. The reset is midnight on the account’s home server. It does not enter the cave or use the daily visit.";
 // Cave pause state for CODE. Keep property names and function names unchanged.
 module.exports["docs.cave.pause_code"] = "Use cave_info() to check the daily visit. While inside, character.cave.paused says whether a forced vote has paused play. remaining_ms is the time left on the cave clock. Keep your voting code running, but return early from fighting and farming loops while paused. The server also rejects gameplay actions during the pause.";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.visit"]="Each account gets one visit a day, resetting at midnight on its home server. Characters on the same account share that visit. Dev servers allow repeat visits for testing.";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.death"]="You lose no XP, gold or items when you die here. Stay inside: Nera can revive you where you fell or bring you back to the doorway. Respawn calls Nera. Exit leaves the cave for good.";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.rare_drops"]="Nightjudge drops when the Dark Mage dies to his reflected spell. Last Word only drops from a rogue carrying it, killed by monsters before betrayal.";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.craft"]="Take Cave Amber to Cole. Choose a recipe below to see the other ingredients.";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.pause_code"]="Pause your combat routine while character.cave.paused is true. The example checks your daily visit, then leaves a place for your usual routine.";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.entry_heading"]="Going inside";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.explore_heading"]="Find your way";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.choices_heading"]="People you meet";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.loot_heading"]="Your rewards";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.danger_heading"]="Watch their weapons";
+
+// Cave guide section, English playtest.
+module.exports["docs.cave.facts"]="3 characters · 3 floors · 24 minutes";
+
+// Casual cave conversations are optional and do not pause the instance.
+module.exports["docs.cave.travelers"]="Travelers walk between rooms. Click one to chat. These short conversations do not pause the cave or start a vote.";
+module.exports["docs.cave.function.cave_talk"]="Talk to a nearby cave NPC using its cave.room. You must be within 160 pixels. Travelers return a chat object with name and text, without starting a vote. Other NPCs open or return their encounter.";

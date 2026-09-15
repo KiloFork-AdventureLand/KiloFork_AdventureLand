@@ -872,7 +872,7 @@ function render_server() {
 	}
 	if (G.events.dreams) {
 		html += " <div class='gamebutton' id='cave-info-button' title='Cave of Many Dreams' style='padding:6px 8px;font-size:24px;line-height:18px' onclick='pcs(event);open_cave_info()'>";
-		html += "<div style='margin-top:-1px;margin-left:-3px;margin-right:-3px'>" + item_container({ skin: G.items.cave_amber.skin, bcolor: "black", draggable: false }) + "</div>";
+		html += "<div style='margin-top:-1px;margin-left:-3px;margin-right:-3px'>" + item_container({ skin: "cave_info", bcolor: "black", draggable: false }) + "</div>";
 		html += "<div style='color:#CFD1D1;margin-top:1px'>" + phrase.html("cave.info_button") + "</div></div>";
 		content = true;
 	}
@@ -3720,6 +3720,10 @@ function render_learn_article(article, args) {
 	html += "</div>";
 	show_modal(html, { wrap: false, url: args && args.url, close: { label: phrase.html("interface.learn_article.close"), classes: "ui-close-docs" } });
 	$(".code").codemirror({ trim: true });
+	if ($(".cave-guide").length) {
+		$(".cave-guide").closest(".guide-article").css({width:"640px",maxWidth:"calc(100vw - 120px)",textAlign:"left"});
+		$(".cave-guide .CodeMirror").each(function(){ if(this.CodeMirror) this.CodeMirror.setOption("lineWrapping",true); });
+	}
 	position_modals();
 }
 

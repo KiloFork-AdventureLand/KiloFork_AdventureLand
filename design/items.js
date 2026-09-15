@@ -8798,7 +8798,7 @@ Object.assign(items, {
   },
   "cave_amber": {
     "type": "material",
-    "skin": "gemfragment",
+    "skin": "cave_amber",
     "name": "Cave Amber",
     "s": 9999,
     "g": 200,
@@ -8813,7 +8813,7 @@ Object.assign(items, {
       "priest"
     ],
     "tier": 4,
-    "skin": "oozingterror",
+    "skin": "cave_blackstaff",
     "name": "Nightjudge",
     "damage_type": "magical",
     "projectile": "magic",
@@ -8851,7 +8851,7 @@ Object.assign(items, {
       "rogue"
     ],
     "tier": 4,
-    "skin": "hdagger",
+    "skin": "cave_backstabber",
     "name": "Last Word",
     "damage_type": "physical",
     "attack": 28,

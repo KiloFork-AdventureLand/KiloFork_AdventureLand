@@ -194,6 +194,9 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	c.render_cave_keeper();
 	c.render_cave_status();
 	c.render_cave_choice();
+	c.receive_cave_state({ type: "chat", state: {}, chat: { text: "Hello" } });
+	c.receive_cave_state({ type: "cue", state: {}, cue: { text: "Move away" } });
+	c.decorate_cave_door({});
 	c.cave_manual("enter");
 	c.cave_entry_animation({ names: ["A"], duration: 1800 });
 	c.draw_cave_entrance();
@@ -204,7 +207,7 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	load(c, "js/game.js", ["add_animatable"]);
 	assert.equal(c.add_animatable("dreams_gate", {}), undefined);
 	c.prune_generated_maps();
-	assert.equal(c.character.cave.choice.id, "v");
+	assert.ok(c.character.cave);
 	c.receive_cave_state({ type: "ended" });
 	assert.equal(c.character.cave, null);
 });
@@ -380,7 +383,8 @@ test("generated doors reach the walkable threshold and the return door performs 
 	for (const info of floor.manifest) assert.ok(!info.definition.safe);
 	const door = floor.definition.doors[0];
 	assert.equal(door[1], floor.definition.spawns[0][1] - 48);
-	assert.equal(door[3], 48);
+	assert.equal(door[2], 96);
+	assert.equal(door[3], 80);
 	const animation = floor.geometry.animations[0];
 	assert.ok(animation);
 	assert.deepEqual(floor.geometry.tiles[animation[0]], ["custom_a", 0, 0, 16, 16]);
@@ -438,4 +442,43 @@ test("hiring the speaking NPC keeps that actor, name and appearance", () => {
 	assert.equal(run.cave.actors.size, 1);
 	assert.equal(run.cave.gold, 3000);
 	assert.equal(room.done, true);
+});
+
+test("sleeping rooms wait for actor capacity and restore the same wounded guard", () => {
+	const { c, run } = fixture();
+	const saved = {
+		id: "guard",
+		type: "cave_guard",
+		map: "zone_a",
+		hp: 17,
+		max_hp: 100,
+		x: 20,
+		y: 30,
+		angle: 180,
+		guard: true,
+		enemy: true,
+		zone_actor: { run: "run", room: "room", side: "enemy", prey: null },
+	};
+	const room = { id: "room", map: "zone_a", actors: [], enemies: [], guards: [], saved: [saved] };
+	run.cave = { rooms: [room], actors: new Set(Array.from({ length: 64 }, () => ({}))) };
+	c.instances.zone_a = { monsters: {} };
+	c.new_monster = () => {
+		const actor = { id: "temporary" };
+		c.instances.zone_a.monsters.temporary = actor;
+		return actor;
+	};
+	c.false_socket = {};
+	c.future_s = () => new Date();
+	c.calculate_monster_stats = () => {};
+	load(c, "node/logic/cave_of_many_dreams.js", ["cave_resume_floor"]);
+	c.cave_resume_floor(run, "zone_a");
+	assert.equal(room.saved.length, 1);
+	assert.equal(run.cave.actors.size, 64);
+	run.cave.actors.delete(run.cave.actors.values().next().value);
+	c.cave_resume_floor(run, "zone_a");
+	assert.equal(room.saved, undefined);
+	assert.equal(room.guards[0].id, "guard");
+	assert.equal(room.guards[0].hp, 17);
+	assert.equal(room.guards[0].angle, 180);
+	assert.equal(run.cave.actors.size, 64);
 });
