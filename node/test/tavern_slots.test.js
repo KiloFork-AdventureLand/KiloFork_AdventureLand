@@ -376,7 +376,7 @@ test("the slots panel and its effects stay silent without graphics", () => {
 		get_entity: () => null,
 	});
 	vm.runInContext(source, c);
-	c.render_slots();
+	c.render_slot_machine();
 	c.slots_start({ player: "A", stops: [1, 2, 3], ms: 3600 });
 	c.slots_settle({ won: true, net: 1, index: 1, stops: [1, 2, 3] });
 	c.slots_tavern_event({ event: "won", name: "A", net: 1, gold: 1, stops: [1, 2, 3] });

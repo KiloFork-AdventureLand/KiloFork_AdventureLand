@@ -6517,7 +6517,7 @@ function add_machine(machine) {
 	function machine_click(event) {
 		if (machine.type == "dice") render_dice(); // add_log("Curious device","gray");//
 		if (machine.type == "wheel") render_wheel();
-		if (machine.type == "slots") render_slots();
+		if (machine.type == "slots") render_slot_machine();
 		try {
 			if (event) event.stopPropagation();
 		} catch (e) {}

@@ -38,7 +38,7 @@ function slots_icons(name) {
 	return html;
 }
 
-function render_slots() {
+function render_slot_machine() {
 	if (no_graphics || no_html) return;
 	var slots = slots_definition();
 	if (!slots) return;
