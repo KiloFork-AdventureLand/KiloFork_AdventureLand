@@ -325,5 +325,7 @@
 	"server.game_log.poker_won": "بوكر: ربحت {amount} ذهب",
 	"server.game_log.poker_broke": "رصيدك أقل من الرهان الإجباري الكبير {amount}. ادخل مجددًا أو غادر الطاولة",
 	"server.game_log.poker_auto_check": "انتهى وقتك. تم التمرير نيابةً عنك",
-	"server.game_log.poker_auto_fold": "انتهى وقتك. تم الانسحاب نيابةً عنك"
+	"server.game_log.poker_auto_fold": "انتهى وقتك. تم الانسحاب نيابةً عنك",
+	"server.game_log.tavern_closed": "تغلق الحانة ألعابها لإعادة التشغيل. تُعاد الرهانات غير المكتملة",
+	"server.game_log.tavern_refund": "أُعيد {amount} ذهب: قطعت إعادة التشغيل رهانك"
 }

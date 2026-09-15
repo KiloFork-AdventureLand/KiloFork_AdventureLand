@@ -946,5 +946,6 @@
 	"interface.hub.bank": "БАНК",
 	"interface.hub.equipment": "СНАРЯЖЕНИЕ",
 	"interface.hub.pack": "Ячейка {number}",
-	"interface.hub.saved_bank": "Сохранённое содержимое банка. Последние изменения могут ещё не отображаться."
+	"interface.hub.saved_bank": "Сохранённое содержимое банка. Последние изменения могут ещё не отображаться.",
+	"interface.tavern.refunded": "Ставка возвращена"
 }

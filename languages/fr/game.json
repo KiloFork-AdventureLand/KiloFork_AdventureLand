@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Relancez à au moins {min}",
 	"response.poker_in_hand": "Attendez la fin de la main",
 	"response.poker_broke": "Cavez à nouveau pour continuer à jouer",
-	"response.poker_unavailable": "La table de poker est fermée pour le moment"
+	"response.poker_unavailable": "La table de poker est fermée pour le moment",
+	"response.tavern_closing": "Les jeux de la taverne sont fermés pendant le redémarrage du serveur"
 }

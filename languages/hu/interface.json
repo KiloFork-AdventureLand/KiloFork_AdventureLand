@@ -933,5 +933,6 @@
 	"interface.hub.bank": "BANK",
 	"interface.hub.equipment": "FELSZERELÉS",
 	"interface.hub.pack": "{number}. rekesz",
-	"interface.hub.saved_bank": "A bank mentett tartalma. A legutóbbi változások még nem feltétlenül láthatók."
+	"interface.hub.saved_bank": "A bank mentett tartalma. A legutóbbi változások még nem feltétlenül láthatók.",
+	"interface.tavern.refunded": "Tét visszaadva"
 }

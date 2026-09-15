@@ -319,5 +319,7 @@
 	"server.game_log.poker_won": "Poker: menang {amount} emas",
 	"server.game_log.poker_broke": "Stack anda kurang daripada big blind {amount}. Buy-in semula atau tinggalkan meja",
 	"server.game_log.poker_auto_check": "Masa anda tamat. Check dibuat bagi pihak anda",
-	"server.game_log.poker_auto_fold": "Masa anda tamat. Fold dibuat bagi pihak anda"
+	"server.game_log.poker_auto_fold": "Masa anda tamat. Fold dibuat bagi pihak anda",
+	"server.game_log.tavern_closed": "Kedai Minuman menutup permainannya untuk mula semula. Taruhan yang belum selesai dipulangkan",
+	"server.game_log.tavern_refund": "{amount} emas dipulangkan: mula semula telah mengganggu taruhan anda"
 }

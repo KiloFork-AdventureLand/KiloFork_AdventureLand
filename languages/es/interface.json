@@ -935,5 +935,6 @@
 	"interface.hub.bank": "BANCO",
 	"interface.hub.equipment": "EQUIPO",
 	"interface.hub.pack": "Compartimento {number}",
-	"interface.hub.saved_bank": "Contenido guardado del banco. Puede que los cambios recientes aún no aparezcan."
+	"interface.hub.saved_bank": "Contenido guardado del banco. Puede que los cambios recientes aún no aparezcan.",
+	"interface.tavern.refunded": "Apuesta devuelta"
 }

@@ -933,5 +933,6 @@
 	"interface.hub.bank": "BANK",
 	"interface.hub.equipment": "KELENGKAPAN",
 	"interface.hub.pack": "Ruang {number}",
-	"interface.hub.saved_bank": "Kandungan bank yang disimpan. Perubahan terkini mungkin belum dipaparkan."
+	"interface.hub.saved_bank": "Kandungan bank yang disimpan. Perubahan terkini mungkin belum dipaparkan.",
+	"interface.tavern.refunded": "Taruhan dipulangkan"
 }

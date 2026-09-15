@@ -321,5 +321,7 @@
 	"server.game_log.poker_won": "Poker: vant {amount} gull",
 	"server.game_log.poker_broke": "Stacken din er under big blind på {amount}. Kjøp inn igjen eller forlat bordet",
 	"server.game_log.poker_auto_check": "Tiden din gikk ut. Det ble sjekket for deg",
-	"server.game_log.poker_auto_fold": "Tiden din gikk ut. Det ble kastet for deg"
+	"server.game_log.poker_auto_fold": "Tiden din gikk ut. Det ble kastet for deg",
+	"server.game_log.tavern_closed": "Tavernaen stenger spillene sine for omstarten. Uavgjorte innsatser gis tilbake",
+	"server.game_log.tavern_refund": "{amount} gull gitt tilbake: omstarten avbrøt innsatsen din"
 }

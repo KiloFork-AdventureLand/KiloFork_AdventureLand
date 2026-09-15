@@ -938,5 +938,6 @@
 	"interface.hub.bank": "BANCĂ",
 	"interface.hub.equipment": "ECHIPAMENT",
 	"interface.hub.pack": "Compartimentul {number}",
-	"interface.hub.saved_bank": "Conținutul salvat al băncii. Este posibil ca modificările recente să nu fie încă vizibile."
+	"interface.hub.saved_bank": "Conținutul salvat al băncii. Este posibil ca modificările recente să nu fie încă vizibile.",
+	"interface.tavern.refunded": "Miză returnată"
 }

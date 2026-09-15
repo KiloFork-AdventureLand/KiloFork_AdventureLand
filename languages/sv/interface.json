@@ -934,5 +934,6 @@
 	"interface.hub.bank": "BANK",
 	"interface.hub.equipment": "UTRUSTNING",
 	"interface.hub.pack": "Fack {number}",
-	"interface.hub.saved_bank": "Sparat bankinnehåll. De senaste ändringarna kanske inte syns ännu."
+	"interface.hub.saved_bank": "Sparat bankinnehåll. De senaste ändringarna kanske inte syns ännu.",
+	"interface.tavern.refunded": "Insats återlämnad"
 }

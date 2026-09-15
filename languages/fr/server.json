@@ -322,5 +322,7 @@
 	"server.game_log.poker_won": "Poker : {amount} d'or gagnés",
 	"server.game_log.poker_broke": "Votre tapis est sous la grosse blinde de {amount}. Cavez à nouveau ou quittez la table",
 	"server.game_log.poker_auto_check": "Votre temps est écoulé. Parole jouée pour vous",
-	"server.game_log.poker_auto_fold": "Votre temps est écoulé. Vous avez été couché"
+	"server.game_log.poker_auto_fold": "Votre temps est écoulé. Vous avez été couché",
+	"server.game_log.tavern_closed": "La taverne ferme ses jeux pour le redémarrage. Les mises non réglées sont rendues",
+	"server.game_log.tavern_refund": "{amount} d'or rendus : le redémarrage a interrompu votre mise"
 }

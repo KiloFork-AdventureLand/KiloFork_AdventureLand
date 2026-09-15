@@ -322,5 +322,7 @@
 	"server.game_log.poker_won": "Póker: ganas {amount} de oro",
 	"server.game_log.poker_broke": "Tu stack está por debajo de la ciega grande de {amount}. Vuelve a entrar o deja la mesa",
 	"server.game_log.poker_auto_check": "Se te acabó el tiempo. Se pasó por ti",
-	"server.game_log.poker_auto_fold": "Se te acabó el tiempo. Te retiraste automáticamente"
+	"server.game_log.poker_auto_fold": "Se te acabó el tiempo. Te retiraste automáticamente",
+	"server.game_log.tavern_closed": "La taberna cierra sus juegos por el reinicio. Las apuestas sin resolver se devuelven",
+	"server.game_log.tavern_refund": "{amount} de oro devueltos: el reinicio interrumpió tu apuesta"
 }

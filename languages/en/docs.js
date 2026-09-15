@@ -5357,6 +5357,9 @@ module.exports = {
 	"docs.guide.tavern-games.tier-iv": "IV+ and PVP servers",
 	// docs/guide/tavern-games.html; Guide note. Fixed HTML: preserve the tags.
 	"docs.guide.tavern-games.leaving-the-table": "<b>Leaving the table.</b> Press Leave, walk away from your stool, use a door or log out and you leave after the current hand; your stack returns to your purse in full. A disconnected seat keeps its stack: the clock still runs, blinds are posted for two more hands, then the seat sits out and is cashed out after five minutes. A restart voids the running hand and returns every bet. Before each deal the table publishes a commitment to its shuffled deck, and after the hand the key and the deck order that verify it.",
+	// docs/guide/tavern-games.html; Guide note on restarts for every Tavern game. Keep tavern_closing as the CODE reason.
+	"docs.guide.tavern-games.restarts":
+		"<b>Restarts.</b> A restart closes the Tavern's games before the countdown: wheel, slots and dice wagers that have not settled are returned in full, the poker table voids its hand and cashes every stack out, and any request during the countdown fails with <span class='dlabel'>tavern_closing</span>.",
 	// docs/guide/tavern-games.html; Guide code section title. Keep CODE.
 	"docs.guide.tavern-games.code-play-a-hand": "CODE: Play a Hand",
 	// docs/guide/tavern-games.html; pay table odds column. {value} is a formatted number of spins, as in "1 in 5,000".

@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Navyš alespoň na {min}",
 	"response.poker_in_hand": "Počkej, až rozdání skončí",
 	"response.poker_broke": "Vlož znovu, abys mohl hrát dál",
-	"response.poker_unavailable": "Pokerový stůl je teď zavřený"
+	"response.poker_unavailable": "Pokerový stůl je teď zavřený",
+	"response.tavern_closing": "Hry v hospodě jsou zavřené, dokud se server restartuje"
 }

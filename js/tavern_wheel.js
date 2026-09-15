@@ -228,8 +228,9 @@ function wheel_show_result() {
 	tavern_wheel.blink = { index: data.index, start: performance.now(), duration: 1800 };
 	tavern_wheel.busy = false;
 	$(".wheelspin").css({ opacity: 1, "pointer-events": "" });
-	$(".wheelhint").html(data.won ? "<span class='gold'>+" + to_pretty_num(data.gold) + "</span>" : "<span style='color: #E05A4A'>-" + to_pretty_num(data.gold) + "</span>");
-	wheel_sound(data.won ? "coins" : "drop");
+	if (data.refund) $(".wheelhint").html(phrase.html("interface.tavern.refunded"));
+	else $(".wheelhint").html(data.won ? "<span class='gold'>+" + to_pretty_num(data.gold) + "</span>" : "<span style='color: #E05A4A'>-" + to_pretty_num(data.gold) + "</span>");
+	if (!data.refund) wheel_sound(data.won ? "coins" : "drop");
 	if (data.won && data.gold >= 10000000) wheel_sound("level_up");
 	setTimeout(function () {
 		if (!tavern_wheel.spin && !tavern_wheel.busy) wheel_change();
@@ -240,6 +241,7 @@ function wheel_show_result() {
 function wheel_tavern_event(data) {
 	var player = get_entity(data.name);
 	data.won = data.event == "won";
+	data.refund = data.event == "refund";
 	if (data.won) {
 		if (player) {
 			d_text("+" + to_pretty_num(data.gold), player, { color: "gold" });

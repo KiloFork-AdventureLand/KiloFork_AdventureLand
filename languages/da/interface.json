@@ -934,5 +934,6 @@
 	"interface.hub.bank": "BANK",
 	"interface.hub.equipment": "UDSTYR",
 	"interface.hub.pack": "Rum {number}",
-	"interface.hub.saved_bank": "Gemt bankindhold. De seneste ændringer vises muligvis ikke endnu."
+	"interface.hub.saved_bank": "Gemt bankindhold. De seneste ændringer vises muligvis ikke endnu.",
+	"interface.tavern.refunded": "Indsats givet tilbage"
 }

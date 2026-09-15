@@ -11,6 +11,7 @@ function tavern_wheel_side_phrase(side) {
 function tavern_wheel_bet(player, data, bet_failure, request_id) {
 	var wheel = G.games.wheel;
 	var side = "" + (data.side || "");
+	if (tavern_closing()) return bet_failure("tavern_closing");
 	if (!in_arr(side, wheel.sides)) return bet_failure("wheel_side");
 	if (player.q.wheel) return bet_failure("wheel_spinning");
 	var gold = max(wheel.min, min(parseInt(data.gold) || 0, 100000000000));

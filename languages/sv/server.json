@@ -321,5 +321,7 @@
 	"server.game_log.poker_won": "Poker: vann {amount} guld",
 	"server.game_log.poker_broke": "Din stack är under stormörken på {amount}. Köp in igen eller lämna bordet",
 	"server.game_log.poker_auto_check": "Din tid tog slut. Checkade åt dig",
-	"server.game_log.poker_auto_fold": "Din tid tog slut. Lade dig åt dig"
+	"server.game_log.poker_auto_fold": "Din tid tog slut. Lade dig åt dig",
+	"server.game_log.tavern_closed": "Tavernan stänger sina spel inför omstarten. Oavgjorda insatser lämnas tillbaka",
+	"server.game_log.tavern_refund": "{amount} guld återlämnat: omstarten avbröt din insats"
 }

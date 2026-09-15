@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "เรสอย่างน้อยเป็น {min}",
 	"response.poker_in_hand": "รอให้จบมือนี้ก่อน",
 	"response.poker_broke": "บายอินอีกครั้งเพื่อเล่นต่อ",
-	"response.poker_unavailable": "โต๊ะโป๊กเกอร์ปิดอยู่ในตอนนี้"
+	"response.poker_unavailable": "โต๊ะโป๊กเกอร์ปิดอยู่ในตอนนี้",
+	"response.tavern_closing": "เกมของโรงเตี๊ยมปิดอยู่ระหว่างที่เซิร์ฟเวอร์รีสตาร์ท"
 }

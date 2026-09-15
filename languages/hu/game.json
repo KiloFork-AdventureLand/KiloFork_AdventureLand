@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Emelj legalább erre: {min}",
 	"response.poker_in_hand": "Várd meg a leosztás végét",
 	"response.poker_broke": "Ülj be újra, hogy tovább játszhass",
-	"response.poker_unavailable": "A pókerasztal most zárva van"
+	"response.poker_unavailable": "A pókerasztal most zárva van",
+	"response.tavern_closing": "A fogadó játékai zárva vannak, amíg a szerver újraindul"
 }

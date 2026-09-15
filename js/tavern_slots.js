@@ -167,11 +167,12 @@ function slots_show_result() {
 	}
 	if (data.stops && slots) data.stops.forEach((stop, r) => (tavern_slots.pos[r] = stop * tavern_slots_cell));
 	tavern_slots.busy = false;
-	tavern_slots.flash = { start: performance.now(), duration: data.won ? 2400 : 900, won: !!data.won };
+	tavern_slots.flash = data.refund ? null : { start: performance.now(), duration: data.won ? 2400 : 900, won: !!data.won };
 	$(".slotsspin").css({ opacity: 1, "pointer-events": "" });
 	// Amounts show the prize as listed on the pay table; the house line explains the cut.
-	$(".slotshint").html(data.won ? "<span class='gold'>+" + to_pretty_num(data.prize) + "</span>" : "<span style='color: #E05A4A'>-" + to_pretty_num(data.gold) + "</span>");
-	slots_sound(data.won ? "coins" : "drop");
+	if (data.refund) $(".slotshint").html(phrase.html("interface.tavern.refunded"));
+	else $(".slotshint").html(data.won ? "<span class='gold'>+" + to_pretty_num(data.prize) + "</span>" : "<span style='color: #E05A4A'>-" + to_pretty_num(data.gold) + "</span>");
+	if (!data.refund) slots_sound(data.won ? "coins" : "drop");
 	if (data.won && data.prize >= 10000000) slots_sound("level_up");
 	setTimeout(function () {
 		if (!tavern_slots.spin && !tavern_slots.busy) slots_set_busy(false);
@@ -182,7 +183,8 @@ function slots_show_result() {
 function slots_tavern_event(data) {
 	var player = get_entity(data.name);
 	data.won = data.event == "won";
-	if (player) {
+	data.refund = data.event == "refund";
+	if (player && !data.refund) {
 		if (data.won) {
 			d_text("+" + to_pretty_num(data.prize), player, { color: "gold" });
 			if (data.prize >= 100000000) confetti_shower(player, 2);

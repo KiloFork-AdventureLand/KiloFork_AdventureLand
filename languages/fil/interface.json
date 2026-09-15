@@ -933,5 +933,6 @@
 	"interface.hub.bank": "BANGKO",
 	"interface.hub.equipment": "KAGAMITAN",
 	"interface.hub.pack": "Lalagyan {number}",
-	"interface.hub.saved_bank": "Naka-save na laman ng bangko. Maaaring hindi pa makita ang mga kamakailang pagbabago."
+	"interface.hub.saved_bank": "Naka-save na laman ng bangko. Maaaring hindi pa makita ang mga kamakailang pagbabago.",
+	"interface.tavern.refunded": "Ibinalik ang taya"
 }

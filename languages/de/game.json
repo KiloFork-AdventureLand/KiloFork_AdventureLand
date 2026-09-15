@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Erhöhe auf mindestens {min}",
 	"response.poker_in_hand": "Warte, bis die Hand vorbei ist",
 	"response.poker_broke": "Kauf dich erneut ein, um weiterzuspielen",
-	"response.poker_unavailable": "Der Pokertisch ist gerade geschlossen"
+	"response.poker_unavailable": "Der Pokertisch ist gerade geschlossen",
+	"response.tavern_closing": "Die Spiele der Taverne sind geschlossen, während der Server neu startet"
 }

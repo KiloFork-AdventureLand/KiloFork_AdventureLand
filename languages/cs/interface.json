@@ -942,5 +942,6 @@
 	"interface.hub.bank": "BANKA",
 	"interface.hub.equipment": "VÝBAVA",
 	"interface.hub.pack": "Přihrádka {number}",
-	"interface.hub.saved_bank": "Uložený obsah banky. Nedávné změny se ještě nemusí zobrazovat."
+	"interface.hub.saved_bank": "Uložený obsah banky. Nedávné změny se ještě nemusí zobrazovat.",
+	"interface.tavern.refunded": "Sázka vrácena"
 }

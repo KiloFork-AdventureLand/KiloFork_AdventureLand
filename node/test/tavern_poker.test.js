@@ -26,6 +26,7 @@ function fixture(options = {}) {
 		G: Object.assign({}, G, { games }),
 		S: { gold: 3000000000, logs: { donate: [], dice: [] } },
 		Dev: false,
+		server: { live: true, shutdown: false },
 		is_pvp: !!options.pvp,
 		server_name: options.server || "III",
 		server_id: "SR_test",
@@ -67,6 +68,7 @@ function fixture(options = {}) {
 			return Promise.resolve({ success: true });
 		},
 	});
+	vm.runInContext(read("node/logic/tavern.js"), c);
 	vm.runInContext(read("node/logic/tavern_poker.js"), c);
 	c.tavern_poker_now = () => now;
 	load(c, "node/server_functions.js", ["house_debt", "house_edge", "fail_response", "success_response"]);
@@ -440,6 +442,11 @@ test("side pots pay each all-in only what it covered, an uncalled bet returns wi
 	);
 	assert.deepEqual(plain(pots[1]).gold + plain(pots[1]).rake, 30 * BB, "the middle pot is twice the difference");
 	assert.deepEqual(plain(pots[2]), { gold: 15 * BB, returned: 0 }, "A's uncalled 15 big blinds come back without rake");
+	assert.equal(hand.results.returned[0], 15 * BB, "the return is reported apart from winnings");
+	assert.ok(
+		!hand.results.winners[0] || hand.results.winners[0] <= 60 * BB,
+		"winnings never include the returned chips",
+	);
 	assert.equal(pots[0].rake, Math.floor((30 * BB * 2) / 100));
 	assert.equal(seat_gold(f) + f.c.S.gold, 3000000000 + 40 * BB + 10 * BB + 25 * BB, "gold is conserved");
 	assert.ok(!pots[1].winners.includes(1), "the shortest stack cannot win the side pot");
@@ -674,6 +681,54 @@ test("a shutdown voids the live hand without rake and cashes out every seat; sta
 	assert.ok(f.packets.some((p) => p.to === "Late" && p.data && p.data.phrase === "server.game_log.poker_refund"));
 	late.login();
 	assert.equal(late.gold, 5 + 44 * BB, "a second login does not pay again");
+});
+
+test("a seat whose escrow was already returned by another login is forfeited on relogin, never paid twice", () => {
+	const f = fixture();
+	const [a, b] = sit(f, ["A", "B"]);
+	const house = f.c.S.gold;
+	// A drops, is saved and logs in on another server, where the escrow record is refunded from the saved data.
+	a.disconnect();
+	a.stop();
+	const escrow = plain(a.p.poker);
+	assert.equal(escrow.stack, 100 * BB);
+	a.gold += escrow.stack;
+	delete a.p.poker;
+	// Back on this server within the grace period the seat still exists, but the record it was mirrored to is gone.
+	a.login();
+	assert.equal(f.table().seats[0], null, "the seat was cleared without payment");
+	assert.equal(a.gold, 8000000000, "A holds exactly one refund");
+	assert.equal(f.c.S.gold, house, "the house does not pocket the phantom stack either");
+	assert.deepEqual(plain(f.refunds), [], "no transaction refund was attempted");
+	assert.ok(f.c.S.logs.poker.some((entry) => entry.t === "forfeit" && entry.gold === 100 * BB));
+	assert.equal(a.p.poker, undefined);
+	// The same arrival during a live hand folds the seat out and forfeits at the end of the hand.
+	const g = fixture();
+	const [x, y] = sit(g, ["X", "Y"]);
+	g.tick(4000);
+	const hand = g.table().hand;
+	const dropped = g.table().seats[hand.acting];
+	const other = g.table().seats[1 - hand.acting];
+	dropped.player.disconnect();
+	const player = g.c.dc_players[dropped.id];
+	player.stop();
+	const mirrored = player.p.poker.stack;
+	assert.equal(mirrored, 100 * BB - dropped.total, "the mirror already excludes the chips in the pot");
+	player.gold += mirrored;
+	delete player.p.poker;
+	player.login();
+	assert.equal(dropped.settled, true);
+	assert.equal(g.table().seats[dropped.index], dropped, "a seat in a hand waits for the hand to end");
+	g.tick(poker.action_ms + poker.bank_ms + 2000);
+	assert.equal(hand.over, true, "the clock folded the settled seat");
+	assert.equal(g.table().seats[dropped.index], null, "then it was cleared");
+	assert.equal(player.gold, 8000000000 - 100 * BB + mirrored, "one refund only; the blind stays in the pot");
+	assert.equal(other.player.p.poker.stack, other.stack);
+	assert.equal(
+		seat_gold(g) + g.c.S.gold + player.gold + other.player.gold,
+		2 * 8000000000 + 3000000000,
+		"the refund paid elsewhere and the vanished seat cancel out",
+	);
 });
 
 test("thousands of random hands conserve gold: stacks plus pots plus rake always equal the buy-ins", () => {

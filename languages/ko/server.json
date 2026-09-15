@@ -319,5 +319,7 @@
 	"server.game_log.poker_won": "포커: {amount} 골드 획득",
 	"server.game_log.poker_broke": "스택이 빅 블라인드 {amount}보다 적습니다. 다시 바이인하거나 테이블을 떠나세요",
 	"server.game_log.poker_auto_check": "시간이 다 되었습니다. 대신 체크했습니다",
-	"server.game_log.poker_auto_fold": "시간이 다 되었습니다. 대신 폴드했습니다"
+	"server.game_log.poker_auto_fold": "시간이 다 되었습니다. 대신 폴드했습니다",
+	"server.game_log.tavern_closed": "재시작을 위해 선술집이 게임을 닫습니다. 끝나지 않은 베팅은 돌려드립니다",
+	"server.game_log.tavern_refund": "{amount} 골드 반환: 재시작으로 베팅이 중단되었습니다"
 }

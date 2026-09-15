@@ -933,5 +933,6 @@
 	"interface.hub.bank": "BANK",
 	"interface.hub.equipment": "PERLENGKAPAN",
 	"interface.hub.pack": "Kompartemen {number}",
-	"interface.hub.saved_bank": "Isi bank yang tersimpan. Perubahan terbaru mungkin belum terlihat."
+	"interface.hub.saved_bank": "Isi bank yang tersimpan. Perubahan terbaru mungkin belum terlihat.",
+	"interface.tavern.refunded": "Taruhan dikembalikan"
 }

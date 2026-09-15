@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Mag-raise nang hindi bababa sa {min}",
 	"response.poker_in_hand": "Hintayin munang matapos ang kamay",
 	"response.poker_broke": "Mag-buy-in ulit para makapaglaro pa",
-	"response.poker_unavailable": "Sarado ang mesa ng poker sa ngayon"
+	"response.poker_unavailable": "Sarado ang mesa ng poker sa ngayon",
+	"response.tavern_closing": "Sarado ang mga laro ng Taberna habang nagre-restart ang server"
 }

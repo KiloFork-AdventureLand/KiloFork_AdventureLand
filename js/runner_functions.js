@@ -1098,7 +1098,7 @@ function bet_wheel(side, gold, timeout_ms) {
 }
 
 // Tavern Hold'em. Every request is answered by the server with place "poker"; the table's public state also arrives
-// as "poker" game events (character.on("poker", ...)) whenever it changes.
+// as "poker" game events (game.on("poker", ...)) whenever it changes.
 function poker_request(data, timeout_ms) {
 	if (timeout_ms === undefined) timeout_ms = 10000;
 	timeout_ms = max(0, timeout_ms);

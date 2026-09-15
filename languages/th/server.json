@@ -319,5 +319,7 @@
 	"server.game_log.poker_won": "โป๊กเกอร์: ชนะทอง {amount}",
 	"server.game_log.poker_broke": "ชิปของคุณน้อยกว่าบิ๊กบลายด์ {amount} บายอินอีกครั้งหรือลุกจากโต๊ะ",
 	"server.game_log.poker_auto_check": "หมดเวลาแล้ว ระบบเช็คให้คุณ",
-	"server.game_log.poker_auto_fold": "หมดเวลาแล้ว ระบบหมอบให้คุณ"
+	"server.game_log.poker_auto_fold": "หมดเวลาแล้ว ระบบหมอบให้คุณ",
+	"server.game_log.tavern_closed": "โรงเตี๊ยมปิดเกมเพื่อรีสตาร์ท เงินเดิมพันที่ยังไม่จบจะถูกคืน",
+	"server.game_log.tavern_refund": "คืนทอง {amount} แล้ว: การรีสตาร์ทขัดจังหวะเดิมพันของคุณ"
 }

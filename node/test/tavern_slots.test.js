@@ -70,6 +70,8 @@ function fixture(options = {}) {
 		floor_f2: (value) => Math.floor(value * 100) / 100,
 		randomStr: () => "rid",
 	});
+	c.server = { live: true, shutdown: false };
+	vm.runInContext(read("node/logic/tavern.js"), c);
 	vm.runInContext(read("node/logic/tavern_wheel.js"), c);
 	vm.runInContext(read("node/logic/tavern_slots.js"), c);
 	load(c, "node/server_functions.js", ["house_debt", "house_edge", "fail_response", "success_response"]);

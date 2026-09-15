@@ -933,5 +933,6 @@
 	"interface.hub.bank": "銀行",
 	"interface.hub.equipment": "装備",
 	"interface.hub.pack": "保管枠 {number}",
-	"interface.hub.saved_bank": "保存済みの銀行の中身です。最近の変更はまだ反映されていない場合があります。"
+	"interface.hub.saved_bank": "保存済みの銀行の中身です。最近の変更はまだ反映されていない場合があります。",
+	"interface.tavern.refunded": "賭け金返却"
 }

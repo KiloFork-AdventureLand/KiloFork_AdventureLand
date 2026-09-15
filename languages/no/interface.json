@@ -934,5 +934,6 @@
 	"interface.hub.bank": "BANK",
 	"interface.hub.equipment": "UTSTYR",
 	"interface.hub.pack": "Rom {number}",
-	"interface.hub.saved_bank": "Lagret bankinnhold. De siste endringene vises kanskje ikke ennå."
+	"interface.hub.saved_bank": "Lagret bankinnhold. De siste endringene vises kanskje ikke ennå.",
+	"interface.tavern.refunded": "Innsats gitt tilbake"
 }

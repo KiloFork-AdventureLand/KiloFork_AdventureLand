@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Вдигни поне до {min}",
 	"response.poker_in_hand": "Изчакай раздаването да свърши",
 	"response.poker_broke": "Внеси отново, за да продължиш да играеш",
-	"response.poker_unavailable": "Покер масата е затворена в момента"
+	"response.poker_unavailable": "Покер масата е затворена в момента",
+	"response.tavern_closing": "Игрите на кръчмата са затворени, докато сървърът се рестартира"
 }

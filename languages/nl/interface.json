@@ -934,5 +934,6 @@
 	"interface.hub.bank": "BANK",
 	"interface.hub.equipment": "UITRUSTING",
 	"interface.hub.pack": "Vak {number}",
-	"interface.hub.saved_bank": "Opgeslagen bankinhoud. Recente wijzigingen zijn mogelijk nog niet zichtbaar."
+	"interface.hub.saved_bank": "Opgeslagen bankinhoud. Recente wijzigingen zijn mogelijk nog niet zichtbaar.",
+	"interface.tavern.refunded": "Inzet terug"
 }

@@ -933,5 +933,6 @@
 	"interface.hub.bank": "NGÂN HÀNG",
 	"interface.hub.equipment": "TRANG BỊ",
 	"interface.hub.pack": "Ngăn {number}",
-	"interface.hub.saved_bank": "Nội dung ngân hàng đã lưu. Những thay đổi gần đây có thể chưa hiển thị."
+	"interface.hub.saved_bank": "Nội dung ngân hàng đã lưu. Những thay đổi gần đây có thể chưa hiển thị.",
+	"interface.tavern.refunded": "Đã hoàn tiền cược"
 }

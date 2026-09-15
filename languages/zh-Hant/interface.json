@@ -933,5 +933,6 @@
 	"interface.hub.bank": "銀行",
 	"interface.hub.equipment": "裝備",
 	"interface.hub.pack": "儲物欄 {number}",
-	"interface.hub.saved_bank": "已儲存的銀行內容。最近的變更可能尚未顯示。"
+	"interface.hub.saved_bank": "已儲存的銀行內容。最近的變更可能尚未顯示。",
+	"interface.tavern.refunded": "下注已退回"
 }

@@ -374,6 +374,8 @@ module.exports = {
 	"response.slots_spinning": "The reels are still turning",
 	// js/tavern_poker.js, response not_in_tavern: a Tavern game request came from another map.
 	"response.not_in_tavern": "You need to be in the Tavern for that",
+	// js/game.js and js/tavern_poker.js, response tavern_closing: a bet, spin or poker join was refused because the server is shutting down for a restart. Also the reason on the response of a wager the restart returned.
+	"response.tavern_closing": "The Tavern's games are closed while the server restarts",
 	// js/tavern_poker.js, response poker_far: a join request came from too far away from the Tavern poker table.
 	"response.poker_far": "Walk closer to the poker table",
 	// js/tavern_poker.js, response poker_full: every seat is taken.

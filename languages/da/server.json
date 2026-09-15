@@ -323,5 +323,7 @@
 	"server.game_log.poker_won": "Poker: vandt {amount} guld",
 	"server.game_log.poker_broke": "Din stack er under big blind på {amount}. Køb ind igen, eller forlad bordet",
 	"server.game_log.poker_auto_check": "Din tid løb ud. Der blev checket for dig",
-	"server.game_log.poker_auto_fold": "Din tid løb ud. Der blev foldet for dig"
+	"server.game_log.poker_auto_fold": "Din tid løb ud. Der blev foldet for dig",
+	"server.game_log.tavern_closed": "Kroen lukker sine spil til genstarten. Uafgjorte indsatser gives tilbage",
+	"server.game_log.tavern_refund": "{amount} guld givet tilbage: genstarten afbrød din indsats"
 }

@@ -319,5 +319,7 @@
 	"server.game_log.poker_won": "Poker: thắng {amount} vàng",
 	"server.game_log.poker_broke": "Số chip của bạn thấp hơn big blind {amount}. Hãy mua vào lại hoặc rời bàn",
 	"server.game_log.poker_auto_check": "Hết giờ. Đã check thay bạn",
-	"server.game_log.poker_auto_fold": "Hết giờ. Đã bỏ bài thay bạn"
+	"server.game_log.poker_auto_fold": "Hết giờ. Đã bỏ bài thay bạn",
+	"server.game_log.tavern_closed": "Quán Rượu đóng các trò chơi để khởi động lại. Các cược chưa xong được hoàn lại",
+	"server.game_log.tavern_refund": "Đã hoàn {amount} vàng: việc khởi động lại đã cắt ngang cược của bạn"
 }

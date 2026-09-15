@@ -319,5 +319,7 @@
 	"server.game_log.poker_won": "Poker: {amount} altın kazandın",
 	"server.game_log.poker_broke": "Kasan {amount} büyük körün altında. Yeniden giriş yap ya da masadan ayrıl",
 	"server.game_log.poker_auto_check": "Süren doldu. Senin yerine çek dendi",
-	"server.game_log.poker_auto_fold": "Süren doldu. Senin yerine pas geçildi"
+	"server.game_log.poker_auto_fold": "Süren doldu. Senin yerine pas geçildi",
+	"server.game_log.tavern_closed": "Taverna, yeniden başlatma için oyunlarını kapatıyor. Tamamlanmamış bahisler geri veriliyor",
+	"server.game_log.tavern_refund": "{amount} altın geri verildi: yeniden başlatma bahsini yarıda kesti"
 }

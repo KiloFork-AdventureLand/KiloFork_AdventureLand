@@ -322,5 +322,7 @@
 	"server.game_log.poker_won": "Poker: {amount} goud gewonnen",
 	"server.game_log.poker_broke": "Je stack ligt onder de big blind van {amount}. Koop opnieuw in of verlaat de tafel",
 	"server.game_log.poker_auto_check": "Je tijd is om. Er is voor je gecheckt",
-	"server.game_log.poker_auto_fold": "Je tijd is om. Er is voor je gepast"
+	"server.game_log.poker_auto_fold": "Je tijd is om. Er is voor je gepast",
+	"server.game_log.tavern_closed": "De taverne sluit haar spellen voor de herstart. Onbesliste inzetten worden teruggegeven",
+	"server.game_log.tavern_refund": "{amount} goud teruggegeven: de herstart onderbrak je inzet"
 }

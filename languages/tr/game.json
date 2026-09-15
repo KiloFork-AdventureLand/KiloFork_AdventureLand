@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "En az {min} olarak yükselt",
 	"response.poker_in_hand": "Elin bitmesini bekle",
 	"response.poker_broke": "Oynamaya devam etmek için yeniden giriş yap",
-	"response.poker_unavailable": "Poker masası şu an kapalı"
+	"response.poker_unavailable": "Poker masası şu an kapalı",
+	"response.tavern_closing": "Sunucu yeniden başlatılırken Taverna'nın oyunları kapalı"
 }

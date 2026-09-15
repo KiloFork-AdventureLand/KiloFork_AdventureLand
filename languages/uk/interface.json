@@ -946,5 +946,6 @@
 	"interface.hub.bank": "БАНК",
 	"interface.hub.equipment": "СПОРЯДЖЕННЯ",
 	"interface.hub.pack": "Комірка {number}",
-	"interface.hub.saved_bank": "Збережений вміст банку. Останні зміни можуть ще не відображатися."
+	"interface.hub.saved_bank": "Збережений вміст банку. Останні зміни можуть ще не відображатися.",
+	"interface.tavern.refunded": "Ставку повернуто"
 }

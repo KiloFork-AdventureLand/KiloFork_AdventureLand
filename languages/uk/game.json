@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Підвищте щонайменше до {min}",
 	"response.poker_in_hand": "Дочекайтеся кінця роздачі",
 	"response.poker_broke": "Внесіть бай-ін знову, щоб продовжити гру",
-	"response.poker_unavailable": "Покерний стіл зараз зачинено"
+	"response.poker_unavailable": "Покерний стіл зараз зачинено",
+	"response.tavern_closing": "Ігри таверни зачинені, поки сервер перезапускається"
 }

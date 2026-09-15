@@ -319,5 +319,7 @@
 	"server.game_log.poker_won": "Póker: nyertél {amount} aranyat",
 	"server.game_log.poker_broke": "A zsetonjaid a {amount} nagyvak alatt vannak. Ülj be újra, vagy hagyd el az asztalt",
 	"server.game_log.poker_auto_check": "Lejárt az időd. Passzoltunk helyetted",
-	"server.game_log.poker_auto_fold": "Lejárt az időd. Dobtunk helyetted"
+	"server.game_log.poker_auto_fold": "Lejárt az időd. Dobtunk helyetted",
+	"server.game_log.tavern_closed": "A fogadó az újraindításra bezárja a játékait. A befejezetlen téteket visszaadja",
+	"server.game_log.tavern_refund": "{amount} arany visszaadva: az újraindítás megszakította a tétedet"
 }

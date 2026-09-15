@@ -325,5 +325,7 @@
 	"server.game_log.poker_won": "Poker: wygrano {amount} złota",
 	"server.game_log.poker_broke": "Twój stos jest poniżej dużego blinda ({amount}). Wpłać ponownie albo opuść stół",
 	"server.game_log.poker_auto_check": "Czas minął. Zaczekano za ciebie",
-	"server.game_log.poker_auto_fold": "Czas minął. Spasowano za ciebie"
+	"server.game_log.poker_auto_fold": "Czas minął. Spasowano za ciebie",
+	"server.game_log.tavern_closed": "Tawerna zamyka swoje gry na czas restartu. Nierozstrzygnięte zakłady są zwracane",
+	"server.game_log.tavern_refund": "Zwrócono {amount} złota: restart przerwał twój zakład"
 }

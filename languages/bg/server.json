@@ -322,5 +322,7 @@
 	"server.game_log.poker_won": "Покер: спечели {amount} злато",
 	"server.game_log.poker_broke": "Чиповете ти са под големия блинд от {amount}. Внеси отново или напусни масата",
 	"server.game_log.poker_auto_check": "Времето ти изтече. Направен е чек вместо теб",
-	"server.game_log.poker_auto_fold": "Времето ти изтече. Пасувано е вместо теб"
+	"server.game_log.poker_auto_fold": "Времето ти изтече. Пасувано е вместо теб",
+	"server.game_log.tavern_closed": "Кръчмата затваря игрите си за рестарта. Неприключилите залози се връщат",
+	"server.game_log.tavern_refund": "Върнати {amount} злато: рестартът прекъсна залога ти"
 }

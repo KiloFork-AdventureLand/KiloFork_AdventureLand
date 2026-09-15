@@ -319,5 +319,7 @@
 	"server.game_log.poker_won": "Poker: nanalo ng {amount} ginto",
 	"server.game_log.poker_broke": "Mas mababa ang stack mo sa big blind na {amount}. Mag-buy-in ulit o umalis sa mesa",
 	"server.game_log.poker_auto_check": "Naubos ang oras mo. Nag-check para sa iyo",
-	"server.game_log.poker_auto_fold": "Naubos ang oras mo. Nag-fold para sa iyo"
+	"server.game_log.poker_auto_fold": "Naubos ang oras mo. Nag-fold para sa iyo",
+	"server.game_log.tavern_closed": "Isinasara ng Taberna ang mga laro nito para sa restart. Ibinabalik ang mga hindi pa tapos na taya",
+	"server.game_log.tavern_refund": "Ibinalik ang {amount} ginto: naputol ng restart ang taya mo"
 }

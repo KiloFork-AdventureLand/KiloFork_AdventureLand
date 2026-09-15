@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Rilancia almeno a {min}",
 	"response.poker_in_hand": "Aspetta che la mano finisca",
 	"response.poker_broke": "Rientra con un nuovo buy-in per continuare a giocare",
-	"response.poker_unavailable": "Il tavolo da poker è chiuso al momento"
+	"response.poker_unavailable": "Il tavolo da poker è chiuso al momento",
+	"response.tavern_closing": "I giochi della taverna sono chiusi mentre il server si riavvia"
 }

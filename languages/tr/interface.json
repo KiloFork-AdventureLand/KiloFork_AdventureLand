@@ -933,5 +933,6 @@
 	"interface.hub.bank": "BANKA",
 	"interface.hub.equipment": "EKİPMAN",
 	"interface.hub.pack": "Bölme {number}",
-	"interface.hub.saved_bank": "Kaydedilmiş banka içeriği. Son değişiklikler henüz görünmeyebilir."
+	"interface.hub.saved_bank": "Kaydedilmiş banka içeriği. Son değişiklikler henüz görünmeyebilir.",
+	"interface.tavern.refunded": "Bahis iade edildi"
 }

@@ -933,5 +933,6 @@
 	"interface.hub.bank": "PANKKI",
 	"interface.hub.equipment": "VARUSTEET",
 	"interface.hub.pack": "Lokero {number}",
-	"interface.hub.saved_bank": "Pankin tallennettu sisältö. Viimeisimmät muutokset eivät ehkä vielä näy."
+	"interface.hub.saved_bank": "Pankin tallennettu sisältö. Viimeisimmät muutokset eivät ehkä vielä näy.",
+	"interface.tavern.refunded": "Panos palautettu"
 }

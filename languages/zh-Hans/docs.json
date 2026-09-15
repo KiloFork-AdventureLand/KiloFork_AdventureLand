@@ -2543,5 +2543,6 @@
 	"docs.guide.tavern-games.tier-iv": "IV+ 与 PVP 服",
 	"docs.guide.tavern-games.leaving-the-table": "<b>离开牌桌。</b>按下离桌、走离凳子、使用门或登出，你都会在本局结束后离桌，筹码全额退回钱袋。断线的座位保留筹码：计时继续，再下两局盲注，随后该座位暂离，并在五分钟后结算。重启会使进行中的一局作废并退回所有下注。每次发牌前牌桌公布对洗好牌组的承诺，本局结束后公布用于验证的密钥和牌组顺序。",
 	"docs.guide.tavern-games.code-play-a-hand": "CODE：玩一局",
-	"docs.articles.hub.viewing_items": "登录后，选择{bank}查看已保存的银行物品和金币。观战角色时，选择{inventory}或{equipment}。点击物品可查看详情。这些界面无法移动或装备物品。"
+	"docs.articles.hub.viewing_items": "登录后，选择{bank}查看已保存的银行物品和金币。观战角色时，选择{inventory}或{equipment}。点击物品可查看详情。这些界面无法移动或装备物品。",
+	"docs.guide.tavern-games.restarts": "<b>重启。</b>重启会在倒计时之前关闭酒馆的游戏：尚未结算的转轮、老虎机和骰子下注全额退回，扑克牌桌作废本局并结算每位玩家的筹码，倒计时期间的任何请求都会以 <span class='dlabel'>tavern_closing</span> 失败。"
 }

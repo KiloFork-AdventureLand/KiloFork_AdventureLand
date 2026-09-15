@@ -321,5 +321,7 @@
 	"server.game_log.poker_won": "Poker: {amount} Gold gewonnen",
 	"server.game_log.poker_broke": "Dein Stack liegt unter dem Big Blind von {amount}. Kauf dich erneut ein oder verlasse den Tisch",
 	"server.game_log.poker_auto_check": "Deine Zeit ist abgelaufen. Für dich wurde gecheckt",
-	"server.game_log.poker_auto_fold": "Deine Zeit ist abgelaufen. Für dich wurde gepasst"
+	"server.game_log.poker_auto_fold": "Deine Zeit ist abgelaufen. Für dich wurde gepasst",
+	"server.game_log.tavern_closed": "Die Taverne schließt ihre Spiele für den Neustart. Offene Einsätze werden zurückgegeben",
+	"server.game_log.tavern_refund": "{amount} Gold zurückgegeben: Der Neustart hat deinen Einsatz unterbrochen"
 }

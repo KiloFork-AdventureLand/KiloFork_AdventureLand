@@ -934,5 +934,6 @@
 	"interface.hub.bank": "BANK",
 	"interface.hub.equipment": "AUSRÜSTUNG",
 	"interface.hub.pack": "Fach {number}",
-	"interface.hub.saved_bank": "Gespeicherter Bankinhalt. Neuere Änderungen sind möglicherweise noch nicht sichtbar."
+	"interface.hub.saved_bank": "Gespeicherter Bankinhalt. Neuere Änderungen sind möglicherweise noch nicht sichtbar.",
+	"interface.tavern.refunded": "Einsatz zurück"
 }

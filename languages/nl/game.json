@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Verhoog naar minstens {min}",
 	"response.poker_in_hand": "Wacht tot de hand voorbij is",
 	"response.poker_broke": "Koop opnieuw in om verder te spelen",
-	"response.poker_unavailable": "De pokertafel is op dit moment gesloten"
+	"response.poker_unavailable": "De pokertafel is op dit moment gesloten",
+	"response.tavern_closing": "De spellen van de taverne zijn gesloten terwijl de server herstart"
 }

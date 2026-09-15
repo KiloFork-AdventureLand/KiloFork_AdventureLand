@@ -933,5 +933,6 @@
 	"interface.hub.bank": "البنك",
 	"interface.hub.equipment": "المعدات",
 	"interface.hub.pack": "الخانة {number}",
-	"interface.hub.saved_bank": "محتويات البنك المحفوظة. قد لا تظهر التغييرات الأخيرة بعد."
+	"interface.hub.saved_bank": "محتويات البنك المحفوظة. قد لا تظهر التغييرات الأخيرة بعد.",
+	"interface.tavern.refunded": "أُعيد الرهان"
 }

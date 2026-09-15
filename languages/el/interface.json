@@ -934,5 +934,6 @@
 	"interface.hub.bank": "ΤΡΑΠΕΖΑ",
 	"interface.hub.equipment": "ΕΞΟΠΛΙΣΜΟΣ",
 	"interface.hub.pack": "Θήκη {number}",
-	"interface.hub.saved_bank": "Αποθηκευμένο περιεχόμενο τράπεζας. Οι πρόσφατες αλλαγές ενδέχεται να μην εμφανίζονται ακόμη."
+	"interface.hub.saved_bank": "Αποθηκευμένο περιεχόμενο τράπεζας. Οι πρόσφατες αλλαγές ενδέχεται να μην εμφανίζονται ακόμη.",
+	"interface.tavern.refunded": "Στοίχημα επιστράφηκε"
 }

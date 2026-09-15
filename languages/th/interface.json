@@ -933,5 +933,6 @@
 	"interface.hub.bank": "ธนาคาร",
 	"interface.hub.equipment": "อุปกรณ์",
 	"interface.hub.pack": "ช่องเก็บของ {number}",
-	"interface.hub.saved_bank": "ข้อมูลธนาคารที่บันทึกไว้ การเปลี่ยนแปลงล่าสุดอาจยังไม่แสดง"
+	"interface.hub.saved_bank": "ข้อมูลธนาคารที่บันทึกไว้ การเปลี่ยนแปลงล่าสุดอาจยังไม่แสดง",
+	"interface.tavern.refunded": "คืนเงินเดิมพันแล้ว"
 }

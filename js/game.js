@@ -2332,6 +2332,7 @@ function init_socket(args) {
 			else if (response == "wheel_spinning") ui_log(phrase.html("response.wheel_spinning"), "gray");
 			else if (response == "wheel_side") ui_log(phrase.html("response.wheel_side"), "gray");
 			else if (response == "slots_spinning") ui_log(phrase.html("response.slots_spinning"), "gray");
+			else if (response == "tavern_closing") ui_log(phrase.html("response.tavern_closing"), "gray");
 			else if (response == "condition") {
 				var def = G.conditions[data.name],
 					from = data.from;
@@ -2922,6 +2923,11 @@ function init_socket(args) {
 				dice_bet.active = true;
 				on_dice_change();
 			}
+		}
+		if (data.event == "refund") {
+			// A restart returned the open dice bet; the panel takes new bets again once the Tavern reopens.
+			var player = get_entity(data.name);
+			if (player && player.me) ((dice_bet.active = false), on_dice_change());
 		}
 		if (data.event == "info") {
 			if (data.game == "wheel") wheel_info(data);

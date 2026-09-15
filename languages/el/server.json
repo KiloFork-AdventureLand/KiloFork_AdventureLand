@@ -322,5 +322,7 @@
 	"server.game_log.poker_won": "Πόκερ: κέρδισες {amount} χρυσό",
 	"server.game_log.poker_broke": "Οι μάρκες σου είναι κάτω από το big blind των {amount}. Αγόρασε ξανά θέση ή άφησε το τραπέζι",
 	"server.game_log.poker_auto_check": "Ο χρόνος σου τελείωσε. Έγινε check για σένα",
-	"server.game_log.poker_auto_fold": "Ο χρόνος σου τελείωσε. Πήγες πάσο αυτόματα"
+	"server.game_log.poker_auto_fold": "Ο χρόνος σου τελείωσε. Πήγες πάσο αυτόματα",
+	"server.game_log.tavern_closed": "Η Ταβέρνα κλείνει τα παιχνίδια της για την επανεκκίνηση. Τα ανοιχτά στοιχήματα επιστρέφονται",
+	"server.game_log.tavern_refund": "Επιστράφηκαν {amount} χρυσό: η επανεκκίνηση διέκοψε το στοίχημά σου"
 }

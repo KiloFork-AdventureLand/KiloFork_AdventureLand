@@ -93,6 +93,7 @@ eval("" + fs.readFileSync(path.resolve(__dirname, "logic/chat.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/generated_maps.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/instance_pause.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/cave_of_many_dreams.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern_wheel.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern_slots.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern_poker.js")));
@@ -12409,6 +12410,9 @@ function init_socket_io(socket_server) {
 			if (player.s.xshotted) {
 				return bet_failure("bet_xshot");
 			}
+			if (tavern_closing()) {
+				return bet_failure("tavern_closing");
+			}
 			if (data.type == "wheel") {
 				return tavern_wheel_bet(player, data, bet_failure, request_id);
 			}
@@ -16504,7 +16508,7 @@ async function server_loop() {
 			server.stopped = true;
 		} else if (
 			server.stopped &&
-			((!pending_logins.size && !Object.keys(dc_players).length && !Object.keys(players).length) ||
+			((!pending_logins.size && !Object.keys(dc_players).length && !Object.keys(players).length && !tavern_pending()) ||
 				gameplay == "hardcore" ||
 				gameplay == "test")
 		) {
@@ -16540,9 +16544,9 @@ function shutdown_routine() {
 	if (Dev && server.shutdown) process.exit();
 	server.shutdown = true;
 	try {
-		tavern_poker_shutdown();
+		tavern_close();
 	} catch (e) {
-		log_trace("#X poker shutdown", e);
+		log_trace("#X tavern close", e);
 	}
 	for (var name in instances) {
 		for (var id in instances[name].monsters) {

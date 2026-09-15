@@ -95,6 +95,7 @@ function tavern_poker_far(player, x, y, limit) {
 // Escrow mirror: the seat's stack is written into the character's saved data whenever it changes, so a refund after
 // a crash returns what the seat held at the last save.
 function tavern_poker_mirror(seat) {
+	if (seat.settled) return;
 	var player = seat.player || dc_players[seat.id];
 	if (!player || !player.p) return;
 	player.p.poker = { token: seat.token, stack: seat.stack, server: server_id, at: new Date() };
@@ -338,6 +339,7 @@ function tavern_poker_join(player, data, fail, done) {
 		max = def.buyin[1] * blinds[1],
 		gold = parseInt(data.gold || data.buyin) || 0,
 		seat = tavern_poker_seat_of(player);
+	if (tavern_closing()) return fail("tavern_closing");
 	if (tavern_poker_far(player, machine.x, machine.y, 260)) return fail("poker_far");
 	if (seat) {
 		// A seated player adds to a short stack between hands, up to the maximum buy-in.
@@ -438,7 +440,7 @@ function tavern_poker_deal() {
 		blinds = tavern_poker_blinds(),
 		ready = tavern_poker_ready(),
 		now = tavern_poker_now();
-	if (ready.length < 2) return;
+	if (ready.length < 2 || tavern_closing()) return;
 	table.hands++;
 	table.button = tavern_poker_next_index(table.button, ready);
 	var deck = tavern_poker_deck(),
@@ -675,7 +677,7 @@ function tavern_poker_finish() {
 			.sort(function (a, b) {
 				return a - b;
 			}),
-		results = { winners: {}, hands: {}, shown: {}, pots: [] },
+		results = { winners: {}, returned: {}, hands: {}, shown: {}, pots: [] },
 		prev = 0,
 		rake_total = 0;
 	levels.forEach(function (level) {
@@ -697,7 +699,7 @@ function tavern_poker_finish() {
 					return seat.total >= level;
 				})[0];
 			owner.stack += pot;
-			results.winners[owner.index] = (results.winners[owner.index] || 0) + pot;
+			results.returned[owner.index] = (results.returned[owner.index] || 0) + pot;
 			results.pots.push({ gold: pot, returned: owner.index });
 			return;
 		}
@@ -754,7 +756,7 @@ function tavern_poker_finish() {
 		rake: rake_total,
 		commit: hand.commit,
 		key: hand.key,
-		order: hand.order,
+		order: hand.order.join(","),
 		seats: [],
 	};
 	hand.entries.forEach(function (seat) {
@@ -805,7 +807,12 @@ function tavern_poker_cash_out(seat, reason) {
 	table.seats[seat.index] = null;
 	seat.stack = 0;
 	var player = seat.player;
-	if (player && !player.dc && player.socket && players[player.socket.id] === player) {
+	if (seat.settled) {
+		// The escrow was already returned by a login elsewhere, so the gold this seat still shows was paid out
+		// once already and simply disappears from the table.
+		tavern_poker_record({ t: "forfeit", name: seat.name, gold: gold, reason: reason });
+		server_log("#X poker: " + seat.name + " leaves " + gold + " on a seat whose escrow was already returned", 1);
+	} else if (player && !player.dc && player.socket && players[player.socket.id] === player) {
 		player.gold += gold;
 		if (player.p) delete player.p.poker;
 		tavern_poker_message(
@@ -831,8 +838,24 @@ function tavern_poker_cash_out(seat, reason) {
 	tavern_poker_emit();
 }
 
+// Refund transactions in flight, so a shutdown can wait for them before the process exits.
+var tavern_poker_refunds = [];
+function tavern_poker_pending() {
+	var now = Date.now();
+	tavern_poker_refunds = tavern_poker_refunds.filter(function (started) {
+		return now - started < 15000;
+	});
+	return tavern_poker_refunds.length;
+}
+
 function tavern_poker_refund(seat, gold, reason) {
 	if (typeof tx != "function") return server_log("#X poker: no transaction helper to refund " + seat.name, 1);
+	var started = Date.now();
+	tavern_poker_refunds.push(started);
+	var finished = function () {
+		var i = tavern_poker_refunds.indexOf(started);
+		if (i >= 0) tavern_poker_refunds.splice(i, 1);
+	};
 	tx(async () => {
 		var entity = await tx_get(A[0].id);
 		if (!entity) ex("no_character");
@@ -850,13 +873,26 @@ function tavern_poker_refund(seat, gold, reason) {
 		})
 		.catch(function (e) {
 			log_trace("#X poker refund", e);
-		});
+		})
+		.then(finished, finished);
 }
 
 // Hooks from node/server.js: login, disconnect, shutdown and the one-second tick.
 function tavern_poker_login(player) {
 	if (!tavern_poker_definition()) return;
 	var seat = tavern_poker_seat_by_id(player.real_id);
+	if (seat && !(player.p && player.p.poker && player.p.poker.token == seat.token)) {
+		// The escrow was already returned by another login, so the seat's gold is not owed twice. The seat folds out
+		// of any hand it is in and is cleared without payment.
+		seat.settled = true;
+		seat.leaving = true;
+		seat.player = null;
+		if (!seat.dc) seat.dc = tavern_poker_now();
+		tavern_poker_record({ t: "settled", name: seat.name, gold: seat.stack, reason: "escrow_consumed" });
+		if (!tavern_poker_in_hand(seat)) tavern_poker_cash_out(seat, "settled");
+		else tavern_poker_emit();
+		seat = null;
+	}
 	if (seat) {
 		seat.player = player;
 		seat.dc = null;
@@ -959,7 +995,7 @@ function tavern_poker_tick() {
 			if (hand.acting >= 0) {
 				if (now >= hand.deadline) tavern_poker_timeout();
 			} else if (hand.next_at && now >= hand.next_at) tavern_poker_next_street();
-		} else if (now >= table.next && tavern_poker_ready().length >= 2) tavern_poker_deal();
+		} else if (!tavern_closing() && now >= table.next && tavern_poker_ready().length >= 2) tavern_poker_deal();
 	} catch (e) {
 		log_trace("#X poker tick", e);
 	}

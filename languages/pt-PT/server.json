@@ -322,5 +322,7 @@
 	"server.game_log.poker_won": "Póquer: ganhaste {amount} de ouro",
 	"server.game_log.poker_broke": "O teu stack está abaixo do big blind de {amount}. Entra de novo ou sai da mesa",
 	"server.game_log.poker_auto_check": "O teu tempo acabou. Passámos por ti",
-	"server.game_log.poker_auto_fold": "O teu tempo acabou. Desististe automaticamente"
+	"server.game_log.poker_auto_fold": "O teu tempo acabou. Desististe automaticamente",
+	"server.game_log.tavern_closed": "A Taberna fecha os seus jogos para o reinício. As apostas por resolver são devolvidas",
+	"server.game_log.tavern_refund": "{amount} de ouro devolvidos: o reinício interrompeu a tua aposta"
 }

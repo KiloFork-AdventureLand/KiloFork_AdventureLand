@@ -32,6 +32,7 @@ function tavern_slots_stops(slots, symbol) {
 function tavern_slots_bet(player, data, bet_failure, request_id) {
 	var slots = G.games.slots,
 		cost = slots.gold;
+	if (tavern_closing()) return bet_failure("tavern_closing");
 	if (player.q.slots) return bet_failure("slots_spinning");
 	if (cost > player.gold) return bet_failure("gold_not_enough");
 	var edge = house_edge(),

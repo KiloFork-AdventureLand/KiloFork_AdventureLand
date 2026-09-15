@@ -138,6 +138,10 @@ module.exports = {
 	"server.game_log.poker_cash_out": "You leave the poker table with {amount} gold",
 	// node/logic/tavern_poker.js; game_log at login when gold left on a poker seat by an earlier session (or a restart) is returned. {amount} = formatted gold.
 	"server.game_log.poker_refund": "{amount} gold from the poker table returned to your purse",
+	// node/logic/tavern.js; game_log to everyone in the Tavern when the shutdown routine closes its games for a restart. Unfinished wagers were returned.
+	"server.game_log.tavern_closed": "The Tavern closes its games for the restart. Unfinished wagers are returned",
+	// node/logic/tavern.js; game_log when a restart returns an unfinished wheel, slots or dice wager. {amount} = formatted gold.
+	"server.game_log.tavern_refund": "{amount} gold returned: the restart interrupted your wager",
 	// node/logic/tavern_poker.js; game_log at login when the character resumes its poker seat after a disconnect. {amount} = formatted gold still on the seat.
 	"server.game_log.poker_back": "You are back at the poker table with {amount} gold",
 	// node/logic/tavern_poker.js; game_log when the player wins gold in a poker hand. {amount} = formatted net gold gained in the hand.

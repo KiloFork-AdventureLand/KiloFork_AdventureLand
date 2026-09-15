@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Tố lên ít nhất {min}",
 	"response.poker_in_hand": "Hãy chờ ván bài kết thúc",
 	"response.poker_broke": "Mua vào lại để tiếp tục chơi",
-	"response.poker_unavailable": "Bàn poker hiện đang đóng"
+	"response.poker_unavailable": "Bàn poker hiện đang đóng",
+	"response.tavern_closing": "Các trò chơi của Quán Rượu đóng cửa trong lúc máy chủ khởi động lại"
 }

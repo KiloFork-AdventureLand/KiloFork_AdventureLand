@@ -455,6 +455,8 @@ module.exports = {
 	"interface.slots.odds": "1 in {value}",
 	// js/tavern_slots.js; compact hint beside SPIN showing the fixed stake. amount is a formatted gold number.
 	"interface.slots.cost": "{amount} gold",
+	// js/tavern_wheel.js and js/tavern_slots.js, panel hint after a restart returned the stake of a spin that had not settled. Short label.
+	"interface.tavern.refunded": "Stake returned",
 	// js/tavern_poker.js; overlay heading of the Tavern's Texas Hold'em poker table.
 	"interface.poker.title": "Tavern Hold'em",
 	// js/tavern_poker.js; shown for a moment while the table state arrives.

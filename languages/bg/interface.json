@@ -934,5 +934,6 @@
 	"interface.hub.bank": "БАНКА",
 	"interface.hub.equipment": "ЕКИПИРОВКА",
 	"interface.hub.pack": "Отделение {number}",
-	"interface.hub.saved_bank": "Запазено съдържание на банката. Последните промени може още да не се виждат."
+	"interface.hub.saved_bank": "Запазено съдържание на банката. Последните промени може още да не се виждат.",
+	"interface.tavern.refunded": "Залогът е върнат"
 }

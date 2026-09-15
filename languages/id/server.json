@@ -319,5 +319,7 @@
 	"server.game_log.poker_won": "Poker: menang {amount} emas",
 	"server.game_log.poker_broke": "Stack-mu di bawah big blind {amount}. Buy-in lagi atau tinggalkan meja",
 	"server.game_log.poker_auto_check": "Waktumu habis. Check dilakukan untukmu",
-	"server.game_log.poker_auto_fold": "Waktumu habis. Fold dilakukan untukmu"
+	"server.game_log.poker_auto_fold": "Waktumu habis. Fold dilakukan untukmu",
+	"server.game_log.tavern_closed": "Kedai menutup permainannya untuk mulai ulang. Taruhan yang belum selesai dikembalikan",
+	"server.game_log.tavern_refund": "{amount} emas dikembalikan: mulai ulang menghentikan taruhanmu"
 }

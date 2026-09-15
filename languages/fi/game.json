@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Korota vähintään tasolle {min}",
 	"response.poker_in_hand": "Odota käden päättymistä",
 	"response.poker_broke": "Osta sisään uudelleen jatkaaksesi peliä",
-	"response.poker_unavailable": "Pokeripöytä on juuri nyt suljettu"
+	"response.poker_unavailable": "Pokeripöytä on juuri nyt suljettu",
+	"response.tavern_closing": "Tavernan pelit ovat kiinni, kun palvelin käynnistyy uudelleen"
 }

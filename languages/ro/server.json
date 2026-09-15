@@ -325,5 +325,7 @@
 	"server.game_log.poker_won": "Poker: ai câștigat {amount} aur",
 	"server.game_log.poker_broke": "Stackul tău e sub big blindul de {amount}. Intră din nou sau pleacă de la masă",
 	"server.game_log.poker_auto_check": "Ți-a expirat timpul. S-a dat check în locul tău",
-	"server.game_log.poker_auto_fold": "Ți-a expirat timpul. S-a dat fold în locul tău"
+	"server.game_log.poker_auto_fold": "Ți-a expirat timpul. S-a dat fold în locul tău",
+	"server.game_log.tavern_closed": "Taverna își închide jocurile pentru repornire. Pariurile nerezolvate sunt returnate",
+	"server.game_log.tavern_refund": "{amount} aur returnat: repornirea ți-a întrerupt pariul"
 }

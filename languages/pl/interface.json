@@ -946,5 +946,6 @@
 	"interface.hub.bank": "BANK",
 	"interface.hub.equipment": "WYPOSAŻENIE",
 	"interface.hub.pack": "Schowek {number}",
-	"interface.hub.saved_bank": "Zapisana zawartość banku. Ostatnie zmiany mogą nie być jeszcze widoczne."
+	"interface.hub.saved_bank": "Zapisana zawartość banku. Ostatnie zmiany mogą nie być jeszcze widoczne.",
+	"interface.tavern.refunded": "Stawka zwrócona"
 }

@@ -938,5 +938,6 @@
 	"interface.hub.bank": "BANCA",
 	"interface.hub.equipment": "EQUIPAGGIAMENTO",
 	"interface.hub.pack": "Scomparto {number}",
-	"interface.hub.saved_bank": "Contenuto salvato della banca. Le modifiche recenti potrebbero non essere ancora visibili."
+	"interface.hub.saved_bank": "Contenuto salvato della banca. Le modifiche recenti potrebbero non essere ancora visibili.",
+	"interface.tavern.refunded": "Puntata restituita"
 }

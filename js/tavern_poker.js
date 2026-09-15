@@ -82,8 +82,22 @@ function render_poker() {
 
 function poker_refresh() {
 	if (no_graphics || no_html || !poker_open()) return;
+	var amount = $(".pk-amount").val(),
+		buyin = $(".pk-buyin-gold").val(),
+		focused = document.activeElement && document.activeElement.className,
+		decision = $(".pk").attr("data-decision");
 	$(".pk").replaceWith(poker_html());
+	if (amount && decision && $(".pk").attr("data-decision") == decision) $(".pk-amount").val(amount);
+	if (buyin && $(".pk-buyin-gold").length) $(".pk-buyin-gold").val(buyin);
+	if (focused && $("." + focused).length) $("." + focused).focus();
 	poker_clock();
+}
+
+// The overlay fits the window: a smaller screen sees the same 900x760 layout scaled down as a whole.
+function poker_zoom() {
+	var width = typeof viewport_width == "function" ? viewport_width() : $(window).width(),
+		height = $(window).height();
+	return Math.max(0.5, Math.min(1, Math.floor(Math.min((width - 32) / 900, (height - 48) / 760) * 100) / 100));
 }
 
 function poker_closed() {
@@ -95,7 +109,7 @@ function poker_closed() {
 function poker_css() {
 	return (
 		"<style>" +
-		".pk{position:relative;width:900px;height:724px;background:#14110F;border:5px solid gray;color:white;font-size:22px;line-height:24px;text-align:left;user-select:none}" +
+		".pk{position:relative;width:900px;height:760px;background:#14110F;border:5px solid gray;color:white;font-size:22px;line-height:24px;text-align:left;user-select:none}" +
 		".pk-table{position:absolute;left:180px;top:70px;width:540px;height:290px;border-radius:160px/90px;background:#2F6B3C;box-shadow:inset 0 0 0 6px #9D5F3E,inset 0 0 0 9px #6D3D4B}" +
 		".pk-ring{position:absolute;left:60px;top:40px;right:60px;bottom:40px;border-radius:120px/60px;border:2px solid #3C8049}" +
 		".pk-pot{position:absolute;left:0;right:0;top:96px;text-align:center;color:#FFD888;font-size:26px}.pk-street{color:#9BE29B;font-size:18px}" +
@@ -106,17 +120,17 @@ function poker_css() {
 		".pk-card.pk-big{width:64px;height:88px;background-size:832px 440px;margin:0}.pk-board .pk-slot{width:64px;height:88px;border:2px dashed #3C8049;box-sizing:border-box}" +
 		".pk-seat{position:absolute;width:190px;min-height:124px;background:black;border:4px solid gray;padding:6px 8px;text-align:center;box-sizing:border-box}" +
 		".pk-active{border-color:#FFE737}.pk-folded{opacity:.5}.pk-winner{border-color:#FFD888;box-shadow:0 0 0 3px #7A5A10}.pk-empty{border-style:dashed}.pk-me{border-color:#6DB7B8}.pk-me.pk-active{border-color:#FFE737}" +
-		".pk-front-l{left:112px;top:378px}.pk-front-c{left:355px;top:378px}.pk-front-r{left:598px;top:378px}.pk-side-l{left:8px;top:186px}.pk-side-r{left:702px;top:186px}" +
+		".pk-front-l{left:112px;top:396px}.pk-front-c{left:355px;top:396px}.pk-front-r{left:598px;top:396px}.pk-side-l{left:8px;top:150px}.pk-side-r{left:702px;top:150px}" +
 		".pk-name{color:#E6B16B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pk-dealer{display:inline-block;background:#FFE737;color:black;padding:0 6px;font-size:18px;margin-left:4px}.pk-stack{color:#FFD888}" +
 		".pk-hand{height:48px;margin:4px 0}.pk-hand.pk-mine{height:92px}" +
 		".pk-bet{position:absolute;left:50%;top:-36px;transform:translateX(-50%);background:#24552F;border:3px solid #9D5F3E;padding:0 8px;color:#FFE737;white-space:nowrap;font-size:20px}" +
 		".pk-side-l .pk-bet{left:auto;right:-124px;top:24px;transform:none}.pk-side-r .pk-bet{left:-124px;top:24px;transform:none}" +
 		".pk-status{color:#9BE29B;font-size:18px;min-height:20px}.pk-status.gray{color:gray}.pk-timer{height:6px;background:#333;margin-top:4px}.pk-timer i{display:block;height:6px;background:#FFE737}.pk-timer.pk-bank i{background:#FF7500}" +
-		".pk-actions{position:absolute;left:0;right:0;bottom:10px;height:104px;text-align:center}.pk-actions .gamebutton{margin:0 4px;min-width:118px;display:inline-block;vertical-align:top}.pk-actions.gray{padding-top:36px}" +
+		".pk-actions{position:absolute;left:140px;right:140px;bottom:8px;text-align:center}.pk-actions .gamebutton{margin:0 4px;min-width:118px;display:inline-block;vertical-align:top}.pk-actions.gray{padding-top:36px}" +
 		".pk-raise{display:inline-block;vertical-align:top;border:4px solid gray;background:black;padding:6px 10px;margin-top:8px}.pk-raise .gamebutton{min-width:64px;padding:6px;font-size:20px;margin:0 2px}" +
 		".pk-raise input{width:150px;background:#111;border:3px solid gray;color:#FFD888;font-size:20px;padding:4px 6px;font-family:inherit;text-align:right;vertical-align:top;margin:0 4px}" +
-		".pk-log{position:absolute;left:12px;top:10px;color:gray;font-size:18px;line-height:20px;text-align:left;width:230px}.pk-info{position:absolute;right:12px;top:10px;color:gray;font-size:18px;text-align:right}" +
-		".pk-tools{position:absolute;right:8px;top:92px;text-align:right}.pk-tools .gamebutton{font-size:18px;padding:6px 10px;display:block;margin-bottom:6px}" +
+		".pk-log{position:absolute;left:12px;top:10px;color:gray;font-size:18px;line-height:20px;text-align:left;width:230px;max-height:122px;overflow:hidden}.pk-info{position:absolute;right:12px;top:10px;color:gray;font-size:18px;text-align:right}" +
+		".pk-tools{position:absolute;right:8px;bottom:14px;z-index:2;text-align:right}.pk-tools .gamebutton{font-size:18px;padding:6px 10px;display:block;margin-top:6px}" +
 		".pk-join{margin-top:8px;font-size:18px;padding:6px}.pk-buyin input{width:130px;background:#111;border:3px solid gray;color:#FFD888;font-size:18px;padding:3px 6px;font-family:inherit;text-align:right;margin:6px 0}" +
 		".pk-hint{color:gray;font-size:16px;line-height:18px}.pk-title{position:absolute;left:0;right:0;top:34px;text-align:center;color:#E6B16B;font-size:24px}" +
 		"</style>"
@@ -173,6 +187,26 @@ function poker_seat_html(seat, index) {
 		}
 		return html + "</div>";
 	}
+	var dealt = !!(hand && !hand.over && seat.cards),
+		rebuy = "";
+	if (mine && !dealt && seat.stack < state.buyin[1]) {
+		if (tavern_poker.join == index) {
+			var room = state.buyin[1] - seat.stack,
+				fill = Math.max(1, Math.min(room, character.gold || 0));
+			rebuy =
+				"<div class='pk-buyin'><input type='text' class='pk-buyin-gold' value='" +
+				poker_pretty(fill) +
+				"' onkeydown='if(event.keyCode==13) poker_buy(" +
+				index +
+				")'><div class='pk-hint'>" +
+				phrase.html("interface.poker.buyin_hint", { min: poker_pretty(Math.min(room, state.blinds[1])), max: poker_pretty(room) }) +
+				"</div><div class='gamebutton clickable pk-join' onclick='poker_buy(" +
+				index +
+				")'>" +
+				phrase.html("interface.poker.buy_in") +
+				"</div></div>";
+		} else rebuy = "<div class='gamebutton clickable pk-join pk-rebuy' onclick='poker_pick(" + index + ")'>" + phrase.html("interface.poker.buy_in") + "</div>";
+	}
 	if (live && hand.acting == seat.index) classes += " pk-active";
 	if (live && seat.folded) classes += " pk-folded";
 	if (hand && hand.over && hand.results && hand.results.winners[seat.index]) classes += " pk-winner";
@@ -217,7 +251,9 @@ function poker_seat_html(seat, index) {
 		(gray ? " gray" : "") +
 		"'>" +
 		status +
-		"</div></div>"
+		"</div>" +
+		rebuy +
+		"</div>"
 	);
 }
 
@@ -258,12 +294,21 @@ function poker_actions_html() {
 
 function poker_html() {
 	var state = poker_state();
-	if (!state) return "<div class='pk'><div class='pk-title'>" + phrase.html("interface.poker.title") + "</div><div class='pk-actions gray'>" + phrase.html("interface.poker.loading") + "</div></div>";
+	if (!state)
+		return (
+			"<div class='pk' style='zoom: " +
+			poker_zoom() +
+			"'><div class='pk-title'>" +
+			phrase.html("interface.poker.title") +
+			"</div><div class='pk-actions gray'>" +
+			phrase.html("interface.poker.loading") +
+			"</div></div>"
+		);
 	var hand = state.hand,
 		me = poker_me(),
 		board = "";
 	for (var i = 0; i < 5; i++) board += hand && hand.board[i] ? poker_card_html(hand.board[i], true) : "<span class='pk-slot'></span>";
-	var html = "<div class='pk'>";
+	var html = "<div class='pk' data-decision='" + (hand && !hand.over ? hand.n + ":" + hand.street + ":" + hand.acting : "") + "' style='zoom: " + poker_zoom() + "'>";
 	html +=
 		"<div class='pk-log'>" +
 		state.log
@@ -295,7 +340,7 @@ function poker_html() {
 	}
 	html +=
 		"<div class='pk-table'><div class='pk-ring'></div><div class='pk-pot'>" +
-		(hand
+		(hand && !(hand.results && hand.results.voided)
 			? phrase.html("interface.poker.pot_label", { amount: poker_pretty(hand.pot) }) + " <span class='pk-street'>" + phrase.html("interface.poker.street." + hand.street) + "</span>"
 			: phrase.html("interface.poker.waiting_players")) +
 		"</div><div class='pk-board'>" +
@@ -369,7 +414,15 @@ function poker_response(data) {
 	}
 	if (data.seat !== undefined && data.buyin && !no_graphics) {
 		tavern_poker.join = -1;
-		poker_walk(data.seat);
+		var state = poker_state(),
+			def = poker_definition();
+		if (state && def && character) {
+			var stool = def.stools[data.seat],
+				dx = character.real_x - (state.x + stool[0]),
+				dy = character.real_y - (state.y + stool[1]);
+			if (dx * dx + dy * dy > 24 * 24) poker_walk(data.seat);
+			else poker_refresh();
+		}
 	}
 }
 
@@ -414,7 +467,8 @@ function poker_event(data) {
 function poker_blocked() {
 	var state = poker_state(),
 		block = poker_definition().block;
-	return { x1: state.x + block[0] - 14, y1: state.y + block[1] - 6, x2: state.x + block[2] + 14, y2: state.y + block[3] + 6 };
+	// Movement collides on the character's feet point, so a small margin is enough and keeps every stool outside.
+	return { x1: state.x + block[0] - 4, y1: state.y + block[1] - 4, x2: state.x + block[2] + 4, y2: state.y + block[3] + 4 };
 }
 
 // Whether the segment from a to b passes through the rectangle (Liang-Barsky clipping).
@@ -567,6 +621,7 @@ function poker_map_attach(sprite) {
 	tavern_poker_map = { sprite: sprite, board: board, seats: seats, button: button };
 	poker_texture(null);
 	poker_map_show();
+	if (typeof socket != "undefined" && socket) socket.emit("poker", { event: "info" });
 }
 
 function poker_map_show() {

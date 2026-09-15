@@ -5,7 +5,7 @@
 <p>{{ phrase_html("docs.functions.poker_act.notes-for-bet-and-raise-amount-is-the-total") }}</p>
 <p>{{ phrase_html("docs.functions.poker_act.example") }}</p>
 <div class="code">
-	character.on("poker", async function (table) { var me = table.seats.find(function (seat) { return seat &amp;&amp; seat.name == character.name; }); if (!me || !table.hand || table.hand.over ||
+	game.on("poker", async function (table) { var me = table.seats.find(function (seat) { return seat &amp;&amp; seat.name == character.name; }); if (!me || !table.hand || table.hand.over ||
 	table.hand.acting != me.index) return; var to_call = table.hand.bet - me.bet; await poker_act(to_call &gt; 2 * table.blinds[1] ? "fold" : to_call &gt; 0 ? "call" : "check"); });
 </div>
 

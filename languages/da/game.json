@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Hæv til mindst {min}",
 	"response.poker_in_hand": "Vent, til hånden er slut",
 	"response.poker_broke": "Køb ind igen for at spille videre",
-	"response.poker_unavailable": "Pokerbordet er lukket lige nu"
+	"response.poker_unavailable": "Pokerbordet er lukket lige nu",
+	"response.tavern_closing": "Kroens spil er lukket, mens serveren genstarter"
 }

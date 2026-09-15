@@ -324,5 +324,7 @@
 	"server.game_log.poker_won": "Poker: vinti {amount} oro",
 	"server.game_log.poker_broke": "Il tuo stack è sotto il grande buio di {amount}. Rientra con un nuovo buy-in o lascia il tavolo",
 	"server.game_log.poker_auto_check": "Il tuo tempo è scaduto. Check fatto al posto tuo",
-	"server.game_log.poker_auto_fold": "Il tuo tempo è scaduto. Hai passato automaticamente"
+	"server.game_log.poker_auto_fold": "Il tuo tempo è scaduto. Hai passato automaticamente",
+	"server.game_log.tavern_closed": "La taverna chiude i suoi giochi per il riavvio. Le puntate non risolte vengono restituite",
+	"server.game_log.tavern_refund": "{amount} oro restituiti: il riavvio ha interrotto la tua puntata"
 }

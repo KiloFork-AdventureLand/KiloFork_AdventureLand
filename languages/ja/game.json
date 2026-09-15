@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "最低 {min} までレイズしてください",
 	"response.poker_in_hand": "ハンドが終わるまで待ってください",
 	"response.poker_broke": "続けるには再びバイインしてください",
-	"response.poker_unavailable": "ポーカーテーブルは現在閉じています"
+	"response.poker_unavailable": "ポーカーテーブルは現在閉じています",
+	"response.tavern_closing": "サーバーの再起動中は酒場のゲームは閉まっています"
 }

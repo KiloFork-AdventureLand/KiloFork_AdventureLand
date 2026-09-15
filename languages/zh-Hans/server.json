@@ -319,5 +319,7 @@
 	"server.game_log.poker_won": "扑克：赢得 {amount} 金币",
 	"server.game_log.poker_broke": "你的筹码少于 {amount} 的大盲注。请再次买入或离桌",
 	"server.game_log.poker_auto_check": "你的时间用完了，已替你过牌",
-	"server.game_log.poker_auto_fold": "你的时间用完了，已替你弃牌"
+	"server.game_log.poker_auto_fold": "你的时间用完了，已替你弃牌",
+	"server.game_log.tavern_closed": "酒馆因重启关闭游戏。未结算的下注将退回",
+	"server.game_log.tavern_refund": "已退回 {amount} 金币：重启中断了你的下注"
 }

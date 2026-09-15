@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "至少加注到 {min}",
 	"response.poker_in_hand": "請等本局結束",
 	"response.poker_broke": "再次買入才能繼續遊戲",
-	"response.poker_unavailable": "撲克牌桌暫時關閉"
+	"response.poker_unavailable": "撲克牌桌暫時關閉",
+	"response.tavern_closing": "伺服器重新啟動期間，酒館的遊戲已關閉"
 }

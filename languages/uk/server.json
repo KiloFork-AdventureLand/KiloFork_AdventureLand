@@ -325,5 +325,7 @@
 	"server.game_log.poker_won": "Покер: виграно {amount} золота",
 	"server.game_log.poker_broke": "Ваш стек менший за великий блайнд ({amount}). Внесіть бай-ін знову або покиньте стіл",
 	"server.game_log.poker_auto_check": "Ваш час вийшов. За вас зроблено чек",
-	"server.game_log.poker_auto_fold": "Ваш час вийшов. За вас зроблено фолд"
+	"server.game_log.poker_auto_fold": "Ваш час вийшов. За вас зроблено фолд",
+	"server.game_log.tavern_closed": "Таверна зачиняє ігри на час перезапуску. Незавершені ставки повертаються",
+	"server.game_log.tavern_refund": "{amount} золота повернуто: перезапуск перервав вашу ставку"
 }

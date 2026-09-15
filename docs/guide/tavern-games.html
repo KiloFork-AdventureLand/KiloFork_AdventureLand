@@ -65,6 +65,7 @@
 	<div class="guide-paytable-row" data-tier="IV"><span>{{ phrase("docs.guide.tavern-games.tier-iv") }}</span></div>
 </div>
 <div class="guide-note">{{ phrase_html("docs.guide.tavern-games.leaving-the-table") }}</div>
+<div class="guide-note">{{ phrase_html("docs.guide.tavern-games.restarts") }}</div>
 
 <div class="divider"></div>
 <div class="title mt15">{{ phrase("docs.guide.tavern-games.code-inspect-the-house") }}</div>
@@ -114,7 +115,7 @@ async function sit_and_play() {
 	if (table.buyin[0] &gt; character.gold) return game_log("Not enough gold to buy in");
 	var joined = await poker_join(table.buyin[0]);
 	game_log("Seat " + joined.seat + " with " + joined.stack + " gold");
-	character.on("poker", async function (state) {
+	game.on("poker", async function (state) {
 		var me = state.seats[joined.seat];
 		if (!me || !state.hand || state.hand.over || state.hand.acting != joined.seat) return;
 		var to_call = state.hand.bet - me.bet;

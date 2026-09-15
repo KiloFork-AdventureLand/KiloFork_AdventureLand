@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Raise setidaknya ke {min}",
 	"response.poker_in_hand": "Tunggu sampai ronde selesai",
 	"response.poker_broke": "Buy-in lagi untuk terus bermain",
-	"response.poker_unavailable": "Meja poker sedang tutup"
+	"response.poker_unavailable": "Meja poker sedang tutup",
+	"response.tavern_closing": "Permainan Kedai ditutup selama server dimulai ulang"
 }

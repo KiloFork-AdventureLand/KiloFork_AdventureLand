@@ -448,5 +448,6 @@
 	"response.poker_min_raise": "Sobe para pelo menos {min}",
 	"response.poker_in_hand": "Espera que a mão termine",
 	"response.poker_broke": "Entra de novo para continuares a jogar",
-	"response.poker_unavailable": "A mesa de póquer está fechada de momento"
+	"response.poker_unavailable": "A mesa de póquer está fechada de momento",
+	"response.tavern_closing": "Os jogos da Taberna estão fechados enquanto o servidor reinicia"
 }
