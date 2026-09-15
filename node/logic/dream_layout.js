@@ -174,9 +174,9 @@ function generate(seed, level = 0) {
 				let valid = true;
 				for (let dy = -4; dy < 0 && valid; dy++)
 					for (let dx = -3; dx < 3; dx++) if (grid[y + dy]?.[x + dx] !== 0) valid = false;
-				for (let dx = -3; dx < 3; dx++) if (grid[y]?.[x + dx] !== 1) valid = false;
+				for (let dx = -5; dx <= 5; dx++) if (grid[y]?.[x + dx] !== 1) valid = false;
 				for (let dy = 1; dy < 8 && valid; dy++)
-					for (let dx = -3; dx <= 3; dx++) if (grid[y + dy]?.[x + dx] !== 1) valid = false;
+					for (let dx = -5; dx <= 5; dx++) if (grid[y + dy]?.[x + dx] !== 1) valid = false;
 				if (valid) candidates.push({ x, y, cost: Math.abs(x - r.cx) + Math.abs(y - r.y) * 2 });
 			}
 		candidates.sort((a, b) => a.cost - b.cost || a.y - b.y || a.x - b.x);
@@ -207,7 +207,9 @@ function generate(seed, level = 0) {
 			for (let x = r.x + 1; x < r.x + r.w - 1; x++) {
 				const landing = { x: Math.max(r.x + 4, Math.min(r.x + r.w - 4, x)), y: y + 4 };
 				let valid = true;
-				for (let dy = -4; dy < 0; dy++) for (let dx = -3; dx < 3; dx++) if (grid[y + dy]?.[x + dx] !== 1) valid = false;
+				// Include room for both braziers and a margin along the side walls.
+				for (let dy = -4; dy <= 2; dy++)
+					for (let dx = -5; dx <= 5; dx++) if (grid[y + dy]?.[x + dx] !== 1) valid = false;
 				for (let dy = -3; dy <= 3 && valid; dy++)
 					for (let dx = -3; dx <= 3; dx++) if (grid[landing.y + dy]?.[landing.x + dx] !== 1) valid = false;
 				if (valid)
@@ -773,7 +775,7 @@ const images = {
 		x: 320,
 		y: 16,
 		width: 16,
-		height: 16,
+		height: 14,
 		opaque: false,
 	},
 	stalagmite: {
@@ -781,7 +783,7 @@ const images = {
 		x: 336,
 		y: 16,
 		width: 16,
-		height: 32,
+		height: 28,
 		opaque: false,
 	},
 	torch: {
@@ -794,18 +796,20 @@ const images = {
 	},
 	web: {
 		name: "web",
-		x: 368,
-		y: 16,
+		sheet: "dungeon",
+		x: 880,
+		y: 200,
 		width: 32,
 		height: 32,
 		opaque: false,
+		ground: true,
 	},
 	barrel: {
 		name: "barrel",
 		x: 400,
 		y: 16,
 		width: 16,
-		height: 20,
+		height: 19,
 		opaque: false,
 	},
 	crystal: {
@@ -813,7 +817,7 @@ const images = {
 		x: 416,
 		y: 16,
 		width: 32,
-		height: 32,
+		height: 25,
 		opaque: false,
 	},
 	books: {
@@ -829,7 +833,7 @@ const images = {
 		x: 464,
 		y: 16,
 		width: 16,
-		height: 48,
+		height: 47,
 		opaque: false,
 	},
 	"ruin-idol": {
@@ -837,7 +841,7 @@ const images = {
 		x: 480,
 		y: 16,
 		width: 32,
-		height: 32,
+		height: 29,
 		opaque: false,
 	},
 	"ruin-bowl": {
@@ -1061,8 +1065,8 @@ function ground(map) {
 	for (const o of props.sort((a, b) => a.y - b.y)) {
 		const im = images[o.name],
 			b = { x: o.x - im.width / 2, y: o.y - im.height, w: im.width, h: im.height };
-		if (!clearApproach(b)) continue;
-		ctx.depth = true;
+		if (!clearApproach(b) || !floorUnder({ x: b.x - 8, y: b.y - 8, w: b.w + 16, h: b.h + 16 })) continue;
+		ctx.depth = !im.ground;
 		actor(ctx, o.name, o.x, o.y);
 		ctx.depth = false;
 	}
@@ -1114,7 +1118,7 @@ function canvas(width, height, style) {
 				data.animations.push([tileId(["custom_a", 0, 0, [16, 16]]), x, baseY - 4, x, baseY - 4, 120, 0, 20]);
 				return;
 			}
-			const tile = ["dreamsv3", image.x + sx, image.y + sy, [w, h]];
+			const tile = [image.sheet || "dreamsv3", image.x + sx, image.y + sy, [w, h]];
 			const placement = [tileId(tile), x, y];
 			if (this.depth) {
 				data.groups.push([placement]);
@@ -1150,14 +1154,33 @@ function canvas(width, height, style) {
 function collisionLines(floor) {
 	const vertical = [],
 		horizontal = [];
-	const walk = (x, y) => floor.grid[y]?.[x] === 1;
-	for (let y = 0; y < floor.height; y++)
-		for (let x = 0; x < floor.width; x++) {
+	// Leave half a tile of clearance at the rock edge. Trace the inset floor
+	// so side lines remain joined at every inner and outer corner.
+	const step = TILE / 2,
+		width = floor.width * 2,
+		height = floor.height * 2;
+	const inset = new Uint8Array(width * height);
+	for (let y = 0; y < height; y++)
+		for (let x = 0; x < width; x++) {
+			const gx = Math.floor(x / 2),
+				gy = Math.floor(y / 2);
+			const nx = gx + (x % 2 ? 1 : -1),
+				ny = gy + (y % 2 ? 1 : -1);
+			inset[y * width + x] = !!(
+				floor.grid[gy]?.[gx] &&
+				floor.grid[gy]?.[nx] &&
+				floor.grid[ny]?.[gx] &&
+				floor.grid[ny]?.[nx]
+			);
+		}
+	const walk = (x, y) => x >= 0 && y >= 0 && x < width && y < height && inset[y * width + x];
+	for (let y = 0; y < height; y++)
+		for (let x = 0; x < width; x++) {
 			if (!walk(x, y)) continue;
-			if (!walk(x - 1, y)) vertical.push([x * 16, y * 16, (y + 1) * 16]);
-			if (!walk(x + 1, y)) vertical.push([(x + 1) * 16, y * 16, (y + 1) * 16]);
-			if (!walk(x, y - 1)) horizontal.push([y * 16, x * 16, (x + 1) * 16]);
-			if (!walk(x, y + 1)) horizontal.push([(y + 1) * 16, x * 16, (x + 1) * 16]);
+			if (!walk(x - 1, y)) vertical.push([x * step, y * step, (y + 1) * step]);
+			if (!walk(x + 1, y)) vertical.push([(x + 1) * step, y * step, (y + 1) * step]);
+			if (!walk(x, y - 1)) horizontal.push([y * step, x * step, (x + 1) * step]);
+			if (!walk(x, y + 1)) horizontal.push([(y + 1) * step, x * step, (x + 1) * step]);
 		}
 	for (const b of floor.blockers) {
 		vertical.push([b.x, b.y, b.y + b.h], [b.x + b.w, b.y, b.y + b.h]);

@@ -44,7 +44,7 @@ function fixture() {
 			zone_b: { record: run, floor: { definition: { generated: { floor: 1 } } } },
 		},
 		players: { a: p },
-		get_player: () => p,
+		get_player: (name) => (name === p.name ? p : null),
 		check_player: () => true,
 		db: {},
 		instances: {},
@@ -130,7 +130,7 @@ test("three characters get independent votes; timeout ties use the published fal
 		vote: {
 			id: "vote",
 			room: {},
-			deadline: Date.now() + 20000,
+			deadline: Date.now() + G.events.dreams.vote_ms,
 			voters: ["a", "b", "c"],
 			votes: {},
 			options: [
@@ -143,7 +143,7 @@ test("three characters get independent votes; timeout ties use the published fal
 	assert.equal((await c.cave_interaction(p, { action: "vote", choice: "vote", option: "yes" })).resolved, undefined);
 	p.real_id = "b";
 	await c.cave_interaction(p, { action: "vote", choice: "vote", option: "no" });
-	c.cave_resolve_vote(run, Date.now() + 20001);
+	c.cave_resolve_vote(run, Date.now() + G.events.dreams.vote_ms + 1);
 	assert.deepEqual(effects, ["leave"]);
 	await assert.rejects(c.cave_interaction(p, { action: "vote", choice: "bad", option: "yes" }), /stale_choice/);
 });
@@ -157,7 +157,7 @@ test("neutral disputes do not attack bystanders; only their own reflected spell 
 	assert.equal(c.cave_hostile({ in: "zone_a", zone_actor: { side: "enemy" } }, p), true);
 });
 test("cave definitions contain 50 encounters and bounded reward budgets", () => {
-	const { c } = fixture(),
+	const { c, p, run } = chestFixture(),
 		events = G.events.dreams;
 	assert.equal(events.encounters.length, 50);
 	for (const [group, count] of [
@@ -168,10 +168,16 @@ test("cave definitions contain 50 encounters and bounded reward budgets", () => 
 		assert.equal(events.encounters.filter((e) => e.group === group).length, count);
 	for (const e of events.encounters)
 		assert.ok(e.options.length >= 5 && new Set(e.options.map((o) => o.id)).size === e.options.length, e.id);
-	const run = { cave: { gold: 0, amber: 0, gold_earned: 0, amber_earned: 0 } };
 	for (let i = 0; i < 1000; i++) c.cave_credit(run, 60000, 36);
+	assert.equal(run.cave.gold, 0, "unopened chests do not fund the purse");
+	assert.equal(run.cave.amber, 0);
+	assert.equal(run.cave.gold_earned, events.gold_limit);
+	assert.equal(run.cave.amber_earned, events.amber_limit);
+	const open = socketHandler(c, "open_chest");
+	for (const id of run.cave.chests) open({ id });
 	assert.equal(run.cave.gold, events.gold_limit);
 	assert.equal(run.cave.amber, events.amber_limit);
+	assert.equal(p.gold, 100, "purse collection does not also credit carried gold");
 });
 test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", () => {
 	const c = vm.createContext({
@@ -204,8 +210,38 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	c.cave_gate_piece("outside", 0, 0, 16, 16);
 	c.update_cave_hud(true);
 	c.update_cave_info();
+	c.render_cave_stairs();
+	c.cave_transport_failed({ reason: "seal_closed" });
+	c.update_cave_doors();
+	c.decorate_cave_chest({});
+	c.draw_cave_chests();
+	c.cave_reward_feedback({});
+	c.cave_queue_rewards({ run: "test", rewards: [] });
+	c.cave_show_reward();
+	c.chests = {};
+	load(c, "js/game.js", ["add_chest"]);
+	c.add_chest({ id: "test", chest: "cavechest", map: "main", x: 10, y: 20 });
+	assert.equal(c.chests.test.chest, "cavechest");
 	load(c, "js/game.js", ["add_animatable"]);
 	assert.equal(c.add_animatable("dreams_gate", {}), undefined);
+	c.chests.test = { id: "test" };
+	Object.assign(c, {
+		tut() {},
+		resolve_deferred() {},
+		draw_trigger: (fn) => fn(),
+		socket: {
+			on(event, handler) {
+				c.opened = handler;
+			},
+		},
+	});
+	const source = read("js/game.js"),
+		begin = source.indexOf('socket.on("chest_opened"'),
+		end = source.indexOf('socket.on("cm"', begin);
+	vm.runInContext(source.slice(begin, end), c);
+	c.opened({ id: "test", opener: "someone" });
+	assert.equal(c.chests.test, undefined);
+
 	c.prune_generated_maps();
 	assert.ok(c.character.cave);
 	c.receive_cave_state({ type: "ended" });
@@ -481,4 +517,252 @@ test("sleeping rooms wait for actor capacity and restore the same wounded guard"
 	assert.equal(room.guards[0].hp, 17);
 	assert.equal(room.guards[0].angle, 180);
 	assert.equal(run.cave.actors.size, 64);
+});
+
+function chestFixture() {
+	const { c, p, run } = fixture();
+	Object.assign(p, { id: "A", x: 100, y: 200, gold: 100, goldm: 2 });
+	run.cave = { gold: 0, amber: 0, gold_earned: 0, amber_earned: 0, chests: new Set(), rooms: [] };
+	const events = [],
+		failures = [];
+	p.socket.emit = (event, data) => events.push({ event, data });
+	Object.assign(c, {
+		socket: p.socket,
+		chests: {},
+		randomStr: () => require("node:crypto").randomBytes(12).toString("hex"),
+		safe_xy_nearby: (map, x, y) => ({ x, y }),
+		simple_distance: (a, b) => Math.hypot(a.x - b.x, a.y - b.y),
+		fail_response: (reason) => failures.push(reason),
+		is_string: (v) => typeof v === "string",
+		is_in_pvp: () => false,
+		is_invis: () => false,
+		msince: () => 0,
+		W: { chest: {} },
+		can_add_items: () => true,
+		round: Math.round,
+		server_tax: (n) => n,
+		encouragement_loot: () => ({}),
+		resend() {},
+		to_pretty_num: String,
+		log_trace(...args) {
+			throw Error(args.join(" "));
+		},
+	});
+	c.G = { ...G, maps: { ...G.maps, zone_a: {} } };
+	load(c, "node/server.js", ["drop_one_thing"]);
+	load(c, "node/logic/cave_of_many_dreams.js", [
+		"cave_players",
+		"cave_send_chest",
+		"cave_send_chests",
+		"cave_open_chest",
+	]);
+	return { c, p, run, events, failures };
+}
+
+test("native loot handler protects cave chests and collects each reward once", () => {
+	const { c, p, run, events, failures } = chestFixture();
+	c.cave_credit(run, 4000, 2);
+	const id = [...run.cave.chests][0],
+		chest = c.chests[id],
+		open = socketHandler(c, "open_chest");
+	assert.equal(chest.chest, "cavechest");
+	assert.equal(events[0].event, "drop");
+	assert.equal(chest.in, p.in);
+	for (const change of [
+		() => {
+			p.real_id = "outsider";
+		},
+		() => {
+			p.owner = "outsider";
+		},
+		() => {
+			p.map = "main";
+		},
+		() => {
+			p.in = "wrong-instance";
+		},
+		() => {
+			p.rip = true;
+		},
+		() => {
+			p.x = chest.x + 401;
+		},
+		() => {
+			run.paused_at = Date.now();
+		},
+	]) {
+		const before = { real_id: p.real_id, owner: p.owner, map: p.map, in: p.in, rip: p.rip, x: p.x };
+		change();
+		open({ id });
+		Object.assign(p, before);
+		delete run.paused_at;
+		assert.equal(c.chests[id], chest);
+	}
+	assert.equal(failures.length, 7);
+	open({ id });
+	assert.equal(c.chests[id], undefined);
+	assert.equal(run.cave.gold, 4000);
+	assert.equal(run.cave.amber, 2);
+	assert.equal(run.cave.receipts.length, 1);
+	assert.deepEqual(clone(events.find((e) => e.event === "chest_opened").data.cave), {
+		gold: 4000,
+		amber: 2,
+		shared: true,
+	});
+	assert.equal(c.cave_open_chest(p, chest, id).failed, true);
+	assert.equal(run.cave.gold, 4000);
+	// Ordinary gold drops still follow the existing gold multiplier and inventory path.
+	const normal = c.drop_one_thing(p, [], { gold: 10 });
+	open({ id: normal });
+	assert.equal(p.gold, 120);
+	assert.equal(run.cave.gold, 4000);
+});
+
+test("cave departures and recovery save an alive character outside and release membership", async () => {
+	const { c, p, run } = fixture(),
+		writes = [];
+	run.exit_spawn = G.maps.main.spawns.findIndex((x) => x[0] === 816 && x[1] === 1200);
+	assert.ok(run.exit_spawn >= 0);
+	Object.assign(c, {
+		release_frozen_player() {},
+		cave_settle_purse() {},
+		db: { collection: () => ({ updateOne: async (...args) => writes.push(args) }) },
+	});
+	load(c, "node/logic/generated_maps.js", [
+		"generated_leave_member",
+		"generated_restore_health",
+		"generated_disconnect",
+		"generated_recover_login",
+	]);
+	Object.assign(p, {
+		hp: 0,
+		max_hp: 123,
+		mp: 0,
+		max_mp: 80,
+		rip: true,
+		rip_time: new Date(),
+		moving: true,
+		vx: 10,
+		vy: 20,
+		s: { burned: { ms: 1000 } },
+		state: { map: "zone_a" },
+	});
+	assert.equal(c.generated_disconnect(p), true);
+	assert.equal(p.map, "main");
+	assert.equal(p.rip, false);
+	assert.equal(p.hp, 123);
+	assert.equal(p.moving, false);
+	assert.deepEqual([p.x, p.y], [816, 1200]);
+	assert.equal(p.state, undefined);
+	assert.equal(p.s.burned, undefined);
+	assert.equal(run.members[0].left, true);
+	assert.equal(writes.length, 1);
+	assert.equal(c.generated_disconnect(p), false);
+	Object.assign(p, { map: "zone_0123456789abcdef01234567_0", rip: true, hp: 0 });
+	assert.equal(c.generated_recover_login(p), true);
+	c.generated_restore_health(p);
+	assert.equal(p.rip, false);
+	assert.equal(p.hp, 123);
+	assert.deepEqual([p.x, p.y], [816, 1200]);
+});
+
+test("forced conversations allow one minute while the dungeon clock stops", () => {
+	const { c, run } = fixture();
+	run.cave = { serial: 0, flags: {} };
+	load(c, "node/logic/cave_of_many_dreams.js", ["cave_players", "cave_begin_vote"]);
+	const now = Date.now(),
+		room = { id: "room", map: "zone_a", encounter: G.events.dreams.encounters[0] };
+	c.cave_begin_vote(run, room);
+	assert.equal(G.events.dreams.vote_ms, 60000);
+	assert.ok(run.cave.vote.deadline >= now + 60000 && run.cave.vote.deadline < Date.now() + 60001);
+	assert.ok(run.paused_at);
+	assert.equal(c.generated_clock(run, Date.now() + 30000), run.paused_at);
+});
+
+test("cave walls leave an eight-pixel margin and each stair has a clear approach", () => {
+	const layout = require("../logic/dream_layout");
+	const grid = Array.from({ length: 8 }, (_, y) =>
+		Array.from({ length: 8 }, (_, x) => (x >= 1 && x < 7 && y >= 1 && y < 7 ? 1 : 0)),
+	);
+	const edges = layout.collisionLines({ width: 8, height: 8, grid, blockers: [] });
+	assert.deepEqual(edges.x_lines, [
+		[24, 24, 104],
+		[104, 24, 104],
+	]);
+	assert.deepEqual(edges.y_lines, [
+		[24, 24, 104],
+		[104, 24, 104],
+	]);
+	load(G, "adventure_functions.js", ["process_map"]);
+	G.Place = "server";
+	G.perfc = { roam_ops: 0 };
+	G.geometry = G.geometry || {};
+	for (const seed of ["door-regression", "side-clearance", "corner-web"])
+		for (let index = 0; index < 3; index++) {
+			const [floor] = layout.compileDungeon(seed, "0123456789abcdef01234567", 0, G.process_map, index);
+			G.maps[floor.key] = floor.definition;
+			G.maps[floor.key].data = floor.geometry;
+			G.geometry[floor.key] = floor.geometry;
+			for (const door of floor.definition.doors) {
+				const [x, y] = floor.definition.spawns[door[6]];
+				assert.ok(G.is_door_close(floor.key, door, x, y), seed + " close");
+				assert.ok(G.can_use_door(floor.key, door, x, y), seed + " reachable");
+				for (const dx of [-24, 0, 24])
+					assert.ok(
+						G.can_move({ map: floor.key, x, y, going_x: x + dx, going_y: y + 48, base: { h: 12, v: 8, vn: 4 } }),
+						seed + " landing clearance",
+					);
+			}
+			const web = floor.geometry.tiles.findIndex((t) => t[0] === "dungeon" && t[1] === 880 && t[2] === 200);
+			assert.ok(web >= 0);
+			assert.ok(floor.geometry.placements.some((p) => p[0] === web));
+			assert.ok(
+				!floor.geometry.groups.some((group) => group.some((p) => p[0] === web)),
+				"webs belong below characters",
+			);
+		}
+});
+
+test("encounter-table Amber uses the cave chest and cannot be rerolled", () => {
+	const { c, p, run } = chestFixture();
+	run.cave.claimed = new Set();
+	c.D = { drops: G.drops };
+	c.create_new_item = (name, q) => ({ name, q: q || 1 });
+	c.Math = Object.create(Math);
+	c.Math.random = () => 0;
+	c.can_add_item = () => {
+		throw Error("Amber must wait in the chest");
+	};
+	load(c, "node/server_functions.js", ["chest_exchange"]);
+	load(c, "node/logic/cave_of_many_dreams.js", ["cave_reward", "cave_deliver"]);
+	const room = { id: "npc", map: p.map, x: p.x, y: p.y };
+	c.cave_reward(run, room, "cave_parcel");
+	assert.equal(run.cave.chests.size, 1);
+	assert.equal(run.cave.amber, 0);
+	const id = [...run.cave.chests][0];
+	assert.equal(c.chests[id].amber, 1);
+	assert.equal(c.chests[id].items.length, 0, "shared currency requires no inventory slots");
+	c.cave_reward(run, { ...room, reward: false }, "cave_parcel");
+	assert.equal(run.cave.chests.size, 1);
+	socketHandler(c, "open_chest")({ id });
+	assert.equal(run.cave.amber, 1);
+});
+
+test("an empty floor keeps its earned chest without loading geometry", () => {
+	const { c, p, run } = chestFixture();
+	const floor = c.generated_maps.zone_b;
+	delete c.generated_maps.zone_b;
+	const id = c.cave_credit(run, 1000, 3, { map: "zone_b", x: 300, y: 400 });
+	assert.equal(c.generated_maps.zone_b, undefined);
+	assert.equal(c.chests[id].map, "zone_b");
+	assert.equal(c.chests[id].in, "zone_b");
+	assert.equal(c.chests[id].gold, 1000);
+	assert.equal(c.cave_open_chest(p, c.chests[id], id).failed, true);
+	c.generated_maps.zone_b = floor;
+	p.map = p.in = "zone_b";
+	p.x = 300;
+	p.y = 400;
+	c.cave_open_chest(p, c.chests[id], id);
+	assert.equal(run.cave.gold, 1000);
+	assert.equal(run.cave.amber, 3);
 });

@@ -56,6 +56,18 @@ if (traveler) {
     if (reply.chat) game_log(reply.chat.name + ": " + reply.chat.text);
 }</div>
 <p><a href="/docs/function/cave_talk">cave_talk</a></p>
+<hr><p>{{ phrase("docs.cave.chest_code") }}</p>
+<div class="code">// Open nearby cave chests. Run this in your normal loot loop.
+if (character.cave &amp;&amp; !character.cave.paused &amp;&amp; !character.rip) {
+    for (var id in parent.chests) {
+        var chest = parent.chests[id];
+        if (chest.map === character.map &amp;&amp; distance(character, chest) &lt;= 400) {
+            var reward = await loot(id);
+            show_json(reward.cave || reward);
+        }
+    }
+}</div>
+<p><a href="/docs/function/loot">loot</a></p>
 </div>
 <script>
 $(function() {

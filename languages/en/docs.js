@@ -5849,16 +5849,16 @@ module.exports = {
 // Cave guide. English only during the user-approved test phase. Preserve CODE identifiers and numbers.
 Object.assign(module.exports, {
   "docs.cave.intro": "Find Dorr at the vine-covered doorway in Mainland, near 816,1200. Bring your party close, out of combat, and choose Enter together.",
-  "docs.cave.time": "The cave pauses during a forced vote. Your 24-minute clock stops too. Each character has one vote, including fallen characters. You have 20 seconds to choose.",
-  "docs.cave.travel": "Follow the labelled doorways. Defeat the guard camp and floor keeper, then settle the marked encounter to open the next floor. Directions above can lead you to each room.",
+  "docs.cave.time": "The cave pauses during a forced vote. Your 24-minute clock stops too. Each character has one vote, including fallen characters. You have one minute to choose.",
+  "docs.cave.travel": "Follow the labelled doorways. Defeat the guard camp and floor keeper, then settle the marked encounter to open the next floor. The cave timer shows which rooms are still unfinished. Locked stairs stay marked until all three are done. Directions above can lead you to each room.",
   "docs.cave.votes": "A majority settles the vote early. Otherwise, the reply with the most votes wins when time runs out. The conversation tells you what happens if nobody wins.",
   "docs.cave.choices": "Rescue a traveler, take a side in a fight, hire help or take a risk. Look at their weapons and strength before you choose. Passing travelers can also stop for a quick chat; that does not pause the cave.",
   "docs.cave.danger": "Some choices call in six level 100 wolves. The rare Dark Mage deals 100,000 magic damage and targets mages first. Only his own reflected spell can kill him.",
   "docs.cave.rogue": "The cornered rogue has a 1% chance to carry Last Word. To get it, monsters must kill him before he betrays you. If he survives, there is a 50% chance he turns on you and attacks anyone within 200 pixels.",
   "docs.cave.hunts": "Monster camps hold three packs with a reward for each clear. After each clear, the next pack comes out of the nest ten seconds later. The third pack is the last. Some travelers also offer timed hunts: kill the marked monsters before the hunt clock ends.",
   "docs.cave.loot": "NPC rewards go to a random member of the original party. A one-item merchant works the same way: the buyer pays, but anyone in that party can receive the item. Items found here carry the Cave-found title.",
-  "docs.cave.purse": "Gold and Amber below the clock belong to the party. Choices can spend them. The purse pays out to random original party members when someone exits or time runs out. Item rewards go straight to a bag, or to MAIL if the recipient is offline or full.",
-  "docs.cave.exit": "Exit works anywhere, even while fallen or voting. Leaving or disconnecting ends your visit. Nobody can join later, and magiport cannot move anyone in or out. Time running out sends everyone home.",
+  "docs.cave.purse": "Open the glowing cave chests to collect gold and Amber for the party. The totals below the clock show what you have collected. Choices can spend them. The purse pays out to random original party members when someone exits or time runs out. Item rewards go straight to a bag, or to MAIL if the recipient is offline or full.",
+  "docs.cave.exit": "Exit works anywhere, even while fallen or voting. Leaving or reloading ends your visit and returns you outside alive. Nobody can join later, and magiport cannot move anyone in or out. Time running out sends everyone home.",
   "docs.cave.code": "Use cave_enter() beside Dorr. Read character.cave for the timer, purse, objectives and door locations. Set reply_id below to one of the current choice’s two option IDs.",
   "docs.cave.failure": "These functions return Promises. A failed request rejects with a reason.",
   "docs.cave.story": "Dorr\u2019s story",
@@ -5868,7 +5868,7 @@ Object.assign(module.exports, {
 });
 
 // Public cave function reference. Preserve function names and return fields.
-module.exports["docs.cave.function.cave_reply"]="Votes once as this character. Use the current choice.id and one of its option IDs. An absolute majority can settle before the 20-second deadline.";
+module.exports["docs.cave.function.cave_reply"]="Votes once as this character. Use the current choice.id and one of its option IDs. An absolute majority can settle before the one-minute deadline.";
 
 // Public cave function reference. Preserve function names and return fields.
 module.exports["docs.cave.function.cave_buy"]="Buys the merchant\u2019s one item with this character\u2019s gold. A random original party member receives it. Returns recipient, item and gold. A second purchase rejects.";
@@ -5932,3 +5932,6 @@ module.exports["docs.cave.facts"]="3 characters · 3 floors · 24 minutes";
 // Casual cave conversations are optional and do not pause the instance.
 module.exports["docs.cave.travelers"]="Travelers walk between rooms. Click one to chat. These short conversations do not pause the cave or start a vote.";
 module.exports["docs.cave.function.cave_talk"]="Talk to a nearby cave NPC using its cave.room. You must be within 160 pixels. Travelers return a chat object with name and text, without starting a vote. Other NPCs open or return their encounter.";
+
+// Cave chest collection. Preserve loot and CODE field names.
+module.exports["docs.cave.chest_code"]="Click a cave chest or use loot(id) within 400 pixels. Gold and Amber go to the party purse. The receipt includes cave.gold and cave.amber; carried gold stays unchanged until the purse pays out. You cannot collect while fallen or while the cave is paused.";

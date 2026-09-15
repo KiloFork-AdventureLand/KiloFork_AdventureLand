@@ -635,3 +635,18 @@ Object.assign(module.exports, {
  "cave.purse_help":"Gold and Amber here belong to the party. They pay out when someone exits or time runs out.",
  "cave.find_seals":"Defeat the guard camp and the floor keeper, then settle the marked encounter to open the stairs.",
 });
+
+// Cave balances, stair requirements and collection feedback.
+Object.assign(module.exports, {
+ "cave.party_gold":"Party gold: {gold}",
+ "cave.party_amber":"Party Amber: {count}",
+ "cave.stair_progress":"Stairs locked · {count}/{total} done",
+ "cave.stairs_ready":"Stairs open",
+ "cave.stairs_closed":"The stairs are locked. Finish these rooms to open them:",
+ "cave.goal.fight":"Clear the guard camp",
+ "cave.goal.boss":"Defeat {name}",
+ "cave.goal.encounter":"Make a choice: {name}",
+ "cave.purse_added":"Party loot: {reward}",
+});
+
+Object.assign(module.exports,{"cave.finish_progress":"To finish the cave: {count}/{total}","cave.completed":"Cave complete"});

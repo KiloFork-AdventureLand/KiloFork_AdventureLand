@@ -1941,6 +1941,8 @@ function init_socket(args) {
 
 			if (data.place && data.failed) {
 				if (!data.reason) data.reason = data.response;
+				if (in_arr(data.place, ["transport", "enter", "leave"])) transporting = false;
+				if (data.place === "transport" && G.maps[current_map]?.generated) cave_transport_failed(data);
 				reject_deferred(data.place, data);
 			} else if (data.place) {
 				resolve_deferred(data.place, data);
@@ -3020,6 +3022,7 @@ function init_socket(args) {
 		call_code_function("trigger_character_event", "loot", data);
 		if (data.opener == character.name || data.gone) resolve_deferred("open_chest", data);
 		draw_trigger(function () {
+			if (no_graphics) { delete chests[data.id]; return; }
 			if (chests[data.id]) {
 				var chest = chests[data.id],
 					x = chest.x,
@@ -5264,12 +5267,14 @@ function update_sprite(sprite) {
 	}
 
 	if (sprite.type == "chest" && sprite.openning) {
-		if (mssince(sprite.openning) > 30 && sprite.frame != 3) {
+		var chest_frame_ms = sprite.skin === "cavechest" ? 140 : 30;
+		if (mssince(sprite.openning) > chest_frame_ms && sprite.frame != 3) {
 			sprite.openning = new Date();
 			set_texture(sprite, ++sprite.frame);
 			if (sprite.to_delete) sprite.alpha -= 0.1;
-		} else if (mssince(sprite.openning) > 30 && sprite.to_delete && sprite.alpha >= 0.5) {
+		} else if (mssince(sprite.openning) > chest_frame_ms && sprite.to_delete && sprite.alpha >= 0.5) {
 			sprite.alpha -= 0.1;
+			if (sprite.skin === "cavechest") sprite.openning = new Date();
 		} else if (sprite.alpha < 0.5) {
 			destroy_sprite(chests[sprite.id]);
 			delete chests[sprite.id];
@@ -6439,6 +6444,8 @@ function add_character(data, me) {
 }
 
 function add_chest(data) {
+	if (no_graphics) { chests[data.id] = Object.assign({type:"chest"},data); return; }
+	if (chests[data.id]) return;
 	var chest = new_sprite(data.chest, "v_animation"); // previously a new texture was created each time [01/04/17]
 	chest.parentGroup = chest.displayGroup = chest_layer;
 	chest.x = round(data.x);
@@ -6451,6 +6458,7 @@ function add_chest(data) {
 	chest.cursor = "help";
 	chest.map = data.map;
 	chest.id = data.id;
+	if (data.chest === "cavechest") decorate_cave_chest(chest);
 	var chest_click = function () {
 		// sfx("open",chest.x,chest.y);
 		open_chest(data.id);
@@ -6561,6 +6569,7 @@ function add_door(door) {
 			add_log(phrase.html("game.get_closer"), "gray");
 			return;
 		}
+		if (cave_door_locked(door)) { render_cave_stairs(); return; }
 		push_deferred("transport");
 		socket.emit("transport", { to: door[4], s: door[5] });
 	}
@@ -7451,6 +7460,7 @@ function draw(arg1, manual_draw) {
 	for (var id in chests) if (chests[id].openning) update_sprite(chests[id]);
 	for (var id in map_animations) update_sprite(map_animations[id]);
 	draw_cave_entrance();
+	draw_cave_chests();
 	stop_timer("draw", "sprites");
 
 	stop_timer("draw", "before_render");

@@ -2184,9 +2184,11 @@ function drop_one_thing(player, items, args) {
 		}
 	}
 	drop.gold = args.gold || 0;
-	drop.x = (args.x !== undefined && args.x) || player.x;
-	drop.y = (args.y !== undefined && args.y) || player.y;
+	drop.x = args.x !== undefined ? args.x : player.x;
+	drop.y = args.y !== undefined ? args.y : player.y;
 	drop.map = args.map || player.map;
+	drop.in = args.in || player.in;
+	drop.chest = chest;
 	drop.date = new Date();
 	player.socket.emit("drop", {
 		x: drop.x,
@@ -2197,6 +2199,7 @@ function drop_one_thing(player, items, args) {
 		map: drop.map,
 		owners: [player.owner],
 	});
+	return drop_id;
 }
 
 function roll_monster_drops(player, monster, drop, share, encouragement, rules) {
@@ -10986,6 +10989,11 @@ function init_socket_io(socket_server) {
 				return;
 			}
 			var r = { id: data.id, goldm: player.goldm, opener: player.name, items: [] };
+			if (chest?.cave) {
+				var result = cave_open_chest(player, chest, data.id);
+				if (result.failed) return fail_response(result.reason);
+				return;
+			}
 			if (chest && chest.character) {
 				if (
 					chest.character !== player.real_id ||
@@ -11429,6 +11437,7 @@ function init_socket_io(socket_server) {
 				if (ip_info && ip_info.exception) player.ipx = ip_info.info.limit;
 				player.cash = owner.cash;
 				player.verified = gf(owner, "verified", 0);
+				var recovered_generated_map = generated_recover_login(player);
 
 				if (
 					generated_maps[player.map] ||
@@ -11596,6 +11605,7 @@ function init_socket_io(socket_server) {
 				serverhop_logic(player);
 				realmfatigue_logic(player, characters);
 				calculate_player_stats(player);
+				if (recovered_generated_map) generated_restore_health(player);
 
 				if (!is_player_allowed(player)) {
 					socket.emit("disconnect_reason", "limits");
@@ -12716,7 +12726,7 @@ function init_socket_io(socket_server) {
 					log_trace("#X DC information", e);
 				}
 				try {
-					defeat_player(player);
+					if (!generated_entry(player)) defeat_player(player);
 				} catch (e) {
 					log_trace("#X DCERRORPVP", e);
 				}
@@ -12780,7 +12790,7 @@ function init_socket_io(socket_server) {
 				}
 
 				try {
-					restore_state(player, true);
+					if (!generated_disconnect(player)) restore_state(player, true);
 				} catch (e) {
 					log_trace("#X DCERRORrestore", e);
 				}

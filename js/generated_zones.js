@@ -42,6 +42,10 @@ function prune_generated_maps() {
 		}
 		delete G.geometry[key];
 		if (keep && G.maps[key]?.generated.run === keep.run) { delete G.maps[key].data; return true; }
+		for (var id in chests) if (chests[id].map === key) {
+			if (!no_graphics) destroy_sprite(chests[id]);
+			delete chests[id];
+		}
 		delete G.maps[key]; return false;
 	});
 }
@@ -54,7 +58,10 @@ var cave_visit = null;
 var cave_visit_request = null;
 var cave_server_offset = 0;
 var cave_ui_next = 0;
-var cave_notice_id = null;
+var cave_reward_run = null;
+var cave_reward_seen = 0;
+var cave_reward_queue = [];
+var cave_active_reward = null;
 var cave_notice_until = 0;
 var cave_hud_width = 0;
 var cave_enter_pending = false;
@@ -79,6 +86,8 @@ function receive_cave_state(data) {
 	call_code_function("trigger_character_event", "cave", cave_client_state);
 	call_code_function("trigger_event", "cave", cave_client_state);
 	if (no_graphics) return;
+	cave_queue_rewards(data.state);
+	update_cave_doors();
 	if (data.type === "ended") {
 		cave_open_choice = null;
 		if ($(".modal:last").hasClass("cave-dialogue-modal")) hide_modal();
@@ -181,24 +190,21 @@ function update_cave_hud(force) {
 	cave_ui_next = Date.now() + 200;
 	var state = cave_client_state;
 	var near = character && current_map === "main" && Math.hypot(character.real_x - 816, character.real_y - 1200) < 240;
-	if (!state && !near) { if ($("#cave-hud").length) { $("#cave-hud").remove(); reposition_ui(); } return; }
+	if (!state && !near && !cave_reward_queue.length && Date.now() >= cave_notice_until) { if ($("#cave-hud").length) { $("#cave-hud").remove(); reposition_ui(); } return; }
 	if (!$("#cave-hud").length) {
-		$("#topmid").append("<div id='cave-hud'><div class='cave-hud-row'><div class='gamebutton cave-clock' onclick='open_cave_info()'></div><div class='gamebutton cave-vote-clock' onclick='render_cave_choice()'></div><div class='gamebutton' onclick='open_cave_info()'>INFO</div><div class='gamebutton cave-exit' onclick='cave_manual(\"exit\")'>"+phrase.html("cave.exit")+"</div></div><div class='cave-purse' onclick='open_cave_info()'></div><div class='cave-reward-note'></div><div class='cave-hunt-note'></div></div>");
+		$("#topmid").append("<div id='cave-hud'><div class='cave-hud-row'><div class='gamebutton cave-clock' onclick='open_cave_info()'></div><div class='gamebutton cave-vote-clock' onclick='render_cave_choice()'></div><div class='gamebutton' onclick='open_cave_info()'>INFO</div><div class='gamebutton cave-exit' onclick='cave_manual(\"exit\")'>"+phrase.html("cave.exit")+"</div></div><div class='cave-purse' onclick='open_cave_info()'></div><div class='cave-progress'></div><div class='cave-reward-note'></div><div class='cave-hunt-note'></div></div>");
 		reposition_ui();
 	}
 	$(".cave-exit,.cave-purse").toggle(!!state);
-	if (!state) { cave_load_visit(); $(".cave-clock").text(cave_visit_text()); $(".cave-vote-clock,.cave-reward-note,.cave-hunt-note").hide(); reposition_ui(); return; }
+	if (!state) { cave_load_visit(); $(".cave-clock").text(cave_visit_text()); $(".cave-vote-clock,.cave-progress,.cave-hunt-note").hide(); cave_show_reward(); reposition_ui(); return; }
 	$(".cave-clock").text(phrase(state.paused ? "cave.clock_paused" : "cave.clock_running", {time:cave_time(cave_remaining(state))}));
-	$(".cave-purse").html("<span style='color:#F0C574'>"+phrase.html("cave.gold",{gold:to_pretty_num(state.gold)})+"</span><span>"+item_container({skin:G.items.cave_amber.skin,draggable:false},{name:"cave_amber",q:state.amber || 1},{r:1})+" <span style='color:#F0C574'>"+state.amber+"</span></span><span class='cave-purse-label'>"+phrase.html("cave.shared")+"</span>");
+	var purse="<span>"+phrase.html("cave.party_gold",{gold:to_pretty_num(state.gold)})+"</span>"+item_container({skin:G.items.cave_amber.skin,draggable:false,size:20,id:"cave-purse-amber"},{name:"cave_amber"})+"<span>"+phrase.html("cave.party_amber",{count:state.amber})+"</span>";
+	if ($(".cave-purse").data("contents")!==purse) $(".cave-purse").html(purse).data("contents",purse);
+	$(".cave-progress").html(cave_stair_goals(state)).show();
 	var choice = state.choice;
 	$(".cave-vote-clock").toggle(!!choice && !choice.resolved).text(phrase("cave.vote_clock", {seconds:Math.max(0,Math.ceil(((choice?.deadline || 0)-cave_now())/1000))}));
 	$(".cave-choice-clock").text(phrase("cave.seconds", {seconds:Math.max(0,Math.ceil(((choice?.deadline || 0)-cave_now())/1000))}));
-	var reward = state.rewards?.[state.rewards.length-1];
-	if (reward && reward.id !== cave_notice_id) {
-		cave_notice_id = reward.id; cave_notice_until = Date.now()+9000;
-		$(".cave-reward-note").html("<div class='gamebutton' style='font-size:20px;border-color:#85C76B;white-space:normal'>" + cave_reward_html(reward) + "</div>");
-	}
-	$(".cave-reward-note").toggle(!!reward && Date.now() < cave_notice_until);
+	cave_show_reward();
 	var tasks = (state.hunts || []).map(h => phrase.html("cave.hunt_clock", {kills:h.kills,count:h.count,time:cave_time(h.deadline-(state.paused?state.paused_at:cave_now()))}));
 	(state.practice || []).forEach(p => tasks.push(phrase.html("cave.practice_clock", {name:p.name,hp:p.hp,time:cave_time(p.deadline-(state.paused?state.paused_at:cave_now()))})));
 	$(".cave-hunt-note").html(tasks.map(t=>"<div class='gamebutton' style='font-size:20px'>"+t+"</div>").join(" ")).toggle(!!tasks.length);
@@ -302,15 +308,27 @@ function decorate_cave_gate(gate) {
 	function piece(sheet,sx,sy,w,h,x,y) {
 		var sprite = cave_gate_piece(sheet,sx,sy,w,h); sprite.position.set(x,y); gate.addChild(sprite); return sprite;
 	}
+	function stone(sx,sy,w,h,x,y,left,right) {
+		// Small rounded cuts from the native cave rim, only at exposed corners.
+		var l=left?4:0, r=right?4:0;
+		piece("dungeon",sx+l,sy,w-l-r,4,x+l,y);
+		piece("dungeon",sx,sy+4,w,h-4,x,y+4);
+		if(left) piece("dungeon",226,130,4,4,x,y);
+		if(right) piece("dungeon",266,130,4,4,x+w-4,y);
+	}
 	// Rock faces from Cave of Darkness, placed as a stepped arch. Straight sides
 	// descend to the ground; the crown rises into the cliff, leaving a deep opening.
 	for (var side of [-1,1]) {
-		for (var y=-24;y<8;y+=8) piece("dungeon",224+(y%16===0?0:8),176,8,8,side<0?-32:24,y);
+		for (var y=-24;y<8;y+=8) {
+			var sx=224+(y%16===0?0:8), x=side<0?-32:24;
+			if(y===-24) stone(sx,176,8,8,x,y,side<0,side>0);
+			else piece("dungeon",sx,176,8,8,x,y);
+		}
 		for (var y=-32;y<8;y+=8) piece("dungeon",224,184,8,8,side<0?-24:16,y);
-		piece("dungeon",224,176,16,16,side<0?-24:8,-40);
-		piece("dungeon",224,176,16,16,side<0?-16:0,-48);
+		stone(224,176,16,16,side<0?-24:8,-40,side<0,side>0);
+		stone(224,176,16,16,side<0?-16:0,-48,side<0,side>0);
 	}
-	piece("dungeon",224,176,16,8,-8,-52);
+	stone(224,176,16,8,-8,-52,true,true);
 	// Small plants and the shipped brazier with its original three flame frames.
 	for (var x of [-30,17]) piece("outside",736,560,16,32,x,-43);
 	piece("outside",736,560,16,32,-8,-60);
@@ -403,10 +421,114 @@ function cave_walk_to(kind,index) {
 }
 function decorate_cave_door(door,definition) {
 	if(no_graphics || !G.maps[current_map]?.generated) return;
+	door.cave_definition=definition;
 	var floor=G.maps[current_map].generated.floor, destination=G.maps[definition[4]];
 	door.name=phrase(destination?.generated?.floor>floor?"cave.stairs_down":definition[4]==="main"?"cave.door_exit":"cave.stairs_up");
-	door.color="#D4BAEB";
+	if(cave_door_locked(definition)) door.name += " · "+phrase("cave.locked");
+	door.color=cave_door_locked(definition)?"#E6A15B":"#D4BAEB";
 	door.npc=true;
 	add_name_tag(door);
 	if(door.name_tag) door.name_tag.y=-78;
+}
+
+function cave_door_locked(definition) {
+	return !!cave_client_state?.doors?.some(d=>d.to===definition[4] && d.locked);
+}
+function update_cave_doors() {
+	if(no_graphics || !G.maps[current_map]?.generated) return;
+	for(var door of map_doors) if(door.cave_definition) decorate_cave_door(door,door.cave_definition);
+}
+function cave_stair_goals(state) {
+	if(!state) return "";
+	var goals=(state.objectives || []).filter(o=>o.required && o.floor===state.floor);
+	if(!goals.length) return "";
+	var done=goals.filter(o=>o.done).length;
+	var last=!(state.doors || []).some(d=>d.down);
+	var title=last?(done===goals.length?"cave.completed":"cave.finish_progress"):(done===goals.length?"cave.stairs_ready":"cave.stair_progress");
+	var html="<div class='cave-goal-title'>"+phrase.html(title,{count:done,total:goals.length})+"</div>";
+	for(var goal of goals) {
+		var label=phrase("cave.goal."+goal.kind,{name:goal.name});
+		html+="<div class='cave-goal "+(goal.done?"cave-goal-done":"")+"' onclick='cave_walk_to(\"room\","+state.objectives.indexOf(goal)+")'>"+(goal.done?"✓ ":"• ")+html_escape(label)+"</div>";
+	}
+	return html;
+}
+function render_cave_stairs() {
+	if(no_graphics) return;
+	render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,cx:G.npcs.dreamkeeper.cx,message:"<div class='cave-stairs-message'>"+phrase.html("cave.stairs_closed")+cave_stair_goals(cave_client_state)+"</div>"});
+}
+function cave_transport_failed(data) {
+	if(data.reason==="seal_closed") { render_cave_stairs(); return; }
+	if(no_graphics) return;
+	var key="cave.error."+data.reason, text=phrase(key);
+	ui_log(text===key?phrase("response.transport_cant_reach"):text,"#DCA99B");
+}
+function cave_queue_rewards(state) {
+	if(no_graphics || !state) return;
+	if(state.run!==cave_reward_run) {
+		cave_reward_run=state.run; cave_reward_seen=0; cave_reward_queue=[];
+		cave_active_reward=null; cave_notice_until=0;
+	}
+	for(var reward of state.rewards || []) {
+		if(reward.id>cave_reward_seen) {
+			cave_reward_queue.push(reward); cave_reward_seen=reward.id;
+		} else {
+			var index=cave_reward_queue.findIndex(r=>r.id===reward.id);
+			if(index>=0) cave_reward_queue[index]=reward;
+			if(cave_active_reward?.id===reward.id) cave_active_reward=reward;
+		}
+	}
+}
+function cave_show_reward() {
+	if(no_graphics) return;
+	if(Date.now()>=cave_notice_until && cave_reward_queue.length) {
+		cave_active_reward=cave_reward_queue.shift(); cave_notice_until=Date.now()+3500;
+		cave_reward_feedback(cave_active_reward);
+	}
+	var visible=cave_active_reward && Date.now()<cave_notice_until;
+	$(".cave-reward-note").toggle(!!visible);
+	if(visible) $(".cave-reward-note").html("<div class='gamebutton cave-award-text'>"+cave_reward_html(cave_active_reward)+"</div>");
+}
+function cave_reward_feedback(reward) {
+	if(no_graphics || !character) return;
+	var purse=$(".cave-purse")[0];
+	if(purse && reward.where==="purse") { purse.classList.remove("cave-awarded"); void purse.offsetWidth; purse.classList.add("cave-awarded"); }
+	var text, color="#E7BF75", target=character;
+	if(reward.where==="purse") {
+		var parts=[];
+		if(reward.gold) parts.push(phrase("cave.gold",{gold:"+"+to_pretty_num(reward.gold)}));
+		if(reward.amber) parts.push("+"+reward.amber+" "+G.items.cave_amber.name);
+		text=phrase("cave.purse_added",{reward:parts.join(" · ")});
+	} else {
+		var what=reward.item?(reward.item.q||1)+" × "+G.items[reward.item.name].name:phrase("cave.gold",{gold:to_pretty_num(reward.gold)});
+		text=phrase("cave.reward_to",{name:reward.recipient===character.name?phrase("cave.you"):reward.recipient,item:what});
+		target=get_player(reward.recipient)||character;
+	}
+	d_text(text,target,{color,size:"large"});
+}
+function decorate_cave_chest(chest) {
+	if(no_graphics) return;
+	chest.cave_born=Date.now();
+	chest.cave_sparks=new PIXI.Graphics(); chest.addChild(chest.cave_sparks);
+}
+function draw_cave_chests() {
+	if(no_graphics) return;
+	var now=Date.now();
+	for(var chest of Object.values(chests)) {
+		if(!chest.cave_sparks || chest._destroyed || chest.map!==current_map) continue;
+		var age=now-chest.cave_born;
+		chest.pivot.y=chest.openning?0:age<500?Math.round(14*(1-age/500)):age<700?-Math.round(3*Math.sin((age-500)*Math.PI/200)):0;
+		var frame=Math.floor(now/160);
+		if(frame===chest.cave_frame) continue;
+		chest.cave_frame=frame;
+		var sparks=chest.cave_sparks; sparks.clear();
+		if(chest.openning) continue;
+		for(var i=0;i<3;i++) {
+			var phase=(frame+i*4)%16;
+			if(phase>5) continue;
+			var x=[-9,8,1][i], y=[-12,-17,-24][i]-Math.floor(phase/2);
+			sparks.beginFill(phase<3?0xFFF0B9:0xD99349); sparks.drawRect(x,y,1,1);
+			if(phase===2) { sparks.drawRect(x-1,y,3,1); sparks.drawRect(x,y-1,1,3); }
+			sparks.endFill();
+		}
+	}
 }

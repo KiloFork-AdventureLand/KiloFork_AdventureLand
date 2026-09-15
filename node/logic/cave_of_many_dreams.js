@@ -71,6 +71,7 @@ function cave_start(run) {
 		gold_earned: 0,
 		amber_earned: 0,
 		claimed: new Set(),
+		chests: new Set(),
 		rooms: [],
 		actors: new Set(),
 		vote: null,
@@ -198,6 +199,7 @@ function cave_spawn(run, room, type, side, offset = 0, look) {
 	actor.x = origin.x;
 	actor.y = origin.y;
 	var placement = calculate_move(actor, point.x, point.y);
+	if (closest_line(room.map, placement.x, placement.y) < 16) placement = origin;
 	actor.x = placement.x;
 	actor.y = placement.y;
 	var scale = 1 + Math.pow(run.level / 14, 2),
@@ -392,28 +394,99 @@ function cave_activate(run, room) {
 		room.stock = { name: stock[0], price: stock[1], sold: false };
 	}
 }
-function cave_credit(run, gold, amber) {
+function cave_credit(run, gold, amber, source) {
 	var state = run.cave,
 		rules = G.events.dreams;
 	gold = Math.max(0, Math.min(gold || 0, rules.gold_limit - state.gold_earned));
 	amber = Math.max(0, Math.min(amber || 0, rules.amber_limit - state.amber_earned));
-	state.gold += gold;
+	if (!gold && !amber) return;
+	var people = cave_players(run);
+	source = source || state.resolving?.room || people[0];
+	if (!source) return;
+	var player = people.find((p) => p.map === source.map) || people[0];
+	if (!player) return;
+	var point = (generated_maps[source.map] && safe_xy_nearby(source.map, source.x, source.y)) || {
+		x: source.x,
+		y: source.y,
+	};
+	// Shared currency takes no inventory slots, including for automatic loot.
+	var drop = { items: [], cash: 0, amber, cave: run.key };
+	var id = drop_one_thing(player, [], {
+		reserved: drop,
+		gold,
+		chest: "cavechest",
+		map: source.map,
+		in: source.map,
+		x: point.x,
+		y: point.y,
+	});
+	state.chests.add(id);
+	// Reserve the daily allowance once, when the chest is made. Opening it
+	// moves those same amounts into the purse without rolling or multiplying.
 	state.gold_earned += gold;
-	state.amber += amber;
 	state.amber_earned += amber;
-	if (gold || amber) cave_receipt(run, { where: "purse", gold, amber });
+	for (var other of people) if (other !== player && other.map === drop.map) cave_send_chest(other.socket, id, drop);
+	return id;
+}
+function cave_send_chest(socket, id, chest) {
+	socket.emit("drop", { id, x: chest.x, y: chest.y, map: chest.map, chest: chest.chest, items: chest.items.length });
+}
+function cave_send_chests(run, socket, map) {
+	for (var id of run.cave?.chests || []) {
+		var chest = chests[id];
+		if (chest?.map === map) cave_send_chest(socket, id, chest);
+	}
+}
+function cave_open_chest(player, chest, id) {
+	var run = generated_runs[chest.cave],
+		member = generated_member(run, player);
+	if (
+		!run ||
+		run.closing ||
+		!member ||
+		member.left ||
+		generated_entry(player)?.record !== run ||
+		player.map !== chest.map ||
+		player.in !== chest.in ||
+		player.rip ||
+		run.expires <= generated_clock(run)
+	)
+		return { failed: true, reason: "loot_failed" };
+	if (run.paused_at) return { failed: true, reason: "cave_paused" };
+	if (simple_distance(player, chest) > 400) return { failed: true, reason: "loot_failed" };
+	if (chests[id] !== chest || !run.cave.chests.delete(id)) return { failed: true, reason: "loot_failed" };
+	delete chests[id];
+	var gold = chest.gold,
+		amber = chest.amber || 0;
+	run.cave.gold += gold;
+	run.cave.amber += amber;
+	cave_receipt(run, { where: "purse", gold, amber, map: chest.map, x: chest.x, y: chest.y });
+	var result = { id, opener: player.name, gold: 0, goldm: 1, items: [], cave: { gold, amber, shared: true } };
+	for (var p of cave_players(run)) p.socket.emit("chest_opened", result);
+	cave_publish(run);
+	return result;
 }
 function cave_item(run, token, name, quantity) {
 	var chest = { items: [], gold: 0, cash: 0 };
 	drop_item_logic(chest, [1, name, quantity], false);
 	return cave_deliver(run, token, chest.items);
 }
-function cave_reward(run, room, table) {
+function cave_reward(run, room, table, items) {
 	if (room.reward) return;
 	room.reward = true;
-	var chest = { items: [], gold: 0, cash: 0 };
-	chest_exchange(chest, table);
-	cave_deliver(run, room.id + ":reward", chest.items);
+	var token = room.id + ":reward";
+	if (run.cave.claimed.has(token)) return;
+	var chest = { items: items || [], gold: 0, cash: 0 };
+	if (table) chest_exchange(chest, table);
+	var amber = chest.items.reduce((sum, item) => sum + (item.name === "cave_amber" ? item.q || 1 : 0), 0);
+	// Keep the normal reward table and item delivery. Cave currency waits
+	// in a visible chest until the party collects it.
+	cave_deliver(
+		run,
+		token,
+		chest.items.filter((item) => item.name !== "cave_amber"),
+	);
+	cave_credit(run, chest.gold, amber, room);
 }
 function cave_deliver(run, token, items) {
 	if (run.cave.claimed.has(token)) return;
@@ -554,8 +627,8 @@ function cave_complete(run, room) {
 		}
 	if (room.kind === "boss") {
 		cave_reward(run, room, "cave_boss");
-		cave_credit(run, 4000, 0);
-	} else if (room.kind === "fight") cave_credit(run, 2000, 1);
+		cave_credit(run, 4000, 0, room);
+	} else if (room.kind === "fight") cave_credit(run, 2000, 1, room);
 	var required = run.cave.rooms.filter((r) => r.floor === room.floor && r.required);
 	if (required.every((r) => r.done) && !run.completed[room.floor]) {
 		run.completed[room.floor] = true;
@@ -564,8 +637,8 @@ function cave_complete(run, room) {
 			room.floor === 2 ? "The last seal is open. Your reward is ready." : "The stairs are open. You can go down.",
 		);
 		if (room.floor === 2) {
-			cave_reward(run, { id: "finish" }, "cave_finish");
-			cave_credit(run, 10000, 5);
+			cave_reward(run, { id: "finish", map: room.map, x: room.x, y: room.y }, "cave_finish");
+			cave_credit(run, 10000, 5, room);
 			cave_settle_purse(run);
 		}
 	}
@@ -764,7 +837,7 @@ function cave_apply(run, room, option) {
 		return;
 	}
 	if (effect === "peace" && room.rival) {
-		cave_credit(run, 0, 1);
+		cave_credit(run, 0, 1, room);
 		cave_say(run, "They put their weapons away and split the money.");
 		cave_complete(run, room);
 		return;
@@ -797,9 +870,9 @@ function cave_apply(run, room, option) {
 		}
 		if (face >= threshold) {
 			if (effect === "die") cave_item(run, room.id + ":die", "cave_loaded_die");
-			else if (effect === "free_die") cave_credit(run, 0, 1);
+			else if (effect === "free_die") cave_credit(run, 0, 1, room);
 			else if (effect === "favor") cave_add_follower(run, room, "cave_npc");
-			else cave_credit(run, option.win || 2000, 0);
+			else cave_credit(run, option.win || 2000, 0, room);
 		} else if (effect === "favor") {
 			cave_pack(run, room, "cave_guard", 2);
 			return;
@@ -846,7 +919,7 @@ function cave_apply(run, room, option) {
 	) {
 		if (effect === "risk" && cave_random() < 0.5) {
 			cave_reward(run, room, "cave_parcel");
-			cave_credit(run, 4000, 1);
+			cave_credit(run, 4000, 1, room);
 		} else {
 			var wolves = effect === "wolves" || option.hazard === "wolves";
 			if (option.hazard === "shadow") {
@@ -924,8 +997,7 @@ function cave_apply(run, room, option) {
 	else if (effect === "moths") {
 		if (state.flags.lamp) cave_item(run, room.id + ":moths", "cave_mothsteps");
 		else {
-			cave_credit(run, 0, 2);
-			cave_say(run, "The moths gather around two pieces of Amber. Added to the shared purse.");
+			if (cave_credit(run, 0, 2, room)) cave_say(run, "The moths lead you to an Amber chest.");
 		}
 	} else if (effect === "plant") {
 		room.harvest = Date.now() + 60000;
@@ -946,7 +1018,7 @@ function cave_apply(run, room, option) {
 				" seconds. Neither side can land a killing blow.",
 		);
 		return;
-	} else if (["gift", "small_gift"].includes(effect)) cave_credit(run, 0, effect === "gift" ? 2 : 1);
+	} else if (["gift", "small_gift"].includes(effect)) cave_credit(run, 0, effect === "gift" ? 2 : 1, room);
 	else if (effect === "reveal" || effect === "appraise") {
 		var marked = run.cave.rooms.filter(
 			(r) =>
@@ -1030,7 +1102,8 @@ function cave_death(attacker, target) {
 		room = run?.cave.rooms.find((r) => r.id === target.zone_actor.room);
 	if (!run || !room) return false;
 	var state = run.cave;
-	if (target.type === "cave_darkmage") cave_reward(run, { id: room.id + ":staff" }, "cave_darkmage");
+	if (target.type === "cave_darkmage")
+		cave_reward(run, { id: room.id + ":staff", map: room.map, x: room.x, y: room.y }, "cave_darkmage");
 	if (
 		target.type === "cave_rogue" &&
 		target.zone_actor.rare &&
@@ -1038,10 +1111,9 @@ function cave_death(attacker, target) {
 		attacker.zone_actor?.side === "predator" &&
 		!target.zone_actor.betrayed
 	)
-		cave_reward(run, { id: room.id + ":dagger" }, "cave_rogue_weapon");
+		cave_reward(run, { id: room.id + ":dagger", map: room.map, x: room.x, y: room.y }, "cave_rogue_weapon");
 	if (target === room.npc && room.rescue && !room.reward) {
-		room.reward = true;
-		cave_deliver(run, room.id + ":corpse", room.cargo || []);
+		cave_reward(run, room, null, room.cargo || []);
 	}
 	if (
 		room.hunt &&
@@ -1078,7 +1150,7 @@ function cave_death(attacker, target) {
 				null,
 				{ table_only: true },
 			);
-			for (var item of drops.items) if (item.name === "cave_amber") cave_credit(run, 0, item.q || 1);
+			for (var item of drops.items) if (item.name === "cave_amber") cave_credit(run, 0, item.q || 1, target);
 			var materials = drops.items.filter((item) => item.name !== "cave_amber");
 			if (materials.length) cave_deliver(run, "monster:" + target.id, materials);
 		}
@@ -1317,8 +1389,7 @@ function cave_tick(run, now) {
 		// Growing crops need only a deadline, even after this floor has unloaded.
 		if (room.harvest && room.harvest <= now) {
 			delete room.harvest;
-			cave_credit(run, 0, 3);
-			cave_say(run, "The farmer adds 3 Amber to your shared purse.");
+			if (cave_credit(run, 0, 3, room)) cave_say(run, "The farmer leaves an Amber chest where you met.");
 		}
 		if (!generated_maps[room.map]) continue;
 		var occupied = people.some((p) => p.map === room.map && simple_distance(p, room) < 1100);
@@ -1354,8 +1425,8 @@ function cave_tick(run, now) {
 		}
 		if (room.kind === "farm" && room.enemies.every((m) => m.dead)) {
 			if (!room.next_wave) {
-				cave_reward(run, { id: room.id + ":wave:" + room.waves }, "cave_farm");
-				cave_credit(run, 1500, 1);
+				cave_reward(run, { id: room.id + ":wave:" + room.waves, map: room.map, x: room.x, y: room.y }, "cave_farm");
+				cave_credit(run, 1500, 1, room);
 				room.next_wave = now + 10000;
 				if (room.waves < 3) cave_say(run, room.name + ": Something is moving in the nest. Another pack in 10 seconds.");
 			}
@@ -1379,7 +1450,7 @@ function cave_tick(run, now) {
 		if (room.practice && (room.npc.hp <= 1 || room.practice_end <= now)) {
 			if (room.npc.hp <= 1) {
 				cave_say(run, room.npc.name + ": You win! Here is your reward.");
-				if (room.practice_amber) cave_credit(run, 0, room.practice_amber);
+				if (room.practice_amber) cave_credit(run, 0, room.practice_amber, room);
 				else cave_reward(run, room, "cave_parcel");
 			} else cave_say(run, room.npc.name + ": Time is up. No prize this time.");
 			room.npc.zone_actor.side = "neutral";
@@ -1390,8 +1461,9 @@ function cave_tick(run, now) {
 		if (room.hunt && (room.hunt.kills >= room.hunt.count || now >= room.hunt.deadline)) {
 			if (room.hunt.kills >= room.hunt.count) {
 				if (!room.hunt.small) cave_reward(run, room, "cave_parcel");
-				if (room.hunt.double) cave_reward(run, { id: room.id + ":extra" }, "cave_parcel");
-				cave_credit(run, room.hunt.small ? 0 : 5000, 2);
+				if (room.hunt.double)
+					cave_reward(run, { id: room.id + ":extra", map: room.map, x: room.x, y: room.y }, "cave_parcel");
+				cave_credit(run, room.hunt.small ? 0 : 5000, 2, room);
 			} else {
 				room.no_reward = true;
 				cave_say(run, "Time is up. The hunt paid nothing.");
@@ -1422,7 +1494,7 @@ function cave_tick(run, now) {
 				}
 				if (room.saving) {
 					cave_reward(run, room, room.covering ? "cave_parcel" : "cave_rescue");
-					cave_credit(run, 3000, 0);
+					cave_credit(run, 3000, 0, room);
 				}
 				room.npc.zone_actor.side = "ally";
 				if (room.hiring) cave_follow_actor(run, room.npc);
@@ -1453,7 +1525,7 @@ function cave_tick(run, now) {
 				G.maps[room.map].doors[0];
 			if (door && simple_distance(room.npc, { x: door[0], y: door[1], map: room.map, in: room.map }) < 120) {
 				cave_reward(run, room, "cave_rescue");
-				cave_credit(run, 3000, 0);
+				cave_credit(run, 3000, 0, room);
 				cave_complete(run, room);
 			}
 		}
@@ -1502,6 +1574,7 @@ function cave_snapshot(run, player) {
 				done: r.done,
 				floor: r.floor,
 				kind: r.kind,
+				required: !!r.required,
 				waves: r.kind === "farm" ? r.waves : undefined,
 				name:
 					r.encounter?.name ||
@@ -1833,7 +1906,7 @@ function cave_follow_actor(run, actor) {
 	for (var room of run.cave.rooms) count += (room.saved || []).filter((a) => a.zone_actor.follow).length;
 	if (count >= 2) {
 		cave_say(run, "You already have two helpers. Take 2 Amber instead.");
-		cave_credit(run, 0, 2);
+		cave_credit(run, 0, 2, actor);
 		return false;
 	}
 	if (actor) Object.assign(actor.zone_actor, { follow: true, idle: false });
@@ -1864,7 +1937,7 @@ function cave_venture(run, room, option) {
 	}
 	cave_say(run, outcome.text);
 	for (var flag of outcome.flags || []) run.cave.flags[flag] = true;
-	cave_credit(run, outcome.gold, outcome.amber);
+	cave_credit(run, outcome.gold, outcome.amber, room);
 	if (outcome.reward) cave_reward(run, room, outcome.reward);
 	if (outcome.join && cave_follow_actor(run, room.npc)) room.npc.zone_actor.side = "ally";
 	else if (outcome.ally) cave_add_follower(run, room, outcome.ally);

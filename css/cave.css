@@ -4,9 +4,7 @@
 #cave-hud .gamebutton { border:0; border-right:2px solid #696171; margin:0; padding:7px 10px; font-size:24px; }
 #cave-hud .cave-clock { color:#E1C4F3; flex:1; }
 #cave-hud .cave-exit { color:#DCA99B; border-right:0; }
-.cave-purse { display:flex; justify-content:center; align-items:center; gap:12px; padding:3px 10px; border-top:1px solid #49424F; cursor:pointer; }
-.cave-purse>span { display:inline-flex; align-items:center; gap:5px; }
-.cave-purse-label { color:#AAA0AD; font-size:18px; }
+.cave-purse { display:flex; align-items:center; justify-content:center; gap:4px; color:#E7BF75; padding:3px 10px; border-top:1px solid #49424F; cursor:pointer; }
 .cave-reward-note,.cave-hunt-note { max-width:420px; }
 .cave-dialogue-modal .imodal { margin-top:80px; }
 .cave-dialogue-modal .cave-dialogue { width:560px; max-width:calc(100vw - 90px)!important; box-sizing:border-box; background:#1C1724!important; color:#EFE7D5!important; border-color:#8C729E!important; padding:18px!important; font-size:24px!important; text-align:left; }
@@ -31,3 +29,14 @@
 .cave-guide-facts { color:#816023; font-size:26px; margin:12px 0; }
 .cave-guide-crafts { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .cave-guide img { image-rendering:crisp-edges; image-rendering:pixelated; }
+.cave-purse .item { vertical-align:middle; }
+.cave-progress { border-top:1px solid #49424F; padding:6px 10px; text-align:left; font-size:20px; line-height:1.1; }
+.cave-goal-title { color:#E1C4F3; margin-bottom:4px; }
+.cave-goal { cursor:pointer; padding:2px 0; color:#D8CDD9; }
+.cave-goal:hover { color:#F0C574; }
+.cave-goal-done { color:#8EB793; }
+.cave-stairs-message .cave-goal { color:#6B506E; }
+.cave-stairs-message .cave-goal-done { color:#487448; }
+#cave-hud .cave-award-text { color:#F0C574; white-space:normal; font-size:22px; padding:10px; border-top:2px solid #D99349; }
+.cave-awarded { animation:cave-award 1s steps(3,end); }
+@keyframes cave-award { 0%,40% { background:#6A4937; color:#FFF0B9; } 20%,60% { background:#352738; } 100% { background:transparent; } }

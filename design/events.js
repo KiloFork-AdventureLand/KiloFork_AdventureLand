@@ -106,7 +106,7 @@ events.dreams={
 	"type": "daily",
 	"duration": 1440,
 	"party": 3,
-	"vote_ms": 20000,
+	"vote_ms": 60000,
 	"encounters": [
 		{
 			"id": "e01",

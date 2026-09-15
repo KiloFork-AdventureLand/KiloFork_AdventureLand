@@ -208,6 +208,7 @@ function send_generated_maps(socket, map_name) {
 		});
 	socket.generated_run = entry.record.key;
 	socket.generated_floor = map_name;
+	cave_send_chests(entry.record, socket, map_name);
 }
 function generated_transport(player, name, spawn, effect) {
 	player.zone_transfer = name;
@@ -220,20 +221,60 @@ function generated_transport(player, name, spawn, effect) {
 function generated_exit(player, reason) {
 	var entry = generated_entry(player);
 	if (!entry) return false;
-	var record = entry.record,
-		member = generated_member(record, player);
+	var record = entry.record;
 	release_frozen_player(player);
-	if (member && !member.left) {
-		member.left = true;
-		member.left_reason = reason;
-		void db
-			.collection("GeneratedZone")
-			.updateOne({ _id: "member:" + member.character, run: record.key }, { $set: { active: false } })
-			.catch((e) => log_trace("zone exit", e));
-	}
+	generated_leave_member(record, generated_member(record, player), reason);
 	player.socket.emit("cave", { type: "ended", reason, state: record.cave ? cave_snapshot(record, player) : null });
 	delete player.cave;
+	generated_restore_health(player);
 	generated_transport(player, "main", record.exit_spawn, 1);
+	return true;
+}
+function generated_leave_member(record, member, reason) {
+	if (!member || member.left) return;
+	member.left = true;
+	member.left_reason = reason;
+	void db
+		.collection("GeneratedZone")
+		.updateOne({ _id: "member:" + member.character, run: record.key }, { $set: { active: false } })
+		.catch((e) => log_trace("zone exit", e));
+}
+function generated_restore_health(player) {
+	player.rip = false;
+	player.hp = player.max_hp;
+	player.mp = Math.max(player.mp || 0, Math.round(player.max_mp / 2));
+	delete player.rip_time;
+	for (var key of ["block", "poisoned", "burned", "eburn"]) delete player.s[key];
+	player.moving = false;
+	player.vx = player.vy = 0;
+}
+function generated_disconnect(player) {
+	var entry = generated_entry(player);
+	if (!entry) return false;
+	var record = entry.record;
+	cave_settle_purse(record);
+	// The normal disconnect routine removes spatial membership before saving.
+	// Save the outside location only after that removal.
+	release_frozen_player(player);
+	generated_leave_member(record, generated_member(record, player), "disconnect");
+	delete player.cave;
+	delete player.state;
+	generated_restore_health(player);
+	player.map = player.in = "main";
+	[player.x, player.y] = G.maps.main.spawns[record.exit_spawn];
+	player.going_x = player.x;
+	player.going_y = player.y;
+	return true;
+}
+function generated_recover_login(player) {
+	if (!/^zone_[a-f0-9]{24}_[0-7]$/.test(player.map || "")) return;
+	// A restart may already have discarded the floor manifest.
+	var spawn = G.maps[player.map]?.on_exit?.[1] ?? G.maps.main.spawns.findIndex((p) => p[0] === 816 && p[1] === 1200);
+	player.map = player.in = "main";
+	[player.x, player.y] = G.maps.main.spawns[Math.max(0, spawn)];
+	delete player.state;
+	player.rip = false;
+	player.hp = Math.max(1, player.hp || 0);
 	return true;
 }
 function destroy_generated_run(key) {
@@ -273,7 +314,8 @@ function generated_maps_tick() {
 		}
 		for (var member of record.members) {
 			var p = get_player(member.name);
-			if (!member.left && (!p || p.real_id !== member.character || p.socket.disconnected || p.dc)) member.left = true;
+			if (!member.left && (!p || p.real_id !== member.character || p.socket.disconnected || p.dc))
+				generated_leave_member(record, member, "disconnect");
 		}
 		if (record.members.every((m) => m.left)) {
 			destroy_generated_run(key);

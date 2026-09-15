@@ -569,6 +569,13 @@ var sprites = {
 		],
 		type: "v_animation", //new logic [02/07/18]
 	},
+	cavechest: {
+		file: "/images/tiles/items/cave-chest.png?v=1",
+		rows: 1,
+		columns: 1,
+		matrix: [["cavechest"]],
+		type: "v_animation",
+	},
 	animationc: {
 		file: "/images/tiles/characters/animationc.png?v=4",
 		rows: 8,
