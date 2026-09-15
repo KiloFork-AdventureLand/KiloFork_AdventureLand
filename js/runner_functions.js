@@ -1097,6 +1097,61 @@ function bet_wheel(side, gold, timeout_ms) {
 	return completion;
 }
 
+// Tavern Hold'em. Every request is answered by the server with place "poker"; the table's public state also arrives
+// as "poker" game events (character.on("poker", ...)) whenever it changes.
+function poker_request(data, timeout_ms) {
+	if (timeout_ms === undefined) timeout_ms = 10000;
+	timeout_ms = max(0, timeout_ms);
+	var request_id = randomStr(30),
+		socket = parent.socket,
+		completion = wait_for_event(socket, "game_response", timeout_ms, function (response) {
+			return response && response.request_id == request_id && response.place == "poker";
+		}).then(function (response) {
+			if (response.failed) return rejecting_promise(response);
+			return response;
+		});
+	data.request_id = request_id;
+	socket.emit("poker", data);
+	return completion;
+}
+
+function get_poker_table(timeout_ms) {
+	// Resolves with the table's public state: blinds, buy-in window, seats, the hand in progress and its clock.
+	return poker_request({ event: "info" }, timeout_ms).then(function (response) {
+		return response.table;
+	});
+}
+
+function poker_join(gold, seat, timeout_ms) {
+	// Buys in for gold (40 to 200 big blinds) at an empty seat, or adds to your stack between hands when seated.
+	if (!is_number(gold) || gold <= 0) return rejecting_promise({ reason: "invalid", place: "poker" });
+	var data = { event: "join", gold: gold };
+	if (is_number(seat)) data.seat = seat;
+	return poker_request(data, timeout_ms);
+}
+
+function poker_leave(timeout_ms) {
+	// Cashes out at once, or after the current hand when you are in it.
+	return poker_request({ event: "leave" }, timeout_ms);
+}
+
+function poker_act(action, amount, timeout_ms) {
+	// "fold", "check", "call", "bet", "raise" or "allin". For bet and raise, amount is the total to bet on this street.
+	action = ("" + action).toLowerCase();
+	if (!in_arr(action, ["fold", "check", "call", "bet", "raise", "allin"])) return rejecting_promise({ reason: "invalid_action", place: "poker" });
+	var data = { event: "act", action: action };
+	if (is_number(amount)) data.amount = amount;
+	return poker_request(data, timeout_ms);
+}
+
+function poker_sit_out(timeout_ms) {
+	return poker_request({ event: "sit_out" }, timeout_ms);
+}
+
+function poker_sit_in(timeout_ms) {
+	return poker_request({ event: "sit_in" }, timeout_ms);
+}
+
 function split(num, quantity) {
 	// splits the stack at from character.items[num] into a second stack of quantity
 	return parent.split(num, quantity);

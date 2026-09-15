@@ -435,5 +435,18 @@
 	"chat.min": "PIENI",
 	"response.wheel_spinning": "Pyörä pyörii vielä",
 	"response.wheel_side": "Valitse ensin Aurinko tai Kuu",
-	"response.slots_spinning": "Rullat pyörivät vielä"
+	"response.slots_spinning": "Rullat pyörivät vielä",
+	"response.not_in_tavern": "Sinun täytyy olla tavernassa",
+	"response.poker_far": "Kävele lähemmäs pokeripöytää",
+	"response.poker_full": "Pokeripöytä on täynnä",
+	"response.poker_seat_taken": "Se paikka vietiin juuri",
+	"response.poker_seated": "Tililläsi on jo paikka tässä pöydässä",
+	"response.poker_buyin": "Osta sisään {min} – {max} kultaa",
+	"response.poker_not_seated": "Et istu pokeripöydässä",
+	"response.poker_not_your_turn": "Ei ole sinun vuorosi",
+	"response.poker_invalid_action": "Tuo siirto ei ole nyt sallittu",
+	"response.poker_min_raise": "Korota vähintään tasolle {min}",
+	"response.poker_in_hand": "Odota käden päättymistä",
+	"response.poker_broke": "Osta sisään uudelleen jatkaaksesi peliä",
+	"response.poker_unavailable": "Pokeripöytä on juuri nyt suljettu"
 }

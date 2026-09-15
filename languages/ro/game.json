@@ -438,5 +438,18 @@
 	"chat.min": "MIN",
 	"response.wheel_spinning": "Roata încă se învârte",
 	"response.wheel_side": "Alege mai întâi Soare sau Lună",
-	"response.slots_spinning": "Rolele încă se învârt"
+	"response.slots_spinning": "Rolele încă se învârt",
+	"response.not_in_tavern": "Pentru asta trebuie să fii în tavernă",
+	"response.poker_far": "Apropie-te de masa de poker",
+	"response.poker_full": "Masa de poker este plină",
+	"response.poker_seat_taken": "Locul acela tocmai a fost ocupat",
+	"response.poker_seated": "Contul tău are deja un loc la această masă",
+	"response.poker_buyin": "Intră cu între {min} și {max} aur",
+	"response.poker_not_seated": "Nu stai la masa de poker",
+	"response.poker_not_your_turn": "Nu e rândul tău",
+	"response.poker_invalid_action": "Mutarea aceea nu este permisă acum",
+	"response.poker_min_raise": "Ridică la cel puțin {min}",
+	"response.poker_in_hand": "Așteaptă să se termine mâna",
+	"response.poker_broke": "Intră din nou ca să continui să joci",
+	"response.poker_unavailable": "Masa de poker este închisă momentan"
 }

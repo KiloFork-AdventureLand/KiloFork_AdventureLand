@@ -435,5 +435,18 @@
 	"chat.min": "МІН.",
 	"response.wheel_spinning": "Колесо ще крутиться",
 	"response.wheel_side": "Спочатку вибери Сонце або Місяць",
-	"response.slots_spinning": "Барабани ще крутяться"
+	"response.slots_spinning": "Барабани ще крутяться",
+	"response.not_in_tavern": "Для цього треба бути в таверні",
+	"response.poker_far": "Підійдіть ближче до покерного столу",
+	"response.poker_full": "За покерним столом немає місць",
+	"response.poker_seat_taken": "Це місце щойно зайняли",
+	"response.poker_seated": "Ваш обліковий запис уже має місце за цим столом",
+	"response.poker_buyin": "Бай-ін від {min} до {max} золота",
+	"response.poker_not_seated": "Ви не сидите за покерним столом",
+	"response.poker_not_your_turn": "Зараз не ваш хід",
+	"response.poker_invalid_action": "Зараз так ходити не можна",
+	"response.poker_min_raise": "Підвищте щонайменше до {min}",
+	"response.poker_in_hand": "Дочекайтеся кінця роздачі",
+	"response.poker_broke": "Внесіть бай-ін знову, щоб продовжити гру",
+	"response.poker_unavailable": "Покерний стіл зараз зачинено"
 }

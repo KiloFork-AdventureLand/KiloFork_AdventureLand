@@ -1720,6 +1720,7 @@ function tavern_loop() {
 				shuffle(room.cards);
 			}
 		});
+		tavern_poker_tick();
 	} catch (e) {
 		log_trace("Critical-tavern_loop", e);
 	}

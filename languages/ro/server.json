@@ -316,5 +316,14 @@
 	"server.payment.shells.other": "{count} de scoici",
 	"server.game_log.wheel_bet": "Roată: {side} pentru {amount} aur",
 	"server.game_log.wheel_won": "Roata s-a oprit pe {side}. Ai câștigat {amount} aur",
-	"server.game_log.wheel_lost": "Roata s-a oprit pe {side}. Ai pierdut {amount} aur"
+	"server.game_log.wheel_lost": "Roata s-a oprit pe {side}. Ai pierdut {amount} aur",
+	"server.game_log.poker_join": "Te așezi la masa de poker cu {amount} aur",
+	"server.game_log.poker_leaving": "Pleci de la masa de poker după această mână",
+	"server.game_log.poker_cash_out": "Pleci de la masa de poker cu {amount} aur",
+	"server.game_log.poker_refund": "{amount} aur de la masa de poker s-au întors în punga ta",
+	"server.game_log.poker_back": "Te-ai întors la masa de poker cu {amount} aur",
+	"server.game_log.poker_won": "Poker: ai câștigat {amount} aur",
+	"server.game_log.poker_broke": "Stackul tău e sub big blindul de {amount}. Intră din nou sau pleacă de la masă",
+	"server.game_log.poker_auto_check": "Ți-a expirat timpul. S-a dat check în locul tău",
+	"server.game_log.poker_auto_fold": "Ți-a expirat timpul. S-a dat fold în locul tău"
 }

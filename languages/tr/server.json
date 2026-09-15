@@ -310,5 +310,14 @@
 	"server.pm.delivery_failed": "(İLETİLEMEDİ)",
 	"server.game_log.wheel_bet": "Çark: {amount} altınla {side}",
 	"server.game_log.wheel_won": "Çark {side} tarafında durdu. {amount} altın kazanıldı",
-	"server.game_log.wheel_lost": "Çark {side} tarafında durdu. {amount} altın kaybedildi"
+	"server.game_log.wheel_lost": "Çark {side} tarafında durdu. {amount} altın kaybedildi",
+	"server.game_log.poker_join": "{amount} altınla poker masasına oturdun",
+	"server.game_log.poker_leaving": "Bu elden sonra poker masasından ayrılacaksın",
+	"server.game_log.poker_cash_out": "{amount} altınla poker masasından ayrıldın",
+	"server.game_log.poker_refund": "Poker masasındaki {amount} altın kesene geri döndü",
+	"server.game_log.poker_back": "{amount} altınla poker masasına geri döndün",
+	"server.game_log.poker_won": "Poker: {amount} altın kazandın",
+	"server.game_log.poker_broke": "Kasan {amount} büyük körün altında. Yeniden giriş yap ya da masadan ayrıl",
+	"server.game_log.poker_auto_check": "Süren doldu. Senin yerine çek dendi",
+	"server.game_log.poker_auto_fold": "Süren doldu. Senin yerine pas geçildi"
 }

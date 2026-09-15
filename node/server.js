@@ -95,6 +95,7 @@ eval("" + fs.readFileSync(path.resolve(__dirname, "logic/instance_pause.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/cave_of_many_dreams.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern_wheel.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern_slots.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern_poker.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "../version.js")));
 var precomputed_bfs_path = path.resolve(__dirname, "precomputed_map_data.js");
 if (fs.existsSync(precomputed_bfs_path)) eval("" + fs.readFileSync(precomputed_bfs_path));
@@ -11606,6 +11607,11 @@ function init_socket_io(socket_server) {
 				realmfatigue_logic(player, characters);
 				calculate_player_stats(player);
 				if (recovered_generated_map) generated_restore_health(player);
+				try {
+					tavern_poker_login(player);
+				} catch (e) {
+					log_trace("#X poker login", e);
+				}
 
 				if (!is_player_allowed(player)) {
 					socket.emit("disconnect_reason", "limits");
@@ -12544,6 +12550,11 @@ function init_socket_io(socket_server) {
 				else socket.emit("tavern", info);
 			}
 		});
+		socket.on("poker", function (data) {
+			var player = players[socket.id];
+			if (!player || !data) return;
+			tavern_poker_request(player, data);
+		});
 		socket.on("play", function (data) {});
 		socket.on("pet", function (data) {
 			var player = players[socket.id];
@@ -12765,6 +12776,7 @@ function init_socket_io(socket_server) {
 					player.bets = {};
 					tavern_wheel_disconnect(player);
 					tavern_slots_disconnect(player);
+					tavern_poker_disconnect(player);
 				} catch (e) {
 					log_trace("#X DCERRORBETS", e);
 				}
@@ -16527,6 +16539,11 @@ function shutdown_routine() {
 	server_log("shutdown_routine", 1);
 	if (Dev && server.shutdown) process.exit();
 	server.shutdown = true;
+	try {
+		tavern_poker_shutdown();
+	} catch (e) {
+		log_trace("#X poker shutdown", e);
+	}
 	for (var name in instances) {
 		for (var id in instances[name].monsters) {
 			var monster = instances[name].monsters[id];

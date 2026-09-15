@@ -435,5 +435,18 @@
 	"chat.min": "MIN",
 	"response.wheel_spinning": "Hjulet snurrer fortsatt",
 	"response.wheel_side": "Velg Sol eller Måne først",
-	"response.slots_spinning": "Hjulene snurrer fortsatt"
+	"response.slots_spinning": "Hjulene snurrer fortsatt",
+	"response.not_in_tavern": "Du må være i tavernaen for det",
+	"response.poker_far": "Gå nærmere pokerbordet",
+	"response.poker_full": "Pokerbordet er fullt",
+	"response.poker_seat_taken": "Den plassen ble nettopp tatt",
+	"response.poker_seated": "Kontoen din har allerede en plass ved dette bordet",
+	"response.poker_buyin": "Kjøp inn for mellom {min} og {max} gull",
+	"response.poker_not_seated": "Du sitter ikke ved pokerbordet",
+	"response.poker_not_your_turn": "Det er ikke din tur",
+	"response.poker_invalid_action": "Det trekket er ikke tillatt akkurat nå",
+	"response.poker_min_raise": "Hev til minst {min}",
+	"response.poker_in_hand": "Vent til hånden er over",
+	"response.poker_broke": "Kjøp inn igjen for å fortsette å spille",
+	"response.poker_unavailable": "Pokerbordet er stengt akkurat nå"
 }

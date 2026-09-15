@@ -1928,6 +1928,8 @@ function init_socket(args) {
 		skill_timeout(data.name, data.ms);
 	});
 	socket.on("game_response", function (data) {
+		if (data.interaction === "cavalry" && !no_graphics) add_log(phrase.message(data), data.failed ? "gray" : "#C6AA62");
+		if (data.place == "poker") poker_response(data);
 		if (Dev) console.log(["game_response", data]);
 		var response = data.response || data;
 		try {
@@ -2904,6 +2906,9 @@ function init_socket(args) {
 				}
 			} else if (Dev) console.log("Unhandled 'ui': " + data.type);
 		});
+	});
+	socket.on("poker", function (data) {
+		poker_event(data);
 	});
 	socket.on("tavern", function (data) {
 		if (data.type == "wheel" && data.event != "info") return wheel_tavern_event(data);
@@ -5265,6 +5270,7 @@ function update_sprite(sprite) {
 
 		if (sprite.mtype == "slots") slots_map_update(sprite);
 		if (sprite.mtype == "wheel") wheel_map_update(sprite);
+		if (sprite.mtype == "poker") poker_map_update(sprite);
 	}
 
 	if (sprite.type == "chest" && sprite.openning) {
@@ -6513,11 +6519,13 @@ function add_machine(machine) {
 
 	if (machine.type == "wheel") wheel_map_attach(sprite);
 	if (machine.type == "slots") slots_map_attach(sprite);
+	if (machine.type == "poker") poker_map_attach(sprite);
 
 	function machine_click(event) {
 		if (machine.type == "dice") render_dice(); // add_log("Curious device","gray");//
 		if (machine.type == "wheel") render_wheel();
 		if (machine.type == "slots") render_slot_machine();
+		if (machine.type == "poker") render_poker();
 		try {
 			if (event) event.stopPropagation();
 		} catch (e) {}

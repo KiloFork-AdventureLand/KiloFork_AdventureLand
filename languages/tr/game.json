@@ -435,5 +435,18 @@
 	"chat.min": "KÜÇÜK",
 	"response.wheel_spinning": "Çark hâlâ dönüyor",
 	"response.wheel_side": "Önce Güneş'i ya da Ay'ı seç",
-	"response.slots_spinning": "Makaralar hâlâ dönüyor"
+	"response.slots_spinning": "Makaralar hâlâ dönüyor",
+	"response.not_in_tavern": "Bunun için Taverna'da olman gerek",
+	"response.poker_far": "Poker masasına daha yakın gel",
+	"response.poker_full": "Poker masası dolu",
+	"response.poker_seat_taken": "O koltuk az önce alındı",
+	"response.poker_seated": "Hesabının bu masada zaten bir koltuğu var",
+	"response.poker_buyin": "{min} ile {max} altın arasında giriş yap",
+	"response.poker_not_seated": "Poker masasında oturmuyorsun",
+	"response.poker_not_your_turn": "Sıra sende değil",
+	"response.poker_invalid_action": "Bu hamleye şu an izin verilmiyor",
+	"response.poker_min_raise": "En az {min} olarak yükselt",
+	"response.poker_in_hand": "Elin bitmesini bekle",
+	"response.poker_broke": "Oynamaya devam etmek için yeniden giriş yap",
+	"response.poker_unavailable": "Poker masası şu an kapalı"
 }

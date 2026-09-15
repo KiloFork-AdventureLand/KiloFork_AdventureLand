@@ -2180,6 +2180,66 @@ module.exports = {
 	// docs/functions/bet_dice.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.functions.bet_dice.returns-promise-resolving-with-won-roll-wager-payout":
 		"<b>Returns:</b> Promise resolving with won, roll, wager, payout, net, and edge. A valid bet that loses still resolves with won:false. Invalid bets and timeouts reject.",
+	// docs/functions/get_poker_table.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Hold'em is the poker variant.
+	"docs.functions.get_poker_table.reads-the-public-state-of-the-tavern-s": "Reads the public state of the Tavern's Hold'em table: blinds, buy-in window, seats, stacks, the hand in progress and its clock.",
+	// docs/functions/get_poker_table.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep the field names in the list unchanged; they are CODE.
+	"docs.functions.get_poker_table.returns-promise-resolving-with-the-table-object": "<b>Returns:</b> Promise resolving with the table object: blinds, buyin, seats (name, stack, bet, status flags), button, hand (street, board, pot, bet, min_raise, acting, deadline, results) and the recent log.",
+	// docs/functions/get_poker_table.html:4; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["failed: true","reason","mode_resolve_all()"].
+	"docs.functions.get_poker_table.promise-failures-unless-a-function-specific-note-says": "<b>Promise failures:</b> Unless a function-specific note says otherwise, failures reject with an object containing <span class='dlabel'>failed: true</span> and a <span class='dlabel'>reason</span>. After <span class='dlabel'>mode_resolve_all()</span>, the same failures fulfill instead.",
+	// docs/functions/get_poker_table.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.get_poker_table.notes-works-anywhere-the-same-object-arrives": "<b>Notes:</b> Works anywhere. While you are in the Tavern the same object also arrives as a <span class='dlabel'>poker</span> game event whenever the table changes. timeout_ms defaults to 10,000ms.",
+	// docs/functions/get_poker_table.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.get_poker_table.example": "<b>Example:</b>",
+	// docs/functions/poker_join.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Hold'em is the poker variant.
+	"docs.functions.poker_join.sits-down-at-the-tavern-s-hold-em-table": "Sits down at the Tavern's Hold'em table with gold, or adds gold to your stack between hands when you are already seated.",
+	// docs/functions/poker_join.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep the field names unchanged; they are CODE.
+	"docs.functions.poker_join.returns-promise-resolving-with-seat-stack-buyin-and-blinds": "<b>Returns:</b> Promise resolving with seat, stack, buyin and blinds.",
+	// docs/functions/poker_join.html:4; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["failed: true","reason","mode_resolve_all()"].
+	"docs.functions.poker_join.promise-failures-unless-a-function-specific-note-says": "<b>Promise failures:</b> Unless a function-specific note says otherwise, failures reject with an object containing <span class='dlabel'>failed: true</span> and a <span class='dlabel'>reason</span>. After <span class='dlabel'>mode_resolve_all()</span>, the same failures fulfill instead.",
+	// docs/functions/poker_join.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.poker_join.notes-stand-near-the-table-in-the-tavern": "<b>Notes:</b> Stand near the table in the Tavern. The buy-in is 40 to 200 big blinds of the server's tier, one seat per account. seat picks an empty seat from 0 to 4, otherwise the first free seat is taken. The gold leaves your purse while you sit and returns the moment you leave. A rebuy is refused during a hand. timeout_ms defaults to 10,000ms.",
+	// docs/functions/poker_join.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.poker_join.example": "<b>Example:</b>",
+	// docs/functions/poker_leave.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Hold'em is the poker variant.
+	"docs.functions.poker_leave.leaves-the-hold-em-table-at-once-between": "Leaves the Hold'em table: at once between hands, otherwise after the current hand.",
+	// docs/functions/poker_leave.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep leaving:true and gold unchanged; they are CODE.
+	"docs.functions.poker_leave.returns-promise-resolving-with-leaving-true-while": "<b>Returns:</b> Promise resolving with leaving:true while a hand is running, or with gold, the stack returned to your purse.",
+	// docs/functions/poker_leave.html:4; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["failed: true","reason","mode_resolve_all()"].
+	"docs.functions.poker_leave.promise-failures-unless-a-function-specific-note-says": "<b>Promise failures:</b> Unless a function-specific note says otherwise, failures reject with an object containing <span class='dlabel'>failed: true</span> and a <span class='dlabel'>reason</span>. After <span class='dlabel'>mode_resolve_all()</span>, the same failures fulfill instead.",
+	// docs/functions/poker_leave.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.poker_leave.notes-walking-away-from-your-stool-using": "<b>Notes:</b> Walking away from your stool, using a door or logging out has the same effect. A disconnected seat keeps its stack until it is cashed out five minutes later. timeout_ms defaults to 10,000ms.",
+	// docs/functions/poker_leave.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.poker_leave.example": "<b>Example:</b>",
+	// docs/functions/poker_act.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Hold'em is the poker variant; the quoted words are CODE arguments.
+	"docs.functions.poker_act.makes-your-decision-at-the-hold-em-table": "Makes your decision at the Hold'em table: \"fold\", \"check\", \"call\", \"bet\", \"raise\" or \"allin\".",
+	// docs/functions/poker_act.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep the field names unchanged; they are CODE.
+	"docs.functions.poker_act.returns-promise-resolving-with-action-amount-stack-and-pot": "<b>Returns:</b> Promise resolving with action, amount, stack and pot.",
+	// docs/functions/poker_act.html:4; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["failed: true","reason","mode_resolve_all()"].
+	"docs.functions.poker_act.promise-failures-unless-a-function-specific-note-says": "<b>Promise failures:</b> Unless a function-specific note says otherwise, failures reject with an object containing <span class='dlabel'>failed: true</span> and a <span class='dlabel'>reason</span>. After <span class='dlabel'>mode_resolve_all()</span>, the same failures fulfill instead.",
+	// docs/functions/poker_act.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep bet, raise, amount, acting and deadline unchanged; they are CODE.
+	"docs.functions.poker_act.notes-for-bet-and-raise-amount-is-the-total": "<b>Notes:</b> For bet and raise, amount is the total you will have bet on the current street: at least the current bet plus the last raise, and an amount beyond your stack is an all-in. A call with nothing to call is a check. Only the acting seat can act; read acting and deadline from <span class='dlabel'>get_poker_table</span>. When the clock and the time bank run out, the server checks if it is free and folds otherwise. timeout_ms defaults to 10,000ms.",
+	// docs/functions/poker_act.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.poker_act.example": "<b>Example:</b>",
+	// docs/functions/poker_sit_out.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Hold'em is the poker variant.
+	"docs.functions.poker_sit_out.sits-out-at-the-hold-em-table-you-keep": "Sits out at the Hold'em table: you keep your seat and stack but are not dealt into the next hands.",
+	// docs/functions/poker_sit_out.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep out:true unchanged; it is CODE.
+	"docs.functions.poker_sit_out.returns-promise-resolving-with-out-true": "<b>Returns:</b> Promise resolving with out:true.",
+	// docs/functions/poker_sit_out.html:4; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["failed: true","reason","mode_resolve_all()"].
+	"docs.functions.poker_sit_out.promise-failures-unless-a-function-specific-note-says": "<b>Promise failures:</b> Unless a function-specific note says otherwise, failures reject with an object containing <span class='dlabel'>failed: true</span> and a <span class='dlabel'>reason</span>. After <span class='dlabel'>mode_resolve_all()</span>, the same failures fulfill instead.",
+	// docs/functions/poker_sit_out.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.poker_sit_out.notes-a-seat-that-sits-out-for-five-minutes": "<b>Notes:</b> A seat that sits out for five minutes is cashed out. timeout_ms defaults to 10,000ms.",
+	// docs/functions/poker_sit_out.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.poker_sit_out.example": "<b>Example:</b>",
+	// docs/functions/poker_sit_in.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
+	"docs.functions.poker_sit_in.returns-to-the-deal-after-sitting-out": "Returns to the deal after sitting out.",
+	// docs/functions/poker_sit_in.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep out:false unchanged; it is CODE.
+	"docs.functions.poker_sit_in.returns-promise-resolving-with-out-false": "<b>Returns:</b> Promise resolving with out:false.",
+	// docs/functions/poker_sit_in.html:4; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["failed: true","reason","mode_resolve_all()"].
+	"docs.functions.poker_sit_in.promise-failures-unless-a-function-specific-note-says": "<b>Promise failures:</b> Unless a function-specific note says otherwise, failures reject with an object containing <span class='dlabel'>failed: true</span> and a <span class='dlabel'>reason</span>. After <span class='dlabel'>mode_resolve_all()</span>, the same failures fulfill instead.",
+	// docs/functions/poker_sit_in.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.poker_sit_in.notes-needs-at-least-one-big-blind-on-the-seat": "<b>Notes:</b> Needs at least one big blind on the seat; buy in again with <span class='dlabel'>poker_join</span> otherwise. timeout_ms defaults to 10,000ms.",
+	// docs/functions/poker_sit_in.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.poker_sit_in.example": "<b>Example:</b>",
 	// docs/functions/bet_wheel.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.functions.bet_wheel.example": "<b>Example:</b>",
 	// docs/functions/bet_wheel.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["CODE"]. Sun and Moon are the wheel's sides; get_tavern_info is CODE.
@@ -5265,6 +5325,38 @@ module.exports = {
 	// docs/guide/tavern-games.html:19; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.tavern-games.down-wins-when-the-roll-is-at-or":
 		"<b>Down</b> wins when the roll is at or below your chosen number. <b>Up</b> wins when the roll is at or above it. The displayed payout changes with that choice, the threshold, the wager, and the house edge.",
+	// docs/guide/tavern-games.html; Section title of the Tavern's Texas Hold'em poker table.
+	"docs.guide.tavern-games.hold-em": "Hold'em",
+	// docs/guide/tavern-games.html; Flow node. Fixed HTML: preserve every tag and attribute; translate the label only.
+	"docs.guide.tavern-games.sit-down-buy-in": "<span class=\"guide-flow-icon tavern-poker\">♠</span><span class=\"guide-flow-label\">Sit Down · Buy In</span>",
+	// docs/guide/tavern-games.html; Flow node. BB abbreviates big blind. Fixed HTML: preserve every tag and attribute; translate the label only.
+	"docs.guide.tavern-games.blinds-and-two-cards": "<span class=\"guide-flow-icon tavern-side\">BB</span><span class=\"guide-flow-label\">Blinds and Two Cards</span>",
+	// docs/guide/tavern-games.html; Flow node. Fixed HTML: preserve every tag and attribute; translate the label only, keep CALL as the poker term or its local equivalent.
+	"docs.guide.tavern-games.four-betting-streets": "<span class=\"guide-flow-icon tavern-choice\">CALL</span><span class=\"guide-flow-label\">Four Betting Streets</span>",
+	// docs/guide/tavern-games.html; Flow node. Fixed HTML: preserve every tag and attribute; translate the label only.
+	"docs.guide.tavern-games.showdown-rake-from-each-pot": "<span class=\"guide-flow-icon tavern-even\">2%</span><span class=\"guide-flow-label\">Showdown · Rake From Each Pot</span>",
+	// docs/guide/tavern-games.html; Guide paragraph. Hold'em is the poker variant; keep the numbers.
+	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "The Tavern has one five-seat no-limit Hold'em table where player gold plays against player gold. Blinds follow the server: buy in for 40 to 200 big blinds, and your stack leaves your purse while you sit and comes back the moment you leave. Every decision has 20 seconds plus a 30-second time bank; when both run out the server checks if it is free and folds otherwise. The house keeps 2% of each awarded pot, at most 10 big blinds.",
+	// docs/guide/tavern-games.html; Blinds table column heading.
+	"docs.guide.tavern-games.servers": "Servers",
+	// docs/guide/tavern-games.html; Blinds table column heading. Poker term.
+	"docs.guide.tavern-games.small-blind": "Small blind",
+	// docs/guide/tavern-games.html; Blinds table column heading. Poker term.
+	"docs.guide.tavern-games.big-blind": "Big blind",
+	// docs/guide/tavern-games.html; Blinds table column heading: the allowed gold range to sit down with.
+	"docs.guide.tavern-games.buy-in": "Buy-in",
+	// docs/guide/tavern-games.html; Blinds table row: servers named I (US I, EU I, ASIA I). Keep the roman numeral.
+	"docs.guide.tavern-games.tier-i": "I servers",
+	// docs/guide/tavern-games.html; Blinds table row: servers named II. Keep the roman numeral.
+	"docs.guide.tavern-games.tier-ii": "II servers",
+	// docs/guide/tavern-games.html; Blinds table row: servers named III. Keep the roman numeral.
+	"docs.guide.tavern-games.tier-iii": "III servers",
+	// docs/guide/tavern-games.html; Blinds table row: servers named IV or higher and every PVP server. Keep IV and PVP.
+	"docs.guide.tavern-games.tier-iv": "IV+ and PVP servers",
+	// docs/guide/tavern-games.html; Guide note. Fixed HTML: preserve the tags.
+	"docs.guide.tavern-games.leaving-the-table": "<b>Leaving the table.</b> Press Leave, walk away from your stool, use a door or log out and you leave after the current hand; your stack returns to your purse in full. A disconnected seat keeps its stack: the clock still runs, blinds are posted for two more hands, then the seat sits out and is cashed out after five minutes. A restart voids the running hand and returns every bet. Before each deal the table publishes a commitment to its shuffled deck, and after the hand the key and the deck order that verify it.",
+	// docs/guide/tavern-games.html; Guide code section title. Keep CODE.
+	"docs.guide.tavern-games.code-play-a-hand": "CODE: Play a Hand",
 	// docs/guide/tavern-games.html; pay table odds column. {value} is a formatted number of spins, as in "1 in 5,000".
 	"docs.guide.tavern-games.1-in-value": "1 in {value}",
 	// docs/guide/tavern-games.html; pay table column heading for the winning prize gold.
@@ -5287,7 +5379,7 @@ module.exports = {
 	"docs.guide.tavern-games.payout-or-no-luck": '<span class="guide-flow-icon tavern-result">?</span><span class="guide-flow-label">Three of a Kind Pays</span>',
 	// docs/guide/tavern-games.html:60; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["get_tavern_info","bet_dice","play_slots","bet_wheel"].
 	"docs.guide.tavern-games.references-get-tavern-info-bet-dice-play-slots":
-		'References: <span class="rlabel" onclick="render_function_reference($(this).html())">get_tavern_info</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_dice</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">play_slots</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_wheel</span>.',
+		'References: <span class="rlabel" onclick="render_function_reference($(this).html())">get_tavern_info</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_dice</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">play_slots</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_wheel</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">get_poker_table</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">poker_join</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">poker_act</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">poker_leave</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">poker_sit_out</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">poker_sit_in</span>.',
 	// docs/guide/tavern-games.html:22; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.tavern-games.slots": "Slots",
 	// docs/guide/tavern-games.html; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
@@ -5300,7 +5392,7 @@ module.exports = {
 	"docs.guide.tavern-games.three-of-a-kind": "Three of a Kind",
 	// docs/guide/tavern-games.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["The Tavern"].
 	"docs.guide.tavern-games.the-tavern-s-dice-table-and-slot-machine":
-		"The Tavern's dice table, slot machine and Fortune's Wheel spend gold on games of chance. Read the wager twice. The house has already read it once.",
+		"The Tavern's dice table, slot machine, Fortune's Wheel and Hold'em table spend gold on games of chance. Read the wager twice. The house has already read it once.",
 	// docs/guide/tavern-games.html; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Sun and Moon are the wheel's two sides.
 	"docs.guide.tavern-games.the-wheel-s-fourteen-slices-alternate-between-sun": "The wheel's fourteen slices alternate between <b>Sun</b> and <b>Moon</b>. Pick a side, choose a wager and spin. Landing on your side returns the wager plus an equal win, minus the house's cut of that win. Landing on the other side loses the wager. Wagers start at 10,000 gold, and the largest win stays within what the house can cover.",
 	// docs/guide/tracktrix.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.

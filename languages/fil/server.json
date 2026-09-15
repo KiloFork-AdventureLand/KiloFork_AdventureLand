@@ -310,5 +310,14 @@
 	"server.pm.delivery_failed": "(HINDI NAHATID)",
 	"server.game_log.wheel_bet": "Gulong: {side} para sa {amount} ginto",
 	"server.game_log.wheel_won": "Tumigil ang gulong sa {side}. Nanalo ng {amount} ginto",
-	"server.game_log.wheel_lost": "Tumigil ang gulong sa {side}. Natalo ng {amount} ginto"
+	"server.game_log.wheel_lost": "Tumigil ang gulong sa {side}. Natalo ng {amount} ginto",
+	"server.game_log.poker_join": "Umupo ka sa mesa ng poker na may {amount} ginto",
+	"server.game_log.poker_leaving": "Aalis ka sa mesa ng poker pagkatapos ng kamay na ito",
+	"server.game_log.poker_cash_out": "Umalis ka sa mesa ng poker na may {amount} ginto",
+	"server.game_log.poker_refund": "Bumalik sa pitaka mo ang {amount} ginto mula sa mesa ng poker",
+	"server.game_log.poker_back": "Nakabalik ka na sa mesa ng poker na may {amount} ginto",
+	"server.game_log.poker_won": "Poker: nanalo ng {amount} ginto",
+	"server.game_log.poker_broke": "Mas mababa ang stack mo sa big blind na {amount}. Mag-buy-in ulit o umalis sa mesa",
+	"server.game_log.poker_auto_check": "Naubos ang oras mo. Nag-check para sa iyo",
+	"server.game_log.poker_auto_fold": "Naubos ang oras mo. Nag-fold para sa iyo"
 }

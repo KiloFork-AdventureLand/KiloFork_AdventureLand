@@ -1023,6 +1023,13 @@ var maps = {
 				x: -64,
 				y: -216,
 			},
+			{
+				type: "poker",
+				set: "custom",
+				frames: [[0, 26 * 16, 116, 62]],
+				x: -168,
+				y: -30,
+			},
 		],
 		drop_norm: 1000,
 		lux: 0.8,

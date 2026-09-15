@@ -313,5 +313,14 @@
 	"server.payment.shells.one": "{count} Concha",
 	"server.game_log.wheel_bet": "Roda: {side} por {amount} de ouro",
 	"server.game_log.wheel_won": "A roda parou em {side}. Você ganhou {amount} de ouro",
-	"server.game_log.wheel_lost": "A roda parou em {side}. Você perdeu {amount} de ouro"
+	"server.game_log.wheel_lost": "A roda parou em {side}. Você perdeu {amount} de ouro",
+	"server.game_log.poker_join": "Você senta na mesa de pôquer com {amount} de ouro",
+	"server.game_log.poker_leaving": "Você sai da mesa de pôquer depois desta mão",
+	"server.game_log.poker_cash_out": "Você sai da mesa de pôquer com {amount} de ouro",
+	"server.game_log.poker_refund": "{amount} de ouro da mesa de pôquer voltaram para a sua bolsa",
+	"server.game_log.poker_back": "Você está de volta à mesa de pôquer com {amount} de ouro",
+	"server.game_log.poker_won": "Pôquer: ganhou {amount} de ouro",
+	"server.game_log.poker_broke": "Seu stack está abaixo do big blind de {amount}. Compre fichas de novo ou saia da mesa",
+	"server.game_log.poker_auto_check": "Seu tempo acabou. Passamos por você",
+	"server.game_log.poker_auto_fold": "Seu tempo acabou. Desistimos por você"
 }

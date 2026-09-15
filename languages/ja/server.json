@@ -310,5 +310,14 @@
 	"server.pm.delivery_failed": "(送信失敗)",
 	"server.game_log.wheel_bet": "輪：{side}に{amount}ゴールド",
 	"server.game_log.wheel_won": "輪は{side}で止まりました。{amount}ゴールドの勝ち",
-	"server.game_log.wheel_lost": "輪は{side}で止まりました。{amount}ゴールドの負け"
+	"server.game_log.wheel_lost": "輪は{side}で止まりました。{amount}ゴールドの負け",
+	"server.game_log.poker_join": "{amount} ゴールドでポーカーテーブルに着席しました",
+	"server.game_log.poker_leaving": "このハンドの後にポーカーテーブルを離れます",
+	"server.game_log.poker_cash_out": "{amount} ゴールドを持ってポーカーテーブルを離れました",
+	"server.game_log.poker_refund": "ポーカーテーブルの {amount} ゴールドが財布に戻りました",
+	"server.game_log.poker_back": "{amount} ゴールドでポーカーテーブルに戻りました",
+	"server.game_log.poker_won": "ポーカー: {amount} ゴールド獲得",
+	"server.game_log.poker_broke": "スタックがビッグブラインド {amount} を下回りました。再びバイインするか退席してください",
+	"server.game_log.poker_auto_check": "時間切れです。代わりにチェックしました",
+	"server.game_log.poker_auto_fold": "時間切れです。代わりにフォールドしました"
 }

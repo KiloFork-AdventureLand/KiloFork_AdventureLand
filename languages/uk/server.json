@@ -316,5 +316,14 @@
 	"server.payment.shells.other": "{count} мушлі",
 	"server.game_log.wheel_bet": "Колесо: {side} на {amount} золота",
 	"server.game_log.wheel_won": "Колесо зупинилося на {side}. Виграно {amount} золота",
-	"server.game_log.wheel_lost": "Колесо зупинилося на {side}. Програно {amount} золота"
+	"server.game_log.wheel_lost": "Колесо зупинилося на {side}. Програно {amount} золота",
+	"server.game_log.poker_join": "Ви сіли за покерний стіл із {amount} золота",
+	"server.game_log.poker_leaving": "Ви покинете покерний стіл після цієї роздачі",
+	"server.game_log.poker_cash_out": "Ви покинули покерний стіл із {amount} золота",
+	"server.game_log.poker_refund": "{amount} золота з покерного столу повернулося у ваш гаманець",
+	"server.game_log.poker_back": "Ви знову за покерним столом із {amount} золота",
+	"server.game_log.poker_won": "Покер: виграно {amount} золота",
+	"server.game_log.poker_broke": "Ваш стек менший за великий блайнд ({amount}). Внесіть бай-ін знову або покиньте стіл",
+	"server.game_log.poker_auto_check": "Ваш час вийшов. За вас зроблено чек",
+	"server.game_log.poker_auto_fold": "Ваш час вийшов. За вас зроблено фолд"
 }

@@ -310,5 +310,14 @@
 	"server.pm.delivery_failed": "(GỬI THẤT BẠI)",
 	"server.game_log.wheel_bet": "Vòng quay: {side} với {amount} vàng",
 	"server.game_log.wheel_won": "Vòng quay dừng ở {side}. Thắng {amount} vàng",
-	"server.game_log.wheel_lost": "Vòng quay dừng ở {side}. Thua {amount} vàng"
+	"server.game_log.wheel_lost": "Vòng quay dừng ở {side}. Thua {amount} vàng",
+	"server.game_log.poker_join": "Bạn ngồi vào bàn poker với {amount} vàng",
+	"server.game_log.poker_leaving": "Bạn sẽ rời bàn poker sau ván này",
+	"server.game_log.poker_cash_out": "Bạn rời bàn poker với {amount} vàng",
+	"server.game_log.poker_refund": "{amount} vàng từ bàn poker đã trở về túi của bạn",
+	"server.game_log.poker_back": "Bạn đã trở lại bàn poker với {amount} vàng",
+	"server.game_log.poker_won": "Poker: thắng {amount} vàng",
+	"server.game_log.poker_broke": "Số chip của bạn thấp hơn big blind {amount}. Hãy mua vào lại hoặc rời bàn",
+	"server.game_log.poker_auto_check": "Hết giờ. Đã check thay bạn",
+	"server.game_log.poker_auto_fold": "Hết giờ. Đã bỏ bài thay bạn"
 }

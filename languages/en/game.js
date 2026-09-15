@@ -372,6 +372,32 @@ module.exports = {
 	"response.wheel_side": "Pick Sun or Moon first",
 	// js/game.js, response slots_spinning: a second slots stake was refused because the player's reels have not stopped yet.
 	"response.slots_spinning": "The reels are still turning",
+	// js/tavern_poker.js, response not_in_tavern: a Tavern game request came from another map.
+	"response.not_in_tavern": "You need to be in the Tavern for that",
+	// js/tavern_poker.js, response poker_far: a join request came from too far away from the Tavern poker table.
+	"response.poker_far": "Walk closer to the poker table",
+	// js/tavern_poker.js, response poker_full: every seat is taken.
+	"response.poker_full": "The poker table is full",
+	// js/tavern_poker.js, response poker_seat_taken: someone sat down on the chosen seat first.
+	"response.poker_seat_taken": "That seat was just taken",
+	// js/tavern_poker.js, response poker_seated: one seat per account: another character of the same account is seated.
+	"response.poker_seated": "Your account already has a seat at this table",
+	// js/tavern_poker.js, response poker_buyin: the buy-in was outside the allowed window. min and max are formatted gold amounts.
+	"response.poker_buyin": "Buy in between {min} and {max} gold",
+	// js/tavern_poker.js, response poker_not_seated: an action, leave or sit-out request without a seat.
+	"response.poker_not_seated": "You are not seated at the poker table",
+	// js/tavern_poker.js, response poker_not_your_turn: a decision was sent while another seat was acting.
+	"response.poker_not_your_turn": "It is not your turn",
+	// js/tavern_poker.js, response poker_invalid_action: for example a check while facing a bet.
+	"response.poker_invalid_action": "That move is not allowed right now",
+	// js/tavern_poker.js, response poker_min_raise: the raise was below the smallest legal raise. min is formatted gold.
+	"response.poker_min_raise": "Raise to at least {min}",
+	// js/tavern_poker.js, response poker_in_hand: a rebuy was requested during a hand.
+	"response.poker_in_hand": "Wait for the hand to end",
+	// js/tavern_poker.js, response poker_broke: sit in was refused because the stack is below one big blind.
+	"response.poker_broke": "Buy in again to keep playing",
+	// js/tavern_poker.js, response poker_unavailable: the table cannot take requests (no Tavern instance or definition).
+	"response.poker_unavailable": "The poker table is closed right now",
 	// js/game.js, response condition. Parameters: name.
 	"response.condition": "Afflicted by {name}",
 	// js/game.js, response condition. Parameters: from, name.

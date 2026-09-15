@@ -435,5 +435,18 @@
 	"chat.min": "MALIIT",
 	"response.wheel_spinning": "Umiikot pa ang gulong",
 	"response.wheel_side": "Pumili muna ng Araw o Buwan",
-	"response.slots_spinning": "Umiikot pa ang mga reel"
+	"response.slots_spinning": "Umiikot pa ang mga reel",
+	"response.not_in_tavern": "Kailangan mong nasa Taberna para diyan",
+	"response.poker_far": "Lumapit pa sa mesa ng poker",
+	"response.poker_full": "Puno na ang mesa ng poker",
+	"response.poker_seat_taken": "Kakakuha lang ng upuang iyon",
+	"response.poker_seated": "May upuan na ang account mo sa mesang ito",
+	"response.poker_buyin": "Mag-buy-in ng {min} hanggang {max} ginto",
+	"response.poker_not_seated": "Hindi ka nakaupo sa mesa ng poker",
+	"response.poker_not_your_turn": "Hindi mo pa turno",
+	"response.poker_invalid_action": "Hindi pinapayagan ang galaw na iyon ngayon",
+	"response.poker_min_raise": "Mag-raise nang hindi bababa sa {min}",
+	"response.poker_in_hand": "Hintayin munang matapos ang kamay",
+	"response.poker_broke": "Mag-buy-in ulit para makapaglaro pa",
+	"response.poker_unavailable": "Sarado ang mesa ng poker sa ngayon"
 }

@@ -435,5 +435,18 @@
 	"chat.min": "ΜΙΚΡ.",
 	"response.wheel_spinning": "Ο τροχός γυρίζει ακόμα",
 	"response.wheel_side": "Διάλεξε πρώτα Ήλιο ή Φεγγάρι",
-	"response.slots_spinning": "Οι τροχοί γυρίζουν ακόμα"
+	"response.slots_spinning": "Οι τροχοί γυρίζουν ακόμα",
+	"response.not_in_tavern": "Για αυτό πρέπει να είσαι στην Ταβέρνα",
+	"response.poker_far": "Πλησίασε περισσότερο στο τραπέζι του πόκερ",
+	"response.poker_full": "Το τραπέζι του πόκερ είναι γεμάτο",
+	"response.poker_seat_taken": "Αυτή η θέση μόλις πιάστηκε",
+	"response.poker_seated": "Ο λογαριασμός σου έχει ήδη θέση σε αυτό το τραπέζι",
+	"response.poker_buyin": "Αγόρασε θέση με {min} έως {max} χρυσό",
+	"response.poker_not_seated": "Δεν κάθεσαι στο τραπέζι του πόκερ",
+	"response.poker_not_your_turn": "Δεν είναι η σειρά σου",
+	"response.poker_invalid_action": "Αυτή η κίνηση δεν επιτρέπεται τώρα",
+	"response.poker_min_raise": "Κάνε ρελάνς τουλάχιστον σε {min}",
+	"response.poker_in_hand": "Περίμενε να τελειώσει το χέρι",
+	"response.poker_broke": "Αγόρασε ξανά θέση για να συνεχίσεις να παίζεις",
+	"response.poker_unavailable": "Το τραπέζι του πόκερ είναι κλειστό αυτή τη στιγμή"
 }

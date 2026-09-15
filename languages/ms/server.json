@@ -310,5 +310,14 @@
 	"server.pm.delivery_failed": "(GAGAL DIHANTAR)",
 	"server.game_log.wheel_bet": "Roda: {side} dengan {amount} emas",
 	"server.game_log.wheel_won": "Roda berhenti di {side}. Menang {amount} emas",
-	"server.game_log.wheel_lost": "Roda berhenti di {side}. Kalah {amount} emas"
+	"server.game_log.wheel_lost": "Roda berhenti di {side}. Kalah {amount} emas",
+	"server.game_log.poker_join": "Anda duduk di meja poker dengan {amount} emas",
+	"server.game_log.poker_leaving": "Anda akan meninggalkan meja poker selepas pusingan ini",
+	"server.game_log.poker_cash_out": "Anda meninggalkan meja poker dengan {amount} emas",
+	"server.game_log.poker_refund": "{amount} emas dari meja poker dikembalikan ke dompet anda",
+	"server.game_log.poker_back": "Anda kembali ke meja poker dengan {amount} emas",
+	"server.game_log.poker_won": "Poker: menang {amount} emas",
+	"server.game_log.poker_broke": "Stack anda kurang daripada big blind {amount}. Buy-in semula atau tinggalkan meja",
+	"server.game_log.poker_auto_check": "Masa anda tamat. Check dibuat bagi pihak anda",
+	"server.game_log.poker_auto_fold": "Masa anda tamat. Fold dibuat bagi pihak anda"
 }

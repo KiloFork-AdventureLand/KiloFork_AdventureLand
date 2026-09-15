@@ -435,5 +435,18 @@
 	"chat.min": "KECIL",
 	"response.wheel_spinning": "Roda masih berputar",
 	"response.wheel_side": "Pilih Matahari atau Bulan dahulu",
-	"response.slots_spinning": "Gelendong masih berputar"
+	"response.slots_spinning": "Gelendong masih berputar",
+	"response.not_in_tavern": "Anda perlu berada di Kedai Minuman untuk itu",
+	"response.poker_far": "Dekati meja poker",
+	"response.poker_full": "Meja poker sudah penuh",
+	"response.poker_seat_taken": "Kerusi itu baru sahaja diambil",
+	"response.poker_seated": "Akaun anda sudah ada kerusi di meja ini",
+	"response.poker_buyin": "Buy-in antara {min} dan {max} emas",
+	"response.poker_not_seated": "Anda tidak duduk di meja poker",
+	"response.poker_not_your_turn": "Bukan giliran anda",
+	"response.poker_invalid_action": "Langkah itu tidak dibenarkan sekarang",
+	"response.poker_min_raise": "Raise sekurang-kurangnya ke {min}",
+	"response.poker_in_hand": "Tunggu pusingan ini tamat",
+	"response.poker_broke": "Buy-in semula untuk terus bermain",
+	"response.poker_unavailable": "Meja poker ditutup buat masa ini"
 }

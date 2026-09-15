@@ -312,5 +312,14 @@
 	"server.payment.shells.other": "{count} snäckor",
 	"server.game_log.wheel_bet": "Hjul: {side} för {amount} guld",
 	"server.game_log.wheel_won": "Hjulet stannade på {side}. Vann {amount} guld",
-	"server.game_log.wheel_lost": "Hjulet stannade på {side}. Förlorade {amount} guld"
+	"server.game_log.wheel_lost": "Hjulet stannade på {side}. Förlorade {amount} guld",
+	"server.game_log.poker_join": "Du sätter dig vid pokerbordet med {amount} guld",
+	"server.game_log.poker_leaving": "Du lämnar pokerbordet efter den här given",
+	"server.game_log.poker_cash_out": "Du lämnar pokerbordet med {amount} guld",
+	"server.game_log.poker_refund": "{amount} guld från pokerbordet har återvänt till din pung",
+	"server.game_log.poker_back": "Du är tillbaka vid pokerbordet med {amount} guld",
+	"server.game_log.poker_won": "Poker: vann {amount} guld",
+	"server.game_log.poker_broke": "Din stack är under stormörken på {amount}. Köp in igen eller lämna bordet",
+	"server.game_log.poker_auto_check": "Din tid tog slut. Checkade åt dig",
+	"server.game_log.poker_auto_fold": "Din tid tog slut. Lade dig åt dig"
 }

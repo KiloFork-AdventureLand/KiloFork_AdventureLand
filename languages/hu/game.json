@@ -435,5 +435,18 @@
 	"chat.min": "KICSI",
 	"response.wheel_spinning": "A kerék még pörög",
 	"response.wheel_side": "Előbb válaszd a Napot vagy a Holdat",
-	"response.slots_spinning": "A hengerek még forognak"
+	"response.slots_spinning": "A hengerek még forognak",
+	"response.not_in_tavern": "Ehhez a fogadóban kell lenned",
+	"response.poker_far": "Menj közelebb a pókerasztalhoz",
+	"response.poker_full": "A pókerasztal megtelt",
+	"response.poker_seat_taken": "Azt a helyet épp most foglalták el",
+	"response.poker_seated": "A fiókodnak már van helye ennél az asztalnál",
+	"response.poker_buyin": "{min} és {max} arany közötti beülővel ülhetsz le",
+	"response.poker_not_seated": "Nem ülsz a pókerasztalnál",
+	"response.poker_not_your_turn": "Nem te jössz",
+	"response.poker_invalid_action": "Ez a lépés most nem engedélyezett",
+	"response.poker_min_raise": "Emelj legalább erre: {min}",
+	"response.poker_in_hand": "Várd meg a leosztás végét",
+	"response.poker_broke": "Ülj be újra, hogy tovább játszhass",
+	"response.poker_unavailable": "A pókerasztal most zárva van"
 }

@@ -316,5 +316,14 @@
 	"server.payment.shells.zero": "عدد الأصداف: {count}",
 	"server.game_log.wheel_bet": "العجلة: {side} مقابل {amount} ذهب",
 	"server.game_log.wheel_won": "توقفت العجلة عند {side}. ربحت {amount} ذهب",
-	"server.game_log.wheel_lost": "توقفت العجلة عند {side}. خسرت {amount} ذهب"
+	"server.game_log.wheel_lost": "توقفت العجلة عند {side}. خسرت {amount} ذهب",
+	"server.game_log.poker_join": "جلست على طاولة البوكر بـ {amount} ذهب",
+	"server.game_log.poker_leaving": "ستغادر طاولة البوكر بعد هذه الجولة",
+	"server.game_log.poker_cash_out": "غادرت طاولة البوكر بـ {amount} ذهب",
+	"server.game_log.poker_refund": "عاد {amount} ذهب من طاولة البوكر إلى كيسك",
+	"server.game_log.poker_back": "عدت إلى طاولة البوكر بـ {amount} ذهب",
+	"server.game_log.poker_won": "بوكر: ربحت {amount} ذهب",
+	"server.game_log.poker_broke": "رصيدك أقل من الرهان الإجباري الكبير {amount}. ادخل مجددًا أو غادر الطاولة",
+	"server.game_log.poker_auto_check": "انتهى وقتك. تم التمرير نيابةً عنك",
+	"server.game_log.poker_auto_fold": "انتهى وقتك. تم الانسحاب نيابةً عنك"
 }

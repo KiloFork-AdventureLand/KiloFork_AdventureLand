@@ -739,7 +739,7 @@ module.exports = {
 	// docs/directory.js; NPC/service INFO title and short guide summary. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"interaction.special.title": "Strange Interactions",
 	// docs/directory.js; NPC/service INFO title and short guide summary. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
-	"interaction.tavern.summary": "Read the house rules before placing a dice, slots or wheel wager.",
+	"interaction.tavern.summary": "Read the house rules before placing a dice, slots or wheel wager, or sitting down at the Hold'em table.",
 	// docs/directory.js; NPC/service INFO title and short guide summary. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.
 	"interaction.tavern.title": "Tavern Games",
 	// docs/directory.js; NPC/service INFO title and short guide summary. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.

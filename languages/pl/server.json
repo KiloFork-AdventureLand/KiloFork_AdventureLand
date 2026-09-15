@@ -316,5 +316,14 @@
 	"server.payment.shells.other": "{count} muszli",
 	"server.game_log.wheel_bet": "Koło: {side} za {amount} złota",
 	"server.game_log.wheel_won": "Koło zatrzymało się na {side}. Wygrana: {amount} złota",
-	"server.game_log.wheel_lost": "Koło zatrzymało się na {side}. Strata: {amount} złota"
+	"server.game_log.wheel_lost": "Koło zatrzymało się na {side}. Strata: {amount} złota",
+	"server.game_log.poker_join": "Siadasz przy stole pokerowym z {amount} złota",
+	"server.game_log.poker_leaving": "Opuścisz stół pokerowy po tym rozdaniu",
+	"server.game_log.poker_cash_out": "Opuszczasz stół pokerowy z {amount} złota",
+	"server.game_log.poker_refund": "{amount} złota ze stołu pokerowego wróciło do twojej sakiewki",
+	"server.game_log.poker_back": "Wracasz do stołu pokerowego z {amount} złota",
+	"server.game_log.poker_won": "Poker: wygrano {amount} złota",
+	"server.game_log.poker_broke": "Twój stos jest poniżej dużego blinda ({amount}). Wpłać ponownie albo opuść stół",
+	"server.game_log.poker_auto_check": "Czas minął. Zaczekano za ciebie",
+	"server.game_log.poker_auto_fold": "Czas minął. Spasowano za ciebie"
 }

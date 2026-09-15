@@ -313,5 +313,14 @@
 	"server.payment.shells.one": "{count} coquillage",
 	"server.game_log.wheel_bet": "Roue : {side} pour {amount} or",
 	"server.game_log.wheel_won": "La roue s’est arrêtée sur {side}. Gain : {amount} or",
-	"server.game_log.wheel_lost": "La roue s’est arrêtée sur {side}. Perte : {amount} or"
+	"server.game_log.wheel_lost": "La roue s’est arrêtée sur {side}. Perte : {amount} or",
+	"server.game_log.poker_join": "Vous vous asseyez à la table de poker avec {amount} d'or",
+	"server.game_log.poker_leaving": "Vous quitterez la table de poker après cette main",
+	"server.game_log.poker_cash_out": "Vous quittez la table de poker avec {amount} d'or",
+	"server.game_log.poker_refund": "{amount} d'or de la table de poker sont revenus dans votre bourse",
+	"server.game_log.poker_back": "Vous êtes de retour à la table de poker avec {amount} d'or",
+	"server.game_log.poker_won": "Poker : {amount} d'or gagnés",
+	"server.game_log.poker_broke": "Votre tapis est sous la grosse blinde de {amount}. Cavez à nouveau ou quittez la table",
+	"server.game_log.poker_auto_check": "Votre temps est écoulé. Parole jouée pour vous",
+	"server.game_log.poker_auto_fold": "Votre temps est écoulé. Vous avez été couché"
 }

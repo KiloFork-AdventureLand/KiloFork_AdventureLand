@@ -80,6 +80,12 @@ const DOCS_PATHS = [
 	"/docs/ref/keymapping",
 	"/docs/ref/shells",
 	"/docs/code/functions/bet_wheel",
+	"/docs/code/functions/get_poker_table",
+	"/docs/code/functions/poker_join",
+	"/docs/code/functions/poker_leave",
+	"/docs/code/functions/poker_act",
+	"/docs/code/functions/poker_sit_out",
+	"/docs/code/functions/poker_sit_in",
 	"/docs/guide/tavern-games",
 	"/docs/guide/services/tavern-games",
 ];

@@ -313,5 +313,14 @@
 	"server.payment.shells.one": "{count} schelp",
 	"server.game_log.wheel_bet": "Rad: {side} voor {amount} goud",
 	"server.game_log.wheel_won": "Het rad stopte op {side}. {amount} goud gewonnen",
-	"server.game_log.wheel_lost": "Het rad stopte op {side}. {amount} goud verloren"
+	"server.game_log.wheel_lost": "Het rad stopte op {side}. {amount} goud verloren",
+	"server.game_log.poker_join": "Je schuift aan bij de pokertafel met {amount} goud",
+	"server.game_log.poker_leaving": "Je verlaat de pokertafel na deze hand",
+	"server.game_log.poker_cash_out": "Je verlaat de pokertafel met {amount} goud",
+	"server.game_log.poker_refund": "{amount} goud van de pokertafel is terug in je buidel",
+	"server.game_log.poker_back": "Je bent terug aan de pokertafel met {amount} goud",
+	"server.game_log.poker_won": "Poker: {amount} goud gewonnen",
+	"server.game_log.poker_broke": "Je stack ligt onder de big blind van {amount}. Koop opnieuw in of verlaat de tafel",
+	"server.game_log.poker_auto_check": "Je tijd is om. Er is voor je gecheckt",
+	"server.game_log.poker_auto_fold": "Je tijd is om. Er is voor je gepast"
 }

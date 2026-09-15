@@ -310,5 +310,14 @@
 	"server.pm.delivery_failed": "(傳送失敗)",
 	"server.game_log.wheel_bet": "轉輪：押{side}，{amount}金幣",
 	"server.game_log.wheel_won": "轉輪停在{side}。贏得{amount}金幣",
-	"server.game_log.wheel_lost": "轉輪停在{side}。輸掉{amount}金幣"
+	"server.game_log.wheel_lost": "轉輪停在{side}。輸掉{amount}金幣",
+	"server.game_log.poker_join": "你帶著 {amount} 金幣在撲克牌桌入座",
+	"server.game_log.poker_leaving": "本局結束後你將離開撲克牌桌",
+	"server.game_log.poker_cash_out": "你帶著 {amount} 金幣離開了撲克牌桌",
+	"server.game_log.poker_refund": "撲克牌桌上的 {amount} 金幣已退回你的錢袋",
+	"server.game_log.poker_back": "你帶著 {amount} 金幣回到了撲克牌桌",
+	"server.game_log.poker_won": "撲克：贏得 {amount} 金幣",
+	"server.game_log.poker_broke": "你的籌碼少於 {amount} 的大盲注。請再次買入或離桌",
+	"server.game_log.poker_auto_check": "你的時間用完了，已替你過牌",
+	"server.game_log.poker_auto_fold": "你的時間用完了，已替你棄牌"
 }

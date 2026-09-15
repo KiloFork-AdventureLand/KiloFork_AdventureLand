@@ -435,5 +435,18 @@
 	"chat.min": "축소",
 	"response.wheel_spinning": "수레바퀴가 아직 돌고 있어요",
 	"response.wheel_side": "먼저 태양이나 달을 고르세요",
-	"response.slots_spinning": "릴이 아직 돌고 있어요"
+	"response.slots_spinning": "릴이 아직 돌고 있어요",
+	"response.not_in_tavern": "그러려면 선술집에 있어야 합니다",
+	"response.poker_far": "포커 테이블에 더 가까이 가세요",
+	"response.poker_full": "포커 테이블이 꽉 찼습니다",
+	"response.poker_seat_taken": "그 자리는 방금 다른 사람이 앉았습니다",
+	"response.poker_seated": "이 계정은 이미 이 테이블에 자리가 있습니다",
+	"response.poker_buyin": "{min} ~ {max} 골드로 바이인하세요",
+	"response.poker_not_seated": "포커 테이블에 앉아 있지 않습니다",
+	"response.poker_not_your_turn": "당신의 차례가 아닙니다",
+	"response.poker_invalid_action": "지금은 그 행동을 할 수 없습니다",
+	"response.poker_min_raise": "최소 {min}까지 레이즈하세요",
+	"response.poker_in_hand": "핸드가 끝날 때까지 기다리세요",
+	"response.poker_broke": "계속 플레이하려면 다시 바이인하세요",
+	"response.poker_unavailable": "포커 테이블이 지금은 닫혀 있습니다"
 }

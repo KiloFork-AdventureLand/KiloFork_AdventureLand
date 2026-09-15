@@ -314,5 +314,14 @@
 	"server.payment.shells.other": "{count} skaller",
 	"server.game_log.wheel_bet": "Hjul: {side} for {amount} guld",
 	"server.game_log.wheel_won": "Hjulet stoppede på {side}. Vandt {amount} guld",
-	"server.game_log.wheel_lost": "Hjulet stoppede på {side}. Tabte {amount} guld"
+	"server.game_log.wheel_lost": "Hjulet stoppede på {side}. Tabte {amount} guld",
+	"server.game_log.poker_join": "Du sætter dig ved pokerbordet med {amount} guld",
+	"server.game_log.poker_leaving": "Du forlader pokerbordet efter denne hånd",
+	"server.game_log.poker_cash_out": "Du forlader pokerbordet med {amount} guld",
+	"server.game_log.poker_refund": "{amount} guld fra pokerbordet er tilbage i din pung",
+	"server.game_log.poker_back": "Du er tilbage ved pokerbordet med {amount} guld",
+	"server.game_log.poker_won": "Poker: vandt {amount} guld",
+	"server.game_log.poker_broke": "Din stack er under big blind på {amount}. Køb ind igen, eller forlad bordet",
+	"server.game_log.poker_auto_check": "Din tid løb ud. Der blev checket for dig",
+	"server.game_log.poker_auto_fold": "Din tid løb ud. Der blev foldet for dig"
 }

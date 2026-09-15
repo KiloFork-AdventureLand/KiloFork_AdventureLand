@@ -316,5 +316,14 @@
 	"server.payment.shells.other": "{count} ракушки",
 	"server.game_log.wheel_bet": "Колесо: {side} на {amount} золота",
 	"server.game_log.wheel_won": "Колесо остановилось на {side}. Выигрыш {amount} золота",
-	"server.game_log.wheel_lost": "Колесо остановилось на {side}. Проигрыш {amount} золота"
+	"server.game_log.wheel_lost": "Колесо остановилось на {side}. Проигрыш {amount} золота",
+	"server.game_log.poker_join": "Вы сели за покерный стол с {amount} золота",
+	"server.game_log.poker_leaving": "Вы покинете покерный стол после этой раздачи",
+	"server.game_log.poker_cash_out": "Вы покинули покерный стол с {amount} золота",
+	"server.game_log.poker_refund": "{amount} золота с покерного стола вернулось в ваш кошелёк",
+	"server.game_log.poker_back": "Вы снова за покерным столом с {amount} золота",
+	"server.game_log.poker_won": "Покер: выигрыш {amount} золота",
+	"server.game_log.poker_broke": "Ваш стек меньше большого блайнда ({amount}). Внесите бай-ин снова или покиньте стол",
+	"server.game_log.poker_auto_check": "Ваше время вышло. За вас сделан чек",
+	"server.game_log.poker_auto_fold": "Ваше время вышло. За вас сделан фолд"
 }

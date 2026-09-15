@@ -435,5 +435,18 @@
 	"chat.min": "МИН.",
 	"response.wheel_spinning": "Колелото още се върти",
 	"response.wheel_side": "Първо избери Слънце или Луна",
-	"response.slots_spinning": "Барабаните още се въртят"
+	"response.slots_spinning": "Барабаните още се въртят",
+	"response.not_in_tavern": "За това трябва да си в кръчмата",
+	"response.poker_far": "Приближи се до покер масата",
+	"response.poker_full": "Покер масата е пълна",
+	"response.poker_seat_taken": "Това място току-що беше заето",
+	"response.poker_seated": "Профилът ти вече има място на тази маса",
+	"response.poker_buyin": "Внеси между {min} и {max} злато",
+	"response.poker_not_seated": "Не седиш на покер масата",
+	"response.poker_not_your_turn": "Не е твой ред",
+	"response.poker_invalid_action": "Този ход не е позволен сега",
+	"response.poker_min_raise": "Вдигни поне до {min}",
+	"response.poker_in_hand": "Изчакай раздаването да свърши",
+	"response.poker_broke": "Внеси отново, за да продължиш да играеш",
+	"response.poker_unavailable": "Покер масата е затворена в момента"
 }

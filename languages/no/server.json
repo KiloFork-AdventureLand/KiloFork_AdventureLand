@@ -312,5 +312,14 @@
 	"server.game_error.capacity.other": "Akkurat nå kan ikke flere enn {count} spillere slippes inn",
 	"server.game_log.wheel_bet": "Hjul: {side} for {amount} gull",
 	"server.game_log.wheel_won": "Hjulet stoppet på {side}. Vant {amount} gull",
-	"server.game_log.wheel_lost": "Hjulet stoppet på {side}. Tapte {amount} gull"
+	"server.game_log.wheel_lost": "Hjulet stoppet på {side}. Tapte {amount} gull",
+	"server.game_log.poker_join": "Du setter deg ved pokerbordet med {amount} gull",
+	"server.game_log.poker_leaving": "Du forlater pokerbordet etter denne hånden",
+	"server.game_log.poker_cash_out": "Du forlater pokerbordet med {amount} gull",
+	"server.game_log.poker_refund": "{amount} gull fra pokerbordet er tilbake i pungen din",
+	"server.game_log.poker_back": "Du er tilbake ved pokerbordet med {amount} gull",
+	"server.game_log.poker_won": "Poker: vant {amount} gull",
+	"server.game_log.poker_broke": "Stacken din er under big blind på {amount}. Kjøp inn igjen eller forlat bordet",
+	"server.game_log.poker_auto_check": "Tiden din gikk ut. Det ble sjekket for deg",
+	"server.game_log.poker_auto_fold": "Tiden din gikk ut. Det ble kastet for deg"
 }

@@ -313,5 +313,14 @@
 	"server.payment.shells.other": "{count} simpukkaa",
 	"server.game_log.wheel_bet": "Pyörä: {side}, panos {amount} kultaa",
 	"server.game_log.wheel_won": "Pyörä pysähtyi kohtaan {side}. Voitit {amount} kultaa",
-	"server.game_log.wheel_lost": "Pyörä pysähtyi kohtaan {side}. Hävisit {amount} kultaa"
+	"server.game_log.wheel_lost": "Pyörä pysähtyi kohtaan {side}. Hävisit {amount} kultaa",
+	"server.game_log.poker_join": "Istut pokeripöytään {amount} kullalla",
+	"server.game_log.poker_leaving": "Poistut pokeripöydästä tämän käden jälkeen",
+	"server.game_log.poker_cash_out": "Poistut pokeripöydästä {amount} kullalla",
+	"server.game_log.poker_refund": "{amount} kultaa pokeripöydästä palautui kukkaroosi",
+	"server.game_log.poker_back": "Olet takaisin pokeripöydässä {amount} kullalla",
+	"server.game_log.poker_won": "Pokeri: voitit {amount} kultaa",
+	"server.game_log.poker_broke": "Pelimerkkisi ovat alle ison blindin ({amount}). Osta sisään uudelleen tai poistu pöydästä",
+	"server.game_log.poker_auto_check": "Aikasi loppui. Passattiin puolestasi",
+	"server.game_log.poker_auto_fold": "Aikasi loppui. Luovutettiin puolestasi"
 }

@@ -447,6 +447,146 @@ module.exports = {
 	"interface.slots.odds": "1 in {value}",
 	// js/tavern_slots.js; compact hint beside SPIN showing the fixed stake. amount is a formatted gold number.
 	"interface.slots.cost": "{amount} gold",
+	// js/tavern_poker.js; overlay heading of the Tavern's Texas Hold'em poker table.
+	"interface.poker.title": "Tavern Hold'em",
+	// js/tavern_poker.js; shown for a moment while the table state arrives.
+	"interface.poker.loading": "Fetching the table…",
+	// js/tavern_poker.js; table info line. small and big are formatted gold amounts of the small and big blind.
+	"interface.poker.blinds": "Blinds {small} / {big}",
+	// js/tavern_poker.js; table info line. min and max are formatted gold amounts of the allowed buy-in.
+	"interface.poker.buyin": "Buy-in {min} – {max}",
+	// js/tavern_poker.js; table info line. rake is a percentage number without the % sign; cap is formatted gold.
+	"interface.poker.rake": "Rake {rake}% of each pot, at most {cap}",
+	// js/tavern_poker.js; label of an unoccupied seat.
+	"interface.poker.empty_seat": "Empty seat",
+	// js/tavern_poker.js; button on an empty seat that opens the buy-in entry. Compact uppercase label.
+	"interface.poker.join": "JOIN",
+	// js/tavern_poker.js; button that confirms the typed buy-in amount. Compact uppercase label.
+	"interface.poker.buy_in": "BUY IN",
+	// js/tavern_poker.js; small hint under the buy-in entry. min and max are formatted gold amounts.
+	"interface.poker.buyin_hint": "{min} to {max} gold",
+	// js/tavern_poker.js; bottom line while spectating. min and max are formatted gold amounts.
+	"interface.poker.take_a_seat": "Take a seat to play. Buy in for {min} to {max} gold.",
+	// js/tavern_poker.js; button that cashes out between hands. Compact uppercase label.
+	"interface.poker.leave": "LEAVE",
+	// js/tavern_poker.js; button while the player is in a hand: cash out once it ends. Compact uppercase label.
+	"interface.poker.leave_after_hand": "LEAVE AFTER HAND",
+	// js/tavern_poker.js; seat status once Leave was pressed during a hand.
+	"interface.poker.leaving": "Leaving after this hand",
+	// js/tavern_poker.js; button to skip the next hands while keeping the seat. Compact uppercase label.
+	"interface.poker.sit_out": "SIT OUT",
+	// js/tavern_poker.js; button to be dealt again after sitting out. Compact uppercase label.
+	"interface.poker.sit_in": "SIT IN",
+	// js/tavern_poker.js; seat status of a player who is not dealt in.
+	"interface.poker.sitting_out": "Sitting out",
+	// js/tavern_poker.js; bottom line for the player's own seat while sitting out.
+	"interface.poker.sitting_out_hint": "You are sitting out. Sit in to be dealt the next hand.",
+	// js/tavern_poker.js; action button: give up the hand. Compact uppercase poker term.
+	"interface.poker.fold": "FOLD",
+	// js/tavern_poker.js; action button: pass without betting. Compact uppercase poker term.
+	"interface.poker.check": "CHECK",
+	// js/tavern_poker.js; action button: match the current bet. amount is formatted gold. Compact uppercase poker term.
+	"interface.poker.call": "CALL {amount}",
+	// js/tavern_poker.js; label before the amount entry when nobody has bet on this street yet. Compact uppercase poker term.
+	"interface.poker.bet": "BET",
+	// js/tavern_poker.js; label before the amount entry: the total the player will have bet on this street. Compact uppercase poker term.
+	"interface.poker.raise_to": "RAISE TO",
+	// js/tavern_poker.js; button that sends the typed bet or raise amount. Compact uppercase poker term.
+	"interface.poker.raise": "RAISE",
+	// js/tavern_poker.js; preset button: the smallest legal raise. Compact uppercase abbreviation.
+	"interface.poker.min": "MIN",
+	// js/tavern_poker.js; preset button: raise by half the pot. Compact uppercase label.
+	"interface.poker.half_pot": "½ POT",
+	// js/tavern_poker.js; preset button: raise by the whole pot. Compact uppercase label.
+	"interface.poker.pot": "POT",
+	// js/tavern_poker.js; action button: bet the whole stack. Compact uppercase poker term.
+	"interface.poker.all_in": "ALL IN",
+	// js/tavern_poker.js; status under the player's own seat when it must act.
+	"interface.poker.your_turn": "Your turn",
+	// js/tavern_poker.js; same status with the seconds left on the clock. seconds is a plain number.
+	"interface.poker.your_turn_seconds": "Your turn · {seconds}s",
+	// js/tavern_poker.js; status under another seat while it is deciding.
+	"interface.poker.thinking": "Thinking…",
+	// js/tavern_poker.js; bottom line while another player decides. name is a character name.
+	"interface.poker.waiting_for": "Waiting for {name}…",
+	// js/tavern_poker.js; centre of the table before the first hand: fewer than two players are ready.
+	"interface.poker.waiting_players": "Waiting for players",
+	// js/tavern_poker.js; bottom line between hands.
+	"interface.poker.next_hand": "Next hand starts shortly…",
+	// js/tavern_poker.js; bottom line between hands with the countdown. seconds is a plain number.
+	"interface.poker.next_hand_seconds": "Next hand in {seconds}s",
+	// js/tavern_poker.js; centre of the table: the gold in the pots. amount is formatted gold.
+	"interface.poker.pot_label": "Pot {amount}",
+	// js/tavern_poker.js; betting round before the community cards. Poker term.
+	"interface.poker.street.preflop": "Pre-flop",
+	// js/tavern_poker.js; betting round with three community cards. Poker term.
+	"interface.poker.street.flop": "Flop",
+	// js/tavern_poker.js; betting round with the fourth community card. Poker term.
+	"interface.poker.street.turn": "Turn",
+	// js/tavern_poker.js; betting round with the fifth community card. Poker term.
+	"interface.poker.street.river": "River",
+	// js/tavern_poker.js; the hand is over and cards are compared. Poker term.
+	"interface.poker.street.showdown": "Showdown",
+	// js/tavern_poker.js; seat status after giving up the hand.
+	"interface.poker.folded": "Folded",
+	// js/tavern_poker.js; seat status when the whole stack is in the pot.
+	"interface.poker.all_in_status": "All in",
+	// js/tavern_poker.js; seat status while its player has lost connection.
+	"interface.poker.disconnected": "Disconnected",
+	// js/tavern_poker.js; seat status at the end of a hand won without a showdown. amount is formatted gold.
+	"interface.poker.wins": "Wins {amount}",
+	// js/tavern_poker.js; seat status at showdown. amount is formatted gold, hand is a translated hand name such as Two Pair.
+	"interface.poker.wins_with": "Wins {amount} with {hand}",
+	// js/tavern_poker.js; poker hand category.
+	"interface.poker.hand.high_card": "High Card",
+	// js/tavern_poker.js; poker hand category.
+	"interface.poker.hand.pair": "Pair",
+	// js/tavern_poker.js; poker hand category.
+	"interface.poker.hand.two_pair": "Two Pair",
+	// js/tavern_poker.js; poker hand category.
+	"interface.poker.hand.three_of_a_kind": "Three of a Kind",
+	// js/tavern_poker.js; poker hand category.
+	"interface.poker.hand.straight": "Straight",
+	// js/tavern_poker.js; poker hand category.
+	"interface.poker.hand.flush": "Flush",
+	// js/tavern_poker.js; poker hand category.
+	"interface.poker.hand.full_house": "Full House",
+	// js/tavern_poker.js; poker hand category.
+	"interface.poker.hand.four_of_a_kind": "Four of a Kind",
+	// js/tavern_poker.js; poker hand category, also used for a royal flush.
+	"interface.poker.hand.straight_flush": "Straight Flush",
+	// js/tavern_poker.js; table log line. n is the hand number.
+	"interface.poker.log.deal": "Hand {n} dealt",
+	// js/tavern_poker.js; table log line. name is a character name.
+	"interface.poker.log.fold": "{name} folds",
+	// js/tavern_poker.js; table log line. name is a character name.
+	"interface.poker.log.check": "{name} checks",
+	// js/tavern_poker.js; table log line. amount is formatted gold.
+	"interface.poker.log.call": "{name} calls {amount}",
+	// js/tavern_poker.js; table log line: the first bet of a street. amount is formatted gold.
+	"interface.poker.log.bet": "{name} bets {amount}",
+	// js/tavern_poker.js; table log line: amount is the new total bet of the street, formatted gold.
+	"interface.poker.log.raise": "{name} raises to {amount}",
+	// js/tavern_poker.js; table log line. amount is formatted gold.
+	"interface.poker.log.allin": "{name} is all in for {amount}",
+	// js/tavern_poker.js; table log line for a hand won without a showdown. amount is formatted gold.
+	"interface.poker.log.win": "{name} wins {amount}",
+	// js/tavern_poker.js; table log line at showdown. hand is a translated hand name.
+	"interface.poker.log.win_with": "{name} wins {amount} with {hand}",
+	// js/tavern_poker.js; table log line. amount is the buy-in, formatted gold.
+	"interface.poker.log.join": "{name} sits down with {amount}",
+	// js/tavern_poker.js; table log line. amount is the returned stack, formatted gold.
+	"interface.poker.log.leave": "{name} leaves with {amount}",
+	// js/tavern_poker.js; table log line.
+	"interface.poker.log.out": "{name} sits out",
+	// js/tavern_poker.js; table log line: the player is dealt again after sitting out.
+	"interface.poker.log.in": "{name} is back in",
+	// js/tavern_poker.js; table log line.
+	"interface.poker.log.dc": "{name} lost connection",
+	// js/tavern_poker.js; table log line: a disconnected player reconnected.
+	"interface.poker.log.back": "{name} is back",
+	// js/tavern_poker.js; table log line when a server restart cancels the running hand.
+	"interface.poker.log.void": "The hand was voided and every bet returned",
 	// js/html.js render_donate; authored interface text.
 	"interface.donate.gold": "GOLD:",
 	// js/html.js render_donate; authored interface text.

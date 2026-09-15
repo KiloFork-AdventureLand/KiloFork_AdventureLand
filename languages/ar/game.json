@@ -435,5 +435,18 @@
 	"chat.min": "مصغر",
 	"response.wheel_spinning": "ما زالت العجلة تدور",
 	"response.wheel_side": "اختر الشمس أو القمر أولا",
-	"response.slots_spinning": "ما زالت البكرات تدور"
+	"response.slots_spinning": "ما زالت البكرات تدور",
+	"response.not_in_tavern": "يجب أن تكون في الحانة لذلك",
+	"response.poker_far": "اقترب أكثر من طاولة البوكر",
+	"response.poker_full": "طاولة البوكر ممتلئة",
+	"response.poker_seat_taken": "شُغل ذلك المقعد للتو",
+	"response.poker_seated": "لحسابك مقعد على هذه الطاولة بالفعل",
+	"response.poker_buyin": "ادخل بمبلغ بين {min} و{max} ذهب",
+	"response.poker_not_seated": "لست جالسًا على طاولة البوكر",
+	"response.poker_not_your_turn": "ليس دورك",
+	"response.poker_invalid_action": "هذه الحركة غير مسموح بها الآن",
+	"response.poker_min_raise": "ارفع إلى {min} على الأقل",
+	"response.poker_in_hand": "انتظر انتهاء الجولة",
+	"response.poker_broke": "ادخل مجددًا لمواصلة اللعب",
+	"response.poker_unavailable": "طاولة البوكر مغلقة حاليًا"
 }

@@ -310,5 +310,14 @@
 	"server.pm.delivery_failed": "(전달 실패)",
 	"server.game_log.wheel_bet": "수레바퀴: {side}에 골드 {amount}",
 	"server.game_log.wheel_won": "수레바퀴가 {side}에서 멈췄어요. 골드 {amount} 획득",
-	"server.game_log.wheel_lost": "수레바퀴가 {side}에서 멈췄어요. 골드 {amount} 잃음"
+	"server.game_log.wheel_lost": "수레바퀴가 {side}에서 멈췄어요. 골드 {amount} 잃음",
+	"server.game_log.poker_join": "{amount} 골드로 포커 테이블에 앉았습니다",
+	"server.game_log.poker_leaving": "이 핸드가 끝나면 포커 테이블을 떠납니다",
+	"server.game_log.poker_cash_out": "{amount} 골드를 가지고 포커 테이블을 떠났습니다",
+	"server.game_log.poker_refund": "포커 테이블의 {amount} 골드가 지갑으로 돌아왔습니다",
+	"server.game_log.poker_back": "{amount} 골드로 포커 테이블에 돌아왔습니다",
+	"server.game_log.poker_won": "포커: {amount} 골드 획득",
+	"server.game_log.poker_broke": "스택이 빅 블라인드 {amount}보다 적습니다. 다시 바이인하거나 테이블을 떠나세요",
+	"server.game_log.poker_auto_check": "시간이 다 되었습니다. 대신 체크했습니다",
+	"server.game_log.poker_auto_fold": "시간이 다 되었습니다. 대신 폴드했습니다"
 }

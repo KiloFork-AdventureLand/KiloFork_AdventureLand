@@ -435,5 +435,18 @@
 	"chat.min": "MIN",
 	"response.wheel_spinning": "Das Rad dreht sich noch",
 	"response.wheel_side": "Wähle zuerst Sonne oder Mond",
-	"response.slots_spinning": "Die Walzen drehen sich noch"
+	"response.slots_spinning": "Die Walzen drehen sich noch",
+	"response.not_in_tavern": "Dafür musst du in der Taverne sein",
+	"response.poker_far": "Geh näher an den Pokertisch",
+	"response.poker_full": "Der Pokertisch ist voll",
+	"response.poker_seat_taken": "Dieser Platz wurde gerade besetzt",
+	"response.poker_seated": "Dein Account hat an diesem Tisch schon einen Platz",
+	"response.poker_buyin": "Kauf dich mit {min} bis {max} Gold ein",
+	"response.poker_not_seated": "Du sitzt nicht am Pokertisch",
+	"response.poker_not_your_turn": "Du bist nicht dran",
+	"response.poker_invalid_action": "Dieser Zug ist gerade nicht erlaubt",
+	"response.poker_min_raise": "Erhöhe auf mindestens {min}",
+	"response.poker_in_hand": "Warte, bis die Hand vorbei ist",
+	"response.poker_broke": "Kauf dich erneut ein, um weiterzuspielen",
+	"response.poker_unavailable": "Der Pokertisch ist gerade geschlossen"
 }

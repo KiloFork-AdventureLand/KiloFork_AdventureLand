@@ -435,5 +435,18 @@
 	"chat.min": "縮小",
 	"response.wheel_spinning": "轉輪還在轉",
 	"response.wheel_side": "請先選擇太陽或月亮",
-	"response.slots_spinning": "轉輪還在轉"
+	"response.slots_spinning": "轉輪還在轉",
+	"response.not_in_tavern": "你需要先進入酒館",
+	"response.poker_far": "請走近撲克牌桌",
+	"response.poker_full": "撲克牌桌已滿",
+	"response.poker_seat_taken": "那個座位剛被人佔了",
+	"response.poker_seated": "你的帳號在這張牌桌已有座位",
+	"response.poker_buyin": "買入金額須在 {min} 至 {max} 金幣之間",
+	"response.poker_not_seated": "你沒有坐在撲克牌桌上",
+	"response.poker_not_your_turn": "還沒輪到你",
+	"response.poker_invalid_action": "現在不能這樣操作",
+	"response.poker_min_raise": "至少加注到 {min}",
+	"response.poker_in_hand": "請等本局結束",
+	"response.poker_broke": "再次買入才能繼續遊戲",
+	"response.poker_unavailable": "撲克牌桌暫時關閉"
 }

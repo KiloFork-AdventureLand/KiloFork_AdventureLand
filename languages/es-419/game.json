@@ -435,5 +435,18 @@
 	"chat.min": "MÍN.",
 	"response.wheel_spinning": "La rueda todavía está girando",
 	"response.wheel_side": "Elige primero Sol o Luna",
-	"response.slots_spinning": "Los rodillos todavía están girando"
+	"response.slots_spinning": "Los rodillos todavía están girando",
+	"response.not_in_tavern": "Para eso tienes que estar en la taberna",
+	"response.poker_far": "Acércate más a la mesa de póquer",
+	"response.poker_full": "La mesa de póquer está llena",
+	"response.poker_seat_taken": "Ese asiento se acaba de ocupar",
+	"response.poker_seated": "Tu cuenta ya tiene un asiento en esta mesa",
+	"response.poker_buyin": "Entra con entre {min} y {max} de oro",
+	"response.poker_not_seated": "No estás sentado en la mesa de póquer",
+	"response.poker_not_your_turn": "No es tu turno",
+	"response.poker_invalid_action": "Esa jugada no está permitida ahora",
+	"response.poker_min_raise": "Sube al menos a {min}",
+	"response.poker_in_hand": "Espera a que termine la mano",
+	"response.poker_broke": "Vuelve a entrar para seguir jugando",
+	"response.poker_unavailable": "La mesa de póquer está cerrada por ahora"
 }

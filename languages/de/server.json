@@ -312,5 +312,14 @@
 	"server.payment.shells.one": "{count} Muschel",
 	"server.game_log.wheel_bet": "Rad: {side} für {amount} Gold",
 	"server.game_log.wheel_won": "Das Rad blieb auf {side} stehen. {amount} Gold gewonnen",
-	"server.game_log.wheel_lost": "Das Rad blieb auf {side} stehen. {amount} Gold verloren"
+	"server.game_log.wheel_lost": "Das Rad blieb auf {side} stehen. {amount} Gold verloren",
+	"server.game_log.poker_join": "Du setzt dich mit {amount} Gold an den Pokertisch",
+	"server.game_log.poker_leaving": "Du verlässt den Pokertisch nach dieser Hand",
+	"server.game_log.poker_cash_out": "Du verlässt den Pokertisch mit {amount} Gold",
+	"server.game_log.poker_refund": "{amount} Gold vom Pokertisch sind zurück in deiner Börse",
+	"server.game_log.poker_back": "Du bist mit {amount} Gold zurück am Pokertisch",
+	"server.game_log.poker_won": "Poker: {amount} Gold gewonnen",
+	"server.game_log.poker_broke": "Dein Stack liegt unter dem Big Blind von {amount}. Kauf dich erneut ein oder verlasse den Tisch",
+	"server.game_log.poker_auto_check": "Deine Zeit ist abgelaufen. Für dich wurde gecheckt",
+	"server.game_log.poker_auto_fold": "Deine Zeit ist abgelaufen. Für dich wurde gepasst"
 }

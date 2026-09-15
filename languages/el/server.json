@@ -313,5 +313,14 @@
 	"server.payment.shells.one": "{count} κοχύλι",
 	"server.game_log.wheel_bet": "Τροχός: {side} για {amount} χρυσό",
 	"server.game_log.wheel_won": "Ο τροχός σταμάτησε στο {side}. Κέρδισες {amount} χρυσό",
-	"server.game_log.wheel_lost": "Ο τροχός σταμάτησε στο {side}. Έχασες {amount} χρυσό"
+	"server.game_log.wheel_lost": "Ο τροχός σταμάτησε στο {side}. Έχασες {amount} χρυσό",
+	"server.game_log.poker_join": "Κάθεσαι στο τραπέζι του πόκερ με {amount} χρυσό",
+	"server.game_log.poker_leaving": "Θα αποχωρήσεις από το τραπέζι του πόκερ μετά από αυτό το χέρι",
+	"server.game_log.poker_cash_out": "Αποχωρείς από το τραπέζι του πόκερ με {amount} χρυσό",
+	"server.game_log.poker_refund": "{amount} χρυσό από το τραπέζι του πόκερ επέστρεψε στο πουγκί σου",
+	"server.game_log.poker_back": "Επέστρεψες στο τραπέζι του πόκερ με {amount} χρυσό",
+	"server.game_log.poker_won": "Πόκερ: κέρδισες {amount} χρυσό",
+	"server.game_log.poker_broke": "Οι μάρκες σου είναι κάτω από το big blind των {amount}. Αγόρασε ξανά θέση ή άφησε το τραπέζι",
+	"server.game_log.poker_auto_check": "Ο χρόνος σου τελείωσε. Έγινε check για σένα",
+	"server.game_log.poker_auto_fold": "Ο χρόνος σου τελείωσε. Πήγες πάσο αυτόματα"
 }

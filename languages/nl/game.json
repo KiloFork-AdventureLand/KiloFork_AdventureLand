@@ -435,5 +435,18 @@
 	"chat.min": "MIN",
 	"response.wheel_spinning": "Het rad draait nog",
 	"response.wheel_side": "Kies eerst Zon of Maan",
-	"response.slots_spinning": "De rollen draaien nog"
+	"response.slots_spinning": "De rollen draaien nog",
+	"response.not_in_tavern": "Daarvoor moet je in de taverne zijn",
+	"response.poker_far": "Ga dichter bij de pokertafel staan",
+	"response.poker_full": "De pokertafel zit vol",
+	"response.poker_seat_taken": "Die stoel is net bezet",
+	"response.poker_seated": "Je account heeft al een stoel aan deze tafel",
+	"response.poker_buyin": "Koop in voor tussen {min} en {max} goud",
+	"response.poker_not_seated": "Je zit niet aan de pokertafel",
+	"response.poker_not_your_turn": "Jij bent niet aan de beurt",
+	"response.poker_invalid_action": "Die zet is nu niet toegestaan",
+	"response.poker_min_raise": "Verhoog naar minstens {min}",
+	"response.poker_in_hand": "Wacht tot de hand voorbij is",
+	"response.poker_broke": "Koop opnieuw in om verder te spelen",
+	"response.poker_unavailable": "De pokertafel is op dit moment gesloten"
 }

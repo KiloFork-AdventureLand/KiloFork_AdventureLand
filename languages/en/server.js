@@ -130,6 +130,24 @@ module.exports = {
 	"server.game_log.wheel_won": "The wheel stopped on {side}. Won {amount} gold",
 	// node/logic/tavern_wheel.js; game_log when the wheel settles on the other side. {side} = the side it stopped on, {amount} = formatted gold lost.
 	"server.game_log.wheel_lost": "The wheel stopped on {side}. Lost {amount} gold",
+	// node/logic/tavern_poker.js; game_log when a player buys into the Tavern poker table or adds to a stack. {amount} = formatted gold.
+	"server.game_log.poker_join": "You sit down at the poker table with {amount} gold",
+	// node/logic/tavern_poker.js; game_log when a seated player will leave once the current hand ends (pressed Leave, or walked away from the stool).
+	"server.game_log.poker_leaving": "You leave the poker table after this hand",
+	// node/logic/tavern_poker.js; game_log when a seat is cashed out: the stack returns to the purse. {amount} = formatted gold.
+	"server.game_log.poker_cash_out": "You leave the poker table with {amount} gold",
+	// node/logic/tavern_poker.js; game_log at login when gold left on a poker seat by an earlier session (or a restart) is returned. {amount} = formatted gold.
+	"server.game_log.poker_refund": "{amount} gold from the poker table returned to your purse",
+	// node/logic/tavern_poker.js; game_log at login when the character resumes its poker seat after a disconnect. {amount} = formatted gold still on the seat.
+	"server.game_log.poker_back": "You are back at the poker table with {amount} gold",
+	// node/logic/tavern_poker.js; game_log when the player wins gold in a poker hand. {amount} = formatted net gold gained in the hand.
+	"server.game_log.poker_won": "Poker: won {amount} gold",
+	// node/logic/tavern_poker.js; game_log after a hand when the stack is below one big blind, so the seat sits out. {amount} = the big blind, formatted gold.
+	"server.game_log.poker_broke": "Your stack is below the {amount} big blind. Buy in again or leave the table",
+	// node/logic/tavern_poker.js; game_log when the decision clock and the time bank ran out and nothing had to be called, so the server checked.
+	"server.game_log.poker_auto_check": "Your clock ran out. Checked for you",
+	// node/logic/tavern_poker.js; game_log when the decision clock and the time bank ran out while facing a bet, so the server folded.
+	"server.game_log.poker_auto_fold": "Your clock ran out. Folded for you",
 	// node/server.js:11607; game_log authored display. Keep character, item, monster, map, and product names unchanged.
 	"server.game_log.can_t_join_the_duel_from_a_pvp_zone": "Can't join the duel from a pvp zone!",
 	// node/server.js:11526; game_log authored display. Keep character, item, monster, map, and product names unchanged.

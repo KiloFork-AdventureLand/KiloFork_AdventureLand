@@ -435,5 +435,18 @@
 	"chat.min": "ย่อ",
 	"response.wheel_spinning": "วงล้อยังหมุนอยู่",
 	"response.wheel_side": "เลือกดวงอาทิตย์หรือดวงจันทร์ก่อน",
-	"response.slots_spinning": "วงล้อยังหมุนอยู่"
+	"response.slots_spinning": "วงล้อยังหมุนอยู่",
+	"response.not_in_tavern": "คุณต้องอยู่ในโรงเตี๊ยมก่อน",
+	"response.poker_far": "เดินเข้าไปใกล้โต๊ะโป๊กเกอร์อีกหน่อย",
+	"response.poker_full": "โต๊ะโป๊กเกอร์เต็มแล้ว",
+	"response.poker_seat_taken": "ที่นั่งนั้นเพิ่งมีคนนั่งไป",
+	"response.poker_seated": "บัญชีของคุณมีที่นั่งที่โต๊ะนี้อยู่แล้ว",
+	"response.poker_buyin": "บายอินได้ระหว่าง {min} ถึง {max} ทอง",
+	"response.poker_not_seated": "คุณไม่ได้นั่งอยู่ที่โต๊ะโป๊กเกอร์",
+	"response.poker_not_your_turn": "ยังไม่ถึงตาคุณ",
+	"response.poker_invalid_action": "ตอนนี้ทำแบบนั้นไม่ได้",
+	"response.poker_min_raise": "เรสอย่างน้อยเป็น {min}",
+	"response.poker_in_hand": "รอให้จบมือนี้ก่อน",
+	"response.poker_broke": "บายอินอีกครั้งเพื่อเล่นต่อ",
+	"response.poker_unavailable": "โต๊ะโป๊กเกอร์ปิดอยู่ในตอนนี้"
 }

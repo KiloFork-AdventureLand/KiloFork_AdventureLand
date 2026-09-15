@@ -435,5 +435,18 @@
 	"chat.min": "МИН.",
 	"response.wheel_spinning": "Колесо ещё крутится",
 	"response.wheel_side": "Сначала выберите Солнце или Луну",
-	"response.slots_spinning": "Барабаны ещё крутятся"
+	"response.slots_spinning": "Барабаны ещё крутятся",
+	"response.not_in_tavern": "Для этого нужно быть в таверне",
+	"response.poker_far": "Подойдите ближе к покерному столу",
+	"response.poker_full": "За покерным столом нет мест",
+	"response.poker_seat_taken": "Это место только что заняли",
+	"response.poker_seated": "У вашего аккаунта уже есть место за этим столом",
+	"response.poker_buyin": "Бай-ин от {min} до {max} золота",
+	"response.poker_not_seated": "Вы не сидите за покерным столом",
+	"response.poker_not_your_turn": "Сейчас не ваш ход",
+	"response.poker_invalid_action": "Сейчас так ходить нельзя",
+	"response.poker_min_raise": "Повысьте минимум до {min}",
+	"response.poker_in_hand": "Дождитесь конца раздачи",
+	"response.poker_broke": "Внесите бай-ин снова, чтобы продолжить игру",
+	"response.poker_unavailable": "Покерный стол сейчас закрыт"
 }

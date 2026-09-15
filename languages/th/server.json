@@ -310,5 +310,14 @@
 	"server.pm.delivery_failed": "(ส่งไม่สำเร็จ)",
 	"server.game_log.wheel_bet": "วงล้อ: {side} ด้วยทอง {amount}",
 	"server.game_log.wheel_won": "วงล้อหยุดที่{side} ชนะได้ทอง {amount}",
-	"server.game_log.wheel_lost": "วงล้อหยุดที่{side} เสียทอง {amount}"
+	"server.game_log.wheel_lost": "วงล้อหยุดที่{side} เสียทอง {amount}",
+	"server.game_log.poker_join": "คุณนั่งลงที่โต๊ะโป๊กเกอร์พร้อมทอง {amount}",
+	"server.game_log.poker_leaving": "คุณจะลุกจากโต๊ะโป๊กเกอร์หลังจบมือนี้",
+	"server.game_log.poker_cash_out": "คุณลุกจากโต๊ะโป๊กเกอร์พร้อมทอง {amount}",
+	"server.game_log.poker_refund": "ทอง {amount} จากโต๊ะโป๊กเกอร์กลับคืนสู่ถุงเงินของคุณแล้ว",
+	"server.game_log.poker_back": "คุณกลับมาที่โต๊ะโป๊กเกอร์พร้อมทอง {amount}",
+	"server.game_log.poker_won": "โป๊กเกอร์: ชนะทอง {amount}",
+	"server.game_log.poker_broke": "ชิปของคุณน้อยกว่าบิ๊กบลายด์ {amount} บายอินอีกครั้งหรือลุกจากโต๊ะ",
+	"server.game_log.poker_auto_check": "หมดเวลาแล้ว ระบบเช็คให้คุณ",
+	"server.game_log.poker_auto_fold": "หมดเวลาแล้ว ระบบหมอบให้คุณ"
 }

@@ -435,5 +435,18 @@
 	"chat.min": "MIN",
 	"response.wheel_spinning": "Hjulet snurrar fortfarande",
 	"response.wheel_side": "Välj Sol eller Måne först",
-	"response.slots_spinning": "Hjulen snurrar fortfarande"
+	"response.slots_spinning": "Hjulen snurrar fortfarande",
+	"response.not_in_tavern": "Du måste vara i tavernan för det",
+	"response.poker_far": "Gå närmare pokerbordet",
+	"response.poker_full": "Pokerbordet är fullt",
+	"response.poker_seat_taken": "Den platsen togs precis",
+	"response.poker_seated": "Ditt konto har redan en plats vid det här bordet",
+	"response.poker_buyin": "Köp in för mellan {min} och {max} guld",
+	"response.poker_not_seated": "Du sitter inte vid pokerbordet",
+	"response.poker_not_your_turn": "Det är inte din tur",
+	"response.poker_invalid_action": "Det draget är inte tillåtet just nu",
+	"response.poker_min_raise": "Höj till minst {min}",
+	"response.poker_in_hand": "Vänta tills given är slut",
+	"response.poker_broke": "Köp in igen för att fortsätta spela",
+	"response.poker_unavailable": "Pokerbordet är stängt just nu"
 }

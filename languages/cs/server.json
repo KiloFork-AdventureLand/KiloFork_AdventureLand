@@ -316,5 +316,14 @@
 	"server.payment.shells.one": "{count} mušle",
 	"server.game_log.wheel_bet": "Kolo: {side} za {amount} zlata",
 	"server.game_log.wheel_won": "Kolo se zastavilo na {side}. Výhra {amount} zlata",
-	"server.game_log.wheel_lost": "Kolo se zastavilo na {side}. Prohra {amount} zlata"
+	"server.game_log.wheel_lost": "Kolo se zastavilo na {side}. Prohra {amount} zlata",
+	"server.game_log.poker_join": "Usedáš k pokerovému stolu s {amount} zlata",
+	"server.game_log.poker_leaving": "Po tomto rozdání odejdeš od pokerového stolu",
+	"server.game_log.poker_cash_out": "Odcházíš od pokerového stolu s {amount} zlata",
+	"server.game_log.poker_refund": "{amount} zlata z pokerového stolu se vrátilo do tvého měšce",
+	"server.game_log.poker_back": "Jsi zpět u pokerového stolu s {amount} zlata",
+	"server.game_log.poker_won": "Poker: vyhráno {amount} zlata",
+	"server.game_log.poker_broke": "Tvůj stack je pod big blindem {amount}. Vlož znovu, nebo od stolu odejdi",
+	"server.game_log.poker_auto_check": "Vypršel ti čas. Check byl proveden za tebe",
+	"server.game_log.poker_auto_fold": "Vypršel ti čas. Složeno za tebe"
 }

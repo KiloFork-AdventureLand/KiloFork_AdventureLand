@@ -3,7 +3,7 @@
 <p>{{ phrase("docs.guide.tavern-games.the-tavern-s-dice-table-and-slot-machine") }}</p>
 
 <div class="guide-showcase" style="border-color:#AA7040">
-	<div class="guide-showcase-art"><span class="tavern-jaqk"></span><span class="tavern-die">55</span><span class="tavern-slots">777</span><span class="tavern-wheel">○</span></div>
+	<div class="guide-showcase-art"><span class="tavern-jaqk"></span><span class="tavern-die">55</span><span class="tavern-slots">777</span><span class="tavern-wheel">○</span><span class="tavern-poker">♠</span></div>
 	<div class="guide-showcase-copy">{{ phrase_html("docs.guide.tavern-games.house_rules") }}</div>
 </div>
 
@@ -46,6 +46,27 @@
 <div class="guide-note">{{ phrase_html("docs.guide.tavern-games.a-completed-losing-wager-is-a-valid-result") }}</div>
 
 <div class="divider"></div>
+<div class="title mt15">{{ phrase("docs.guide.tavern-games.hold-em") }}</div>
+<div class="guide-flow" style="border-color:#2F6B3C" data-guide-visual="tavern-poker">
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.sit-down-buy-in") }}</div>
+	<div class="guide-flow-arrow">→</div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.blinds-and-two-cards") }}</div>
+	<div class="guide-flow-arrow">→</div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.four-betting-streets") }}</div>
+	<div class="guide-flow-arrow">→</div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.showdown-rake-from-each-pot") }}</div>
+</div>
+<p>{{ phrase("docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit") }}</p>
+<div class="guide-paytable guide-blinds">
+	<div class="guide-paytable-row guide-paytable-head"><span>{{ phrase("docs.guide.tavern-games.servers") }}</span><span>{{ phrase("docs.guide.tavern-games.small-blind") }}</span><span>{{ phrase("docs.guide.tavern-games.big-blind") }}</span><span>{{ phrase("docs.guide.tavern-games.buy-in") }}</span></div>
+	<div class="guide-paytable-row" data-tier="I"><span>{{ phrase("docs.guide.tavern-games.tier-i") }}</span></div>
+	<div class="guide-paytable-row" data-tier="II"><span>{{ phrase("docs.guide.tavern-games.tier-ii") }}</span></div>
+	<div class="guide-paytable-row" data-tier="III"><span>{{ phrase("docs.guide.tavern-games.tier-iii") }}</span></div>
+	<div class="guide-paytable-row" data-tier="IV"><span>{{ phrase("docs.guide.tavern-games.tier-iv") }}</span></div>
+</div>
+<div class="guide-note">{{ phrase_html("docs.guide.tavern-games.leaving-the-table") }}</div>
+
+<div class="divider"></div>
 <div class="title mt15">{{ phrase("docs.guide.tavern-games.code-inspect-the-house") }}</div>
 <div class="code">async function inspect_tavern() {
 	var house = await get_tavern_info();
@@ -85,6 +106,24 @@ inspect_tavern().catch(show_json);</div>
 
 // This spends gold:
 // spin_once("sun", 10000).catch(show_json);</div>
+
+<div class="title mt15">{{ phrase("docs.guide.tavern-games.code-play-a-hand") }}</div>
+<div class="code">// Sit down for the smallest buy-in and play a careful hand: fold to big bets, call small ones, check when free.
+async function sit_and_play() {
+	var table = await get_poker_table();
+	if (table.buyin[0] &gt; character.gold) return game_log("Not enough gold to buy in");
+	var joined = await poker_join(table.buyin[0]);
+	game_log("Seat " + joined.seat + " with " + joined.stack + " gold");
+	character.on("poker", async function (state) {
+		var me = state.seats[joined.seat];
+		if (!me || !state.hand || state.hand.over || state.hand.acting != joined.seat) return;
+		var to_call = state.hand.bet - me.bet;
+		await poker_act(to_call &gt; 2 * state.blinds[1] ? "fold" : to_call &gt; 0 ? "call" : "check");
+	});
+}
+
+// This spends gold; leave the table with poker_leave() when you are done:
+// sit_and_play().catch(show_json);</div>
 <p>{{ phrase_html("docs.guide.tavern-games.references-get-tavern-info-bet-dice-play-slots") }}</p>
 
 <div class="guide-related">{{ phrase_html("docs.guide.tavern-games.for-ordinary-trade-see-markets-and-trading") }}</div>
@@ -92,8 +131,17 @@ inspect_tavern().catch(show_json);</div>
 <script>
 	$(".tavern-jaqk").html(sprite(G.npcs.tavern.skin, { height: 62 }));
 	(function () {
+		var poker = G.games && G.games.poker,
+			blinds = $(".guide-blinds");
+		if (!poker || !blinds.length) return;
+		blinds.find("[data-tier]").each(function () {
+			var tier = poker.blinds[$(this).attr("data-tier")];
+			$(this).append("<span class='guide-paytable-gold'>" + to_pretty_num(tier[0]) + "</span><span class='guide-paytable-gold'>" + to_pretty_num(tier[1]) + "</span><span>" + to_pretty_num(poker.buyin[0] * tier[1]) + " – " + to_pretty_num(poker.buyin[1] * tier[1]) + "</span>");
+		});
+	})();
+	(function () {
 		var slots = G.games && G.games.slots,
-			table = $(".guide-paytable");
+			table = $(".guide-paytable").not(".guide-blinds");
 		if (!slots || !table.length) return;
 		var odds = table.attr("data-odds");
 		slots.prizes.forEach(function (prize) {
@@ -105,5 +153,5 @@ inspect_tavern().catch(show_json);</div>
 </script>
 
 <style>
-	.guide-kicker{color:#AA7040;font-size:18px;font-weight:bold;letter-spacing:2px}.guide-title{color:#7D4C29;font-size:44px;line-height:48px;margin:2px 0 12px}.title{color:#7D4C29;font-size:36px;margin-top:15px}.divider{margin-top:15px;height:5px;background-color:#A2A2A2;margin-left:-26px;margin-right:-26px}.guide-note{border-left:6px solid #AA7040;background:#F2E4D8;padding:10px 14px;margin:12px 0}.guide-related{border-top:2px dotted #AAA;margin-top:18px;padding-top:10px;color:#666}.guide-related span{color:#85522D;cursor:pointer;text-decoration:underline}.tavern-die,.tavern-roll,.tavern-choice,.tavern-gold,.tavern-slots,.tavern-result,.tavern-side,.tavern-wheel,.tavern-even{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:3px solid #D9B274;background:#2A1B13;color:#FFD888;font-size:23px}.tavern-slots{border-color:#C18ACB;background:#221525;color:#F1B6FB}.tavern-side{border-color:#FFBB31;background:#2A1B13;color:#FFE737;font-size:18px}.tavern-wheel{border-radius:50%;border-color:#6D3D4B;background:conic-gradient(#3D34A5 0 25.7deg,#FF82CE 0 51.4deg,#25E2CD 0 77.1deg,#FF7500 0 102.9deg,#6264DC 0 128.6deg,#E03C28 0 154.3deg,#20B562 0 180deg,#FFBB31 0 205.7deg,#A328B3 0 231.4deg,#F68F37 0 257.1deg,#98DCFF 0 282.9deg,#FEC9ED 0 308.6deg,#00604B 0 334.3deg,#FFE737 0 360deg);color:transparent}.tavern-even{border-color:#8BD08B;background:#13251A;color:#9BE29B}.guide-paytable{border:3px solid #8B5B96;background:#221525;color:#F1B6FB;padding:6px 12px;margin:12px 0;display:inline-block}.guide-paytable-row{display:flex;align-items:center;gap:14px;line-height:30px}.guide-paytable-row>span:first-child{min-width:96px}.guide-paytable-row>span:nth-child(2){min-width:150px}.guide-paytable-head{color:#C18ACB;font-size:16px;letter-spacing:1px;line-height:22px}.guide-paytable-gold{color:#FFD888}.tavern-choice{font-size:18px}.tavern-roll{color:#8EE1A2}.tavern-gold{border-radius:50%;color:#F1CE4F}.tavern-result{color:#EFA9C9}
+	.guide-kicker{color:#AA7040;font-size:18px;font-weight:bold;letter-spacing:2px}.guide-title{color:#7D4C29;font-size:44px;line-height:48px;margin:2px 0 12px}.title{color:#7D4C29;font-size:36px;margin-top:15px}.divider{margin-top:15px;height:5px;background-color:#A2A2A2;margin-left:-26px;margin-right:-26px}.guide-note{border-left:6px solid #AA7040;background:#F2E4D8;padding:10px 14px;margin:12px 0}.guide-related{border-top:2px dotted #AAA;margin-top:18px;padding-top:10px;color:#666}.guide-related span{color:#85522D;cursor:pointer;text-decoration:underline}.tavern-die,.tavern-roll,.tavern-choice,.tavern-gold,.tavern-slots,.tavern-result,.tavern-side,.tavern-wheel,.tavern-even{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:3px solid #D9B274;background:#2A1B13;color:#FFD888;font-size:23px}.tavern-slots{border-color:#C18ACB;background:#221525;color:#F1B6FB}.tavern-side{border-color:#FFBB31;background:#2A1B13;color:#FFE737;font-size:18px}.tavern-wheel{border-radius:50%;border-color:#6D3D4B;background:conic-gradient(#3D34A5 0 25.7deg,#FF82CE 0 51.4deg,#25E2CD 0 77.1deg,#FF7500 0 102.9deg,#6264DC 0 128.6deg,#E03C28 0 154.3deg,#20B562 0 180deg,#FFBB31 0 205.7deg,#A328B3 0 231.4deg,#F68F37 0 257.1deg,#98DCFF 0 282.9deg,#FEC9ED 0 308.6deg,#00604B 0 334.3deg,#FFE737 0 360deg);color:transparent}.tavern-even{border-color:#8BD08B;background:#13251A;color:#9BE29B}.tavern-poker{border-color:#9D5F3E;background:#2F6B3C;color:#F0E4C8}.guide-blinds{border-color:#9D5F3E;background:#1C3A24;color:#F0E4C8}.guide-blinds .guide-paytable-head{color:#9BE29B}.guide-blinds .guide-paytable-row>span:first-child{min-width:170px}.guide-blinds .guide-paytable-row>span:nth-child(2),.guide-blinds .guide-paytable-row>span:nth-child(3){min-width:130px}.guide-paytable{border:3px solid #8B5B96;background:#221525;color:#F1B6FB;padding:6px 12px;margin:12px 0;display:inline-block}.guide-paytable-row{display:flex;align-items:center;gap:14px;line-height:30px}.guide-paytable-row>span:first-child{min-width:96px}.guide-paytable-row>span:nth-child(2){min-width:150px}.guide-paytable-head{color:#C18ACB;font-size:16px;letter-spacing:1px;line-height:22px}.guide-paytable-gold{color:#FFD888}.tavern-choice{font-size:18px}.tavern-roll{color:#8EE1A2}.tavern-gold{border-radius:50%;color:#F1CE4F}.tavern-result{color:#EFA9C9}
 </style>

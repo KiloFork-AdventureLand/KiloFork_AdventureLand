@@ -435,5 +435,18 @@
 	"chat.min": "縮小",
 	"response.wheel_spinning": "輪はまだ回っています",
 	"response.wheel_side": "先に太陽か月を選んでください",
-	"response.slots_spinning": "リールはまだ回っています"
+	"response.slots_spinning": "リールはまだ回っています",
+	"response.not_in_tavern": "それには酒場にいる必要があります",
+	"response.poker_far": "ポーカーテーブルにもっと近づいてください",
+	"response.poker_full": "ポーカーテーブルは満席です",
+	"response.poker_seat_taken": "その席はたった今埋まりました",
+	"response.poker_seated": "このアカウントはすでにこのテーブルに着席しています",
+	"response.poker_buyin": "バイインは {min} ～ {max} ゴールドです",
+	"response.poker_not_seated": "ポーカーテーブルに着席していません",
+	"response.poker_not_your_turn": "あなたの番ではありません",
+	"response.poker_invalid_action": "今はそのアクションはできません",
+	"response.poker_min_raise": "最低 {min} までレイズしてください",
+	"response.poker_in_hand": "ハンドが終わるまで待ってください",
+	"response.poker_broke": "続けるには再びバイインしてください",
+	"response.poker_unavailable": "ポーカーテーブルは現在閉じています"
 }

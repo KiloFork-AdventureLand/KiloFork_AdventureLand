@@ -315,5 +315,14 @@
 	"server.payment.shells.other": "{count} conchiglie",
 	"server.game_log.wheel_bet": "Ruota: {side} per {amount} oro",
 	"server.game_log.wheel_won": "La ruota si è fermata su {side}. Hai vinto {amount} oro",
-	"server.game_log.wheel_lost": "La ruota si è fermata su {side}. Hai perso {amount} oro"
+	"server.game_log.wheel_lost": "La ruota si è fermata su {side}. Hai perso {amount} oro",
+	"server.game_log.poker_join": "Ti siedi al tavolo da poker con {amount} oro",
+	"server.game_log.poker_leaving": "Lascerai il tavolo da poker dopo questa mano",
+	"server.game_log.poker_cash_out": "Lasci il tavolo da poker con {amount} oro",
+	"server.game_log.poker_refund": "{amount} oro dal tavolo da poker sono tornati nella tua borsa",
+	"server.game_log.poker_back": "Sei di nuovo al tavolo da poker con {amount} oro",
+	"server.game_log.poker_won": "Poker: vinti {amount} oro",
+	"server.game_log.poker_broke": "Il tuo stack è sotto il grande buio di {amount}. Rientra con un nuovo buy-in o lascia il tavolo",
+	"server.game_log.poker_auto_check": "Il tuo tempo è scaduto. Check fatto al posto tuo",
+	"server.game_log.poker_auto_fold": "Il tuo tempo è scaduto. Hai passato automaticamente"
 }

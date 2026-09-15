@@ -310,5 +310,14 @@
 	"server.pm.delivery_failed": "(NEM KÉZBESÍTVE)",
 	"server.game_log.wheel_bet": "Kerék: {side}, {amount} arany",
 	"server.game_log.wheel_won": "A kerék itt állt meg: {side}. Nyertél {amount} aranyat",
-	"server.game_log.wheel_lost": "A kerék itt állt meg: {side}. Vesztettél {amount} aranyat"
+	"server.game_log.wheel_lost": "A kerék itt állt meg: {side}. Vesztettél {amount} aranyat",
+	"server.game_log.poker_join": "Leültél a pókerasztalhoz {amount} arannyal",
+	"server.game_log.poker_leaving": "A leosztás után távozol a pókerasztaltól",
+	"server.game_log.poker_cash_out": "Távoztál a pókerasztaltól {amount} arannyal",
+	"server.game_log.poker_refund": "{amount} arany a pókerasztalról visszakerült az erszényedbe",
+	"server.game_log.poker_back": "Visszatértél a pókerasztalhoz {amount} arannyal",
+	"server.game_log.poker_won": "Póker: nyertél {amount} aranyat",
+	"server.game_log.poker_broke": "A zsetonjaid a {amount} nagyvak alatt vannak. Ülj be újra, vagy hagyd el az asztalt",
+	"server.game_log.poker_auto_check": "Lejárt az időd. Passzoltunk helyetted",
+	"server.game_log.poker_auto_fold": "Lejárt az időd. Dobtunk helyetted"
 }

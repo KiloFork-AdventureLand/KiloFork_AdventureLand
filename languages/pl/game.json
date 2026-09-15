@@ -435,5 +435,18 @@
 	"chat.min": "MAŁY",
 	"response.wheel_spinning": "Koło wciąż się kręci",
 	"response.wheel_side": "Najpierw wybierz Słońce albo Księżyc",
-	"response.slots_spinning": "Bębny wciąż się kręcą"
+	"response.slots_spinning": "Bębny wciąż się kręcą",
+	"response.not_in_tavern": "Do tego musisz być w tawernie",
+	"response.poker_far": "Podejdź bliżej stołu pokerowego",
+	"response.poker_full": "Stół pokerowy jest pełny",
+	"response.poker_seat_taken": "To miejsce właśnie zostało zajęte",
+	"response.poker_seated": "Twoje konto ma już miejsce przy tym stole",
+	"response.poker_buyin": "Wpłać od {min} do {max} złota",
+	"response.poker_not_seated": "Nie siedzisz przy stole pokerowym",
+	"response.poker_not_your_turn": "To nie twoja kolej",
+	"response.poker_invalid_action": "Ten ruch nie jest teraz dozwolony",
+	"response.poker_min_raise": "Podbij co najmniej do {min}",
+	"response.poker_in_hand": "Poczekaj na koniec rozdania",
+	"response.poker_broke": "Wpłać ponownie, aby grać dalej",
+	"response.poker_unavailable": "Stół pokerowy jest teraz zamknięty"
 }

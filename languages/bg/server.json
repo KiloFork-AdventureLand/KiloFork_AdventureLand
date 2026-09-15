@@ -313,5 +313,14 @@
 	"server.payment.shells.one": "{count} раковина",
 	"server.game_log.wheel_bet": "Колело: {side} за {amount} злато",
 	"server.game_log.wheel_won": "Колелото спря на {side}. Печалба {amount} злато",
-	"server.game_log.wheel_lost": "Колелото спря на {side}. Загуба {amount} злато"
+	"server.game_log.wheel_lost": "Колелото спря на {side}. Загуба {amount} злато",
+	"server.game_log.poker_join": "Сядаш на покер масата с {amount} злато",
+	"server.game_log.poker_leaving": "Ще напуснеш покер масата след това раздаване",
+	"server.game_log.poker_cash_out": "Напускаш покер масата с {amount} злато",
+	"server.game_log.poker_refund": "{amount} злато от покер масата се върна в кесията ти",
+	"server.game_log.poker_back": "Върна се на покер масата с {amount} злато",
+	"server.game_log.poker_won": "Покер: спечели {amount} злато",
+	"server.game_log.poker_broke": "Чиповете ти са под големия блинд от {amount}. Внеси отново или напусни масата",
+	"server.game_log.poker_auto_check": "Времето ти изтече. Направен е чек вместо теб",
+	"server.game_log.poker_auto_fold": "Времето ти изтече. Пасувано е вместо теб"
 }

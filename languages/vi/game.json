@@ -435,5 +435,18 @@
 	"chat.min": "NHỎ",
 	"response.wheel_spinning": "Vòng quay vẫn đang quay",
 	"response.wheel_side": "Hãy chọn Mặt Trời hoặc Mặt Trăng trước",
-	"response.slots_spinning": "Các cuộn vẫn đang quay"
+	"response.slots_spinning": "Các cuộn vẫn đang quay",
+	"response.not_in_tavern": "Bạn cần ở trong Quán Rượu để làm việc đó",
+	"response.poker_far": "Hãy lại gần bàn poker hơn",
+	"response.poker_full": "Bàn poker đã đầy",
+	"response.poker_seat_taken": "Ghế đó vừa có người ngồi",
+	"response.poker_seated": "Tài khoản của bạn đã có ghế ở bàn này",
+	"response.poker_buyin": "Mua vào từ {min} đến {max} vàng",
+	"response.poker_not_seated": "Bạn không ngồi ở bàn poker",
+	"response.poker_not_your_turn": "Chưa đến lượt bạn",
+	"response.poker_invalid_action": "Hiện không được phép đi nước này",
+	"response.poker_min_raise": "Tố lên ít nhất {min}",
+	"response.poker_in_hand": "Hãy chờ ván bài kết thúc",
+	"response.poker_broke": "Mua vào lại để tiếp tục chơi",
+	"response.poker_unavailable": "Bàn poker hiện đang đóng"
 }
