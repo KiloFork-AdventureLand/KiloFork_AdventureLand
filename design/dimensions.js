@@ -1150,7 +1150,7 @@ var positions={
 	"patronsgrace":["custom",5,0],
 };
 
-Object.assign(positions, {"cave_locktooth": ["rawitems", 5, 4], "cave_counterweight": ["rawitems", 6, 4], "cave_mothsteps": ["rawitems", 7, 4], "cave_loaded_die": ["rawitems", 8, 4]});
+Object.assign(positions, {"cave_locktooth": ["rawitems", 5, 4], "cave_counterweight": ["rawitems", 6, 4], "cave_mothsteps": ["rawitems", 13, 4], "cave_loaded_die": ["rawitems", 8, 4]});
 for (var pair of [["cave_bat","bat"],["cave_rat","rat"],["cave_wolf","wolf"],["cave_sentinel","stoneworm"]]) dimensions[pair[0]] = dimensions[pair[1]].slice();
 
 if(typeof module!=="undefined") module.exports={dimensions,positions};
