@@ -1504,6 +1504,7 @@ function init_socket(args) {
 				transporting = new Date();
 				transporting_event = event;
 				transporting_data = { to: event_data.to, s: event_data.s || 0, place: event_data.place, name: event_data.name };
+				cave_transport_animation(event, event_data);
 			}
 		} else {
 			var same_request = transporting_event == event;

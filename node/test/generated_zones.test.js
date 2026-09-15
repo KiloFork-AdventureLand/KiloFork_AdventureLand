@@ -205,6 +205,7 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	c.decorate_cave_door({});
 	c.cave_manual("enter");
 	c.cave_entry_animation({ names: ["A"], duration: 1800 });
+	c.cave_transport_animation("transport", { to: "zone_b" });
 	c.draw_cave_entrance();
 	c.decorate_cave_gate({});
 	c.cave_gate_piece("outside", 0, 0, 16, 16);

@@ -952,7 +952,7 @@
 				return plan;
 			}
 			if (s.rip || (s.hp !== undefined && s.hp < (s.max_hp || current.max_hp) * 0.35)) {
-				result.rows = [advice("recover", "recover", {}, { id: "recover", priority: 1000, action: { kind: "recover" } })];
+				result.rows = [advice("recover", "recover", {}, { id: "recover", art: { skill: s.rip ? "use_town" : "regen_hp" }, priority: 1000, action: { kind: "recover" } })];
 				return result;
 			}
 			var pots = potionStock(s),

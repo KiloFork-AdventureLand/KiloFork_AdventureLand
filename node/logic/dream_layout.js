@@ -986,8 +986,12 @@ function ground(map) {
 						y * 16,
 					);
 				else {
+					// Follow the corner down to the floor, then carry its pillar up
+					// the whole face. Stepped joins otherwise keep only the foot.
+					let foot = y;
+					while (solid(x, foot + 1)) foot++;
 					const row = !face(x, y - 1) ? 0 : bottom ? 48 : 16 + (y % 2) * 16;
-					const im = images["ruin-wall-" + (left ? "left" : right ? "right" : "course")];
+					const im = images["ruin-wall-" + (!solid(x - 1, foot) ? "left" : !solid(x + 1, foot) ? "right" : "course")];
 					ctx.drawImage(im, im.width === 32 ? (x % 2) * 16 : 0, row, 16, 16, x * 16, y * 16, 16, 16);
 				}
 			} else {

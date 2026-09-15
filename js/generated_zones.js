@@ -293,6 +293,13 @@ function render_cave_choice() {
 // Native atlas pieces keep the gate on the same pixel grid as Mainland.
 var cave_gate_textures = {};
 var cave_entry_scenes = [];
+var cave_transport_scene = null;
+function cave_transport_animation(event, data) {
+	if (no_graphics || !character || event !== "transport" || !G.maps[current_map]?.generated || !G.maps[data.to]) return;
+	if (character.animations.transport) return;
+	start_animation(character,"transport");
+	cave_transport_scene = {sprite:character,animation:character.animations.transport,map:current_map,socket:socket,at:Date.now()};
+}
 function cave_gate_piece(sheet, x, y, width, height) {
 	if (no_graphics) return;
 	var key = [sheet,x,y,width,height].join(":");
@@ -363,6 +370,13 @@ function cave_entry_animation(data) {
 function draw_cave_entrance() {
 	if (no_graphics) return;
 	var now=Date.now();
+	if(cave_transport_scene) {
+		var travel=cave_transport_scene, sprite=travel.sprite;
+		if(!transporting || current_map!==travel.map || character!==sprite || socket!==travel.socket || socket?.disconnected || sprite.rip || now-travel.at>=150000) {
+			if(!sprite._destroyed && sprite.animations?.transport===travel.animation && !sprite.tp && !sprite.c?.town) stop_animation(sprite,"transport");
+			cave_transport_scene=null;
+		}
+	}
 	cave_entry_scenes=cave_entry_scenes.filter(function(scene) {
 		var age=now-scene.at, done=current_map!=="main" || age>scene.duration;
 		for (var actor of scene.sprites) {

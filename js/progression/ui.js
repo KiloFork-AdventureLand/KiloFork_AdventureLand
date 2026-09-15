@@ -98,7 +98,8 @@
 	root.progression_art = function (art, portrait) {
 		if (!graphics()) return "";
 		if (!art) return "<div class='progression-art' aria-hidden='true'></div>";
-		if (art.item && G.items[art.item]) return "<div class='progression-art' aria-hidden='true'>" + item_container({ skin: art.item, size: 40, bcolor: "black", draggable: false }) + "</div>";
+		var icon = art.item && G.items[art.item] ? art.item : art.skill && G.skills[art.skill] && G.skills[art.skill].skin;
+		if (icon) return "<div class='progression-art' aria-hidden='true'>" + item_container({ skin: icon, size: 40, bcolor: "black", draggable: false }) + "</div>";
 		var npc = art.npc && G.npcs[art.npc],
 			name = npc ? npc.skin : art.monster;
 		if (!name) return "";
