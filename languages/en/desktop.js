@@ -1,4 +1,6 @@
 module.exports = {
+	// Always visible at the bottom of the offline Tauri loader. Keep the email address unchanged.
+	"desktop.support": "For any issues, email: hello@adventure.land",
 	// The native Tauri loading window, before the remote game page opens.
 	"desktop.loading": "LOADING",
 	// Native loader after a long connection delay. Keep Adventure Land and the email unchanged.

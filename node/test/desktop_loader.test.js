@@ -123,7 +123,12 @@ async function loader({ system = "ru-RU", language = () => "ru", compatibility =
 test("all offline loader phrases match their sources in every registered language", () => {
 	const phrase = require("../../js/phrases");
 	const english = require("../../languages/en/desktop");
-	const ids = ["desktop.compatibility_help", "desktop.compatibility_yes", "desktop.compatibility_retry"];
+	const ids = [
+		"desktop.compatibility_help",
+		"desktop.compatibility_yes",
+		"desktop.compatibility_retry",
+		"desktop.support",
+	];
 	assert.ok(phrase.languages.length > 0);
 	for (const { code } of phrase.languages) {
 		const source =
@@ -145,11 +150,23 @@ test("all offline loader phrases match their sources in every registered languag
 		}
 		assert.equal(source[ids[2]].split("hello@adventure.land").length, 2);
 		assert.match(source[ids[2]], /VPN/);
+		assert.equal(source["desktop.support"].split("hello@adventure.land").length, 2);
 	}
 	assert.equal(
 		fs.readFileSync(path.join(resources, "desktop.js"), "utf8"),
 		fs.readFileSync(path.join(root, "js/desktop.js"), "utf8"),
 	);
+});
+
+test("support does not wait for native language detection in any registered language", async () => {
+	for (const { code } of require("../../js/phrases").languages) {
+		const app = await loader({ system: code, language: () => new Promise(() => {}) });
+		assert.equal(app.elements.support.textContent, app.context.phrase("desktop.support"), code);
+		assert.match(app.elements.support.textContent, /hello@adventure.land/, code);
+		assert.equal(app.elements.compatibility.style.display, "none");
+		await app.advance(1600);
+		assert.deepEqual(app.calls, ["get_desktop_language"]);
+	}
 });
 
 test("ordinary startup never switches automatically, even after 60 seconds", async () => {
@@ -210,6 +227,8 @@ test("cached language wins once; missing native language leaves the system-langu
 	await cached.advance(30000);
 	assert.equal(cached.context.document.documentElement.lang, "ru");
 	assert.equal(cached.elements["compatibility-button"].textContent, "Да");
+	assert.equal(cached.elements.support.textContent, cached.context.phrase("desktop.support"));
+	assert.match(cached.elements.support.textContent, /По любым вопросам/);
 	const fallback = await loader({ language: () => new Promise(() => {}) });
 	await fallback.advance(60000);
 	assert.equal(fallback.elements["compatibility-button"].textContent, "Да");

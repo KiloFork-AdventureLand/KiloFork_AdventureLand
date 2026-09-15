@@ -1,4 +1,5 @@
 {
+	"desktop.support": "如遇任何问题，请发邮件至：hello@adventure.land",
 	"desktop.loading": "加载中",
 	"desktop.connection_help": "Adventure Land需要联网。请检查网络连接并尝试重新加载。如果仍无法加载，请发邮件至hello@adventure.land。",
 	"desktop.apology": "抱歉让你久等了 :)",

@@ -19,6 +19,31 @@
 				word-wrap:break-word;
 				-webkit-font-smoothing:subpixel-antialiased;
 			}
+			body{display:flex;flex-direction:column;}
+			#loading-screen{
+				flex:1;
+				min-height:0;
+				display:flex;
+				align-items:center;
+				justify-content:center;
+				padding:20px;
+				overflow:auto;
+			}
+			#support{
+				flex:none;
+				box-sizing:border-box;
+				width:calc(100% - 40px);
+				max-width:640px;
+				margin:0 auto 20px;
+				border:4px solid #477C79;
+				background:#081714;
+				color:#B8D9D4;
+				padding:12px 16px;
+				font-size:24px;
+				line-height:28px;
+				text-align:center;
+			}
+			#support:empty{display:none;}
 			#compatibility{
 				position:fixed;
 				top:20px;
@@ -68,13 +93,10 @@
 			<div id="compatibility-help" role="status" aria-live="polite" dir="auto"></div>
 			<button type="button" id="compatibility-button"></button>
 		</div>
-		<table width=100% height="100%">
-			<tr>
-				<td align="center">
-					<div style='border: 5px solid gray;font-size: 24px;line-height: 24px;padding: 12px; display: inline-block;text-align: center; overflow-wrap: break-word; max-width: 400px'><div id='thecolor' style='color:#85C76B'>...</div> <span id="percentage">0</span>%</div>
-				</td>
-			</tr>
-		</table>
+		<div id="loading-screen">
+			<div style='border: 5px solid gray;font-size: 24px;line-height: 24px;padding: 12px; display: inline-block;text-align: center; overflow-wrap: break-word; max-width: 400px'><div id='thecolor' style='color:#85C76B'>...</div> <span id="percentage">0</span>%</div>
+		</div>
+		<div id="support" dir="auto"></div>
 		<script>
 			var language=phrase.detect(navigator.languages || [navigator.language]);
 			var compatibility_started=false,compatibility_active=false,long_wait=false,compatibility_failed=false;
@@ -107,6 +129,7 @@
 				language_script.src='languages/'+language+'.js';
 				language_script.onload=function(){
 					document.getElementById('thecolor').textContent=phrase('desktop.loading');
+					document.getElementById('support').textContent=phrase('desktop.support');
 					show_connection_help();
 				};
 				document.head.appendChild(language_script);
