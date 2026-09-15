@@ -3,7 +3,7 @@
 <p>{{ phrase("docs.guide.tavern-games.the-tavern-s-dice-table-and-slot-machine") }}</p>
 
 <div class="guide-showcase" style="border-color:#AA7040">
-	<div class="guide-showcase-art"><span class="tavern-jaqk"></span><span class="tavern-die">55</span><span class="tavern-slots">777</span></div>
+	<div class="guide-showcase-art"><span class="tavern-jaqk"></span><span class="tavern-die">55</span><span class="tavern-slots">777</span><span class="tavern-wheel">○</span></div>
 	<div class="guide-showcase-copy">{{ phrase_html("docs.guide.tavern-games.house_rules") }}</div>
 </div>
 
@@ -28,6 +28,18 @@
 	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.payout-or-no-luck") }}</div>
 </div>
 <p>{{ phrase("docs.guide.tavern-games.each-play-spends-the-machine-s-shown-cost") }}</p>
+
+<div class="divider"></div>
+<div class="title mt15">{{ phrase("docs.guide.tavern-games.fortune-s-wheel") }}</div>
+<div class="guide-flow" style="border-color:#5C4AB8" data-guide-visual="tavern-wheel">
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.sun-choose-a-side") }}</div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.g-choose-wager") }}</div>
+	<div class="guide-flow-arrow">→</div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.spin-the-wheel") }}</div>
+	<div class="guide-flow-arrow">→</div>
+	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.1-1-your-side-pays-even") }}</div>
+</div>
+<p>{{ phrase_html("docs.guide.tavern-games.the-wheel-s-fourteen-slices-alternate-between-sun") }}</p>
 <div class="guide-note">{{ phrase_html("docs.guide.tavern-games.a-completed-losing-wager-is-a-valid-result") }}</div>
 
 <div class="divider"></div>
@@ -57,6 +69,18 @@ inspect_tavern().catch(show_json);</div>
 
 // Slots also spend gold and wait for the completed spin:
 // show_json(await play_slots());</div>
+
+<div class="title mt15">{{ phrase("docs.guide.tavern-games.code-spin-fortune-s-wheel") }}</div>
+<div class="code">async function spin_once(side, gold) {
+	if (gold &gt; character.gold) return game_log("Not enough gold");
+	var spin = await bet_wheel(side, gold);
+	game_log("The wheel stopped on " + spin.result + " (" + spin.slice + ")");
+	game_log(spin.won ? "Net win: " + spin.net : "Lost: " + spin.wager);
+	return spin;
+}
+
+// This spends gold:
+// spin_once("sun", 10000).catch(show_json);</div>
 <p>{{ phrase_html("docs.guide.tavern-games.references-get-tavern-info-bet-dice-play-slots") }}</p>
 
 <div class="guide-related">{{ phrase_html("docs.guide.tavern-games.for-ordinary-trade-see-markets-and-trading") }}</div>
@@ -66,5 +90,5 @@ inspect_tavern().catch(show_json);</div>
 </script>
 
 <style>
-	.guide-kicker{color:#AA7040;font-size:18px;font-weight:bold;letter-spacing:2px}.guide-title{color:#7D4C29;font-size:44px;line-height:48px;margin:2px 0 12px}.title{color:#7D4C29;font-size:36px;margin-top:15px}.divider{margin-top:15px;height:5px;background-color:#A2A2A2;margin-left:-26px;margin-right:-26px}.guide-note{border-left:6px solid #AA7040;background:#F2E4D8;padding:10px 14px;margin:12px 0}.guide-related{border-top:2px dotted #AAA;margin-top:18px;padding-top:10px;color:#666}.guide-related span{color:#85522D;cursor:pointer;text-decoration:underline}.tavern-die,.tavern-roll,.tavern-choice,.tavern-gold,.tavern-slots,.tavern-result{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:3px solid #D9B274;background:#2A1B13;color:#FFD888;font-size:23px}.tavern-slots{border-color:#C18ACB;background:#221525;color:#F1B6FB}.tavern-choice{font-size:18px}.tavern-roll{color:#8EE1A2}.tavern-gold{border-radius:50%;color:#F1CE4F}.tavern-result{color:#EFA9C9}
+	.guide-kicker{color:#AA7040;font-size:18px;font-weight:bold;letter-spacing:2px}.guide-title{color:#7D4C29;font-size:44px;line-height:48px;margin:2px 0 12px}.title{color:#7D4C29;font-size:36px;margin-top:15px}.divider{margin-top:15px;height:5px;background-color:#A2A2A2;margin-left:-26px;margin-right:-26px}.guide-note{border-left:6px solid #AA7040;background:#F2E4D8;padding:10px 14px;margin:12px 0}.guide-related{border-top:2px dotted #AAA;margin-top:18px;padding-top:10px;color:#666}.guide-related span{color:#85522D;cursor:pointer;text-decoration:underline}.tavern-die,.tavern-roll,.tavern-choice,.tavern-gold,.tavern-slots,.tavern-result,.tavern-side,.tavern-wheel,.tavern-even{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:3px solid #D9B274;background:#2A1B13;color:#FFD888;font-size:23px}.tavern-slots{border-color:#C18ACB;background:#221525;color:#F1B6FB}.tavern-side{border-color:#FFBB31;background:#2A1B13;color:#FFE737;font-size:18px}.tavern-wheel{border-radius:50%;border-color:#6D3D4B;background:conic-gradient(#3D34A5 0 25.7deg,#FF82CE 0 51.4deg,#25E2CD 0 77.1deg,#FF7500 0 102.9deg,#6264DC 0 128.6deg,#E03C28 0 154.3deg,#20B562 0 180deg,#FFBB31 0 205.7deg,#A328B3 0 231.4deg,#F68F37 0 257.1deg,#98DCFF 0 282.9deg,#FEC9ED 0 308.6deg,#00604B 0 334.3deg,#FFE737 0 360deg);color:transparent}.tavern-even{border-color:#8BD08B;background:#13251A;color:#9BE29B}.tavern-choice{font-size:18px}.tavern-roll{color:#8EE1A2}.tavern-gold{border-radius:50%;color:#F1CE4F}.tavern-result{color:#EFA9C9}
 </style>

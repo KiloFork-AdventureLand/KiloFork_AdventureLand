@@ -853,5 +853,12 @@
 	"interface.merrit.reason_warming.many": "Tieni questa bottega al suo posto per altri {count} minuti.",
 	"interface.time.minutes_left.many": "Restano {count} minuti",
 	"interface.time.seconds.many": "{count} secondi",
-	"interface.monster.rime_shell_progress": "{seconds} s · Danni mancanti: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} s · Danni mancanti: {damage}",
+	"interface.wheel.title": "Ruota della Fortuna",
+	"interface.wheel.sun": "SOLE",
+	"interface.wheel.moon": "LUNA",
+	"interface.wheel.spin": "GIRA",
+	"interface.wheel.spinning": "STA GIRANDO...",
+	"interface.wheel.win_hint": "VINCI +{amount}",
+	"interface.wheel.house": "Il banco trattiene il {edge}% della vincita"
 }

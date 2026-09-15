@@ -1,5 +1,7 @@
 // Release highlights. Dates, item/character names and CODE identifiers stay unchanged.
 module.exports = {
+	// Release highlight. Fortune's Wheel is the Tavern wheel game; Sun and Moon are its two sides; bet_wheel() is CODE.
+	"update.15_09_26.wheel": "Fortune's Wheel now turns in the Tavern. Pick Sun or Moon, set a wager and spin: your side pays even money, and the house keeps only its edge from the win. CODE can play with bet_wheel().",
 	// Release highlight for cooperative Rime Djinn and four items. Preserve Rime Djinn, Frozen Cove, Tracker and Rimeglass.
 	"update.14_09_26.rime_djinn": "Rime Djinn now haunt Frozen Cove. Break their shells together, earn Tracker rewards, and gather Rimeglass for three new pieces of equipment.",
 	// Release highlight: failed character startup now releases its online claim so the player can reconnect.

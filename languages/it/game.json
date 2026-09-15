@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Sei terrorizzato",
 	"game.you_are_getting_scared": "Cominci ad avere paura",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "La padrona di casa non è nei paraggi",
 	"npc.slots.try_machine": "Mmh. Questa macchina sembra rotta. Vuoi provare lo stesso? [1.000.000 oro]",
 	"npc.accept_uppercase": "SÌ!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Non puoi entrare nella Tavern dall'app del Mac App Store :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Ripristina dimensioni della chat",
 	"chat.no_characters": "Nessun personaggio",
 	"chat.full": "INTERO",
-	"chat.min": "MIN"
+	"chat.min": "MIN",
+	"response.wheel_spinning": "La ruota sta ancora girando",
+	"response.wheel_side": "Scegli prima Sole o Luna"
 }

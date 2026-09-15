@@ -309,5 +309,8 @@
 	"server.game_error.characters_unconfirmed": "De andre figurene dine kunne ikke kontrolleres. Prøv igjen.",
 	"server.pm.delivery_failed": "(IKKE LEVERT)",
 	"server.game_error.capacity.one": "Akkurat nå kan ikke flere enn {count} spiller slippes inn",
-	"server.game_error.capacity.other": "Akkurat nå kan ikke flere enn {count} spillere slippes inn"
+	"server.game_error.capacity.other": "Akkurat nå kan ikke flere enn {count} spillere slippes inn",
+	"server.game_log.wheel_bet": "Hjul: {side} for {amount} gull",
+	"server.game_log.wheel_won": "Hjulet stoppet på {side}. Vant {amount} gull",
+	"server.game_log.wheel_lost": "Hjulet stoppet på {side}. Tapte {amount} gull"
 }

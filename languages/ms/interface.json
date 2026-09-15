@@ -848,5 +848,12 @@
 	"interface.item.empty": "Kosong",
 	"interface.item.empty_description": "Langsung tiada apa-apa.",
 	"interface.server.event": "ACARA!",
-	"interface.monster.rime_shell_progress": "{seconds} s · Perlu {damage} lagi kerosakan"
+	"interface.monster.rime_shell_progress": "{seconds} s · Perlu {damage} lagi kerosakan",
+	"interface.wheel.title": "Roda Tuah",
+	"interface.wheel.sun": "MATAHARI",
+	"interface.wheel.moon": "BULAN",
+	"interface.wheel.spin": "PUTAR",
+	"interface.wheel.spinning": "BERPUTAR...",
+	"interface.wheel.win_hint": "MENANG +{amount}",
+	"interface.wheel.house": "Pihak kedai mengambil {edge}% daripada kemenangan"
 }

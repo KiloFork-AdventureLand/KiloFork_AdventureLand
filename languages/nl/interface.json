@@ -849,5 +849,12 @@
 	"interface.item.empty_description": "Niets, nada, helemaal niks.",
 	"interface.server.event": "EVENEMENT!",
 	"interface.merrit.reason_cooldown.one": "Je account kan over {count} minuut het volgende pakketje krijgen, wanneer Merrit langskomt.",
-	"interface.monster.rime_shell_progress": "{seconds} s · Nog {damage} schade nodig"
+	"interface.monster.rime_shell_progress": "{seconds} s · Nog {damage} schade nodig",
+	"interface.wheel.title": "Rad van Fortuin",
+	"interface.wheel.sun": "ZON",
+	"interface.wheel.moon": "MAAN",
+	"interface.wheel.spin": "DRAAIEN",
+	"interface.wheel.spinning": "DRAAIT...",
+	"interface.wheel.win_hint": "WINST +{amount}",
+	"interface.wheel.house": "Het huis houdt {edge}% van de winst"
 }

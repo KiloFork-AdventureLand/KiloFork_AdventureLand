@@ -310,5 +310,8 @@
 	"server.pm.delivery_failed": "(EI TOIMITETTU)",
 	"server.game_error.capacity.one": "Tällä hetkellä voidaan ottaa vastaan enintään {count} pelaaja",
 	"server.payment.shells.one": "{count} simpukka",
-	"server.payment.shells.other": "{count} simpukkaa"
+	"server.payment.shells.other": "{count} simpukkaa",
+	"server.game_log.wheel_bet": "Pyörä: {side}, panos {amount} kultaa",
+	"server.game_log.wheel_won": "Pyörä pysähtyi kohtaan {side}. Voitit {amount} kultaa",
+	"server.game_log.wheel_lost": "Pyörä pysähtyi kohtaan {side}. Hävisit {amount} kultaa"
 }

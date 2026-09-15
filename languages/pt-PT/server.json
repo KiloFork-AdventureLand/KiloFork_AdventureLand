@@ -310,5 +310,8 @@
 	"server.pm.delivery_failed": "(NÃO ENTREGUE)",
 	"server.game_error.capacity.one": "De momento, não é possível aceitar mais de {count} jogador",
 	"server.game_error.capacity.other": "De momento, não é possível aceitar mais de {count} jogadores",
-	"server.payment.shells.one": "{count} Concha"
+	"server.payment.shells.one": "{count} Concha",
+	"server.game_log.wheel_bet": "Roda: {side} por {amount} de ouro",
+	"server.game_log.wheel_won": "A roda parou em {side}. Ganhaste {amount} de ouro",
+	"server.game_log.wheel_lost": "A roda parou em {side}. Perdeste {amount} de ouro"
 }

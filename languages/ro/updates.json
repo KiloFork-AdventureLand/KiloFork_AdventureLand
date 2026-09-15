@@ -53,5 +53,6 @@
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "API JSON nou pentru reducerea traficului de date (intern)",
 	"update.01_01_26.slight_chance_something_might_break": "(Există o mică șansă ca ceva să nu mai funcționeze)",
 	"update.14_09_26.progression": "Ghidul de progres sugerează îmbunătățiri de echipament, locuri utile de luptă și ocazii active, încă de la primele lupte cu Goo. Alege un obiectiv deasupra HP și MP sau oprește ghidul lângă Tutorial în Setări. CODE poate citi aceleași sfaturi cu get_progression().",
-	"update.14_09_26.rime_djinn": "Rime Djinn bântuie acum Frozen Cove. Spargeți-le carapacele împreună, câștigați recompense Tracker și adunați Rimeglass pentru trei piese noi de echipament."
+	"update.14_09_26.rime_djinn": "Rime Djinn bântuie acum Frozen Cove. Spargeți-le carapacele împreună, câștigați recompense Tracker și adunați Rimeglass pentru trei piese noi de echipament.",
+	"update.15_09_26.wheel": "Roata Norocului se învârte acum la Tavern. Alege Soare sau Lună, stabilește o miză și învârte: partea ta plătește unu la unu, iar casa păstrează doar partea ei din câștig. CODE poate juca prin bet_wheel()."
 }

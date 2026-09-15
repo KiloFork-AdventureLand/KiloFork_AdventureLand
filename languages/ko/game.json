@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "공포에 질렸어요",
 	"game.you_are_getting_scared": "겁이 나기 시작해요",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "주인이 주변에 없어요",
 	"npc.slots.try_machine": "음. 고장 난 기계 같은데요. 그래도 해 볼까요? [골드 1,000,000]",
 	"npc.accept_uppercase": "네!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Mac App Store 버전에서는 Tavern에 들어갈 수 없어요 :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "채팅 크기 복원",
 	"chat.no_characters": "캐릭터 없음",
 	"chat.full": "확대",
-	"chat.min": "축소"
+	"chat.min": "축소",
+	"response.wheel_spinning": "수레바퀴가 아직 돌고 있어요",
+	"response.wheel_side": "먼저 태양이나 달을 고르세요"
 }

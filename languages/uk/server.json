@@ -313,5 +313,8 @@
 	"server.payment.shells.few": "{count} мушлі",
 	"server.payment.shells.many": "{count} мушель",
 	"server.payment.shells.one": "{count} мушля",
-	"server.payment.shells.other": "{count} мушлі"
+	"server.payment.shells.other": "{count} мушлі",
+	"server.game_log.wheel_bet": "Колесо: {side} на {amount} золота",
+	"server.game_log.wheel_won": "Колесо зупинилося на {side}. Виграно {amount} золота",
+	"server.game_log.wheel_lost": "Колесо зупинилося на {side}. Програно {amount} золота"
 }

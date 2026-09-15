@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Te cuprinde groaza",
 	"game.you_are_getting_scared": "Începe să-ți fie frică",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "Gazda nu este prin preajmă",
 	"npc.slots.try_machine": "Hmm. Aparatul acesta pare stricat. Îl încerci totuși? [1.000.000 de aur]",
 	"npc.accept_uppercase": "DA!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Nu poți intra în Tavern din versiunea Mac App Store :|",
@@ -438,5 +437,7 @@
 	"chat.restore": "Restabilește dimensiunea chatului",
 	"chat.no_characters": "Niciun personaj",
 	"chat.full": "MAX",
-	"chat.min": "MIN"
+	"chat.min": "MIN",
+	"response.wheel_spinning": "Roata încă se învârte",
+	"response.wheel_side": "Alege mai întâi Soare sau Lună"
 }

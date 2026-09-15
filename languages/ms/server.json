@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "Buat masa ini, tidak dapat menerima lebih daripada {count} pemain",
 	"server.game_error.authentication_failed": "Gagal: {reason}",
 	"server.game_error.characters_unconfirmed": "Watak lain dalam akaun anda tidak dapat disahkan. Sila cuba lagi.",
-	"server.pm.delivery_failed": "(GAGAL DIHANTAR)"
+	"server.pm.delivery_failed": "(GAGAL DIHANTAR)",
+	"server.game_log.wheel_bet": "Roda: {side} dengan {amount} emas",
+	"server.game_log.wheel_won": "Roda berhenti di {side}. Menang {amount} emas",
+	"server.game_log.wheel_lost": "Roda berhenti di {side}. Kalah {amount} emas"
 }

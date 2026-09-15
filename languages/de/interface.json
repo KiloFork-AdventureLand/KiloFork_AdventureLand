@@ -849,5 +849,12 @@
 	"interface.item.empty_description": "Nichts. Rein gar nichts.",
 	"interface.server.event": "EVENT!",
 	"interface.merrit.reason_cooldown.one": "Das nächste Paket für dein Konto kann in {count} Minute bei Merrits Besuch eintreffen.",
-	"interface.monster.rime_shell_progress": "{seconds} s · Schaden fehlt: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} s · Schaden fehlt: {damage}",
+	"interface.wheel.title": "Glücksrad",
+	"interface.wheel.sun": "SONNE",
+	"interface.wheel.moon": "MOND",
+	"interface.wheel.spin": "DREHEN",
+	"interface.wheel.spinning": "DREHT SICH...",
+	"interface.wheel.win_hint": "GEWINN +{amount}",
+	"interface.wheel.house": "Das Haus behält {edge}% des Gewinns"
 }

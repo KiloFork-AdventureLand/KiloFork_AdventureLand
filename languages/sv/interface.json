@@ -849,5 +849,12 @@
 	"interface.item.empty_description": "Ingenting. Inte ett dyft.",
 	"interface.server.event": "HÄNDELSE!",
 	"interface.merrit.reason_cooldown.one": "Ditt kontos nästa paket kan komma om {count} minut, när Merrit är på besök.",
-	"interface.monster.rime_shell_progress": "{seconds} s · Skada kvar: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} s · Skada kvar: {damage}",
+	"interface.wheel.title": "Lyckohjulet",
+	"interface.wheel.sun": "SOL",
+	"interface.wheel.moon": "MÅNE",
+	"interface.wheel.spin": "SNURRA",
+	"interface.wheel.spinning": "SNURRAR...",
+	"interface.wheel.win_hint": "VINST +{amount}",
+	"interface.wheel.house": "Huset behåller {edge} % av vinsten"
 }

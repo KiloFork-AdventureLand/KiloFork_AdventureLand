@@ -850,5 +850,12 @@
 	"interface.server.event": "EVENTO!",
 	"interface.item.count_left.one": "Resta {count}",
 	"interface.merrit.reason_cooldown.one": "O próximo pacote da sua conta pode chegar em {count} minuto, quando Merrit visitar.",
-	"interface.monster.rime_shell_progress": "{seconds} s · Dano restante: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} s · Dano restante: {damage}",
+	"interface.wheel.title": "Roda da Fortuna",
+	"interface.wheel.sun": "SOL",
+	"interface.wheel.moon": "LUA",
+	"interface.wheel.spin": "GIRAR",
+	"interface.wheel.spinning": "GIRANDO...",
+	"interface.wheel.win_hint": "GANHE +{amount}",
+	"interface.wheel.house": "A casa fica com {edge}% dos ganhos"
 }

@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "Hindi maaaring tumanggap ng higit sa {count} manlalaro sa ngayon",
 	"server.game_error.authentication_failed": "Nabigo: {reason}",
 	"server.game_error.characters_unconfirmed": "Hindi ma-verify ang iba mong karakter. Pakisubukang muli.",
-	"server.pm.delivery_failed": "(HINDI NAHATID)"
+	"server.pm.delivery_failed": "(HINDI NAHATID)",
+	"server.game_log.wheel_bet": "Gulong: {side} para sa {amount} ginto",
+	"server.game_log.wheel_won": "Tumigil ang gulong sa {side}. Nanalo ng {amount} ginto",
+	"server.game_log.wheel_lost": "Tumigil ang gulong sa {side}. Natalo ng {amount} ginto"
 }

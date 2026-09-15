@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "現在、{count}人を超えるプレイヤーは受け入れられません",
 	"server.game_error.authentication_failed": "失敗：{reason}",
 	"server.game_error.characters_unconfirmed": "アカウントの他のキャラクターを確認できませんでした。もう一度お試しください。",
-	"server.pm.delivery_failed": "(送信失敗)"
+	"server.pm.delivery_failed": "(送信失敗)",
+	"server.game_log.wheel_bet": "輪：{side}に{amount}ゴールド",
+	"server.game_log.wheel_won": "輪は{side}で止まりました。{amount}ゴールドの勝ち",
+	"server.game_log.wheel_lost": "輪は{side}で止まりました。{amount}ゴールドの負け"
 }

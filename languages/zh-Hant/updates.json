@@ -754,5 +754,6 @@
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "怪物新增「主動攻擊」行為。Bee會螫人了 :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "新增「連線」功能，攻擊和治療時在實體之間畫線，對PVP應該尤其有用。",
 	"update.14_09_26.progression": "從第一場Goo戰鬥起，成長指南就會建議裝備計畫、實用狩獵地點與當前機會。可在HP與MP上方選擇目標，或使用設定中教學旁的開關停用指南。CODE也能透過get_progression()讀取相同建議。",
-	"update.14_09_26.rime_djinn": "Rime Djinn如今出沒於Frozen Cove。一起擊破牠們的外殼，取得Tracker獎勵，並收集Rimeglass製作三件新裝備。"
+	"update.14_09_26.rime_djinn": "Rime Djinn如今出沒於Frozen Cove。一起擊破牠們的外殼，取得Tracker獎勵，並收集Rimeglass製作三件新裝備。",
+	"update.15_09_26.wheel": "命運之輪已在Tavern轉起來了。選擇太陽或月亮，定好賭注再轉動：押中自己這邊按一賠一付獎，莊家只從獎金中抽取抽成。CODE可以用bet_wheel()來玩。"
 }

@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Вы в ужасе",
 	"game.you_are_getting_scared": "Вам становится страшно",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "Хозяйки нет поблизости",
 	"npc.slots.try_machine": "Хм. Кажется, автомат сломан. Всё равно попробовать? [1 000 000 золота]",
 	"npc.accept_uppercase": "ДА!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Из версии Mac App Store нельзя войти в Tavern :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Восстановить размер чата",
 	"chat.no_characters": "Нет персонажей",
 	"chat.full": "ПОЛН.",
-	"chat.min": "МИН."
+	"chat.min": "МИН.",
+	"response.wheel_spinning": "Колесо ещё крутится",
+	"response.wheel_side": "Сначала выберите Солнце или Луну"
 }

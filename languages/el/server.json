@@ -310,5 +310,8 @@
 	"server.pm.delivery_failed": "(ΔΕΝ ΠΑΡΑΔΟΘΗΚΕ)",
 	"server.game_error.capacity.one": "Προς το παρόν δεν είναι δυνατή η αποδοχή περισσότερων από {count} παίκτη",
 	"server.game_error.capacity.other": "Προς το παρόν δεν είναι δυνατή η αποδοχή περισσότερων από {count} παικτών",
-	"server.payment.shells.one": "{count} κοχύλι"
+	"server.payment.shells.one": "{count} κοχύλι",
+	"server.game_log.wheel_bet": "Τροχός: {side} για {amount} χρυσό",
+	"server.game_log.wheel_won": "Ο τροχός σταμάτησε στο {side}. Κέρδισες {amount} χρυσό",
+	"server.game_log.wheel_lost": "Ο τροχός σταμάτησε στο {side}. Έχασες {amount} χρυσό"
 }

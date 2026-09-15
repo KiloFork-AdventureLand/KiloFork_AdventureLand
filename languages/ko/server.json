@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "현재는 플레이어를 {count}명 넘게 수용할 수 없습니다",
 	"server.game_error.authentication_failed": "실패: {reason}",
 	"server.game_error.characters_unconfirmed": "계정의 다른 캐릭터를 확인할 수 없습니다. 다시 시도해 주세요.",
-	"server.pm.delivery_failed": "(전달 실패)"
+	"server.pm.delivery_failed": "(전달 실패)",
+	"server.game_log.wheel_bet": "수레바퀴: {side}에 골드 {amount}",
+	"server.game_log.wheel_won": "수레바퀴가 {side}에서 멈췄어요. 골드 {amount} 획득",
+	"server.game_log.wheel_lost": "수레바퀴가 {side}에서 멈췄어요. 골드 {amount} 잃음"
 }

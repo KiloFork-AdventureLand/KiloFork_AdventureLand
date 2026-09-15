@@ -754,5 +754,6 @@
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "怪物新增“主动攻击”行为。Bee会蜇人了 :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "新增“连线”功能，攻击和治疗时在实体之间画线，对PVP应该尤其有用。",
 	"update.14_09_26.progression": "成长指南从首次Goo战斗起就会推荐装备计划、实用狩猎地点和当前机会。在HP和MP上方选择目标，或在设置中通过教程旁的开关关闭指南。CODE也能用get_progression()读取相同建议。",
-	"update.14_09_26.rime_djinn": "Rime Djinn现已出没于Frozen Cove。一起击破它们的外壳，获取Tracker奖励，收集Rimeglass来制作三件新装备。"
+	"update.14_09_26.rime_djinn": "Rime Djinn现已出没于Frozen Cove。一起击破它们的外壳，获取Tracker奖励，收集Rimeglass来制作三件新装备。",
+	"update.15_09_26.wheel": "命运之轮已在Tavern转起来了。选择太阳或月亮，定好赌注再转动：押中自己这边按一赔一付奖，庄家只从奖金中抽取抽成。CODE可以用bet_wheel()来玩。"
 }

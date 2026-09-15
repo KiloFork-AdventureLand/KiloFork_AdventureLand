@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "Saat ini tidak dapat menerima lebih dari {count} pemain",
 	"server.game_error.authentication_failed": "Gagal: {reason}",
 	"server.game_error.characters_unconfirmed": "Karakter lain di akunmu tidak dapat diverifikasi. Silakan coba lagi.",
-	"server.pm.delivery_failed": "(GAGAL TERKIRIM)"
+	"server.pm.delivery_failed": "(GAGAL TERKIRIM)",
+	"server.game_log.wheel_bet": "Roda: {side} dengan {amount} emas",
+	"server.game_log.wheel_won": "Roda berhenti di {side}. Menang {amount} emas",
+	"server.game_log.wheel_lost": "Roda berhenti di {side}. Kalah {amount} emas"
 }

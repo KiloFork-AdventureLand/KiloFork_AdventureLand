@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Dehşete kapıldın",
 	"game.you_are_getting_scared": "Korkmaya başlıyorsun",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "Ev sahibesi buralarda değil",
 	"npc.slots.try_machine": "Hımm. Bu makine bozuk gibi. Yine de denemek ister misin? [1.000.000 altın]",
 	"npc.accept_uppercase": "EVET!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Mac App Store sürümünden Tavern'a giremezsin :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Sohbeti eski boyutuna getir",
 	"chat.no_characters": "Karakter yok",
 	"chat.full": "TAM",
-	"chat.min": "KÜÇÜK"
+	"chat.min": "KÜÇÜK",
+	"response.wheel_spinning": "Çark hâlâ dönüyor",
+	"response.wheel_side": "Önce Güneş'i ya da Ay'ı seç"
 }

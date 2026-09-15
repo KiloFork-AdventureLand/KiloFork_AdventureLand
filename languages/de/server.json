@@ -309,5 +309,8 @@
 	"server.game_error.characters_unconfirmed": "Deine anderen Charaktere konnten nicht überprüft werden. Bitte versuche es erneut.",
 	"server.pm.delivery_failed": "(NICHT ZUGESTELLT)",
 	"server.game_error.capacity.one": "Derzeit kann nicht mehr als {count} Spieler aufgenommen werden",
-	"server.payment.shells.one": "{count} Muschel"
+	"server.payment.shells.one": "{count} Muschel",
+	"server.game_log.wheel_bet": "Rad: {side} für {amount} Gold",
+	"server.game_log.wheel_won": "Das Rad blieb auf {side} stehen. {amount} Gold gewonnen",
+	"server.game_log.wheel_lost": "Das Rad blieb auf {side} stehen. {amount} Gold verloren"
 }

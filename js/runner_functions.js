@@ -1078,6 +1078,25 @@ function play_slots(timeout_ms) {
 	return completion;
 }
 
+function bet_wheel(side, gold, timeout_ms) {
+	// Fortune's Wheel: even money on "sun" or "moon", settled after the spin. The house keeps its edge from net winnings.
+	side = ("" + side).toLowerCase();
+	if (!in_arr(side, G.games.wheel.sides)) return rejecting_promise({ reason: "invalid_side", place: "wheel" });
+	if (!is_number(gold) || gold <= 0) return rejecting_promise({ reason: "invalid", place: "wheel" });
+	if (timeout_ms === undefined) timeout_ms = 60000;
+	timeout_ms = max(0, timeout_ms);
+	var request_id = randomStr(30),
+		socket = parent.socket,
+		completion = wait_for_event(socket, "game_response", timeout_ms, function (data) {
+			return data && data.request_id == request_id && data.place == "wheel";
+		}).then(function (data) {
+			if (data.failed) return rejecting_promise(data);
+			return data;
+		});
+	socket.emit("bet", { type: "wheel", side: side, gold: gold, request_id: request_id });
+	return completion;
+}
+
 function split(num, quantity) {
 	// splits the stack at from character.items[num] into a second stack of quantity
 	return parent.split(num, quantity);

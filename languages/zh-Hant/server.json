@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "目前無法容納超過{count}名玩家",
 	"server.game_error.authentication_failed": "失敗：{reason}",
 	"server.game_error.characters_unconfirmed": "無法確認你帳號下其他角色的狀態，請再試一次。",
-	"server.pm.delivery_failed": "(傳送失敗)"
+	"server.pm.delivery_failed": "(傳送失敗)",
+	"server.game_log.wheel_bet": "轉輪：押{side}，{amount}金幣",
+	"server.game_log.wheel_won": "轉輪停在{side}。贏得{amount}金幣",
+	"server.game_log.wheel_lost": "轉輪停在{side}。輸掉{amount}金幣"
 }

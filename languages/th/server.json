@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "ขณะนี้ไม่สามารถรับผู้เล่นเกิน {count} คนได้",
 	"server.game_error.authentication_failed": "ล้มเหลว: {reason}",
 	"server.game_error.characters_unconfirmed": "ไม่สามารถตรวจสอบตัวละครอื่นในบัญชีของคุณได้ โปรดลองอีกครั้ง",
-	"server.pm.delivery_failed": "(ส่งไม่สำเร็จ)"
+	"server.pm.delivery_failed": "(ส่งไม่สำเร็จ)",
+	"server.game_log.wheel_bet": "วงล้อ: {side} ด้วยทอง {amount}",
+	"server.game_log.wheel_won": "วงล้อหยุดที่{side} ชนะได้ทอง {amount}",
+	"server.game_log.wheel_lost": "วงล้อหยุดที่{side} เสียทอง {amount}"
 }

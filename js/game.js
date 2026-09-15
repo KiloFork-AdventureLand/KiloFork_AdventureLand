@@ -2314,6 +2314,8 @@ function init_socket(args) {
 			else if (response == "tavern_too_many_bets") ui_log(phrase.html("response.tavern_too_many_bets"), "gray");
 			else if (response == "tavern_dice_exist") ui_log(phrase.html("response.tavern_dice_exist"), "gray");
 			else if (response == "tavern_gold_not_enough") ui_log(phrase.html("response.tavern_gold_not_enough"), "gray");
+			else if (response == "wheel_spinning") ui_log(phrase.html("response.wheel_spinning"), "gray");
+			else if (response == "wheel_side") ui_log(phrase.html("response.wheel_side"), "gray");
 			else if (response == "condition") {
 				var def = G.conditions[data.name],
 					from = data.from;
@@ -2861,6 +2863,8 @@ function init_socket(args) {
 				}
 			} else if (data.type == "slots") {
 				if (map_machines.slots) map_machines.slots.spinning = future_s(3);
+			} else if (data.type == "wheel") {
+				wheel_start(data);
 			} else if (data.type == "level_up") {
 				var player = get_entity(data.name);
 				if (player) {
@@ -2890,6 +2894,7 @@ function init_socket(args) {
 		});
 	});
 	socket.on("tavern", function (data) {
+		if (data.type == "wheel" && data.event != "info") return wheel_tavern_event(data);
 		if (data.event == "bet") {
 			var player = get_entity(data.name);
 			if (player) d_text(phrase("combat.buff_gained"), player, { color: "#6E9BBE" });
@@ -2899,7 +2904,8 @@ function init_socket(args) {
 			}
 		}
 		if (data.event == "info") {
-			render_tavern_info(data);
+			if (data.game == "wheel") wheel_info(data);
+			else render_tavern_info(data);
 		}
 		if (data.event == "won") {
 			var player = get_entity(data.name);
@@ -3846,7 +3852,7 @@ function map_click(event) {
 		if (next_minteraction) ((data.key = next_minteraction), (next_minteraction = null));
 		socket.emit("move", data);
 	}
-	if (!(topleft_npc == "dice" && current_map == "tavern")) {
+	if (!(in_arr(topleft_npc, ["dice", "wheel"]) && current_map == "tavern")) {
 		if (topleft_npc && inventory) render_inventory();
 		topleft_npc = false;
 	}
@@ -6494,7 +6500,7 @@ function add_machine(machine) {
 
 	function machine_click(event) {
 		if (machine.type == "dice") render_dice(); // add_log("Curious device","gray");//
-		if (machine.type == "wheel") add_log(phrase.html("game.the_hostess_isn_t_around"), "gray");
+		if (machine.type == "wheel") render_wheel();
 		if (machine.type == "slots")
 			render_interaction({
 				auto: true,

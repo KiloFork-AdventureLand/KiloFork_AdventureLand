@@ -312,5 +312,8 @@
 	"server.game_error.capacity.other": "Al momento non è possibile accettare più di {count} giocatori",
 	"server.payment.shells.many": "{count} conchiglie",
 	"server.payment.shells.one": "{count} conchiglia",
-	"server.payment.shells.other": "{count} conchiglie"
+	"server.payment.shells.other": "{count} conchiglie",
+	"server.game_log.wheel_bet": "Ruota: {side} per {amount} oro",
+	"server.game_log.wheel_won": "La ruota si è fermata su {side}. Hai vinto {amount} oro",
+	"server.game_log.wheel_lost": "La ruota si è fermata su {side}. Hai perso {amount} oro"
 }

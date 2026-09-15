@@ -754,5 +754,6 @@
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "Añadida la \"agresividad\" de los monstruos. Los Bee pican :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "Añadida la función de \"líneas\". Dibuja una línea entre entidades al atacar o curar. Debería ser especialmente útil en PVP.",
 	"update.14_09_26.progression": "La Guía de progresión sugiere proyectos de equipo, lugares de caza útiles y oportunidades activas desde tus primeros combates con Goo. Elige un objetivo encima de HP y MP o desactiva la guía junto a Tutorial en Ajustes. CODE puede leer los mismos consejos con get_progression().",
-	"update.14_09_26.rime_djinn": "Los Rime Djinn acechan ahora Frozen Cove. Romped sus caparazones juntos, conseguid recompensas de Tracker y reunid Rimeglass para tres nuevas piezas de equipo."
+	"update.14_09_26.rime_djinn": "Los Rime Djinn acechan ahora Frozen Cove. Romped sus caparazones juntos, conseguid recompensas de Tracker y reunid Rimeglass para tres nuevas piezas de equipo.",
+	"update.15_09_26.wheel": "La Rueda de la Fortuna ya gira en Tavern. Elige Sol o Luna, fija una apuesta y gira: tu lado paga uno a uno, y la casa solo se queda con su parte de la ganancia. CODE puede jugar con bet_wheel()."
 }

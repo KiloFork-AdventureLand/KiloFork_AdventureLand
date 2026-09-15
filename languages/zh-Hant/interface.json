@@ -848,5 +848,12 @@
 	"interface.item.empty": "空",
 	"interface.item.empty_description": "空空如也。",
 	"interface.server.event": "活動！",
-	"interface.monster.rime_shell_progress": "{seconds}秒 · 尚需傷害：{damage}"
+	"interface.monster.rime_shell_progress": "{seconds}秒 · 尚需傷害：{damage}",
+	"interface.wheel.title": "命運之輪",
+	"interface.wheel.sun": "太陽",
+	"interface.wheel.moon": "月亮",
+	"interface.wheel.spin": "轉動",
+	"interface.wheel.spinning": "轉動中...",
+	"interface.wheel.win_hint": "贏得 +{amount}",
+	"interface.wheel.house": "莊家抽取獎金的{edge}%"
 }

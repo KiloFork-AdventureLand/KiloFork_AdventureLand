@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Du bist entsetzt",
 	"game.you_are_getting_scared": "Du bekommst Angst",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "Die Gastgeberin ist nicht da",
 	"npc.slots.try_machine": "Hmm. Dieser Automat scheint kaputt zu sein. Trotzdem versuchen? [1.000.000 Gold]",
 	"npc.accept_uppercase": "JA!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Mit der Version aus dem Mac App Store kannst du Tavern nicht betreten :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Chatgröße wiederherstellen",
 	"chat.no_characters": "Keine Charaktere",
 	"chat.full": "VOLL",
-	"chat.min": "MIN"
+	"chat.min": "MIN",
+	"response.wheel_spinning": "Das Rad dreht sich noch",
+	"response.wheel_side": "Wähle zuerst Sonne oder Mond"
 }

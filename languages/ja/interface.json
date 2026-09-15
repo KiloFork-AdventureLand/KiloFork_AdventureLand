@@ -848,5 +848,12 @@
 	"interface.item.empty": "空き",
 	"interface.item.empty_description": "なーんにもない。",
 	"interface.server.event": "イベント！",
-	"interface.monster.rime_shell_progress": "残り{seconds}秒 · 必要ダメージ{damage}"
+	"interface.monster.rime_shell_progress": "残り{seconds}秒 · 必要ダメージ{damage}",
+	"interface.wheel.title": "運命の輪",
+	"interface.wheel.sun": "太陽",
+	"interface.wheel.moon": "月",
+	"interface.wheel.spin": "回す",
+	"interface.wheel.spinning": "回転中...",
+	"interface.wheel.win_hint": "勝てば +{amount}",
+	"interface.wheel.house": "店は勝ち金の{edge}%を受け取ります"
 }

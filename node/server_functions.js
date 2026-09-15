@@ -1360,6 +1360,7 @@ function house_debt() {
 			gold += bet.win - bet.edge - bet.gold;
 		}
 	}
+	gold += tavern_wheel_debt();
 	return gold;
 }
 

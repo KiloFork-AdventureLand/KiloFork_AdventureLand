@@ -849,5 +849,12 @@
 	"interface.item.empty_description": "Нищичко. Съвсем празно.",
 	"interface.server.event": "СЪБИТИЕ!",
 	"interface.merrit.reason_cooldown.one": "Следващата пратка за акаунта ти може да пристигне след {count} минута, когато Merrit те посети.",
-	"interface.monster.rime_shell_progress": "{seconds} сек · Нужни щети: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} сек · Нужни щети: {damage}",
+	"interface.wheel.title": "Колело на късмета",
+	"interface.wheel.sun": "СЛЪНЦЕ",
+	"interface.wheel.moon": "ЛУНА",
+	"interface.wheel.spin": "ЗАВЪРТИ",
+	"interface.wheel.spinning": "ВЪРТИ СЕ...",
+	"interface.wheel.win_hint": "ПЕЧАЛБА +{amount}",
+	"interface.wheel.house": "Заведението задържа {edge}% от печалбата"
 }

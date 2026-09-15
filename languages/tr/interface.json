@@ -848,5 +848,12 @@
 	"interface.item.empty": "Boş",
 	"interface.item.empty_description": "Hiçbir şey yok. Hem de hiç.",
 	"interface.server.event": "ETKİNLİK!",
-	"interface.monster.rime_shell_progress": "{seconds} sn · Kalan hasar: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} sn · Kalan hasar: {damage}",
+	"interface.wheel.title": "Kader Çarkı",
+	"interface.wheel.sun": "GÜNEŞ",
+	"interface.wheel.moon": "AY",
+	"interface.wheel.spin": "ÇEVİR",
+	"interface.wheel.spinning": "DÖNÜYOR...",
+	"interface.wheel.win_hint": "KAZANÇ +{amount}",
+	"interface.wheel.house": "Kasa kazancın %{edge}'sini alır"
 }

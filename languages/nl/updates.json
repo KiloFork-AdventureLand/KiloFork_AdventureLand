@@ -94,5 +94,6 @@
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "Monsters kunnen nu agressief zijn. Bee steekt :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "De functie \"lijnen\" toegevoegd. Tekent een lijn tussen entiteiten bij aanvallen en genezen. Vooral handig voor PVP.",
 	"update.14_09_26.progression": "De Voortgangsgids stelt uitrustingsprojecten, nuttige jachtplekken en actuele kansen voor vanaf je eerste Goo-gevechten. Kies een doel boven HP en MP of schakel de gids uit in Instellingen naast Tutorial. CODE kan hetzelfde advies lezen met get_progression().",
-	"update.14_09_26.rime_djinn": "Rime Djinn spoken nu rond in Frozen Cove. Breek samen hun pantsers, verdien Tracker-beloningen en verzamel Rimeglass voor drie nieuwe uitrustingsstukken."
+	"update.14_09_26.rime_djinn": "Rime Djinn spoken nu rond in Frozen Cove. Breek samen hun pantsers, verdien Tracker-beloningen en verzamel Rimeglass voor drie nieuwe uitrustingsstukken.",
+	"update.15_09_26.wheel": "Het Rad van Fortuin draait nu in Tavern. Kies Zon of Maan, bepaal je inzet en draai: jouw kant betaalt één op één uit, en het huis houdt alleen zijn aandeel van de winst. CODE kan spelen met bet_wheel()."
 }

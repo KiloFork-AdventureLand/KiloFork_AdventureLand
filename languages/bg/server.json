@@ -310,5 +310,8 @@
 	"server.pm.delivery_failed": "(НЕДОСТАВЕНО)",
 	"server.game_error.capacity.one": "В момента не може да бъде приет повече от {count} играч",
 	"server.game_error.capacity.other": "В момента не могат да бъдат приети повече от {count} играчи",
-	"server.payment.shells.one": "{count} раковина"
+	"server.payment.shells.one": "{count} раковина",
+	"server.game_log.wheel_bet": "Колело: {side} за {amount} злато",
+	"server.game_log.wheel_won": "Колелото спря на {side}. Печалба {amount} злато",
+	"server.game_log.wheel_lost": "Колелото спря на {side}. Загуба {amount} злато"
 }

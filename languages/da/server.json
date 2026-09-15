@@ -311,5 +311,8 @@
 	"server.game_error.capacity.one": "Der kan ikke lukkes flere end {count} spiller ind lige nu",
 	"server.game_error.capacity.other": "Der kan ikke lukkes flere end {count} spillere ind lige nu",
 	"server.payment.shells.one": "{count} skal",
-	"server.payment.shells.other": "{count} skaller"
+	"server.payment.shells.other": "{count} skaller",
+	"server.game_log.wheel_bet": "Hjul: {side} for {amount} guld",
+	"server.game_log.wheel_won": "Hjulet stoppede på {side}. Vandt {amount} guld",
+	"server.game_log.wheel_lost": "Hjulet stoppede på {side}. Tabte {amount} guld"
 }

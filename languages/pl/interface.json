@@ -861,5 +861,12 @@
 	"interface.time.seconds.few": "{count} sekundy",
 	"interface.time.seconds.many": "{count} sekund",
 	"interface.time.seconds.other": "{count} sekundy",
-	"interface.monster.rime_shell_progress": "{seconds} s · Brakujące obrażenia: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} s · Brakujące obrażenia: {damage}",
+	"interface.wheel.title": "Koło Fortuny",
+	"interface.wheel.sun": "SŁOŃCE",
+	"interface.wheel.moon": "KSIĘŻYC",
+	"interface.wheel.spin": "ZAKRĘĆ",
+	"interface.wheel.spinning": "KRĘCI SIĘ...",
+	"interface.wheel.win_hint": "WYGRANA +{amount}",
+	"interface.wheel.house": "Kasyno zatrzymuje {edge}% wygranej"
 }

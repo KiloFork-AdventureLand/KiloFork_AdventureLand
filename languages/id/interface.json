@@ -848,5 +848,12 @@
 	"interface.item.empty": "Kosong",
 	"interface.item.empty_description": "Tak ada apa-apa. Nihil.",
 	"interface.server.event": "ACARA!",
-	"interface.monster.rime_shell_progress": "{seconds} dtk · Perlu {damage} kerusakan lagi"
+	"interface.monster.rime_shell_progress": "{seconds} dtk · Perlu {damage} kerusakan lagi",
+	"interface.wheel.title": "Roda Keberuntungan",
+	"interface.wheel.sun": "MATAHARI",
+	"interface.wheel.moon": "BULAN",
+	"interface.wheel.spin": "PUTAR",
+	"interface.wheel.spinning": "BERPUTAR...",
+	"interface.wheel.win_hint": "MENANG +{amount}",
+	"interface.wheel.house": "Bandar mengambil {edge}% dari kemenangan"
 }

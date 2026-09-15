@@ -313,5 +313,8 @@
 	"server.payment.shells.one": "عدد الأصداف: {count}",
 	"server.payment.shells.other": "عدد الأصداف: {count}",
 	"server.payment.shells.two": "عدد الأصداف: {count}",
-	"server.payment.shells.zero": "عدد الأصداف: {count}"
+	"server.payment.shells.zero": "عدد الأصداف: {count}",
+	"server.game_log.wheel_bet": "العجلة: {side} مقابل {amount} ذهب",
+	"server.game_log.wheel_won": "توقفت العجلة عند {side}. ربحت {amount} ذهب",
+	"server.game_log.wheel_lost": "توقفت العجلة عند {side}. خسرت {amount} ذهب"
 }

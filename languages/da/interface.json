@@ -849,5 +849,12 @@
 	"interface.item.empty_description": "Intet. Absolut ingenting.",
 	"interface.server.event": "HÆNDELSE!",
 	"interface.merrit.reason_cooldown.one": "Din kontos næste pakke kan ankomme om {count} minut, når Merrit kommer forbi.",
-	"interface.monster.rime_shell_progress": "{seconds} s · Mangler {damage} skade"
+	"interface.monster.rime_shell_progress": "{seconds} s · Mangler {damage} skade",
+	"interface.wheel.title": "Lykkehjulet",
+	"interface.wheel.sun": "SOL",
+	"interface.wheel.moon": "MÅNE",
+	"interface.wheel.spin": "DREJ",
+	"interface.wheel.spinning": "DREJER...",
+	"interface.wheel.win_hint": "GEVINST +{amount}",
+	"interface.wheel.house": "Huset beholder {edge} % af gevinsten"
 }

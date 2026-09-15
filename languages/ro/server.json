@@ -313,5 +313,8 @@
 	"server.game_error.capacity.other": "Momentan nu pot fi acceptați mai mult de {count} de jucători",
 	"server.payment.shells.few": "{count} scoici",
 	"server.payment.shells.one": "{count} scoică",
-	"server.payment.shells.other": "{count} de scoici"
+	"server.payment.shells.other": "{count} de scoici",
+	"server.game_log.wheel_bet": "Roată: {side} pentru {amount} aur",
+	"server.game_log.wheel_won": "Roata s-a oprit pe {side}. Ai câștigat {amount} aur",
+	"server.game_log.wheel_lost": "Roata s-a oprit pe {side}. Ai pierdut {amount} aur"
 }

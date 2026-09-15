@@ -1,5 +1,6 @@
 // Newest notes first. Add player-visible changes at the top with deployed: null.
 module.exports = [
+	{ phrase: "update.15_09_26.wheel", deployed: null, date: "[15/09/26]", note: "Fortune's Wheel now turns in the Tavern. Pick Sun or Moon, set a wager and spin: your side pays even money, and the house keeps only its edge from the win. CODE can play with bet_wheel()." },
 	{ phrase: "update.14_09_26.cave", deployed: null, date: "[14/09/26]", note: "Enter the Cave of Many Dreams with your party. You have 24 minutes to explore changing floors, vote on encounters and find cave equipment. Dying inside costs no XP or gold." },
 	{"phrase": "update.14_09_26.rime_djinn", "deployed": null, "date": "[14/09/26]", "note": "Rime Djinn now haunt Frozen Cove. Break their shells together, earn Tracker rewards, and gather Rimeglass for three new pieces of equipment."},
 	{

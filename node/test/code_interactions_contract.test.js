@@ -80,6 +80,8 @@ function runnerContext() {
 		Promise,
 		RESOLVE_ALL: false,
 		character: { map: "main", s: {} },
+		G: { games: { wheel: { sides: ["sun", "moon"] } } },
+		in_arr: (value, array) => array.includes(value),
 		clearTimeout,
 		is_function: (value) => typeof value === "function",
 		is_number: (value) => typeof value === "number" && Number.isFinite(value),
@@ -115,6 +117,7 @@ function runnerContext() {
 		"get_tavern_info",
 		"bet_dice",
 		"play_slots",
+		"bet_wheel",
 		"destat_item",
 	];
 	vm.runInContext(names.map((name) => extractFunction(runnerSource, name)).join("\n"), context);
@@ -134,6 +137,7 @@ test("runner methods emit only their established socket events and correlate ter
 		["enter_duel", ["duel-id"], "duel", "game_response", "duel"],
 		["bet_dice", ["down", 55, 10000], "bet", "game_response", "dice"],
 		["play_slots", [], "bet", "game_response", "slots"],
+		["bet_wheel", ["sun", 10000], "bet", "game_response", "wheel"],
 		["destat_item", [0], "destat", "game_response", "destat"],
 	];
 

@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "คุณหวาดผวา",
 	"game.you_are_getting_scared": "คุณเริ่มกลัวแล้ว",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "เจ้าของร้านไม่อยู่แถวนี้",
 	"npc.slots.try_machine": "อืม เครื่องนี้ดูเหมือนจะพัง ยังอยากลองไหม? [ทอง 1,000,000]",
 	"npc.accept_uppercase": "ใช่!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "คุณเข้า Tavern จาก Mac App Store ไม่ได้ :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "คืนขนาดแชต",
 	"chat.no_characters": "ไม่มีตัวละคร",
 	"chat.full": "ขยาย",
-	"chat.min": "ย่อ"
+	"chat.min": "ย่อ",
+	"response.wheel_spinning": "วงล้อยังหมุนอยู่",
+	"response.wheel_side": "เลือกดวงอาทิตย์หรือดวงจันทร์ก่อน"
 }

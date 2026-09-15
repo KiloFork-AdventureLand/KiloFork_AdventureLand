@@ -861,5 +861,12 @@
 	"interface.time.seconds.few": "{count} секунды",
 	"interface.time.seconds.many": "{count} секунд",
 	"interface.time.seconds.other": "{count} секунды",
-	"interface.monster.rime_shell_progress": "{seconds} с · Осталось урона: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} с · Осталось урона: {damage}",
+	"interface.wheel.title": "Колесо Фортуны",
+	"interface.wheel.sun": "СОЛНЦЕ",
+	"interface.wheel.moon": "ЛУНА",
+	"interface.wheel.spin": "КРУТИТЬ",
+	"interface.wheel.spinning": "КРУТИТСЯ...",
+	"interface.wheel.win_hint": "ВЫИГРЫШ +{amount}",
+	"interface.wheel.house": "Заведение удерживает {edge}% выигрыша"
 }

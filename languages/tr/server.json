@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "Şu anda {count} oyuncudan fazlası kabul edilemiyor",
 	"server.game_error.authentication_failed": "Başarısız: {reason}",
 	"server.game_error.characters_unconfirmed": "Diğer karakterlerin doğrulanamadı. Lütfen tekrar dene.",
-	"server.pm.delivery_failed": "(İLETİLEMEDİ)"
+	"server.pm.delivery_failed": "(İLETİLEMEDİ)",
+	"server.game_log.wheel_bet": "Çark: {amount} altınla {side}",
+	"server.game_log.wheel_won": "Çark {side} tarafında durdu. {amount} altın kazanıldı",
+	"server.game_log.wheel_lost": "Çark {side} tarafında durdu. {amount} altın kaybedildi"
 }

@@ -848,5 +848,12 @@
 	"interface.item.empty": "비어 있음",
 	"interface.item.empty_description": "아무것도 없어요. 텅 비었죠.",
 	"interface.server.event": "이벤트!",
-	"interface.monster.rime_shell_progress": "{seconds}초 · 남은 필요 피해: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds}초 · 남은 필요 피해: {damage}",
+	"interface.wheel.title": "운명의 수레바퀴",
+	"interface.wheel.sun": "태양",
+	"interface.wheel.moon": "달",
+	"interface.wheel.spin": "돌리기",
+	"interface.wheel.spinning": "회전 중...",
+	"interface.wheel.win_hint": "승리 시 +{amount}",
+	"interface.wheel.house": "하우스가 당첨금의 {edge}%를 가져가요"
 }

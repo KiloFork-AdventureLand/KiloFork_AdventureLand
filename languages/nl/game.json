@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Je bent doodsbang",
 	"game.you_are_getting_scared": "Je wordt bang",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "De gastvrouw is er niet",
 	"npc.slots.try_machine": "Hmm. Deze automaat lijkt kapot. Toch proberen? [1.000.000 goud]",
 	"npc.accept_uppercase": "JA!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Je kunt Tavern niet in vanuit de Mac App Store-versie :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Chatgrootte herstellen",
 	"chat.no_characters": "Geen personages",
 	"chat.full": "VOL",
-	"chat.min": "MIN"
+	"chat.min": "MIN",
+	"response.wheel_spinning": "Het rad draait nog",
+	"response.wheel_side": "Kies eerst Zon of Maan"
 }

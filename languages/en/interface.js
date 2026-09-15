@@ -425,6 +425,20 @@ module.exports = {
 	"interface.tavern_info.house_edge": "House Edge",
 	// js/html.js render_tavern_info; authored interface text.
 	"interface.tavern_info.max_net_win": "Max. Net Win",
+	// js/tavern_wheel.js render_wheel; panel heading of the Tavern's even-money wheel game. Fortune's Wheel is its name.
+	"interface.wheel.title": "Fortune's Wheel",
+	// js/tavern_wheel.js; compact button label for the warm-coloured side of the wheel. Also inserted into server wheel messages.
+	"interface.wheel.sun": "SUN",
+	// js/tavern_wheel.js; compact button label for the cool-coloured side of the wheel. Also inserted into server wheel messages.
+	"interface.wheel.moon": "MOON",
+	// js/tavern_wheel.js; compact button that starts the spin.
+	"interface.wheel.spin": "SPIN",
+	// js/tavern_wheel.js; compact button hint while the wheel is turning.
+	"interface.wheel.spinning": "SPINNING...",
+	// js/tavern_wheel.js; compact hint beside SPIN showing the net gold gained if the chosen side wins. amount is a formatted gold number.
+	"interface.wheel.win_hint": "WIN +{amount}",
+	// js/tavern_wheel.js; small note under the wheel. edge is a percentage number such as 2 or 0.5, without the % sign.
+	"interface.wheel.house": "The house keeps {edge}% of winnings",
 	// js/html.js render_donate; authored interface text.
 	"interface.donate.gold": "GOLD:",
 	// js/html.js render_donate; authored interface text.

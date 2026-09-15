@@ -848,5 +848,12 @@
 	"interface.item.empty": "Tyhjä",
 	"interface.item.empty_description": "Ei niin yhtikäs mitään.",
 	"interface.server.event": "TAPAHTUMA!",
-	"interface.monster.rime_shell_progress": "{seconds} s · Vahinkoa puuttuu: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} s · Vahinkoa puuttuu: {damage}",
+	"interface.wheel.title": "Onnenpyörä",
+	"interface.wheel.sun": "AURINKO",
+	"interface.wheel.moon": "KUU",
+	"interface.wheel.spin": "PYÖRÄYTÄ",
+	"interface.wheel.spinning": "PYÖRII...",
+	"interface.wheel.win_hint": "VOITTO +{amount}",
+	"interface.wheel.house": "Talo pitää {edge} % voitosta"
 }

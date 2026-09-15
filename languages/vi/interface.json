@@ -848,5 +848,12 @@
 	"interface.item.empty": "Trống",
 	"interface.item.empty_description": "Chẳng có gì. Trống trơn.",
 	"interface.server.event": "SỰ KIỆN!",
-	"interface.monster.rime_shell_progress": "{seconds} giây · Cần thêm {damage} sát thương"
+	"interface.monster.rime_shell_progress": "{seconds} giây · Cần thêm {damage} sát thương",
+	"interface.wheel.title": "Vòng Quay May Mắn",
+	"interface.wheel.sun": "MẶT TRỜI",
+	"interface.wheel.moon": "MẶT TRĂNG",
+	"interface.wheel.spin": "QUAY",
+	"interface.wheel.spinning": "ĐANG QUAY...",
+	"interface.wheel.win_hint": "THẮNG +{amount}",
+	"interface.wheel.house": "Nhà cái giữ lại {edge}% tiền thắng"
 }

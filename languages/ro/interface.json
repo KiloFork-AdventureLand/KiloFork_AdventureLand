@@ -853,5 +853,12 @@
 	"interface.merrit.reason_warming.few": "Mai ține magazinul pe loc {count} minute.",
 	"interface.time.minutes_left.few": "Mai sunt {count} minute",
 	"interface.time.seconds.few": "{count} secunde",
-	"interface.monster.rime_shell_progress": "{seconds} s · Mai trebuie {damage} daune"
+	"interface.monster.rime_shell_progress": "{seconds} s · Mai trebuie {damage} daune",
+	"interface.wheel.title": "Roata Norocului",
+	"interface.wheel.sun": "SOARE",
+	"interface.wheel.moon": "LUNĂ",
+	"interface.wheel.spin": "ÎNVÂRTE",
+	"interface.wheel.spinning": "SE ÎNVÂRTE...",
+	"interface.wheel.win_hint": "CÂȘTIG +{amount}",
+	"interface.wheel.house": "Casa păstrează {edge}% din câștig"
 }

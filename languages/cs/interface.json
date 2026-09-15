@@ -857,5 +857,12 @@
 	"interface.time.minutes_left.many": "Zbývá {count} minuty",
 	"interface.time.seconds.few": "{count} sekundy",
 	"interface.time.seconds.many": "{count} sekundy",
-	"interface.monster.rime_shell_progress": "{seconds} s · Chybí poškození: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} s · Chybí poškození: {damage}",
+	"interface.wheel.title": "Kolo štěstí",
+	"interface.wheel.sun": "SLUNCE",
+	"interface.wheel.moon": "MĚSÍC",
+	"interface.wheel.spin": "ROZTOČIT",
+	"interface.wheel.spinning": "TOČÍ SE...",
+	"interface.wheel.win_hint": "VÝHRA +{amount}",
+	"interface.wheel.house": "Herna si nechává {edge} % z výhry"
 }

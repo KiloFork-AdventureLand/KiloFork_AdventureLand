@@ -2180,6 +2180,19 @@ module.exports = {
 	// docs/functions/bet_dice.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.functions.bet_dice.returns-promise-resolving-with-won-roll-wager-payout":
 		"<b>Returns:</b> Promise resolving with won, roll, wager, payout, net, and edge. A valid bet that loses still resolves with won:false. Invalid bets and timeouts reject.",
+	// docs/functions/bet_wheel.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.bet_wheel.example": "<b>Example:</b>",
+	// docs/functions/bet_wheel.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["CODE"]. Sun and Moon are the wheel's sides; get_tavern_info is CODE.
+	"docs.functions.bet_wheel.notes-use-sun-or-moon-the-server-keeps":
+		'<b>Notes:</b> Use "sun" or "moon". The server keeps the wager inside 10,000 to 100,000,000,000 gold and refuses a second spin while yours is still turning. The house keeps its edge from the net win; read the edge with <span class=\'dlabel\'>get_tavern_info</span>. The result timeout defaults to 60,000ms.',
+	// docs/functions/bet_wheel.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fortune's Wheel is the Tavern wheel game.
+	"docs.functions.bet_wheel.places-one-fortune-s-wheel-wager-on-a": "Places one Fortune's Wheel wager on a side of the Tavern wheel and waits for that spin to settle.",
+	// docs/functions/bet_wheel.html:4; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["failed: true","reason","mode_resolve_all()"].
+	"docs.functions.bet_wheel.promise-failures-unless-a-function-specific-note-says":
+		"<b>Promise failures:</b> Unless a function-specific note says otherwise, failures reject with an object containing <span class='dlabel'>failed: true</span> and a <span class='dlabel'>reason</span>. After <span class='dlabel'>mode_resolve_all()</span>, the same failures fulfill instead.",
+	// docs/functions/bet_wheel.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.functions.bet_wheel.returns-promise-resolving-with-won-side-result-slice":
+		"<b>Returns:</b> Promise resolving with won, side, result, slice, wager, payout, net, and edge. A valid spin that loses still resolves with won:false. Invalid wagers and timeouts reject.",
 	// docs/functions/bless_server.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.functions.bless_server.example": "<b>Example:</b>",
 	// docs/functions/bless_server.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
@@ -5224,6 +5237,8 @@ module.exports = {
 	// docs/guide/stats.html:27; Class overview. Translate class names. Merchants can use dartguns and explicitly allowed skills; priest output starts at 40 but equipment and conditions can change it. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.stats.warriors-rogues-and-rangers-deal-physical-damage-while":
 		"Warriors, Rogues, Rangers and Paladins deal physical damage; Mages and Priests deal magical damage. Merchants gain experience by trading with other players and can attack with a dartgun. Priests can heal other players. Their starting attack power is 40% of their healing power, before bonuses, conditions and target defenses.",
+	// docs/guide/tavern-games.html; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.guide.tavern-games.1-1-your-side-pays-even": "<span class=\"guide-flow-icon tavern-even\">1:1</span><span class=\"guide-flow-label\">Your Side Pays Even</span>",
 	// docs/guide/tavern-games.html:17; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.tavern-games.42-roll-55-wins": '<span class="guide-flow-icon tavern-roll">42</span><span class="guide-flow-label">Roll ≤ 55 Wins</span>',
 	// docs/guide/tavern-games.html:14; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
@@ -5233,6 +5248,10 @@ module.exports = {
 	// docs/guide/tavern-games.html:31; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["won: false"].
 	"docs.guide.tavern-games.a-completed-losing-wager-is-a-valid-result":
 		'A completed losing wager is a valid result and fulfills its Promise with <span class="dlabel">won: false</span>. A rejected Promise means the wager or machine failed validation.',
+	// docs/guide/tavern-games.html; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"]. Fortune's Wheel is the Tavern wheel game.
+	"docs.guide.tavern-games.code-spin-fortune-s-wheel": "CODE: Spin Fortune's Wheel",
+	// docs/guide/tavern-games.html; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fortune's Wheel is the Tavern wheel game's name.
+	"docs.guide.tavern-games.fortune-s-wheel": "Fortune's Wheel",
 	// docs/guide/tavern-games.html:7; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Keep names: ["Jaqk"].
 	"docs.guide.tavern-games.house_rules": "<b>Ask Jaqk for the current house</b>The tavern panel shows whether betting is open, its edge, and the largest win it can presently cover.",
 	// docs/guide/tavern-games.html:34; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"].
@@ -5260,16 +5279,22 @@ module.exports = {
 	"docs.guide.tavern-games.gold-in-fortune-out": "GOLD IN, FORTUNE OUT",
 	// docs/guide/tavern-games.html:28; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.tavern-games.payout-or-no-luck": '<span class="guide-flow-icon tavern-result">?</span><span class="guide-flow-label">Payout or No Luck</span>',
-	// docs/guide/tavern-games.html:60; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["get_tavern_info","bet_dice","play_slots"].
+	// docs/guide/tavern-games.html:60; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["get_tavern_info","bet_dice","play_slots","bet_wheel"].
 	"docs.guide.tavern-games.references-get-tavern-info-bet-dice-play-slots":
-		'References: <span class="rlabel" onclick="render_function_reference($(this).html())">get_tavern_info</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_dice</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">play_slots</span>.',
+		'References: <span class="rlabel" onclick="render_function_reference($(this).html())">get_tavern_info</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_dice</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">play_slots</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_wheel</span>.',
 	// docs/guide/tavern-games.html:22; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.tavern-games.slots": "Slots",
+	// docs/guide/tavern-games.html; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	"docs.guide.tavern-games.spin-the-wheel": "<span class=\"guide-flow-icon tavern-wheel\">○</span><span class=\"guide-flow-label\">Spin the Wheel</span>",
+	// docs/guide/tavern-games.html; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. SUN is one of the wheel's two sides; keep it short and uppercase.
+	"docs.guide.tavern-games.sun-choose-a-side": "<span class=\"guide-flow-icon tavern-side\">SUN</span><span class=\"guide-flow-label\">Choose a Side</span>",
 	// docs/guide/tavern-games.html:2; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.tavern-games.tavern-games": "Tavern Games",
 	// docs/guide/tavern-games.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["The Tavern"].
 	"docs.guide.tavern-games.the-tavern-s-dice-table-and-slot-machine":
-		"The Tavern's dice table and slot machine spend gold on games of chance. Read the wager twice. The house has already read it once.",
+		"The Tavern's dice table, slot machine and Fortune's Wheel spend gold on games of chance. Read the wager twice. The house has already read it once.",
+	// docs/guide/tavern-games.html; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Sun and Moon are the wheel's two sides.
+	"docs.guide.tavern-games.the-wheel-s-fourteen-slices-alternate-between-sun": "The wheel's fourteen slices alternate between <b>Sun</b> and <b>Moon</b>. Pick a side, choose a wager and spin. Landing on your side returns the wager plus an equal win, minus the house's cut of that win. Landing on the other side loses the wager. Wagers start at 10,000 gold, and the largest win stays within what the house can cover.",
 	// docs/guide/tracktrix.html:6; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.tracktrix.1-0-for-each-monster-your-character-or":
 		"<span style='color:#359CA3'>+1.0</span> For each monster your character or your party kills<br />\n\t<span style='color:#5BA652'>+0.3</span> Per each one of your characters in your party or within 600px of you<br />\n\t<span style='color:#AC3029'>-0.3</span> If you are not within 600px of the kill and your last kill was a different monster<br />\n\t<span style='color:#AC3029'>-0.1</span> If an allied merchant is within 600px of the kill<br />",

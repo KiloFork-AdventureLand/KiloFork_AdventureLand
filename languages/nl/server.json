@@ -310,5 +310,8 @@
 	"server.pm.delivery_failed": "(NIET BEZORGD)",
 	"server.game_error.capacity.one": "Er kan momenteel niet meer dan {count} speler worden toegelaten",
 	"server.game_error.capacity.other": "Er kunnen momenteel niet meer dan {count} spelers worden toegelaten",
-	"server.payment.shells.one": "{count} schelp"
+	"server.payment.shells.one": "{count} schelp",
+	"server.game_log.wheel_bet": "Rad: {side} voor {amount} goud",
+	"server.game_log.wheel_won": "Het rad stopte op {side}. {amount} goud gewonnen",
+	"server.game_log.wheel_lost": "Het rad stopte op {side}. {amount} goud verloren"
 }

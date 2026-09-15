@@ -309,5 +309,8 @@
 	"server.game_error.characters_unconfirmed": "Det gick inte att kontrollera dina andra karaktärer. Försök igen.",
 	"server.pm.delivery_failed": "(EJ LEVERERAT)",
 	"server.payment.shells.one": "{count} snäcka",
-	"server.payment.shells.other": "{count} snäckor"
+	"server.payment.shells.other": "{count} snäckor",
+	"server.game_log.wheel_bet": "Hjul: {side} för {amount} guld",
+	"server.game_log.wheel_won": "Hjulet stannade på {side}. Vann {amount} guld",
+	"server.game_log.wheel_lost": "Hjulet stannade på {side}. Förlorade {amount} guld"
 }

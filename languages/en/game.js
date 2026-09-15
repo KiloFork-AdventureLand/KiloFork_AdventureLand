@@ -366,6 +366,10 @@ module.exports = {
 	"response.tavern_dice_exist": "You already have a bet",
 	// js/game.js, response tavern_gold_not_enough.
 	"response.tavern_gold_not_enough": "Gold reserve insufficient to cover this bet",
+	// js/game.js, response wheel_spinning: a second wheel wager was refused because the player's spin has not settled yet.
+	"response.wheel_spinning": "The wheel is still turning",
+	// js/game.js, response wheel_side: the wheel wager named neither side. Sun and Moon are the wheel's two sides.
+	"response.wheel_side": "Pick Sun or Moon first",
 	// js/game.js, response condition. Parameters: name.
 	"response.condition": "Afflicted by {name}",
 	// js/game.js, response condition. Parameters: from, name.
@@ -678,8 +682,6 @@ module.exports = {
 	"game.you_are_getting_scared": "You are getting scared",
 	// js/game.js, d_text display. Short floating text above a character.
 	"combat.zzz": "zZz",
-	// js/game.js, add_log display.
-	"game.the_hostess_isn_t_around": "The hostess isn't around",
 	// js/game.js, message display.
 	"npc.slots.try_machine": "Hmm. This machine seems broken. Still give it a try? [1,000,000 gold]",
 	// js/game.js, button display.

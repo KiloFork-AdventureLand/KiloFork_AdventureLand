@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Máš obrovský strach",
 	"game.you_are_getting_scared": "Začínáš se bát",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "Hostitelka tu není",
 	"npc.slots.try_machine": "Hmm. Tenhle automat vypadá rozbitě. Přesto to zkusit? [1 000 000 zlata]",
 	"npc.accept_uppercase": "ANO!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Z aplikace z Mac App Store nemůžeš vstoupit do The Tavern :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Obnovit velikost chatu",
 	"chat.no_characters": "Žádné postavy",
 	"chat.full": "CELÉ",
-	"chat.min": "MIN"
+	"chat.min": "MIN",
+	"response.wheel_spinning": "Kolo se ještě točí",
+	"response.wheel_side": "Nejdřív zvol Slunce, nebo Měsíc"
 }

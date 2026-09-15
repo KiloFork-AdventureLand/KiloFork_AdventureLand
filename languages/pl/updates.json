@@ -754,5 +754,6 @@
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "Wprowadzono „agresywność” potworów. Bee żądli :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "Dodano funkcję „linii”. Rysuje linię między obiektami podczas ataku i leczenia. Powinna przydać się zwłaszcza w PVP.",
 	"update.14_09_26.progression": "Przewodnik rozwoju proponuje projekty wyposażenia, przydatne łowiska i bieżące okazje od pierwszych walk z Goo. Wybierz cel nad HP i MP lub wyłącz przewodnik w ustawieniach obok samouczka. CODE może odczytać te same rady przez get_progression().",
-	"update.14_09_26.rime_djinn": "Rime Djinn nawiedzają teraz Frozen Cove. Rozbijajcie razem ich pancerze, zdobywajcie nagrody Tracker i zbierajcie Rimeglass na trzy nowe elementy wyposażenia."
+	"update.14_09_26.rime_djinn": "Rime Djinn nawiedzają teraz Frozen Cove. Rozbijajcie razem ich pancerze, zdobywajcie nagrody Tracker i zbierajcie Rimeglass na trzy nowe elementy wyposażenia.",
+	"update.15_09_26.wheel": "W Tavern kręci się już Koło Fortuny. Wybierz Słońce albo Księżyc, ustal stawkę i zakręć: twoja strona wypłaca jeden do jednego, a kasyno zatrzymuje tylko swoją część wygranej. CODE może grać przez bet_wheel()."
 }

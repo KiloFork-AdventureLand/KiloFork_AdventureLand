@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Olet kauhuissasi",
 	"game.you_are_getting_scared": "Sinua alkaa pelottaa",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "Emäntä ei ole paikalla",
 	"npc.slots.try_machine": "Hmm. Tämä kone näyttää rikkinäiseltä. Kokeiletko silti? [1 000 000 kultaa]",
 	"npc.accept_uppercase": "KYLLÄ!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Et pääse Tavern-alueelle Mac App Store -versiosta :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Palauta chatin koko",
 	"chat.no_characters": "Ei hahmoja",
 	"chat.full": "TÄYSI",
-	"chat.min": "PIENI"
+	"chat.min": "PIENI",
+	"response.wheel_spinning": "Pyörä pyörii vielä",
+	"response.wheel_side": "Valitse ensin Aurinko tai Kuu"
 }

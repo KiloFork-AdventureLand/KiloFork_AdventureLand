@@ -754,5 +754,6 @@
 	"update.12_09_16.implemented_aggressiveness_for_monsters_bee_s_sting": "Ajout de l’« agressivité » des monstres. Les Bee piquent :)",
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "Ajout de la fonction « lignes » : elle trace une ligne entre les entités lors d’une attaque ou d’un soin. Elle devrait être particulièrement utile en JcJ.",
 	"update.14_09_26.progression": "Le Guide de progression propose des projets d'équipement, des zones de chasse utiles et des occasions actives dès vos premiers combats contre Goo. Choisissez un objectif au-dessus des HP et MP, ou désactivez le guide dans les paramètres à côté du tutoriel. CODE peut lire les mêmes conseils avec get_progression().",
-	"update.14_09_26.rime_djinn": "Les Rime Djinn hantent désormais Frozen Cove. Brisez leurs carapaces ensemble, gagnez des récompenses Tracker et récoltez du Rimeglass pour trois nouvelles pièces d'équipement."
+	"update.14_09_26.rime_djinn": "Les Rime Djinn hantent désormais Frozen Cove. Brisez leurs carapaces ensemble, gagnez des récompenses Tracker et récoltez du Rimeglass pour trois nouvelles pièces d'équipement.",
+	"update.15_09_26.wheel": "La Roue de la Fortune tourne désormais à la Tavern. Choisis Soleil ou Lune, fixe une mise et fais tourner : ton côté paie un contre un, et la maison ne garde que sa part du gain. Le CODE peut jouer avec bet_wheel()."
 }

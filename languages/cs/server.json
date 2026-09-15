@@ -313,5 +313,8 @@
 	"server.game_error.capacity.other": "Momentálně nelze přijmout více než {count} hráčů",
 	"server.payment.shells.few": "{count} mušle",
 	"server.payment.shells.many": "{count} mušle",
-	"server.payment.shells.one": "{count} mušle"
+	"server.payment.shells.one": "{count} mušle",
+	"server.game_log.wheel_bet": "Kolo: {side} za {amount} zlata",
+	"server.game_log.wheel_won": "Kolo se zastavilo na {side}. Výhra {amount} zlata",
+	"server.game_log.wheel_lost": "Kolo se zastavilo na {side}. Prohra {amount} zlata"
 }

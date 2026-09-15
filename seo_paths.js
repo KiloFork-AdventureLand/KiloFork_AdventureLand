@@ -78,6 +78,9 @@ const DOCS_PATHS = [
 	"/docs/guide/services/npc-merrit",
 	"/docs/ref/keymapping",
 	"/docs/ref/shells",
+	"/docs/code/functions/bet_wheel",
+	"/docs/guide/tavern-games",
+	"/docs/guide/services/tavern-games",
 ];
 
 const DOCS_DATA_KEYS = [

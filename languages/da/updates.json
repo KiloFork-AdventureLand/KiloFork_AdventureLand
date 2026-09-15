@@ -53,5 +53,6 @@
 	"update.01_01_26.new_json_api_to_save_bandwidth_internal": "Ny JSON-API for at spare båndbredde (internt)",
 	"update.01_01_26.slight_chance_something_might_break": "(Lille risiko for, at noget går i stykker)",
 	"update.14_09_26.progression": "Udviklingsguiden foreslår udstyrsprojekter, nyttige jagtsteder og aktuelle muligheder fra dine første Goo-kampe. Vælg et mål over HP og MP, eller slå guiden fra i indstillingerne ved siden af vejledningen. CODE kan læse de samme råd med get_progression().",
-	"update.14_09_26.rime_djinn": "Rime Djinn hjemsøger nu Frozen Cove. Knus deres skaller sammen, få Tracker-belønninger, og saml Rimeglass til tre nye udstyrsdele."
+	"update.14_09_26.rime_djinn": "Rime Djinn hjemsøger nu Frozen Cove. Knus deres skaller sammen, få Tracker-belønninger, og saml Rimeglass til tre nye udstyrsdele.",
+	"update.15_09_26.wheel": "Lykkehjulet drejer nu på Tavern. Vælg Sol eller Måne, sæt en indsats og drej: din side betaler en til en, og huset beholder kun sin andel af gevinsten. CODE kan spille med bet_wheel()."
 }

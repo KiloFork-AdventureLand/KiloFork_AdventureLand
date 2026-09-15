@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "恐怖に襲われています",
 	"game.you_are_getting_scared": "怖くなってきました",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "女主人は近くにいません",
 	"npc.slots.try_machine": "ふむ。この機械は壊れているみたい。それでも試す？[1,000,000ゴールド]",
 	"npc.accept_uppercase": "はい！",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Mac App Store版ではTavernに入れません :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "チャットのサイズを戻す",
 	"chat.no_characters": "キャラクターがいません",
 	"chat.full": "拡大",
-	"chat.min": "縮小"
+	"chat.min": "縮小",
+	"response.wheel_spinning": "輪はまだ回っています",
+	"response.wheel_side": "先に太陽か月を選んでください"
 }

@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Rettegsz",
 	"game.you_are_getting_scared": "Kezdesz félni",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "A háziasszony nincs itt",
 	"npc.slots.try_machine": "Hmm. Ez a gép hibásnak tűnik. Azért kipróbálod? [1 000 000 arany]",
 	"npc.accept_uppercase": "IGEN!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "A Mac App Store-os változatból nem léphetsz be a Tavern területére :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Csevegés méretének visszaállítása",
 	"chat.no_characters": "Nincsenek karakterek",
 	"chat.full": "TELJES",
-	"chat.min": "KICSI"
+	"chat.min": "KICSI",
+	"response.wheel_spinning": "A kerék még pörög",
+	"response.wheel_side": "Előbb válaszd a Napot vagy a Holdat"
 }

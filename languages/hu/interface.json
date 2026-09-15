@@ -848,5 +848,12 @@
 	"interface.item.empty": "Üres",
 	"interface.item.empty_description": "Semmi. Egy árva porszem sem.",
 	"interface.server.event": "ESEMÉNY!",
-	"interface.monster.rime_shell_progress": "{seconds} mp · Hiányzó sebzés: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} mp · Hiányzó sebzés: {damage}",
+	"interface.wheel.title": "Szerencsekerék",
+	"interface.wheel.sun": "NAP",
+	"interface.wheel.moon": "HOLD",
+	"interface.wheel.spin": "PÖRGETÉS",
+	"interface.wheel.spinning": "PÖRÖG...",
+	"interface.wheel.win_hint": "NYEREMÉNY +{amount}",
+	"interface.wheel.house": "A ház a nyeremény {edge}%-át megtartja"
 }

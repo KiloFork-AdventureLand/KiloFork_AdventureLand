@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "Jelenleg legfeljebb {count} játékost tudunk fogadni",
 	"server.game_error.authentication_failed": "Sikertelen: {reason}",
 	"server.game_error.characters_unconfirmed": "Nem sikerült ellenőrizni a többi karakteredet. Kérjük, próbáld újra.",
-	"server.pm.delivery_failed": "(NEM KÉZBESÍTVE)"
+	"server.pm.delivery_failed": "(NEM KÉZBESÍTVE)",
+	"server.game_log.wheel_bet": "Kerék: {side}, {amount} arany",
+	"server.game_log.wheel_won": "A kerék itt állt meg: {side}. Nyertél {amount} aranyat",
+	"server.game_log.wheel_lost": "A kerék itt állt meg: {side}. Vesztettél {amount} aranyat"
 }

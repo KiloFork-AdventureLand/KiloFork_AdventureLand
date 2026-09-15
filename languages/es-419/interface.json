@@ -850,5 +850,12 @@
 	"interface.server.event": "¡EVENTO!",
 	"interface.item.count_left.one": "Queda {count}",
 	"interface.merrit.reason_cooldown.one": "El siguiente paquete de tu cuenta puede llegar en {count} minuto, cuando pase Merrit.",
-	"interface.monster.rime_shell_progress": "{seconds} s · Daño pendiente: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} s · Daño pendiente: {damage}",
+	"interface.wheel.title": "Rueda de la Fortuna",
+	"interface.wheel.sun": "SOL",
+	"interface.wheel.moon": "LUNA",
+	"interface.wheel.spin": "GIRAR",
+	"interface.wheel.spinning": "GIRANDO...",
+	"interface.wheel.win_hint": "GANAS +{amount}",
+	"interface.wheel.house": "La casa se queda con el {edge}% de las ganancias"
 }

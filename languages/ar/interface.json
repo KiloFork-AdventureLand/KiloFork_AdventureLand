@@ -848,5 +848,12 @@
 	"interface.item.empty": "فارغ",
 	"interface.item.empty_description": "لا شيء، ولا حتى فتات.",
 	"interface.server.event": "فعالية!",
-	"interface.monster.rime_shell_progress": "{seconds} ث · الضرر المطلوب: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} ث · الضرر المطلوب: {damage}",
+	"interface.wheel.title": "عجلة الحظ",
+	"interface.wheel.sun": "الشمس",
+	"interface.wheel.moon": "القمر",
+	"interface.wheel.spin": "أدر",
+	"interface.wheel.spinning": "تدور...",
+	"interface.wheel.win_hint": "الربح +{amount}",
+	"interface.wheel.house": "تحتفظ الدار بنسبة {edge}% من الأرباح"
 }

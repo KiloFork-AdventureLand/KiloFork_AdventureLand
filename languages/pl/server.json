@@ -313,5 +313,8 @@
 	"server.payment.shells.few": "{count} muszle",
 	"server.payment.shells.many": "{count} muszli",
 	"server.payment.shells.one": "{count} muszla",
-	"server.payment.shells.other": "{count} muszli"
+	"server.payment.shells.other": "{count} muszli",
+	"server.game_log.wheel_bet": "Koło: {side} za {amount} złota",
+	"server.game_log.wheel_won": "Koło zatrzymało się na {side}. Wygrana: {amount} złota",
+	"server.game_log.wheel_lost": "Koło zatrzymało się na {side}. Strata: {amount} złota"
 }

@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Estás em pânico",
 	"game.you_are_getting_scared": "Estás a ficar com medo",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "A anfitriã não está por perto",
 	"npc.slots.try_machine": "Hmm. Esta máquina parece avariada. Queres tentar mesmo assim? [1 000 000 de ouro]",
 	"npc.accept_uppercase": "SIM!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Não podes entrar em Tavern através da aplicação da Mac App Store :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Restaurar tamanho do chat",
 	"chat.no_characters": "Sem personagens",
 	"chat.full": "TOTAL",
-	"chat.min": "MÍN."
+	"chat.min": "MÍN.",
+	"response.wheel_spinning": "A roda ainda está a girar",
+	"response.wheel_side": "Escolhe primeiro Sol ou Lua"
 }

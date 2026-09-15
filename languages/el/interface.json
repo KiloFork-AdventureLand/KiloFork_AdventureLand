@@ -849,5 +849,12 @@
 	"interface.item.empty_description": "Τίποτα. Ούτε ψίχουλο.",
 	"interface.server.event": "ΕΚΔΗΛΩΣΗ!",
 	"interface.merrit.reason_cooldown.one": "Το επόμενο δέμα του λογαριασμού σου μπορεί να φτάσει σε {count} λεπτό, όταν περάσει ο Merrit.",
-	"interface.monster.rime_shell_progress": "{seconds} δ · Απομένει ζημιά: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} δ · Απομένει ζημιά: {damage}",
+	"interface.wheel.title": "Τροχός της Τύχης",
+	"interface.wheel.sun": "ΗΛΙΟΣ",
+	"interface.wheel.moon": "ΦΕΓΓΑΡΙ",
+	"interface.wheel.spin": "ΓΥΡΙΣΕ",
+	"interface.wheel.spinning": "ΓΥΡΙΖΕΙ...",
+	"interface.wheel.win_hint": "ΚΕΡΔΟΣ +{amount}",
+	"interface.wheel.house": "Η μπάνκα κρατά το {edge}% των κερδών"
 }

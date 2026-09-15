@@ -124,6 +124,12 @@ module.exports = {
 	"server.game_log.bet_gold": "Bet: {amount} gold",
 	// node/server_functions.js:1653; game_log authored display. Keep character, item, monster, map, and product names unchanged.
 	"server.game_log.better_luck_next_time": "Better luck next time",
+	// node/logic/tavern_wheel.js; game_log when a Fortune's Wheel wager locks. {side} = the chosen side's label (SUN or MOON), {amount} = formatted gold.
+	"server.game_log.wheel_bet": "Wheel: {side} for {amount} gold",
+	// node/logic/tavern_wheel.js; game_log when the wheel settles on the player's side. {side} = the winning side's label, {amount} = formatted net gold won.
+	"server.game_log.wheel_won": "The wheel stopped on {side}. Won {amount} gold",
+	// node/logic/tavern_wheel.js; game_log when the wheel settles on the other side. {side} = the side it stopped on, {amount} = formatted gold lost.
+	"server.game_log.wheel_lost": "The wheel stopped on {side}. Lost {amount} gold",
 	// node/server.js:11607; game_log authored display. Keep character, item, monster, map, and product names unchanged.
 	"server.game_log.can_t_join_the_duel_from_a_pvp_zone": "Can't join the duel from a pvp zone!",
 	// node/server.js:11526; game_log authored display. Keep character, item, monster, map, and product names unchanged.

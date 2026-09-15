@@ -307,5 +307,8 @@
 	"server.game_error.capacity": "Hiện không thể tiếp nhận quá {count} người chơi",
 	"server.game_error.authentication_failed": "Thất bại: {reason}",
 	"server.game_error.characters_unconfirmed": "Không thể xác minh các nhân vật khác trong tài khoản của bạn. Vui lòng thử lại.",
-	"server.pm.delivery_failed": "(GỬI THẤT BẠI)"
+	"server.pm.delivery_failed": "(GỬI THẤT BẠI)",
+	"server.game_log.wheel_bet": "Vòng quay: {side} với {amount} vàng",
+	"server.game_log.wheel_won": "Vòng quay dừng ở {side}. Thắng {amount} vàng",
+	"server.game_log.wheel_lost": "Vòng quay dừng ở {side}. Thua {amount} vàng"
 }

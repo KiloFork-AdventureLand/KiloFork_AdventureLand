@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "你驚恐萬分",
 	"game.you_are_getting_scared": "你開始害怕了",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "女主人不在附近",
 	"npc.slots.try_machine": "嗯，這台機器好像壞了。還是想試試嗎？[1,000,000金幣]",
 	"npc.accept_uppercase": "好！",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Mac App Store版本無法進入Tavern :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "還原聊天視窗大小",
 	"chat.no_characters": "沒有角色",
 	"chat.full": "放大",
-	"chat.min": "縮小"
+	"chat.min": "縮小",
+	"response.wheel_spinning": "轉輪還在轉",
+	"response.wheel_side": "請先選擇太陽或月亮"
 }

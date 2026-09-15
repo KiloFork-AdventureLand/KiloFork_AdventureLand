@@ -861,5 +861,12 @@
 	"interface.time.seconds.few": "{count} секунди",
 	"interface.time.seconds.many": "{count} секунд",
 	"interface.time.seconds.other": "{count} секунди",
-	"interface.monster.rime_shell_progress": "{seconds} с · Потрібно шкоди: {damage}"
+	"interface.monster.rime_shell_progress": "{seconds} с · Потрібно шкоди: {damage}",
+	"interface.wheel.title": "Колесо Фортуни",
+	"interface.wheel.sun": "СОНЦЕ",
+	"interface.wheel.moon": "МІСЯЦЬ",
+	"interface.wheel.spin": "КРУТИТИ",
+	"interface.wheel.spinning": "КРУТИТЬСЯ...",
+	"interface.wheel.win_hint": "ВИГРАШ +{amount}",
+	"interface.wheel.house": "Заклад залишає собі {edge}% виграшу"
 }

@@ -337,7 +337,6 @@
 	"game.you_are_terrified": "Обзема те ужас",
 	"game.you_are_getting_scared": "Започваш да се плашиш",
 	"combat.zzz": "zZz",
-	"game.the_hostess_isn_t_around": "Домакинята не е наоколо",
 	"npc.slots.try_machine": "Хмм. Тази машина май е повредена. Все пак ще опиташ ли? [1,000,000 злато]",
 	"npc.accept_uppercase": "ДА!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Не можеш да влезеш в Tavern от версията в Mac App Store :|",
@@ -435,5 +434,7 @@
 	"chat.restore": "Възстанови размера на чата",
 	"chat.no_characters": "Няма герои",
 	"chat.full": "ЦЯЛ",
-	"chat.min": "МИН."
+	"chat.min": "МИН.",
+	"response.wheel_spinning": "Колелото още се върти",
+	"response.wheel_side": "Първо избери Слънце или Луна"
 }

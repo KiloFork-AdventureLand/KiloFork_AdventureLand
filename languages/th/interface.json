@@ -848,5 +848,12 @@
 	"interface.item.empty": "ว่าง",
 	"interface.item.empty_description": "ไม่มีอะไรเลย ว่างเปล่าสนิท",
 	"interface.server.event": "กิจกรรม!",
-	"interface.monster.rime_shell_progress": "{seconds} วิ · ต้องทำอีก {damage} ดาเมจ"
+	"interface.monster.rime_shell_progress": "{seconds} วิ · ต้องทำอีก {damage} ดาเมจ",
+	"interface.wheel.title": "วงล้อแห่งโชคชะตา",
+	"interface.wheel.sun": "ดวงอาทิตย์",
+	"interface.wheel.moon": "ดวงจันทร์",
+	"interface.wheel.spin": "หมุน",
+	"interface.wheel.spinning": "กำลังหมุน...",
+	"interface.wheel.win_hint": "ชนะรับ +{amount}",
+	"interface.wheel.house": "เจ้ามือหัก {edge}% จากเงินที่ชนะ"
 }

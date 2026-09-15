@@ -12375,7 +12375,7 @@ function init_socket_io(socket_server) {
 		});
 		socket.on("bet", function (data) {
 			var request_id = data.request_id;
-			var bet_place = data.type == "slots" ? "slots" : "dice";
+			var bet_place = data.type == "slots" ? "slots" : data.type == "wheel" ? "wheel" : "dice";
 			function bet_failure(reason) {
 				if (request_id) return fail_response(reason, bet_place, { request_id: request_id });
 				return socket.emit("game_response", reason);
@@ -12391,6 +12391,9 @@ function init_socket_io(socket_server) {
 			}
 			if (player.s.xshotted) {
 				return bet_failure("bet_xshot");
+			}
+			if (data.type == "wheel") {
+				return tavern_wheel_bet(player, data, bet_failure, request_id);
 			}
 			if (data.type == "roulette") {
 				if (!Dev) {
@@ -12541,6 +12544,7 @@ function init_socket_io(socket_server) {
 		socket.on("tavern", function (data) {
 			if (data.event == "info") {
 				var info = { event: "info", edge: house_edge(), max: parseInt((S.gold - house_debt()) * 0.4) };
+				if (data.game) info.game = data.game;
 				if (data.request_id) success_response("data", "tavern", Object.assign({ request_id: data.request_id }, info));
 				else socket.emit("tavern", info);
 			}
@@ -12764,6 +12768,7 @@ function init_socket_io(socket_server) {
 						player.gold += player.bets[bid].gold;
 					}
 					player.bets = {};
+					tavern_wheel_disconnect(player);
 				} catch (e) {
 					log_trace("#X DCERRORBETS", e);
 				}
@@ -14626,6 +14631,9 @@ function update_instance(instance) {
 					delete player.p.u_fail;
 					delete player.p.u_level;
 					resend(player, "reopen+u+cid+nc+inv");
+				}
+				if (name == "wheel") {
+					tavern_wheel_settle(player, ref);
 				}
 				if (name == "slots") {
 					if (Math.random() < ((S.gold > 500000000 && D.odds.slots_good) || D.odds.slots)) {

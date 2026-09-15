@@ -310,5 +310,8 @@
 	"server.pm.delivery_failed": "(NON REMIS)",
 	"server.game_error.capacity.one": "Impossible d'accueillir plus de {count} joueur pour le moment",
 	"server.game_error.capacity.other": "Impossible d'accueillir plus de {count} joueurs pour le moment",
-	"server.payment.shells.one": "{count} coquillage"
+	"server.payment.shells.one": "{count} coquillage",
+	"server.game_log.wheel_bet": "Roue : {side} pour {amount} or",
+	"server.game_log.wheel_won": "La roue s’est arrêtée sur {side}. Gain : {amount} or",
+	"server.game_log.wheel_lost": "La roue s’est arrêtée sur {side}. Perte : {amount} or"
 }
