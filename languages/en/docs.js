@@ -5945,7 +5945,7 @@ module.exports = {
 
 // Cave guide. English only during the user-approved test phase. Preserve CODE identifiers and numbers.
 Object.assign(module.exports, {
-  "docs.cave.intro": "Find Dorr at the vine-covered doorway in Mainland, near 816,1200. Bring your party close, out of combat, and choose Enter together.",
+  "docs.cave.intro": "Find Dorr at the vine-covered doorway in Mainland, near 816,1200. Bring your party close, out of combat, and choose Enter together. CAVE INFO appears near Dorr and inside the cave.",
   "docs.cave.time": "The cave pauses during a forced vote. Your 24-minute clock stops too. Each character has one vote, including fallen characters. You have one minute to choose.",
   "docs.cave.travel": "Follow the labelled doorways. Defeat the guard camp and floor keeper, then settle the marked encounter to open the next floor. The cave timer shows which rooms are still unfinished. Locked stairs stay marked until all three are done. Directions above can lead you to each room.",
   "docs.cave.votes": "A majority settles the vote early. Otherwise, the reply with the most votes wins when time runs out. The conversation tells you what happens if nobody wins.",
@@ -6054,5 +6054,9 @@ Object.assign(module.exports, {
   "docs.cave.rare_crafts": "Deepvein Axe and Amberweave Coat each have a separate 0.1% chance to drop when your party completes floor 3. Each item goes to one original party member. Luck does not change these two chances. Cole can also craft both items with Cave Amber and other ingredients.",
   "docs.cave.common_weapons": "Tunnel Axe and Reed Scythe can come from cave rewards or merchants. Gabriel also sells Reed Scythe in Mainland for 16,000 gold. Cole can craft either weapon.",
   "docs.cave.craft": "Bring Cave Amber and the recipe ingredients to Cole in Mainland. Click an item below to see its recipe. Deepvein Axe uses an unupgraded Tunnel Axe. You can trade Amber with other players.",
-  "docs.cave.craft_code": "Stand near Cole with 8 Cave Amber, an unupgraded Blade, an unupgraded Wooden Basher and 12,000 gold. Keep all the Amber in one inventory slot. This crafts one Tunnel Axe."
+  "docs.cave.craft_code": "Stand near Cole with 8 Cave Amber, an unupgraded Blade, an unupgraded Wooden Basher and 12,000 gold. Keep all the Amber in one inventory slot. This crafts one Tunnel Axe.",
+  // Cave equipment guide. Evasion applies to physical attacks. Cave of Darkness is map cave; it is a different place from Cave of Many Dreams.
+  "docs.cave.equipment_roles": "Locktooth pierces armor. Counterweight adds health, armor and courage, but slows you slightly. Loaded Die adds critical chance and critical damage. Mothstep Boots help you move and dodge; in the Cave of Darkness, they give an extra 35% evasion and 20 speed. That bonus does not apply in the Cave of Many Dreams, and evasion does not stop spells.",
+  // auto_craft example requirements. Amber and Bee Wings each need their own single stack; Shoes must be unupgraded.
+  "docs.cave.boots_code": "For Mothstep Boots, stand near Cole with 6 Cave Amber, unupgraded Shoes, 2 Bee Wings and 12,000 gold. Keep the Amber in one stack and the Bee Wings in another."
 });

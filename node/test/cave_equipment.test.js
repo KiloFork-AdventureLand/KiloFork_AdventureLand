@@ -5,7 +5,16 @@ const G = require("./helpers/design");
 const { load, read, socketHandler } = require("./helpers/server_vm");
 
 const plain = (value) => JSON.parse(JSON.stringify(value));
-const equipment = ["cave_tunnelaxe", "cave_reedscythe", "cave_deepaxe", "cave_ambercoat"];
+const equipment = [
+	"cave_tunnelaxe",
+	"cave_reedscythe",
+	"cave_deepaxe",
+	"cave_ambercoat",
+	"cave_locktooth",
+	"cave_counterweight",
+	"cave_mothsteps",
+	"cave_loaded_die",
+];
 // Use the native shop setup, including actual NPC positions and item availability.
 G.geometry = {};
 G.T = {};
@@ -60,7 +69,9 @@ test("cave equipment recipes and an ordinary pickaxe craft through the real hand
 		socketHandler(context, "craft")({ items: recipe.items.map((_, index) => [index, index]) });
 		assert.deepEqual(failures, [], name);
 		assert.equal(player.gold, 0, name);
-		assert.deepEqual(plain(player.items.filter(Boolean)), [{ name, level: 0, oo: "Crafter" }]);
+		assert.deepEqual(plain(player.items.filter(Boolean)), [
+			{ name, ...(G.items[name].upgrade ? { level: 0 } : {}), oo: "Crafter" },
+		]);
 		assert.equal(messages.at(-1)[0], "craft");
 		assert.equal(messages.at(-1)[1].name, name);
 	}
@@ -69,6 +80,7 @@ test("cave equipment recipes and an ordinary pickaxe craft through the real hand
 test("cave crafts reject upgraded inputs, missing materials and short gold without consuming anything", () => {
 	for (const name of equipment) {
 		for (const invalid of ["level", "quantity", "gold", "distance"]) {
+			if (invalid === "level" && !G.craft[name].items.some(([, ingredient]) => G.items[ingredient].upgrade)) continue;
 			const { context, player, failures, recipe } = inventoryFixture(name);
 			if (invalid === "level") player.items.find((item) => G.items[item.name].upgrade).level++;
 			if (invalid === "quantity") {
@@ -155,4 +167,69 @@ test("the guide's existing drop renderer shows independent bonuses as 0.1%", () 
 		assert.match(context.render_drop(drop, 1, "#858B8E", "percent"), />0\.1%<\/div>/);
 	}
 	assert.deepEqual(icons, ["cave_deepaxe", "cave_ambercoat"]);
+});
+
+test("Mothstep bonuses apply on entering Cave of Darkness and disappear on leaving", () => {
+	const { context: c, player: p } = inventoryFixture();
+	Object.assign(c, {
+		goldm: 1,
+		luckm: 1,
+		xpm: 1,
+		mode: {},
+		parties: {},
+		perfc: { cps: 0 },
+		recalculate_vxy() {},
+		market_patron_reset() {},
+		generated_can_enter: () => true,
+		send_generated_maps() {},
+		is_invis: () => false,
+		pmap_remove() {},
+		pmap_add() {},
+		resume_instance() {},
+		add_call_cost() {},
+		send_all_xy: () => ({}),
+	});
+	const source = read("node/server.js");
+	vm.runInContext(source.slice(source.indexOf("var stat_to_attr ="), source.indexOf("function apply_stats")), c);
+	load(c, "node/server.js", ["apply_stats", "calculate_common_stats", "calculate_player_stats", "transport_player_to"]);
+	Object.assign(p, {
+		id: "Crafter",
+		type: "warrior",
+		level: 40,
+		xp: 0,
+		damage_type: "physical",
+		map: "main",
+		in: "main",
+		hp: 100,
+		mp: 100,
+		slots: { mainhand: { name: "blade", level: 6 }, shoes: { name: "cave_mothsteps", level: 6, stat_type: "str" } },
+		p: { stats: { monsters: {}, monsters_diff: {} } },
+		max_stats: { monsters: {} },
+		targets_p: 0,
+		targets_m: 0,
+		targets_u: 0,
+		bets: {},
+		last: {},
+		m: 0,
+		cid: 0,
+	});
+	c.instances = { main: { map: "main", players: { Crafter: p } }, cave: { map: "cave", players: {} } };
+	c.calculate_player_stats(p);
+	const baseline = { speed: p.speed, evasion: p.evasion, armor: p.armor, resistance: p.resistance };
+	c.transport_player_to(p, "cave", 0);
+	assert.equal(p.speed, baseline.speed + 20);
+	assert.equal(p.evasion, baseline.evasion + 35);
+	assert.equal(p.armor, baseline.armor);
+	assert.equal(p.resistance, baseline.resistance);
+	c.transport_player_to(p, "main", 0);
+	assert.deepEqual({ speed: p.speed, evasion: p.evasion, armor: p.armor, resistance: p.resistance }, baseline);
+	// A generated Cave of Many Dreams floor does not receive the unrelated cave-map bonus.
+	p.map = "zone_test_0";
+	c.calculate_player_stats(p);
+	assert.equal(p.evasion, baseline.evasion);
+	assert.equal(p.speed, baseline.speed);
+	p.map = "cave";
+	p.slots.orb = { name: "orboftemporal", level: 6 };
+	c.calculate_player_stats(p);
+	assert.equal(p.evasion, 50, "stacked gear still obeys the ordinary evasion cap");
 });

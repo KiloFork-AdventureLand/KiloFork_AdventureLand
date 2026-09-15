@@ -20,7 +20,7 @@
 <hr><h3>{{ phrase("docs.cave.rare_crafts_heading") }}</h3><p>{{ phrase("docs.cave.rare_crafts") }}</p><div class="cave-guide-finish-bonus"></div>
 <hr><h3>{{ phrase("docs.cave.danger_heading") }}</h3>
 <div class="cave-guide-rares"></div><p>{{ phrase("docs.cave.danger") }}</p><p>{{ phrase("docs.cave.rogue") }}</p>
-<hr><p>{{ phrase("docs.cave.common_weapons") }}</p><p>{{ phrase("docs.cave.craft") }}</p><div class="cave-guide-crafts"></div>
+<hr><p>{{ phrase("docs.cave.common_weapons") }}</p><p>{{ phrase("docs.cave.equipment_roles") }}</p><p>{{ phrase("docs.cave.craft") }}</p><div class="cave-guide-crafts"></div>
 <hr><p>{{ phrase("docs.cave.exit") }}</p>
 <hr><h3>{{ phrase("docs.cave.code_heading") }}</h3><p>{{ phrase("docs.cave.code") }}</p>
 <div class="code">var last_choice = null;
@@ -75,6 +75,9 @@ if (character.cave &amp;&amp; !character.cave.paused &amp;&amp; !character.rip) 
 <p><a href="/docs/function/loot">loot</a></p>
 <hr><p>{{ phrase("docs.cave.craft_code") }}</p>
 <div class="code">var crafted = await auto_craft("cave_tunnelaxe");
+show_json(crafted);</div>
+<p>{{ phrase("docs.cave.boots_code") }}</p>
+<div class="code">var crafted = await auto_craft("cave_mothsteps");
 show_json(crafted);</div>
 <p><a href="/docs/function/auto_craft">auto_craft</a> · <a href="/docs/function/craft">craft</a></p>
 </div>

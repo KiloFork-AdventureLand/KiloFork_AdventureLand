@@ -65,6 +65,7 @@ var cave_active_reward = null;
 var cave_notice_until = 0;
 var cave_hud_width = 0;
 var cave_enter_pending = false;
+var cave_info_visible = false;
 function cave_now() { return Date.now() + cave_server_offset; }
 function cave_time(ms) {
 	var seconds = Math.max(0, Math.ceil(ms / 1000));
@@ -162,6 +163,13 @@ function open_cave_info() {
 	cave_load_visit();
 	open_guide("cave-of-many-dreams", "/docs/ref/cave-of-many-dreams");
 }
+function cave_info_available() {
+	if (!character || !G.events.dreams) return false;
+	if (G.maps[current_map]?.generated?.zone === "dreams") return true;
+	if (current_map !== "main") return false;
+	var keeper = G.maps.main.npcs.find(npc => npc.id === "dreamkeeper");
+	return !!keeper && point_distance(character.real_x, character.real_y, keeper.position[0], keeper.position[1]) < 240;
+}
 function cave_visit_text() {
 	if (!cave_visit) return phrase("cave.checking_visit");
 	if (cave_visit.unlimited) return phrase("cave.visit_unlimited");
@@ -190,8 +198,9 @@ function update_cave_hud(force) {
 	if (!force && Date.now() < cave_ui_next) return;
 	cave_ui_next = Date.now() + 200;
 	var state = cave_client_state;
-	var near = character && current_map === "main" && Math.hypot(character.real_x - 816, character.real_y - 1200) < 240;
-	if (!state && !near && !cave_reward_queue.length && Date.now() >= cave_notice_until) { if ($("#cave-hud").length) { $("#cave-hud,#cave-reward-note").remove(); reposition_ui(); } return; }
+	var nearby = cave_info_available();
+	if (nearby !== cave_info_visible) { cave_info_visible = nearby; render_server(); }
+	if (!nearby && !cave_reward_queue.length && Date.now() >= cave_notice_until) { if ($("#cave-hud").length) { $("#cave-hud,#cave-reward-note").remove(); reposition_ui(); } return; }
 	if (!$("#cave-hud").length) {
 		$("#topmid").append("<div id='cave-hud'><div class='cave-hud-row'><div class='gamebutton cave-clock' onclick='open_cave_info()'></div><div class='gamebutton cave-vote-clock' onclick='render_cave_choice()'></div><div class='gamebutton' onclick='open_cave_info()'>INFO</div><div class='gamebutton cave-exit' onclick='cave_manual(\"exit\")'>"+phrase.html("cave.exit")+"</div></div><div class='cave-purse' onclick='open_cave_info()'></div><div class='cave-progress'></div><div class='cave-hunt-note'></div></div><div id='cave-reward-note' class='cave-reward-note' role='status' style='display:none'></div>");
 		reposition_ui();

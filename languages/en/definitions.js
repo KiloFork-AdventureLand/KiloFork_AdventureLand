@@ -3167,6 +3167,8 @@ module.exports = {
 
 // Cave equipment descriptions, shown through the normal item tooltip. Proper item names remain unchanged.
 Object.assign(module.exports, {
+  // Mothstep Boots tooltip. The flat bonuses apply only on map cave, whose proper name is Cave of Darkness.
+  "item.cave_mothsteps.explanation": "Cave of Darkness: +35% Evasion and +20 Speed.",
   "item.cave_tunnelaxe.explanation": "A stout axe for roots, ribs and stubborn doors.",
   "item.cave_reedscythe.explanation": "Made to clear a path.",
   "item.cave_deepaxe.explanation": "A pale seam runs through the dark blade.",

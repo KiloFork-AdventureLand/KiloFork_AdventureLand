@@ -3623,19 +3623,19 @@ events.dreams={
 		],
 		[
 			"cave_loaded_die",
-			22000
-		],
-		[
-			"cave_locktooth",
 			10000
 		],
 		[
+			"cave_locktooth",
+			6000
+		],
+		[
 			"cave_counterweight",
-			12000
+			8000
 		],
 		[
 			"cave_mothsteps",
-			8000
+			6000
 		],
 		[
 			"scroll1",

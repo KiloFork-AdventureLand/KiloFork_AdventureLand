@@ -2194,6 +2194,24 @@ var armor={
 		"explanation":"The fingers are reinforced. The palms make no sound at all.",
 		"g":420000,
 	},
+	"cave_mothsteps":{
+		"type":"shoes",
+		"tier":2,
+		"skin":"cave_mothsteps",
+		"scroll":true,
+		"resistance":8,
+		"speed":8,
+		"evasion":4,
+		"cave":{"evasion":35,"speed":20},
+		"upgrade":{"speed":0.75,"evasion":0.25},
+		// Keep the original low-grade starting scrolls on this accessible craft.
+		"grades":[4,8,10,12],
+		"g":90000,
+		"cx":{"accent":"#B780AB"},
+		"name":"Mothstep Boots",
+		"explanation":"Cave of Darkness: +35% Evasion and +20 Speed.",
+		"exclusive":true
+	},
 	"cave_ambercoat":{
 		"type": "chest",
 		"tier": 3,
@@ -4639,6 +4657,24 @@ var weapons={
 		"explanation":"A steady hand carries farther than a loud blow.",
 		"g":360000,
 		"cx":{"accent":"#426E9C"},
+	},
+	"cave_locktooth":{
+		"type":"weapon",
+		"tier":2,
+		"wtype":"short_sword",
+		"class":["warrior","paladin","merchant"],
+		"skin":"cave_locktooth",
+		"damage_type":"physical",
+		// The hooked blade keeps its six-point reach bonus on the T2 curve.
+		"range":6,
+		"apiercing":40,
+		"upgrade":{"apiercing":6},
+		"grades":[4,8,10,12],
+		"g":48000,
+		"cx":{"accent":"#CBAE69","scale":0.5,"extension":true},
+		"name":"Locktooth",
+		"explanation":"It opens locks. Their owners usually object.",
+		"exclusive":true
 	},
 	"cave_tunnelaxe":{
 		"type": "weapon",
@@ -8775,46 +8811,11 @@ for(var name in items){
 	}
 }
 
-// Cave items keep their explicit progression after ordinary item normalization.
+// Cave offhands, accessories and rare encounter weapons have explicit progression.
 Object.assign(items, {
-  "cave_locktooth": {
-    "type": "weapon",
-    "tier": 2,
-    "wtype": "short_sword",
-    "class": [
-      "warrior",
-      "paladin",
-      "merchant"
-    ],
-    "skin": "cave_locktooth",
-    "damage_type": "physical",
-    "attack": 20,
-    "range": 13,
-    "apiercing": 40,
-    "speed": -2,
-    "upgrade": {
-      "attack": 4.5,
-      "range": 1.5,
-      "apiercing": 6
-    },
-    "grades": [
-      4,
-      8,
-      10,
-      12
-    ],
-    "g": 48000,
-    "cx": {
-      "accent": "#CBAE69",
-      "scale": 0.5,
-      "extension": true
-    },
-    "name": "Locktooth",
-    "explanation": "It opens locks. Their owners usually object.",
-    "exclusive": true
-  },
   "cave_counterweight": {
     "type": "shield",
+    "tier": 2,
     "class": [
       "warrior",
       "paladin",
@@ -8823,12 +8824,13 @@ Object.assign(items, {
     ],
     "skin": "cave_counterweight",
     "armor": 90,
-    "resistance": 0,
+    "resistance": 20,
     "courage": 2,
-    "speed": -5,
+    "speed": -2,
     "upgrade": {
       "armor": 15,
-      "resistance": 2
+      "resistance": 2,
+      "hp": 10
     },
     "grades": [
       4,
@@ -8842,44 +8844,14 @@ Object.assign(items, {
     },
     "name": "Counterweight",
     "explanation": "A heavy stone shield with thick leather straps.",
-    "exclusive": true
-  },
-  "cave_mothsteps": {
-    "type": "shoes",
-    "skin": "cave_mothsteps",
-    "scroll": true,
-    "stat": 1,
-    "armor": 3,
-    "resistance": 2,
-    "speed": 8,
-    "evasion": 4,
-    "upgrade": {
-      "stat": 1,
-      "armor": 1,
-      "resistance": 1,
-      "speed": 0.75,
-      "evasion": 0.25
-    },
-    "grades": [
-      4,
-      8,
-      10,
-      12
-    ],
-    "g": 90000,
-    "cx": {
-      "accent": "#B780AB"
-    },
-    "name": "Mothstep Boots",
-    "explanation": "Soft boots with folded cuffs.",
-    "exclusive": true
+    "exclusive": true,
+    "hp": 120
   },
   "cave_loaded_die": {
     "type": "orb",
     "skin": "cave_loaded_die",
-    "crit": 10,
-    "critdamage": 20,
-    "miss": 5,
+    "crit": 8,
+    "critdamage": 10,
     "grade": 1,
     "g": 72000,
     "cx": {

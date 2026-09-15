@@ -3,7 +3,7 @@ const test = require("node:test");
 const vm = require("node:vm");
 const fs = require("node:fs");
 const path = require("node:path");
-const { load, read, socketHandler } = require("./helpers/server_vm");
+const { load, read, socketHandler, localize } = require("./helpers/server_vm");
 const G = require("./helpers/design");
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
@@ -249,6 +249,95 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	assert.ok(c.character.cave);
 	c.receive_cave_state({ type: "ended" });
 	assert.equal(c.character.cave, null);
+});
+
+test("Cave Info follows proximity and map changes without waiting for another event", () => {
+	const html = {},
+		calls = [];
+	const c = vm.createContext({
+		G: {
+			events: { dreams: {} },
+			maps: {
+				main: { npcs: [{ id: "dreamkeeper", position: [816, 1200] }] },
+				zone_cave: { generated: { zone: "dreams" } },
+				winterland: {},
+			},
+			items: {},
+		},
+		no_graphics: false,
+		no_html: false,
+		gameplay: "normal",
+		S: {},
+		quirks: {},
+		proximity_guides: true,
+		interaction_contexts: [],
+		interaction_context: null,
+		character: { real_x: 816, real_y: 1200 },
+		current_map: "winterland",
+		anniversary_visible_skill: false,
+		anniversary_live_event: () => null,
+		anniversary_can_visit: () => false,
+		render_event_announcements() {},
+		reposition_ui() {},
+		item_container: () => "<span></span>",
+		$: (selector) => ({
+			length: 0,
+			html(value) {
+				html[selector] = value;
+				return this;
+			},
+			hide() {
+				return this;
+			},
+			css() {
+				return this;
+			},
+			append() {
+				return this;
+			},
+			toggle() {
+				return this;
+			},
+			text() {
+				return this;
+			},
+			remove() {
+				return this;
+			},
+		}),
+	});
+	localize(c);
+	load(c, "js/old_common_functions.js", ["point_distance"]);
+	vm.runInContext(read("js/generated_zones.js"), c);
+	load(c, "js/html.js", ["render_server"]);
+	c.cave_load_visit = () => {};
+	c.cave_show_reward = () => {};
+	const render = c.render_server;
+	c.render_server = () => {
+		calls.push(c.current_map);
+		render();
+	};
+	c.render_server();
+	assert.doesNotMatch(html["#serverinfo"], /cave-info-button/);
+	c.current_map = "main";
+	c.update_cave_hud(true);
+	assert.match(html["#serverinfo"], /cave-info-button/);
+	c.character.real_x += 241;
+	c.update_cave_hud(true);
+	assert.doesNotMatch(html["#serverinfo"], /cave-info-button/);
+	c.current_map = "zone_cave";
+	c.update_cave_hud(true);
+	assert.match(html["#serverinfo"], /cave-info-button/);
+	c.current_map = "winterland";
+	c.cave_client_state = { run: "stale" };
+	c.update_cave_hud(true);
+	assert.doesNotMatch(html["#serverinfo"], /cave-info-button/);
+	assert.equal(calls.length, 5);
+	c.no_graphics = true;
+	c.current_map = "main";
+	c.character.real_x = 816;
+	c.update_cave_hud(true);
+	assert.equal(calls.length, 5, "headless characters do not render buttons");
 });
 
 test("a cave gold letter can be claimed once by its assigned character", async () => {
