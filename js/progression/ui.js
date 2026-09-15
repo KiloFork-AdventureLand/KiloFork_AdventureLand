@@ -11,7 +11,8 @@
 		pending = {},
 		initialized = false,
 		stateKey = "",
-		folded = false,
+		folded = true,
+		visible = false,
 		goal = null,
 		disabled = false;
 	function graphics() {
@@ -82,7 +83,8 @@
 		if (key === stateKey) return;
 		stateKey = key;
 		var savedState = saved(key) || {};
-		folded = !!savedState.folded;
+		folded = true;
+		visible = false;
 		goal = savedState.goal || null;
 		seen = new Set((savedState.seen || []).slice(-128));
 		currentNotices = new Set();
@@ -148,10 +150,10 @@
 			),
 			flash = false;
 		if (!initialized) {
-			if (!seen.size)
-				ids.forEach(function (id) {
-					seen.add(id);
-				});
+			// Entry establishes the baseline; only later changes announce a new path.
+			ids.forEach(function (id) {
+				seen.add(id);
+			});
 			initialized = true;
 		}
 		ids.forEach(function (id) {
@@ -189,13 +191,18 @@
 		var event = row.event && G.events[row.event];
 		return event && event.type === "seasonal" && event.announcement ? html_escape(phrase.definition("event", row.event, "announcement.text", event.announcement.text)) : say(row.reason);
 	}
-	function render() {
+	function render(reveal) {
 		if (!graphics() || disabled || !root.character || !root.G || !G.items) return;
 		identity();
 		result = adapter().read({ goal: goal });
 		if (!result.ready) return;
 		var flash = unseen(result.rows, Date.now()),
 			html;
+		if (reveal || flash) visible = true;
+		if (!visible) {
+			$("#progression-guide").remove();
+			return;
+		}
 		if (folded) html = "<button type='button' class='gamebutton progression-fold' onclick='btc(event); progression_fold(false)'>" + t("name") + " +</button>";
 		else {
 			html =
@@ -249,9 +256,9 @@
 		acknowledge();
 		folded = !!value;
 		persist();
-		render();
+		render(true);
 	};
-	root.set_progression_guide = function (enabled) {
+	root.set_progression_guide = function (enabled, initial) {
 		disabled = !enabled;
 		save("progression_guide", enabled ? "on" : "off");
 		if (timer) clearInterval(timer);
@@ -262,7 +269,7 @@
 		$(".progression-setting").html(t(enabled ? "setting.on" : "setting.off"));
 		if (!enabled) $("#progression-guide").remove();
 		else {
-			render();
+			render(!initial);
 			timer = setInterval(render, 1000);
 		}
 	};
@@ -670,6 +677,6 @@
 		document.addEventListener("DOMContentLoaded", function () {
 			if (!graphics()) return;
 			disabled = saved("progression_guide") === "off";
-			root.set_progression_guide(!disabled);
+			root.set_progression_guide(!disabled, true);
 		});
 })(typeof globalThis !== "undefined" ? globalThis : this);
