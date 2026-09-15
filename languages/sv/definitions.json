@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "Utvecklingsguide",
 	"item.rimeglass.explanation": "Kallt att röra vid. Värme kan inte smälta det.",
 	"item.djinncrown.explanation": "En kall krona för ett rastlöst sinne.",
-	"item.covemantle.explanation": "Vävd för den långa väntan mellan tidvattnen.",
+	"item.covemantle.explanation": "Mörkret livnär den som bär den. Endast i Cave of Darkness: +300 attack och +30% livsstöld.",
 	"item.stillwaterlens.explanation": "Något under glaset har slutat röra sig.",
 	"monster.rimedjinn.explanation": "Skalet spricker under en plötslig skur av slag.",
 	"condition.rimeshell.name": "Rimfrostskal",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Sprucket skal",
 	"condition.rimeexposed.explanation": "Motstånd minskar med 160 i 5 sekunder.",
 	"skill.rimeshatter.name": "Rimfrostsplitter",
-	"skill.rimeshatter.explanation": "Skjuter en isig projektil mot var och en av högst tre bidragande deltagare inom 260 räckvidd. Varje projektil gör 1,5 gånger Djinns magiska attack i skada.",
+	"skill.rimeshatter.explanation": "Skjuter en stor isig projektil mot var och en av högst tre bidragande deltagare inom 260 räckvidd. Varje projektil gör 20 000 magisk skada innan resistans räknas in. Krossa skalet för att förhindra salvan.",
 	"skill.rimeshell.name": "Rimfrostskal",
 	"skill.rimeshell.explanation": "Vid halva hälsan förbereder Djinn en besvärjelse i 3 sekunder. Gör skada motsvarande 5 % av dess maximala HP eller bedöva den för att krossa skalet och sänka motståndet med 160 i 5 sekunder. Annars skjuter den mot högst tre bidragande deltagare i närheten. Vanlig frysning avbryter inte besvärjelsen."
 }

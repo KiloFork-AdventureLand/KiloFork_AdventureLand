@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "Kehitysopas",
 	"item.rimeglass.explanation": "Kylmää koskettaa. Lämpökään ei sulata sitä.",
 	"item.djinncrown.explanation": "Kylmä kruunu levottomalle mielelle.",
-	"item.covemantle.explanation": "Kudottu vuorovesien väliseen pitkään odotukseen.",
+	"item.covemantle.explanation": "Pimeys ravitsee kantajaansa. Vain Cave of Darkness -alueella: +300 hyökkäystä ja +30% elämänriistoa.",
 	"item.stillwaterlens.explanation": "Jokin lasin alla on lakannut liikkumasta.",
 	"monster.rimedjinn.explanation": "Sen kuori halkeaa äkillisen iskusarjan alla.",
 	"condition.rimeshell.name": "Huurrekuori",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Haljennut kuori",
 	"condition.rimeexposed.explanation": "Vastus laskee 160 pisteellä 5 sekunniksi.",
 	"skill.rimeshatter.name": "Huurrepirstaleet",
-	"skill.rimeshatter.explanation": "Ampuu yhden jäisen ammuksen kullekin enintään kolmesta taisteluun osallistuneesta 260 kantaman sisällä. Kukin ammus tekee vahinkoa 1,5 kertaa Djinnin taikahyökkäyksen verran.",
+	"skill.rimeshatter.explanation": "Ampuu yhden suuren jäisen ammuksen kullekin enintään kolmesta taisteluun osallistuneesta 260 kantaman sisällä. Kukin ammus tekee 20 000 taikavahinkoa ennen vastuksen vaikutusta. Riko kuori estääksesi yhteislaukauksen.",
 	"skill.rimeshell.name": "Huurrekuori",
 	"skill.rimeshell.explanation": "Puolessa terveydessä Djinn loitsii 3 sekuntia. Tee vahinkoa 5 % sen enimmäis-HP:stä tai tainnuta se, niin kuori rikkoutuu ja vastus laskee 160 pisteellä 5 sekunniksi. Muuten se ampuu enintään kolmea lähellä olevaa taisteluun osallistunutta. Tavallinen jäädytys ei keskeytä loitsua."
 }

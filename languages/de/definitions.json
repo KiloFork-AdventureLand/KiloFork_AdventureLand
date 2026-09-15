@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "Fortschrittsratgeber",
 	"item.rimeglass.explanation": "Fühlt sich kalt an. Wärme kann es nicht schmelzen.",
 	"item.djinncrown.explanation": "Eine kalte Krone für einen ruhelosen Geist.",
-	"item.covemantle.explanation": "Gewebt für das lange Warten zwischen den Gezeiten.",
+	"item.covemantle.explanation": "Die Dunkelheit nährt den Träger. Nur in Cave of Darkness: +300 Angriff und +30% Lebensraub.",
 	"item.stillwaterlens.explanation": "Etwas unter dem Glas bewegt sich nicht mehr.",
 	"monster.rimedjinn.explanation": "Sein Panzer reißt unter einem plötzlichen Hagel von Schlägen.",
 	"condition.rimeshell.name": "Raureifpanzer",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Gebrochener Panzer",
 	"condition.rimeexposed.explanation": "Widerstand wird für 5 Sekunden um 160 verringert.",
 	"skill.rimeshatter.name": "Raureifsplitter",
-	"skill.rimeshatter.explanation": "Feuert je ein eisiges Geschoss auf bis zu drei Beteiligte innerhalb von 260 Reichweite. Jedes Geschoss verursacht das 1,5-Fache des magischen Angriffs des Djinn als Schaden.",
+	"skill.rimeshatter.explanation": "Feuert je ein großes eisiges Geschoss auf bis zu drei Beteiligte innerhalb von 260 Reichweite. Jedes Geschoss verursacht vor Abzug der Resistenz 20.000 magischen Schaden. Zerbrecht den Panzer, um die Salve zu verhindern.",
 	"skill.rimeshell.name": "Raureifpanzer",
 	"skill.rimeshell.explanation": "Bei halber Gesundheit zaubert der Djinn 3 Sekunden lang. Verursache Schaden in Höhe von 5 % seiner maximalen HP oder betäube ihn, um den Panzer zu brechen und seinen Widerstand für 5 Sekunden um 160 zu senken. Andernfalls feuert er auf bis zu drei Beteiligte in der Nähe. Normales Einfrieren unterbricht den Zauber nicht."
 }

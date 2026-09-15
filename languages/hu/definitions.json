@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "Fejlődési útmutató",
 	"item.rimeglass.explanation": "Hideg tapintású. A meleg sem olvasztja meg.",
 	"item.djinncrown.explanation": "Hideg korona egy nyughatatlan elmének.",
-	"item.covemantle.explanation": "Az árapályok közti hosszú várakozásra szőtték.",
+	"item.covemantle.explanation": "A sötétség táplálja viselőjét. Csak a Cave of Darkness területén: +300 támadás és +30% életlopás.",
 	"item.stillwaterlens.explanation": "Valami az üveg alatt már nem mozog.",
 	"monster.rimedjinn.explanation": "Páncélját megrepeszti a hirtelen rázúduló ütéssorozat.",
 	"condition.rimeshell.name": "Dérpáncél",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Repedt páncél",
 	"condition.rimeexposed.explanation": "Az ellenállás 5 másodpercre 160-nal csökken.",
 	"skill.rimeshatter.name": "Dérhasadás",
-	"skill.rimeshatter.explanation": "Egy-egy jeges lövedéket lő a harc legfeljebb három közreműködőjére 260 hatótávon belül. Minden lövedék a dzsinn mágikus támadásának 1,5-szeresét sebzi.",
+	"skill.rimeshatter.explanation": "Egy-egy nagy jeges lövedéket lő a harc legfeljebb három közreműködőjére 260 hatótávon belül. Minden lövedék 20 000 mágikus sebzést okoz az ellenállás figyelembevétele előtt. Törd össze a burkot, hogy megakadályozd a sortüzet.",
 	"skill.rimeshell.name": "Dérpáncél",
 	"skill.rimeshell.explanation": "Fél életerőnél a dzsinn 3 másodpercig varázsol. Sebezz a maximális HP-jának 5%-ával egyenlőt, vagy kábítsd el, hogy feltörd a páncélt, és 5 másodpercre 160-nal csökkentsd az ellenállását. Ellenkező esetben legfeljebb három közeli közreműködőre lő. A szokásos fagyasztás nem szakítja meg a varázslást."
 }

@@ -142,6 +142,87 @@ test("target loss and death cancel without punishment or a free exposure", () =>
 	}
 });
 
+test("Rime Shatter launches fixed 20,000 damage through the real attack handler", () => {
+	const context = vm.createContext({
+		G,
+		Math,
+		mode: {},
+		projectiles: {},
+		distance: G.distance,
+		instance_is_frozen: () => false,
+		cavalry_attack_valid: () => true,
+		is_cavalry: () => false,
+		is_invis: () => false,
+		is_invinc: () => false,
+		future_ms: (ms) => new Date(10000 + ms),
+		randomStr: () => "shot",
+		direction_logic() {},
+		xy_emit() {},
+	});
+	load(context, "node/server.js", ["commence_attack"]);
+	const monster = {
+		...G.monsters.rimedjinn,
+		id: "rime",
+		type: "rimedjinn",
+		is_monster: true,
+		map: "winter_cove",
+		in: "winter_cove",
+		x: 0,
+		y: 0,
+		s: { poisonous: {} },
+		a: {},
+		last: {},
+		crit: 100,
+		lifesteal: 100,
+	};
+	const player = { id: "A", is_player: true, map: "winter_cove", in: "winter_cove", x: 100, y: 0 };
+	for (const attack of [960, 9600]) {
+		monster.attack = attack;
+		const action = context.commence_attack(monster, player, "rimeshatter");
+		assert.equal(action.damage, 20000);
+		assert.equal(action.projectile, "rimeshatter");
+		assert.equal(context.projectiles.shot.damage_type, "magical");
+		assert.equal(context.projectiles.shot.procs, false);
+		assert.equal(context.projectiles.shot.conditions.length, 0);
+	}
+	monster.attack = 960;
+	assert.equal(context.commence_attack(monster, player, "attack").damage, 960);
+	player.x = 260;
+	assert.equal(context.commence_attack(monster, player, "rimeshatter").failed, true);
+});
+
+test("Cove Mantle's fixed map bonuses do not leak through cached item properties", () => {
+	for (const level of [0, 6, 10]) {
+		const item = { name: "covemantle", level, stat_type: "int" };
+		const outside = G.calculate_item_properties(item, { map: "winter_cove", class: "mage" });
+		const inside = G.calculate_item_properties(item, { map: "cave", class: "mage" });
+		assert.equal(inside.attack - outside.attack, 300);
+		assert.equal(inside.lifesteal - outside.lifesteal, 30);
+		for (const map of ["main", "winter_cove"]) {
+			const properties = G.calculate_item_properties(item, { map, class: "mage" });
+			assert.equal(properties.attack, outside.attack);
+			assert.equal(properties.lifesteal, outside.lifesteal);
+		}
+	}
+});
+
+test("Rime Shatter uses the native directional projectile renderer at twice the size", () => {
+	const scales = [];
+	const context = vm.createContext({
+		G,
+		no_graphics: false,
+		player_layer: {},
+		map_animations: {},
+		map: { addChild() {} },
+		new_sprite: () => ({ width: 20, height: 20, anchor: { set() {} }, scale: { set: (...args) => scales.push(args) } }),
+	});
+	load(context, "js/functions.js", ["map_animation"]);
+	context.map_animation(G.projectiles.rimeshatter.animation, { id: "shatter" });
+	assert.deepEqual(scales, [[2, 2]]);
+	assert.equal(context.map_animations.shatter.directional, true);
+	assert.equal(context.map_animations.shatter.speed, G.projectiles.rimeshatter.speed);
+});
+
 test("Rime visuals are harmless in the real no-graphics entry points", () => {
 	const context = vm.createContext({ no_graphics: true });
 	const blocked = () => {
@@ -153,6 +234,7 @@ test("Rime visuals are harmless in the real no-graphics entry points", () => {
 	load(context, "js/game.js", ["effects_logic"]);
 	context.start_animation(null, "rimeshell_cast");
 	context.map_animation("rimehelix_travel", {});
+	context.map_animation("rimeshatter_travel", {});
 	context.start_animation(null, "rimehelix_impact");
 	context.effects_logic({ s: { rimeshell: { ms: 3000, remaining: 32000 } } });
 	context.effects_logic({ s: { rimeexposed: { ms: 5000 } } });

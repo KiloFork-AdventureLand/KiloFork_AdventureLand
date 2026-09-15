@@ -5,12 +5,12 @@ var skills={
 		"type": "monster",
 		"hostile": true,
 		"damage_type": "magical",
-		"projectile": "rimehelix",
-		"damage_multiplier": 1.5,
+		"projectile": "rimeshatter",
+		"damage": 20000,
 		"range": 260,
 		"procs": false,
 		"monster": true,
-		"explanation": "Fires one icy bolt at up to three contributors within 260 range. Each bolt deals 1.5 times the Djinn’s magical attack.",
+		"explanation": "Fires one large icy bolt at each of up to three contributors within 260 range. Each bolt deals 20,000 magical damage before resistance. Break the shell to stop the volley.",
 		"class": []
 	},
 	"rimeshell":{

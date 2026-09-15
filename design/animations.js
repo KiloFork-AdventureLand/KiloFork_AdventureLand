@@ -1,4 +1,13 @@
 var animations={
+	"rimeshatter_travel":{
+		"file": "/images/sprites/animations/rimehelix_travel.png?v=rime1",
+		"frames": 4,
+		"continuous": true,
+		"directional": true,
+		"speed": 360,
+		"framefps": 90,
+		"scale": 2
+	},
 	"rimehelix_travel":{
 		"file": "/images/sprites/animations/rimehelix_travel.png?v=rime1",
 		"frames": 4,

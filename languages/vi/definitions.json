@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "Hướng dẫn phát triển",
 	"item.rimeglass.explanation": "Lạnh khi chạm vào. Hơi ấm cũng không làm nó tan.",
 	"item.djinncrown.explanation": "Chiếc vương miện lạnh dành cho một tâm trí không yên.",
-	"item.covemantle.explanation": "Được dệt cho quãng đợi dài giữa những đợt thủy triều.",
+	"item.covemantle.explanation": "Bóng tối nuôi dưỡng người mặc. Chỉ trong Cave of Darkness: +300 tấn công và +30% hút máu.",
 	"item.stillwaterlens.explanation": "Thứ gì đó bên dưới lớp kính đã ngừng chuyển động.",
 	"monster.rimedjinn.explanation": "Lớp vỏ nứt ra trước một loạt đòn đánh dồn dập bất ngờ.",
 	"condition.rimeshell.name": "Vỏ Sương Giá",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Vỏ Nứt",
 	"condition.rimeexposed.explanation": "Kháng giảm 160 trong 5 giây.",
 	"skill.rimeshatter.name": "Sương Giá Vỡ",
-	"skill.rimeshatter.explanation": "Bắn một viên đạn băng vào mỗi người trong tối đa ba người có đóng góp ở tầm 260. Mỗi viên gây sát thương bằng 1,5 lần đòn đánh phép của Djinn.",
+	"skill.rimeshatter.explanation": "Bắn một viên đạn băng lớn vào mỗi người trong tối đa ba người có đóng góp ở tầm 260. Mỗi viên gây 20.000 sát thương phép trước khi tính kháng phép. Phá vỏ để ngăn loạt bắn.",
 	"skill.rimeshell.name": "Vỏ Sương Giá",
 	"skill.rimeshell.explanation": "Khi còn nửa máu, Djinn thi triển trong 3 giây. Gây sát thương bằng 5% HP tối đa của nó hoặc làm choáng để phá vỏ và giảm kháng 160 trong 5 giây. Nếu không, nó bắn vào tối đa ba người có đóng góp ở gần. Đóng băng thông thường không ngắt thi triển."
 }

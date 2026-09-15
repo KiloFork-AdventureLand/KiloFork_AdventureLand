@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "Przewodnik rozwoju",
 	"item.rimeglass.explanation": "Zimne w dotyku. Ciepło go nie stopi.",
 	"item.djinncrown.explanation": "Zimna korona dla niespokojnego umysłu.",
-	"item.covemantle.explanation": "Utkany na długie oczekiwanie między przypływami.",
+	"item.covemantle.explanation": "Mrok karmi tego, kto go nosi. Tylko w Cave of Darkness: +300 do ataku i +30% do kradzieży życia.",
 	"item.stillwaterlens.explanation": "Coś pod szkłem przestało się poruszać.",
 	"monster.rimedjinn.explanation": "Jego pancerz pęka pod nagłą serią ciosów.",
 	"condition.rimeshell.name": "Pancerz szronu",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Pęknięty pancerz",
 	"condition.rimeexposed.explanation": "Odporność spada o 160 na 5 sekund.",
 	"skill.rimeshatter.name": "Rozprysk szronu",
-	"skill.rimeshatter.explanation": "Wystrzeliwuje po jednym lodowym pocisku w maksymalnie trzech uczestników walki w zasięgu 260. Każdy pocisk zadaje 1,5-krotność magicznego ataku dżinna.",
+	"skill.rimeshatter.explanation": "Wystrzeliwuje po jednym dużym lodowym pocisku w maksymalnie trzech uczestników walki w zasięgu 260. Każdy pocisk zadaje 20 000 obrażeń magicznych przed uwzględnieniem odporności. Rozbij skorupę, aby zapobiec salwie.",
 	"skill.rimeshell.name": "Pancerz szronu",
 	"skill.rimeshell.explanation": "Przy połowie zdrowia dżinn przygotowuje zaklęcie przez 3 sekundy. Zadaj obrażenia równe 5% jego maksymalnego HP lub go ogłusz, aby rozbić pancerz i obniżyć odporność o 160 na 5 sekund. W przeciwnym razie wystrzeli w maksymalnie trzech pobliskich uczestników walki. Zwykłe zamrożenie nie przerywa zaklęcia."
 }

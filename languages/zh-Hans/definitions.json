@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "成长指南",
 	"item.rimeglass.explanation": "触手冰冷。温暖也无法将它融化。",
 	"item.djinncrown.explanation": "为不安的心灵戴上一顶冰冷的王冠。",
-	"item.covemantle.explanation": "为潮汐间漫长的等待而织。",
+	"item.covemantle.explanation": "黑暗滋养着穿戴者。仅在Cave of Darkness内：攻击力+300，生命偷取+30%。",
 	"item.stillwaterlens.explanation": "玻璃下的某个东西不再动了。",
 	"monster.rimedjinn.explanation": "骤雨般的连击会击裂它的外壳。",
 	"condition.rimeshell.name": "霜壳",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "裂壳",
 	"condition.rimeexposed.explanation": "抗性降低160，持续5秒。",
 	"skill.rimeshatter.name": "霜碎",
-	"skill.rimeshatter.explanation": "向260射程内最多三名有战斗贡献的玩家各发射一枚冰弹。每枚冰弹造成Djinn魔法攻击力1.5倍的伤害。",
+	"skill.rimeshatter.explanation": "向260射程内最多三名有战斗贡献的玩家各发射一枚大型冰弹。每枚冰弹在抗性减伤前造成20,000点魔法伤害。击碎外壳可阻止齐射。",
 	"skill.rimeshell.name": "霜壳",
 	"skill.rimeshell.explanation": "生命值降至一半时，Djinn会施法3秒。造成相当于其最大HP的5%的伤害，或将其击晕，即可破壳并使其抗性降低160，持续5秒。否则，它会向附近最多三名有战斗贡献的玩家发射冰弹。普通冰冻无法打断施法。"
 }

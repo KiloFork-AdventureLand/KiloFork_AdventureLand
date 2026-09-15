@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "İlerleme Rehberi",
 	"item.rimeglass.explanation": "Dokununca soğuk. Sıcaklık onu eritemez.",
 	"item.djinncrown.explanation": "Huzursuz bir zihin için soğuk bir taç.",
-	"item.covemantle.explanation": "Gelgitler arasındaki uzun bekleyiş için dokunmuş.",
+	"item.covemantle.explanation": "Karanlık, giyeni besler. Yalnızca Cave of Darkness içinde: +300 saldırı ve +%30 can çalma.",
 	"item.stillwaterlens.explanation": "Camın altında bir şeyin hareketi durmuş.",
 	"monster.rimedjinn.explanation": "Ani bir darbe yağmuru kabuğunu çatlatır.",
 	"condition.rimeshell.name": "Kırağı Kabuğu",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Çatlak Kabuk",
 	"condition.rimeexposed.explanation": "Direnç 5 saniyeliğine 160 azalır.",
 	"skill.rimeshatter.name": "Kırağı Parçalanması",
-	"skill.rimeshatter.explanation": "260 menzil içindeki en fazla üç katkı sağlayan kişiye birer buzlu ok atar. Her ok Djinn’in büyülü saldırısının 1,5 katı hasar verir.",
+	"skill.rimeshatter.explanation": "260 menzil içindeki, savaşa katkı sağlayan en fazla üç kişiye birer büyük buzlu ok atar. Her ok, direnç hesaba katılmadan önce 20.000 büyülü hasar verir. Yaylımı durdurmak için kabuğu kırın.",
 	"skill.rimeshell.name": "Kırağı Kabuğu",
 	"skill.rimeshell.explanation": "Canı yarıya indiğinde Djinn 3 saniye büyü hazırlar. Kabuğu kırıp direncini 5 saniyeliğine 160 düşürmek için azami HP’sinin %5’i kadar hasar verin veya onu sersemletin. Aksi halde yakındaki en fazla üç katkı sağlayan kişiye ateş eder. Normal dondurma büyüyü kesmez."
 }

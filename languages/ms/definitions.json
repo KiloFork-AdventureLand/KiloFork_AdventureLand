@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "Panduan Kemajuan",
 	"item.rimeglass.explanation": "Sejuk apabila disentuh. Kehangatan tidak akan mencairkannya.",
 	"item.djinncrown.explanation": "Mahkota dingin untuk fikiran yang gelisah.",
-	"item.covemantle.explanation": "Ditenun untuk penantian panjang antara pasang surut.",
+	"item.covemantle.explanation": "Kegelapan menyuburkan pemakainya. Hanya di Cave of Darkness: +300 serangan dan +30% sedutan nyawa.",
 	"item.stillwaterlens.explanation": "Sesuatu di bawah kaca telah berhenti bergerak.",
 	"monster.rimedjinn.explanation": "Cangkerangnya retak akibat serangan bertalu-talu yang mendadak.",
 	"condition.rimeshell.name": "Cangkerang Embun Beku",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Cangkerang Retak",
 	"condition.rimeexposed.explanation": "Rintangan berkurang sebanyak 160 selama 5 saat.",
 	"skill.rimeshatter.name": "Pecahan Embun Beku",
-	"skill.rimeshatter.explanation": "Menembak satu peluru ais kepada setiap seorang daripada sehingga tiga penyumbang dalam jarak 260. Setiap peluru memberikan kerosakan 1.5 kali serangan magis Djinn.",
+	"skill.rimeshatter.explanation": "Menembak satu peluru ais besar kepada setiap seorang daripada sehingga tiga penyumbang dalam jarak 260. Setiap peluru memberikan 20,000 kerosakan magis sebelum rintangan diambil kira. Pecahkan cangkerang untuk menghalang tembakan serentak itu.",
 	"skill.rimeshell.name": "Cangkerang Embun Beku",
 	"skill.rimeshell.explanation": "Apabila kesihatannya tinggal separuh, Djinn melancarkan sihir selama 3 saat. Berikan kerosakan bersamaan 5% HP maksimumnya atau buatnya terpegun untuk memecahkan cangkerang dan mengurangkan rintangan sebanyak 160 selama 5 saat. Jika gagal, ia menembak sehingga tiga penyumbang berdekatan. Pembekuan biasa tidak mengganggu pelancaran sihir."
 }

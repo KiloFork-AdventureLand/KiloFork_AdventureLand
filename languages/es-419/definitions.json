@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "Guía de progreso",
 	"item.rimeglass.explanation": "Frío al tacto. El calor no lo va a derretir.",
 	"item.djinncrown.explanation": "Una corona fría para una mente inquieta.",
-	"item.covemantle.explanation": "Tejido para la larga espera entre las mareas.",
+	"item.covemantle.explanation": "La oscuridad alimenta a quien lo lleva. Solo en Cave of Darkness: +300 de ataque y +30% de robo de vida.",
 	"item.stillwaterlens.explanation": "Algo debajo del cristal dejó de moverse.",
 	"monster.rimedjinn.explanation": "Una ráfaga repentina de golpes agrieta su caparazón.",
 	"condition.rimeshell.name": "Caparazón de escarcha",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Caparazón agrietado",
 	"condition.rimeexposed.explanation": "La resistencia baja 160 durante 5 segundos.",
 	"skill.rimeshatter.name": "Estallido de escarcha",
-	"skill.rimeshatter.explanation": "Dispara un proyectil de hielo a cada uno de hasta tres participantes dentro de un alcance de 260. Cada proyectil causa 1.5 veces el ataque mágico del Djinn.",
+	"skill.rimeshatter.explanation": "Dispara un gran proyectil de hielo a cada uno de hasta tres participantes dentro de un alcance de 260. Cada proyectil causa 20,000 de daño mágico antes de aplicar la resistencia. Rompe el caparazón para impedir la ráfaga.",
 	"skill.rimeshell.name": "Caparazón de escarcha",
 	"skill.rimeshell.explanation": "Cuando le queda la mitad de la vida, el Djinn prepara un hechizo durante 3 segundos. Causa un daño equivalente al 5% de su HP máximo o atúrdelo para romper el caparazón y bajar su resistencia 160 durante 5 segundos. Si no, dispara a un máximo de tres participantes cercanos. La congelación normal no interrumpe el lanzamiento."
 }

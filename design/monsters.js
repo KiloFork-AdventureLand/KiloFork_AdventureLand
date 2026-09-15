@@ -1545,7 +1545,6 @@ monsters.rimedjinn={
 			"break_fraction": 0.05,
 			"targets": 3,
 			"range": 260,
-			"damage_multiplier": 1.5,
 			"exposed_duration": 5000
 		}
 	}

@@ -16,6 +16,10 @@ var items={
 		"type": "cape",
 		"skin": "covemantle",
 		"name": "Cove Mantle",
+		"cave": {
+			"attack": 300,
+			"lifesteal": 30
+		},
 		"scroll": true,
 		"stat": 6,
 		"armor": 12,
@@ -39,7 +43,7 @@ var items={
 		"cx": {
 			"accent": "#779DB8"
 		},
-		"explanation": "Woven for the long wait between tides."
+		"explanation": "The dark feeds its wearer. In Cave of Darkness only: +300 attack and +30% lifesteal."
 	},
 	"stillwaterlens":{
 		"type": "orb",

@@ -3348,9 +3348,7 @@ function commence_attack(attacker, target, atype) {
 		attack = attacker.attack * G.skills[atype].damage_multiplier;
 	} else if (atype == "poisonarrow") {
 		info.conditions.push("poisoned");
-	} else if (atype == "rimeshatter") {
-		attack = attacker.attack * G.skills.rimeshatter.damage_multiplier;
-	} else if (attacker.is_monster) {
+	} else if (attacker.is_monster && atype !== "rimeshatter") {
 		var rng = parseInt(Math.random() * 100 - 50);
 		if (attacker.s.poisonous) {
 			info.conditions.push("poisoned");

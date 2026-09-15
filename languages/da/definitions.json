@@ -1561,7 +1561,7 @@
 	"directory.guide.progression-guide.title": "Udviklingsguide",
 	"item.rimeglass.explanation": "Koldt at røre ved. Varme kan ikke smelte det.",
 	"item.djinncrown.explanation": "En kold krone til et rastløst sind.",
-	"item.covemantle.explanation": "Vævet til den lange ventetid mellem tidevandene.",
+	"item.covemantle.explanation": "Mørket nærer den, der bærer den. Kun i Cave of Darkness: +300 angreb og +30% livstyveri.",
 	"item.stillwaterlens.explanation": "Noget under glasset er holdt op med at bevæge sig.",
 	"monster.rimedjinn.explanation": "Skallen sprækker under en pludselig byge af slag.",
 	"condition.rimeshell.name": "Rimskal",
@@ -1569,7 +1569,7 @@
 	"condition.rimeexposed.name": "Revnet skal",
 	"condition.rimeexposed.explanation": "Modstand sænkes med 160 i 5 sekunder.",
 	"skill.rimeshatter.name": "Rimsplintring",
-	"skill.rimeshatter.explanation": "Skyder ét iskoldt projektil mod hver af op til tre bidragende deltagere inden for 260 rækkevidde. Hvert projektil giver 1,5 gange Djinns magiske angreb i skade.",
+	"skill.rimeshatter.explanation": "Skyder ét stort iskoldt projektil mod hver af op til tre bidragende deltagere inden for 260 rækkevidde. Hvert projektil giver 20.000 magisk skade, før modstand medregnes. Knus skallen for at forhindre salven.",
 	"skill.rimeshell.name": "Rimskal",
 	"skill.rimeshell.explanation": "Ved halvt helbred forbereder Djinn en besværgelse i 3 sekunder. Giv skade svarende til 5 % af dens maksimale HP, eller bedøv den, for at knuse skallen og sænke modstanden med 160 i 5 sekunder. Ellers skyder den mod op til tre bidragende deltagere i nærheden. Almindelig frysning afbryder ikke besværgelsen."
 }

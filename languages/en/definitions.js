@@ -4,8 +4,8 @@ module.exports = {
 	"item.rimeglass.explanation": "Cold to the touch. Warmth will not melt it.",
 	// Item tooltip prose. Preserve the item name when referenced; concise in-world voice.
 	"item.djinncrown.explanation": "A cold crown for a restless mind.",
-	// Item tooltip prose. Preserve the item name when referenced; concise in-world voice.
-	"item.covemantle.explanation": "Woven for the long wait between tides.",
+	// Item tooltip and guide. Bonuses apply only in Cave of Darkness; preserve the map name and quantities. Attack uses normal equipment scaling.
+	"item.covemantle.explanation": "The dark feeds its wearer. In Cave of Darkness only: +300 attack and +30% lifesteal.",
 	// Item tooltip prose. Preserve the item name when referenced; concise in-world voice.
 	"item.stillwaterlens.explanation": "Something beneath the glass has stopped moving.",
 	// Rime Djinn tooltip; a shell broken by a burst of damage.
@@ -20,8 +20,8 @@ module.exports = {
 	"condition.rimeexposed.explanation": "Resistance is reduced by 160 for 5 seconds.",
 	// Rime Djinn skill name. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
 	"skill.rimeshatter.name": "Rime Shatter",
-	// Rime Djinn skill explanation. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
-	"skill.rimeshatter.explanation": "Fires one icy bolt at up to three contributors within 260 range. Each bolt deals 1.5 times the Djinn’s magical attack.",
+	// Monster tooltip and guide. One bolt per combat contributor, at most three. Damage is before resistance; breaking the shell prevents launch. Preserve quantities.
+	"skill.rimeshatter.explanation": "Fires one large icy bolt at each of up to three contributors within 260 range. Each bolt deals 20,000 magical damage before resistance. Break the shell to stop the volley.",
 	// Rime Djinn skill name. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
 	"skill.rimeshell.name": "Rime Shell",
 	// Rime Djinn skill explanation. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
