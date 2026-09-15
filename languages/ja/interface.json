@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "回す",
 	"interface.wheel.spinning": "回転中...",
 	"interface.wheel.win_hint": "勝てば +{amount}",
-	"interface.wheel.house": "店は勝ち金の{edge}%を受け取ります"
+	"interface.wheel.house": "店は勝ち金の{edge}%を受け取ります",
+	"interface.slots.title": "スロット",
+	"interface.slots.paytable": "3つ揃いの配当",
+	"interface.slots.odds": "{value}回に1回",
+	"interface.slots.cost": "{amount}ゴールド"
 }

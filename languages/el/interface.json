@@ -856,5 +856,9 @@
 	"interface.wheel.spin": "ΓΥΡΙΣΕ",
 	"interface.wheel.spinning": "ΓΥΡΙΖΕΙ...",
 	"interface.wheel.win_hint": "ΚΕΡΔΟΣ +{amount}",
-	"interface.wheel.house": "Η μπάνκα κρατά το {edge}% των κερδών"
+	"interface.wheel.house": "Η μπάνκα κρατά το {edge}% των κερδών",
+	"interface.slots.title": "Κουλοχέρης",
+	"interface.slots.paytable": "Τρία ίδια πληρώνουν",
+	"interface.slots.odds": "1 στις {value}",
+	"interface.slots.cost": "{amount} χρυσός"
 }

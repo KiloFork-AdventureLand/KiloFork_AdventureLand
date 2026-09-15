@@ -856,5 +856,9 @@
 	"interface.wheel.spin": "ЗАВЪРТИ",
 	"interface.wheel.spinning": "ВЪРТИ СЕ...",
 	"interface.wheel.win_hint": "ПЕЧАЛБА +{amount}",
-	"interface.wheel.house": "Заведението задържа {edge}% от печалбата"
+	"interface.wheel.house": "Заведението задържа {edge}% от печалбата",
+	"interface.slots.title": "Ротативка",
+	"interface.slots.paytable": "Три еднакви печелят",
+	"interface.slots.odds": "1 на {value}",
+	"interface.slots.cost": "{amount} злато"
 }

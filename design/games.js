@@ -30,17 +30,28 @@ var games={
 		],
 	},
 	"slots":{
+		// Three reels for one fixed stake. The prize draw is fair by design: the weighted prizes average exactly the stake,
+		// and the house keeps only its edge from the net win. Prize weights are chances out of "draws" spins.
 		"gold":1000000,
-		"glyphs":["1","2","3","4","5","6","7","8","A","L"],
+		"spin":3600, // ms between the pull and its settlement
+		"draws":30000,
+		"prizes":[
+			["glitch",1000000000,6],
+			["goldingot",100000000,60],
+			["gem0",20000000,300],
+			["seashell",6000000,750],
+			["whiskey",3000000,900],
+			["wine",2000000,1200],
+			["ale",1200000,2000],
+		],
+		// Display strips only; the draw above decides the prize and the reels are parked to show it.
+		"reels":[
+			["ale","wine","gem0","ale","whiskey","seashell","ale","goldingot","wine","ale","whiskey","glitch","wine","seashell","ale","gem0","whiskey","wine","seashell","goldingot"],
+			["wine","ale","seashell","whiskey","ale","goldingot","gem0","ale","wine","glitch","ale","seashell","whiskey","wine","ale","goldingot","wine","gem0","whiskey","seashell"],
+			["ale","seashell","wine","ale","gem0","whiskey","goldingot","ale","wine","whiskey","ale","glitch","seashell","wine","ale","gem0","whiskey","wine","goldingot","seashell"],
+		],
 	},
 };
-
-var odds={
-	"slots":1.0/640,
-	"slots_good":1.0/525,
-};
-
-
 
 var cards=["2","3","4","5","6","7","8","9","10","ace","king","knight","page","queen"];
 for(var i=0;i<cards.length;i++){
@@ -51,4 +62,4 @@ for(var i=0;i<cards.length;i++){
 	games["tarot"]["cards"].push(c+"wands");
 }
 
-if(typeof module!=="undefined") module.exports={games:games,odds:odds};
+if(typeof module!=="undefined") module.exports={games:games};

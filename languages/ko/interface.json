@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "돌리기",
 	"interface.wheel.spinning": "회전 중...",
 	"interface.wheel.win_hint": "승리 시 +{amount}",
-	"interface.wheel.house": "하우스가 당첨금의 {edge}%를 가져가요"
+	"interface.wheel.house": "하우스가 당첨금의 {edge}%를 가져가요",
+	"interface.slots.title": "슬롯",
+	"interface.slots.paytable": "같은 그림 3개 당첨금",
+	"interface.slots.odds": "{value}번 중 1번",
+	"interface.slots.cost": "골드 {amount}"
 }

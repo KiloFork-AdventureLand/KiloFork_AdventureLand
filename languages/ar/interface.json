@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "أدر",
 	"interface.wheel.spinning": "تدور...",
 	"interface.wheel.win_hint": "الربح +{amount}",
-	"interface.wheel.house": "تحتفظ الدار بنسبة {edge}% من الأرباح"
+	"interface.wheel.house": "تحتفظ الدار بنسبة {edge}% من الأرباح",
+	"interface.slots.title": "آلة الحظ",
+	"interface.slots.paytable": "ثلاثة متطابقة تدفع",
+	"interface.slots.odds": "1 من {value}",
+	"interface.slots.cost": "{amount} ذهب"
 }

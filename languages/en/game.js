@@ -370,6 +370,8 @@ module.exports = {
 	"response.wheel_spinning": "The wheel is still turning",
 	// js/game.js, response wheel_side: the wheel wager named neither side. Sun and Moon are the wheel's two sides.
 	"response.wheel_side": "Pick Sun or Moon first",
+	// js/game.js, response slots_spinning: a second slots stake was refused because the player's reels have not stopped yet.
+	"response.slots_spinning": "The reels are still turning",
 	// js/game.js, response condition. Parameters: name.
 	"response.condition": "Afflicted by {name}",
 	// js/game.js, response condition. Parameters: from, name.
@@ -682,10 +684,6 @@ module.exports = {
 	"game.you_are_getting_scared": "You are getting scared",
 	// js/game.js, d_text display. Short floating text above a character.
 	"combat.zzz": "zZz",
-	// js/game.js, message display.
-	"npc.slots.try_machine": "Hmm. This machine seems broken. Still give it a try? [1,000,000 gold]",
-	// js/game.js, button display.
-	"npc.accept_uppercase": "YES!",
 	// js/game.js, show_alert display.
 	"game.you_can_t_enter_the_tavern_from_mac_app": "You can't enter the Tavern from Mac App Store :|",
 	// js/game.js, add_log display.

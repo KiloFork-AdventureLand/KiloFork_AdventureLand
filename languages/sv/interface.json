@@ -856,5 +856,9 @@
 	"interface.wheel.spin": "SNURRA",
 	"interface.wheel.spinning": "SNURRAR...",
 	"interface.wheel.win_hint": "VINST +{amount}",
-	"interface.wheel.house": "Huset behåller {edge} % av vinsten"
+	"interface.wheel.house": "Huset behåller {edge} % av vinsten",
+	"interface.slots.title": "Spelautomat",
+	"interface.slots.paytable": "Tre lika ger",
+	"interface.slots.odds": "1 på {value}",
+	"interface.slots.cost": "{amount} guld"
 }

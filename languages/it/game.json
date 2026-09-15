@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "Sei terrorizzato",
 	"game.you_are_getting_scared": "Cominci ad avere paura",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "Mmh. Questa macchina sembra rotta. Vuoi provare lo stesso? [1.000.000 oro]",
-	"npc.accept_uppercase": "SÌ!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Non puoi entrare nella Tavern dall'app del Mac App Store :|",
 	"game.get_closer": "Avvicinati",
 	"game.sign_reads": "Il cartello dice: «{value}»",
@@ -436,5 +434,6 @@
 	"chat.full": "INTERO",
 	"chat.min": "MIN",
 	"response.wheel_spinning": "La ruota sta ancora girando",
-	"response.wheel_side": "Scegli prima Sole o Luna"
+	"response.wheel_side": "Scegli prima Sole o Luna",
+	"response.slots_spinning": "I rulli stanno ancora girando"
 }

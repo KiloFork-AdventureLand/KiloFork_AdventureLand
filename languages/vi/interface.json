@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "QUAY",
 	"interface.wheel.spinning": "ĐANG QUAY...",
 	"interface.wheel.win_hint": "THẮNG +{amount}",
-	"interface.wheel.house": "Nhà cái giữ lại {edge}% tiền thắng"
+	"interface.wheel.house": "Nhà cái giữ lại {edge}% tiền thắng",
+	"interface.slots.title": "Máy quay thưởng",
+	"interface.slots.paytable": "Ba hình giống nhau trả thưởng",
+	"interface.slots.odds": "1 trong {value}",
+	"interface.slots.cost": "{amount} vàng"
 }

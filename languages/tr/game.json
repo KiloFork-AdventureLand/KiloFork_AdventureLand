@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "Dehşete kapıldın",
 	"game.you_are_getting_scared": "Korkmaya başlıyorsun",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "Hımm. Bu makine bozuk gibi. Yine de denemek ister misin? [1.000.000 altın]",
-	"npc.accept_uppercase": "EVET!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Mac App Store sürümünden Tavern'a giremezsin :|",
 	"game.get_closer": "Yaklaş",
 	"game.sign_reads": "Tabelada şöyle yazıyor: \"{value}\"",
@@ -436,5 +434,6 @@
 	"chat.full": "TAM",
 	"chat.min": "KÜÇÜK",
 	"response.wheel_spinning": "Çark hâlâ dönüyor",
-	"response.wheel_side": "Önce Güneş'i ya da Ay'ı seç"
+	"response.wheel_side": "Önce Güneş'i ya da Ay'ı seç",
+	"response.slots_spinning": "Makaralar hâlâ dönüyor"
 }

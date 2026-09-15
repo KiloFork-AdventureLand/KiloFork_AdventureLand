@@ -1,7 +1,8 @@
 // Fortune's Wheel panel. A 64x76 pixel wheel is rasterized on a small canvas every frame and shown at 4x without
 // smoothing, so it spins as crisply as the machine on the Tavern floor. The server decides the slice; the client only
-// animates towards it. Everything here returns early without graphics or HTML.
-var tavern_wheel = { side: "sun", gold: 1000000, edge: null, max: null, rotation: 0, spin: null, blink: null, kick: 0, under: -1, frame: null, busy: null };
+// animates towards it. Spin and result state live outside the panel, so a re-render, ESC or a late settlement never
+// leaves the wheel resting on a slice other than the actual result. Everything here returns early without graphics or HTML.
+var tavern_wheel = { side: "sun", gold: 1000000, edge: null, max: null, rotation: 0, spin: null, result: null, blink: null, kick: 0, under: -1, frame: null, busy: null };
 var tavern_wheel_scale = 4,
 	tavern_wheel_width = 64,
 	tavern_wheel_height = 76,
@@ -86,12 +87,25 @@ function render_wheel() {
 	html += "</div>";
 	render_ui_panel("#topleftcornerui", html);
 	if (!inventory) (render_inventory(), (inventory_opened_for = topleft_npc));
-	tavern_wheel.spin = null;
-	tavern_wheel.blink = null;
 	wheel_change();
 	wheel_house();
+	if (tavern_wheel.spin) wheel_set_busy(true);
+	else if (tavern_wheel.result && !tavern_wheel.result.shown) wheel_show_result();
 	wheel_draw(tavern_wheel.rotation);
+	wheel_animate();
 	socket.emit("tavern", { event: "info", game: "wheel" });
+}
+
+// The resting rotation that parks a slice under the pointer, and the slice a rotation leaves there.
+function wheel_rest_rotation(index) {
+	var wheel = wheel_definition();
+	return -((index + 0.5) * ((Math.PI * 2) / wheel.slices.length));
+}
+
+function wheel_slice_at(rotation) {
+	var wheel = wheel_definition(),
+		TAU = Math.PI * 2;
+	return floor((((-rotation % TAU) + TAU) % TAU) / (TAU / wheel.slices.length)) % wheel.slices.length;
 }
 
 function wheel_pick(side) {
@@ -115,7 +129,8 @@ function wheel_change() {
 	wheel.sides.forEach(function (side) {
 		$(".wheelside-" + side).css("border-color", side == tavern_wheel.side ? "#A7C16D" : "gray");
 	});
-	if (!tavern_wheel.spin && !tavern_wheel.busy) $(".wheelhint").html(phrase.html("interface.wheel.win_hint", { amount: to_pretty_num(gold - wheel_cut(gold)) }));
+	if (!tavern_wheel.spin && !tavern_wheel.busy && !(tavern_wheel.result && !tavern_wheel.result.shown))
+		$(".wheelhint").html(phrase.html("interface.wheel.win_hint", { amount: to_pretty_num(gold - wheel_cut(gold)) }));
 }
 
 function wheel_house() {
@@ -146,7 +161,7 @@ function wheel_spin() {
 	wheel_set_busy(true);
 	// A refused wager never starts a spin; release the button after the server's reply had time to arrive.
 	setTimeout(function () {
-		if (!tavern_wheel.spin && topleft_npc == "wheel") wheel_set_busy(false);
+		if (!tavern_wheel.spin && !(tavern_wheel.result && !tavern_wheel.result.shown)) wheel_set_busy(false);
 	}, 2500);
 }
 
@@ -161,11 +176,12 @@ function wheel_sound(name) {
 	} catch (e) {}
 }
 
-// Everyone in view sees the machine turn; the spinner's panel animates towards the decided slice.
+// Everyone in view sees the machine turn; the spinner's own wheel runs towards the decided slice, whether or not
+// the panel is open right now.
 function wheel_start(data) {
 	if (no_graphics) return;
 	if (map_machines.wheel) map_machines.wheel.spinning = future_ms(data.ms || 4000);
-	if (data.player != character.name || topleft_npc != "wheel") return;
+	if (data.player != character.name) return;
 	var wheel = wheel_definition();
 	if (!wheel) return;
 	var TAU = Math.PI * 2,
@@ -177,18 +193,32 @@ function wheel_start(data) {
 		turns = 5 + floor(Math.random() * 3);
 	tavern_wheel.rotation = current;
 	tavern_wheel.blink = null;
+	tavern_wheel.result = null;
 	tavern_wheel.spin = { start: performance.now(), duration: max(1200, (data.ms || 4000) - 350), from: current, to: current + turns * TAU + delta, index: data.index };
 	wheel_set_busy(true);
 	wheel_sound("whoosh");
 	wheel_animate();
 }
 
+// Settlement from the server. A wheel that is still turning finishes its run first; the resting slice is always the
+// server's result, even when the panel was closed or re-rendered in between.
 function wheel_finish(data) {
-	if (no_graphics || topleft_npc != "wheel") return;
+	if (no_graphics) return;
+	tavern_wheel.result = data;
+	var spin = tavern_wheel.spin;
+	if (spin && performance.now() < spin.start + spin.duration && spin.index == data.index) return wheel_animate();
+	wheel_show_result();
+}
+
+function wheel_show_result() {
+	var data = tavern_wheel.result;
+	if (!data || data.shown) return;
+	data.shown = true;
 	if (tavern_wheel.spin) {
 		tavern_wheel.rotation = tavern_wheel.spin.to;
 		tavern_wheel.spin = null;
 	}
+	if (data.index !== undefined && wheel_slice_at(tavern_wheel.rotation) !== data.index) tavern_wheel.rotation = wheel_rest_rotation(data.index);
 	tavern_wheel.blink = { index: data.index, start: performance.now(), duration: 1800 };
 	tavern_wheel.busy = false;
 	$(".wheelspin").css({ opacity: 1, "pointer-events": "" });
@@ -226,11 +256,8 @@ function wheel_animate() {
 
 function wheel_frame(now) {
 	tavern_wheel.frame = null;
-	if (topleft_npc != "wheel" || !$(".wheelcanvas").length) {
-		tavern_wheel.spin = null;
-		tavern_wheel.blink = null;
-		return;
-	}
+	// Without a panel the spin keeps its clock; the next render resumes it from the right place.
+	if (!$(".wheelcanvas").length) return;
 	var spin = tavern_wheel.spin,
 		active = false;
 	if (spin) {
@@ -241,6 +268,7 @@ function wheel_frame(now) {
 			tavern_wheel.rotation = spin.to;
 			tavern_wheel.spin = null;
 			tavern_wheel.blink = { index: spin.index, start: now, duration: 1200 };
+			if (tavern_wheel.result) wheel_show_result();
 		} else active = true;
 	}
 	if (tavern_wheel.blink) {

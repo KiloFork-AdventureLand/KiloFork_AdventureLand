@@ -54,5 +54,5 @@
 	"update.01_01_26.slight_chance_something_might_break": "(C’è una piccola possibilità che qualcosa smetta di funzionare)",
 	"update.14_09_26.progression": "La Guida alla progressione suggerisce progetti di equipaggiamento, zone di caccia utili e occasioni attive fin dai primi scontri con Goo. Scegli un obiettivo sopra HP e MP o disattiva la guida nelle impostazioni accanto al tutorial. CODE può leggere gli stessi consigli con get_progression().",
 	"update.14_09_26.rime_djinn": "I Rime Djinn infestano ora Frozen Cove. Rompete insieme i loro gusci, ottenete ricompense Tracker e raccogliete Rimeglass per tre nuovi pezzi di equipaggiamento.",
-	"update.15_09_26.wheel": "La Ruota della Fortuna ora gira in Tavern. Scegli Sole o Luna, decidi la puntata e gira: il tuo lato paga alla pari, e il banco trattiene solo la sua parte della vincita. CODE può giocare con bet_wheel()."
+	"update.15_09_26.wheel": "I giochi di Tavern crescono: la Ruota della Fortuna gira alla pari su Sole o Luna, e la slot machine ora fa girare tre rulli con premi fino a 1.000.000.000 di monete d'oro per una puntata di 1.000.000. Entrambe le estrazioni sono eque, e il banco trattiene solo la sua parte delle vincite. CODE gioca con bet_wheel() e play_slots()."
 }

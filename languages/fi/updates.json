@@ -54,5 +54,5 @@
 	"update.01_01_26.slight_chance_something_might_break": "(Pieni mahdollisuus, että jokin lakkaa toimimasta)",
 	"update.14_09_26.progression": "Kehitysopas ehdottaa varustehankkeita, hyödyllisiä metsästyspaikkoja ja ajankohtaisia tilaisuuksia ensimmäisistä Goo-taisteluista lähtien. Valitse tavoite HP:n ja MP:n yläpuolelta tai sammuta opas asetuksista opetuksen vierestä. CODE voi lukea samat neuvot get_progression()-funktiolla.",
 	"update.14_09_26.rime_djinn": "Rime Djinn kummittelevat nyt Frozen Covessa. Rikkokaa niiden kuoret yhdessä, ansaitkaa Tracker-palkintoja ja kerätkää Rimeglass kolmea uutta varustetta varten.",
-	"update.15_09_26.wheel": "Onnenpyörä pyörii nyt Tavernissa. Valitse Aurinko tai Kuu, aseta panos ja pyöräytä: oma puolesi maksaa yksi yhteen, ja talo pitää voitosta vain oman osuutensa. CODE voi pelata bet_wheel()-funktiolla."
+	"update.15_09_26.wheel": "Tavernin pelit kasvoivat: Onnenpyörä maksaa yksi yhteen Auringolle tai Kuulle, ja hedelmäpeli pyörittää nyt kolmea rullaa, joiden voitot nousevat 1 000 000 000 kultaan 1 000 000 kullan panoksella. Molemmat arvonnat ovat reiluja, ja talo pitää voitoista vain osuutensa. CODE pelaa funktioilla bet_wheel() ja play_slots()."
 }

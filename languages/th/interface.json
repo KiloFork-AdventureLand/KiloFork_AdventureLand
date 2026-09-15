@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "หมุน",
 	"interface.wheel.spinning": "กำลังหมุน...",
 	"interface.wheel.win_hint": "ชนะรับ +{amount}",
-	"interface.wheel.house": "เจ้ามือหัก {edge}% จากเงินที่ชนะ"
+	"interface.wheel.house": "เจ้ามือหัก {edge}% จากเงินที่ชนะ",
+	"interface.slots.title": "สล็อต",
+	"interface.slots.paytable": "สามอันเหมือนกันจ่าย",
+	"interface.slots.odds": "1 ใน {value}",
+	"interface.slots.cost": "{amount} ทอง"
 }

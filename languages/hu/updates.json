@@ -54,5 +54,5 @@
 	"update.01_01_26.slight_chance_something_might_break": "(Kis eséllyel valami elromolhat)",
 	"update.14_09_26.progression": "A Fejlődési útmutató már az első Goo-harcoktól felszerelési terveket, hasznos vadászhelyeket és aktuális lehetőségeket ajánl. Válassz célt a HP és MP felett, vagy kapcsold ki az útmutatót a beállításokban az oktató mellett. CODE alatt a get_progression() ugyanazokat a tanácsokat olvassa.",
 	"update.14_09_26.rime_djinn": "Rime Djinn jelentek meg Frozen Cove-ban. Törjétek fel együtt a páncéljukat, szerezzetek Tracker-jutalmakat, és gyűjtsetek Rimeglass alapanyagot három új felszereléshez.",
-	"update.15_09_26.wheel": "A Tavernben mostantól pörög a Szerencsekerék. Válassz Napot vagy Holdat, adj meg egy tétet, és pörgess: a te oldalad egy az egyhez fizet, a ház pedig csak a részesedését tartja meg a nyereményből. A CODE a bet_wheel() függvénnyel játszhat."
+	"update.15_09_26.wheel": "Bővültek a Tavern játékai: a Szerencsekerék egy az egyhez fizet a Napra vagy a Holdra, a nyerőgép pedig mostantól három hengert pörget akár 1 000 000 000 arany nyereménnyel, 1 000 000 arany tétért. Mindkét sorsolás tisztességes, a ház pedig csak a részesedését tartja meg a nyereményből. A CODE a bet_wheel() és a play_slots() függvénnyel játszhat."
 }

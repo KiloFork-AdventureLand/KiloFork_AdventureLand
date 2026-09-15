@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "PYÖRÄYTÄ",
 	"interface.wheel.spinning": "PYÖRII...",
 	"interface.wheel.win_hint": "VOITTO +{amount}",
-	"interface.wheel.house": "Talo pitää {edge} % voitosta"
+	"interface.wheel.house": "Talo pitää {edge} % voitosta",
+	"interface.slots.title": "Hedelmäpeli",
+	"interface.slots.paytable": "Kolme samaa maksaa",
+	"interface.slots.odds": "1/{value}",
+	"interface.slots.cost": "{amount} kultaa"
 }

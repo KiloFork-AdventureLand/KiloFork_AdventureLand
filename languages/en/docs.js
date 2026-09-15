@@ -3250,7 +3250,7 @@ module.exports = {
 		"<b>Promise failures:</b> Unless a function-specific note says otherwise, failures reject with an object containing <span class='dlabel'>failed: true</span> and a <span class='dlabel'>reason</span>. After <span class='dlabel'>mode_resolve_all()</span>, the same failures fulfill instead.",
 	// docs/functions/play_slots.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.functions.play_slots.returns-promise-resolving-after-the-spin-with-won":
-		"<b>Returns:</b> Promise resolving after the spin with won, cost, payout, and net. A valid spin that loses still resolves with won:false. Invalid requests and timeouts reject.",
+		"<b>Returns:</b> Promise resolving after the reels stop with won, cost, payout, net, symbols, prize and edge. A valid spin that loses still resolves with won:false. Invalid requests and timeouts reject.",
 	// docs/functions/play_slots.html:2; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.functions.play_slots.spends-1-000-000-gold-at-the-tavern": "Spends 1,000,000 gold at the tavern slots machine and waits for the spin result.",
 	// docs/functions/pm.html:5; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
@@ -5244,7 +5244,7 @@ module.exports = {
 	// docs/guide/tavern-games.html:14; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.tavern-games.55-choose-number": '<span class="guide-flow-icon tavern-die">55</span><span class="guide-flow-label">Choose Number</span>',
 	// docs/guide/tavern-games.html:26; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
-	"docs.guide.tavern-games.777-wait-for-one-spin": '<span class="guide-flow-icon tavern-slots">777</span><span class="guide-flow-label">Wait for One Spin</span>',
+	"docs.guide.tavern-games.777-wait-for-one-spin": '<span class="guide-flow-icon tavern-slots">777</span><span class="guide-flow-label">Three Reels Stop</span>',
 	// docs/guide/tavern-games.html:31; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["won: false"].
 	"docs.guide.tavern-games.a-completed-losing-wager-is-a-valid-result":
 		'A completed losing wager is a valid result and fulfills its Promise with <span class="dlabel">won: false</span>. A rejected Promise means the wager or machine failed validation.',
@@ -5265,20 +5265,26 @@ module.exports = {
 	// docs/guide/tavern-games.html:19; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.tavern-games.down-wins-when-the-roll-is-at-or":
 		"<b>Down</b> wins when the roll is at or below your chosen number. <b>Up</b> wins when the roll is at or above it. The displayed payout changes with that choice, the threshold, the wager, and the house edge.",
+	// docs/guide/tavern-games.html; pay table odds column. {value} is a formatted number of spins, as in "1 in 5,000".
+	"docs.guide.tavern-games.1-in-value": "1 in {value}",
+	// docs/guide/tavern-games.html; pay table column heading for the winning prize gold.
+	"docs.guide.tavern-games.prize": "Prize",
+	// docs/guide/tavern-games.html; pay table column heading for the odds of that prize.
+	"docs.guide.tavern-games.chance": "Chance",
 	// docs/guide/tavern-games.html:30; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.tavern-games.each-play-spends-the-machine-s-shown-cost":
-		"Each play spends the machine's shown cost and enters its short queue. Wait for the result before trying again. A machine offering only dialogue is not currently accepting a game.",
+		"Each spin costs 1,000,000 gold and turns three reels; wait for them to stop before trying again. Three matching symbols on the middle line pay the prize below. The draw is fair: over many spins the prizes average the stake, and the house keeps only its edge from the net win.",
 	// docs/guide/tavern-games.html:62; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.tavern-games.for-ordinary-trade-see-markets-and-trading":
 		"For ordinary trade, see <span onclick=\"hide_modal(); open_guide('markets-and-trading',get_guide_url('markets-and-trading'))\">Markets and Trading</span>.",
 	// docs/guide/tavern-games.html:15; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
 	"docs.guide.tavern-games.g-choose-wager": '<span class="guide-flow-icon tavern-gold">G</span><span class="guide-flow-label">Choose Wager</span>',
 	// docs/guide/tavern-games.html:24; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
-	"docs.guide.tavern-games.g-fixed-cost-shown": '<span class="guide-flow-icon tavern-gold">G</span><span class="guide-flow-label">Fixed Cost Shown</span>',
+	"docs.guide.tavern-games.g-fixed-cost-shown": '<span class="guide-flow-icon tavern-gold">G</span><span class="guide-flow-label">One Fixed Stake</span>',
 	// docs/guide/tavern-games.html:1; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.tavern-games.gold-in-fortune-out": "GOLD IN, FORTUNE OUT",
 	// docs/guide/tavern-games.html:28; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
-	"docs.guide.tavern-games.payout-or-no-luck": '<span class="guide-flow-icon tavern-result">?</span><span class="guide-flow-label">Payout or No Luck</span>',
+	"docs.guide.tavern-games.payout-or-no-luck": '<span class="guide-flow-icon tavern-result">?</span><span class="guide-flow-label">Three of a Kind Pays</span>',
 	// docs/guide/tavern-games.html:60; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["get_tavern_info","bet_dice","play_slots","bet_wheel"].
 	"docs.guide.tavern-games.references-get-tavern-info-bet-dice-play-slots":
 		'References: <span class="rlabel" onclick="render_function_reference($(this).html())">get_tavern_info</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_dice</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">play_slots</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">bet_wheel</span>.',
@@ -5290,6 +5296,8 @@ module.exports = {
 	"docs.guide.tavern-games.sun-choose-a-side": "<span class=\"guide-flow-icon tavern-side\">SUN</span><span class=\"guide-flow-label\">Choose a Side</span>",
 	// docs/guide/tavern-games.html:2; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.tavern-games.tavern-games": "Tavern Games",
+	// docs/guide/tavern-games.html; pay table column heading: three matching symbols on the middle line.
+	"docs.guide.tavern-games.three-of-a-kind": "Three of a Kind",
 	// docs/guide/tavern-games.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["The Tavern"].
 	"docs.guide.tavern-games.the-tavern-s-dice-table-and-slot-machine":
 		"The Tavern's dice table, slot machine and Fortune's Wheel spend gold on games of chance. Read the wager twice. The house has already read it once.",

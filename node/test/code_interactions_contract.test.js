@@ -216,8 +216,9 @@ test("server retains legacy payloads while adding opt-in request completion", ()
 	assert.match(server, /socket\.emit\("lostandfound", cfound\)/);
 	assert.match(server, /event: "chellenge"/);
 	assert.match(server, /data == "the_lever" \|\| data\.type == "the_lever"/);
-	assert.match(server, /else player\.socket\.emit\("game_response", "slots_success"\)/);
-	assert.match(server, /else player\.socket\.emit\("game_response", "slots_fail"\)/);
+	const slotsLogic = fs.readFileSync(path.join(root, "node/logic/tavern_slots.js"), "utf8");
+	assert.match(slotsLogic, /else player\.socket\.emit\("game_response", ref\.won \? "slots_success" : "slots_fail"\)/);
+	assert.match(server, /return tavern_slots_bet\(player, data, bet_failure, request_id\)/);
 	assert.match(server, /socket\.emit\("pvp_list", \{ code: data && data\.code, list: plist \}\)/);
 	assert.match(server, /if \(data\.request_id\) success_response\("data", "mainframe", mainframe_result\)/);
 	assert.match(serverFunctions, /place: "dice"/);

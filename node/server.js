@@ -94,6 +94,7 @@ eval("" + fs.readFileSync(path.resolve(__dirname, "logic/generated_maps.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/instance_pause.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/cave_of_many_dreams.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern_wheel.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/tavern_slots.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "../version.js")));
 var precomputed_bfs_path = path.resolve(__dirname, "precomputed_map_data.js");
 if (fs.existsSync(precomputed_bfs_path)) eval("" + fs.readFileSync(precomputed_bfs_path));
@@ -12522,23 +12523,7 @@ function init_socket_io(socket_server) {
 				resend(player, "reopen+nc");
 			}
 			if (data.type == "slots") {
-				if (request_id && player.q.slots) {
-					return bet_failure("in_progress");
-				}
-				var gold = 1000000;
-				if (gold > player.gold) {
-					return bet_failure("gold_not_enough");
-				}
-				player.gold -= gold;
-				S.gold += gold;
-				player.q.slots = { ms: 3000 };
-				if (request_id) {
-					player.q.slots.request_id = request_id;
-					player.q.slots.cost = gold;
-				}
-				xy_emit(player, "ui", { type: "slots", player: player.name });
-				socket.emit("game_response", { response: "gold_use", gold: gold, game: data.type });
-				resend(player, "u+cid+reopen+nc");
+				return tavern_slots_bet(player, data, bet_failure, request_id);
 			}
 		});
 		socket.on("tavern", function (data) {
@@ -12769,6 +12754,7 @@ function init_socket_io(socket_server) {
 					}
 					player.bets = {};
 					tavern_wheel_disconnect(player);
+					tavern_slots_disconnect(player);
 				} catch (e) {
 					log_trace("#X DCERRORBETS", e);
 				}
@@ -14636,54 +14622,7 @@ function update_instance(instance) {
 					tavern_wheel_settle(player, ref);
 				}
 				if (name == "slots") {
-					if (Math.random() < ((S.gold > 500000000 && D.odds.slots_good) || D.odds.slots)) {
-						var gold = 500000000;
-						player.gold += gold;
-						S.gold -= gold;
-						broadcast(
-							"server_message",
-							localization.message(
-								"server.server_message.received_gold",
-								{ player: String(player.name), amount: String(to_pretty_num(gold)) },
-								{ color: "gold" },
-							),
-						);
-						resend(player, "reopen+nc");
-						if (ref.request_id)
-							player.socket.emit("game_response", {
-								response: "slots_success",
-								place: "slots",
-								request_id: ref.request_id,
-								success: true,
-								won: true,
-								cost: ref.cost,
-								payout: gold,
-								net: gold - ref.cost,
-							});
-						else player.socket.emit("game_response", "slots_success");
-						player.socket.emit(
-							"game_log",
-							localization.message(
-								"server.game_log.received_gold",
-								{ amount: String(to_pretty_num(gold)) },
-								{ color: "gold" },
-							),
-						);
-					} else {
-						resend(player, "reopen+nc");
-						if (ref.request_id)
-							player.socket.emit("game_response", {
-								response: "slots_fail",
-								place: "slots",
-								request_id: ref.request_id,
-								success: true,
-								won: false,
-								cost: ref.cost,
-								payout: 0,
-								net: -ref.cost,
-							});
-						else player.socket.emit("game_response", "slots_fail");
-					}
+					tavern_slots_settle(player, ref);
 				}
 			}
 		}

@@ -860,5 +860,9 @@
 	"interface.wheel.spin": "GIRA",
 	"interface.wheel.spinning": "STA GIRANDO...",
 	"interface.wheel.win_hint": "VINCI +{amount}",
-	"interface.wheel.house": "Il banco trattiene il {edge}% della vincita"
+	"interface.wheel.house": "Il banco trattiene il {edge}% della vincita",
+	"interface.slots.title": "Slot",
+	"interface.slots.paytable": "Tre uguali pagano",
+	"interface.slots.odds": "1 su {value}",
+	"interface.slots.cost": "{amount} oro"
 }

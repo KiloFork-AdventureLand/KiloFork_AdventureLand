@@ -857,5 +857,9 @@
 	"interface.wheel.spin": "GIRAR",
 	"interface.wheel.spinning": "GIRANDO...",
 	"interface.wheel.win_hint": "GANHE +{amount}",
-	"interface.wheel.house": "A casa fica com {edge}% dos ganhos"
+	"interface.wheel.house": "A casa fica com {edge}% dos ganhos",
+	"interface.slots.title": "Caça-níqueis",
+	"interface.slots.paytable": "Três iguais pagam",
+	"interface.slots.odds": "1 em {value}",
+	"interface.slots.cost": "{amount} de ouro"
 }

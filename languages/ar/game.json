@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "أنت مذعور",
 	"game.you_are_getting_scared": "بدأ الخوف يتملكك",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "همم. تبدو هذه الآلة معطلة. هل تجربها رغم ذلك؟ [1,000,000 من الذهب]",
-	"npc.accept_uppercase": "نعم!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "لا يمكنك دخول Tavern من Mac App Store :|",
 	"game.get_closer": "اقترب",
 	"game.sign_reads": "تقول اللافتة: \"{value}\"",
@@ -436,5 +434,6 @@
 	"chat.full": "كامل",
 	"chat.min": "مصغر",
 	"response.wheel_spinning": "ما زالت العجلة تدور",
-	"response.wheel_side": "اختر الشمس أو القمر أولا"
+	"response.wheel_side": "اختر الشمس أو القمر أولا",
+	"response.slots_spinning": "ما زالت البكرات تدور"
 }

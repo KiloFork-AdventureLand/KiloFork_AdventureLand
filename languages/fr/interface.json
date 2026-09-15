@@ -856,5 +856,9 @@
 	"interface.wheel.spin": "TOURNER",
 	"interface.wheel.spinning": "ÇA TOURNE...",
 	"interface.wheel.win_hint": "GAIN +{amount}",
-	"interface.wheel.house": "La maison garde {edge} % des gains"
+	"interface.wheel.house": "La maison garde {edge} % des gains",
+	"interface.slots.title": "Machine à sous",
+	"interface.slots.paytable": "Trois identiques rapportent",
+	"interface.slots.odds": "1 sur {value}",
+	"interface.slots.cost": "{amount} or"
 }

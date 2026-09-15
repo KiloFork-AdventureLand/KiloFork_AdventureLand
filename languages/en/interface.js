@@ -439,6 +439,14 @@ module.exports = {
 	"interface.wheel.win_hint": "WIN +{amount}",
 	// js/tavern_wheel.js; small note under the wheel. edge is a percentage number such as 2 or 0.5, without the % sign.
 	"interface.wheel.house": "The house keeps {edge}% of winnings",
+	// js/tavern_slots.js render_slots; panel heading of the Tavern slot machine.
+	"interface.slots.title": "Slots",
+	// js/tavern_slots.js; heading above the prize list: three matching symbols on the middle line pay the listed gold.
+	"interface.slots.paytable": "Three of a kind pays",
+	// js/tavern_slots.js; compact odds label beside a prize. value is a formatted number of spins, as in "1 in 5,000".
+	"interface.slots.odds": "1 in {value}",
+	// js/tavern_slots.js; compact hint beside SPIN showing the fixed stake. amount is a formatted gold number.
+	"interface.slots.cost": "{amount} gold",
 	// js/html.js render_donate; authored interface text.
 	"interface.donate.gold": "GOLD:",
 	// js/html.js render_donate; authored interface text.

@@ -868,5 +868,9 @@
 	"interface.wheel.spin": "КРУТИТИ",
 	"interface.wheel.spinning": "КРУТИТЬСЯ...",
 	"interface.wheel.win_hint": "ВИГРАШ +{amount}",
-	"interface.wheel.house": "Заклад залишає собі {edge}% виграшу"
+	"interface.wheel.house": "Заклад залишає собі {edge}% виграшу",
+	"interface.slots.title": "Слоти",
+	"interface.slots.paytable": "Три однакових дають",
+	"interface.slots.odds": "1 з {value}",
+	"interface.slots.cost": "{amount} золота"
 }

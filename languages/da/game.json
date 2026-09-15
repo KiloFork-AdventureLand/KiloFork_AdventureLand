@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "Du er rædselsslagen",
 	"game.you_are_getting_scared": "Du er ved at blive bange",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "Hmm. Denne maskine virker ødelagt. Vil du prøve alligevel? [1,000,000 guld]",
-	"npc.accept_uppercase": "JA!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Du kan ikke gå ind i Tavern via Mac App Store :|",
 	"game.get_closer": "Kom tættere på",
 	"game.sign_reads": "På skiltet står der: \"{value}\"",
@@ -436,5 +434,6 @@
 	"chat.full": "FULD",
 	"chat.min": "MIN",
 	"response.wheel_spinning": "Hjulet drejer stadig",
-	"response.wheel_side": "Vælg Sol eller Måne først"
+	"response.wheel_side": "Vælg Sol eller Måne først",
+	"response.slots_spinning": "Hjulene drejer stadig"
 }

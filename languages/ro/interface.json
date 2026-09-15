@@ -860,5 +860,9 @@
 	"interface.wheel.spin": "ÎNVÂRTE",
 	"interface.wheel.spinning": "SE ÎNVÂRTE...",
 	"interface.wheel.win_hint": "CÂȘTIG +{amount}",
-	"interface.wheel.house": "Casa păstrează {edge}% din câștig"
+	"interface.wheel.house": "Casa păstrează {edge}% din câștig",
+	"interface.slots.title": "Păcănele",
+	"interface.slots.paytable": "Trei identice plătesc",
+	"interface.slots.odds": "1 din {value}",
+	"interface.slots.cost": "{amount} aur"
 }

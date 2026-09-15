@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "IKUTIN",
 	"interface.wheel.spinning": "UMIIKOT...",
 	"interface.wheel.win_hint": "PANALO +{amount}",
-	"interface.wheel.house": "Kinukuha ng bangka ang {edge}% ng panalo"
+	"interface.wheel.house": "Kinukuha ng bangka ang {edge}% ng panalo",
+	"interface.slots.title": "Slots",
+	"interface.slots.paytable": "Tatlong magkakapareho ay may panalo",
+	"interface.slots.odds": "1 sa {value}",
+	"interface.slots.cost": "{amount} ginto"
 }

@@ -54,5 +54,5 @@
 	"update.01_01_26.slight_chance_something_might_break": "(Ada kemungkinan kecil sesuatu bermasalah)",
 	"update.14_09_26.progression": "Panduan Perkembangan menyarankan proyek perlengkapan, tempat berburu yang berguna, dan peluang aktif sejak pertarungan Goo pertamamu. Pilih tujuan di atas HP dan MP, atau matikan panduan di Pengaturan di samping Tutorial. CODE dapat membaca saran yang sama melalui get_progression().",
 	"update.14_09_26.rime_djinn": "Rime Djinn kini menghantui Frozen Cove. Pecahkan cangkang mereka bersama, dapatkan hadiah Tracker, dan kumpulkan Rimeglass untuk tiga perlengkapan baru.",
-	"update.15_09_26.wheel": "Roda Keberuntungan kini berputar di Tavern. Pilih Matahari atau Bulan, tentukan taruhan, lalu putar: sisimu membayar satu banding satu, dan bandar hanya mengambil bagiannya dari kemenangan. CODE bisa bermain dengan bet_wheel()."
+	"update.15_09_26.wheel": "Permainan di Tavern bertambah: Roda Keberuntungan berputar satu banding satu untuk Matahari atau Bulan, dan mesin slot kini memutar tiga gulungan dengan hadiah hingga 1.000.000.000 emas untuk taruhan 1.000.000. Kedua undian itu adil, dan bandar hanya mengambil bagiannya dari kemenangan. CODE bermain dengan bet_wheel() dan play_slots()."
 }

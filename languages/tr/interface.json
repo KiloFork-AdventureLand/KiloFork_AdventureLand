@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "ÇEVİR",
 	"interface.wheel.spinning": "DÖNÜYOR...",
 	"interface.wheel.win_hint": "KAZANÇ +{amount}",
-	"interface.wheel.house": "Kasa kazancın %{edge}'sini alır"
+	"interface.wheel.house": "Kasa kazancın %{edge}'sini alır",
+	"interface.slots.title": "Slot",
+	"interface.slots.paytable": "Üçlü eşleşme ödülü",
+	"interface.slots.odds": "{value}'de 1",
+	"interface.slots.cost": "{amount} altın"
 }

@@ -755,5 +755,5 @@
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "\"Çizgiler\" özelliği eklendi. Saldırı ve iyileştirme sırasında varlıklar arasında çizgi çizer. Özellikle PVP'de yararlı olacaktır.",
 	"update.14_09_26.progression": "İlerleme Rehberi, ilk Goo savaşlarından itibaren ekipman projeleri, yararlı av yerleri ve canlı fırsatlar önerir. HP ve MP'nin üstünden bir hedef seç veya Ayarlar'da Öğretici'nin yanından rehberi kapat. CODE aynı tavsiyeleri get_progression() ile okuyabilir.",
 	"update.14_09_26.rime_djinn": "Rime Djinn artık Frozen Cove’da dolaşıyor. Kabuklarını birlikte kırın, Tracker ödülleri kazanın ve üç yeni ekipman için Rimeglass toplayın.",
-	"update.15_09_26.wheel": "Kader Çarkı artık Tavern'da dönüyor. Güneş'i ya da Ay'ı seç, bahsini koy ve çevir: kendi tarafın bire bir öder, kasa yalnızca kazançtan payını alır. CODE bet_wheel() ile oynayabilir."
+	"update.15_09_26.wheel": "Tavern'ın oyunları büyüdü: Kader Çarkı Güneş ya da Ay için bire bir dönüyor ve slot makinesi artık 1.000.000 bahisle 1.000.000.000 altına kadar ödüllü üç makara çeviriyor. Her iki çekiliş de adil; kasa yalnızca kazançtan payını alır. CODE bet_wheel() ve play_slots() ile oynayabilir."
 }

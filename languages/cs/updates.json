@@ -54,5 +54,5 @@
 	"update.01_01_26.slight_chance_something_might_break": "(Malá šance, že se něco pokazí)",
 	"update.14_09_26.progression": "Průvodce postupem doporučuje projekty výbavy, užitečná loviště a aktuální příležitosti už od prvních soubojů s Goo. Vyber cíl nad HP a MP nebo průvodce vypni v nastavení vedle výuky. CODE může číst stejné rady přes get_progression().",
 	"update.14_09_26.rime_djinn": "Rime Djinn nyní obývají Frozen Cove. Rozbíjejte jejich krunýře společně, získávejte odměny Tracker a sbírejte Rimeglass na tři nové kusy vybavení.",
-	"update.15_09_26.wheel": "V Tavern se teď točí Kolo štěstí. Zvol Slunce, nebo Měsíc, urči sázku a roztoč ho: tvoje strana vyplácí jedna ku jedné a herna si nechává jen svůj podíl z výhry. CODE může hrát přes bet_wheel()."
+	"update.15_09_26.wheel": "Her v Tavern přibylo: Kolo štěstí se točí jedna ku jedné na Slunce, nebo Měsíc a výherní automat teď roztáčí tři válce s výhrami až 1 000 000 000 zlata za sázku 1 000 000. Obě losování jsou férová a herna si nechává jen svůj podíl z výher. CODE hraje přes bet_wheel() a play_slots()."
 }

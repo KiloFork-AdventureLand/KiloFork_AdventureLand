@@ -856,5 +856,9 @@
 	"interface.wheel.spin": "DREHEN",
 	"interface.wheel.spinning": "DREHT SICH...",
 	"interface.wheel.win_hint": "GEWINN +{amount}",
-	"interface.wheel.house": "Das Haus behält {edge}% des Gewinns"
+	"interface.wheel.house": "Das Haus behält {edge}% des Gewinns",
+	"interface.slots.title": "Spielautomat",
+	"interface.slots.paytable": "Drei Gleiche zahlen",
+	"interface.slots.odds": "1 von {value}",
+	"interface.slots.cost": "{amount} Gold"
 }

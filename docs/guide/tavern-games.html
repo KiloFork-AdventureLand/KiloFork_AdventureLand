@@ -28,6 +28,9 @@
 	<div class="guide-flow-node">{{ phrase_html("docs.guide.tavern-games.payout-or-no-luck") }}</div>
 </div>
 <p>{{ phrase("docs.guide.tavern-games.each-play-spends-the-machine-s-shown-cost") }}</p>
+<div class="guide-paytable" data-odds="{{ phrase("docs.guide.tavern-games.1-in-value") }}">
+	<div class="guide-paytable-row guide-paytable-head"><span>{{ phrase("docs.guide.tavern-games.three-of-a-kind") }}</span><span>{{ phrase("docs.guide.tavern-games.prize") }}</span><span>{{ phrase("docs.guide.tavern-games.chance") }}</span></div>
+</div>
 
 <div class="divider"></div>
 <div class="title mt15">{{ phrase("docs.guide.tavern-games.fortune-s-wheel") }}</div>
@@ -67,8 +70,9 @@ inspect_tavern().catch(show_json);</div>
 // This spends gold:
 // wager_once("down", 55, 10000).catch(show_json);
 
-// Slots also spend gold and wait for the completed spin:
-// show_json(await play_slots());</div>
+// Slots also spend gold and wait for the reels to stop:
+// var spin = await play_slots();
+// game_log(spin.symbols.join(" ") + (spin.won ? " pays " + spin.payout : " pays nothing"));</div>
 
 <div class="title mt15">{{ phrase("docs.guide.tavern-games.code-spin-fortune-s-wheel") }}</div>
 <div class="code">async function spin_once(side, gold) {
@@ -87,8 +91,19 @@ inspect_tavern().catch(show_json);</div>
 
 <script>
 	$(".tavern-jaqk").html(sprite(G.npcs.tavern.skin, { height: 62 }));
+	(function () {
+		var slots = G.games && G.games.slots,
+			table = $(".guide-paytable");
+		if (!slots || !table.length) return;
+		var odds = table.attr("data-odds");
+		slots.prizes.forEach(function (prize) {
+			var icons = "";
+			for (var i = 0; i < 3; i++) icons += item_container({ skin: prize[0], size: 20, bcolor: "#6D3D4B", draggable: false });
+			table.append("<div class='guide-paytable-row'><span>" + icons + "</span><span class='guide-paytable-gold'>" + to_pretty_num(prize[1]) + "</span><span>" + odds.replace("{value}", to_pretty_num(Math.round(slots.draws / prize[2]))) + "</span></div>");
+		});
+	})();
 </script>
 
 <style>
-	.guide-kicker{color:#AA7040;font-size:18px;font-weight:bold;letter-spacing:2px}.guide-title{color:#7D4C29;font-size:44px;line-height:48px;margin:2px 0 12px}.title{color:#7D4C29;font-size:36px;margin-top:15px}.divider{margin-top:15px;height:5px;background-color:#A2A2A2;margin-left:-26px;margin-right:-26px}.guide-note{border-left:6px solid #AA7040;background:#F2E4D8;padding:10px 14px;margin:12px 0}.guide-related{border-top:2px dotted #AAA;margin-top:18px;padding-top:10px;color:#666}.guide-related span{color:#85522D;cursor:pointer;text-decoration:underline}.tavern-die,.tavern-roll,.tavern-choice,.tavern-gold,.tavern-slots,.tavern-result,.tavern-side,.tavern-wheel,.tavern-even{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:3px solid #D9B274;background:#2A1B13;color:#FFD888;font-size:23px}.tavern-slots{border-color:#C18ACB;background:#221525;color:#F1B6FB}.tavern-side{border-color:#FFBB31;background:#2A1B13;color:#FFE737;font-size:18px}.tavern-wheel{border-radius:50%;border-color:#6D3D4B;background:conic-gradient(#3D34A5 0 25.7deg,#FF82CE 0 51.4deg,#25E2CD 0 77.1deg,#FF7500 0 102.9deg,#6264DC 0 128.6deg,#E03C28 0 154.3deg,#20B562 0 180deg,#FFBB31 0 205.7deg,#A328B3 0 231.4deg,#F68F37 0 257.1deg,#98DCFF 0 282.9deg,#FEC9ED 0 308.6deg,#00604B 0 334.3deg,#FFE737 0 360deg);color:transparent}.tavern-even{border-color:#8BD08B;background:#13251A;color:#9BE29B}.tavern-choice{font-size:18px}.tavern-roll{color:#8EE1A2}.tavern-gold{border-radius:50%;color:#F1CE4F}.tavern-result{color:#EFA9C9}
+	.guide-kicker{color:#AA7040;font-size:18px;font-weight:bold;letter-spacing:2px}.guide-title{color:#7D4C29;font-size:44px;line-height:48px;margin:2px 0 12px}.title{color:#7D4C29;font-size:36px;margin-top:15px}.divider{margin-top:15px;height:5px;background-color:#A2A2A2;margin-left:-26px;margin-right:-26px}.guide-note{border-left:6px solid #AA7040;background:#F2E4D8;padding:10px 14px;margin:12px 0}.guide-related{border-top:2px dotted #AAA;margin-top:18px;padding-top:10px;color:#666}.guide-related span{color:#85522D;cursor:pointer;text-decoration:underline}.tavern-die,.tavern-roll,.tavern-choice,.tavern-gold,.tavern-slots,.tavern-result,.tavern-side,.tavern-wheel,.tavern-even{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:3px solid #D9B274;background:#2A1B13;color:#FFD888;font-size:23px}.tavern-slots{border-color:#C18ACB;background:#221525;color:#F1B6FB}.tavern-side{border-color:#FFBB31;background:#2A1B13;color:#FFE737;font-size:18px}.tavern-wheel{border-radius:50%;border-color:#6D3D4B;background:conic-gradient(#3D34A5 0 25.7deg,#FF82CE 0 51.4deg,#25E2CD 0 77.1deg,#FF7500 0 102.9deg,#6264DC 0 128.6deg,#E03C28 0 154.3deg,#20B562 0 180deg,#FFBB31 0 205.7deg,#A328B3 0 231.4deg,#F68F37 0 257.1deg,#98DCFF 0 282.9deg,#FEC9ED 0 308.6deg,#00604B 0 334.3deg,#FFE737 0 360deg);color:transparent}.tavern-even{border-color:#8BD08B;background:#13251A;color:#9BE29B}.guide-paytable{border:3px solid #8B5B96;background:#221525;color:#F1B6FB;padding:6px 12px;margin:12px 0;display:inline-block}.guide-paytable-row{display:flex;align-items:center;gap:14px;line-height:30px}.guide-paytable-row>span:first-child{min-width:96px}.guide-paytable-row>span:nth-child(2){min-width:150px}.guide-paytable-head{color:#C18ACB;font-size:16px;letter-spacing:1px;line-height:22px}.guide-paytable-gold{color:#FFD888}.tavern-choice{font-size:18px}.tavern-roll{color:#8EE1A2}.tavern-gold{border-radius:50%;color:#F1CE4F}.tavern-result{color:#EFA9C9}
 </style>

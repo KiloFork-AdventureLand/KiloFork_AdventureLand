@@ -1361,6 +1361,7 @@ function house_debt() {
 		}
 	}
 	gold += tavern_wheel_debt();
+	gold += tavern_slots_debt();
 	return gold;
 }
 

@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "PÖRGETÉS",
 	"interface.wheel.spinning": "PÖRÖG...",
 	"interface.wheel.win_hint": "NYEREMÉNY +{amount}",
-	"interface.wheel.house": "A ház a nyeremény {edge}%-át megtartja"
+	"interface.wheel.house": "A ház a nyeremény {edge}%-át megtartja",
+	"interface.slots.title": "Nyerőgép",
+	"interface.slots.paytable": "Három egyforma nyer",
+	"interface.slots.odds": "1 a(z) {value}-ből",
+	"interface.slots.cost": "{amount} arany"
 }

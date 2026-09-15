@@ -868,5 +868,9 @@
 	"interface.wheel.spin": "ZAKRĘĆ",
 	"interface.wheel.spinning": "KRĘCI SIĘ...",
 	"interface.wheel.win_hint": "WYGRANA +{amount}",
-	"interface.wheel.house": "Kasyno zatrzymuje {edge}% wygranej"
+	"interface.wheel.house": "Kasyno zatrzymuje {edge}% wygranej",
+	"interface.slots.title": "Automat",
+	"interface.slots.paytable": "Trzy takie same wypłacają",
+	"interface.slots.odds": "1 na {value}",
+	"interface.slots.cost": "{amount} złota"
 }

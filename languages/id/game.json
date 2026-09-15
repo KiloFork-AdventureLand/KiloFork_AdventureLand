@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "Kamu sangat ketakutan",
 	"game.you_are_getting_scared": "Kamu mulai takut",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "Hmm. Mesin ini sepertinya rusak. Tetap mau mencoba? [1,000,000 emas]",
-	"npc.accept_uppercase": "YA!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Kamu tidak bisa masuk ke Tavern dari versi Mac App Store :|",
 	"game.get_closer": "Mendekatlah",
 	"game.sign_reads": "Tulisan di papan: \"{value}\"",
@@ -436,5 +434,6 @@
 	"chat.full": "PENUH",
 	"chat.min": "KECIL",
 	"response.wheel_spinning": "Rodanya masih berputar",
-	"response.wheel_side": "Pilih Matahari atau Bulan dulu"
+	"response.wheel_side": "Pilih Matahari atau Bulan dulu",
+	"response.slots_spinning": "Gulungannya masih berputar"
 }

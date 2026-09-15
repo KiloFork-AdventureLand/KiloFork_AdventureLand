@@ -72,6 +72,7 @@ function fixture(options = {}) {
 		house_edge_override: null,
 	});
 	vm.runInContext(read("node/logic/tavern_wheel.js"), c);
+	vm.runInContext(read("node/logic/tavern_slots.js"), c);
 	load(c, "node/server_functions.js", ["house_debt", "house_edge", "fail_response", "success_response"]);
 	const bet = socketHandler(c, "bet");
 	return { c, player, socket, packets, logs, bet, tavern };
@@ -339,4 +340,90 @@ test("the wheel panel and its effects stay silent without graphics", () => {
 	c.wheel_tavern_event({ event: "won", name: "A", net: 1, gold: 1, index: 1 });
 	c.wheel_animate();
 	assert.equal(c.tavern_wheel.spin, null);
+});
+
+function wheelClient(now) {
+	const source = read("js/tavern_wheel.js");
+	const calls = [];
+	const clock = { now };
+	const dom = { css: () => dom, html: (value) => (value === undefined ? "" : dom), length: 1 };
+	const c = vm.createContext({
+		G: { games },
+		Math,
+		performance: { now: () => clock.now },
+		no_graphics: false,
+		character: { name: "A" },
+		topleft_npc: "wheel",
+		map_machines: {},
+		floor: Math.floor,
+		max: Math.max,
+		min: Math.min,
+		future_ms: (ms) => ms,
+		$: () => dom,
+		setTimeout: () => 0,
+		to_pretty_num: String,
+		phrase: { html: () => "" },
+		requestAnimationFrame: () => (calls.push("frame"), 1),
+		wheel_sound: (name) => calls.push("sound:" + name),
+		wheel_change: () => calls.push("change"),
+		wheel_draw: () => calls.push("draw"),
+	});
+	vm.runInContext(source.slice(0, source.indexOf("function wheel_rgb(")), c);
+	for (const name of [
+		"wheel_definition",
+		"wheel_rest_rotation",
+		"wheel_slice_at",
+		"wheel_set_busy",
+		"wheel_start",
+		"wheel_finish",
+		"wheel_show_result",
+		"wheel_animate",
+		"wheel_frame",
+	])
+		vm.runInContext(extract(source, name), c);
+	return { c, calls, clock, dom };
+}
+
+const wheelStep = (Math.PI * 2) / wheel.slices.length;
+const underPointer = (rotation) =>
+	Math.floor((((-rotation % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2)) / wheelStep) % wheel.slices.length;
+
+test("a settlement that arrives while the wheel still turns waits for the run to end on the result slice", () => {
+	const { c, calls, clock } = wheelClient(1000);
+	c.wheel_start({ player: "A", index: 4, ms: 4000 });
+	const spin = c.tavern_wheel.spin;
+	c.wheel_finish({ event: "won", won: true, index: 4, net: 5, gold: 5 });
+	assert.equal(c.tavern_wheel.spin, spin, "the run keeps going");
+	assert.equal(c.tavern_wheel.result.shown, undefined);
+	assert.ok(c.tavern_wheel.busy);
+	clock.now = 1000 + spin.duration + 1;
+	c.wheel_frame(clock.now);
+	assert.equal(c.tavern_wheel.spin, null);
+	assert.equal(c.tavern_wheel.rotation, spin.to);
+	assert.equal(underPointer(c.tavern_wheel.rotation), 4);
+	assert.equal(c.tavern_wheel.result.shown, true);
+	assert.equal(c.tavern_wheel.busy, false);
+	assert.ok(calls.includes("sound:coins"));
+});
+
+test("a settlement without a running wheel parks the wheel on the result, even after a re-render or a closed panel", () => {
+	const { c, dom } = wheelClient(1000);
+	c.tavern_wheel.rotation = 12.3;
+	c.wheel_finish({ event: "lost", won: false, index: 9, net: -5, gold: 5 });
+	assert.equal(underPointer(c.tavern_wheel.rotation), 9);
+	assert.equal(c.tavern_wheel.result.shown, true);
+	// The panel closed mid-spin: frames stop but the clock and target stay.
+	c.wheel_start({ player: "A", index: 2, ms: 4000 });
+	const spin = c.tavern_wheel.spin;
+	dom.length = 0;
+	c.wheel_frame(2000);
+	assert.equal(c.tavern_wheel.spin, spin, "closing the panel does not cancel the run");
+	dom.length = 1;
+	c.wheel_frame(1000 + spin.duration + 5);
+	assert.equal(underPointer(c.tavern_wheel.rotation), 2);
+	assert.equal(c.tavern_wheel.spin, null);
+	assert.ok(c.tavern_wheel.busy, "still waiting for the server's settlement");
+	c.wheel_finish({ event: "won", won: true, index: 2, net: 1, gold: 1 });
+	assert.equal(c.tavern_wheel.busy, false);
+	assert.equal(underPointer(c.tavern_wheel.rotation), 2);
 });

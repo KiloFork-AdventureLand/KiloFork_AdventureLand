@@ -2316,6 +2316,7 @@ function init_socket(args) {
 			else if (response == "tavern_gold_not_enough") ui_log(phrase.html("response.tavern_gold_not_enough"), "gray");
 			else if (response == "wheel_spinning") ui_log(phrase.html("response.wheel_spinning"), "gray");
 			else if (response == "wheel_side") ui_log(phrase.html("response.wheel_side"), "gray");
+			else if (response == "slots_spinning") ui_log(phrase.html("response.slots_spinning"), "gray");
 			else if (response == "condition") {
 				var def = G.conditions[data.name],
 					from = data.from;
@@ -2862,7 +2863,7 @@ function init_socket(args) {
 					start_emblem(attacker, "o1", { frames: 5 });
 				}
 			} else if (data.type == "slots") {
-				if (map_machines.slots) map_machines.slots.spinning = future_s(3);
+				slots_start(data);
 			} else if (data.type == "wheel") {
 				wheel_start(data);
 			} else if (data.type == "level_up") {
@@ -2895,6 +2896,7 @@ function init_socket(args) {
 	});
 	socket.on("tavern", function (data) {
 		if (data.type == "wheel" && data.event != "info") return wheel_tavern_event(data);
+		if (data.type == "slots" && data.event != "info") return slots_tavern_event(data);
 		if (data.event == "bet") {
 			var player = get_entity(data.name);
 			if (player) d_text(phrase("combat.buff_gained"), player, { color: "#6E9BBE" });
@@ -2905,6 +2907,7 @@ function init_socket(args) {
 		}
 		if (data.event == "info") {
 			if (data.game == "wheel") wheel_info(data);
+			else if (data.game == "slots") slots_info(data);
 			else render_tavern_info(data);
 		}
 		if (data.event == "won") {
@@ -3852,7 +3855,7 @@ function map_click(event) {
 		if (next_minteraction) ((data.key = next_minteraction), (next_minteraction = null));
 		socket.emit("move", data);
 	}
-	if (!(in_arr(topleft_npc, ["dice", "wheel"]) && current_map == "tavern")) {
+	if (!(in_arr(topleft_npc, ["dice", "wheel", "slots"]) && current_map == "tavern")) {
 		if (topleft_npc && inventory) render_inventory();
 		topleft_npc = false;
 	}
@@ -6501,16 +6504,7 @@ function add_machine(machine) {
 	function machine_click(event) {
 		if (machine.type == "dice") render_dice(); // add_log("Curious device","gray");//
 		if (machine.type == "wheel") render_wheel();
-		if (machine.type == "slots")
-			render_interaction({
-				auto: true,
-				skin: character.skin,
-				message: phrase.html("npc.slots.try_machine"),
-				button: phrase.html("npc.accept_uppercase"),
-				onclick: function () {
-					socket.emit("bet", { type: "slots" });
-				},
-			});
+		if (machine.type == "slots") render_slots();
 		try {
 			if (event) event.stopPropagation();
 		} catch (e) {}

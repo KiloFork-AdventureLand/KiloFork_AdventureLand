@@ -856,5 +856,9 @@
 	"interface.wheel.spin": "DREJ",
 	"interface.wheel.spinning": "DREJER...",
 	"interface.wheel.win_hint": "GEVINST +{amount}",
-	"interface.wheel.house": "Huset beholder {edge} % af gevinsten"
+	"interface.wheel.house": "Huset beholder {edge} % af gevinsten",
+	"interface.slots.title": "Spilleautomat",
+	"interface.slots.paytable": "Tre ens giver gevinst",
+	"interface.slots.odds": "1 ud af {value}",
+	"interface.slots.cost": "{amount} guld"
 }

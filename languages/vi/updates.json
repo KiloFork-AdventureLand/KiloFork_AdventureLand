@@ -54,5 +54,5 @@
 	"update.01_01_26.slight_chance_something_might_break": "(Có một chút khả năng xảy ra lỗi)",
 	"update.14_09_26.progression": "Hướng dẫn phát triển đề xuất kế hoạch trang bị, bãi săn hữu ích và cơ hội đang có ngay từ những trận Goo đầu tiên. Chọn mục tiêu trên HP và MP hoặc tắt hướng dẫn trong Cài đặt, cạnh Hướng dẫn. CODE có thể đọc cùng lời khuyên bằng get_progression().",
 	"update.14_09_26.rime_djinn": "Rime Djinn nay xuất hiện ở Frozen Cove. Cùng phá vỏ, nhận thưởng Tracker và gom Rimeglass để chế tạo ba món trang bị mới.",
-	"update.15_09_26.wheel": "Vòng Quay May Mắn đã quay tại Tavern. Chọn Mặt Trời hoặc Mặt Trăng, đặt tiền cược rồi quay: phía của bạn trả một ăn một, và nhà cái chỉ giữ lại phần của mình từ tiền thắng. CODE có thể chơi bằng bet_wheel()."
+	"update.15_09_26.wheel": "Tavern có thêm trò chơi: Vòng Quay May Mắn trả một ăn một cho Mặt Trời hoặc Mặt Trăng, và máy quay thưởng giờ quay ba cuộn với phần thưởng lên tới 1,000,000,000 vàng cho mức cược 1,000,000. Cả hai đều quay thưởng công bằng, và nhà cái chỉ giữ lại phần của mình từ tiền thắng. CODE chơi bằng bet_wheel() và play_slots()."
 }

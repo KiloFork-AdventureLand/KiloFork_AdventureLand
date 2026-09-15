@@ -755,5 +755,5 @@
 	"update.12_09_16.added_the_lines_feature_draws_a_line_between_entities": "「lines」機能を追加。攻撃や回復の際、対象との間に線を描きます。特にPVPで役立つはずです。",
 	"update.14_09_26.progression": "成長ガイドが最初のGoo戦から装備の計画、役立つ狩場、開催中の機会を提案します。HPとMPの上で目標を選ぶか、設定のチュートリアルの隣でガイドをオフにできます。CODEでもget_progression()で同じ助言を取得できます。",
 	"update.14_09_26.rime_djinn": "Frozen CoveにRime Djinnが現れました。仲間と殻を壊してTracker報酬を獲得し、Rimeglassを集めて3つの新装備を製作しましょう。",
-	"update.15_09_26.wheel": "Tavernで運命の輪が回り始めました。太陽か月を選び、賭け金を決めて回しましょう。自分の側に止まれば賭け金と同額の勝ち金が入り、店はその勝ち金から取り分を受け取るだけです。CODEはbet_wheel()で遊べます。"
+	"update.15_09_26.wheel": "Tavernの遊びが増えました。運命の輪は太陽か月に同額の勝ち金で回り、スロットマシンは賭け金1,000,000ゴールドで最大1,000,000,000ゴールドの賞金が出る3つのリールを回します。どちらの抽選も公平で、店は勝ち金から取り分を受け取るだけです。CODEはbet_wheel()とplay_slots()で遊べます。"
 }

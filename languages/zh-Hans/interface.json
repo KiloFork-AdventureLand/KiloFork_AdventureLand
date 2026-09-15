@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "转动",
 	"interface.wheel.spinning": "转动中...",
 	"interface.wheel.win_hint": "赢得 +{amount}",
-	"interface.wheel.house": "庄家抽取奖金的{edge}%"
+	"interface.wheel.house": "庄家抽取奖金的{edge}%",
+	"interface.slots.title": "老虎机",
+	"interface.slots.paytable": "三个相同即中奖",
+	"interface.slots.odds": "{value}次中1次",
+	"interface.slots.cost": "{amount}金币"
 }

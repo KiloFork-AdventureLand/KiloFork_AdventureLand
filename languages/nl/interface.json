@@ -856,5 +856,9 @@
 	"interface.wheel.spin": "DRAAIEN",
 	"interface.wheel.spinning": "DRAAIT...",
 	"interface.wheel.win_hint": "WINST +{amount}",
-	"interface.wheel.house": "Het huis houdt {edge}% van de winst"
+	"interface.wheel.house": "Het huis houdt {edge}% van de winst",
+	"interface.slots.title": "Gokautomaat",
+	"interface.slots.paytable": "Drie dezelfde betalen uit",
+	"interface.slots.odds": "1 op {value}",
+	"interface.slots.cost": "{amount} goud"
 }

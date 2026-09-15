@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "你惊恐万分",
 	"game.you_are_getting_scared": "你开始害怕了",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "嗯，这台机器好像坏了。还是想试试吗？[1,000,000金币]",
-	"npc.accept_uppercase": "好！",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Mac App Store版本无法进入Tavern :|",
 	"game.get_closer": "靠近一点",
 	"game.sign_reads": "牌子上写着：“{value}”",
@@ -436,5 +434,6 @@
 	"chat.full": "放大",
 	"chat.min": "缩小",
 	"response.wheel_spinning": "转轮还在转",
-	"response.wheel_side": "请先选择太阳或月亮"
+	"response.wheel_side": "请先选择太阳或月亮",
+	"response.slots_spinning": "转轮还在转"
 }

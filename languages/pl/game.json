@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "Ogarnia cię przerażenie",
 	"game.you_are_getting_scared": "Zaczynasz się bać",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "Hmm. Ta maszyna chyba jest zepsuta. Mimo to spróbujesz? [1 000 000 złota]",
-	"npc.accept_uppercase": "TAK!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "W wersji z Mac App Store nie możesz wejść do Tavern :|",
 	"game.get_closer": "Podejdź bliżej",
 	"game.sign_reads": "Na znaku widnieje: „{value}”",
@@ -436,5 +434,6 @@
 	"chat.full": "PEŁNY",
 	"chat.min": "MAŁY",
 	"response.wheel_spinning": "Koło wciąż się kręci",
-	"response.wheel_side": "Najpierw wybierz Słońce albo Księżyc"
+	"response.wheel_side": "Najpierw wybierz Słońce albo Księżyc",
+	"response.slots_spinning": "Bębny wciąż się kręcą"
 }

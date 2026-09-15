@@ -856,5 +856,9 @@
 	"interface.wheel.spin": "SNURR",
 	"interface.wheel.spinning": "SNURRER...",
 	"interface.wheel.win_hint": "GEVINST +{amount}",
-	"interface.wheel.house": "Huset beholder {edge} % av gevinsten"
+	"interface.wheel.house": "Huset beholder {edge} % av gevinsten",
+	"interface.slots.title": "Spilleautomat",
+	"interface.slots.paytable": "Tre like gir gevinst",
+	"interface.slots.odds": "1 av {value}",
+	"interface.slots.cost": "{amount} gull"
 }

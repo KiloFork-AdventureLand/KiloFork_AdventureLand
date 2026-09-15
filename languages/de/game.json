@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "Du bist entsetzt",
 	"game.you_are_getting_scared": "Du bekommst Angst",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "Hmm. Dieser Automat scheint kaputt zu sein. Trotzdem versuchen? [1.000.000 Gold]",
-	"npc.accept_uppercase": "JA!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Mit der Version aus dem Mac App Store kannst du Tavern nicht betreten :|",
 	"game.get_closer": "Komm näher",
 	"game.sign_reads": "Auf dem Schild steht: „{value}“",
@@ -436,5 +434,6 @@
 	"chat.full": "VOLL",
 	"chat.min": "MIN",
 	"response.wheel_spinning": "Das Rad dreht sich noch",
-	"response.wheel_side": "Wähle zuerst Sonne oder Mond"
+	"response.wheel_side": "Wähle zuerst Sonne oder Mond",
+	"response.slots_spinning": "Die Walzen drehen sich noch"
 }

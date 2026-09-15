@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "Έχεις τρομοκρατηθεί",
 	"game.you_are_getting_scared": "Αρχίζεις να φοβάσαι",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "Χμμ. Αυτή η μηχανή φαίνεται χαλασμένη. Θέλεις να δοκιμάσεις παρ' όλα αυτά; [1.000.000 χρυσός]",
-	"npc.accept_uppercase": "ΝΑΙ!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Δεν μπορείς να μπεις στο Tavern από την έκδοση του Mac App Store :|",
 	"game.get_closer": "Πλησίασε",
 	"game.sign_reads": "Η πινακίδα γράφει: \"{value}\"",
@@ -436,5 +434,6 @@
 	"chat.full": "ΠΛΗΡ.",
 	"chat.min": "ΜΙΚΡ.",
 	"response.wheel_spinning": "Ο τροχός γυρίζει ακόμα",
-	"response.wheel_side": "Διάλεξε πρώτα Ήλιο ή Φεγγάρι"
+	"response.wheel_side": "Διάλεξε πρώτα Ήλιο ή Φεγγάρι",
+	"response.slots_spinning": "Οι τροχοί γυρίζουν ακόμα"
 }

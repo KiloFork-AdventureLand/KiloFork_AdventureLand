@@ -864,5 +864,9 @@
 	"interface.wheel.spin": "ROZTOČIT",
 	"interface.wheel.spinning": "TOČÍ SE...",
 	"interface.wheel.win_hint": "VÝHRA +{amount}",
-	"interface.wheel.house": "Herna si nechává {edge} % z výhry"
+	"interface.wheel.house": "Herna si nechává {edge} % z výhry",
+	"interface.slots.title": "Automat",
+	"interface.slots.paytable": "Tři stejné vyplácejí",
+	"interface.slots.odds": "1 z {value}",
+	"interface.slots.cost": "{amount} zlata"
 }

@@ -855,5 +855,9 @@
 	"interface.wheel.spin": "PUTAR",
 	"interface.wheel.spinning": "BERPUTAR...",
 	"interface.wheel.win_hint": "MENANG +{amount}",
-	"interface.wheel.house": "Pihak kedai mengambil {edge}% daripada kemenangan"
+	"interface.wheel.house": "Pihak kedai mengambil {edge}% daripada kemenangan",
+	"interface.slots.title": "Mesin Slot",
+	"interface.slots.paytable": "Tiga yang sama membayar",
+	"interface.slots.odds": "1 daripada {value}",
+	"interface.slots.cost": "{amount} emas"
 }

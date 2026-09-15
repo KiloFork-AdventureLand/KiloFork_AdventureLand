@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "Bạn đang kinh hãi",
 	"game.you_are_getting_scared": "Bạn bắt đầu sợ",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "Hừm. Máy này có vẻ hỏng rồi. Vẫn muốn thử chứ? [1,000,000 vàng]",
-	"npc.accept_uppercase": "CÓ!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Bạn không thể vào Tavern từ ứng dụng Mac App Store :|",
 	"game.get_closer": "Lại gần hơn",
 	"game.sign_reads": "Biển ghi: \"{value}\"",
@@ -436,5 +434,6 @@
 	"chat.full": "LỚN",
 	"chat.min": "NHỎ",
 	"response.wheel_spinning": "Vòng quay vẫn đang quay",
-	"response.wheel_side": "Hãy chọn Mặt Trời hoặc Mặt Trăng trước"
+	"response.wheel_side": "Hãy chọn Mặt Trời hoặc Mặt Trăng trước",
+	"response.slots_spinning": "Các cuộn vẫn đang quay"
 }

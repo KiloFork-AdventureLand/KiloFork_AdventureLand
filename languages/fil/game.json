@@ -337,8 +337,6 @@
 	"game.you_are_terrified": "Takot na takot ka",
 	"game.you_are_getting_scared": "Natatakot ka na",
 	"combat.zzz": "zZz",
-	"npc.slots.try_machine": "Hmm. Mukhang sira ang makinang ito. Susubukan mo pa rin ba? [1,000,000 ginto]",
-	"npc.accept_uppercase": "OO!",
 	"game.you_can_t_enter_the_tavern_from_mac_app": "Hindi ka makakapasok sa Tavern mula sa Mac App Store :|",
 	"game.get_closer": "Lumapit pa",
 	"game.sign_reads": "Nakasulat sa karatula: \"{value}\"",
@@ -436,5 +434,6 @@
 	"chat.full": "BUO",
 	"chat.min": "MALIIT",
 	"response.wheel_spinning": "Umiikot pa ang gulong",
-	"response.wheel_side": "Pumili muna ng Araw o Buwan"
+	"response.wheel_side": "Pumili muna ng Araw o Buwan",
+	"response.slots_spinning": "Umiikot pa ang mga reel"
 }
