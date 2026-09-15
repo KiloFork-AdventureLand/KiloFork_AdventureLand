@@ -57,7 +57,10 @@ function restore_generated_maps() {
 	}
 }
 function prepare_generated_run(seed, key, exit_spawn) {
-	return generated_layout_queue.build({ zone: "dreams", seed, key, exit_spawn });
+	return generated_layout_queue.build({ zone: "dreams", seed, key, exit_spawn }).catch((error) => {
+		log_trace("dream layout " + seed, error.cause || error);
+		throw error;
+	});
 }
 function install_generated_floor(record, floor) {
 	if (generated_maps[floor.key]) return;

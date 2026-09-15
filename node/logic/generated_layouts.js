@@ -47,7 +47,10 @@ function createLayoutQueue(getGameData, { concurrency = 2, limit = 12, timeout =
 			worker.on("exit", () => finish(Error("generation_worker_exit")));
 			worker.on("message", (data) => {
 				if (data.type !== "generated_built" || data.key !== job.data.key) return;
-				finish(data.failed ? Error("generation_failed") : null, data.floors);
+				finish(
+					data.failed ? Error("generation_failed", { cause: Error(data.error || "Unknown layout error") }) : null,
+					data.floors,
+				);
 			});
 			try {
 				worker.postMessage(Object.assign({ type: "generated_build" }, job.data));

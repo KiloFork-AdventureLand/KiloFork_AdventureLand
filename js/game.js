@@ -2081,6 +2081,8 @@ function init_socket(args) {
 				show_alert(phrase.html("response.mail_failed", { reason: phrase.error(data.reason) }));
 			} else if (response == "mail_sent") {
 				ui_log(phrase.html("response.mail_sent", { to: data.to }), "#C06978");
+			} else if (response == "mail_received") {
+				handle_information([{ type: "unread", count: data.count }]);
 			} else if (response == "mail_take_item_failed") {
 				ui_log(phrase.html("response.mail_take_item_failed"), "#C06978");
 				setTimeout(function () {
@@ -3818,7 +3820,7 @@ function player_right_click(event) {
 }
 
 function monster_click(event) {
-	if (this.cave && ["neutral", "ally", "victim"].includes(this.cave.side)) { if (event) event.stopPropagation(); return cave_manual("talk", {room: this.cave.room}); }
+	if (this.cave && ["neutral", "ally", "victim"].includes(this.cave.side)) { if (event) event.stopPropagation(); return cave_manual("talk", {room: this.cave.room, actor: this.id}); }
 	if (ctarget == this) map_click(event);
 	ctarget = this;
 	xtarget = null;

@@ -2676,7 +2676,7 @@ function monster_x(name) {
 	show_snippet('smart_move("' + name + '")');
 }
 
-function render_drop(def, mult, color) {
+function render_drop(def, mult, color, format) {
 	var html = "";
 	if (def[1] == "open") {
 		var total = 0;
@@ -2684,7 +2684,7 @@ function render_drop(def, mult, color) {
 			total += d[0];
 		});
 		G.drops[def[2]].forEach(function (d) {
-			html += render_drop(d, (mult * def[0]) / total, color);
+			html += render_drop(d, (mult * def[0]) / total, color, format);
 		});
 		return html;
 	}
@@ -2718,7 +2718,12 @@ function render_drop(def, mult, color) {
 			html += cx_sprite(cid, { mright: 4 });
 		});
 	} else html += "<span class='clickable' onclick='pcs(event); render_item_info(\"" + def[1] + '",0,"' + ((actual && actual.data) || "") + "\")'>" + item_container({ skin: skin }, actual) + "</span>";
-	if (def[0] * mult >= 1)
+	if (format === "percent")
+		html +=
+			"<div style='vertical-align: middle; display: inline-block; font-size: 24px; line-height: 50px; height: 50px; margin-left: 5px; margin-right: 8px'>" +
+			to_pretty_float(def[0] * mult * 100) +
+			"%</div>";
+	else if (def[0] * mult >= 1)
 		html +=
 			"<div style='vertical-align: middle; display: inline-block; font-size: 24px; line-height: 50px; height: 50px; margin-left: 5px; margin-right: 8px'>" +
 			to_pretty_float(def[0] * mult) +

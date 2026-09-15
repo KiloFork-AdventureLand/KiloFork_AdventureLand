@@ -148,6 +148,17 @@ function generate(seed, level = 0) {
 	}
 	const order = [...rooms].filter((r) => r !== first).sort((a, b) => dist[a.id] - dist[b.id]);
 	const final = order[order.length - 1];
+	// Stairs need their own landing and a route around both sides. Reserve that
+	// space before placing fixtures; a small random chamber cannot supply it.
+	if (level < 2) {
+		final.w = Math.max(final.w, 24);
+		final.h = Math.max(final.h, 22);
+		final.x = Math.max(6, Math.min(W - 6 - final.w, final.cx - Math.floor(final.w / 2)));
+		final.y = Math.max(6, Math.min(H - 6 - final.h, final.cy - Math.floor(final.h / 2)));
+		for (let dy = 0; dy < final.h; dy++)
+			for (let dx = 0; dx < final.w; dx++)
+				if (Math.min(dx, final.w - 1 - dx) + Math.min(dy, final.h - 1 - dy) >= 2) carve(final.x + dx, final.y + dy);
+	}
 	function assign(r, kind, title, actor = null) {
 		Object.assign(r, { kind, title, actor });
 	}
@@ -1119,7 +1130,7 @@ function canvas(width, height, style) {
 				const baseY = y + h - 32;
 				data.groups.push([[tileId(["dungeon", 16, 304, [16, 32]]), x, baseY]]);
 				if (!data.animations) data.animations = [];
-				data.animations.push([tileId(["custom_a", 0, 0, [16, 16]]), x, baseY - 4, x, baseY - 4, 120, 0, 20]);
+				data.animations.push([tileId(["custom_a", 0, 0, [16, 16]]), x, baseY - 2, x, baseY - 2, 120, 0, 20]);
 				return;
 			}
 			const tile = [image.sheet || "dreamsv3", image.x + sx, image.y + sy, [w, h]];

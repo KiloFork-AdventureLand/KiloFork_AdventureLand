@@ -11,8 +11,12 @@
 <div class="slimbutton" onclick="open_guide('cave-story','/docs/ref/cave-story')">{{ phrase("docs.cave.story") }}</div>
 <hr><h3>{{ phrase("docs.cave.loot_heading") }}</h3>
 <p>{{ phrase("docs.cave.loot") }}</p><p>{{ phrase("docs.cave.purse") }}</p>
-<h3>{{ phrase("docs.cave.drops") }}</h3><div class="cave-guide-parcels"></div>
-<h3>{{ phrase("docs.cave.rewards") }}</h3><div class="cave-guide-finish"></div>
+<p>{{ phrase("docs.cave.drop_chances") }}</p>
+<h3>{{ phrase("docs.cave.drops") }}</h3><p>{{ phrase("docs.cave.parcel_source") }}</p><div data-cave-drops="cave_parcel"></div>
+<hr><h3>{{ phrase("docs.cave.rescue_rewards") }}</h3><p>{{ phrase("docs.cave.rescue_source") }}</p><div data-cave-drops="cave_rescue"></div>
+<hr><h3>{{ phrase("docs.cave.camp_rewards") }}</h3><p>{{ phrase("docs.cave.camp_source") }}</p><div data-cave-drops="cave_farm"></div>
+<hr><h3>{{ phrase("docs.cave.keeper_rewards") }}</h3><p>{{ phrase("docs.cave.keeper_source") }}</p><div data-cave-drops="cave_boss"></div>
+<hr><h3>{{ phrase("docs.cave.rewards") }}</h3><p>{{ phrase("docs.cave.finish_source") }}</p><div data-cave-drops="cave_finish"></div>
 <hr><h3>{{ phrase("docs.cave.danger_heading") }}</h3>
 <div class="cave-guide-rares"></div><p>{{ phrase("docs.cave.danger") }}</p><p>{{ phrase("docs.cave.rogue") }}</p>
 <hr><p>{{ phrase("docs.cave.craft") }}</p><div class="cave-guide-crafts"></div>
@@ -26,7 +30,7 @@ character.on("cave", async function(state) {
     if (choice.id === last_choice) return;
     show_json(choice.options);
     var offered = choice.options.some(function(o) {
-        return o.id === reply_id;
+        return o.id === reply_id &amp;&amp; !o.unavailable;
     });
     if (!reply_id || !offered) return;
     last_choice = choice.id;
@@ -52,7 +56,7 @@ setInterval(function() {
         &amp;&amp; distance(character, npc) &lt; 160;
 });
 if (traveler) {
-    var reply = await cave_talk(traveler.cave.room);
+    var reply = await cave_talk(traveler.cave.room, traveler.id);
     if (reply.chat) game_log(reply.chat.name + ": " + reply.chat.text);
 }</div>
 <p><a href="/docs/function/cave_talk">cave_talk</a></p>
@@ -72,8 +76,7 @@ if (character.cave &amp;&amp; !character.cave.paused &amp;&amp; !character.rip) 
 <script>
 $(function() {
  if(typeof update_cave_info === "function") { update_cave_info(); cave_load_visit(); }
- $(".cave-guide-parcels").html(render_drop([1,"open","cave_parcel"],1,"#858B8E"));
- $(".cave-guide-finish").html(render_drop([1,"open","cave_finish"],1,"#858B8E"));
+ $("[data-cave-drops]").each(function() { $(this).html(render_drop([1,"open",$(this).attr("data-cave-drops")],1,"#858B8E","percent")); });
  $(".cave-guide-icon").html(item_container({skin:"cave_info",draggable:false},null,{r:3}));
  $(".cave-guide-rares").html(["cave_darkmage","cave_rogue_weapon"].map(function(table) { return render_drop([1,"open",table],1,"#858B8E"); }).join(" "));
  $(".cave-guide-crafts").html(["cave_locktooth","cave_counterweight","cave_mothsteps","cave_loaded_die"].map(function(name) { return "<div class='clickable' onclick='render_recipe(null,\"\",\""+name+"\")'>" + item_container({skin:G.items[name].skin,def:G.items[name],draggable:false},{name:name,level:0}) + " " + G.items[name].name + "</div>"; }).join(""));

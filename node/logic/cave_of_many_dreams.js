@@ -97,6 +97,24 @@ function cave_start(run) {
 			rooms[Math.floor(rooms.length * 0.5)],
 			rooms[rooms.length - 2],
 		];
+		// Every floor has a shop near its doorway, clear of the walking route.
+		var shopHome = rooms[0];
+		run.cave.rooms.push({
+			id: i + ":shop",
+			floor: i,
+			map: floor.key,
+			x: shopHome.x,
+			y: shopHome.y,
+			bounds: shopHome.bounds,
+			required: false,
+			kind: "encounter",
+			encounter: G.events.dreams.encounters.find((e) => e.id === "e31"),
+			started: false,
+			done: false,
+			actors: [],
+			enemies: [],
+			reward: false,
+		});
 		for (var ambient of rooms.filter(
 			(r) => !chosen.includes(r) && r !== rooms[0] && r !== rooms[1] && r !== rooms[rooms.length - 1],
 		)) {
@@ -135,7 +153,6 @@ function cave_start(run) {
 		for (var j = 0; j < chosen.length; j++) {
 			var room = chosen[j];
 			var encounter = j === 1 ? pool.shift() : j >= 3 ? pool.shift() : null;
-			if (i === 0 && j === 3) encounter = G.events.dreams.encounters.find((e) => e.id === "e31");
 			if (i === 1 && j === 3) encounter = G.events.dreams.encounters.find((e) => e.id === "e20");
 			run.cave.rooms.push({
 				id: i + ":" + j,
@@ -208,6 +225,7 @@ function cave_spawn(run, room, type, side, offset = 0, look) {
 		run: run.key,
 		room: room.id,
 		side,
+		predator: side === "predator",
 		idle: side === "neutral",
 		next: 0,
 		home: { x: actor.x, y: actor.y },
@@ -232,7 +250,7 @@ function cave_spawn(run, room, type, side, offset = 0, look) {
 		actor.zone_stats.armor += species.armor || 0;
 		actor.zone_stats.resistance += species.resistance || 0;
 	}
-	actor.xp = side === "enemy" ? Math.round(15 * Math.pow(run.level, 1.3)) : 0;
+	cave_set_side(actor, side);
 	actor.gold = 0;
 	actor.mult = 1;
 	actor.luckx = 1;
@@ -357,7 +375,29 @@ function cave_activate(run, room) {
 	}
 	var e = room.encounter,
 		look = cave_pick(G.events.dreams.cast[e.actor]);
-	room.npc = cave_spawn(run, room, e.kind === "rogue" ? "cave_rogue" : "cave_npc", "neutral", 0, look);
+	var offset = 0;
+	if (e.kind === "merchant" && room.bounds) {
+		var b = room.bounds,
+			point;
+		// Chamfered corners and nearby doors can rule out the first wall position.
+		merchant_position: for (var dy of [96, 128, 160])
+			for (var dx = 64; dx <= (b[2] - b[0]) / 2; dx += 32)
+				for (var x of [b[0] + dx, b[2] - dx]) {
+					var y = b[1] + dy;
+					if (!is_xy_safe(room.map, x, y) || closest_line(room.map, x, y) < 32) continue;
+					if (G.maps[room.map].spawns.some((p) => Math.hypot(x - p[0], y - p[1]) < 112)) continue;
+					point = { x, y };
+					break merchant_position;
+				}
+		if (!point) {
+			room.started = false;
+			return;
+		}
+		room.x = point.x;
+		room.y = point.y;
+		offset = { x: 0, y: 0 };
+	}
+	room.npc = cave_spawn(run, room, e.kind === "rogue" ? "cave_rogue" : "cave_npc", "neutral", offset, look);
 	if (!room.npc) {
 		room.started = false;
 		return;
@@ -367,7 +407,7 @@ function cave_activate(run, room) {
 		for (var guard of room.guards) guard.zone_actor.staged = true;
 	}
 	if (["rescue", "rogue"].includes(e.kind)) {
-		room.npc.zone_actor.side = "victim";
+		cave_set_side(room.npc, "victim");
 		room.npc.zone_actor.idle = false;
 		cave_pack(run, room, "cave_wolf", cave_pick([3, 4, 6]), "predator").forEach((m) => {
 			m.zone_actor.prey = room.npc;
@@ -378,7 +418,7 @@ function cave_activate(run, room) {
 		room.cargo = cargo.items;
 	}
 	if (["conflict", "twins"].includes(e.kind)) {
-		var rivalLook = cave_pick(G.events.dreams.cast.duelist);
+		var rivalLook = cave_pick(G.events.dreams.cast.duelist.filter((candidate) => candidate.name !== look.name));
 		if (e.kind === "twins") rivalLook = { name: rivalLook.name, skin: look.skin, cx: Object.assign({}, look.cx) };
 		room.rival = cave_spawn(run, room, "cave_npc", "neutral", 112, rivalLook);
 		for (var m of [room.npc, room.rival]) {
@@ -390,9 +430,38 @@ function cave_activate(run, room) {
 		}
 	}
 	if (e.kind === "merchant") {
+		room.npc.zone_actor.stationary = true;
 		var stock = cave_pick(G.events.dreams.merchant_stock);
 		room.stock = { name: stock[0], price: stock[1], sold: false };
 	}
+}
+function cave_chest_point(run, source, exclude) {
+	var origin = { x: source.x, y: source.y };
+	if (!generated_maps[source.map]) return origin; // An unloaded floor is placed when it returns.
+	var nearby = Array.from(run.cave.chests, (id) => chests[id]).filter(
+		(c) => c && c !== exclude && c.in === source.map && Math.hypot(c.x - origin.x, c.y - origin.y) < 320,
+	);
+	var doors = G.maps[source.map].doors || [];
+	var point = safe_xy_nearby(source.map, origin.x, origin.y);
+	function clear(p) {
+		return (
+			p &&
+			is_xy_safe(source.map, p.x, p.y) &&
+			can_move({ map: source.map, x: origin.x, y: origin.y, going_x: p.x, going_y: p.y }) &&
+			!nearby.some((c) => Math.hypot(c.x - p.x, c.y - p.y) < 36) &&
+			!doors.some((d) => Math.abs(p.x - d[0]) < d[2] / 2 + 24 && Math.abs(p.y - d[1]) < d[3] / 2 + 24)
+		);
+	}
+	if (clear(point)) return point;
+	// Bounded rings keep adjacent drops separate without rolling rewards again.
+	var angle = cave_random() * Math.PI * 2;
+	for (var radius = 40; radius <= 160; radius += 40)
+		for (var i = 0; i < 12; i++) {
+			var a = angle + (i * Math.PI) / 6;
+			var candidate = safe_xy_nearby(source.map, origin.x + Math.cos(a) * radius, origin.y + Math.sin(a) * radius);
+			if (clear(candidate)) return candidate;
+		}
+	return point || origin;
 }
 function cave_credit(run, gold, amber, source) {
 	var state = run.cave,
@@ -405,12 +474,9 @@ function cave_credit(run, gold, amber, source) {
 	if (!source) return;
 	var player = people.find((p) => p.map === source.map) || people[0];
 	if (!player) return;
-	var point = (generated_maps[source.map] && safe_xy_nearby(source.map, source.x, source.y)) || {
-		x: source.x,
-		y: source.y,
-	};
+	var point = cave_chest_point(run, source);
 	// Shared currency takes no inventory slots, including for automatic loot.
-	var drop = { items: [], cash: 0, amber, cave: run.key };
+	var drop = { items: [], cash: 0, amber, cave: run.key, unplaced: !generated_maps[source.map] };
 	var id = drop_one_thing(player, [], {
 		reserved: drop,
 		gold,
@@ -434,7 +500,13 @@ function cave_send_chest(socket, id, chest) {
 function cave_send_chests(run, socket, map) {
 	for (var id of run.cave?.chests || []) {
 		var chest = chests[id];
-		if (chest?.map === map) cave_send_chest(socket, id, chest);
+		if (chest?.map === map) {
+			if (chest.unplaced) {
+				Object.assign(chest, cave_chest_point(run, chest, chest));
+				delete chest.unplaced;
+			}
+			cave_send_chest(socket, id, chest);
+		}
 	}
 }
 function cave_open_chest(player, chest, id) {
@@ -569,37 +641,19 @@ async function cave_mail(recipient, item, id, attempt = 0) {
 		await new Promise((resolve) => setTimeout(resolve, 1000 * (attempt + 1)));
 		return cave_mail(recipient, item, id, attempt + 1);
 	}
-}
-function cave_settle_purse(run, bankOnly = false) {
-	var state = run.cave,
-		amount = bankOnly ? Math.min(5000, state.gold) : state.gold;
-	if (amount) {
-		var recipient = cave_pick(run.members),
-			player = get_player(recipient.name);
-		state.gold -= amount;
-		var receipt = cave_receipt(run, { recipient: recipient.name, gold: amount, where: "gold" });
-		if (player && player.real_id === recipient.character && player.owner === recipient.owner && !player.dc) {
-			player.gold += amount;
-			resend(player, "u+cid");
-		} else {
-			receipt.where = "mail_pending";
-			void cave_mail(recipient, { gold: amount }, run.key + ":gold:" + ++state.serial)
-				.then(() => {
-					receipt.where = "mail";
-					if (!run.closing) cave_publish(run);
-				})
-				.catch((e) => log_trace("cave gold mail", e));
-		}
-		cave_say(
-			run,
-			recipient.name +
-				" gets " +
-				amount.toLocaleString("en-US") +
-				" gold" +
-				(receipt.where === "gold" ? " from the shared purse." : " by mail from Dorr."),
-		);
+	try {
+		var count = await update_mail_count(recipient.owner);
+		for (var player of Object.values(players))
+			if (player.owner === recipient.owner && !player.dc && !player.socket.disconnected)
+				player.socket.emit("game_response", { response: "mail_received", count });
+	} catch (e) {
+		log_trace("cave mail count", e);
 	}
-	if (!bankOnly && state.amber) {
+}
+function cave_settle_purse(run) {
+	var state = run.cave;
+	// Cave gold stays with the run. Only unspent Amber leaves the cave.
+	if (state.amber) {
 		var amber = state.amber;
 		state.amber = 0;
 		cave_item(run, "amber:" + ++state.serial, "cave_amber", amber);
@@ -726,7 +780,11 @@ function cave_resolve_vote(run, now) {
 	if (!majority && now < vote.deadline) return;
 	vote.resolved = true;
 	var winner = ordered[0] && (majority || !ordered[1] || ordered[0][1] > ordered[1][1]) ? ordered[0][0] : null;
-	var option = vote.options.find((o) => o.id === winner) || { id: "fallback", effect: vote.fallback, seconds: 45 };
+	var option = cave_revival_option(
+		run,
+		vote.room,
+		vote.options.find((o) => o.id === winner) || { id: "fallback", effect: vote.fallback, seconds: 45 },
+	);
 	vote.result = option.id;
 	vote.result_label = option.label ? cave_reply_label(vote.room, option) : "No reply was chosen.";
 	vote.summary = [];
@@ -740,7 +798,13 @@ function cave_resolve_vote(run, now) {
 	// A result is an event, not a best-effort refresh of an already open panel.
 	cave_publish(run, "result");
 }
+function cave_revival_option(run, room, option) {
+	if (option.effect !== "revive_here") return option;
+	var count = cave_players(run).filter((p) => p.rip && p.map === room.map).length;
+	return Object.assign({}, option, { amber: count, label: "Revive here — " + count + " Amber total" });
+}
 function cave_apply(run, room, option) {
+	option = cave_revival_option(run, room, option);
 	var state = run.cave,
 		effect = option.effect;
 	if (
@@ -754,7 +818,7 @@ function cave_apply(run, room, option) {
 				? "You need the borrowed pry bar for that."
 				: "There is not enough in the cave purse.",
 		);
-		effect = room.encounter.group === "bad" ? "time" : "leave";
+		effect = room.kind === "revival" ? "revive_landing" : room.encounter.group === "bad" ? "time" : "leave";
 	} else {
 		state.gold -= option.cost || 0;
 		state.amber -= option.amber || 0;
@@ -781,7 +845,13 @@ function cave_apply(run, room, option) {
 			resend(p, "u+cid");
 			p.socket.emit("game_response", { response: "data", place: "respawn", success: true, cevent: "respawn" });
 		}
-		room.npc.zone_actor.side = "neutral";
+		cave_say(
+			run,
+			effect === "revive_here"
+				? "Back on your feet. The shared purse paid " + option.amber + " Amber."
+				: "You're back at the doorway. No Amber spent.",
+		);
+		cave_set_side(room.npc, "neutral");
 		room.npc.zone_actor.idle = true;
 		cave_complete(run, room);
 		state.actors.delete(room.npc);
@@ -796,7 +866,7 @@ function cave_apply(run, room, option) {
 		if (effect === "hire") room.hiring = true;
 		if (effect === "cover") {
 			room.covering = true;
-			room.npc.zone_actor.side = "ally";
+			cave_set_side(room.npc, "ally");
 			cave_follow_actor(run, room.npc);
 		}
 		if (effect === "lure" || effect === "cover")
@@ -813,10 +883,11 @@ function cave_apply(run, room, option) {
 		room.conflict = true;
 		for (var actor of [room.npc, room.rival]) actor.zone_actor.idle = false;
 		if (effect === "testimony") effect = room.npc.zone_stats.attack > room.rival.zone_stats.attack ? "left" : "right";
-		room.npc.zone_actor.side = effect === "left" ? "ally" : "duel_left";
-		room.rival.zone_actor.side = effect === "right" ? "ally" : "duel_right";
+		cave_set_side(room.npc, effect === "left" ? "ally" : "duel_left");
+		cave_set_side(room.rival, effect === "right" ? "ally" : "duel_right");
 		if (effect === "both") {
-			room.npc.zone_actor.side = room.rival.zone_actor.side = "enemy";
+			cave_set_side(room.npc, "enemy");
+			cave_set_side(room.rival, "enemy");
 		} else {
 			room.npc.zone_actor.prey = room.rival;
 			room.rival.zone_actor.prey = room.npc;
@@ -843,7 +914,7 @@ function cave_apply(run, room, option) {
 		return;
 	}
 	if (effect === "both" && room.rescue) {
-		room.npc.zone_actor.side = "enemy";
+		cave_set_side(room.npc, "enemy");
 		room.saving = false;
 		return;
 	}
@@ -943,13 +1014,17 @@ function cave_apply(run, room, option) {
 			if (room.guards?.length && !wolves) {
 				pack = room.guards.filter((g) => !g.dead);
 				for (var guard of pack) {
-					guard.zone_actor.side = "enemy";
+					cave_set_side(guard, "enemy");
 					guard.zone_actor.idle = false;
 					room.enemies.push(guard);
 				}
 				if (effect === "bad_double") pack.push(...cave_pack(run, room, "cave_guard", 3));
 			} else
 				pack = cave_pack(run, room, wolves ? "cave_wolf" : "cave_guard", wolves ? 6 : effect === "bad_double" ? 6 : 3);
+			if (effect === "bad_double") {
+				cave_set_side(room.npc, "enemy");
+				room.enemies.push(room.npc);
+			}
 			room.engaged = true;
 			if (wolves)
 				for (var m of pack) {
@@ -986,15 +1061,14 @@ function cave_apply(run, room, option) {
 					". You can use it at a later encounter.",
 			);
 	} else if (["guide", "escort"].includes(effect)) {
-		room.npc.zone_actor.side = "ally";
+		cave_set_side(room.npc, "ally");
 		room.npc.zone_actor.idle = false;
 		room.escort = cave_follow_actor(run, room.npc) && effect === "escort";
 		if (room.escort) return;
 	} else if (effect === "time") run.expires -= (option.seconds || 45) * 1000;
 	else if (effect === "exchange") {
 		cave_reward(run, room, "cave_parcel");
-	} else if (effect === "bank") cave_settle_purse(run, true);
-	else if (effect === "moths") {
+	} else if (effect === "moths") {
 		if (state.flags.lamp) cave_item(run, room.id + ":moths", "cave_mothsteps");
 		else {
 			if (cave_credit(run, 0, 2, room)) cave_say(run, "The moths lead you to an Amber chest.");
@@ -1003,7 +1077,7 @@ function cave_apply(run, room, option) {
 		room.harvest = Date.now() + 60000;
 	} else if (effect === "practice") {
 		room.practice = true;
-		room.npc.zone_actor.side = "enemy";
+		cave_set_side(room.npc, "enemy");
 		room.npc.zone_actor.idle = false;
 		room.npc.hp = room.npc.max_hp = 500 * (1 + run.level / 10) * (option.guard || 1);
 		room.enemies = [room.npc];
@@ -1042,7 +1116,7 @@ function cave_apply(run, room, option) {
 				"A Loaded Die gives you one second roll per visit when your first roll loses. Wear it before you play.",
 			appraise:
 				"Look for a hooked blade with an ivory edge and a red spine. That's Last Word. He carries it beside a plain dagger.",
-			send: "Gold and Amber stay in the party purse until someone leaves. Then each payout goes to a random member of the party that entered.",
+			send: "Spend cave gold before you leave. The Amber you keep goes to the party when someone leaves.",
 		};
 		cave_say(
 			run,
@@ -1055,6 +1129,16 @@ function cave_apply(run, room, option) {
 	if (effect === "time")
 		cave_say(run, "You get through, but lose " + (option.seconds || 45) + " seconds of cave time.");
 	cave_complete(run, room);
+}
+function cave_set_side(actor, side) {
+	actor.zone_actor.side = side;
+	actor.zone_actor.idle = side === "neutral";
+	actor.xp = ["enemy", "predator", "duel_left", "duel_right"].includes(side)
+		? Math.round(15 * Math.pow(actor.level, 1.3)) * G.events.dreams.xp_multiplier
+		: 0;
+	if (side !== "neutral") delete actor.zone_actor.depart_at;
+	actor.u = true;
+	actor.cid = (actor.cid || 0) + 1;
 }
 function cave_hostile(a, b) {
 	var aa = a.zone_actor,
@@ -1232,7 +1316,7 @@ function cave_actor_tick(run, actor, now, people) {
 			}
 			cave_face(actor, room.rival && !room.voted ? (actor === room.rival ? room.npc : room.rival) : listener);
 		}
-		if (!actor.moving && now >= ai.next_wander && !ai.staged && now >= (ai.chat_until || 0)) {
+		if (!actor.moving && now >= ai.next_wander && !ai.staged && !ai.stationary && now >= (ai.chat_until || 0)) {
 			ai.next_wander = now + 4000 + Math.floor(cave_random() * 4000);
 			var target;
 			if (ai.citizen) {
@@ -1267,12 +1351,12 @@ function cave_actor_tick(run, actor, now, people) {
 				var guard = room.enemies.find((a) => !a.dead && a.type === "cave_guard");
 				if (guard) {
 					delete run.cave.flags.message;
-					guard.zone_actor.side = "ally";
+					cave_set_side(guard, "ally");
 					delete guard.zone_actor.prey;
 					room.enemies = room.enemies.filter((a) => a !== guard);
 					if (cave_follow_actor(run, guard)) cave_cue(run, guard, "The captain sent you? I'm coming with you.", "ally");
 					else {
-						guard.zone_actor.side = "neutral";
+						cave_set_side(guard, "neutral");
 						guard.zone_actor.depart_at = now + 1500;
 					}
 				}
@@ -1453,7 +1537,7 @@ function cave_tick(run, now) {
 				if (room.practice_amber) cave_credit(run, 0, room.practice_amber, room);
 				else cave_reward(run, room, "cave_parcel");
 			} else cave_say(run, room.npc.name + ": Time is up. No prize this time.");
-			room.npc.zone_actor.side = "neutral";
+			cave_set_side(room.npc, "neutral");
 			room.npc.zone_actor.idle = true;
 			cave_complete(run, room);
 			continue;
@@ -1475,13 +1559,15 @@ function cave_tick(run, now) {
 			room.rescue &&
 			room.voted &&
 			room.decision &&
-			room.actors.filter((m) => m.zone_actor.side === "predator").every((m) => m.dead)
+			room.actors.filter((m) => m.zone_actor.predator).every((m) => m.dead) &&
+			(room.decision !== "both" || room.npc.dead)
 		) {
 			if (!room.npc.dead) {
 				if (room.encounter.kind === "rogue" && !room.rogue_resolved) {
 					room.rogue_resolved = true;
 					if (cave_random() < 0.5) {
-						Object.assign(room.npc.zone_actor, { side: "enemy", betrayed: true, idle: false, next: 0 });
+						cave_set_side(room.npc, "enemy");
+						Object.assign(room.npc.zone_actor, { betrayed: true, next: 0 });
 						room.npc.last.attack = really_old;
 						room.npc.zone_stats.frequency = 8;
 						room.npc.zone_stats.speed = 100;
@@ -1496,7 +1582,7 @@ function cave_tick(run, now) {
 					cave_reward(run, room, room.covering ? "cave_parcel" : "cave_rescue");
 					cave_credit(run, 3000, 0, room);
 				}
-				room.npc.zone_actor.side = "ally";
+				cave_set_side(room.npc, "ally");
 				if (room.hiring) cave_follow_actor(run, room.npc);
 			}
 			cave_complete(run, room);
@@ -1505,7 +1591,7 @@ function cave_tick(run, now) {
 		if (room.rescue && room.npc.dead) {
 			for (var m of room.actors)
 				if (!m.dead) {
-					m.zone_actor.side = "enemy";
+					cave_set_side(m, "enemy");
 					delete m.zone_actor.prey;
 				}
 			if (room.actors.every((m) => m.dead)) cave_complete(run, room);
@@ -1513,16 +1599,20 @@ function cave_tick(run, now) {
 		if (room.conflict && (room.npc.dead || room.rival.dead)) {
 			var winner = room.npc.dead ? room.rival : room.npc;
 			if (room.decision !== "both" || winner.dead) {
-				if (!winner.dead) winner.zone_actor.side = "neutral";
+				if (!winner.dead) cave_set_side(winner, "neutral");
 				cave_reward(run, room, winner.dead ? "cave_parcel" : "cave_rescue");
 				cave_complete(run, room);
 				continue;
 			}
 		}
+		if (room.escort && room.npc.dead) {
+			cave_say(run, room.npc.name + " did not make it. The escort is over.");
+			cave_complete(run, room);
+			continue;
+		}
 		if (room.escort && !room.npc.dead) {
 			var door =
-				G.maps[room.map].doors.find((d) => generated_maps[d[4]]?.floor.definition.generated.floor > room.floor) ||
-				G.maps[room.map].doors[0];
+				G.maps[room.map].doors.find((d) => G.maps[d[4]]?.generated?.floor > room.floor) || G.maps[room.map].doors[0];
 			if (door && simple_distance(room.npc, { x: door[0], y: door[1], map: room.map, in: room.map }) < 120) {
 				cave_reward(run, room, "cave_rescue");
 				cave_credit(run, 3000, 0, room);
@@ -1566,12 +1656,15 @@ function cave_snapshot(run, player) {
 			locked: G.maps[d[4]]?.generated?.floor > floor && !run.completed[floor],
 		})),
 		objectives: state.rooms
-			.filter((r) => ((r.required || r.kind === "farm") && r.floor === floor) || r.revealed)
+			.filter(
+				(r) =>
+					((r.required || r.kind === "farm" || r.encounter?.kind === "merchant") && r.floor === floor) || r.revealed,
+			)
 			.map((r) => ({
 				id: r.id,
 				x: r.x,
 				y: r.y,
-				done: r.done,
+				done: r.encounter?.kind === "merchant" ? !!r.stock?.sold : r.done,
 				floor: r.floor,
 				kind: r.kind,
 				required: !!r.required,
@@ -1611,18 +1704,20 @@ function cave_snapshot(run, player) {
 					votes: Object.fromEntries(
 						run.members.filter((m) => v.votes[m.character]).map((m) => [m.name, v.votes[m.character]]),
 					),
-					options: v.options.map((o) => ({
-						id: o.id,
-						label: cave_reply_label(v.room, o),
-						cost: o.cost || 0,
-						amber: o.amber || 0,
-						unavailable:
-							o.needs && !state.flags[o.needs]
-								? "You need a pry bar."
-								: (o.cost || 0) > state.gold || (o.amber || 0) > state.amber
-									? "Not enough in the shared purse."
-									: null,
-					})),
+					options: v.options
+						.map((o) => cave_revival_option(run, v.room, o))
+						.map((o) => ({
+							id: o.id,
+							label: cave_reply_label(v.room, o),
+							cost: o.cost || 0,
+							amber: o.amber || 0,
+							unavailable:
+								o.needs && !state.flags[o.needs]
+									? "You need a pry bar."
+									: (o.cost || 0) > state.gold || (o.amber || 0) > state.amber
+										? "Not enough in the shared purse."
+										: null,
+						})),
 					fallback:
 						v.fallback === "time"
 							? "Wait and lose 45 seconds"
@@ -1694,8 +1789,13 @@ async function cave_interaction(player, data) {
 			return { state: current };
 		}
 		var room = run.cave.rooms.find((r) => r.id === data.room);
-		if (!room?.npc || room.npc.dead || player.map !== room.map || simple_distance(player, room.npc) > 160)
-			throw Error("distance");
+		var speakers = (room?.actors || []).filter(
+			(a) => !a.dead && a.map === player.map && ["neutral", "ally", "victim"].includes(a.zone_actor.side),
+		);
+		var speaker = data.actor
+			? speakers.find((a) => a.id === data.actor)
+			: speakers.sort((a, b) => simple_distance(player, a) - simple_distance(player, b))[0];
+		if (!speaker || simple_distance(player, speaker) > 160) throw Error("distance");
 		if (room.kind === "citizen") {
 			room.npc.zone_actor.chat_until = Date.now() + 4000;
 			room.npc.moving = false;
@@ -1734,13 +1834,13 @@ async function cave_interaction(player, data) {
 		var room = run.cave.rooms.find((r) => r.id === data.room);
 		if (!room?.stock || room.stock.sold || !room.npc || room.npc.dead) throw Error("sold_out");
 		if (player.map !== room.map || simple_distance(player, room.npc) > 160) throw Error("distance");
-		if (player.gold < room.stock.price) throw Error("gold_not_enough");
+		if (run.cave.gold < room.stock.price) throw Error("gold_not_enough");
 		room.stock.sold = true;
-		player.gold -= room.stock.price;
+		run.cave.gold -= room.stock.price;
 		var recipient = cave_item(run, room.id + ":purchase", room.stock.name);
 		resend(player, "u+cid");
 		cave_publish(run);
-		return { recipient: recipient.name, item: room.stock.name, gold: room.stock.price };
+		return { recipient: recipient.name, item: room.stock.name, gold: room.stock.price, currency: "cave_gold" };
 	}
 	throw Error("invalid_interaction");
 }
@@ -1786,8 +1886,21 @@ function cave_suspend_floor(run, map, onlyRoom) {
 		room.actors = [];
 		room.enemies = [];
 		if (room.guards) room.guards = [];
-		room.npc = room.npc?.dead ? { dead: true } : null;
-		room.rival = room.rival?.dead ? { dead: true } : null;
+		for (var role of ["npc", "rival"]) {
+			var actor = room[role];
+			room[role] = actor?.dead
+				? {
+						dead: true,
+						name: actor.name,
+						skin: actor.skin,
+						cx: actor.cx,
+						hp: 0,
+						max_hp: actor.max_hp,
+						attack: actor.attack,
+						slots: actor.slots,
+					}
+				: null;
+		}
 	}
 }
 function cave_resume_floor(run, map, onlyRoom) {
@@ -1854,10 +1967,10 @@ function cave_offer_rescue(run, player) {
 		encounter: {
 			name: "A Hand in the Dark",
 			group: "positive",
-			text: "Still with us? I can get you up here, or take you back to the doorway. You have lost no gold or experience.",
+			text: "I can revive you here for 1 Amber each from the shared purse. Or I can bring you back at this floor’s doorway for free. You have lost no gold or experience.",
 			options: [
-				{ id: "here", label: "Get us up here. The fight continues.", effect: "revive_here" },
-				{ id: "landing", label: "Take us back to this floor’s doorway.", effect: "revive_landing" },
+				{ id: "here", label: "Revive here — 1 Amber each", effect: "revive_here" },
+				{ id: "landing", label: "Revive at the doorway — free", effect: "revive_landing" },
 			],
 		},
 	};
@@ -1939,7 +2052,7 @@ function cave_venture(run, room, option) {
 	for (var flag of outcome.flags || []) run.cave.flags[flag] = true;
 	cave_credit(run, outcome.gold, outcome.amber, room);
 	if (outcome.reward) cave_reward(run, room, outcome.reward);
-	if (outcome.join && cave_follow_actor(run, room.npc)) room.npc.zone_actor.side = "ally";
+	if (outcome.join && cave_follow_actor(run, room.npc)) cave_set_side(room.npc, "ally");
 	else if (outcome.ally) cave_add_follower(run, room, outcome.ally);
 	if (outcome.shadow) {
 		var strongest = cave_players(run)

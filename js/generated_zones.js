@@ -86,6 +86,7 @@ function receive_cave_state(data) {
 	call_code_function("trigger_character_event", "cave", cave_client_state);
 	call_code_function("trigger_event", "cave", cave_client_state);
 	if (no_graphics) return;
+	if (!!previous !== !!cave_client_state || previous?.paused !== cave_client_state?.paused) reflect_music();
 	cave_queue_rewards(data.state);
 	update_cave_doors();
 	if (data.type === "ended") {
@@ -190,9 +191,9 @@ function update_cave_hud(force) {
 	cave_ui_next = Date.now() + 200;
 	var state = cave_client_state;
 	var near = character && current_map === "main" && Math.hypot(character.real_x - 816, character.real_y - 1200) < 240;
-	if (!state && !near && !cave_reward_queue.length && Date.now() >= cave_notice_until) { if ($("#cave-hud").length) { $("#cave-hud").remove(); reposition_ui(); } return; }
+	if (!state && !near && !cave_reward_queue.length && Date.now() >= cave_notice_until) { if ($("#cave-hud").length) { $("#cave-hud,#cave-reward-note").remove(); reposition_ui(); } return; }
 	if (!$("#cave-hud").length) {
-		$("#topmid").append("<div id='cave-hud'><div class='cave-hud-row'><div class='gamebutton cave-clock' onclick='open_cave_info()'></div><div class='gamebutton cave-vote-clock' onclick='render_cave_choice()'></div><div class='gamebutton' onclick='open_cave_info()'>INFO</div><div class='gamebutton cave-exit' onclick='cave_manual(\"exit\")'>"+phrase.html("cave.exit")+"</div></div><div class='cave-purse' onclick='open_cave_info()'></div><div class='cave-progress'></div><div class='cave-reward-note'></div><div class='cave-hunt-note'></div></div>");
+		$("#topmid").append("<div id='cave-hud'><div class='cave-hud-row'><div class='gamebutton cave-clock' onclick='open_cave_info()'></div><div class='gamebutton cave-vote-clock' onclick='render_cave_choice()'></div><div class='gamebutton' onclick='open_cave_info()'>INFO</div><div class='gamebutton cave-exit' onclick='cave_manual(\"exit\")'>"+phrase.html("cave.exit")+"</div></div><div class='cave-purse' onclick='open_cave_info()'></div><div class='cave-progress'></div><div class='cave-hunt-note'></div></div><div id='cave-reward-note' class='cave-reward-note' role='status' style='display:none'></div>");
 		reposition_ui();
 	}
 	$(".cave-exit,.cave-purse").toggle(!!state);
@@ -500,7 +501,7 @@ function cave_show_reward() {
 	}
 	var visible=cave_active_reward && Date.now()<cave_notice_until;
 	$(".cave-reward-note").toggle(!!visible);
-	if(visible) $(".cave-reward-note").html("<div class='gamebutton cave-award-text'>"+cave_reward_html(cave_active_reward)+"</div>");
+	if(visible) $(".cave-reward-note").html(cave_reward_html(cave_active_reward));
 }
 function cave_reward_feedback(reward) {
 	if(no_graphics || !character) return;

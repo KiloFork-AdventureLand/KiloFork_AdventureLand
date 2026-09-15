@@ -549,9 +549,9 @@ Object.assign(module.exports, {
   "cave.vote_done": "The party has decided.",
   "cave.seconds": "Choose in {seconds} seconds.",
   "cave.fallback": "If nobody wins the vote: {fallback}.",
-  "cave.shop_rule": "You pay. One random party member gets the item. There is only one copy.",
+  "cave.shop_rule": "Paid from the shared cave purse. One item, given to a random party member.",
   "cave.sold": "Sold",
-  "cave.buy": "Buy for {gold} gold",
+  "cave.buy": "Buy for {gold} cave gold",
   "cave.error.generic": "That did not work. Try again.",
   "cave.error.daily_opening_used": "An account in this party has already visited today. Its visit resets at midnight on its home server.",
   "cave.error.bring_party_to_keeper": "Bring every party member close to Dorr, out of combat.",
@@ -603,7 +603,7 @@ Object.assign(module.exports, {
 	"cave.visit_ready": "Cave visit available",
 	"cave.visit_cooldown": "Next visit: {hours}h {minutes}m · {home}",
 	"cave.error.cave_paused": "Your party is choosing. The cave will resume when the vote ends.",
-	"cave.purse_help": "This belongs to the party. It is not in your inventory yet. It pays out to random original party members when someone leaves or the visit ends.",
+	"cave.purse_help": "Spend cave gold at shops and encounters before the run ends. Unspent Amber goes to your party.",
 	"cave.purse_added": "{reward} → shared purse",
 	"cave.shop_distance": "Move closer to the merchant to buy.",
 	"cave.reward_to": "{name}: {item}",
@@ -632,13 +632,13 @@ Object.assign(module.exports, {
  "cave.stairs_down":"Stairs down", "cave.stairs_up":"Stairs up", "cave.door_exit":"Exit to Mainland",
  "cave.locked":"Locked", "cave.open":"Open", "cave.walk_here":"Go", "cave.floor_short":"Floor {floor}",
  "cave.camp_packs":"Pack {count}/3", "cave.supply.decoy":"patrol distraction", "cave.supply.message":"captain’s message",
- "cave.purse_help":"Gold and Amber here belong to the party. They pay out when someone exits or time runs out.",
+ "cave.purse_help":"Spend cave gold at shops and encounters before the run ends. Unspent Amber goes to your party.",
  "cave.find_seals":"Defeat the guard camp and the floor keeper, then settle the marked encounter to open the stairs.",
 });
 
 // Cave balances, stair requirements and collection feedback.
 Object.assign(module.exports, {
- "cave.party_gold":"Party gold: {gold}",
+ "cave.party_gold":"Cave gold: {gold}",
  "cave.party_amber":"Party Amber: {count}",
  "cave.stair_progress":"Stairs locked · {count}/{total} done",
  "cave.stairs_ready":"Stairs open",
@@ -650,3 +650,12 @@ Object.assign(module.exports, {
 });
 
 Object.assign(module.exports,{"cave.finish_progress":"To finish the cave: {count}/{total}","cave.completed":"Cave complete"});
+
+// Cave entry failures: explain the failed step without exposing server errors.
+Object.assign(module.exports, {
+ "cave.error.generation_failed": "The cave could not open. Your daily visit has not been used. Try again.",
+ "cave.error.generation_worker_exit": "The cave could not open. Your daily visit has not been used. Try again.",
+ "cave.error.generation_timeout": "The cave took too long to open. Your daily visit has not been used. Try again.",
+ "cave.error.zone_busy": "All caves are occupied. Try again shortly.",
+ "cave.error.admission_expired": "The entry check expired. Your daily visit has not been used. Try again."
+});

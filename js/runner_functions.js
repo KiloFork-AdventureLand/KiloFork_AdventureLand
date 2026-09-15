@@ -2871,4 +2871,4 @@ function cave_reply(choice, option) { return parent.cave_request("vote", { choic
 function cave_buy(room) { return parent.cave_request("buy", { room: room }); }
 function cave_exit() { return parent.cave_request("exit"); }
 
-function cave_talk(room) { return parent.cave_request("talk", {room:room}); }
+function cave_talk(room, actor) { return parent.cave_request("talk", {room:room,actor:actor}); }

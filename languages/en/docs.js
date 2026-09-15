@@ -5950,14 +5950,14 @@ Object.assign(module.exports, {
   "docs.cave.danger": "Some choices call in six level 100 wolves. The rare Dark Mage deals 100,000 magic damage and targets mages first. Only his own reflected spell can kill him.",
   "docs.cave.rogue": "The cornered rogue has a 1% chance to carry Last Word. To get it, monsters must kill him before he betrays you. If he survives, there is a 50% chance he turns on you and attacks anyone within 200 pixels.",
   "docs.cave.hunts": "Monster camps hold three packs with a reward for each clear. After each clear, the next pack comes out of the nest ten seconds later. The third pack is the last. Some travelers also offer timed hunts: kill the marked monsters before the hunt clock ends.",
-  "docs.cave.loot": "NPC rewards go to a random member of the original party. A one-item merchant works the same way: the buyer pays, but anyone in that party can receive the item. Items found here carry the Cave-found title.",
-  "docs.cave.purse": "Open the glowing cave chests to collect gold and Amber for the party. The totals below the clock show what you have collected. Choices can spend them. The purse pays out to random original party members when someone exits or time runs out. Item rewards go straight to a bag, or to MAIL if the recipient is offline or full.",
+  "docs.cave.loot": "NPC rewards go to a random member of the original party. Merchants take gold from the shared cave purse and give their one item to a random party member. Each item can be bought only once. Items found here carry the Cave-found title.",
+  "docs.cave.purse": "Open glowing cave chests to collect cave gold and Amber. Spend cave gold at merchants or during encounters; it never becomes carried gold or mail. Each floor has a merchant near its doorway, along an upper wall. Unspent Amber goes to the party when someone exits or the run ends. Items go into the recipient’s bag, or into MAIL if they are offline or their bag is full.",
   "docs.cave.exit": "Exit works anywhere, even while fallen or voting. Leaving or reloading ends your visit and returns you outside alive. Nobody can join later, and magiport cannot move anyone in or out. Time running out sends everyone home.",
-  "docs.cave.code": "Use cave_enter() beside Dorr. Read character.cave for the timer, purse, objectives and door locations. Set reply_id below to one of the current choice’s two option IDs.",
+  "docs.cave.code": "Use cave_enter() beside Dorr. Read character.cave for the timer, purse, objectives and door locations. Set reply_id below to an available option ID. Each option shows its total shared-gold cost in cost, its total Amber cost in amber, and any reason it is unavailable. Revive here costs 1 Amber per fallen character; the doorway option is free.",
   "docs.cave.failure": "These functions return Promises. A failed request rejects with a reason.",
   "docs.cave.story": "Dorr\u2019s story",
-  "docs.cave.drops": "Things you can find",
-  "docs.cave.rewards": "The last seal",
+  "docs.cave.drops": "NPC bargains, trials and hunts",
+  "docs.cave.rewards": "Completing floor 3",
   "docs.cave.code_heading": "CODE",
 });
 
@@ -5971,7 +5971,7 @@ module.exports["docs.cave.function.cave_buy"]="Buys the merchant\u2019s one item
 module.exports["docs.cave.function.cave_exit"]="Exits from anywhere in the cave, including while fallen. You cannot return to this visit. Returns exited:true.";
 
 // Cave guide text.
-module.exports["docs.cave.death"] = "You lose no XP, gold or items when you die here. Stay inside: Nera can revive you where you fell or bring you back to the doorway. Respawn calls Nera. Exit leaves the cave for good.";
+module.exports["docs.cave.death"] = "You lose no XP, gold or items when you die here. Nera can revive you where you fell for 1 Amber per fallen character, paid from the shared purse. Reviving at this floor’s doorway is free. Respawn calls Nera; it does not leave the cave. Exit leaves for good.";
 
 // Cave guide text.
 module.exports["docs.cave.supplies"] = "A lamp can lead the moths to Mothstep Boots. A pry bar opens locked hatches. A distraction draws a patrol away for eight seconds. A former captain’s message can win a guard over. A guard’s pass lets you skip one guardroom. Helpers fight beside you and can follow you downstairs. You can keep two helpers at a time.";
@@ -5994,7 +5994,7 @@ module.exports["docs.cave.pause_code"] = "Use cave_info() to check the daily vis
 module.exports["docs.cave.visit"]="Each account gets one visit a day, resetting at midnight on its home server. Characters on the same account share that visit. Dev servers allow repeat visits for testing.";
 
 // Cave guide section, English playtest.
-module.exports["docs.cave.death"]="You lose no XP, gold or items when you die here. Stay inside: Nera can revive you where you fell or bring you back to the doorway. Respawn calls Nera. Exit leaves the cave for good.";
+module.exports["docs.cave.death"]="You lose no XP, gold or items when you die here. Nera can revive you where you fell for 1 Amber per fallen character, paid from the shared purse. Reviving at this floor’s doorway is free. Respawn calls Nera; it does not leave the cave. Exit leaves for good.";
 
 // Cave guide section, English playtest.
 module.exports["docs.cave.rare_drops"]="Nightjudge drops when the Dark Mage dies to his reflected spell. Last Word only drops from a rogue carrying it, killed by monsters before betrayal.";
@@ -6021,11 +6021,26 @@ module.exports["docs.cave.loot_heading"]="Your rewards";
 module.exports["docs.cave.danger_heading"]="Watch their weapons";
 
 // Cave guide section, English playtest.
-module.exports["docs.cave.facts"]="3 characters · 3 floors · 24 minutes";
+module.exports["docs.cave.facts"]="3 characters · 3 floors · 24 minutes · 10× enemy XP";
 
 // Casual cave conversations are optional and do not pause the instance.
 module.exports["docs.cave.travelers"]="Travelers walk between rooms. Click one to chat. These short conversations do not pause the cave or start a vote.";
-module.exports["docs.cave.function.cave_talk"]="Talk to a nearby cave NPC using its cave.room. You must be within 160 pixels. Travelers return a chat object with name and text, without starting a vote. Other NPCs open or return their encounter.";
+// cave_talk: optional actor is the targeted NPC ID; room-only calls use the nearest friendly NPC.
+module.exports["docs.cave.function.cave_talk"] = "Talk to a cave NPC within 160 pixels. Pass the room ID from npc.cave.room. You can also pass npc.id as the second argument to talk to that person; otherwise the nearest friendly NPC in that encounter is used.";
 
 // Cave chest collection. Preserve loot and CODE field names.
-module.exports["docs.cave.chest_code"]="Click a cave chest or use loot(id) within 400 pixels. Gold and Amber go to the party purse. The receipt includes cave.gold and cave.amber; carried gold stays unchanged until the purse pays out. You cannot collect while fallen or while the cave is paused.";
+module.exports["docs.cave.chest_code"]="Click a cave chest or use loot(id) within 400 pixels. Cave gold and Amber go to the party purse. The receipt includes cave.gold and cave.amber; carried gold stays unchanged. You cannot collect while fallen or while the cave is paused.";
+
+// Cave reward sources and the shared cave-gold purse.
+Object.assign(module.exports, {
+  "docs.cave.function.cave_buy": "Buy the one item offered by a cave merchant within 160 pixels. Pass the shop’s room ID. The price comes from the shared cave-gold purse; a random original party member receives the item. The result includes recipient, item, gold spent and currency: \"cave_gold\". A sold item cannot be bought again.",
+  "docs.cave.drop_chances": "Each table below picks one reward when you complete the named activity. The percentages are per reward, not per monster kill. For example, 60% means a 60-in-100 chance of that row. Item quantities appear on the icons. These rewards are shared by the party.",
+  "docs.cave.parcel_source": "Rewards from bought parcels, trials, timed hunts and fights with hostile travelers. Only choices that promise a reward use this table; leaving or paying a toll gives no item.",
+  "docs.cave.rescue_rewards": "Helping travelers",
+  "docs.cave.rescue_source": "Rewards for a successful rescue or escort, or for helping a rival who wins the fight. Taking a smaller reward uses the table above instead.",
+  "docs.cave.camp_rewards": "Clearing monster packs",
+  "docs.cave.camp_source": "Each cleared pack in a monster camp gives one reward from this table, plus a chest with 1,500 cave gold and 1 Amber. Each camp has three packs.",
+  "docs.cave.keeper_rewards": "Defeating a floor keeper",
+  "docs.cave.keeper_source": "Defeat Lockbreaker, the Sentinel or the Mothkeeper and their guards. Each keeper gives one reward from this table and a chest with 4,000 cave gold.",
+  "docs.cave.finish_source": "Finish all three objectives on floor 3. The party receives one extra reward from this table and a chest with 10,000 cave gold and 5 Amber. This is in addition to the Mothkeeper’s reward."
+});

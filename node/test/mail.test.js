@@ -1,7 +1,7 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
 const vm = require("node:vm");
-const { load, transactions } = require("./helpers/server_vm");
+const { load, read, transactions } = require("./helpers/server_vm");
 
 function mail(id, receiver = "US_reader", sender = "US_sender") {
 	return {
@@ -124,6 +124,76 @@ test("unread counts include incoming mail only and mailbox opening repairs a sta
 	assert.equal((await h.call("read_mail", { mail: "ML_missing" })).unread, 2);
 	await h.call("read_mail", { mail: "ML_incoming" });
 	assert.equal((await h.call("read_mail", { mail: "ML_self" })).unread, 0);
+});
+
+test("cave mail updates the saved unread count and every connected character on the receiving account", async () => {
+	const h = fixture([mail("old")]);
+	const events = [];
+	h.context.players = Object.fromEntries(
+		["first", "second", "other", "offline"].map((name) => [
+			name,
+			{
+				owner: name === "other" ? "US_other" : "US_reader",
+				dc: name === "offline",
+				socket: { emit: (event, data) => events.push({ name, event, ...data }) },
+			},
+		]),
+	);
+	h.context.log_trace = (_label, error) => {
+		throw error;
+	};
+	load(h.context, "node/logic/cave_of_many_dreams.js", ["cave_mail"]);
+	const recipient = { owner: "US_reader", name: "Reader", character: "CH_reader" };
+	await h.context.cave_mail(recipient, { name: "cave_amber", q: 1 }, "reward");
+	assert.equal(h.records.get("IE_userdata-US_reader").info.mail, 2);
+	assert.deepEqual(
+		events,
+		["first", "second"].map((name) => ({ name, event: "game_response", response: "mail_received", count: 2 })),
+	);
+	await h.context.cave_mail(recipient, { name: "cave_amber", q: 1 }, "reward");
+	assert.equal(h.records.get("IE_userdata-US_reader").info.mail, 2, "retries must not add letters or unread counts");
+	assert.equal([...h.records.keys()].filter((key) => key.startsWith("ML_cave:")).length, 1);
+	const saved = h.records.get("IE_userdata-US_reader");
+	assert.equal(saved.info.tutorial_step, 8);
+	assert.deepEqual(saved.info.code_list, { 1: ["main", 3] });
+});
+
+test("a mail notification updates COM without opening Mail or touching graphics", () => {
+	const html = new Map();
+	let response;
+	const context = vm.createContext({
+		console,
+		Dev: false,
+		no_graphics: true,
+		character: {},
+		G: { skills: {} },
+		trade_slots: [],
+		X: { characters: [] },
+		socket: {
+			on: (_event, handler) => {
+				response = handler;
+			},
+		},
+		draw_trigger: (fn) => fn(),
+		call_code_function() {},
+		$: (selector) => ({ length: 0, html: (value) => html.set(selector, value) }),
+		PIXI: new Proxy(
+			{},
+			{
+				get() {
+					throw Error("Mail must not touch graphics");
+				},
+			},
+		),
+	});
+	load(context, "js/functions.js", ["handle_information", "update_servers_and_characters"]);
+	const source = read("js/game.js");
+	const start = source.indexOf('\tsocket.on("game_response",');
+	vm.runInContext(source.slice(start, source.indexOf("\n\tsocket.on(", start + 1)), context);
+	response({ response: "mail_received", count: 3 });
+	assert.equal(context.X.unread, 3);
+	assert.equal(html.get(".comcount"), " [3]");
+	assert.equal(html.get(".mcount"), 3);
 });
 
 test("a failed read transaction does not publish success or an invented unread count", async () => {

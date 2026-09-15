@@ -107,6 +107,7 @@ events.dreams={
 	"duration": 1440,
 	"party": 3,
 	"vote_ms": 60000,
+	"xp_multiplier": 10,
 	"encounters": [
 		{
 			"id": "e01",
@@ -1998,9 +1999,9 @@ events.dreams={
 				},
 				{
 					"id": "e26_5",
-					"label": "Threaten the captain; face six guards",
+					"label": "Fight {npc} and six guards",
 					"effect": "bad_double",
-					"result": "The captain calls in three more guards."
+					"result": "{npc} calls in three more guards and joins the fight."
 				}
 			]
 		},
@@ -2049,9 +2050,9 @@ events.dreams={
 				},
 				{
 					"id": "e27_5",
-					"label": "Threaten the captain; face six guards",
+					"label": "Fight {npc} and six guards",
 					"effect": "bad_double",
-					"result": "The captain calls in three more guards."
+					"result": "{npc} calls in three more guards and joins the fight."
 				}
 			]
 		},
@@ -2100,9 +2101,9 @@ events.dreams={
 				},
 				{
 					"id": "e28_5",
-					"label": "Threaten the captain; face six guards",
+					"label": "Fight {npc} and six guards",
 					"effect": "bad_double",
-					"result": "The captain calls in three more guards."
+					"result": "{npc} calls in three more guards and joins the fight."
 				}
 			]
 		},
@@ -2151,9 +2152,9 @@ events.dreams={
 				},
 				{
 					"id": "e29_5",
-					"label": "Threaten the captain; face six guards",
+					"label": "Fight {npc} and six guards",
 					"effect": "bad_double",
-					"result": "The captain calls in three more guards."
+					"result": "{npc} calls in three more guards and joins the fight."
 				}
 			]
 		},
@@ -2202,9 +2203,9 @@ events.dreams={
 				},
 				{
 					"id": "e30_5",
-					"label": "Threaten the captain; face six guards",
+					"label": "Fight {npc} and six guards",
 					"effect": "bad_double",
-					"result": "The captain calls in three more guards."
+					"result": "{npc} calls in three more guards and joins the fight."
 				}
 			]
 		},
@@ -2214,14 +2215,14 @@ events.dreams={
 			"actor": "archive_vendor",
 			"group": "positive",
 			"kind": "merchant",
-			"text": "I have one item for sale. Have a look. Whoever buys it pays from their own gold, but a random member of the original party gets it.",
+			"text": "I have one item for sale. Have a look. Pay with the party’s cave gold. A random member of your original party gets the item.",
 			"options": [
 				{
 					"id": "e31_0",
 					"label": "Open the shop",
 					"effect": "inspect",
 					"offer": true,
-					"result": "The shop is open. Inspect the item, then buy it with your own gold if you want it."
+					"result": "The shop is open. Inspect the item, then pay with cave gold if you want it."
 				},
 				{
 					"id": "e31_1",
@@ -3015,14 +3016,14 @@ events.dreams={
 			"actor": "collector",
 			"group": "positive",
 			"kind": "merchant",
-			"text": "This came from a shop that closed years ago. I have one copy. The buyer pays, and a random member of your original party gets it.",
+			"text": "This came from a shop that closed years ago. I have one copy. Pay with the party’s cave gold. A random member of your original party gets it.",
 			"options": [
 				{
 					"id": "e46_0",
 					"label": "Open the shop",
 					"effect": "inspect",
 					"offer": true,
-					"result": "The shop is open. Inspect the item, then buy it with your own gold if you want it."
+					"result": "The shop is open. Inspect the item, then pay with cave gold if you want it."
 				},
 				{
 					"id": "e46_1",
@@ -3111,29 +3112,30 @@ events.dreams={
 		},
 		{
 			"id": "e48",
-			"name": "Send Supplies Outside",
+			"name": "The Supply Cart",
 			"actor": "cave_cartographer",
 			"group": "positive",
-			"kind": "send",
-			"text": "Need gold to spend at a shop? I can take up to 5,000 from the shared purse and give it to one random party member now.",
+			"kind": "merchant",
+			"text": "I keep a few supplies for travelers. Today I have one item left. I take cave gold; your party shares the purchase.",
 			"options": [
 				{
 					"id": "e48_0",
-					"label": "Pay out up to 5,000 shared gold now",
-					"effect": "bank",
-					"offer": true
+					"label": "See the item and its price",
+					"effect": "inspect",
+					"offer": true,
+					"result": "The shop is open. You can pay from the party’s cave gold."
 				},
 				{
 					"id": "e48_1",
-					"label": "Ask how the purse is shared",
+					"label": "Ask what happens to leftover cave gold",
 					"effect": "story",
-					"result": "Purse gold goes to one random original party member when someone leaves. Amber is shared the same way. Dying does not cost you either."
+					"result": "Spend cave gold at shops and encounters before the run ends. It stays in the cave. Unspent Amber goes to your party."
 				},
 				{
 					"id": "e48_2",
-					"label": "Ask the porter to join us",
-					"effect": "guide",
-					"result": "{npc} leaves the desk and comes with you."
+					"label": "Ask where other merchants wait",
+					"effect": "story",
+					"result": "There is a shop near the doorway on every floor. Look along the upper walls."
 				},
 				{
 					"id": "e48_3",
@@ -3154,6 +3156,7 @@ events.dreams={
 				}
 			]
 		},
+
 		{
 			"id": "e49",
 			"name": "Make a Tool",
@@ -3602,23 +3605,43 @@ events.dreams={
 	"merchant_stock": [
 		[
 			"broom",
-			720000
+			48000
 		],
 		[
 			"tshirt0",
-			160000
+			16000
 		],
 		[
 			"tshirt1",
-			160000
+			16000
 		],
 		[
 			"tshirt2",
-			160000
+			16000
 		],
 		[
 			"cave_loaded_die",
-			216000
+			22000
+		],
+		[
+			"cave_locktooth",
+			10000
+		],
+		[
+			"cave_counterweight",
+			12000
+		],
+		[
+			"cave_mothsteps",
+			8000
+		],
+		[
+			"scroll1",
+			2000
+		],
+		[
+			"gem1",
+			5000
 		]
 	],
 	"rare": {

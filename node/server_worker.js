@@ -51,7 +51,7 @@ parentPort.on("message", function (data) {
 				}
 				parentPort.postMessage({ type: "generated_built", key: data.key, floors: floors });
 			} catch (error) {
-				parentPort.postMessage({ type: "generated_built", key: data.key, failed: true });
+				parentPort.postMessage({ type: "generated_built", key: data.key, failed: true, error: error.message });
 			} finally {
 				for (var floor of floors) {
 					delete G.maps[floor.key];

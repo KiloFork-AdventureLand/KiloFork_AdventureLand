@@ -6202,7 +6202,7 @@ function pcs(type) {
 }
 
 var audio_sound_names = {
-	music: ["christmas", "horror01", "horror02", "casual05", "casual02", "rpg07", "rpg08", "rpg10", "rpg14", "rpg16"],
+	music: ["christmas", "horror01", "horror02", "casual05", "casual02", "rpg07", "rpg08", "rpg10", "rpg14", "rpg16", "cave_exploration", "cave_choices"],
 	sfx: ["click", "fx_explosion", "coin_collect", "drop_egg", "hit_8bit", "magic_8bit", "use_8bit", "chat", "walk", "drop", "open", "whoosh", "reflect", "crackle01", "crackle0", "level_up"],
 };
 
@@ -6348,6 +6348,7 @@ function performance_trick() {
 }
 
 function init_music() {
+	if (no_graphics) return;
 	if (!window.Howl) {
 		sound_music = false;
 		sound_sfx = false;
@@ -6361,6 +6362,15 @@ function init_music() {
 		volume: 0.2 * music_level,
 		autoplay: false,
 		loop: true,
+	});
+	["exploration", "choices"].forEach(function (track) {
+		sounds["cave_" + track] = new Howl({
+			src: [url_factory("/sounds/loops/cave_dreams_" + track + ".ogg?v=20260915")],
+			volume: 0.2 * music_level,
+			autoplay: false,
+			preload: false,
+			loop: true,
+		});
 	});
 	if (xmas_tunes) {
 		apply_audio_volume("music");
@@ -6430,6 +6440,7 @@ function init_music() {
 
 var current_music = null;
 function reflect_music() {
+	if (no_graphics) return;
 	var the_music = sounds.rpg08;
 	if (!window.Howl) {
 		sound_music = false;
@@ -6450,9 +6461,12 @@ function reflect_music() {
 	if (current_map == "bank") the_music = sounds.casual05;
 	if (current_map == "goobrawl") the_music = sounds.casual02;
 	if (current_map == "crypt" || current_map == "winter_instance") the_music = sounds.horror02;
+	if (G.maps[current_map]?.generated?.zone === "dreams")
+		the_music = cave_client_state?.paused ? sounds.cave_choices : sounds.cave_exploration;
 	if (current_music != the_music && the_music) {
 		if (current_music) current_music.stop();
 		current_music = the_music;
+		if (the_music.state() === "unloaded") the_music.load();
 		the_music.play();
 	}
 }
