@@ -19,8 +19,11 @@ test("the server list accepts scrollbar input while its surrounding menu stays c
 	const html = env.renderString(menu, { servers, domain: { languages: [], boost: 0 }, user: {}, phrase: (id) => id });
 	assert.match(html, /^<div class="menu disableclicks"/);
 	assert.match(html, /<div\s+class="enableclicks"\s+style="[^"]*overflow-y:\s*scroll;/);
-	assert.equal((html.match(/class="clickable enableclicks"/g) || []).length, servers.length);
-	assert.match(html, /onclick="server_address='ASIA.example.invalid'; server_path='\/PVP'; init_socket\(\);"/);
+	assert.equal((html.match(/class="clickable enableclicks selection-server"/g) || []).length, servers.length);
+	assert.match(
+		html,
+		/data-address="ASIA.example.invalid" data-path="\/PVP" onclick="select_login_server\(\{address:this.dataset.address,path:this.dataset.path\},true\)"/,
+	);
 	assert.match(html, /Eastlands/);
 	assert.match(read("css/common.css"), /\.disableclicks\s*\{\s*pointer-events:\s*none;/);
 	assert.match(
