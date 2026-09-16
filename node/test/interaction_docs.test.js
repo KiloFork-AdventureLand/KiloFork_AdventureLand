@@ -118,6 +118,36 @@ function decodeCodeHtml(source) {
 		.replace(/&#39;/g, "'");
 }
 
+test("the schedule guide uses its own clock through the item renderer without a character", () => {
+	const G = require("./helpers/design");
+	const context = vm.createContext({
+		G,
+		window: { desktop: false },
+		randomStr: () => "schedule_test",
+		sprite: () => "",
+		$: (selector) => ({
+			html(html) {
+				if (selector !== ".events-tracker") return;
+				assert.ok(html.includes(G.imagesets.rawitems.file));
+				assert.ok(html.includes("margin-left: -720px"));
+				assert.ok(html.includes("margin-top: -160px"));
+				assert.ok(html.includes("height: 40px; width: 40px"));
+				context.rendered = true;
+			},
+		}),
+	});
+	assert.deepEqual(Array.from(G.positions.schedule_clock), ["rawitems", 18, 4]);
+	assert.equal(G.items.tracker.skin, "tracker");
+	assert.notDeepEqual(Array.from(G.positions.tracker), Array.from(G.positions.schedule_clock));
+	vm.runInContext(extract(read("js/html.js"), "item_container"), context);
+	const article = read("docs/guide/events-and-home.html");
+	vm.runInContext(article.match(/<script>([\s\S]*?)<\/script>/)[1], context);
+	assert.equal(context.rendered, true);
+	const phrases = require("../../languages/en/docs");
+	for (const id of ["schedule-open-the-clock-to-inspect-planned-events", "read-schedule-status"])
+		assert.ok(phrases["docs.guide.events-and-home." + id].includes("events-tracker"));
+});
+
 test("every placed NPC role has an interaction classification", () => {
 	for (const [npcId, npc] of Object.entries(npcs)) {
 		if (!npc.role) continue;

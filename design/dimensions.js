@@ -1148,6 +1148,7 @@ var positions={
 	"covemantle":["rawitems",3,4],
 	"stillwaterlens":["rawitems",4,4],
 	"patronsgrace":["custom",5,0],
+	"schedule_clock":["rawitems",18,4],
 };
 
 Object.assign(positions, {"cave_locktooth": ["rawitems", 5, 4], "cave_counterweight": ["rawitems", 6, 4], "cave_mothsteps": ["rawitems", 13, 4], "cave_loaded_die": ["rawitems", 8, 4]});
