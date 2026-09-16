@@ -89,7 +89,8 @@ function create_steam_signup({ key, get_user, render, signup, purify_email, loca
 	}
 	function guard(action) {
 		return async (req, res, next) => {
-			res.set({ "Cache-Control": "no-store", "Referrer-Policy": "no-referrer", "X-Frame-Options": "DENY", "X-Robots-Tag": "noindex" });
+			// Keep the form's Origin header; no-referrer makes browsers send Origin: null.
+			res.set({ "Cache-Control": "no-store", "Referrer-Policy": "strict-origin", "X-Frame-Options": "DENY", "X-Robots-Tag": "noindex" });
 			try {
 				origin(req);
 				if (await get_user(req)) return res.redirect(303, "/");

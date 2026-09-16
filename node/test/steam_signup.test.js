@@ -218,7 +218,7 @@ test("browser Steam signup keeps the exact SteamID, desktop slots, password, loc
 	const s = setup();
 	const page = await s.call("page");
 	assert.equal(page.headers["Cache-Control"], "no-store");
-	assert.equal(page.headers["Referrer-Policy"], "no-referrer");
+	assert.equal(page.headers["Referrer-Policy"], "strict-origin");
 	assert.deepEqual(page.cookies[0].options, {
 		httpOnly: true,
 		secure: true,
@@ -289,7 +289,17 @@ test("configuration and page failures stay contained; repeated starts are bounde
 });
 
 test("missing, foreign, tampered or expired browser state cannot reach Steam or signup", async () => {
-	for (const change of ["missing", "tampered", "foreign", "expired", "wrong-state", "origin", "host"]) {
+	for (const change of [
+		"missing",
+		"tampered",
+		"foreign",
+		"expired",
+		"wrong-state",
+		"origin",
+		"null-origin",
+		"missing-origin",
+		"host",
+	]) {
 		const s = setup();
 		await s.begin();
 		const cookies = { ...s.jar },
@@ -299,6 +309,8 @@ test("missing, foreign, tampered or expired browser state cannot reach Steam or 
 		if (change === "foreign") cookies[COOKIE] = (await setup().call("page")).cookies[0].value;
 		if (change === "expired") s.time += 20 * 60 * 1000;
 		if (change === "origin") headers.origin = "https://other.invalid";
+		if (change === "null-origin") headers.origin = "null";
+		if (change === "missing-origin") headers.origin = undefined;
 		if (change === "host") headers.host = "other.invalid";
 		const response = await s.call("start", {
 			cookies,
