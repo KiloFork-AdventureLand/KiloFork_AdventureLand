@@ -391,5 +391,7 @@
 	"server.cave.helpers_limit": "你已经有两名帮手了。",
 	"server.cave.gold_limit": "本次进入可出现的{amount}洞窟金币已全部出现。你仍可找到物品并获得XP。",
 	"server.cave.amber_limit": "本次进入可出现的{amount}个Cave Amber已全部出现。你仍可找到物品并获得XP。",
-	"server.game_error.poker_hand_active": "你的这手牌仍在另一个服务器上进行。请等待结束，或重新连接到那个服务器。"
+	"server.game_error.poker_hand_active": "你的这手牌仍在另一个服务器上进行。请等待结束，或重新连接到那个服务器。",
+	"server.tracktrix.mail_subject": "你的Tracktrix",
+	"server.tracktrix.mail_body": "为下次狩猎送上一点帮助。记得随身带着这个Tracktrix！"
 }

@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Näytätte kiireisiltä. Pysyn poissa tieltä.",
 	"event.dreams.traveler.Lena.says.0": "Joku täällä myy vain yhtä tavaraa. Outo kauppa.",
 	"event.dreams.traveler.Lena.says.1": "Kuulin huutoa edempää. Kiersin kauempaa.",
-	"event.dreams.traveler.Lena.says.2": "Jos löydätte sinisen huivin, se on minun."
+	"event.dreams.traveler.Lena.says.2": "Jos löydätte sinisen huivin, se on minun.",
+	"tutorial.mail.title": "Tarkista postisi",
+	"tutorial.task.mail": "Avaa posti",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Kutsu neljä vartijaa auttamaan lähistön vähintään tason 3 hirviöitä vastaan."
 }

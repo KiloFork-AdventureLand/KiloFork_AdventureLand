@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Meşgul görünüyorsunuz. Yolunuzdan çekileyim.",
 	"event.dreams.traveler.Lena.says.0": "Burada biri tek bir şey satıyor. Tuhaf dükkân.",
 	"event.dreams.traveler.Lena.says.1": "İleriden bağırışlar duydum. Uzun yoldan geldim.",
-	"event.dreams.traveler.Lena.says.2": "Mavi bir atkı bulursanız benimdir."
+	"event.dreams.traveler.Lena.says.2": "Mavi bir atkı bulursanız benimdir.",
+	"tutorial.mail.title": "Postanı Kontrol Et",
+	"tutorial.task.mail": "Postayı Aç",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Yakındaki 3. seviye ve üstü canavarlara karşı yardım için dört muhafızı çağır."
 }

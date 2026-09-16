@@ -51,6 +51,7 @@ const DOCS_PATHS = [
 	"/docs/tutorial",
 	"/docs/tutorial/js-hello",
 	"/docs/tutorial/tracktrix",
+	"/docs/tutorial/mail",
 	"/docs/tutorial/hunting",
 	"/docs/guide/monster-hunts",
 	"/docs/guide/services/monster-hunts",

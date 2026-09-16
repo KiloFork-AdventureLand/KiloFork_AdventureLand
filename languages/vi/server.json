@@ -391,5 +391,7 @@
 	"server.cave.helpers_limit": "Bạn đã có hai người trợ giúp.",
 	"server.cave.gold_limit": "Toàn bộ {amount} vàng hang động cho lượt vào này đã xuất hiện. Bạn vẫn có thể tìm vật phẩm và nhận XP.",
 	"server.cave.amber_limit": "Toàn bộ {amount} Cave Amber cho lượt vào này đã xuất hiện. Bạn vẫn có thể tìm vật phẩm và nhận XP.",
-	"server.game_error.poker_hand_active": "Ván poker của bạn vẫn đang diễn ra trên máy chủ khác. Hãy chờ ván kết thúc hoặc kết nối lại máy chủ đó."
+	"server.game_error.poker_hand_active": "Ván poker của bạn vẫn đang diễn ra trên máy chủ khác. Hãy chờ ván kết thúc hoặc kết nối lại máy chủ đó.",
+	"server.tracktrix.mail_subject": "Tracktrix của bạn",
+	"server.tracktrix.mail_body": "Một chút trợ giúp cho chuyến săn tiếp theo. Hãy mang Tracktrix này bên mình!"
 }

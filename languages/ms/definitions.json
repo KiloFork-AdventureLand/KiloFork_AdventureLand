@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Kamu nampak sibuk. Aku tidak akan menghalang.",
 	"event.dreams.traveler.Lena.says.0": "Ada orang di bawah sini menjual satu barang sahaja. Kedai pelik.",
 	"event.dreams.traveler.Lena.says.1": "Aku terdengar jeritan di hadapan. Aku mengambil jalan jauh.",
-	"event.dreams.traveler.Lena.says.2": "Kalau jumpa selendang biru, itu milikku."
+	"event.dreams.traveler.Lena.says.2": "Kalau jumpa selendang biru, itu milikku.",
+	"tutorial.mail.title": "Semak e-mel anda",
+	"tutorial.task.mail": "Buka e-mel",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Panggil empat pengawal untuk membantu melawan raksasa tahap 3 atau lebih tinggi berdekatan."
 }

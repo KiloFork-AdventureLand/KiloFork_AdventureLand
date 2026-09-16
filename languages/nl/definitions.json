@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Jullie lijken druk. Ik zal niet in de weg lopen.",
 	"event.dreams.traveler.Lena.says.0": "Iemand hier beneden verkoopt maar één ding. Vreemde winkel.",
 	"event.dreams.traveler.Lena.says.1": "Ik hoorde verderop geschreeuw. Ik nam een omweg.",
-	"event.dreams.traveler.Lena.says.2": "Als jullie een blauwe sjaal vinden, die is van mij."
+	"event.dreams.traveler.Lena.says.2": "Als jullie een blauwe sjaal vinden, die is van mij.",
+	"tutorial.mail.title": "Bekijk je post",
+	"tutorial.task.mail": "Open de post",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Roep vier wachters op om te helpen tegen monsters van niveau 3 of hoger in de buurt."
 }

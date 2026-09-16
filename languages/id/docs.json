@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy menggunakan level karakter tertinggi di akunmu. Di bawah level 30, perburuan meminta paling banyak 10 Goo. Dari level 30 hingga 59, target yang lebih sulit dan perburuan dengan lebih banyak monster mulai tersedia. Mulai level 60, perburuan normal berlaku.",
 	"docs.tutorial.tracktrix.achievements": "Pencapaian monster memberi bonus atribut selama kamu membawa Tracktrix. Untuk setiap monster, yang dihitung adalah skor tertinggi di akunmu, bukan jumlah skor semua karaktermu.",
 	"docs.tutorial.tracktrix.goo_rewards": "Untuk Goo, 10 poin memberi +5 HP; 100 poin menambahkan +10 HP lagi.",
-	"docs.tutorial.tracktrix.intro": "Berburu bisa memberimu lebih dari sekadar emas. Tukarkan 4 Monster Token kepada Daisy untuk mendapatkan Tracktrix — panduan monster, jarahan, dan progres pencapaianmu.",
+	"docs.tutorial.tracktrix.intro": "Daisy mengirim satu Tracktrix ke akunmu melalui surat. Alat ini menampilkan monster, jarahan, dan progres pencapaianmu. Perlu satu lagi? Tukarkan 4 Monster Token kepadanya.",
 	"docs.tutorial.tracktrix.manual": "Simpan Tracktrix di inventorimu. Klik item itu, lalu pilih ANTARMUKA! untuk membukanya. Pilih monster untuk melihat jarahan dan tahapan pencapaiannya. Kamu bisa menyelesaikan pelajaran ini tanpa memiliki Tracktrix.",
 	"docs.tutorial.tracktrix.goal": "Mulailah dengan monster yang bisa kamu buru berulang kali dengan aman, seperti Goo. Periksa tahapan pencapaian berikutnya sebelum memilih target berburu jangka panjang.",
 	"docs.tutorial.tracktrix.code": "Kamu bisa memeriksa data monster melalui CODE bahkan sebelum memiliki Tracktrix. Contoh ini menampilkan tahapan pencapaian Goo, bukan progres pribadimu.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} mengurangi XP, emas, keberuntungan, dan kekuatan serangan ketika karakter level 60 ke atas memasuki server non-PvP lain di luar rumahnya. Durasi dasar adalah 12 menit bermain online. Menyambung kembali ke server yang sama mempertahankan sisa waktu. Kembali ke rumah tersimpan atau mengganti rumah melalui Bean langsung menghapus efeknya.",
 	"docs.guide.tavern-games.deck-verification": "<b>Verifikasi dek.</b> Sebelum membagikan kartu, meja menerbitkan komitmen kriptografis. Setelah putaran, kunci dan seluruh urutan dek dibuka, termasuk kartu yang sudah dilipat.",
 	"docs.functions.poker_act.reopening": "Nilai can_raise pada kursimu menunjukkan apakah kamu boleh menaikkan taruhan. Beberapa kenaikan all-in yang kurang dari kenaikan penuh membuka kembali hak menaikkan saat total kenaikannya mencapai satu kenaikan penuh.",
-	"docs.poker.waiting": "Jika tindakan gagal dengan poker_saving, tunggu sebentar lalu coba lagi. Jika login gagal dengan poker_hand_active, tunggu putaran Anda selesai atau sambungkan kembali ke server tempat putaran itu berlangsung."
+	"docs.poker.waiting": "Jika tindakan gagal dengan poker_saving, tunggu sebentar lalu coba lagi. Jika login gagal dengan poker_hand_active, tunggu putaran Anda selesai atau sambungkan kembali ke server tempat putaran itu berlangsung.",
+	"docs.tutorial.mail.open": "Buka {com}, lalu Surat. Cukup buka kotak surat untuk menyelesaikan pelajaran ini, meskipun kosong.",
+	"docs.tutorial.mail.take": "Buka surat dari Daisy dan pilih {take} untuk mengambil Tracktrix. Karakter mana pun di akunmu dapat mengambilnya. Mengambil item ini tidak wajib untuk menyelesaikan pelajaran ini."
 }

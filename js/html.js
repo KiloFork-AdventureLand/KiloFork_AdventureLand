@@ -7329,6 +7329,7 @@ function load_mail(info) {
 			else html += "<div style='margin-top: 8px' class='clickable' onclick='api_call(\"pull_mail\",{cursor:\"" + info.cursor + "\"});'>" + phrase.html("interface.load_mail.load_more") + "</div>";
 		}
 		$(".friendslist").html(html);
+		tut("mail");
 	} else {
 		friends_inside = "mail";
 		api_call("pull_mail");

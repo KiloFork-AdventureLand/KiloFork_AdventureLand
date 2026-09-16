@@ -391,5 +391,7 @@
 	"server.cave.helpers_limit": "Kamu sudah punya dua pembantu.",
 	"server.cave.gold_limit": "Seluruh emas gua untuk kunjungan ini sudah muncul: {amount}. Kamu masih bisa menemukan item dan memperoleh XP.",
 	"server.cave.amber_limit": "Seluruh {amount} Cave Amber untuk kunjungan ini sudah muncul. Kamu masih bisa menemukan item dan memperoleh XP.",
-	"server.game_error.poker_hand_active": "Putaran poker Anda masih berlangsung di server lain. Tunggu hingga selesai atau sambungkan kembali ke server itu."
+	"server.game_error.poker_hand_active": "Putaran poker Anda masih berlangsung di server lain. Tunggu hingga selesai atau sambungkan kembali ke server itu.",
+	"server.tracktrix.mail_subject": "Tracktrix untukmu",
+	"server.tracktrix.mail_body": "Sedikit bantuan untuk perburuan berikutnya. Bawa Tracktrix ini bersamamu!"
 }

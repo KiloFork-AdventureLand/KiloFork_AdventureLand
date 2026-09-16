@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Φαίνεστε απασχολημένοι. Δεν θα σας εμποδίσω.",
 	"event.dreams.traveler.Lena.says.0": "Κάποιος εδώ κάτω πουλάει μόνο ένα πράγμα. Παράξενο μαγαζί.",
 	"event.dreams.traveler.Lena.says.1": "Άκουσα φωνές πιο μπροστά. Πήρα τον μακρύ δρόμο.",
-	"event.dreams.traveler.Lena.says.2": "Αν βρείτε ένα μπλε κασκόλ, είναι δικό μου."
+	"event.dreams.traveler.Lena.says.2": "Αν βρείτε ένα μπλε κασκόλ, είναι δικό μου.",
+	"tutorial.mail.title": "Έλεγξε την αλληλογραφία σου",
+	"tutorial.task.mail": "Άνοιξε την αλληλογραφία",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Κάλεσε τέσσερις φρουρούς για βοήθεια εναντίον κοντινών τεράτων επιπέδου 3 ή υψηλότερου."
 }

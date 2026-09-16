@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Elfoglaltnak tűntök. Nem leszek útban.",
 	"event.dreams.traveler.Lena.says.0": "Valaki idelent egyetlen dolgot árul. Furcsa bolt.",
 	"event.dreams.traveler.Lena.says.1": "Kiabálást hallottam előrébb. Kerülőúton jöttem.",
-	"event.dreams.traveler.Lena.says.2": "Ha találtok egy kék sálat, az az enyém."
+	"event.dreams.traveler.Lena.says.2": "Ha találtok egy kék sálat, az az enyém.",
+	"tutorial.mail.title": "Nézd meg a postádat",
+	"tutorial.task.mail": "Nyisd meg a postát",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Hívj négy őrszemet segítségül a közeli, legalább 3. szintű szörnyek ellen."
 }

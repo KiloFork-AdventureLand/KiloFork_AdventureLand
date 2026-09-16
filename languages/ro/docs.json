@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy ia în calcul cel mai mare nivel al unui personaj din contul tău. Sub nivelul 30, vânătorile cer să învingi cel mult 10 Goo. Între nivelurile 30 și 59 devin disponibile ținte mai dificile și vânători cu mai mulți monștri. De la nivelul 60 se aplică vânătorile obișnuite.",
 	"docs.tutorial.tracktrix.achievements": "Realizările pentru monștri oferă bonusuri la atribute cât timp ai Tracktrix la tine. Pentru fiecare monstru contează cel mai mare scor din contul tău, nu suma scorurilor personajelor tale.",
 	"docs.tutorial.tracktrix.goo_rewards": "Pentru Goo, 10 puncte oferă +5 HP, iar 100 de puncte adaugă încă +10 HP.",
-	"docs.tutorial.tracktrix.intro": "Vânătoarea îți poate aduce mai mult decât aur. Schimbă 4 Monster Tokens la Daisy pentru un Tracktrix — un ghid despre monștri, prăzi și progresul realizărilor tale.",
+	"docs.tutorial.tracktrix.intro": "Daisy trimite contului tău un Tracktrix prin poștă. Acesta arată monștrii, prăzile și progresul realizărilor tale. Mai ai nevoie de unul? Schimbă 4 Monster Tokens la ea.",
 	"docs.tutorial.tracktrix.manual": "Păstrează Tracktrix în inventar. Dă clic pe el, apoi alege INTERFAȚĂ! pentru a-l deschide. Selectează un monstru pentru a vedea prăzile și pragurile realizărilor sale. Poți termina această lecție fără să deții un Tracktrix.",
 	"docs.tutorial.tracktrix.goal": "Începe cu un monstru pe care îl poți vâna în mod repetat și în siguranță, precum Goo. Verifică următorul prag de realizare înainte să alegi un obiectiv de vânătoare pe termen lung.",
 	"docs.tutorial.tracktrix.code": "Poți consulta datele monștrilor prin CODE chiar înainte să deții un Tracktrix. Acest exemplu arată pragurile realizărilor pentru Goo, nu progresul tău personal.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} reduce XP, aurul, norocul și puterea de atac când un personaj de nivel 60 sau mai mare intră pe alt server fără PvP, departe de casă. Durata de bază este de 12 minute de joc online. Reconectarea la același server păstrează timpul rămas. Revenirea pe serverul de acasă salvat sau schimbarea acestuia la Bean elimină imediat efectul.",
 	"docs.guide.tavern-games.deck-verification": "<b>Verificarea pachetului.</b> Înainte de împărțire, masa publică un angajament criptografic. După mână, dezvăluie cheia și ordinea completă a pachetului, inclusiv cărțile abandonate.",
 	"docs.functions.poker_act.reopening": "Câmpul can_raise al locului tău arată dacă poți mări miza. Mai multe măriri all-in incomplete permit din nou mărirea când creșterea lor cumulată atinge o mărire completă.",
-	"docs.poker.waiting": "Dacă o acțiune eșuează cu poker_saving, așteaptă puțin și încearcă din nou. Dacă autentificarea eșuează cu poker_hand_active, așteaptă să se termine mâna ta sau reconectează-te la serverul pe care se joacă."
+	"docs.poker.waiting": "Dacă o acțiune eșuează cu poker_saving, așteaptă puțin și încearcă din nou. Dacă autentificarea eșuează cu poker_hand_active, așteaptă să se termine mâna ta sau reconectează-te la serverul pe care se joacă.",
+	"docs.tutorial.mail.open": "Deschide {com}, apoi Poștă. Este suficient să deschizi cutia poștală pentru a termina această lecție, chiar dacă este goală.",
+	"docs.tutorial.mail.take": "Deschide scrisoarea de la Daisy și alege {take} pentru a lua Tracktrix. Îl poate lua orice personaj din contul tău. Nu este obligatoriu să iei obiectul pentru a termina această lecție."
 }

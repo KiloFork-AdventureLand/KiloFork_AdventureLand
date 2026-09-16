@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Ni verkar upptagna. Jag håller mig ur vägen.",
 	"event.dreams.traveler.Lena.says.0": "Någon här nere säljer bara en enda sak. Märklig butik.",
 	"event.dreams.traveler.Lena.says.1": "Jag hörde skrik längre fram. Jag tog den långa vägen.",
-	"event.dreams.traveler.Lena.says.2": "Om ni hittar en blå halsduk är den min."
+	"event.dreams.traveler.Lena.says.2": "Om ni hittar en blå halsduk är den min.",
+	"tutorial.mail.title": "Kolla din post",
+	"tutorial.task.mail": "Öppna posten",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Kalla på fyra vakter som hjälper till mot monster på nivå 3 eller högre i närheten."
 }

@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Ihr wirkt beschäftigt. Ich gehe euch aus dem Weg.",
 	"event.dreams.traveler.Lena.says.0": "Hier unten verkauft jemand nur eine einzige Sache. Seltsamer Laden.",
 	"event.dreams.traveler.Lena.says.1": "Ich habe weiter vorn Geschrei gehört. Da habe ich den Umweg genommen.",
-	"event.dreams.traveler.Lena.says.2": "Falls ihr einen blauen Schal findet: Der gehört mir."
+	"event.dreams.traveler.Lena.says.2": "Falls ihr einen blauen Schal findet: Der gehört mir.",
+	"tutorial.mail.title": "Sieh in deine Post",
+	"tutorial.task.mail": "Öffne die Post",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Rufe vier Wachen zur Hilfe gegen Monster ab Stufe 3 in der Nähe."
 }

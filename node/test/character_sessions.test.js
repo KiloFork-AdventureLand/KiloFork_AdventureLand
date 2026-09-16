@@ -66,6 +66,7 @@ function fixture(beforeCommit) {
 		get: async () => null,
 		get_characters: async () => [],
 		get_user_data: async () => ({ info: {} }),
+		send_tracktrix_mail: async () => undefined,
 		get_ip_server: () => "127.0.0.1",
 		get_ip_info: async () => null,
 		gf: (e, k, fallback) => (e.info && e.info[k] !== undefined ? e.info[k] : fallback),
@@ -201,6 +202,27 @@ function publish(f) {
 	delete f.c.observers[f.socket.id];
 	return p;
 }
+
+test("gift mail starts after login succeeds and a mail failure cannot cancel the character", async () => {
+	const f = fixture(),
+		pending = deferred();
+	let called = false;
+	f.c.send_tracktrix_mail = (owner, name) => {
+		called = true;
+		assert.equal(owner._id, f.owner()._id);
+		assert.ok(name);
+		assert.ok(f.events.some((event) => event.event === "start"));
+		return pending.promise;
+	};
+	await f.auth(f.data);
+	assert.ok(called);
+	assert.equal(f.c.total_players, 1);
+	pending.reject(new Error("fixture mail failure"));
+	await flush();
+	assert.ok(f.c.players[f.socket.id]);
+	assert.equal(f.socket.connected, true);
+	assert.ok(!f.events.some((event) => event.event === "game_error"));
+});
 
 for (const stage of [
 	"get_characters",

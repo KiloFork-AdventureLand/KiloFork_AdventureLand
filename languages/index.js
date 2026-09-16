@@ -195,6 +195,7 @@ var browser_domains = {
 		"server.pm",
 		"server.server_message",
 		"server.shells",
+		"server.tracktrix",
 	],
 };
 

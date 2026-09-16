@@ -391,5 +391,7 @@
 	"server.cave.helpers_limit": "Zaten iki yardımcın var.",
 	"server.cave.gold_limit": "Bu ziyaret için ayrılan {amount} mağara altınının tamamı ortaya çıktı. Hâlâ eşya bulabilir ve XP kazanabilirsin.",
 	"server.cave.amber_limit": "Bu ziyaret için ayrılan {amount} Cave Amber’ın tamamı ortaya çıktı. Hâlâ eşya bulabilir ve XP kazanabilirsin.",
-	"server.game_error.poker_hand_active": "Poker elin başka bir sunucuda devam ediyor. Bitmesini bekle veya o sunucuya yeniden bağlan."
+	"server.game_error.poker_hand_active": "Poker elin başka bir sunucuda devam ediyor. Bitmesini bekle veya o sunucuya yeniden bağlan.",
+	"server.tracktrix.mail_subject": "Tracktrix'in",
+	"server.tracktrix.mail_body": "Bir sonraki avın için küçük bir yardım. Bu Tracktrix'i yanında tut!"
 }

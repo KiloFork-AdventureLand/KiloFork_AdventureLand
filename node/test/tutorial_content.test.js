@@ -249,6 +249,58 @@ test("average hit includes both rounding stages from the real combat handler", (
 		}
 });
 
+test("mail precedes hunts and only opening the mailbox completes its task, even when empty", () => {
+	const c = context(),
+		lessons = c.docs.tutorial,
+		index = lessons.findIndex((lesson) => lesson.key === "mail"),
+		credits = [];
+	assert.equal(lessons[index + 1].key, "hunting");
+	assert.deepEqual(Array.from(lessons[index].tasks), ["mail"]);
+	assert.equal(lessons[index].continue_task, undefined);
+	const ui = {
+		html() {
+			return this;
+		},
+		parent() {
+			return this;
+		},
+		find() {
+			return this;
+		},
+		removeClass() {},
+		addClass() {},
+	};
+	Object.assign(c, { friends_inside: "friends", $: () => ui, tut: (task) => credits.push(task), api_call() {} });
+	load(c, "js/html.js", ["load_mail"]);
+	c.load_mail({ mail: [] });
+	assert.equal(credits.length, 0, "a response after leaving the mailbox does not count");
+	c.load_mail();
+	assert.equal(credits.length, 0, "a failed or pending mailbox request does not count");
+	c.load_mail({ mail: [] });
+	assert.deepEqual(credits, ["mail"]);
+});
+
+test("the new mail lesson preserves finished tutorials, but is required after a reset", async () => {
+	const c = context(),
+		lessons = c.docs.tutorial;
+	const data = c.process_user_data("US_tutorial", {
+		_id: "IE_userdata-US_tutorial",
+		info: {
+			tutorial_version: 3,
+			tutorial_key: null,
+			tutorial_step: lessons.length - 1,
+			completed_tasks: lessons.filter((lesson) => lesson.key !== "mail").flatMap((lesson) => lesson.tasks),
+		},
+	});
+	assert.equal(c.data_to_tutorial(data).finished, true);
+	assert.ok(data.info.completed_tasks.includes("mail"));
+	const store = transactions(c, [data]);
+	await c.reset_tutorial_api({ user: "US_tutorial", res: { infs: [] } });
+	const reset = c.process_user_data("US_tutorial", store.records.get(data._id));
+	assert.ok(!reset.info.completed_tasks.includes("mail"));
+	assert.equal(reset.info.tutorial_version, 4);
+});
+
 test("Tracktrix follows hunts and previously completed tutorials can continue without owning it", () => {
 	const G = require("./helpers/design");
 	assert.equal(G.tokens.monstertoken.tracker, 4);
@@ -357,6 +409,7 @@ test("every new article renders with translated phrases and each locale has five
 		"accessory-comparison",
 		"hunting",
 		"tracktrix",
+		"mail",
 		...c.docs.merchant_tutorial.map((lesson) => lesson.key),
 	]
 		.map((key) => "docs/tutorial/" + key + ".html")
@@ -376,7 +429,7 @@ test("every new article renders with translated phrases and each locale has five
 				? localization.catalog(code)
 				: Object.assign(
 						{},
-						...["docs", "definitions", "interface"].map((domain) =>
+						...["docs", "definitions", "interface", "language"].map((domain) =>
 							JSON.parse(read("languages/" + code + "/" + domain + ".json")),
 						),
 					);
@@ -386,7 +439,7 @@ test("every new article renders with translated phrases and each locale has five
 				assert.ok(catalog[match[1]], code + ": " + match[1]);
 			const html = env.render(file, {
 				domain: { language: code },
-				phrase: (key) => localization.phrase(key, {}, code),
+				phrase: (key, args) => localization.phrase(key, args || {}, code),
 				phrase_html: (key) => localization.phrase_html(key, {}, code),
 			});
 			assert.doesNotMatch(html, /{{|<details|<summary/);

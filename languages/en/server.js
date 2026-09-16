@@ -1,5 +1,9 @@
 // Authored backend messages. Protocol identifiers and player text are excluded.
 module.exports = {
+	// Body of Daisy’s one-time in-game gift. Keep Tracktrix unchanged; friendly, brief and in-world.
+	"server.tracktrix.mail_body": "A little help for your next hunt. Keep this Tracktrix with you!",
+	// Subject of Daisy’s one-time in-game Tracktrix gift. Keep Tracktrix unchanged.
+	"server.tracktrix.mail_subject": "Your Tracktrix",
 	// node/server.js and node/server_functions.js party_update packet. {player} is the joining character name.
 	"server.party.joined": "{player} joined the party",
 	// node/server.js party_update packet. {player} joins via {inviter}, another character in the party.

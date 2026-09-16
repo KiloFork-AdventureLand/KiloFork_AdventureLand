@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Parecen ocupados. No voy a estorbar.",
 	"event.dreams.traveler.Lena.says.0": "Alguien aquí abajo vende una sola cosa. Qué tienda rara.",
 	"event.dreams.traveler.Lena.says.1": "Oí gritos más adelante. Di un rodeo.",
-	"event.dreams.traveler.Lena.says.2": "Si encuentran una bufanda azul, es mía."
+	"event.dreams.traveler.Lena.says.2": "Si encuentran una bufanda azul, es mía.",
+	"tutorial.mail.title": "Revisa tu correo",
+	"tutorial.task.mail": "Abre el correo",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Llama a cuatro centinelas para que te ayuden contra los monstruos cercanos de nivel 3 o más."
 }

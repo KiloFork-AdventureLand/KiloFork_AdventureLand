@@ -394,5 +394,7 @@
 	"server.cave.helpers_limit": "Je hebt al twee helpers.",
 	"server.cave.gold_limit": "Al het grotgoud voor dit bezoek is verschenen: {amount}. Je kunt nog steeds voorwerpen vinden en XP verdienen.",
 	"server.cave.amber_limit": "Alle {amount} Cave Amber voor dit bezoek zijn verschenen. Je kunt nog steeds voorwerpen vinden en XP verdienen.",
-	"server.game_error.poker_hand_active": "Je pokerhand loopt nog op een andere server. Wacht tot die is afgelopen of verbind opnieuw met die server."
+	"server.game_error.poker_hand_active": "Je pokerhand loopt nog op een andere server. Wacht tot die is afgelopen of verbind opnieuw met die server.",
+	"server.tracktrix.mail_subject": "Jouw Tracktrix",
+	"server.tracktrix.mail_body": "Een beetje hulp voor je volgende jacht. Houd deze Tracktrix bij je!"
 }

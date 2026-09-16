@@ -391,5 +391,7 @@
 	"server.cave.helpers_limit": "Már van két segítőd.",
 	"server.cave.gold_limit": "A látogatás során megszerezhető összes barlangi arany megjelent: {amount}. Tárgyakat továbbra is találhatsz, és XP-t is szerezhetsz.",
 	"server.cave.amber_limit": "A látogatás során megszerezhető Cave Amber teljes mennyisége megjelent: {amount}. Tárgyakat továbbra is találhatsz, és XP-t is szerezhetsz.",
-	"server.game_error.poker_hand_active": "A pókerleosztásod még tart egy másik szerveren. Várd meg a végét, vagy csatlakozz újra ahhoz a szerverhez."
+	"server.game_error.poker_hand_active": "A pókerleosztásod még tart egy másik szerveren. Várd meg a végét, vagy csatlakozz újra ahhoz a szerverhez.",
+	"server.tracktrix.mail_subject": "A Tracktrixed",
+	"server.tracktrix.mail_body": "Egy kis segítség a következő vadászathoz. Tartsd magadnál ezt a Tracktrixet!"
 }

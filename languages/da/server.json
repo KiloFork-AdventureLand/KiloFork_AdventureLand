@@ -395,5 +395,7 @@
 	"server.cave.helpers_limit": "Du har allerede to hjælpere.",
 	"server.cave.gold_limit": "Alt huleguldet for dette besøg er dukket op: {amount}. Du kan stadig finde genstande og optjene XP.",
 	"server.cave.amber_limit": "Alle {amount} Cave Amber for dette besøg er dukket op. Du kan stadig finde genstande og optjene XP.",
-	"server.game_error.poker_hand_active": "Din pokerhånd er stadig i gang på en anden server. Vent, til den er slut, eller opret forbindelse til den server igen."
+	"server.game_error.poker_hand_active": "Din pokerhånd er stadig i gang på en anden server. Vent, til den er slut, eller opret forbindelse til den server igen.",
+	"server.tracktrix.mail_subject": "Din Tracktrix",
+	"server.tracktrix.mail_body": "Lidt hjælp til din næste jagt. Hav denne Tracktrix med dig!"
 }

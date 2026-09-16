@@ -394,5 +394,7 @@
 	"server.cave.helpers_limit": "Já tens dois ajudantes.",
 	"server.cave.gold_limit": "Todo o ouro da caverna desta visita já apareceu: {amount}. Ainda podes encontrar itens e ganhar XP.",
 	"server.cave.amber_limit": "Todos os {amount} Cave Amber desta visita já apareceram. Ainda podes encontrar itens e ganhar XP.",
-	"server.game_error.poker_hand_active": "A tua mão de póquer ainda está a decorrer noutro servidor. Espera que termine ou volta a ligar-te a esse servidor."
+	"server.game_error.poker_hand_active": "A tua mão de póquer ainda está a decorrer noutro servidor. Espera que termine ou volta a ligar-te a esse servidor.",
+	"server.tracktrix.mail_subject": "O teu Tracktrix",
+	"server.tracktrix.mail_body": "Uma pequena ajuda para a tua próxima caçada. Leva este Tracktrix contigo!"
 }

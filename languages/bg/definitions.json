@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Изглеждате заети. Няма да ви се пречкам.",
 	"event.dreams.traveler.Lena.says.0": "Някой тук долу продава само едно нещо. Странен магазин.",
 	"event.dreams.traveler.Lena.says.1": "Чух викове напред. Минах по обиколния път.",
-	"event.dreams.traveler.Lena.says.2": "Ако намерите син шал, той е мой."
+	"event.dreams.traveler.Lena.says.2": "Ако намерите син шал, той е мой.",
+	"tutorial.mail.title": "Провери пощата си",
+	"tutorial.task.mail": "Отвори пощата",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Повикай четирима стражи за помощ срещу близки чудовища от ниво 3 или по-високо."
 }

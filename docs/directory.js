@@ -279,6 +279,7 @@ docs = {
 			tasks: ["travel", "visitnpc"],
 			title: "Travel & NPCs",
 		},
+		{ key: "mail", tasks: ["mail"], title: "Check Your Mail" },
 		{ key: "hunting", tasks: ["read_hunting"], continue_task: "read_hunting", title: "Your First Monster Hunt" },
 		{ key: "tracktrix", tasks: ["read_tracktrix"], continue_task: "read_tracktrix", title: "Tracktrix" },
 		{
@@ -368,6 +369,7 @@ docs = {
 		exchanger: "Find an Exchanger",
 		characters: "Find Your Characters",
 		events: "Open the Event Guide",
+		mail: "Open Mail",
 	},
 	rewards: {
 		c0: [[1, "open", "cosmo0"]],

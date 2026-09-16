@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "I ser optagede ud. Jeg skal nok holde mig af vejen.",
 	"event.dreams.traveler.Lena.says.0": "Nogen hernede sælger kun én ting. Mærkelig butik.",
 	"event.dreams.traveler.Lena.says.1": "Jeg hørte råb længere fremme. Jeg tog den lange vej.",
-	"event.dreams.traveler.Lena.says.2": "Hvis I finder et blåt halstørklæde, er det mit."
+	"event.dreams.traveler.Lena.says.2": "Hvis I finder et blåt halstørklæde, er det mit.",
+	"tutorial.mail.title": "Tjek din post",
+	"tutorial.task.mail": "Åbn posten",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Tilkald fire vagter til hjælp mod monstre på niveau 3 eller højere i nærheden."
 }

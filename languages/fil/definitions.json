@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Mukhang abala kayo. Hindi ako haharang.",
 	"event.dreams.traveler.Lena.says.0": "May nagbebenta rito ng iisang bagay lang. Kakaibang tindahan.",
 	"event.dreams.traveler.Lena.says.1": "May narinig akong sigawan sa unahan. Dumaan ako sa malayo.",
-	"event.dreams.traveler.Lena.says.2": "Kung may makita kayong asul na bandana, akin iyon."
+	"event.dreams.traveler.Lena.says.2": "Kung may makita kayong asul na bandana, akin iyon.",
+	"tutorial.mail.title": "Tingnan ang iyong mga liham",
+	"tutorial.task.mail": "Buksan ang mga liham",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Tumawag ng apat na bantay para tumulong laban sa mga halimaw na level 3 pataas sa malapit."
 }

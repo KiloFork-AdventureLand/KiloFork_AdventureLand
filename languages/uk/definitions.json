@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Ви, здається, зайняті. Не заважатиму.",
 	"event.dreams.traveler.Lena.says.0": "Хтось тут продає лише одну річ. Дивна крамниця.",
 	"event.dreams.traveler.Lena.says.1": "Попереду чулися крики. Я пішла в обхід.",
-	"event.dreams.traveler.Lena.says.2": "Якщо знайдете синій шарф, він мій."
+	"event.dreams.traveler.Lena.says.2": "Якщо знайдете синій шарф, він мій.",
+	"tutorial.mail.title": "Перевірте пошту",
+	"tutorial.task.mail": "Відкрийте пошту",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Викличте чотирьох вартових на допомогу проти монстрів рівня 3 або вище поблизу."
 }

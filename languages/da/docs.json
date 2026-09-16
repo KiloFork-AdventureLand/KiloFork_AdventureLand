@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy tager udgangspunkt i det højeste karakterniveau på din konto. Under niveau 30 kræver jagterne, at du besejrer højst 10 Goo. Fra niveau 30 til 59 bliver sværere mål og jagter med flere monstre tilgængelige. Fra niveau 60 gælder normale jagter.",
 	"docs.tutorial.tracktrix.achievements": "Monsterpræstationer giver bonusser til dine egenskaber, mens du bærer Tracktrix. For hvert monster tæller den højeste score på din konto, ikke summen af dine figurers scorer.",
 	"docs.tutorial.tracktrix.goo_rewards": "For Goo giver 10 point +5 HP; 100 point giver yderligere +10 HP.",
-	"docs.tutorial.tracktrix.intro": "Dine jagter kan give mere end guld. Byt 4 Monster Tokens hos Daisy for en Tracktrix — en guide til monstre, bytte og dine fremskridt med præstationer.",
+	"docs.tutorial.tracktrix.intro": "Daisy sender én Tracktrix til din konto med posten. Den viser monstre, bytte og dine fremskridt med præstationer. Har du brug for en mere? Byt dig til en hos hende for 4 Monster Tokens.",
 	"docs.tutorial.tracktrix.manual": "Hav Tracktrix i din rygsæk. Klik på den, og vælg ÅBN PANEL! for at åbne den. Vælg et monster for at se dets bytte og præstationsmilepæle. Du kan gennemføre denne lektion uden at eje en.",
 	"docs.tutorial.tracktrix.goal": "Start med et monster, du trygt kan jage igen og igen, såsom Goo. Se dets næste præstationsmilepæl, før du vælger et mere langsigtet jagtmål.",
 	"docs.tutorial.tracktrix.code": "Du kan undersøge monsterdata via CODE, allerede før du ejer en Tracktrix. Dette eksempel viser præstationsmilepælene for Goo; det viser ikke dine personlige fremskridt.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} sænker XP, guld, held og angrebskraft, når en figur på niveau 60 eller højere går ind på en anden server uden PvP væk fra sit hjem. Grundvarigheden er 12 minutters onlinespil. Genforbindelse til samme server bevarer den resterende tid. At vende tilbage til det gemte hjem eller skifte hjem hos Bean fjerner effekten med det samme.",
 	"docs.guide.tavern-games.deck-verification": "<b>Kontrol af kortene.</b> Før kortene gives, offentliggør bordet en kryptografisk forpligtelse. Efter hånden afsløres nøglen og hele kortenes rækkefølge, også foldede kort.",
 	"docs.functions.poker_act.reopening": "Din plads' can_raise viser, om du må forhøje. Flere små all-in-forhøjelser åbner igen for forhøjelse, når deres samlede stigning når en fuld forhøjelse.",
-	"docs.poker.waiting": "Hvis en handling fejler med poker_saving, så vent lidt og prøv igen. Hvis login fejler med poker_hand_active, så vent, til din hånd er slut, eller opret forbindelse til serveren, hvor den spilles, igen."
+	"docs.poker.waiting": "Hvis en handling fejler med poker_saving, så vent lidt og prøv igen. Hvis login fejler med poker_hand_active, så vent, til din hånd er slut, eller opret forbindelse til serveren, hvor den spilles, igen.",
+	"docs.tutorial.mail.open": "Åbn {com} og derefter Post. Du skal blot åbne postkassen for at gennemføre denne lektion, også hvis den er tom.",
+	"docs.tutorial.mail.take": "Åbn brevet fra Daisy, og vælg {take} for at hente Tracktrix. Enhver figur på din konto kan hente den. Du behøver ikke hente genstanden for at gennemføre lektionen."
 }

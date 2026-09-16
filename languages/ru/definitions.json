@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Вы, похоже, заняты. Не буду мешать.",
 	"event.dreams.traveler.Lena.says.0": "Кто-то тут продаёт всего одну вещь. Странная лавка.",
 	"event.dreams.traveler.Lena.says.1": "Впереди были крики. Я пошла в обход.",
-	"event.dreams.traveler.Lena.says.2": "Если найдёте синий шарф, он мой."
+	"event.dreams.traveler.Lena.says.2": "Если найдёте синий шарф, он мой.",
+	"tutorial.mail.title": "Проверьте почту",
+	"tutorial.task.mail": "Откройте почту",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Вызовите четырёх стражей на помощь против ближайших монстров уровня 3 и выше."
 }

@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "忙しそうだな。邪魔しないようにするよ。",
 	"event.dreams.traveler.Lena.says.0": "ここでたった1つだけ売っている人がいる。変な店ね。",
 	"event.dreams.traveler.Lena.says.1": "先の方で叫び声がしたから、遠回りしたの。",
-	"event.dreams.traveler.Lena.says.2": "青いスカーフを見つけたら、私のよ。"
+	"event.dreams.traveler.Lena.says.2": "青いスカーフを見つけたら、私のよ。",
+	"tutorial.mail.title": "メールを確認しよう",
+	"tutorial.task.mail": "メールを開く",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "4人の衛兵を呼び、近くのレベル3以上のモンスターとの戦いを援護してもらいます。"
 }

@@ -394,5 +394,7 @@
 	"server.cave.helpers_limit": "Tu as déjà deux compagnons.",
 	"server.cave.gold_limit": "Tout l’or de la grotte de cette visite est apparu : {amount}. Tu peux encore trouver des objets et gagner de l’XP.",
 	"server.cave.amber_limit": "Les {amount} Cave Amber de cette visite sont tous apparus. Tu peux encore trouver des objets et gagner de l’XP.",
-	"server.game_error.poker_hand_active": "Votre main de poker est toujours en cours sur un autre serveur. Attendez qu'elle se termine ou reconnectez-vous à ce serveur."
+	"server.game_error.poker_hand_active": "Votre main de poker est toujours en cours sur un autre serveur. Attendez qu'elle se termine ou reconnectez-vous à ce serveur.",
+	"server.tracktrix.mail_subject": "Ton Tracktrix",
+	"server.tracktrix.mail_body": "Un petit coup de pouce pour ta prochaine chasse. Garde ce Tracktrix avec toi !"
 }

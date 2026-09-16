@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy menggunakan tahap watak tertinggi dalam akaun anda. Di bawah tahap 30, pemburuan memerlukan paling banyak 10 Goo ditewaskan. Dari tahap 30 hingga 59, sasaran yang lebih sukar dan pemburuan dengan lebih banyak raksasa mula tersedia. Mulai tahap 60, pemburuan biasa terpakai.",
 	"docs.tutorial.tracktrix.achievements": "Pencapaian raksasa memberikan bonus atribut selagi anda membawa Tracktrix. Bagi setiap raksasa, skor tertinggi dalam akaun anda dikira, bukan jumlah skor semua watak anda.",
 	"docs.tutorial.tracktrix.goo_rewards": "Bagi Goo, 10 mata memberikan +5 HP; 100 mata menambahkan +10 HP lagi.",
-	"docs.tutorial.tracktrix.intro": "Pemburuan boleh memberi anda lebih daripada emas. Tukarkan 4 Monster Token dengan Daisy untuk mendapatkan Tracktrix—panduan tentang raksasa, item guguran dan kemajuan pencapaian anda.",
+	"docs.tutorial.tracktrix.intro": "Daisy menghantar satu Tracktrix melalui mel kepada akaun anda. Ia memaparkan raksasa, item guguran dan kemajuan pencapaian anda. Perlukan satu lagi? Tukarkan 4 Monster Token dengannya.",
 	"docs.tutorial.tracktrix.manual": "Simpan Tracktrix dalam inventori anda. Klik padanya, kemudian pilih ANTARAMUKA! untuk membukanya. Pilih raksasa untuk melihat item guguran dan sasaran pencapaiannya. Anda boleh menyelesaikan pelajaran ini tanpa memiliki Tracktrix.",
 	"docs.tutorial.tracktrix.goal": "Mulakan dengan raksasa yang boleh anda buru berulang kali dengan selamat, seperti Goo. Semak sasaran pencapaian seterusnya sebelum memilih matlamat pemburuan jangka panjang.",
 	"docs.tutorial.tracktrix.code": "Anda boleh menyemak data raksasa melalui CODE walaupun belum memiliki Tracktrix. Contoh ini menunjukkan sasaran pencapaian Goo; kemajuan peribadi anda tidak ditunjukkan.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} mengurangkan XP, emas, tuah dan kuasa serangan apabila watak tahap 60 ke atas memasuki pelayan bukan PvP lain di luar rumahnya. Tempoh asas ialah 12 minit bermain dalam talian. Menyambung semula ke pelayan yang sama mengekalkan baki masa. Kembali ke rumah tersimpan atau menukar rumah melalui Bean menghapuskan kesan serta-merta.",
 	"docs.guide.tavern-games.deck-verification": "<b>Pengesahan dek.</b> Sebelum kad diedarkan, meja menerbitkan komitmen kriptografi. Selepas pusingan, kunci dan susunan penuh dek didedahkan, termasuk kad yang telah dilipat.",
 	"docs.functions.poker_act.reopening": "Nilai can_raise pada tempat anda menunjukkan sama ada anda boleh menaikkan taruhan. Beberapa kenaikan all-in yang tidak penuh membuka semula hak menaikkan apabila jumlah kenaikannya mencapai satu kenaikan penuh.",
-	"docs.poker.waiting": "Jika tindakan gagal dengan poker_saving, tunggu sebentar dan cuba lagi. Jika log masuk gagal dengan poker_hand_active, tunggu sehingga pusingan anda selesai atau sambung semula ke pelayan tempat pusingan itu berlangsung."
+	"docs.poker.waiting": "Jika tindakan gagal dengan poker_saving, tunggu sebentar dan cuba lagi. Jika log masuk gagal dengan poker_hand_active, tunggu sehingga pusingan anda selesai atau sambung semula ke pelayan tempat pusingan itu berlangsung.",
+	"docs.tutorial.mail.open": "Buka {com}, kemudian E-mel. Membuka peti mel sahaja sudah melengkapkan pelajaran ini, walaupun peti mel itu kosong.",
+	"docs.tutorial.mail.take": "Buka surat Daisy dan pilih {take} untuk mengambil Tracktrix. Mana-mana watak dalam akaun anda boleh mengambilnya. Anda tidak perlu mengambil item itu untuk melengkapkan pelajaran ini."
 }

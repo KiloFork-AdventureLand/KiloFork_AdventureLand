@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "바빠 보이네. 길을 비켜 줄게.",
 	"event.dreams.traveler.Lena.says.0": "여기서 딱 한 가지 물건만 파는 사람이 있어요. 이상한 가게죠.",
 	"event.dreams.traveler.Lena.says.1": "앞에서 고함 소리가 들려서 돌아왔어요.",
-	"event.dreams.traveler.Lena.says.2": "파란 목도리를 찾으면 제 거예요."
+	"event.dreams.traveler.Lena.says.2": "파란 목도리를 찾으면 제 거예요.",
+	"tutorial.mail.title": "편지를 확인하세요",
+	"tutorial.task.mail": "편지 열기",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "보초 네 명을 불러 근처의 레벨 3 이상 몬스터를 상대할 때 도움받으세요."
 }

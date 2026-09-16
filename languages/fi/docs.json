@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy käyttää tilisi korkeinta hahmotasoa. Jos se on alle 30, jahti vaatii enintään 10 Goo-hirviön kukistamista. Tasoilla 30–59 avautuu vaikeampia kohteita ja jahteja, joissa kukistetaan enemmän hirviöitä. Tasosta 60 alkaen jahdit ovat tavallisia.",
 	"docs.tutorial.tracktrix.achievements": "Hirviösaavutukset antavat ominaisuusbonuksia, kun kannat Tracktrixia. Kunkin hirviön kohdalla lasketaan tilisi korkein pistemäärä, ei hahmojesi pisteiden summaa.",
 	"docs.tutorial.tracktrix.goo_rewards": "Goo antaa 10 pisteestä +5 HP ja 100 pisteestä vielä +10 HP lisää.",
-	"docs.tutorial.tracktrix.intro": "Metsästys voi tuoda muutakin kuin kultaa. Vaihda 4 Monster Tokenia Daisyn luona Tracktrixiin — oppaaseen, joka näyttää hirviöt, saaliit ja saavutustesi etenemisen.",
+	"docs.tutorial.tracktrix.intro": "Daisy lähettää tilillesi yhden Tracktrixin postitse. Se näyttää hirviöt, saaliit ja saavutustesi etenemisen. Tarvitsetko toisen? Vaihda siihen Daisyn luona 4 Monster Tokenia.",
 	"docs.tutorial.tracktrix.manual": "Pidä Tracktrix tavaraluettelossasi. Napsauta sitä ja avaa se valitsemalla KÄYTTÖLIITTYMÄ! Valitse hirviö, niin näet sen saaliit ja saavutusten välitavoitteet. Voit suorittaa tämän oppitunnin ilman Tracktrixiäkin.",
 	"docs.tutorial.tracktrix.goal": "Aloita hirviöstä, jota voit metsästää turvallisesti yhä uudelleen, kuten Goo. Tarkista sen seuraava saavutuksen välitavoite ennen kuin valitset pidempiaikaisen metsästystavoitteen.",
 	"docs.tutorial.tracktrix.code": "Voit tutkia hirviötietoja CODElla jo ennen kuin omistat Tracktrixin. Tämä esimerkki näyttää Goon saavutusten välitavoitteet, ei omaa edistymistäsi.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} vähentää XP:tä, kultaa, onnea ja hyökkäysvoimaa, kun vähintään tason 60 hahmo siirtyy kodin ulkopuolelle toiselle palvelimelle, jossa ei ole PvP:tä. Peruskesto on 12 minuuttia verkkopeliaikaa. Samalle palvelimelle yhdistäminen uudelleen säilyttää jäljellä olevan ajan. Paluu tallennetulle kotipalvelimelle tai kodin vaihtaminen Beanin luona poistaa vaikutuksen heti.",
 	"docs.guide.tavern-games.deck-verification": "<b>Pakan tarkistus.</b> Ennen jakoa pöytä julkaisee kryptografisen sitoumuksen. Jaon jälkeen se paljastaa avaimen ja koko pakan järjestyksen, myös luovutetut kortit.",
 	"docs.functions.poker_act.reopening": "Paikkasi can_raise kertoo, saatko korottaa. Useat vajaat all-in-korotukset avaavat korotusoikeuden uudelleen, kun niiden yhteinen lisäys saavuttaa täyden korotuksen.",
-	"docs.poker.waiting": "Jos toiminto epäonnistuu koodilla poker_saving, odota hetki ja yritä uudelleen. Jos kirjautuminen epäonnistuu koodilla poker_hand_active, odota jakosi päättymistä tai yhdistä uudelleen palvelimelle, jossa se pelataan."
+	"docs.poker.waiting": "Jos toiminto epäonnistuu koodilla poker_saving, odota hetki ja yritä uudelleen. Jos kirjautuminen epäonnistuu koodilla poker_hand_active, odota jakosi päättymistä tai yhdistä uudelleen palvelimelle, jossa se pelataan.",
+	"docs.tutorial.mail.open": "Avaa {com} ja sitten Posti. Tämän oppitunnin suorittamiseen riittää postilaatikon avaaminen, vaikka se olisi tyhjä.",
+	"docs.tutorial.mail.take": "Avaa Daisyn kirje ja valitse {take}, niin saat Tracktrixin. Kuka tahansa tilisi hahmoista voi ottaa sen. Esineen ottaminen ei ole oppitunnin suorittamisen ehto."
 }

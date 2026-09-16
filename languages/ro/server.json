@@ -397,5 +397,7 @@
 	"server.cave.helpers_limit": "Ai deja două ajutoare.",
 	"server.cave.gold_limit": "A apărut tot aurul peșterii pentru această vizită: {amount}. Încă poți găsi obiecte și câștiga XP.",
 	"server.cave.amber_limit": "Au apărut toate cele {amount} Cave Amber pentru această vizită. Încă poți găsi obiecte și câștiga XP.",
-	"server.game_error.poker_hand_active": "Mâna ta de poker se joacă încă pe alt server. Așteaptă să se termine sau reconectează-te acolo."
+	"server.game_error.poker_hand_active": "Mâna ta de poker se joacă încă pe alt server. Așteaptă să se termine sau reconectează-te acolo.",
+	"server.tracktrix.mail_subject": "Tracktrix pentru tine",
+	"server.tracktrix.mail_body": "Un mic ajutor pentru următoarea vânătoare. Ține acest Tracktrix la tine!"
 }

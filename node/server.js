@@ -11653,6 +11653,17 @@ function init_socket_io(socket_server) {
 					cdata.entities = send_all_xy(player, { raw: true });
 					if (players[socket.id] !== player || player.dc || !socket.connected) return;
 					socket.emit("start", cdata);
+					if (!gf(owner, "tracktrix_mail_sent", false))
+						send_tracktrix_mail(owner, player.name)
+							.then(function (count) {
+								if (count === undefined) return;
+								for (var recipient of Object.values(players))
+									if (recipient.owner === player.owner && !recipient.dc && !recipient.socket.disconnected)
+										recipient.socket.emit("game_response", { response: "mail_received", count: count });
+							})
+							.catch(function (e) {
+								log_trace("Tracktrix mail", e);
+							});
 					if (entity.friends && !entity.private) {
 						setTimeout(function () {
 							notify_friends(entity, server_regions[region] + " " + server_name).catch(console.error);

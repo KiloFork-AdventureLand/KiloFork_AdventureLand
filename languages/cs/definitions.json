@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Vypadáte zaneprázdněně. Nebudu vám překážet.",
 	"event.dreams.traveler.Lena.says.0": "Někdo tady prodává jen jednu věc. Zvláštní obchod.",
 	"event.dreams.traveler.Lena.says.1": "Slyšela jsem vpředu křik. Šla jsem oklikou.",
-	"event.dreams.traveler.Lena.says.2": "Jestli najdete modrou šálu, je moje."
+	"event.dreams.traveler.Lena.says.2": "Jestli najdete modrou šálu, je moje.",
+	"tutorial.mail.title": "Zkontroluj poštu",
+	"tutorial.task.mail": "Otevři poštu",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Přivolej čtyři strážce na pomoc proti blízkým monstrům úrovně 3 a vyšší."
 }

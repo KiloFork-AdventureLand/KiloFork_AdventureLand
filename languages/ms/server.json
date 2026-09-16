@@ -391,5 +391,7 @@
 	"server.cave.helpers_limit": "Anda sudah mempunyai dua pembantu.",
 	"server.cave.gold_limit": "Semua emas gua untuk lawatan ini sudah muncul: {amount}. Anda masih boleh menemui item dan memperoleh XP.",
 	"server.cave.amber_limit": "Semua {amount} Cave Amber untuk lawatan ini sudah muncul. Anda masih boleh menemui item dan memperoleh XP.",
-	"server.game_error.poker_hand_active": "Pusingan poker anda masih berlangsung di pelayan lain. Tunggu sehingga selesai atau sambung semula ke pelayan itu."
+	"server.game_error.poker_hand_active": "Pusingan poker anda masih berlangsung di pelayan lain. Tunggu sehingga selesai atau sambung semula ke pelayan itu.",
+	"server.tracktrix.mail_subject": "Tracktrix anda",
+	"server.tracktrix.mail_body": "Sedikit bantuan untuk pemburuan anda yang seterusnya. Bawa Tracktrix ini bersama anda!"
 }

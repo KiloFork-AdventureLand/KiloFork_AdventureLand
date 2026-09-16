@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Vocês parecem ocupados. Vou sair do caminho.",
 	"event.dreams.traveler.Lena.says.0": "Alguém aqui embaixo está vendendo uma coisa só. Loja estranha.",
 	"event.dreams.traveler.Lena.says.1": "Ouvi gritos adiante. Dei a volta pelo caminho mais longo.",
-	"event.dreams.traveler.Lena.says.2": "Se encontrarem um cachecol azul, é meu."
+	"event.dreams.traveler.Lena.says.2": "Se encontrarem um cachecol azul, é meu.",
+	"tutorial.mail.title": "Confira seu correio",
+	"tutorial.task.mail": "Abra o correio",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Chame quatro sentinelas para ajudar com monstros próximos de nível 3 ou superior."
 }

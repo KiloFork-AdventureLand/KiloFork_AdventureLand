@@ -397,5 +397,7 @@
 	"server.cave.helpers_limit": "Už máš dva pomocníky.",
 	"server.cave.gold_limit": "Všechno jeskynní zlato pro tuto návštěvu se již objevilo: {amount}. Stále můžeš nacházet předměty a získávat XP.",
 	"server.cave.amber_limit": "Všech {amount} Cave Amber pro tuto návštěvu se již objevilo. Stále můžeš nacházet předměty a získávat XP.",
-	"server.game_error.poker_hand_active": "Tvoje pokerové rozdání stále probíhá na jiném serveru. Počkej, až skončí, nebo se k tomu serveru znovu připoj."
+	"server.game_error.poker_hand_active": "Tvoje pokerové rozdání stále probíhá na jiném serveru. Počkej, až skončí, nebo se k tomu serveru znovu připoj.",
+	"server.tracktrix.mail_subject": "Tvůj Tracktrix",
+	"server.tracktrix.mail_body": "Malá pomoc na příští lov. Nos tento Tracktrix s sebou!"
 }

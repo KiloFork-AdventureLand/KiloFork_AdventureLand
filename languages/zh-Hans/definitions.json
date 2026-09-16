@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "你们看起来很忙。我不挡道了。",
 	"event.dreams.traveler.Lena.says.0": "下面有人只卖一件东西。怪店。",
 	"event.dreams.traveler.Lena.says.1": "我听到前面有喊声，就绕远路了。",
-	"event.dreams.traveler.Lena.says.2": "如果找到一条蓝围巾，那是我的。"
+	"event.dreams.traveler.Lena.says.2": "如果找到一条蓝围巾，那是我的。",
+	"tutorial.mail.title": "查看邮件",
+	"tutorial.task.mail": "打开邮件",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "呼叫四名哨兵，帮助对付附近3级或以上的怪物。"
 }

@@ -126,7 +126,7 @@ test("migration preserves all previous positions, including new and finished acc
 		const r = runtime(previousProgress(base.context, step));
 		const data = r.get();
 		assert.equal(data.info.tutorial_step, step);
-		assert.equal(data.info.tutorial_version, 3);
+		assert.equal(data.info.tutorial_version, 4);
 		const snapshot = JSON.stringify(data);
 		r.context.process_user_data("US_tutorial", data);
 		assert.equal(JSON.stringify(data), snapshot, "migration is idempotent");
@@ -174,7 +174,7 @@ test("old pre-version accounts retain their migration credits, not credit for ne
 	const data = structuredClone(r.store.records.get(r.id));
 	r.context.migrate_tutorial_data(data);
 	assert.equal(data.info.tutorial_key, "theend");
-	assert.equal(data.info.tutorial_version, 3);
+	assert.equal(data.info.tutorial_version, 4);
 	for (const task of ["firstloot", "equip", "characters", "events", "read_helloworld", "read_hellocode"])
 		assert.ok(data.info.completed_tasks.includes(task));
 	assert.ok(!data.info.completed_tasks.includes("read_theend"));
@@ -224,6 +224,9 @@ test("inventory rendering and an already-open bag credit the task without clicki
 			inventory: alreadyOpen,
 			is_comm: false,
 			c_enabled: false,
+			viewport_width: () => 1280,
+			comm_items: {},
+			comm_chat_escape: String,
 			max: Math.max,
 			to_pretty_num: String,
 			tutorial_tasks_in_flight: {},

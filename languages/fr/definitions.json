@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Vous avez l'air occupés. Je ne vais pas vous gêner.",
 	"event.dreams.traveler.Lena.says.0": "Quelqu'un vend une seule chose ici. Drôle de boutique.",
 	"event.dreams.traveler.Lena.says.1": "J'ai entendu crier plus loin. J'ai fait un détour.",
-	"event.dreams.traveler.Lena.says.2": "Si vous trouvez une écharpe bleue, c'est la mienne."
+	"event.dreams.traveler.Lena.says.2": "Si vous trouvez une écharpe bleue, c'est la mienne.",
+	"tutorial.mail.title": "Consulte ton courrier",
+	"tutorial.task.mail": "Ouvre le courrier",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Appelez quatre sentinelles pour vous aider contre les monstres proches de niveau 3 ou plus."
 }

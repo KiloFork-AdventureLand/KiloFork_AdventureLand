@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy會以你帳號中最高的角色等級為準。低於30級時，狩獵最多要求擊敗10隻Goo。30至59級會逐步開放更強的目標和需要擊敗更多怪物的狩獵。達到60級後，恢復一般狩獵。",
 	"docs.tutorial.tracktrix.achievements": "攜帶 Tracktrix 時，怪物成就會提供屬性加成。每種怪物按你帳號內的最高分數計算，而不是把所有角色的分數相加。",
 	"docs.tutorial.tracktrix.goo_rewards": "Goo 達到10分時提供 +5 HP，達到100分時再增加 +10 HP。",
-	"docs.tutorial.tracktrix.intro": "狩獵帶來的不只是金幣。用4個Monster Token向Daisy換取Tracktrix，查看怪物、掉落物品和你的成就進度。",
+	"docs.tutorial.tracktrix.intro": "Daisy會寄一個Tracktrix給你的帳號。它能顯示怪物、掉落物品和你的成就進度。還需要一個嗎？拿4個Monster Token向她兌換。",
 	"docs.tutorial.tracktrix.manual": "將Tracktrix放在背包中。點擊它，再選擇「開啟介面！」即可開啟。選擇一種怪物，查看牠的掉落物品和各階段成就要求。沒有Tracktrix也能完成本課。",
 	"docs.tutorial.tracktrix.goal": "先選擇一種你能安全反覆獵殺的怪物，例如Goo。決定長期狩獵目標前，先查看下一階段的成就要求。",
 	"docs.tutorial.tracktrix.code": "即使還沒有Tracktrix，你也能透過CODE查看怪物資料。本例展示Goo各階段的成就要求，不會顯示你的個人進度。",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "等級達到60級的角色進入家園以外的另一個非PvP伺服器時，{condition}會降低XP、金幣、幸運及攻擊力。基本持續時間為12分鐘的線上遊玩時間。重新連線至同一伺服器會保留剩餘時間。返回已儲存的家園，或請Bean更改家園，即可立即解除。",
 	"docs.guide.tavern-games.deck-verification": "<b>驗證牌組。</b> 發牌前，牌桌會公布一個密碼學承諾值。這手牌結束後，會公開金鑰及完整牌序，包含已蓋棄的手牌。",
 	"docs.functions.poker_act.reopening": "座位的can_raise欄位表示你能否加注。多次不足額全押的累計加注額達到一次完整加注時，已行動的玩家才可再次加注。",
-	"docs.poker.waiting": "若操作因 poker_saving 失敗，請稍等片刻後再試。若登入因 poker_hand_active 失敗，請等這手牌結束，或重新連線至牌局所在的伺服器。"
+	"docs.poker.waiting": "若操作因 poker_saving 失敗，請稍等片刻後再試。若登入因 poker_hand_active 失敗，請等這手牌結束，或重新連線至牌局所在的伺服器。",
+	"docs.tutorial.mail.open": "開啟{com}，再選擇郵件。只要開啟信箱就能完成本課，就算信箱是空的也算。",
+	"docs.tutorial.mail.take": "打開Daisy的信，選擇{take}即可領取Tracktrix。你帳號中的任何角色都能領取。完成本課不需要領取物品。"
 }

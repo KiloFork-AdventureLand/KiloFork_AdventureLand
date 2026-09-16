@@ -981,6 +981,49 @@ function arr_arr_same(ar1, ar2) {
 
 // ==================== USER DATA (InfoElement) ====================
 
+async function send_tracktrix_mail(user, name) {
+	var owner_id = user._id || user;
+	var result = await tx(
+		async () => {
+			R.sent = false;
+			var owner = await tx_get(A.owner);
+			if (!owner) ex("user_not_found");
+			if (gf(owner, "tracktrix_mail_sent", false)) return;
+			var mail_id = "ML_tracktrix:" + A.owner;
+			// Keep an existing letter's read/claimed state if the account flag was lost.
+			if (!(await tx_get(mail_id))) {
+				await tx_save({
+					_id: mail_id,
+					type: "mail",
+					created: new Date(),
+					read: false,
+					item: true,
+					taken: false,
+					fro: "Daisy",
+					to: A.name,
+					owner: [A.owner],
+					tracktrix_gift: true,
+					info: {
+						sender: A.owner,
+						receiver: A.owner,
+						subject: localization.phrase("server.tracktrix.mail_subject", {}, "en"),
+						message: localization.phrase("server.tracktrix.mail_body", {}, "en"),
+						item: JSON.stringify({ name: "tracker", gift: 1 }),
+					},
+					blobs: ["info"],
+				});
+				R.sent = true;
+			}
+			owner.info.tracktrix_mail_sent = true;
+			await tx_save(owner);
+		},
+		{ owner: owner_id, name: name },
+		3,
+	);
+	if (result.failed) throw new Error("Tracktrix mail: " + result.reason);
+	if (result.sent) return await update_mail_count(owner_id);
+}
+
 async function update_mail_count(user) {
 	var owner = user._id || user;
 	var unread = await db.collection("mail").find({ owner: owner, "info.receiver": owner, read: false }).project({ _id: 1 }).limit(100).toArray();
@@ -1002,7 +1045,7 @@ function process_user_data(user_id, data) {
 		data = {
 			_id: "IE_userdata-" + user_id,
 			created: new Date(),
-			info: { completed_tasks: [], tutorial_step: 0, tutorial_key: docs.tutorial[0].key, tutorial_version: 3 },
+			info: { completed_tasks: [], tutorial_step: 0, tutorial_key: docs.tutorial[0].key, tutorial_version: 4 },
 		};
 	}
 	if (!data.info.completed_tasks) data.info.completed_tasks = [];
@@ -1013,7 +1056,13 @@ function process_user_data(user_id, data) {
 }
 
 function migrate_tutorial_data(user_data) {
-	if (user_data.info.tutorial_version >= 3) return;
+	if (user_data.info.tutorial_version >= 4) return;
+	if (user_data.info.tutorial_version >= 3) {
+		// A new mailbox lesson must not reopen completed onboarding.
+		if (user_data.info.completed_tasks.indexOf("read_theend") !== -1 && user_data.info.completed_tasks.indexOf("mail") === -1) user_data.info.completed_tasks.push("mail");
+		user_data.info.tutorial_version = 4;
+		return;
+	}
 	var legacy_step = Math.max(0, Math.min(parseInt(user_data.info.tutorial_step) || 0, 8));
 	var step_map = [0, 1, 2, 5, 6, 7, 11, 14, 15];
 	function complete_new_tasks(tasks) {
@@ -1051,6 +1100,7 @@ function migrate_tutorial_data(user_data) {
 	}
 	user_data.info.tutorial_key = previous_keys[previous_step] || null;
 	user_data.info.tutorial_version = 3;
+	migrate_tutorial_data(user_data);
 }
 
 function tutorial_lesson_complete(user_data, lesson, continuing) {

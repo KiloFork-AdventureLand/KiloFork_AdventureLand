@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Păreți ocupați. Nu vă stau în cale.",
 	"event.dreams.traveler.Lena.says.0": "Cineva de aici vinde un singur lucru. Ciudat magazin.",
 	"event.dreams.traveler.Lena.says.1": "Am auzit strigăte mai în față. Am luat-o pe ocolite.",
-	"event.dreams.traveler.Lena.says.2": "Dacă găsiți o eșarfă albastră, e a mea."
+	"event.dreams.traveler.Lena.says.2": "Dacă găsiți o eșarfă albastră, e a mea.",
+	"tutorial.mail.title": "Verifică-ți poșta",
+	"tutorial.task.mail": "Deschide poșta",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Cheamă patru santinele să te ajute împotriva monștrilor de nivel 3 sau mai mare din apropiere."
 }

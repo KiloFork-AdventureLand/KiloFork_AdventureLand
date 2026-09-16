@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy richtet sich nach der höchsten Charakterstufe auf deinem Konto. Liegt sie unter 30, musst du bei einer Jagd höchstens 10 Goo besiegen. Von Stufe 30 bis 59 werden schwierigere Ziele und Jagden mit mehr Monstern verfügbar. Ab Stufe 60 gelten die normalen Jagden.",
 	"docs.tutorial.tracktrix.achievements": "Monster-Erfolge gewähren Attributboni, solange du Tracktrix bei dir trägst. Für jedes Monster zählt der höchste Punktestand auf deinem Konto, nicht die Summe der Punkte deiner Charaktere.",
 	"docs.tutorial.tracktrix.goo_rewards": "Bei Goo erhältst du für 10 Punkte +5 HP; bei 100 Punkten kommen weitere +10 HP hinzu.",
-	"docs.tutorial.tracktrix.intro": "Deine Jagden können dir mehr als Gold einbringen. Tausche bei Daisy 4 Monster Tokens gegen einen Tracktrix — einen Wegweiser zu Monstern, Beute und deinem Fortschritt bei Erfolgen.",
+	"docs.tutorial.tracktrix.intro": "Daisy schickt deinem Konto ein Tracktrix per Post. Es zeigt Monster, Beute und deinen Fortschritt bei Erfolgen. Brauchst du noch eins? Tausche bei ihr 4 Monster Tokens dafür ein.",
 	"docs.tutorial.tracktrix.manual": "Bewahre den Tracktrix in deinem Inventar auf. Klicke ihn an und wähle ÖFFNEN!, um ihn zu öffnen. Wähle ein Monster, um seine Beute und Erfolgsmeilensteine anzusehen. Du kannst diese Lektion auch ohne Tracktrix abschließen.",
 	"docs.tutorial.tracktrix.goal": "Beginne mit einem Monster, das du sicher wiederholt jagen kannst, etwa Goo. Schau dir seinen nächsten Erfolgsmeilenstein an, bevor du dir ein längerfristiges Jagdziel setzt.",
 	"docs.tutorial.tracktrix.code": "Du kannst Monsterdaten über CODE einsehen, auch wenn du noch keinen Tracktrix besitzt. Dieses Beispiel zeigt die Erfolgsmeilensteine für Goo, nicht deinen persönlichen Fortschritt.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} senkt XP, Gold, Glück und Angriffskraft, wenn ein Charakter ab Stufe 60 einen anderen Server ohne PvP außerhalb seiner Heimat betritt. Die Grunddauer beträgt 12 Minuten Spielzeit online. Beim erneuten Verbinden mit demselben Server bleibt die Restzeit erhalten. Die Rückkehr zur gespeicherten Heimat oder ein Heimatwechsel bei Bean hebt den Effekt sofort auf.",
 	"docs.guide.tavern-games.deck-verification": "<b>Das Deck überprüfen.</b> Vor dem Austeilen veröffentlicht der Tisch eine kryptografische Festlegung. Nach der Hand werden der Schlüssel und die vollständige Kartenreihenfolge offengelegt, auch die abgelegten Karten.",
 	"docs.functions.poker_act.reopening": "can_raise an deinem Platz zeigt, ob du erhöhen darfst. Mehrere unvollständige All-in-Erhöhungen erlauben erneutes Erhöhen, sobald ihre Summe eine volle Erhöhung erreicht.",
-	"docs.poker.waiting": "Schlägt eine Aktion mit poker_saving fehl, warte kurz und versuche es erneut. Schlägt die Anmeldung mit poker_hand_active fehl, warte auf das Ende deiner Hand oder verbinde dich wieder mit dem Server, auf dem sie läuft."
+	"docs.poker.waiting": "Schlägt eine Aktion mit poker_saving fehl, warte kurz und versuche es erneut. Schlägt die Anmeldung mit poker_hand_active fehl, warte auf das Ende deiner Hand oder verbinde dich wieder mit dem Server, auf dem sie läuft.",
+	"docs.tutorial.mail.open": "Öffne {com} und dann Post. Es reicht, dein Postfach zu öffnen, um diese Lektion abzuschließen, auch wenn es leer ist.",
+	"docs.tutorial.mail.take": "Öffne Daisys Brief und wähle {take}, um Tracktrix abzuholen. Jeder Charakter deines Kontos kann es abholen. Für diese Lektion musst du es nicht abholen."
 }

@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Wyglądacie na zajętych. Zejdę wam z drogi.",
 	"event.dreams.traveler.Lena.says.0": "Ktoś tu sprzedaje tylko jedną rzecz. Dziwny sklep.",
 	"event.dreams.traveler.Lena.says.1": "Usłyszałam krzyki dalej. Poszłam okrężną drogą.",
-	"event.dreams.traveler.Lena.says.2": "Jeśli znajdziecie niebieski szalik, to mój."
+	"event.dreams.traveler.Lena.says.2": "Jeśli znajdziecie niebieski szalik, to mój.",
+	"tutorial.mail.title": "Sprawdź pocztę",
+	"tutorial.task.mail": "Otwórz pocztę",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Wezwij czterech strażników do pomocy z pobliskimi potworami na poziomie 3 lub wyższym."
 }

@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy bierze pod uwagę najwyższy poziom postaci na twoim koncie. Jeśli jest niższy niż 30, polowania wymagają pokonania najwyżej 10 Goo. Od poziomu 30 do 59 dostępne stają się trudniejsze cele i polowania na większą liczbę potworów. Od poziomu 60 obowiązują zwykłe polowania.",
 	"docs.tutorial.tracktrix.achievements": "Osiągnięcia związane z potworami dają premie do atrybutów, gdy nosisz przy sobie Tracktrix. Dla każdego potwora liczy się najwyższy wynik na twoim koncie, a nie suma wyników twoich postaci.",
 	"docs.tutorial.tracktrix.goo_rewards": "Za Goo 10 punktów daje +5 HP, a 100 punktów dodaje kolejne +10 HP.",
-	"docs.tutorial.tracktrix.intro": "Polowanie może przynieść ci więcej niż złoto. Wymień u Daisy 4 Monster Tokeny na Tracktrix — przewodnik po potworach, łupach i twoich postępach w osiągnięciach.",
+	"docs.tutorial.tracktrix.intro": "Daisy wysyła na twoje konto jeden Tracktrix pocztą. Pokazuje on potwory, łupy i twoje postępy w osiągnięciach. Potrzebujesz kolejnego? Wymień u niej 4 Monster Tokeny.",
 	"docs.tutorial.tracktrix.manual": "Trzymaj Tracktrix w ekwipunku. Kliknij go, a następnie wybierz INTERFEJS!, aby go otworzyć. Wybierz potwora, by sprawdzić jego łupy i progi osiągnięć. Możesz ukończyć tę lekcję bez posiadania Tracktrix.",
 	"docs.tutorial.tracktrix.goal": "Zacznij od potwora, którego możesz bezpiecznie pokonywać wielokrotnie, na przykład Goo. Sprawdź następny próg osiągnięcia, zanim wybierzesz długoterminowy cel polowania.",
 	"docs.tutorial.tracktrix.code": "Możesz sprawdzać dane potworów przez CODE, nawet zanim zdobędziesz Tracktrix. Ten przykład pokazuje progi osiągnięć Goo, a nie twoje osobiste postępy.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} obniża XP, złoto, szczęście i siłę ataku, gdy postać na poziomie 60 lub wyższym wchodzi na inny serwer bez PvP poza swoim domem. Podstawowy czas trwania to 12 minut gry online. Ponowne połączenie z tym serwerem zachowuje pozostały czas. Powrót na zapisany serwer domowy lub zmiana domu u Bean natychmiast usuwa efekt.",
 	"docs.guide.tavern-games.deck-verification": "<b>Weryfikacja talii.</b> Przed rozdaniem stół publikuje zobowiązanie kryptograficzne. Po rozdaniu ujawnia klucz i pełną kolejność talii, w tym spasowane karty.",
 	"docs.functions.poker_act.reopening": "Pole can_raise twojego miejsca wskazuje, czy możesz podbić. Kilka niepełnych podbić all-in ponownie pozwala podbijać, gdy ich łączny wzrost osiągnie pełne podbicie.",
-	"docs.poker.waiting": "Jeśli akcja kończy się błędem poker_saving, odczekaj chwilę i spróbuj ponownie. Jeśli logowanie kończy się błędem poker_hand_active, poczekaj na koniec rozdania lub połącz się ponownie z serwerem, na którym ono trwa."
+	"docs.poker.waiting": "Jeśli akcja kończy się błędem poker_saving, odczekaj chwilę i spróbuj ponownie. Jeśli logowanie kończy się błędem poker_hand_active, poczekaj na koniec rozdania lub połącz się ponownie z serwerem, na którym ono trwa.",
+	"docs.tutorial.mail.open": "Otwórz {com}, a następnie Pocztę. Samo otwarcie skrzynki kończy tę lekcję, nawet jeśli jest pusta.",
+	"docs.tutorial.mail.take": "Otwórz list od Daisy i wybierz {take}, aby odebrać Tracktrix. Może go odebrać dowolna postać na twoim koncie. Odebranie przedmiotu nie jest wymagane do ukończenia tej lekcji."
 }

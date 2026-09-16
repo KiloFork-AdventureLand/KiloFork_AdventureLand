@@ -397,5 +397,7 @@
 	"server.cave.helpers_limit": "لديك مساعدان بالفعل.",
 	"server.cave.gold_limit": "ظهر كل ذهب الكهف المتاح لهذه الزيارة، وعدده {amount}. لا يزال بإمكانك العثور على عناصر وكسب XP.",
 	"server.cave.amber_limit": "ظهرت كل كمية Cave Amber المتاحة لهذه الزيارة، وعددها {amount}. لا يزال بإمكانك العثور على عناصر وكسب XP.",
-	"server.game_error.poker_hand_active": "ما زالت يد البوكر الخاصة بك جارية على خادم آخر. انتظر نهايتها أو أعد الاتصال بذلك الخادم."
+	"server.game_error.poker_hand_active": "ما زالت يد البوكر الخاصة بك جارية على خادم آخر. انتظر نهايتها أو أعد الاتصال بذلك الخادم.",
+	"server.tracktrix.mail_subject": "Tracktrix لك",
+	"server.tracktrix.mail_body": "مساعدة صغيرة لرحلة صيدك القادمة. احتفظ بهذا Tracktrix معك!"
 }

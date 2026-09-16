@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy a fiókod legmagasabb karakterszintjét veszi alapul. Ha ez 30 alatt van, a vadászatokhoz legfeljebb 10 Goo legyőzése szükséges. A 30–59. szint között nehezebb célpontok és több szörny legyőzését kérő vadászatok válnak elérhetővé. A 60. szinttől a szokásos vadászatok érvényesek.",
 	"docs.tutorial.tracktrix.achievements": "A szörnyekhez kötődő teljesítmények tulajdonságbónuszokat adnak, amíg nálad van a Tracktrix. Minden szörnynél a fiókod legmagasabb pontszáma számít, nem a karaktereid pontszámainak összege.",
 	"docs.tutorial.tracktrix.goo_rewards": "Goo esetén 10 pont +5 HP-t ad; 100 pont további +10 HP-t jelent.",
-	"docs.tutorial.tracktrix.intro": "A vadászattal az aranyon kívül mást is szerezhetsz. Cserélj be Daisynél 4 Monster Tokent egy Tracktrixre — ez megmutatja a szörnyeket, a zsákmányukat és a teljesítményeid állását.",
+	"docs.tutorial.tracktrix.intro": "Daisy egy Tracktrixet küld postán a fiókodnak. Ez megmutatja a szörnyeket, a zsákmányukat és a teljesítményeid állását. Kell még egy? Cserélj be nála 4 Monster Tokent.",
 	"docs.tutorial.tracktrix.manual": "Tartsd a Tracktrixet a táskádban. Kattints rá, majd válaszd a KEZELŐFELÜLET! lehetőséget a megnyitásához. Válassz egy szörnyet, hogy megnézd a zsákmányát és a teljesítményeinek mérföldköveit. Ezt a leckét Tracktrix nélkül is befejezheted.",
 	"docs.tutorial.tracktrix.goal": "Kezdj egy olyan szörnnyel, amelyre biztonságosan vadászhatsz újra és újra, például Goo-val. Nézd meg a következő teljesítménymérföldkövét, mielőtt hosszabb távú vadászati célt választasz.",
 	"docs.tutorial.tracktrix.code": "A szörnyek adatait CODE segítségével már azelőtt is megnézheted, hogy lenne Tracktrixed. Ez a példa Goo teljesítményeinek mérföldköveit mutatja, nem a saját előrehaladásodat.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "A(z) {condition} csökkenti az XP-t, az aranyat, a szerencsét és a támadóerőt, amikor egy legalább 60. szintű karakter az otthonán kívüli másik, nem PvP szerverre lép. Az alapidőtartam 12 perc online játék. Az ugyanarra a szerverre való újracsatlakozás megőrzi a hátralévő időt. A mentett otthonba való visszatérés vagy az otthon megváltoztatása Beannél azonnal megszünteti a hatást.",
 	"docs.guide.tavern-games.deck-verification": "<b>A pakli ellenőrzése.</b> Osztás előtt az asztal közzétesz egy kriptográfiai kötelezettségvállalást. A leosztás végén felfedi a kulcsot és a pakli teljes sorrendjét, a bedobott lapokkal együtt.",
 	"docs.functions.poker_act.reopening": "A helyed can_raise mezője jelzi, hogy emelhetsz-e. Több, teljes emelésnél kisebb all-in újra lehetővé teszi az emelést, ha az összesített növekedés eléri a teljes emelés mértékét.",
-	"docs.poker.waiting": "Ha egy művelet poker_saving hibával meghiúsul, várj egy kicsit, majd próbáld újra. Ha a bejelentkezés poker_hand_active hibával meghiúsul, várd meg a leosztásod végét, vagy csatlakozz újra ahhoz a szerverhez, ahol tart."
+	"docs.poker.waiting": "Ha egy művelet poker_saving hibával meghiúsul, várj egy kicsit, majd próbáld újra. Ha a bejelentkezés poker_hand_active hibával meghiúsul, várd meg a leosztásod végét, vagy csatlakozz újra ahhoz a szerverhez, ahol tart.",
+	"docs.tutorial.mail.open": "Nyisd meg a {com} menüt, majd a Postát. A lecke teljesítéséhez elég megnyitnod a postaládádat, akkor is, ha üres.",
+	"docs.tutorial.mail.take": "Nyisd meg Daisy levelét, és válaszd a {take} lehetőséget a Tracktrix átvételéhez. A fiókod bármelyik karaktere átveheti. Az átvétel nem feltétele a lecke teljesítésének."
 }

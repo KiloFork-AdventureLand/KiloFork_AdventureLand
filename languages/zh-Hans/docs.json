@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy会以你账号中最高的角色等级为准。低于30级时，狩猎最多要求击败10只Goo。30至59级会逐步开放更强的目标和需要击败更多怪物的狩猎。达到60级后，恢复普通狩猎。",
 	"docs.tutorial.tracktrix.achievements": "携带 Tracktrix 时，怪物成就会提供属性加成。每种怪物按你账号内的最高分数计算，而不是把所有角色的分数相加。",
 	"docs.tutorial.tracktrix.goo_rewards": "Goo 达到10分时提供 +5 HP，达到100分时再增加 +10 HP。",
-	"docs.tutorial.tracktrix.intro": "狩猎带来的不只是金币。用4个Monster Token向Daisy换取Tracktrix，查看怪物、掉落物品和你的成就进度。",
+	"docs.tutorial.tracktrix.intro": "Daisy会给你的账号邮寄一个Tracktrix。它能显示怪物、掉落物品和你的成就进度。还想再要一个？用4个Monster Token向她换取。",
 	"docs.tutorial.tracktrix.manual": "将Tracktrix放在背包中。点击它，再选择“打开界面！”即可打开。选择一种怪物，查看它的掉落物品和各阶段成就要求。没有Tracktrix也能完成本课。",
 	"docs.tutorial.tracktrix.goal": "先选择一种你能安全反复猎杀的怪物，例如Goo。确定长期狩猎目标前，先查看下一阶段的成就要求。",
 	"docs.tutorial.tracktrix.code": "即使还没有Tracktrix，你也能通过CODE查看怪物数据。本例展示Goo各阶段的成就要求，不会显示你的个人进度。",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "等级达到60级的角色进入家园以外的另一个非PvP服务器时，{condition}会降低XP、金币、幸运和攻击力。基础持续时间为12分钟在线游戏时间。重新连接同一服务器会保留剩余时间。回到已保存的家园，或请Bean更改家园，即可立即解除。",
 	"docs.guide.tavern-games.deck-verification": "<b>验证牌组。</b> 发牌前，牌桌会公布一个密码学承诺值。本手牌结束后，会公开密钥和完整牌序，包括已弃的手牌。",
 	"docs.functions.poker_act.reopening": "座位的can_raise字段表示你能否加注。多次不足额全押的累计加注额达到一次完整加注时，已行动的玩家才能重新加注。",
-	"docs.poker.waiting": "如果操作因 poker_saving 失败，请稍等片刻后重试。如果登录因 poker_hand_active 失败，请等待这手牌结束，或重新连接到牌局所在的服务器。"
+	"docs.poker.waiting": "如果操作因 poker_saving 失败，请稍等片刻后重试。如果登录因 poker_hand_active 失败，请等待这手牌结束，或重新连接到牌局所在的服务器。",
+	"docs.tutorial.mail.open": "打开{com}，再选择邮件。只需打开邮箱即可完成本课，即使邮箱是空的也算。",
+	"docs.tutorial.mail.take": "打开Daisy的信，选择{take}即可领取Tracktrix。你账号中的任何角色都可以领取。完成本课不要求领取物品。"
 }

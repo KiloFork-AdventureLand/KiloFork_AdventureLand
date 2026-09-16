@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Các bạn có vẻ bận. Tôi sẽ tránh đường.",
 	"event.dreams.traveler.Lena.says.0": "Có người dưới này chỉ bán đúng một món. Cửa hàng lạ thật.",
 	"event.dreams.traveler.Lena.says.1": "Tôi nghe tiếng la hét phía trước nên đi đường vòng.",
-	"event.dreams.traveler.Lena.says.2": "Nếu tìm thấy khăn quàng màu xanh dương thì đó là của tôi."
+	"event.dreams.traveler.Lena.says.2": "Nếu tìm thấy khăn quàng màu xanh dương thì đó là của tôi.",
+	"tutorial.mail.title": "Kiểm tra thư",
+	"tutorial.task.mail": "Mở thư",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Gọi bốn lính gác giúp đối phó với quái vật cấp 3 trở lên ở gần."
 }

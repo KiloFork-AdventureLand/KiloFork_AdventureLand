@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy gaat uit van het hoogste personageniveau op je account. Onder niveau 30 vragen jachten om hoogstens 10 Goo te verslaan. Van niveau 30 tot en met 59 komen moeilijkere doelen en jachten met meer monsters beschikbaar. Vanaf niveau 60 gelden de normale jachten.",
 	"docs.tutorial.tracktrix.achievements": "Monsterprestaties geven attribuutbonussen zolang je Tracktrix bij je draagt. Per monster telt de hoogste score op je account, niet de som van de scores van je personages.",
 	"docs.tutorial.tracktrix.goo_rewards": "Voor Goo leveren 10 punten +5 HP op; bij 100 punten krijg je nog eens +10 HP.",
-	"docs.tutorial.tracktrix.intro": "Jagen levert meer op dan goud. Ruil bij Daisy 4 Monster Tokens voor een Tracktrix: een gids voor monsters, buit en je voortgang bij prestaties.",
+	"docs.tutorial.tracktrix.intro": "Daisy stuurt je account één Tracktrix per post. Het toont monsters, buit en je voortgang bij prestaties. Nog eentje nodig? Ruil er bij haar 4 Monster Tokens voor in.",
 	"docs.tutorial.tracktrix.manual": "Bewaar Tracktrix in je inventaris. Klik erop en kies INTERFACE! om hem te openen. Selecteer een monster om de buit en prestatiemijlpalen te bekijken. Je kunt deze les voltooien zonder een Tracktrix te bezitten.",
 	"docs.tutorial.tracktrix.goal": "Begin met een monster dat je veilig steeds opnieuw kunt verslaan, zoals Goo. Bekijk de volgende prestatiemijlpaal voordat je een jachtdoel voor de langere termijn kiest.",
 	"docs.tutorial.tracktrix.code": "Je kunt monstergegevens via CODE bekijken, ook voordat je een Tracktrix hebt. Dit voorbeeld toont de prestatiemijlpalen van Goo, niet je persoonlijke voortgang.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} verlaagt XP, goud, geluk en aanvalskracht wanneer een personage vanaf level 60 een andere server zonder PvP buiten zijn thuisserver betreedt. De basisduur is 12 minuten online speeltijd. Opnieuw verbinden met dezelfde server behoudt de resterende tijd. Terugkeren naar de opgeslagen thuisserver of van thuisserver veranderen bij Bean verwijdert het effect meteen.",
 	"docs.guide.tavern-games.deck-verification": "<b>Het kaartspel controleren.</b> Voor het delen publiceert de tafel een cryptografische toezegging. Na de hand worden de sleutel en de volledige kaartvolgorde onthuld, inclusief weggegooide kaarten.",
 	"docs.functions.poker_act.reopening": "Het veld can_raise van je plek geeft aan of je mag verhogen. Meerdere kleine all-in-verhogingen maken opnieuw verhogen mogelijk zodra hun totale toename een volledige verhoging bereikt.",
-	"docs.poker.waiting": "Als een actie mislukt met poker_saving, wacht dan even en probeer het opnieuw. Als aanmelden mislukt met poker_hand_active, wacht dan tot je hand is afgelopen of verbind opnieuw met de server waarop die wordt gespeeld."
+	"docs.poker.waiting": "Als een actie mislukt met poker_saving, wacht dan even en probeer het opnieuw. Als aanmelden mislukt met poker_hand_active, wacht dan tot je hand is afgelopen of verbind opnieuw met de server waarop die wordt gespeeld.",
+	"docs.tutorial.mail.open": "Open {com} en daarna Post. Je hoeft alleen je postvak te openen om deze les te voltooien, ook als het leeg is.",
+	"docs.tutorial.mail.take": "Open de brief van Daisy en kies {take} om Tracktrix op te halen. Elk personage op je account kan het ophalen. Je hoeft het voorwerp niet op te halen om deze les te voltooien."
 }

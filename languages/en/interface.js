@@ -1,4 +1,6 @@
 module.exports = {
+	// Tracktrix action. Cavalry is the fixed name of the four-sentry team.
+	"interface.cavalry.call": "Call in the Cavalry",
 	// Character selection destination and own-condition tooltip. server is the full realm name, e.g. Americas II. Short label.
 	"interface.selection.destination": "Server: {server}",
 	// Character hover, condition tooltip and log. server is the saved home, e.g. Americas II.

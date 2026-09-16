@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "تبدون منشغلين. لن أعترض طريقكم.",
 	"event.dreams.traveler.Lena.says.0": "هناك من يبيع شيئًا واحدًا فقط هنا. متجر غريب.",
 	"event.dreams.traveler.Lena.says.1": "سمعت صراخًا في الأمام. سلكت الطريق الأطول.",
-	"event.dreams.traveler.Lena.says.2": "إذا وجدتم وشاحًا أزرق، فهو لي."
+	"event.dreams.traveler.Lena.says.2": "إذا وجدتم وشاحًا أزرق، فهو لي.",
+	"tutorial.mail.title": "تحقق من بريدك",
+	"tutorial.task.mail": "افتح البريد",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "استدعِ أربعة حراس للمساعدة في قتال الوحوش القريبة من المستوى 3 أو أعلى."
 }

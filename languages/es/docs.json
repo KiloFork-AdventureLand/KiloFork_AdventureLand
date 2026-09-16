@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy tiene en cuenta el nivel más alto de los personajes de tu cuenta. Si es inferior a 30, las cazas piden derrotar como máximo a 10 Goo. Entre los niveles 30 y 59, se desbloquean objetivos más difíciles y cazas con más monstruos. A partir del 60, se aplican las cazas normales.",
 	"docs.tutorial.tracktrix.achievements": "Los logros de monstruos otorgan bonificaciones de atributos mientras llevas Tracktrix. Para cada monstruo cuenta la puntuación más alta de tu cuenta, no la suma de las puntuaciones de tus personajes.",
 	"docs.tutorial.tracktrix.goo_rewards": "Para Goo, 10 puntos otorgan +5 HP; 100 puntos añaden otros +10 HP.",
-	"docs.tutorial.tracktrix.intro": "Tus cacerías pueden darte algo más que oro. Cambia 4 Monster Tokens con Daisy por un Tracktrix: una guía de monstruos, botín y tu progreso en los logros.",
+	"docs.tutorial.tracktrix.intro": "Daisy envía un Tracktrix por correo a tu cuenta. Muestra monstruos, botín y tu progreso en los logros. ¿Necesitas otro? Dale 4 Monster Tokens a cambio.",
 	"docs.tutorial.tracktrix.manual": "Lleva el Tracktrix en tu inventario. Haz clic en él y elige ¡INTERFAZ! para abrirlo. Selecciona un monstruo para consultar su botín y sus hitos de logros. Puedes completar esta lección sin tener uno.",
 	"docs.tutorial.tracktrix.goal": "Empieza con un monstruo que puedas cazar repetidamente sin peligro, como Goo. Consulta su siguiente hito de logro antes de elegir un objetivo de caza a más largo plazo.",
 	"docs.tutorial.tracktrix.code": "Puedes consultar datos de monstruos mediante CODE incluso antes de tener un Tracktrix. Este ejemplo muestra los hitos de logros de Goo; no muestra tu progreso personal.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} reduce XP, oro, suerte y potencia de ataque cuando un personaje de nivel 60 o superior entra en otro servidor sin PvP fuera de su hogar. La duración base es de 12 minutos de juego en línea. Reconectarse a ese servidor conserva el tiempo restante. Volver al hogar guardado o cambiarlo con Bean elimina el efecto de inmediato.",
 	"docs.guide.tavern-games.deck-verification": "<b>Verificación de la baraja.</b> Antes de repartir, la mesa publica un compromiso criptográfico. Tras la mano, revela la clave y el orden completo de la baraja, incluidas las cartas retiradas.",
 	"docs.functions.poker_act.reopening": "El campo can_raise de tu asiento indica si puedes subir. Varias subidas all-in incompletas permiten volver a subir cuando su incremento acumulado alcanza una subida completa.",
-	"docs.poker.waiting": "Si una acción falla con poker_saving, espera un momento y vuelve a intentarlo. Si el inicio de sesión falla con poker_hand_active, espera a que termine tu mano o vuelve a conectarte al servidor donde se está jugando."
+	"docs.poker.waiting": "Si una acción falla con poker_saving, espera un momento y vuelve a intentarlo. Si el inicio de sesión falla con poker_hand_active, espera a que termine tu mano o vuelve a conectarte al servidor donde se está jugando.",
+	"docs.tutorial.mail.open": "Abre {com} y después Correo. Basta con abrir el buzón para completar esta lección, aunque esté vacío.",
+	"docs.tutorial.mail.take": "Abre la carta de Daisy y pulsa {take} para recoger Tracktrix. Puede recogerlo cualquier personaje de tu cuenta. No es necesario recogerlo para completar esta lección."
 }

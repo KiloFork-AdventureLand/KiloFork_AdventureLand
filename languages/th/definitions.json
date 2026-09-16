@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "พวกเจ้าดูยุ่งอยู่ ข้าจะไม่ขวางทาง",
 	"event.dreams.traveler.Lena.says.0": "ข้างล่างนี่มีคนขายของแค่อย่างเดียว ร้านแปลกจริง",
 	"event.dreams.traveler.Lena.says.1": "ข้าได้ยินเสียงตะโกนข้างหน้า เลยอ้อมมา",
-	"event.dreams.traveler.Lena.says.2": "ถ้าเจอผ้าพันคอสีฟ้า นั่นของข้า"
+	"event.dreams.traveler.Lena.says.2": "ถ้าเจอผ้าพันคอสีฟ้า นั่นของข้า",
+	"tutorial.mail.title": "ตรวจจดหมายของคุณ",
+	"tutorial.task.mail": "เปิดจดหมาย",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "เรียกทหารยามสี่คนมาช่วยต่อสู้กับมอนสเตอร์เลเวล 3 ขึ้นไปที่อยู่ใกล้เคียง"
 }

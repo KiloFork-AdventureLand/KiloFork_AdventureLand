@@ -2190,5 +2190,9 @@
 	"event.dreams.traveler.Bram.says.2": "Kalian tampak sibuk. Aku tidak akan menghalangi.",
 	"event.dreams.traveler.Lena.says.0": "Ada orang di bawah sini yang hanya menjual satu barang. Toko aneh.",
 	"event.dreams.traveler.Lena.says.1": "Aku mendengar teriakan di depan. Jadi aku mengambil jalan memutar.",
-	"event.dreams.traveler.Lena.says.2": "Kalau menemukan syal biru, itu milikku."
+	"event.dreams.traveler.Lena.says.2": "Kalau menemukan syal biru, itu milikku.",
+	"tutorial.mail.title": "Periksa suratmu",
+	"tutorial.task.mail": "Buka surat",
+	"directory.guide.cavalry.title": "Cavalry",
+	"interaction.cavalry.summary": "Panggil empat penjaga untuk membantu melawan monster level 3 ke atas di dekatmu."
 }

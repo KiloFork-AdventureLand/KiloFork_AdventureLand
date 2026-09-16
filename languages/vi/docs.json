@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisy dựa vào cấp nhân vật cao nhất trong tài khoản của bạn. Nếu dưới cấp 30, nhiệm vụ săn chỉ yêu cầu hạ tối đa 10 Goo. Từ cấp 30 đến 59, các mục tiêu khó hơn và nhiệm vụ săn nhiều quái hơn dần được mở. Từ cấp 60, nhiệm vụ săn trở lại bình thường.",
 	"docs.tutorial.tracktrix.achievements": "Thành tựu quái vật tăng chỉ số khi bạn mang theo Tracktrix. Với mỗi quái vật, hệ thống tính điểm cao nhất trong tài khoản, không cộng điểm của tất cả nhân vật.",
 	"docs.tutorial.tracktrix.goo_rewards": "Với Goo, 10 điểm cho +5 HP; 100 điểm cộng thêm +10 HP nữa.",
-	"docs.tutorial.tracktrix.intro": "Đi săn có thể mang lại nhiều hơn vàng. Đổi 4 Monster Token với Daisy để lấy Tracktrix — cẩm nang về quái vật, vật phẩm rơi ra và tiến độ thành tựu của bạn.",
+	"docs.tutorial.tracktrix.intro": "Daisy gửi một Tracktrix qua thư cho tài khoản của bạn. Nó cho biết thông tin về quái vật, vật phẩm rơi ra và tiến độ thành tựu của bạn. Cần thêm một cái? Đổi 4 Monster Token với cô ấy.",
 	"docs.tutorial.tracktrix.manual": "Giữ Tracktrix trong hành trang. Nhấp vào nó rồi chọn GIAO DIỆN! để mở. Chọn một quái vật để xem vật phẩm rơi ra và các mốc thành tựu của nó. Bạn có thể hoàn thành bài học này mà không cần sở hữu Tracktrix.",
 	"docs.tutorial.tracktrix.goal": "Hãy bắt đầu với quái vật bạn có thể săn lặp lại một cách an toàn, chẳng hạn Goo. Kiểm tra mốc thành tựu tiếp theo trước khi chọn mục tiêu săn lâu dài.",
 	"docs.tutorial.tracktrix.code": "Bạn có thể xem dữ liệu quái vật qua CODE ngay cả khi chưa có Tracktrix. Ví dụ này hiển thị các mốc thành tựu của Goo, không hiển thị tiến độ cá nhân của bạn.",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "{condition} làm giảm XP, vàng, may mắn và sức tấn công khi nhân vật từ cấp 60 vào một máy chủ khác không có PvP và không phải nhà. Thời lượng cơ bản là 12 phút chơi trực tuyến. Kết nối lại cùng máy chủ vẫn giữ thời gian còn lại. Trở về nhà đã lưu hoặc đổi nhà với Bean sẽ xóa hiệu ứng ngay lập tức.",
 	"docs.guide.tavern-games.deck-verification": "<b>Kiểm chứng bộ bài.</b> Trước khi chia bài, bàn công bố một cam kết mật mã. Sau ván, bàn tiết lộ khóa và toàn bộ thứ tự bộ bài, kể cả những lá đã bỏ.",
 	"docs.functions.poker_act.reopening": "Trường can_raise của ghế cho biết bạn có được tố thêm hay không. Nhiều lần tố tất tay chưa đủ mức sẽ mở lại quyền tố khi tổng mức tăng đạt một lần tố đủ mức.",
-	"docs.poker.waiting": "Nếu thao tác thất bại với poker_saving, hãy chờ một lát rồi thử lại. Nếu đăng nhập thất bại với poker_hand_active, hãy chờ ván của bạn kết thúc hoặc kết nối lại máy chủ đang diễn ra ván đó."
+	"docs.poker.waiting": "Nếu thao tác thất bại với poker_saving, hãy chờ một lát rồi thử lại. Nếu đăng nhập thất bại với poker_hand_active, hãy chờ ván của bạn kết thúc hoặc kết nối lại máy chủ đang diễn ra ván đó.",
+	"docs.tutorial.mail.open": "Mở {com}, rồi chọn Thư. Chỉ cần mở hộp thư là hoàn thành bài học này, kể cả khi hộp thư trống.",
+	"docs.tutorial.mail.take": "Mở thư của Daisy và chọn {take} để nhận Tracktrix. Bất kỳ nhân vật nào trong tài khoản của bạn cũng có thể nhận. Không cần nhận vật phẩm để hoàn thành bài học này."
 }

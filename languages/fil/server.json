@@ -391,5 +391,7 @@
 	"server.cave.helpers_limit": "May dalawa ka nang katulong.",
 	"server.cave.gold_limit": "Lumitaw na ang lahat ng ginto ng kuweba para sa pagbisitang ito: {amount}. Makakahanap ka pa rin ng mga item at makakakuha ng XP.",
 	"server.cave.amber_limit": "Lumitaw na ang lahat ng {amount} Cave Amber para sa pagbisitang ito. Makakahanap ka pa rin ng mga item at makakakuha ng XP.",
-	"server.game_error.poker_hand_active": "Tuloy pa ang hand mo sa poker sa ibang server. Hintaying matapos ito o kumonekta ulit doon."
+	"server.game_error.poker_hand_active": "Tuloy pa ang hand mo sa poker sa ibang server. Hintaying matapos ito o kumonekta ulit doon.",
+	"server.tracktrix.mail_subject": "Ang iyong Tracktrix",
+	"server.tracktrix.mail_body": "Kaunting tulong para sa susunod mong pangangaso. Dalhin mo ang Tracktrix na ito!"
 }

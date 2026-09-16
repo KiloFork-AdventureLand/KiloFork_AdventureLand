@@ -1,5 +1,13 @@
 // English display text from loaded game definitions. Canonical G is not localized.
 module.exports = {
+	// Service directory and MCP summary; monster level is at least 3.
+	"interaction.cavalry.summary": "Call four sentries to help with nearby level 3+ monsters.",
+	// Fixed name of the four-sentry team.
+	"directory.guide.cavalry.title": "Cavalry",
+	// Tutorial task: open the in-game mailbox, even if empty; no item collection required.
+	"tutorial.task.mail": "Open Mail",
+	// Tutorial title before Monster Hunts; mail means the in-game mailbox.
+	"tutorial.mail.title": "Check Your Mail",
 	// Item tooltip prose. Preserve the item name when referenced; concise in-world voice.
 	"item.rimeglass.explanation": "Cold to the touch. Warmth will not melt it.",
 	// Item tooltip prose. Preserve the item name when referenced; concise in-world voice.

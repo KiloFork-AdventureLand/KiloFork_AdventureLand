@@ -1,5 +1,9 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Mail lesson. {take} is the existing localized TAKE button. The one gift is shared by all characters on an account; claiming it is optional for tutorial completion. Keep Daisy and Tracktrix.
+	"docs.tutorial.mail.take": "Open Daisy's letter and choose {take} to collect Tracktrix. Any character on your account can take it. Collecting it is optional for this lesson.",
+	// Mail lesson. {com} is the localized COM menu label; Mail is its existing mailbox tab. Opening an empty mailbox counts.
+	"docs.tutorial.mail.open": "Open {com}, then Mail. Simply opening your mailbox completes this lesson, even if it is empty.",
 	// Home guide: check destination before entering. Orange card borders indicate a different home; hover shows the saved home. Online characters are observed on their current server.
 	"docs.guide.events-and-home.choosing-server": "Before choosing a character, check the server above the character list. Use the Servers list to change it. An orange character border means this is not their home server. Hover over the card to see their home. Signing in prefers an available saved home unless you chose a server yourself or opened a server link. Characters already running open on their current server.",
 	// Home guide: home belongs to each character, assigned on first entry, not changed by visiting.
@@ -307,8 +311,8 @@ module.exports = {
 	// Monster achievement stat bonuses require carrying Tracktrix; these are score thresholds, not raw kill counts.
 	"docs.tutorial.tracktrix.achievements": "Monster achievements grant stat bonuses while you carry Tracktrix. Your account's highest score for each monster counts—not the sum of your characters' scores.",
 	"docs.tutorial.tracktrix.goo_rewards": "For Goo, 10 points grant +5 HP; 100 points add another +10 HP.",
-	// Tracktrix tutorial: acquisition, inventory action, a first goal and the CODE example. Preserve proper names and CODE identifiers.
-	"docs.tutorial.tracktrix.intro": "Your hunts can earn more than gold. Trade 4 Monster Tokens with Daisy for a Tracktrix—a guide to monsters, drops, and your achievement progress.",
+	// Tracktrix tutorial and guide: one mailed gift per account, including existing accounts; further copies cost 4 Monster Tokens at Daisy. Preserve proper names.
+	"docs.tutorial.tracktrix.intro": "Daisy sends your account one Tracktrix by mail. It reveals monsters, drops, and your achievement progress. Need another? Trade her 4 Monster Tokens.",
 	"docs.tutorial.tracktrix.manual": "Keep Tracktrix in your inventory. Click it, then choose INTERFACE! to open it. Select a monster to inspect its drops and achievement milestones. You can finish this lesson without owning one.",
 	"docs.tutorial.tracktrix.goal": "Start with a monster you can farm safely, such as Goo. Check its next achievement milestone before choosing a longer farming goal.",
 	"docs.tutorial.tracktrix.code": "You can inspect monster data through CODE even before you own a Tracktrix. This example shows Goo's achievement milestones; it does not show your personal progress.",

@@ -12,7 +12,7 @@
 	"docs.guide.monster-hunts.beginner-scaling": "Daisyはアカウント内で最も高いキャラクターレベルを基準にします。30未満なら、討伐対象は最大10体のGooです。30～59では、より手強い相手や討伐数の多い依頼が順に解放されます。60からは通常の討伐依頼になります。",
 	"docs.tutorial.tracktrix.achievements": "Tracktrixを持っている間は、モンスターの実績による能力値ボーナスが得られます。モンスターごとにアカウント内の最高スコアが使われ、各キャラクターのスコアは合算されません。",
 	"docs.tutorial.tracktrix.goo_rewards": "Gooでは10ポイントでHPが+5、100ポイントでさらにHPが+10されます。",
-	"docs.tutorial.tracktrix.intro": "狩りで得られるのはゴールドだけではありません。DaisyにMonster Tokenを4個渡すと、モンスターやドロップ、実績の進捗を確認できるTracktrixと交換できます。",
+	"docs.tutorial.tracktrix.intro": "Daisyがアカウント宛てにTracktrixを1個、メールで送ってくれます。モンスター、ドロップ、実績の進捗を確認できる道具です。もう1個必要なら、DaisyにMonster Tokenを4個渡して交換しましょう。",
 	"docs.tutorial.tracktrix.manual": "Tracktrixをインベントリに入れておきましょう。クリックして「画面を開く！」を選ぶと開けます。モンスターを選ぶと、ドロップや実績の達成条件を確認できます。Tracktrixを持っていなくても、このレッスンは完了できます。",
 	"docs.tutorial.tracktrix.goal": "まずはGooなど、安全に繰り返し倒せるモンスターを選びましょう。長期的な狩りの目標を決める前に、次の実績の達成条件を確認してください。",
 	"docs.tutorial.tracktrix.code": "Tracktrixを手に入れる前でも、CODEでモンスターのデータを確認できます。この例ではGooの実績の達成条件を表示します。あなた自身の進捗は表示しません。",
@@ -2637,5 +2637,7 @@
 	"docs.guide.events-and-home.hop-sickness": "レベル60以上のキャラクターがホーム以外の別の非PvPサーバーに入ると、{condition}によりXP、ゴールド、運、攻撃力が低下します。基本持続時間はオンラインでのプレイ時間で12分です。同じサーバーに再接続しても残り時間は維持されます。保存されたホームに戻るか、Beanにホームを変更してもらうと、すぐに解除されます。",
 	"docs.guide.tavern-games.deck-verification": "<b>デッキの検証。</b> 配る前に、テーブルはデッキを確定したことを示す暗号学的コミットメントを公開します。ハンド終了後には鍵とデッキの全順序が公開され、フォールドしたカードも確認できます。",
 	"docs.functions.poker_act.reopening": "自分の席のcan_raiseでレイズ可能か確認できます。最小レイズに満たないオールインでも、複数回の増額の合計がフルレイズに達すると、再びレイズできるようになります。",
-	"docs.poker.waiting": "操作が poker_saving で失敗したら、少し待ってから再試行してください。ログインが poker_hand_active で失敗したら、ハンドの終了を待つか、進行中のサーバーに再接続してください。"
+	"docs.poker.waiting": "操作が poker_saving で失敗したら、少し待ってから再試行してください。ログインが poker_hand_active で失敗したら、ハンドの終了を待つか、進行中のサーバーに再接続してください。",
+	"docs.tutorial.mail.open": "{com}を開き、メールを選びましょう。受信箱が空でも、開くだけでこのレッスンは完了します。",
+	"docs.tutorial.mail.take": "Daisyの手紙を開き、{take}を選ぶとTracktrixを受け取れます。同じアカウントのどのキャラクターでも受け取れます。このレッスンの完了に受け取りは必要ありません。"
 }
