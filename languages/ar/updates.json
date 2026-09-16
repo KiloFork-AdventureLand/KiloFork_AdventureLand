@@ -755,5 +755,6 @@
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "صار ترتيب اللاعبين بحسب حالة الاتصال والأقدمية",
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "تحسين في اللعبة يهدف إلى حل مشكلات التجمهر والوحوش التي لا تختفي.",
 	"update.30_10_21.new_slenderman_dynamics": "ديناميكية جديدة لـ Slenderman",
-	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "لم يعد Stomp يخترق المناعة ضد التعاويذ؛ وبدلًا من ذلك تحمل المهارات التي تخترقها السمة .pierces_immunity"
+	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "لم يعد Stomp يخترق المناعة ضد التعاويذ؛ وبدلًا من ذلك تحمل المهارات التي تخترقها السمة .pierces_immunity",
+	"update.14_09_26.cave": "ادخل Cave of Many Dreams مع مجموعتك. استكشف طوابق متغيرة، واكسب 10 أضعاف XP من الأعداء، وأنفق ذهب الكهف لدى التجار. اعثر على فؤوس ومناجل، أو تاجر بـCave Amber لصنع معدات نادرة. الموت في الداخل لا يفقدك XP أو ذهبًا."
 }

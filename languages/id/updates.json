@@ -755,5 +755,6 @@
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "Pemain kini diurutkan berdasarkan status daring dan lamanya bermain",
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Peningkatan permainan yang ditujukan untuk mengatasi masalah penumpukan dan monster yang tidak menghilang.",
 	"update.30_10_21.new_slenderman_dynamics": "Mekanik Slenderman yang baru",
-	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp kini tidak menembus kekebalan sihir; sebagai gantinya, keahlian yang menembus kekebalan sihir memiliki tanda .pierces_immunity"
+	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp kini tidak menembus kekebalan sihir; sebagai gantinya, keahlian yang menembus kekebalan sihir memiliki tanda .pierces_immunity",
+	"update.14_09_26.cave": "Masuki Cave of Many Dreams bersama kelompokmu. Jelajahi lantai yang berubah, dapatkan 10× XP dari musuh, dan belanjakan emas gua di pedagang. Temukan kapak dan sabit, atau perdagangkan Cave Amber untuk membuat perlengkapan langka. Mati di dalam tidak mengurangi XP atau emas."
 }

@@ -39,4 +39,5 @@
 .cave-stairs-message .cave-goal { color:#6B506E; }
 .cave-stairs-message .cave-goal-done { color:#487448; }
 .cave-awarded { animation:cave-award 1s steps(3,end); }
+.cave-choice-hidden { animation:cave-award 1.6s steps(3,end) infinite; }
 @keyframes cave-award { 0%,40% { background:#6A4937; color:#FFF0B9; } 20%,60% { background:#352738; } 100% { background:transparent; } }

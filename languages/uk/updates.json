@@ -755,5 +755,6 @@
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "Гравців тепер відсортовано за статусом онлайн і давністю",
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Покращення гри, що має виправити проблеми зі скупченням монстрів і тими, що не зникають.",
 	"update.30_10_21.new_slenderman_dynamics": "Нова механіка Slenderman",
-	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp більше не пробиває імунітет до заклять; натомість вміння, що пробивають його, мають позначку .pierces_immunity"
+	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp більше не пробиває імунітет до заклять; натомість вміння, що пробивають його, мають позначку .pierces_immunity",
+	"update.14_09_26.cave": "Заходьте до Cave of Many Dreams зі своєю групою. Досліджуйте мінливі поверхи, отримуйте 10× XP за ворогів і витрачайте печерне золото в торговців. Знаходьте сокири й коси або торгуйте Cave Amber для створення рідкісного спорядження. Смерть усередині не забирає XP чи золото."
 }

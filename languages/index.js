@@ -179,6 +179,7 @@ var browser_domains = {
 	// Socket messages translate in the browser; HTTP responses and mail translate on the server.
 	server: [
 		"server.admin",
+		"server.cave",
 		"server.chat_log",
 		"server.duel",
 		"server.floating",

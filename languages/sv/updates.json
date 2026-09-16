@@ -755,5 +755,6 @@
 	"update.30_08_20.cross_server_and_offline_pm_s": "Privata meddelanden mellan servrar och offline",
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "Spelare sorteras nu efter onlinestatus och ålder",
 	"update.30_10_21.new_slenderman_dynamics": "Ny mekanik för Slenderman",
-	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp tränger inte längre igenom besvärjelseimmunitet; i stället har de färdigheter som gör det flaggan .pierces_immunity"
+	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp tränger inte längre igenom besvärjelseimmunitet; i stället har de färdigheter som gör det flaggan .pierces_immunity",
+	"update.14_09_26.cave": "Gå in i Cave of Many Dreams med din grupp. Utforska föränderliga våningar, få 10× XP från fiender och spendera grottguld hos handlare. Hitta yxor och liar eller handla med Cave Amber för att tillverka sällsynt utrustning. Att dö där inne kostar varken XP eller guld."
 }

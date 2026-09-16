@@ -755,5 +755,6 @@
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "Οι παίκτες ταξινομούνται πλέον κατά κατάσταση σύνδεσης και παλαιότητα",
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Μια βελτίωση που στοχεύει να λύσει τα προβλήματα με τον συνωστισμό και με τα τέρατα που δεν εξαφανίζονται.",
 	"update.30_10_21.new_slenderman_dynamics": "Νέα δυναμική του Slenderman",
-	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Το Stomp δεν διαπερνά πλέον την ανοσία στα ξόρκια· αντίθετα, οι δεξιότητες που τη διαπερνούν έχουν τη σήμανση .pierces_immunity"
+	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Το Stomp δεν διαπερνά πλέον την ανοσία στα ξόρκια· αντίθετα, οι δεξιότητες που τη διαπερνούν έχουν τη σήμανση .pierces_immunity",
+	"update.14_09_26.cave": "Μπείτε στην Cave of Many Dreams με την ομάδα σας. Εξερευνήστε μεταβαλλόμενους ορόφους, κερδίστε 10× XP από εχθρούς και ξοδέψτε χρυσό σπηλιάς σε εμπόρους. Βρείτε τσεκούρια και δρεπάνια ή εμπορευτείτε Cave Amber για να κατασκευάσετε σπάνιο εξοπλισμό. Ο θάνατος μέσα δεν κοστίζει XP ή χρυσό."
 }

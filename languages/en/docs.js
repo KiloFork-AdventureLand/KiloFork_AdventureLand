@@ -6046,8 +6046,8 @@ Object.assign(module.exports, {
   "docs.cave.camp_rewards": "Clearing monster packs",
   "docs.cave.camp_source": "Each cleared pack in a monster camp gives one reward from this table, plus a chest with 1,500 cave gold and 1 Amber. Each camp has three packs.",
   "docs.cave.keeper_rewards": "Defeating a floor keeper",
-  "docs.cave.keeper_source": "Defeat Lockbreaker, the Sentinel or the Mothkeeper and their guards. Each keeper gives one reward from this table and a chest with 4,000 cave gold.",
-  "docs.cave.finish_source": "Finish all three objectives on floor 3. The party receives one extra reward from this table and a chest with 10,000 cave gold and 5 Amber. This is in addition to the Mothkeeper’s reward."
+  "docs.cave.keeper_source": "Defeat Lockbreaker, Counterweight Sentinel or Moth Keeper and their guards. Each keeper gives one reward from this table and a chest with 4,000 cave gold.",
+  "docs.cave.finish_source": "Finish all three objectives on floor 3. The party receives one extra reward from this table and a chest with 10,000 cave gold and 5 Amber. This is in addition to the Moth Keeper’s reward."
 });
 
 // Cave equipment: ordinary shops, Cole's recipes, fixed completion bonuses and the exact crafting CODE example. Item and NPC names stay unchanged.
@@ -6062,3 +6062,94 @@ Object.assign(module.exports, {
   // auto_craft example requirements. Amber and Bee Wings each need their own single stack; Shoes must be unupgraded.
   "docs.cave.boots_code": "For Mothstep Boots, stand near Cole with 6 Cave Amber, unupgraded Shoes, 2 Bee Wings and 12,000 gold. Keep the Amber in one stack and the Bee Wings in another."
 });
+
+// Single-line prose comments inside the cave guide's executable CODE examples. Do not include the // prefix or a newline.
+module.exports["docs.cave.routine_comment"] = "Your usual fighting or farming code goes here.";
+module.exports["docs.cave.loot_comment"] = "Open nearby cave chests. Run this in your normal loot loop.";
+
+// Cave story page footer. Keep this short.
+module.exports["docs.cave.comic.page1.title"] = "The door opens";
+
+// Cave story image description. Mainland, Senna, Noll and Cave Amber are fixed names.
+module.exports["docs.cave.comic.page1.alt"] = "Three travelers meet a carved stone keeper on Mainland. It opens a doorway and gives them twenty-four minutes.";
+
+// Cave story page footer. Keep this short.
+module.exports["docs.cave.comic.page2.title"] = "Help on the way down";
+
+// Cave story image description. Mainland, Senna, Noll and Cave Amber are fixed names.
+module.exports["docs.cave.comic.page2.alt"] = "The party saves Senna from two rats. She gives them Cave Amber and points them toward the stairs.";
+
+// Cave story page footer. Keep this short.
+module.exports["docs.cave.comic.page3.title"] = "Do not pull";
+
+// Cave story image description. Mainland, Senna, Noll and Cave Amber are fixed names.
+module.exports["docs.cave.comic.page3.alt"] = "Noll offers a game of dice. The ranger pulls the marked rope beside his table, lifting the gates of two wolf pens.";
+
+// Cave story page footer. Keep this short.
+module.exports["docs.cave.comic.page4.title"] = "Run";
+
+// Cave story image description. Mainland, Senna, Noll and Cave Amber are fixed names.
+module.exports["docs.cave.comic.page4.alt"] = "Six level-100 wolves surround the party. Senna, whom the party saved earlier, directs them to the open exit.";
+
+// Cave story page footer. Keep this short.
+module.exports["docs.cave.comic.page5.title"] = "Outside";
+
+// Cave story image description. Mainland, Senna, Noll and Cave Amber are fixed names.
+module.exports["docs.cave.comic.page5.alt"] = "With one second left, all three travelers reach the door. Outside, the stone keeper closes its eyes and the party keeps its amber.";
+
+// Cave story speech by STONE KEEPER. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page1.speech1"] = "What are you looking for?";
+
+// Cave story speech by WARRIOR. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page1.speech2"] = "A way to get stronger.";
+
+// Cave story speech by STONE KEEPER. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page1.speech3"] = "These rooms come from people's dreams. Twenty-four minutes. Then this door closes.";
+
+// Cave story speech by PRIEST. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page1.speech4"] = "Stay together.";
+
+// Cave story speech by SENNA. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page2.speech1"] = "Help! I can't get past them!";
+
+// Cave story speech by WARRIOR. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page2.speech2"] = "We're coming.";
+
+// Cave story speech by SENNA. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page2.speech3"] = "Thank you. Take this amber. The stairs are behind that pillar.";
+
+// Cave story speech by NOLL. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page3.speech1"] = "One roll. You could win my die.";
+
+// Cave story speech by RANGER. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page3.speech2"] = "What's this for?";
+
+// Cave story speech by NOLL. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page3.speech3"] = "Don't touch it.";
+
+// Cave story speech by NOLL. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page3.speech4"] = "That opens the wolf pens!";
+
+// Cave story speech by PRIEST. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page4.speech1"] = "We can't fight these. Run!";
+
+// Cave story speech by SENNA. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page4.speech2"] = "This way! The door is still open!";
+
+// Cave story speech by WARRIOR. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page5.speech1"] = "Keep moving!";
+
+// Cave story speech by RANGER. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page5.speech2"] = "We still got the amber.";
+
+// Cave story speech by PRIEST. Compact native pixel balloon. Amber is shorthand for Cave Amber; Senna and Noll are fixed names.
+module.exports["docs.cave.comic.page5.speech3"] = "Next time, leave the rope alone.";
+
+// Generic role of the carved stone face in the cave comic, not a named NPC. Short speaker label.
+module.exports["docs.cave.comic.keeper"] = "Stone Keeper";
+
+// Short warning on the rope sign in the cave comic.
+module.exports["docs.cave.comic.sign"] = "Do not pull";
+
+// Cave comic sound lettering when the gates lift. Short metal clanking sound.
+module.exports["docs.cave.comic.clank"] = "Clank!";

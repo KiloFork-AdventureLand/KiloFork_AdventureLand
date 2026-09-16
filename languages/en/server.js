@@ -648,3 +648,180 @@ module.exports = {
 	// Compact parenthesized failure marker sent back by the game server when a cross-server private message cannot be delivered because the target account was not found. Used in the existing private-chat display and floating PM text. Preserve parentheses, use a concise native marker for failed delivery, and never translate player-authored messages. The raw CODE PM event still receives the original (FAILED).
 	"server.pm.delivery_failed": "(FAILED)",
 };
+
+// Cave dialogue, voting and travel notices. Canonical packets keep English for CODE.
+// Fallback for a missing named cave NPC; may be nested in a sentence. Preserve Amber as the item name.
+module.exports["server.cave.traveler"] = "the traveler";
+// Fallback for a missing rival name; may be nested in a sentence. Preserve Amber as the item name.
+module.exports["server.cave.rival"] = "the other fighter";
+// Resolved vote with no winning reply. Preserve Amber as the item name.
+module.exports["server.cave.no_reply"] = "No reply was chosen.";
+// Vote button. amber is the total shared-purse cost for all fallen players on this floor. Preserve Amber as the item name.
+module.exports["server.cave.revive_here"] = "Revive here — {amber} Amber total";
+// Unavailable option: required borrowed tool is missing. Preserve Amber as the item name.
+module.exports["server.cave.need_tool"] = "You need a pry bar.";
+// Unavailable option: shared cave gold or Amber cannot cover the total cost. Preserve Amber as the item name.
+module.exports["server.cave.purse_short"] = "Not enough in the shared purse.";
+// Vote fallback: subtract 45 seconds from the cave run. Preserve Amber as the item name.
+module.exports["server.cave.fallback_time"] = "Wait and lose 45 seconds";
+// Vote fallback: revive at the floor entrance for free. Preserve Amber as the item name.
+module.exports["server.cave.fallback_landing"] = "Return to the doorway";
+// Vote fallback: do not join the NPC fight. Preserve Amber as the item name.
+module.exports["server.cave.fallback_fight"] = "Leave them to fight";
+// Room objective and directions label. Preserve Amber as the item name.
+module.exports["server.cave.guard_camp"] = "Guard camp";
+// Title of Nera’s revival conversation. Preserve Amber as the item name.
+module.exports["server.cave.revival_title"] = "A Hand in the Dark";
+// Nera’s revival dialogue. In-place revival costs 1 Amber per fallen player; doorway revival is free. Preserve Amber as the item name.
+module.exports["server.cave.revival_text"] = "I can revive you here for 1 Amber each from the shared purse. Or I can bring you back at this floor’s doorway for free. You have lost no gold or experience.";
+// Free revival vote button; returns fallen characters to this floor entrance. Preserve Amber as the item name.
+module.exports["server.cave.revival_landing"] = "Revive at the doorway — free";
+// Revival result; amber is the total actually deducted from the shared purse. Preserve Amber as the item name.
+module.exports["server.cave.revive_paid"] = "Back on your feet. The shared purse paid {amber} Amber.";
+// Free revival result. Preserve Amber as the item name.
+module.exports["server.cave.revive_free"] = "You're back at the doorway. No Amber spent.";
+// Vote result when the required shared tool is no longer available. Preserve Amber as the item name.
+module.exports["server.cave.need_borrowed_tool"] = "You need the borrowed pry bar for that.";
+// Vote result when shared gold or Amber no longer covers the cost. Preserve Amber as the item name.
+module.exports["server.cave.insufficient_purse"] = "There is not enough in the cave purse.";
+// Floor completion announcement. Preserve Amber as the item name.
+module.exports["server.cave.stairs_open"] = "The stairs are open. You can go down.";
+// Final floor completion announcement. Preserve Amber as the item name.
+module.exports["server.cave.last_seal"] = "The last seal is open. Your reward is ready.";
+// The party declined an encounter offer. Preserve Amber as the item name.
+module.exports["server.cave.decline"] = "You turn down the offer and move on.";
+// Encounter result; seconds is time removed from the run clock. Preserve Amber as the item name.
+module.exports["server.cave.time_loss"] = "You get through, but lose {seconds} seconds of cave time.";
+// A third helper is replaced with 2 Amber. Preserve Amber as the item name.
+module.exports["server.cave.helpers_full"] = "You already have two helpers. Take 2 Amber instead.";
+// Base revival option before its current total cost is shown. Preserve Amber as the item name.
+module.exports["server.cave.revival_each"] = "Revive here — 1 Amber each";
+
+// Cave notice. Guard-camp pass accepted.
+module.exports["server.cave.pass_accepted"] = "The guards accept the pass. Keep walking.";
+
+// Cave notice. Preserve Dark Mage and the fixed damage.
+module.exports["server.cave.darkmage_warning"] = "Dark Mage: My spell deals 100,000 damage. Only a reflected spell can kill me.";
+
+// Cave notice. Named recipient; item is a proper item name; slot is one-based.
+module.exports["server.cave.reward_inventory"] = "{name} gets {quantity} × {item} — inventory slot {slot}.";
+
+// Cave notice. Named recipient; item is a proper item name. Preserve Dorr.
+module.exports["server.cave.reward_mail"] = "{name} gets {quantity} × {item} — Dorr is sending it by mail.";
+
+// Cave notice. Party declined to help the named victim.
+module.exports["server.cave.rescue_watch"] = "You stand back. The wolves keep attacking {npc}.";
+
+// Cave notice. Named victim needs protection.
+module.exports["server.cave.rescue_protect"] = "Protect {npc}. Kill the wolves before they kill {npc}.";
+
+// Cave notice. Both NPCs attack the party.
+module.exports["server.cave.conflict_both"] = "Both fighters turn against you.";
+
+// Cave notice. Two distinct NPC names; party does not join.
+module.exports["server.cave.conflict_neither"] = "You stay out of it. {npc} and {rival} fight each other.";
+
+// Cave notice. Keep ally and enemy roles distinct.
+module.exports["server.cave.conflict_side"] = "You side with {ally}. Defeat {enemy}.";
+
+// Cave notice. The two NPCs stop fighting.
+module.exports["server.cave.conflict_peace"] = "They put their weapons away and split the money.";
+
+// Cave notice. Result of a single six-sided die.
+module.exports["server.cave.die_face"] = "The die shows {face}.";
+
+// Cave notice. The die roll did not win.
+module.exports["server.cave.die_loss"] = "No win this time.";
+
+// Cave notice. No hunt enemies could spawn, so the hunt is cancelled.
+module.exports["server.cave.hunt_empty"] = "There are no more tracks here. The hunt is off.";
+
+// Cave notice. count is the actual spawned pack size.
+module.exports["server.cave.hunt_start"] = "The hunt has started. Kill all {count} marked monsters before the hunt timer runs out. Your progress is below the cave clock.";
+
+// Cave notice. Borrowed shared tool, not an inventory item.
+module.exports["server.cave.supply_tool"] = "Added to the party’s cave supplies: a pry bar. You can use it at a later encounter.";
+
+// Cave notice. Borrowed shared lamp, not an inventory item.
+module.exports["server.cave.supply_lamp"] = "Added to the party’s cave supplies: a lamp. You can use it at a later encounter.";
+
+// Cave notice. Message automatically persuades a guard at a later camp.
+module.exports["server.cave.supply_message"] = "Added to the party’s cave supplies: a message for a guard. You can use it at a later encounter.";
+
+// Cave notice. Decoy automatically distracts the next engaged patrol.
+module.exports["server.cave.supply_decoy"] = "Added to the party’s cave supplies: a patrol distraction. You can use it at a later encounter.";
+
+// Cave notice. Preserve Amber.
+module.exports["server.cave.moths_chest"] = "The moths lead you to an Amber chest.";
+
+// Cave notice. Nonlethal practice fight; seconds is its deadline duration.
+module.exports["server.cave.practice_start"] = "The practice fight has started. Beat {npc} in {seconds} seconds. Neither side can land a killing blow.";
+
+// Cave notice. The revealed destinations are displayed in the existing Directions list. Translate Directions and CAVE INFO to match the cave UI. The packet retains the old English list of names for CODE.
+module.exports["server.cave.reveal_rooms"] = "I marked {count} destinations. Use Directions in CAVE INFO to get there.";
+
+// Cave notice. No new room can be revealed.
+module.exports["server.cave.reveal_none"] = "You have already checked the rooms I know about.";
+
+// Cave notice. Named merchant explains the single item.
+module.exports["server.cave.story_merchant"] = "{npc}: I bought a dusty shop's last crate. This was the only thing inside. Take a look if you like.";
+
+// Cave notice. Preserve Loaded Die. One reroll per visit, only after losing.
+module.exports["server.cave.story_dice"] = "{npc}: A Loaded Die gives you one second roll per visit when your first roll loses. Wear it before you play.";
+
+// Cave notice. Preserve Last Word. Describes the rogue’s equipped weapons.
+module.exports["server.cave.story_dagger"] = "{npc}: Look for a hooked blade with an ivory edge and a red spine. That's Last Word. He carries it beside a plain dagger.";
+
+// Cave notice. Cave gold stays in the cave; unspent Amber is settled when someone leaves. Preserve Amber.
+module.exports["server.cave.story_send"] = "{npc}: Spend cave gold before you leave. The Amber you keep goes to the party when someone leaves.";
+
+// Cave notice. Named traveler gives general cave advice.
+module.exports["server.cave.story_stairs"] = "{npc}: The stairs change every time I come here. I follow the torches.";
+
+// Cave notice. Subject of trusted cave reward mail only; never player-authored mail.
+module.exports["server.cave.mail_subject"] = "From the cave";
+
+// Cave notice. Body of trusted cave reward mail sent by Dorr.
+module.exports["server.cave.mail_body"] = "You left this with me.";
+
+// Cave notice. Overhead cue: patrol follows its decoy.
+module.exports["server.cave.cue_decoy"] = "The patrol follows the distraction.";
+
+// Cave notice. Guard joins as an ally.
+module.exports["server.cave.cue_join"] = "The captain sent you? I'm coming with you.";
+
+// Cave notice. Named boss or broodmother notices a player.
+module.exports["server.cave.cue_turn"] = "{npc} turns toward you!";
+
+// Cave notice. Warning before the sentinel’s attack.
+module.exports["server.cave.cue_sentinel"] = "The sentinel is winding up. Move away!";
+
+// Cave notice. Boss calls for help.
+module.exports["server.cave.cue_help"] = "Help me!";
+
+// Cave notice. Warning that more enemies are emerging.
+module.exports["server.cave.cue_nest"] = "The nest is hatching!";
+
+// Cave notice. Harvest is ready at the farmer’s original location. Preserve Amber.
+module.exports["server.cave.harvest"] = "The farmer leaves an Amber chest where you met.";
+
+// Cave notice. camp is a nested translated camp-name reference.
+module.exports["server.cave.wave_wait"] = "{camp}: Something is moving in the nest. Another pack in 10 seconds.";
+
+// Cave notice. wave is the ordinal number of the emerging pack; camp is a translated name.
+module.exports["server.cave.wave_next"] = "{camp}: Pack {wave} is coming out of the nest!";
+
+// Cave notice. Named practice partner congratulates the party.
+module.exports["server.cave.practice_win"] = "{npc}: You win! Here is your reward.";
+
+// Cave notice. Named practice partner announces timeout without reward.
+module.exports["server.cave.practice_timeout"] = "{npc}: Time is up. No prize this time.";
+
+// Cave notice. Hunt deadline expired without completing it.
+module.exports["server.cave.hunt_timeout"] = "Time is up. The hunt paid nothing.";
+
+// Cave notice. The rogue turns on the party.
+module.exports["server.cave.rogue_betrayal"] = "The rogue vanishes behind you. His daggers are already moving.";
+
+// Cave notice. The escorted NPC has died.
+module.exports["server.cave.escort_lost"] = "{npc} did not make it. The escort is over.";

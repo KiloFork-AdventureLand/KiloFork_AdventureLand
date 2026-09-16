@@ -755,5 +755,6 @@
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "Играчите вече са подредени според състояние на връзката и стаж",
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Подобрение в играта, което цели да реши проблемите със струпването и с чудовищата, които не изчезват.",
 	"update.30_10_21.new_slenderman_dynamics": "Нова динамика на Slenderman",
-	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp вече не пробива имунитета срещу заклинания; вместо това уменията, които го пробиват, имат флага .pierces_immunity"
+	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp вече не пробива имунитета срещу заклинания; вместо това уменията, които го пробиват, имат флага .pierces_immunity",
+	"update.14_09_26.cave": "Влез в Cave of Many Dreams с групата си. Изследвай променящи се етажи, печели 10× XP от врагове и харчи пещерно злато при търговци. Намирай брадви и коси или търгувай с Cave Amber, за да изработваш рядко снаряжение. Смъртта вътре не отнема XP или злато."
 }

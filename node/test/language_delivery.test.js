@@ -67,6 +67,8 @@ test("browser catalogs exclude server prose and preserve each language's client 
 			"skill.attack.name",
 			"page.code.active",
 			"server.game_log.wore_off",
+			"server.cave.revival_text",
+			"server.cave.revive_here",
 			"server.item.found",
 		])
 			assert.equal(browser[id], full[id], code + ": " + id);
@@ -85,11 +87,13 @@ test("browser catalogs exclude server prose and preserve each language's client 
 	}
 	const plain = serve("en").body,
 		compressed = serve("en", "gzip").body;
-	// Article and archive growth must not silently become a startup download.
+	// The 50 cave encounters add 603 live dialogue phrases (about 50 KB plain).
+	// Articles and archives still stay out; the reviewed catalog is 327 KB / 92 KB gzip.
 	assert.ok(
-		Buffer.byteLength(plain) < 300000,
-		"Review browser delivery before raising the 300 KB English startup limit",
+		Buffer.byteLength(plain) < 350000,
+		"Review browser delivery before raising the 350 KB English startup limit",
 	);
+	assert.ok(compressed.length < 100000, "Review browser delivery before raising the 100 KB gzip startup limit");
 	t.diagnostic("English catalog: " + Buffer.byteLength(plain) + " bytes; gzip: " + compressed.length + " bytes");
 });
 
@@ -169,6 +173,29 @@ test("article requests translate on the server without shipping their prose in t
 		assert.ok(args.res.infs[0].html.includes(localization.phrase_html(id)));
 		assert.ok(args.res.infs[0].html.includes("show_json(get_servers());"));
 	});
+});
+
+test("cave story loads five native comic pages and descriptions in the selected language", async () => {
+	const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(root), { autoescape: true });
+	const context = vm.createContext({ env, nunjucks, localization });
+	const filters = read("filters.js");
+	vm.runInContext(filters.slice(0, filters.indexOf('env.addFilter("to_json"')), context);
+	for (const { code } of localization.languages) {
+		const html = env.render("docs/guide/cave-story.html", { domain: { language: code } });
+		const images = [...html.matchAll(/<img[^>]+src="([^"]+)"[^>]+alt="([^"]+)"/g)];
+		assert.equal(images.length, 5, code);
+		for (let i = 0; i < images.length; i++) {
+			const prefix = code === "en" ? "" : code + "/";
+			assert.equal(images[i][1], `/images/comics/cave/${prefix}${i + 1}.png?v=2`);
+			const png = fs.readFileSync(path.join(root, images[i][1].split("?")[0]));
+			assert.equal(png.readUInt32BE(16), 960, code);
+			assert.equal(png.readUInt32BE(20), 540, code);
+			assert.equal(
+				images[i][2],
+				nunjucks.lib.escape(localization.phrase(`docs.cave.comic.page${i + 1}.alt`, {}, code)),
+			);
+		}
+	}
 });
 
 test("bank destination guidance is translated and reaches both docs and MCP", async () => {

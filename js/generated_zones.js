@@ -98,17 +98,18 @@ function receive_cave_state(data) {
 		update_cave_hud(true); update_cave_info(); return;
 	}
 	if (data.type === "chat" && data.chat) {
-		render_interaction({auto:true,skin:data.chat.skin,cx:data.chat.cx,message:"<span style='color:#725398'>"+html_escape(data.chat.name)+"</span><br>"+html_escape(data.chat.text)});
+		var text=phrase.message(data.chat.text_message || data.chat.text);
+		render_interaction({auto:true,full:true,skin:data.chat.skin,cx:data.chat.cx,message:"<span style='color:#725398'>"+html_escape(data.chat.name)+"</span><br>"+html_escape(text)});
 		var speaker=Object.values(entities).find(e=>e.name===data.chat.name && e.cave);
-		if(speaker) d_text(data.chat.text,speaker,{color:"#C3DBAC"});
+		if(speaker) d_text(text,speaker,{color:"#C3DBAC"});
 	}
 	if (data.type === "cue" && data.cue && data.cue.map===current_map) {
-		var actor=get_entity(data.cue.actor);
-		if(actor) { d_text(data.cue.text,actor,{color:"#F2BB73"}); start_emblem(actor,"rr1",{frames:20}); }
-		ui_log(data.cue.text,"#F2BB73");
+		var actor=get_entity(data.cue.actor), text=phrase.message(data.cue.text_message || data.cue.text);
+		if(actor) { d_text(text,actor,{color:"#F2BB73"}); start_emblem(actor,"rr1",{frames:20}); }
+		ui_log(text,"#F2BB73");
 	}
 	var choice = data.state.choice;
-	if (choice && (data.type === "choice" || data.type === "result" || $("#cave-vote").length &&
+	if (choice && (data.type === "choice" || data.type === "result" || data.state.paused && !choice.resolved && cave_open_choice!==choice.id || $("#cave-vote").length &&
 		(!previous?.choice || previous.choice.id !== choice.id || previous.choice.resolved !== choice.resolved ||
 		JSON.stringify(previous.choice.votes) !== JSON.stringify(choice.votes) || previous.choice.shop?.sold !== choice.shop?.sold || previous.choice.shop?.nearby !== choice.shop?.nearby))) render_cave_choice();
 	update_cave_hud(true);
@@ -133,13 +134,14 @@ function cave_manual(action, fields) {
 	if (action === "enter") {
 		if (cave_enter_pending) return;
 		cave_enter_pending = true;
-		render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,cx:G.npcs.dreamkeeper.cx,message:"<div id='cave-entry-status'>"+phrase.html("cave.checking_entry")+"</div>"});
+		render_interaction({auto:true,full:true,skin:G.npcs.dreamkeeper.skin,cx:G.npcs.dreamkeeper.cx,message:"<div id='cave-entry-status'>"+phrase.html("cave.checking_entry")+"</div>"});
 	}
 	return cave_request(action, fields).then(function(data) {
 		if (action === "enter") { $("#topleftcornerui").empty(); render_cave_status(); }
 		if (action === "vote" || action === "buy" || action === "talk" && !data.chat) render_cave_choice();
 		return data;
 	}).catch(function(error) {
+		if (action === "enter") for (var scene of cave_entry_scenes.slice()) if (scene.me) finish_cave_entry(scene.key);
 		var message = phrase("cave.error." + error.reason);
 		if (message === "cave.error." + error.reason) message = phrase("cave.error.generic");
 		if (action === "enter" && current_map === "main" && $("#cave-entry-status").length) render_cave_keeper(message);
@@ -154,6 +156,7 @@ function cave_load_visit() {
 	cave_visit_request = cave_request("info").then(function(data) {
 		cave_visit = data.visit; cave_visit.checked = Date.now();
 		cave_server_offset = data.visit.server_time - Date.now();
+		$("#cave-keeper-greeting").text(phrase(cave_visit.unlimited?"cave.keeper_dev":"cave.keeper"));
 		update_cave_hud(true); update_cave_info();
 	}).catch(function() {}).finally(function() { cave_visit_request = null; });
 	return cave_visit_request;
@@ -200,19 +203,25 @@ function update_cave_hud(force) {
 	var state = cave_client_state;
 	var nearby = cave_info_available();
 	if (nearby !== cave_info_visible) { cave_info_visible = nearby; render_server(); }
-	if (!nearby && !cave_reward_queue.length && Date.now() >= cave_notice_until) { if ($("#cave-hud").length) { $("#cave-hud,#cave-reward-note").remove(); reposition_ui(); } return; }
+	if (!state || G.maps[current_map]?.generated?.zone !== "dreams") {
+		if ($("#cave-hud").length) { $("#cave-hud").remove(); reposition_ui(); }
+		if (!cave_reward_queue.length && Date.now() >= cave_notice_until) { $("#cave-reward-note").remove(); return; }
+		if (!$("#cave-reward-note").length) $("#topmid").append("<div id='cave-reward-note' class='cave-reward-note' role='status' style='display:none'></div>");
+		cave_show_reward();
+		return;
+	}
 	if (!$("#cave-hud").length) {
-		$("#topmid").append("<div id='cave-hud'><div class='cave-hud-row'><div class='gamebutton cave-clock' onclick='open_cave_info()'></div><div class='gamebutton cave-vote-clock' onclick='render_cave_choice()'></div><div class='gamebutton' onclick='open_cave_info()'>INFO</div><div class='gamebutton cave-exit' onclick='cave_manual(\"exit\")'>"+phrase.html("cave.exit")+"</div></div><div class='cave-purse' onclick='open_cave_info()'></div><div class='cave-progress'></div><div class='cave-hunt-note'></div></div><div id='cave-reward-note' class='cave-reward-note' role='status' style='display:none'></div>");
+		$("#topmid").append("<div id='cave-hud'><div class='cave-hud-row'><div class='gamebutton cave-clock' onclick='open_cave_info()'></div><div class='gamebutton cave-vote-clock' onclick='render_cave_choice()'></div><div class='gamebutton' onclick='open_cave_info()'>"+phrase.html("interface.item.info")+"</div><div class='gamebutton cave-exit' onclick='cave_manual(\"exit\")'>"+phrase.html("cave.exit")+"</div></div><div class='cave-purse' onclick='open_cave_info()'></div><div class='cave-progress'></div><div class='cave-hunt-note'></div></div>");
 		reposition_ui();
 	}
-	$(".cave-exit,.cave-purse").toggle(!!state);
-	if (!state) { cave_load_visit(); $(".cave-clock").text(cave_visit_text()); $(".cave-vote-clock,.cave-progress,.cave-hunt-note").hide(); cave_show_reward(); reposition_ui(); return; }
+	if (!$("#cave-reward-note").length) $("#topmid").append("<div id='cave-reward-note' class='cave-reward-note' role='status' style='display:none'></div>");
 	$(".cave-clock").text(phrase(state.paused ? "cave.clock_paused" : "cave.clock_running", {time:cave_time(cave_remaining(state))}));
 	var purse="<span>"+phrase.html("cave.party_gold",{gold:to_pretty_num(state.gold)})+"</span>"+item_container({skin:G.items.cave_amber.skin,draggable:false,size:20,id:"cave-purse-amber"},{name:"cave_amber"})+"<span>"+phrase.html("cave.party_amber",{count:state.amber})+"</span>";
 	if ($(".cave-purse").data("contents")!==purse) $(".cave-purse").html(purse).data("contents",purse);
 	$(".cave-progress").html(cave_stair_goals(state)).show();
 	var choice = state.choice;
 	$(".cave-vote-clock").toggle(!!choice && !choice.resolved).text(phrase("cave.vote_clock", {seconds:Math.max(0,Math.ceil(((choice?.deadline || 0)-cave_now())/1000))}));
+	$(".cave-vote-clock").toggleClass("cave-choice-hidden", !!state.paused && !!choice && !choice.resolved && !$("#cave-vote").is(":visible"));
 	$(".cave-choice-clock").text(phrase("cave.seconds", {seconds:Math.max(0,Math.ceil(((choice?.deadline || 0)-cave_now())/1000))}));
 	cave_show_reward();
 	var tasks = (state.hunts || []).map(h => phrase.html("cave.hunt_clock", {kills:h.kills,count:h.count,time:cave_time(h.deadline-(state.paused?state.paused_at:cave_now()))}));
@@ -235,7 +244,7 @@ function update_cave_info() {
 			html += "<div class='cave-direction-row'><span style='color:"+(d.locked?"#AA7444":"#487448")+"'>"+html_escape(label)+" · "+phrase.html(d.locked?"cave.locked":"cave.open")+"</span><div class='slimbutton' onclick='cave_walk_to(\"door\","+index+")'>"+phrase.html("cave.walk_here")+"</div></div>";
 		});
 		html += "<p>"+phrase.html("cave.find_seals")+"</p>";
-		state.objectives.forEach((o,index) => { html += "<div class='cave-direction-row'><span>"+(o.done?"✓ ":"")+html_escape(o.name)+"<small>"+phrase.html("cave.floor_short",{floor:o.floor+1})+(o.kind==="farm"?" · "+phrase.html("cave.camp_packs",{count:o.waves||0}):"")+"</small></span>"+(!o.done?"<div class='slimbutton' onclick='cave_walk_to(\"room\","+index+")'>"+phrase.html("cave.walk_here")+"</div>":"")+"</div>"; });
+		state.objectives.forEach((o,index) => { html += "<div class='cave-direction-row'><span>"+(o.done?"✓ ":"")+html_escape(phrase.message(o.name_message || o.name))+"<small>"+phrase.html("cave.floor_short",{floor:o.floor+1})+(o.kind==="farm"?" · "+phrase.html("cave.camp_packs",{count:o.waves||0}):"")+"</small></span>"+(!o.done?"<div class='slimbutton' onclick='cave_walk_to(\"room\","+index+")'>"+phrase.html("cave.walk_here")+"</div>":"")+"</div>"; });
 		if (state.supplies.length) html += "<hr><p>" + phrase.html("cave.supplies_label") + " " + state.supplies.map(s=>phrase.html("cave.supply."+s)).join(", ") + "</p>";
 	}
 	var rewards = (state || cave_last_state)?.rewards || [];
@@ -247,31 +256,31 @@ function render_cave_keeper(message) {
 	if (no_graphics) return;
 	cave_load_visit();
 	var keeper = G.npcs.dreamkeeper;
-	render_interaction({auto:true,skin:keeper.skin,cx:keeper.cx || {},message:"<div style='font-size:24px'>"+(message?html_escape(message):phrase.html(cave_visit?.unlimited?"cave.keeper_dev":"cave.keeper"))+"</div>"});
-	$("#topleftcornerui > div").append("<div style='clear:both;float:right;margin-top:7px'><div class='slimbutton' onclick='cave_manual(\"enter\")'>"+phrase.html("cave.enter")+"</div> <div class='slimbutton' onclick='open_cave_info()'>INFO</div></div>");
+	render_interaction({auto:true,full:true,skin:keeper.skin,cx:keeper.cx || {},message:"<div "+(message?"":"id='cave-keeper-greeting' ")+"style='font-size:24px'>"+(message?html_escape(message):phrase.html(cave_visit?.unlimited?"cave.keeper_dev":"cave.keeper"))+"</div>"});
+	$("#topleftcornerui > div").append("<div style='clear:both;float:right;margin-top:7px'><div class='slimbutton' onclick='cave_manual(\"enter\")'>"+phrase.html("cave.enter")+"</div> <div class='slimbutton' onclick='open_cave_info()'>"+phrase.html("interface.item.info")+"</div></div>");
 }
 function render_cave_choice() {
 	if (no_graphics || !cave_client_state?.choice) return;
 	var choice = cave_client_state.choice, myVote = choice.votes[character.name || character.id];
 	cave_open_choice = choice.id;
-	var html = "<div id='cave-vote'><div class='cave-dialogue-title'>"+html_escape(choice.title)+"</div><div class='cave-speaker'>"+html_escape(choice.people[0]?.name || "")+"</div>"+(!choice.resolved?"<p class='cave-dialogue-line'>"+html_escape(choice.text)+"</p>":"")+"</div>";
+	var html = "<div id='cave-vote'><div class='cave-dialogue-title'>"+html_escape(phrase.message(choice.title_message || choice.title))+"</div><div class='cave-speaker'>"+html_escape(choice.people[0]?.name || "")+"</div>"+(!choice.resolved?"<p class='cave-dialogue-line'>"+html_escape(phrase.message(choice.text_message || choice.text))+"</p>":"")+"</div>";
 	var scene=(choice.scene || []).filter(a=>a.id && a.name!==choice.people[0]?.name).slice(0,7);
 	if(scene.length) html += "<div class='cave-scene'>"+scene.map(a=>"<div title='"+html_escape(a.name)+"'>"+sprite(a.skin,{cx:a.cx || {},scale:2,width:52,height:64})+"<small style='color:"+(["enemy","predator"].includes(a.side)?"#E58A80":"#A9CDBA")+"'>"+html_escape(a.name)+"</small></div>").join("")+"</div>";
 	if (!choice.resolved) {
 		html += "<div style='clear:both;font-size:20px;margin:8px 0'>" + phrase.html("cave.paused_choice") + "<br><span class='cave-choice-clock'>"+phrase.html("cave.seconds",{seconds:Math.max(0,Math.ceil((choice.deadline-cave_now())/1000))})+"</span></div>";
-		if (choice.people.length > 1) html += "<div style='font-size:20px'>"+choice.people.map(p=>html_escape(p.name)+": "+to_pretty_num(p.hp)+" HP · "+to_pretty_num(Math.round(p.attack))+" ATT").join("<br>")+"</div>";
+		if (choice.people.length > 1) html += "<div style='font-size:20px'>"+choice.people.map(p=>html_escape(p.name)+": "+to_pretty_num(p.hp)+" "+phrase.html("stat.hp.name")+" · "+to_pretty_num(Math.round(p.attack))+" "+phrase.html("interface.monster.att")).join("<br>")+"</div>";
 		if (choice.people[0]?.cargo?.length) html += "<div style='font-size:20px;margin:6px 0'>"+phrase.html("cave.carries",{name:choice.people[0].name})+" "+choice.people[0].cargo.map(item=>item_container({skin:G.items[item.name].skin,def:G.items[item.name],draggable:false},item,{r:2})).join(" ")+"</div>";
 		choice.options.forEach(function(option,index) {
 			var voters = Object.keys(choice.votes).filter(n=>choice.votes[n]===option.id);
 			var disabled = myVote || option.unavailable;
 			html += "<div class='slimbutton cave-reply' style='border-color:"+(index===0?"#82BDA8":"#AF90C8")+(disabled?";opacity:0.65":"")+"'" +
-				(disabled?"":" onclick='cave_manual(\"vote\",{choice:"+JSON.stringify(choice.id)+",option:"+JSON.stringify(option.id)+"})'") + ">" + html_escape(option.label) +
-				(voters.length?"<div style='font-size:18px'>"+html_escape(voters.join(", "))+"</div>":"")+(option.unavailable?"<div style='font-size:18px'>"+html_escape(option.unavailable)+"</div>":"")+"</div>";
+				(disabled?"":" onclick='cave_manual(\"vote\",{choice:"+JSON.stringify(choice.id)+",option:"+JSON.stringify(option.id)+"})'") + ">" + html_escape(phrase.message(option.label_message || option.label)) +
+				(voters.length?"<div style='font-size:18px'>"+html_escape(voters.join(", "))+"</div>":"")+(option.unavailable?"<div style='font-size:18px'>"+html_escape(phrase.message(option.unavailable_message || option.unavailable))+"</div>":"")+"</div>";
 		});
-		html += "<div style='font-size:18px;margin-top:8px'>"+phrase.html(myVote?"cave.vote_recorded":"cave.one_vote")+"<br>"+phrase.html("cave.fallback",{fallback:choice.fallback})+"</div>";
+		html += "<div style='font-size:18px;margin-top:8px'>"+phrase.html(myVote?"cave.vote_recorded":"cave.one_vote")+"<br>"+phrase.html("cave.fallback",{fallback:phrase.message(choice.fallback_message || choice.fallback)})+"</div>";
 	} else {
-		html += "<div style='clear:both;font-size:22px;margin-top:8px'>"+phrase.html("cave.result",{reply:choice.result_label || phrase("cave.no_reply")})+"</div>";
-		html += "<div style='font-size:24px;margin-top:8px'>"+(choice.summary?.length?choice.summary.map(text=>html_escape(text)).join("<br>"):phrase.html("cave.keep_going"))+"</div>";
+		html += "<div style='clear:both;font-size:22px;margin-top:8px'>"+phrase.html("cave.result",{reply:phrase.message(choice.result_message || choice.result_label) || phrase("cave.no_reply")})+"</div>";
+		html += "<div style='font-size:24px;margin-top:8px'>"+(choice.summary?.length?choice.summary.map((text,index)=>html_escape(phrase.message(choice.summary_messages?.[index] || text))).join("<br>"):phrase.html("cave.keep_going"))+"</div>";
 		if (choice.service === "recipes") html += "<div class='slimbutton' onclick='render_recipes()'>"+phrase.html("cave.recipes")+"</div>";
 	}
 	if (choice.shop) {
@@ -282,7 +291,7 @@ function render_cave_choice() {
 		else if (choice.resolved) html += "<div style='font-size:20px'>"+phrase.html("cave.shop_distance")+"</div>";
 	}
 	if(choice.resolved) html += "<div class='slimbutton cave-continue' onclick='hide_modal()'>"+phrase.html("cave.continue")+"</div>";
-	var native=render_interaction({auto:true,skin:choice.skin || G.npcs.dreamkeeper.skin,cx:choice.cx,message:html},"return_html");
+	var native=render_interaction({auto:true,full:true,skin:choice.skin || G.npcs.dreamkeeper.skin,cx:choice.cx,message:html},"return_html");
 	var content=$(native).addClass("cave-dialogue").toggleClass("cave-result",!!choice.resolved);
 	var existing=$(".cave-dialogue-modal .imodal");
 	if(existing.length) {
@@ -293,6 +302,7 @@ function render_cave_choice() {
 		add_ui_close(existing,"modal",{frame:false,label:"X"});
 		position_modals();
 	} else show_modal(content.prop("outerHTML"),{wrap:false,opacity:0.28,classes:"cave-dialogue-modal",close:{label:"X"}});
+	$(".cave-vote-clock").removeClass("cave-choice-hidden");
 	clearTimeout(cave_result_timer);
 	if(choice.resolved && !choice.shop && !choice.service) {
 		var id=choice.id;
@@ -360,22 +370,42 @@ function decorate_cave_gate(gate) {
 	gate.cave_frame=-1;
 }
 function cave_entry_animation(data) {
-	if (no_graphics || current_map !== "main" || !Array.isArray(data.names)) return;
-	var scene={key:data.key,at:Date.now(),duration:Math.min(2400,Math.max(500,data.duration||1800)),sprites:[],me:data.names.includes(character?.name)};
+	if (no_graphics) return;
+	if (data.cancel) { finish_cave_entry(data.key); return; }
+	if (current_map !== "main" || !Array.isArray(data.names) || cave_entry_scenes.some(scene=>scene.key===data.key)) return;
+	var scene={key:data.key,socket,at:Date.now(),duration:Math.min(2400,Math.max(500,data.duration||1800)),sprites:[],me:data.names.includes(character?.name)};
 	for (var name of data.names.slice(0,3)) {
 		var sprite=get_player(name); if (!sprite) continue;
 		var sparks=new PIXI.Graphics(); sparks.zy=1200; sprite.addChild(sparks);
-		scene.sprites.push({sprite,sparks,x:sprite.pivot.x,y:sprite.pivot.y});
 		sprite.moving=false; sprite.vx=sprite.vy=0;
 		start_animation(sprite,"transport");
+		scene.sprites.push({sprite,sparks,x:sprite.pivot.x,y:sprite.pivot.y,animation:sprite.animations.transport});
 	}
 	cave_entry_scenes.push(scene);
 	if (scene.me) {
-		render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,cx:G.npcs.dreamkeeper.cx,message:"<div id='cave-entry-status'>"+phrase.html("cave.opening")+"</div>"});
+		render_interaction({auto:true,full:true,skin:G.npcs.dreamkeeper.skin,cx:G.npcs.dreamkeeper.cx,message:"<div id='cave-entry-status'>"+phrase.html("cave.opening")+"</div>"});
 		if (character) character.cave_entering=true;
 		h_shake();
 		for (var delay of [0,500,1000]) draw_timeout(function(){ if (current_map==="main") v_shake(); },delay);
 	}
+}
+function finish_cave_entry(key) {
+	if (no_graphics) return;
+	cave_entry_scenes=cave_entry_scenes.filter(function(scene) {
+		if (key!==undefined && scene.key!==key) return true;
+		for (var actor of scene.sprites) {
+			var sprite=actor.sprite;
+			if (sprite._destroyed || !sprite.pivot) continue;
+			if (!sprite.dead) sprite.pivot.set(actor.x,actor.y);
+			if (!actor.sparks._destroyed) actor.sparks.destroy();
+			if (sprite.animations?.transport===actor.animation && !sprite.tp) stop_animation(sprite,"transport");
+		}
+		if (scene.me && character) {
+			delete character.cave_entering;
+			if (current_map!=="main") { if ($("#cave-entry-status").length) $("#topleftcornerui").empty(); v_shake(); }
+		}
+		return false;
+	});
 }
 function draw_cave_entrance() {
 	if (no_graphics) return;
@@ -387,32 +417,22 @@ function draw_cave_entrance() {
 			cave_transport_scene=null;
 		}
 	}
-	cave_entry_scenes=cave_entry_scenes.filter(function(scene) {
-		var age=now-scene.at, done=current_map!=="main" || age>scene.duration;
+	for (var scene of cave_entry_scenes.slice()) {
+		var age=now-scene.at, done=current_map!=="main" || socket!==scene.socket || socket?.disconnected || age>150000 || scene.sprites.every(actor=>actor.sprite._destroyed || actor.sprite.dead);
+		if (done) { finish_cave_entry(scene.key); continue; }
 		for (var actor of scene.sprites) {
 			var sprite=actor.sprite; if (sprite._destroyed || !sprite.pivot) continue;
-			if (done) {
-				if (!sprite.dead) sprite.pivot.set(actor.x,actor.y);
-				actor.sparks.destroy();
-				if (sprite.animations?.transport) stop_animation(sprite,"transport");
-			} else {
-				var step=Math.floor(age/45), pull=Math.pow(Math.max(0,(age/scene.duration-0.35)/0.65),2);
-				sprite.pivot.set(actor.x+[-1,1,0,2,-2,0][step%6]+Math.round((sprite.real_x-816)*pull),actor.y+Math.round((sprite.real_y-1148)*pull));
-				if (actor.frame!==step) {
-					actor.frame=step; var sparks=actor.sparks; sparks.clear();
-					for (var i=0;i<18;i++) {
-						var angle=(i+step)*Math.PI/8, y=-((i*7+step*3)%46), x=Math.round(Math.cos(angle)*(13+4*Math.sin(angle)));
-						sparks.beginFill([0xa7d3d0,0xd8ebcf,0x729d9e][i%3]); sparks.drawRect(x,y,1,i%4===0?4:2); sparks.endFill();
-					}
+			var step=Math.floor(age/45), pull=Math.pow(Math.min(1,Math.max(0,(age/scene.duration-0.35)/0.65)),2);
+			sprite.pivot.set(actor.x+(age<scene.duration?[-1,1,0,2,-2,0][step%6]:0)+Math.round((sprite.real_x-816)*pull),actor.y+Math.round((sprite.real_y-1148)*pull));
+			if (actor.frame!==step) {
+				actor.frame=step; var sparks=actor.sparks; sparks.clear();
+				for (var i=0;i<18;i++) {
+					var angle=(i+step)*Math.PI/8, y=-((i*7+step*3)%46), x=Math.round(Math.cos(angle)*(13+4*Math.sin(angle)));
+					sparks.beginFill([0xa7d3d0,0xd8ebcf,0x729d9e][i%3]); sparks.drawRect(x,y,1,i%4===0?4:2); sparks.endFill();
 				}
 			}
 		}
-		if (done && scene.me && character) {
-			delete character.cave_entering;
-			if (current_map!=="main") { if ($("#cave-entry-status").length) $("#topleftcornerui").empty(); v_shake(); }
-		}
-		return !done;
-	});
+	}
 	var gate=animatables.dreams_gate;
 	if (current_map!=="main" || !gate?.cave_light || gate._destroyed) return;
 	var frame=Math.floor(now/120), active=cave_entry_scenes.length>0;
@@ -471,14 +491,14 @@ function cave_stair_goals(state) {
 	var title=last?(done===goals.length?"cave.completed":"cave.finish_progress"):(done===goals.length?"cave.stairs_ready":"cave.stair_progress");
 	var html="<div class='cave-goal-title'>"+phrase.html(title,{count:done,total:goals.length})+"</div>";
 	for(var goal of goals) {
-		var label=phrase("cave.goal."+goal.kind,{name:goal.name});
+		var label=phrase("cave.goal."+goal.kind,{name:phrase.message(goal.name_message || goal.name)});
 		html+="<div class='cave-goal "+(goal.done?"cave-goal-done":"")+"' onclick='cave_walk_to(\"room\","+state.objectives.indexOf(goal)+")'>"+(goal.done?"✓ ":"• ")+html_escape(label)+"</div>";
 	}
 	return html;
 }
 function render_cave_stairs() {
 	if(no_graphics) return;
-	render_interaction({auto:true,skin:G.npcs.dreamkeeper.skin,cx:G.npcs.dreamkeeper.cx,message:"<div class='cave-stairs-message'>"+phrase.html("cave.stairs_closed")+cave_stair_goals(cave_client_state)+"</div>"});
+	render_interaction({auto:true,full:true,skin:G.npcs.dreamkeeper.skin,cx:G.npcs.dreamkeeper.cx,message:"<div class='cave-stairs-message'>"+phrase.html("cave.stairs_closed")+cave_stair_goals(cave_client_state)+"</div>"});
 }
 function cave_transport_failed(data) {
 	if(data.reason==="seal_closed") { render_cave_stairs(); return; }

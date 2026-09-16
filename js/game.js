@@ -1571,6 +1571,7 @@ function init_socket(args) {
 		tutorial_map = data.name;
 		current_map = data.name;
 		current_in = data["in"];
+		finish_cave_entry();
 		reflect_music();
 		// alert(current_map);
 		M = G.maps[current_map].data;

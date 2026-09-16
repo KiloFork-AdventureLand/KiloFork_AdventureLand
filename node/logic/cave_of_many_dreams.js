@@ -49,13 +49,35 @@ function cave_players(run) {
 		.filter((p) => p && generated_entry(p)?.record === run && !p.dc && !p.socket.disconnected);
 }
 function cave_say(run, message) {
-	if (run.cave?.resolving) run.cave.resolving.summary.push(message);
-	for (var p of cave_players(run)) p.socket.emit("game_log", { message, color: "#D4BB88" });
+	var packet = message && typeof message === "object" ? message : { message };
+	if (run.cave?.resolving) {
+		run.cave.resolving.summary.push(packet.message);
+		(run.cave.resolving.summary_messages ||= []).push(packet.phrase ? packet : null);
+	}
+	for (var p of cave_players(run)) p.socket.emit("game_log", Object.assign({ color: "#D4BB88" }, packet));
 }
 function cave_reply_label(room, option) {
 	return (option.label || "Walk away")
 		.replaceAll("{npc}", room.npc?.name || "the traveler")
 		.replaceAll("{rival}", room.rival?.name || "the other fighter");
+}
+function cave_dialogue_ref(room, field) {
+	var id = "event.dreams." + room.encounter?.id + "." + field;
+	if (room.kind === "revival")
+		id = {
+			name: "server.cave.revival_title",
+			text: "server.cave.revival_text",
+			"options.here.label": "server.cave.revival_each",
+			"options.landing.label": "server.cave.revival_landing",
+		}[field];
+	if (!id || !Object.hasOwn(localization.catalog("en"), id)) return;
+	return {
+		phrase: id,
+		phrase_args: {
+			npc: room.npc?.name || { phrase: "server.cave.traveler" },
+			rival: room.rival?.name || { phrase: "server.cave.rival" },
+		},
+	};
 }
 function cave_receipt(run, receipt) {
 	if (!run.cave.receipts) run.cave.receipts = [];
@@ -196,6 +218,7 @@ function cave_start(run) {
 			var camps = G.events.dreams.camps[room.floor];
 			room.camp = cave_pick(camps);
 			room.name = room.camp.name;
+			room.name_message = { phrase: "event.dreams.camp." + room.floor + "." + camps.indexOf(room.camp) + ".name" };
 		}
 	}
 	if (cave_random() < G.events.dreams.rare.darkmage) {
@@ -354,7 +377,7 @@ function cave_activate(run, room) {
 	}
 	if (room.kind === "fight" && run.cave.flags.truce) {
 		delete run.cave.flags.truce;
-		cave_say(run, "The guards accept the pass. Keep walking.");
+		cave_say(run, localization.message("server.cave.pass_accepted"));
 		cave_complete(run, room);
 		return;
 	}
@@ -370,7 +393,7 @@ function cave_activate(run, room) {
 	}
 	if (room.kind === "darkmage") {
 		cave_spawn(run, room, "cave_darkmage", "enemy");
-		cave_say(run, "Dark Mage: My spell deals 100,000 damage. Only a reflected spell can kill me.");
+		cave_say(run, localization.message("server.cave.darkmage_warning"));
 		return;
 	}
 	var e = room.encounter,
@@ -596,14 +619,12 @@ function cave_deliver(run, token, items) {
 		}
 		cave_say(
 			run,
-			recipient.name +
-				" gets " +
-				(item.q || 1) +
-				" × " +
-				G.items[item.name].name +
-				(receipt.where === "inventory"
-					? " — inventory slot " + (receipt.slot + 1) + "."
-					: " — Dorr is sending it by mail."),
+			localization.message(receipt.where === "inventory" ? "server.cave.reward_inventory" : "server.cave.reward_mail", {
+				name: recipient.name,
+				quantity: item.q || 1,
+				item: G.items[item.name].name,
+				slot: receipt.slot + 1,
+			}),
 		);
 	}
 	return recipient;
@@ -686,10 +707,7 @@ function cave_complete(run, room) {
 	var required = run.cave.rooms.filter((r) => r.floor === room.floor && r.required);
 	if (required.every((r) => r.done) && !run.completed[room.floor]) {
 		run.completed[room.floor] = true;
-		cave_say(
-			run,
-			room.floor === 2 ? "The last seal is open. Your reward is ready." : "The stairs are open. You can go down.",
-		);
+		cave_say(run, localization.message(room.floor === 2 ? "server.cave.last_seal" : "server.cave.stairs_open"));
 		if (room.floor === 2) {
 			cave_reward(run, { id: "finish", map: room.map, x: room.x, y: room.y }, "cave_finish");
 			cave_credit(run, 10000, 5, room);
@@ -787,7 +805,11 @@ function cave_resolve_vote(run, now) {
 	);
 	vote.result = option.id;
 	vote.result_label = option.label ? cave_reply_label(vote.room, option) : "No reply was chosen.";
+	vote.result_message = option.label
+		? option.label_message || cave_dialogue_ref(vote.room, "options." + option.id + ".label")
+		: { phrase: "server.cave.no_reply" };
 	vote.summary = [];
+	vote.summary_messages = [];
 	cave_resume(run, now);
 	run.cave.resolving = vote;
 	try {
@@ -801,7 +823,11 @@ function cave_resolve_vote(run, now) {
 function cave_revival_option(run, room, option) {
 	if (option.effect !== "revive_here") return option;
 	var count = cave_players(run).filter((p) => p.rip && p.map === room.map).length;
-	return Object.assign({}, option, { amber: count, label: "Revive here — " + count + " Amber total" });
+	return Object.assign({}, option, {
+		amber: count,
+		label: "Revive here — " + count + " Amber total",
+		label_message: { phrase: "server.cave.revive_here", phrase_args: { amber: count } },
+	});
 }
 function cave_apply(run, room, option) {
 	option = cave_revival_option(run, room, option);
@@ -814,9 +840,11 @@ function cave_apply(run, room, option) {
 	) {
 		cave_say(
 			run,
-			option.needs && !state.flags[option.needs]
-				? "You need the borrowed pry bar for that."
-				: "There is not enough in the cave purse.",
+			localization.message(
+				option.needs && !state.flags[option.needs]
+					? "server.cave.need_borrowed_tool"
+					: "server.cave.insufficient_purse",
+			),
 		);
 		effect = room.kind === "revival" ? "revive_landing" : room.encounter.group === "bad" ? "time" : "leave";
 	} else {
@@ -826,7 +854,14 @@ function cave_apply(run, room, option) {
 	if (effect === "leave" && room.rescue) effect = "watch";
 	if (effect === "leave" && room.rival) effect = "neither";
 	room.decision = effect;
-	if (option.result && effect === option.effect) cave_say(run, cave_reply_label(room, { label: option.result }));
+	if (option.result && effect === option.effect)
+		cave_say(
+			run,
+			Object.assign(
+				{ message: cave_reply_label(room, { label: option.result }) },
+				cave_dialogue_ref(room, "options." + option.id + ".result"),
+			),
+		);
 	if (effect === "venture") {
 		if (option.needs) delete state.flags[option.needs];
 		return cave_venture(run, room, option);
@@ -847,9 +882,9 @@ function cave_apply(run, room, option) {
 		}
 		cave_say(
 			run,
-			effect === "revive_here"
-				? "Back on your feet. The shared purse paid " + option.amber + " Amber."
-				: "You're back at the doorway. No Amber spent.",
+			localization.message(effect === "revive_here" ? "server.cave.revive_paid" : "server.cave.revive_free", {
+				amber: option.amber,
+			}),
 		);
 		cave_set_side(room.npc, "neutral");
 		room.npc.zone_actor.idle = true;
@@ -873,9 +908,9 @@ function cave_apply(run, room, option) {
 			for (var a of room.actors) if (a.zone_actor.side === "predator") delete a.zone_actor.prey;
 		cave_say(
 			run,
-			effect === "watch"
-				? "You stand back. The wolves keep attacking " + room.npc.name + "."
-				: "Protect " + room.npc.name + ". Kill the wolves before they kill " + room.npc.name + ".",
+			localization.message(effect === "watch" ? "server.cave.rescue_watch" : "server.cave.rescue_protect", {
+				npc: room.npc.name,
+			}),
 		);
 		return;
 	}
@@ -895,21 +930,25 @@ function cave_apply(run, room, option) {
 		room.enemies = effect === "left" ? [room.rival] : effect === "right" ? [room.npc] : [room.npc, room.rival];
 		cave_say(
 			run,
-			effect === "both"
-				? "Both fighters turn against you."
-				: effect === "neither"
-					? "You stay out of it. " + room.npc.name + " and " + room.rival.name + " fight each other."
-					: "You side with " +
-						(effect === "left" ? room.npc.name : room.rival.name) +
-						". Defeat " +
-						(effect === "left" ? room.rival.name : room.npc.name) +
-						".",
+			localization.message(
+				effect === "both"
+					? "server.cave.conflict_both"
+					: effect === "neither"
+						? "server.cave.conflict_neither"
+						: "server.cave.conflict_side",
+				{
+					npc: room.npc.name,
+					rival: room.rival.name,
+					ally: effect === "left" ? room.npc.name : room.rival.name,
+					enemy: effect === "left" ? room.rival.name : room.npc.name,
+				},
+			),
 		);
 		return;
 	}
 	if (effect === "peace" && room.rival) {
 		cave_credit(run, 0, 1, room);
-		cave_say(run, "They put their weapons away and split the money.");
+		cave_say(run, localization.message("server.cave.conflict_peace"));
 		cave_complete(run, room);
 		return;
 	}
@@ -934,7 +973,7 @@ function cave_apply(run, room, option) {
 			state.flags.reroll = true;
 			face = 1 + Math.floor(cave_random() * 6);
 		}
-		cave_say(run, "The die shows " + face + ".");
+		cave_say(run, localization.message("server.cave.die_face", { face }));
 		if (effect === "dice_room") {
 			cave_pack(run, room, face > 3 ? "cave_crab" : "cave_rat", 4);
 			return;
@@ -947,7 +986,7 @@ function cave_apply(run, room, option) {
 		} else if (effect === "favor") {
 			cave_pack(run, room, "cave_guard", 2);
 			return;
-		} else cave_say(run, "No win this time.");
+		} else cave_say(run, localization.message("server.cave.die_loss"));
 		cave_complete(run, room);
 		return;
 	}
@@ -960,7 +999,7 @@ function cave_apply(run, room, option) {
 		if (effect === "hunt_helper") cave_add_follower(run, room, "cave_npc");
 		var pack = cave_pack(run, room, type, count);
 		if (!pack.length) {
-			cave_say(run, "There are no more tracks here. The hunt is off.");
+			cave_say(run, localization.message("server.cave.hunt_empty"));
 			cave_complete(run, room);
 			return;
 		}
@@ -976,12 +1015,7 @@ function cave_apply(run, room, option) {
 					((type === "cave_rat" ? 60 : type === "cave_bat" ? 75 : 90) + (effect === "hunt_late" ? 30 : 0)) * 1000,
 			),
 		};
-		cave_say(
-			run,
-			"The hunt has started. Kill all " +
-				pack.length +
-				" marked monsters before the hunt timer runs out. Your progress is below the cave clock.",
-		);
+		cave_say(run, localization.message("server.cave.hunt_start", { count: pack.length }));
 		cave_publish(run);
 		return;
 	}
@@ -1052,13 +1086,9 @@ function cave_apply(run, room, option) {
 		if (!option.result)
 			cave_say(
 				run,
-				"Added to the party’s cave supplies: " +
-					{
-						tool: "a pry bar",
-						lamp: "a lamp",
-						decoy: room.encounter.kind === "decoy" ? "a message for a guard" : "a patrol distraction",
-					}[effect] +
-					". You can use it at a later encounter.",
+				localization.message(
+					"server.cave.supply_" + (effect === "decoy" && room.encounter.kind === "decoy" ? "message" : effect),
+				),
 			);
 	} else if (["guide", "escort"].includes(effect)) {
 		cave_set_side(room.npc, "ally");
@@ -1071,7 +1101,7 @@ function cave_apply(run, room, option) {
 	} else if (effect === "moths") {
 		if (state.flags.lamp) cave_item(run, room.id + ":moths", "cave_mothsteps");
 		else {
-			if (cave_credit(run, 0, 2, room)) cave_say(run, "The moths lead you to an Amber chest.");
+			if (cave_credit(run, 0, 2, room)) cave_say(run, localization.message("server.cave.moths_chest"));
 		}
 	} else if (effect === "plant") {
 		room.harvest = Date.now() + 60000;
@@ -1085,11 +1115,7 @@ function cave_apply(run, room, option) {
 		room.practice_amber = option.reward_amber || 0;
 		cave_say(
 			run,
-			"The practice fight has started. Beat " +
-				room.npc.name +
-				" in " +
-				(option.seconds || 30) +
-				" seconds. Neither side can land a killing blow.",
+			localization.message("server.cave.practice_start", { npc: room.npc.name, seconds: option.seconds || 30 }),
 		);
 		return;
 	} else if (["gift", "small_gift"].includes(effect)) cave_credit(run, 0, effect === "gift" ? 2 : 1, room);
@@ -1105,29 +1131,30 @@ function cave_apply(run, room, option) {
 		cave_say(
 			run,
 			marked.length
-				? "I found " + marked.map((r) => r.encounter.name).join(" and ") + ". Use Directions in CAVE INFO to get there."
-				: "You have already checked the rooms I know about.",
+				? Object.assign(localization.message("server.cave.reveal_rooms", { count: marked.length }), {
+						message:
+							"I found " +
+							marked.map((r) => r.encounter.name).join(" and ") +
+							". Use Directions in CAVE INFO to get there.",
+					})
+				: localization.message("server.cave.reveal_none"),
 		);
 	}
 	if (effect === "story") {
 		var stories = {
-			merchant: "I bought a dusty shop's last crate. This was the only thing inside. Take a look if you like.",
-			practice_dice:
-				"A Loaded Die gives you one second roll per visit when your first roll loses. Wear it before you play.",
-			appraise:
-				"Look for a hooked blade with an ivory edge and a red spine. That's Last Word. He carries it beside a plain dagger.",
-			send: "Spend cave gold before you leave. The Amber you keep goes to the party when someone leaves.",
+			merchant: "server.cave.story_merchant",
+			practice_dice: "server.cave.story_dice",
+			appraise: "server.cave.story_dagger",
+			send: "server.cave.story_send",
 		};
 		cave_say(
 			run,
-			room.npc.name +
-				": " +
-				(stories[room.encounter.kind] || "The stairs change every time I come here. I follow the torches."),
+			localization.message(stories[room.encounter.kind] || "server.cave.story_stairs", { npc: room.npc.name }),
 		);
 	}
-	if (effect === "leave") cave_say(run, "You turn down the offer and move on.");
+	if (effect === "leave") cave_say(run, localization.message("server.cave.decline"));
 	if (effect === "time")
-		cave_say(run, "You get through, but lose " + (option.seconds || 45) + " seconds of cave time.");
+		cave_say(run, localization.message("server.cave.time_loss", { seconds: option.seconds || 45 }));
 	cave_complete(run, room);
 }
 function cave_set_side(actor, side) {
@@ -1244,15 +1271,23 @@ function cave_death(attacker, target) {
 	return true;
 }
 function cave_move(actor, target, now) {
-	if (actor.working || actor.moving || now - (actor.zone_actor.last_path || 0) < 650 || is_disabled(actor)) return;
-	actor.zone_actor.last_path = now;
+	var ai = actor.zone_actor;
+	if (now - (ai.last_path || 0) < 250 || is_disabled(actor)) return;
 	var move = calculate_move(actor, target.x, target.y);
 	if (Math.hypot(move.x - target.x, move.y - target.y) < 4) {
+		ai.last_path = now;
+		// A clear route supersedes any pending detour. Its late worker reply must not turn us back.
+		ai.path_token = null;
+		actor.working = false;
+		if (actor.moving && Math.hypot(actor.going_x - move.x, actor.going_y - move.y) < 8) return;
 		actor.going_x = move.x;
 		actor.going_y = move.y;
 		start_moving_element(actor);
 		return;
 	}
+	// Keep walking while a detour is calculated; only one worker request may be outstanding.
+	if (actor.working || now - (ai.last_path || 0) < 650) return;
+	ai.last_path = now;
 	actor.working = true;
 	actor.zone_actor.path_token = actor.zone_actor.run + ":" + ++generated_runs[actor.zone_actor.run].cave.serial;
 	workers[generated_maps[actor.map].floor.worker].postMessage({
@@ -1284,7 +1319,16 @@ function cave_seen(actor, people) {
 	);
 }
 function cave_cue(run, actor, text, kind) {
-	var cue = { id: ++run.cave.serial, actor: actor.id, text, kind, x: actor.x, y: actor.y, map: actor.map };
+	var cue = {
+		id: ++run.cave.serial,
+		actor: actor.id,
+		text: typeof text === "object" ? text.message : text,
+		text_message: typeof text === "object" ? text : undefined,
+		kind,
+		x: actor.x,
+		y: actor.y,
+		map: actor.map,
+	};
 	for (var p of cave_players(run))
 		if (p.map === actor.map) p.socket.emit("cave", { type: "cue", state: cave_snapshot(run, p), cue });
 }
@@ -1345,7 +1389,7 @@ function cave_actor_tick(run, actor, now, people) {
 						member.zone_actor.distracted_until = now + 8000;
 						member.zone_actor.distracted_to = { x: room.x - 112, y: room.y - 64 };
 					}
-				cave_cue(run, actor, "The patrol follows the distraction.", "neutral");
+				cave_cue(run, actor, localization.message("server.cave.cue_decoy"), "neutral");
 			}
 			if (run.cave.flags.message) {
 				var guard = room.enemies.find((a) => !a.dead && a.type === "cave_guard");
@@ -1354,14 +1398,15 @@ function cave_actor_tick(run, actor, now, people) {
 					cave_set_side(guard, "ally");
 					delete guard.zone_actor.prey;
 					room.enemies = room.enemies.filter((a) => a !== guard);
-					if (cave_follow_actor(run, guard)) cave_cue(run, guard, "The captain sent you? I'm coming with you.", "ally");
+					if (cave_follow_actor(run, guard)) cave_cue(run, guard, localization.message("server.cave.cue_join"), "ally");
 					else {
 						cave_set_side(guard, "neutral");
 						guard.zone_actor.depart_at = now + 1500;
 					}
 				}
 			}
-			if (ai.boss || ai.brood) cave_cue(run, actor, actor.name + " turns toward you!", "danger");
+			if (ai.boss || ai.brood)
+				cave_cue(run, actor, localization.message("server.cave.cue_turn", { npc: actor.name }), "danger");
 		} else {
 			if (nearby[0] && simple_distance(actor, nearby[0]) < 350) cave_face(actor, nearby[0]);
 			if (now >= ai.next_wander) {
@@ -1388,7 +1433,7 @@ function cave_actor_tick(run, actor, now, people) {
 		cave_cue(
 			run,
 			actor,
-			actor.type === "cave_sentinel" ? "The sentinel is winding up. Move away!" : "Help me!",
+			localization.message(actor.type === "cave_sentinel" ? "server.cave.cue_sentinel" : "server.cave.cue_help"),
 			"danger",
 		);
 		ai.windup = now + 2000;
@@ -1396,7 +1441,7 @@ function cave_actor_tick(run, actor, now, people) {
 	if (ai.brood && !ai.hatched && actor.hp < actor.max_hp * 0.65) {
 		ai.hatched = true;
 		ai.windup = now + 2000;
-		cave_cue(run, actor, "The nest is hatching!", "danger");
+		cave_cue(run, actor, localization.message("server.cave.cue_nest"), "danger");
 	}
 	if (ai.windup) {
 		if (now < ai.windup) return;
@@ -1442,6 +1487,16 @@ function cave_actor_tick(run, actor, now, people) {
 		else if (simple_distance(actor, ai.home) > 80) cave_move(actor, ai.home, now);
 		return;
 	}
+	if (simple_distance(actor, target) <= actor.range * 0.8 && (actor.moving || actor.working)) {
+		actor.moving = false;
+		actor.working = false;
+		actor.vx = actor.vy = 0;
+		actor.going_x = actor.x;
+		actor.going_y = actor.y;
+		ai.path_token = null;
+		actor.u = true;
+		actor.cid = (actor.cid || 0) + 1;
+	}
 	cave_face(actor, target);
 	if (ai.betrayed && ai.jump !== target.id && now >= (ai.jump_at || 0)) {
 		var point = safe_xy_nearby(actor.map, target.x - 12, target.y + 12);
@@ -1473,7 +1528,7 @@ function cave_tick(run, now) {
 		// Growing crops need only a deadline, even after this floor has unloaded.
 		if (room.harvest && room.harvest <= now) {
 			delete room.harvest;
-			if (cave_credit(run, 0, 3, room)) cave_say(run, "The farmer leaves an Amber chest where you met.");
+			if (cave_credit(run, 0, 3, room)) cave_say(run, localization.message("server.cave.harvest"));
 		}
 		if (!generated_maps[room.map]) continue;
 		var occupied = people.some((p) => p.map === room.map && simple_distance(p, room) < 1100);
@@ -1512,7 +1567,8 @@ function cave_tick(run, now) {
 				cave_reward(run, { id: room.id + ":wave:" + room.waves, map: room.map, x: room.x, y: room.y }, "cave_farm");
 				cave_credit(run, 1500, 1, room);
 				room.next_wave = now + 10000;
-				if (room.waves < 3) cave_say(run, room.name + ": Something is moving in the nest. Another pack in 10 seconds.");
+				if (room.waves < 3)
+					cave_say(run, localization.message("server.cave.wave_wait", { camp: room.name_message || room.name }));
 			}
 			if (room.waves >= 3) cave_complete(run, room);
 			else if (occupied && now >= room.next_wave) {
@@ -1527,16 +1583,19 @@ function cave_tick(run, now) {
 					}
 					newborn.zone_actor.next = now + 1500;
 				}
-				cave_say(run, room.name + ": Pack " + room.waves + " is coming out of the nest!");
+				cave_say(
+					run,
+					localization.message("server.cave.wave_next", { camp: room.name_message || room.name, wave: room.waves }),
+				);
 			}
 			continue;
 		}
 		if (room.practice && (room.npc.hp <= 1 || room.practice_end <= now)) {
 			if (room.npc.hp <= 1) {
-				cave_say(run, room.npc.name + ": You win! Here is your reward.");
+				cave_say(run, localization.message("server.cave.practice_win", { npc: room.npc.name }));
 				if (room.practice_amber) cave_credit(run, 0, room.practice_amber, room);
 				else cave_reward(run, room, "cave_parcel");
-			} else cave_say(run, room.npc.name + ": Time is up. No prize this time.");
+			} else cave_say(run, localization.message("server.cave.practice_timeout", { npc: room.npc.name }));
 			cave_set_side(room.npc, "neutral");
 			room.npc.zone_actor.idle = true;
 			cave_complete(run, room);
@@ -1550,7 +1609,7 @@ function cave_tick(run, now) {
 				cave_credit(run, room.hunt.small ? 0 : 5000, 2, room);
 			} else {
 				room.no_reward = true;
-				cave_say(run, "Time is up. The hunt paid nothing.");
+				cave_say(run, localization.message("server.cave.hunt_timeout"));
 			}
 			cave_complete(run, room);
 			continue;
@@ -1573,7 +1632,7 @@ function cave_tick(run, now) {
 						room.npc.zone_stats.speed = 100;
 						calculate_monster_stats(room.npc);
 						room.enemies.push(room.npc);
-						cave_say(run, "The rogue vanishes behind you. His daggers are already moving.");
+						cave_say(run, localization.message("server.cave.rogue_betrayal"));
 						room.rescue = false;
 						continue;
 					}
@@ -1606,7 +1665,7 @@ function cave_tick(run, now) {
 			}
 		}
 		if (room.escort && room.npc.dead) {
-			cave_say(run, room.npc.name + " did not make it. The escort is over.");
+			cave_say(run, localization.message("server.cave.escort_lost", { npc: room.npc.name }));
 			cave_complete(run, room);
 			continue;
 		}
@@ -1675,11 +1734,17 @@ function cave_snapshot(run, player) {
 					(r.kind === "boss"
 						? G.monsters[["cave_lockbreaker", "cave_sentinel", "cave_mothkeeper"][r.floor]].name
 						: "Guard camp"),
+				name_message: r.encounter
+					? cave_dialogue_ref(r, "name")
+					: r.kind === "fight"
+						? { phrase: "server.cave.guard_camp" }
+						: r.name_message,
 			})),
 		choice: v
 			? {
 					id: v.id,
 					title: v.room.encounter.name,
+					title_message: cave_dialogue_ref(v.room, "name"),
 					kind: v.room.encounter.kind,
 					danger: v.room.encounter.group === "bad",
 					scene: v.room.actors
@@ -1696,11 +1761,14 @@ function cave_snapshot(run, player) {
 							slots: a.slots,
 						})),
 					text: cave_reply_label(v.room, { label: v.room.encounter.text }),
+					text_message: cave_dialogue_ref(v.room, "text"),
 					deadline: v.deadline,
 					resolved: v.resolved,
 					result: v.result,
 					result_label: v.result_label,
+					result_message: v.result_message,
 					summary: v.summary || [],
+					summary_messages: v.summary_messages || [],
 					votes: Object.fromEntries(
 						run.members.filter((m) => v.votes[m.character]).map((m) => [m.name, v.votes[m.character]]),
 					),
@@ -1709,6 +1777,7 @@ function cave_snapshot(run, player) {
 						.map((o) => ({
 							id: o.id,
 							label: cave_reply_label(v.room, o),
+							label_message: o.label_message || cave_dialogue_ref(v.room, "options." + o.id + ".label"),
 							cost: o.cost || 0,
 							amber: o.amber || 0,
 							unavailable:
@@ -1717,6 +1786,12 @@ function cave_snapshot(run, player) {
 									: (o.cost || 0) > state.gold || (o.amber || 0) > state.amber
 										? "Not enough in the shared purse."
 										: null,
+							unavailable_message:
+								o.needs && !state.flags[o.needs]
+									? { phrase: "server.cave.need_tool" }
+									: (o.cost || 0) > state.gold || (o.amber || 0) > state.amber
+										? { phrase: "server.cave.purse_short" }
+										: undefined,
 						})),
 					fallback:
 						v.fallback === "time"
@@ -1726,6 +1801,16 @@ function cave_snapshot(run, player) {
 								: v.room.rescue || v.room.rival
 									? "Leave them to fight"
 									: "Walk away",
+					fallback_message: {
+						phrase:
+							v.fallback === "time"
+								? "server.cave.fallback_time"
+								: v.fallback === "revive_landing"
+									? "server.cave.fallback_landing"
+									: v.room.rescue || v.room.rival
+										? "server.cave.fallback_fight"
+										: "cave.no_reply",
+					},
 					skin: v.room.npc?.skin,
 					cx: v.room.npc?.cx,
 					people: [v.room.npc, v.room.rival].filter(Boolean).map((a) => ({
@@ -1805,7 +1890,14 @@ async function cave_interaction(player, data) {
 			room.npc.u = true;
 			room.npc.cid = (room.npc.cid || 0) + 1;
 			cave_face(room.npc, player);
-			var chat = { name: room.npc.name, skin: room.npc.skin, cx: room.npc.cx, text: cave_pick(room.look.says) };
+			var text = cave_pick(room.look.says);
+			var chat = {
+				name: room.npc.name,
+				skin: room.npc.skin,
+				cx: room.npc.cx,
+				text,
+				text_message: { phrase: "event.dreams.traveler." + room.look.name + ".says." + room.look.says.indexOf(text) },
+			};
 			player.socket.emit("cave", { type: "chat", state: cave_snapshot(run, player), chat });
 			return { chat };
 		}
@@ -2018,7 +2110,7 @@ function cave_follow_actor(run, actor) {
 	var count = [...run.cave.actors].filter((a) => a.zone_actor.follow && !a.dead).length;
 	for (var room of run.cave.rooms) count += (room.saved || []).filter((a) => a.zone_actor.follow).length;
 	if (count >= 2) {
-		cave_say(run, "You already have two helpers. Take 2 Amber instead.");
+		cave_say(run, localization.message("server.cave.helpers_full"));
 		cave_credit(run, 0, 2, actor);
 		return false;
 	}
@@ -2048,7 +2140,13 @@ function cave_venture(run, room, option) {
 			break;
 		}
 	}
-	cave_say(run, outcome.text);
+	cave_say(
+		run,
+		Object.assign(
+			{ message: cave_reply_label(room, { label: outcome.text }) },
+			cave_dialogue_ref(room, "options." + option.id + ".outcomes." + option.outcomes.indexOf(outcome) + ".text"),
+		),
+	);
 	for (var flag of outcome.flags || []) run.cave.flags[flag] = true;
 	cave_credit(run, outcome.gold, outcome.amber, room);
 	if (outcome.reward) cave_reward(run, room, outcome.reward);

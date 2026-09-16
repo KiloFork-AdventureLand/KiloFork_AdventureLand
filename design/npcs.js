@@ -1071,4 +1071,4 @@ for(var npc in npcs){
 if(typeof module!=="undefined") module.exports={npcs};
 
 
-npcs.dreamkeeper={name:"Dorr",role:"dreamkeeper",skin:"mbody4e", cx:{head:"mmakeup01",hair:"hairdo410",beard:"beard102",hat:"hat221",back:"backpacks202"},type:"fullstatic",says:["Going inside? Bring your party close."],interaction:["You have 24 minutes inside. Stay together."]};
+npcs.dreamkeeper={name:"Dorr",role:"dreamkeeper",skin:"mbody4e", cx:{head:"mmakeup01",hair:"hairdo410",chin:"beard102",hat:"hat221",back:"backpacks202"},type:"fullstatic",says:["Going inside? Bring your party close."],interaction:["You have 24 minutes inside. Stay together."]};

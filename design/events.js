@@ -2529,7 +2529,7 @@ events.dreams={
 			"actor": "dice_operator",
 			"group": "positive",
 			"kind": "practice_dice",
-			"text": "Want a free roll? Roll a six and I will put 1 Amber in the shared purse. No bet this time.",
+			"text": "Want a free roll? Roll a six to win a chest with 1 Amber for the party. No bet this time.",
 			"options": [
 				{
 					"id": "e37_0",
@@ -2637,14 +2637,14 @@ events.dreams={
 			"actor": "fungus_farmer",
 			"group": "positive",
 			"kind": "plant",
-			"text": "These seeds grow Amber in a minute. Plant some and I will put 3 Amber in the shared purse when they are ready. You can explore while they grow.",
+			"text": "These seeds grow Amber in a minute. Plant some, then return here and open the chest for 3 Amber. You can explore while they grow.",
 			"options": [
 				{
 					"id": "e39_0",
 					"label": "Plant a crop; collect 3 Amber after one minute",
 					"effect": "plant",
 					"offer": true,
-					"result": "The seeds are planted. I will put the Amber in your shared purse when it is ready."
+					"result": "The seeds are planted. Come back here in a minute and open the chest to collect your Amber."
 				},
 				{
 					"id": "e39_1",
@@ -2662,7 +2662,7 @@ events.dreams={
 					"id": "e39_2",
 					"label": "Take the farmer’s spare rattle",
 					"effect": "decoy",
-					"result": "Use the rattle when you reach a patrol. It will draw them away for eight seconds."
+					"result": "The rattle will draw the next patrol away for eight seconds."
 				},
 				{
 					"id": "e39_3",
@@ -2769,7 +2769,7 @@ events.dreams={
 					"id": "e41_3",
 					"label": "Take a tin rattle for the road",
 					"effect": "decoy",
-					"result": "This should start an argument between the guards."
+					"result": "The rattle will draw the next patrol away for eight seconds."
 				},
 				{
 					"id": "e41_4",
@@ -2835,7 +2835,7 @@ events.dreams={
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "The rat drops 1 Amber into the shared purse.",
+							"text": "The rat found 1 Amber. Open the chest to collect it.",
 							"amber": 1
 						}
 					]
@@ -2860,7 +2860,7 @@ events.dreams={
 					"label": "Take a message for a guard",
 					"effect": "decoy",
 					"offer": true,
-					"result": "“Show this to a guard. One of them will fight on your side.”"
+					"result": "Take this to the next guard camp. One guard will stand down. If you have room for another helper, they will join you."
 				},
 				{
 					"id": "e43_1",
@@ -2931,7 +2931,7 @@ events.dreams={
 					"outcomes": [
 						{
 							"weight": 1,
-							"text": "The appraiser gives you 1 Amber.",
+							"text": "The appraiser leaves 1 Amber in a chest for you.",
 							"amber": 1
 						}
 					]
@@ -3229,7 +3229,7 @@ events.dreams={
 					"label": "Take 2 Amber",
 					"effect": "gift",
 					"offer": true,
-					"result": "Here. Put these in the shared purse."
+					"result": "Here. Open the chest to add these to the shared purse."
 				},
 				{
 					"id": "e50_1",

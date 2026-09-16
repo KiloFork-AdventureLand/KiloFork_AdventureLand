@@ -373,6 +373,7 @@ async function open_generated_zone(player) {
 		collection = db.collection("GeneratedZone");
 	var claimed = [],
 		reserved = [],
+		animated = false,
 		activated = false;
 	try {
 		for (var account of accounts.sort((a, b) => a.owner.localeCompare(b.owner))) {
@@ -420,6 +421,7 @@ async function open_generated_zone(player) {
 		var seed = crypto.randomBytes(16).toString("hex");
 		var floors = await prepare_generated_run(seed, key, exit_spawn);
 		generated_admission(player, members);
+		animated = true;
 		await cave_enter_effect(members, key);
 		generated_admission(player, members);
 		if (
@@ -455,6 +457,10 @@ async function open_generated_zone(player) {
 		for (var p of members) generated_transport(p, record.floors[0], 0, 1);
 		cave_publish(record);
 		return { run: key, expires: record.expires, level: record.level };
+	} catch (error) {
+		var waiting = members.find((p) => p.map === "main");
+		if (animated && waiting) xy_emit(waiting, "ui", { type: "cave_enter", key, cancel: true });
+		throw error;
 	} finally {
 		accounts.forEach((p) => generated_openings.delete(p.owner));
 		if (!activated) {

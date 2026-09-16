@@ -755,5 +755,6 @@
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "Spillere sorteres nu efter onlinestatus og alder",
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "En forbedring, der skal løse problemerne med sammenstimlinger og monstre, der ikke forsvinder.",
 	"update.30_10_21.new_slenderman_dynamics": "Ny virkemåde for Slenderman",
-	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp trænger ikke længere gennem besværgelsesimmunitet; i stedet har de færdigheder, der gør det, flaget .pierces_immunity"
+	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp trænger ikke længere gennem besværgelsesimmunitet; i stedet har de færdigheder, der gør det, flaget .pierces_immunity",
+	"update.14_09_26.cave": "Gå ind i Cave of Many Dreams med din gruppe. Udforsk skiftende etager, få 10× XP fra fjender, og brug huleguld hos handlende. Find økser og leer, eller handl med Cave Amber for at fremstille sjældent udstyr. Død derinde koster hverken XP eller guld."
 }

@@ -541,8 +541,9 @@ Object.assign(module.exports, {
   "cave.info_button": "CAVE INFO",
   // Only shown for visits on a non-production Dev server.
   "cave.visit_unlimited": "Dev: unlimited visits",
-  "cave.keeper_dev": "Bring your party close. You have 24 minutes inside. You can start another visit after leaving on this Dev server.",
-  "cave.keeper": "Bring your party close. One visit per account each day. You have 24 minutes inside. Once you leave, you cannot return.",
+  // Dorr's first invitation beside the Mainland entrance. Describe real cave activities, the 24-minute visit and the relevant entry limit. Keep Cave Amber and Dev unchanged.
+  "cave.keeper_dev": "Fight monster packs, strike a bargain, and bring home Cave Amber for your next weapon. Gather your party—you have 24 minutes inside. On this Dev server, you can visit again after leaving.",
+  "cave.keeper": "Fight monster packs, strike a bargain, and bring home Cave Amber for your next weapon. Gather your party—you have 24 minutes inside. One visit per account each day; no returning once you leave.",
   "cave.enter": "Enter together",
   "cave.exit": "Exit",
   "cave.purse": "Shared purse: {gold} gold · {amber} Amber",

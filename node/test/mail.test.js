@@ -158,6 +158,30 @@ test("cave mail updates the saved unread count and every connected character on 
 	assert.deepEqual(saved.info.code_list, { 1: ["main", 3] });
 });
 
+test("only trusted cave reward mail carries translated subject and body metadata", async () => {
+	const ordinary = mail("ordinary");
+	ordinary.fro = "Dorr";
+	ordinary.info.subject = "From the cave";
+	ordinary.info.message = "You left this with me.";
+	const cave = structuredClone(ordinary);
+	cave._id = "ML_cave:reward";
+	cave.cave_award = true;
+	const h = fixture([ordinary, cave]);
+	const inbox = (await h.call("pull_mail")).infs.find((info) => info.type === "mail").mail;
+	const normal = inbox.find((entry) => entry.id === ordinary._id);
+	const reward = inbox.find((entry) => entry.id === cave._id);
+	assert.equal(normal.subject_message, undefined);
+	assert.equal(normal.body_message, undefined);
+	assert.equal(normal.message, ordinary.info.message);
+	assert.equal(reward.subject, ordinary.info.subject);
+	assert.equal(reward.message, ordinary.info.message);
+	assert.equal(reward.subject_message.phrase, "server.cave.mail_subject");
+	assert.equal(reward.body_message.phrase, "server.cave.mail_body");
+	const localization = require("../../languages");
+	assert.equal(localization.phrase(reward.subject_message.phrase, {}, "de"), "Aus der Höhle");
+	assert.equal(localization.phrase(reward.body_message.phrase, {}, "de"), "Du hast das bei mir gelassen.");
+});
+
 test("a mail notification updates COM without opening Mail or touching graphics", () => {
 	const html = new Map();
 	let response;

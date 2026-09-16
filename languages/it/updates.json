@@ -755,5 +755,6 @@
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "I giocatori ora sono ordinati in base allo stato online e all'anzianità",
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Un miglioramento del gioco che punta a risolvere i problemi di ammassamento e dei mostri che non scompaiono.",
 	"update.30_10_21.new_slenderman_dynamics": "Nuove dinamiche di Slenderman",
-	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp non penetra più l'immunità agli incantesimi; le abilità che la penetrano hanno invece il contrassegno .pierces_immunity"
+	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp non penetra più l'immunità agli incantesimi; le abilità che la penetrano hanno invece il contrassegno .pierces_immunity",
+	"update.14_09_26.cave": "Entra nella Cave of Many Dreams con il tuo gruppo. Esplora piani sempre diversi, guadagna 10× XP dai nemici e spendi l’oro della grotta dai mercanti. Trova asce e falci oppure scambia Cave Amber per creare equipaggiamento raro. Morire all’interno non costa XP né oro."
 }

@@ -1246,6 +1246,10 @@ async function pull_mail_api(args) {
 			sent: "" + mail.created,
 			id: get_id(mail),
 		};
+		if (mail.cave_award === true) {
+			mail_data.subject_message = { phrase: "server.cave.mail_subject" };
+			mail_data.body_message = { phrase: "server.cave.mail_body" };
+		}
 		if (mail.item) {
 			mail_data.item = simplify_item(mail.info.item);
 			mail_data.taken = mail.taken;

@@ -755,5 +755,6 @@
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "Người chơi giờ đây được sắp xếp theo trạng thái trực tuyến và thâm niên",
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Một cải tiến nhằm khắc phục các vấn đề về dồn đống và quái vật không biến mất.",
 	"update.30_10_21.new_slenderman_dynamics": "Cơ chế Slenderman mới",
-	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp giờ đây không xuyên miễn nhiễm phép thuật nữa; thay vào đó, các kỹ năng xuyên miễn nhiễm phép thuật sẽ có cờ .pierces_immunity"
+	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp giờ đây không xuyên miễn nhiễm phép thuật nữa; thay vào đó, các kỹ năng xuyên miễn nhiễm phép thuật sẽ có cờ .pierces_immunity",
+	"update.14_09_26.cave": "Vào Cave of Many Dreams cùng tổ đội. Khám phá các tầng luôn thay đổi, nhận XP từ kẻ địch gấp 10 lần và dùng vàng hang động để mua hàng. Tìm rìu và lưỡi hái, hoặc mua bán Cave Amber để chế tạo trang bị hiếm. Chết bên trong không làm mất XP hay vàng."
 }

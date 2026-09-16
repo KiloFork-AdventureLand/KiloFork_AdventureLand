@@ -6619,7 +6619,7 @@ function render_interaction(type, sub_type, args) {
 	if (pass);
 	else if (cosmetic_preview)
 		html +=
-			"<div style='float: left; margin-top: -20px; width: 104px; height: 98px; overflow: hidden'>" +
+			"<div style='float: left; margin-top: -20px; width: 104px; height: " + (cosmetic_type.full ? 144 : 98) + "px; overflow: hidden'>" +
 			sprite(cosmetic_type.skin, { cx: clone(cosmetic_type.cx || {}), cosmetic_head_y: cosmetic_type.cosmetic_head_y, width: 104, height: 144, scale: 4 }) +
 			"</div>";
 	else if (img_type == "normal" || img_type == "full")
@@ -7256,8 +7256,8 @@ function render_mail(id) {
 	html += "<div class='clickable' style='color: #DB090A; float: right' onclick='show_delete_mail(\"" + id + "\");'>" + phrase.html("interface.mail.delete") + "</div>";
 	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.from") + "</span> " + mail.fro + "</div>";
 	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.to") + "</span> " + mail.to + "</div>";
-	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.subject") + "</span> " + html_escape(mail.subject) + "</div>";
-	html += "<div class='mailsubject'>" + html_escape(mail.message).replace_all("\r\n", "<br />").replace_all("\n", "<br />").replace_all("\t", "&nbsp;&nbsp;") + "</div>";
+	html += "<div class='mailsubject'><span style='color: gray'>" + phrase.html("interface.mail.subject") + "</span> " + html_escape(phrase.message(mail.subject_message || mail.subject)) + "</div>";
+	html += "<div class='mailsubject'>" + html_escape(phrase.message(mail.body_message || mail.message)).replace_all("\r\n", "<br />").replace_all("\n", "<br />").replace_all("\t", "&nbsp;&nbsp;") + "</div>";
 	if (mail.item) {
 		var item = JSON.parse(mail.item);
 		var take = "";
@@ -7315,7 +7315,7 @@ function load_mail(info) {
 					" <span style='color: gray'>" +
 					phrase.html("interface.load_mail.subject") +
 					"</span> " +
-					html_escape(mail.subject) +
+					html_escape(phrase.message(mail.subject_message || mail.subject)) +
 					item_html +
 					"</div>";
 			});

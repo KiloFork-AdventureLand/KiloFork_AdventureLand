@@ -70,6 +70,7 @@ function fixture() {
 		"cave_shuffle",
 		"cave_receipt",
 		"cave_reply_label",
+		"cave_dialogue_ref",
 		"cave_set_side",
 		"cave_revival_option",
 		"cave_pause",
@@ -158,6 +159,79 @@ test("neutral disputes do not attack bystanders; only their own reflected spell 
 	assert.equal(c.cave_hostile({ in: "zone_a", zone_actor: { side: "duel_left" } }, p), false);
 	assert.equal(c.cave_hostile({ in: "zone_a", zone_actor: { side: "enemy" } }, p), true);
 });
+test("cave chases follow a moving player, respect walls and ignore a superseded detour", () => {
+	const { c, p, run, room } = encounterFixture(G.events.dreams.encounters[0]);
+	const messages = [],
+		callbacks = {};
+	Object.assign(c, {
+		__dirname: path.resolve(__dirname, ".."),
+		path,
+		SHARE_ENV: {},
+		Worker: class {
+			on(event, callback) {
+				callbacks[event] = callback;
+			}
+		},
+		amap_data: {},
+		smap_data: {},
+		total_moves: 0,
+		Place: "server",
+		perfc: { roam_ops: 0 },
+		workers: [{ postMessage: (data) => messages.push(data) }],
+		instance_is_frozen: () => false,
+		is_invinc: () => false,
+		is_invis: () => false,
+		can_attack: () => false,
+	});
+	const definitions = { ...c.G, geometry: { zone_a: { x_lines: [], y_lines: [] } } };
+	for (const file of ["common/js/common_functions.js", "js/old_common_functions.js"]) vm.runInContext(read(file), c);
+	c.G = definitions;
+	load(c, "node/server.js", ["start_moving_element"]);
+	load(c, "node/server_functions.js", ["new_worker"]);
+	load(c, "node/logic/cave_of_many_dreams.js", ["cave_move", "cave_actor_tick", "cave_face"]);
+	c.generated_maps.zone_a.floor.worker = 0;
+	const actor = c.cave_spawn(run, room, "cave_rat", "enemy", 0);
+	Object.assign(actor, { x: 800, y: 1000, speed: 60, range: 40 });
+	actor.zone_actor.idle = false;
+	room.actors = [actor];
+	room.enemies = [actor];
+	room.engaged = true;
+	c.instances.zone_a = { monsters: { [actor.id]: actor } };
+	c.new_worker(0);
+	c.cave_actor_tick(run, actor, 10000, [p]);
+	assert.equal(actor.going_x, 1000);
+	assert.equal(actor.moving, true);
+	p.x = 900;
+	p.y = 1100;
+	c.cave_actor_tick(run, actor, 10300, [p]);
+	assert.equal(actor.going_x, 900, "changes course before reaching the old destination");
+	assert.equal(actor.going_y, 1100);
+	assert.ok(actor.vx > 0 && actor.vy > 0);
+	p.x = 1250;
+	p.y = 1000;
+	c.G.geometry.zone_a.x_lines = [[1100, 800, 1200]];
+	c.cave_actor_tick(run, actor, 11000, [p]);
+	assert.equal(messages.length, 1, "a wall requests a detour, never a straight chase through it");
+	c.cave_actor_tick(run, actor, 11700, [p]);
+	assert.equal(messages.length, 1, "does not pile up worker requests");
+	p.x = 950;
+	p.y = 1050;
+	c.cave_actor_tick(run, actor, 12000, [p]);
+	assert.equal(actor.going_x, 950, "a clear route replaces the pending detour");
+	callbacks.message({
+		type: "monster_move",
+		in: actor.in,
+		id: actor.id,
+		path_token: messages[0].path_token,
+		move: [800, 780],
+	});
+	assert.equal(actor.going_x, 950, "late detour cannot restore the obsolete destination");
+	p.x = 815;
+	p.y = 1000;
+	c.cave_actor_tick(run, actor, 12300, [p]);
+	assert.equal(actor.moving, false, "stops beside the target instead of running past it");
+	assert.equal(actor.vx, 0);
+});
 test("cave definitions contain 50 encounters and bounded reward budgets", () => {
 	const { c, p, run } = chestFixture(),
 		events = G.events.dreams;
@@ -202,11 +276,21 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	c.render_cave_keeper();
 	c.render_cave_status();
 	c.render_cave_choice();
-	c.receive_cave_state({ type: "chat", state: {}, chat: { text: "Hello" } });
-	c.receive_cave_state({ type: "cue", state: {}, cue: { text: "Move away" } });
+	c.receive_cave_state({
+		type: "chat",
+		state: {},
+		chat: { text: "Hello", text_message: { phrase: "event.dreams.traveler.Pip.says.0" } },
+	});
+	c.receive_cave_state({
+		type: "cue",
+		state: {},
+		cue: { text: "Move away", text_message: { phrase: "server.cave.cue_sentinel" } },
+	});
 	c.decorate_cave_door({});
 	c.cave_manual("enter");
 	c.cave_entry_animation({ names: ["A"], duration: 1800 });
+	c.cave_entry_animation({ key: "test", cancel: true });
+	c.finish_cave_entry();
 	c.cave_transport_animation("transport", { to: "zone_b" });
 	c.draw_cave_entrance();
 	c.decorate_cave_gate({});
@@ -249,6 +333,122 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	assert.ok(c.character.cave);
 	c.receive_cave_state({ type: "ended" });
 	assert.equal(c.character.cave, null);
+});
+
+test("cave entry waits for the map handoff and releases input without another draw frame", () => {
+	let now = 1000;
+	const handlers = {};
+	class Graphics {
+		clear() {}
+		beginFill() {}
+		drawRect() {}
+		endFill() {}
+		destroy() {
+			this._destroyed = true;
+		}
+	}
+	const pivot = {
+		x: 0,
+		y: 0,
+		set(x, y) {
+			this.x = x;
+			this.y = y;
+		},
+	};
+	const character = { name: "A", real_x: 830, real_y: 1230, pivot, animations: {}, addChild() {} };
+	const c = vm.createContext({
+		Date: class extends Date {
+			static now() {
+				return now;
+			}
+		},
+		no_graphics: false,
+		character,
+		current_map: "main",
+		current_in: "main",
+		tutorial_map: null,
+		really_old: new Date(0),
+		G: { maps: { main: {}, zone_test: { data: {} } }, geometry: { zone_test: {} }, npcs: { dreamkeeper: {} } },
+		PIXI: { Graphics },
+		animatables: {},
+		socket: {
+			on(event, fn) {
+				handlers[event] = fn;
+			},
+		},
+		get_player: () => character,
+		start_animation(sprite, name) {
+			sprite.animations[name] = {};
+		},
+		stop_animation(sprite, name) {
+			delete sprite.animations[name];
+		},
+		render_interaction() {},
+		h_shake() {},
+		v_shake() {},
+		draw_timeout() {},
+		$: () => ({ length: 0, empty() {}, html() {} }),
+		reflect_music() {},
+		resolve_deferreds() {},
+		unstuck_logic() {},
+		create_map() {},
+		position_map() {},
+		new_map_logic() {},
+		handle_entities() {},
+		call_code_function() {},
+	});
+	localize(c);
+	vm.runInContext(read("js/generated_zones.js"), c);
+	c.prune_generated_maps = () => {};
+	const source = read("js/game.js"),
+		start = source.indexOf('socket.on("new_map"');
+	vm.runInContext(source.slice(start, source.indexOf('socket.on("start"', start)), c);
+	c.cave_entry_animation({ key: "entry", names: ["A"], duration: 1800 });
+	now += 1800;
+	c.draw_cave_entrance();
+	assert.deepEqual([pivot.x, pivot.y], [14, 82]);
+	now += 2500;
+	c.draw_cave_entrance();
+	assert.deepEqual([pivot.x, pivot.y], [14, 82], "does not snap back while admission finishes");
+	handlers.new_map({ name: "zone_test", in: "zone_test", x: 400, y: 304, m: 2, effect: 1, entities: {} });
+	assert.equal(character.cave_entering, undefined, "map arrival releases input even before the next draw");
+	assert.deepEqual([pivot.x, pivot.y], [0, 0]);
+	assert.equal(c.cave_entry_scenes.length, 0);
+	assert.equal(character.tp, 1, "keeps the native arrival effect");
+	c.current_map = "main";
+	delete character.tp;
+	c.cave_entry_animation({ key: "retry", names: ["A"], duration: 1800 });
+	c.cave_entry_animation({ key: "retry", cancel: true });
+	assert.equal(character.cave_entering, undefined, "a rejected admission releases input immediately");
+	assert.equal(c.cave_entry_scenes.length, 0);
+});
+
+test("a first paused cave snapshot opens its choice without reopening a dismissed conversation", () => {
+	const shown = [];
+	const c = vm.createContext({
+		no_graphics: false,
+		character: {},
+		call_code_function() {},
+		reflect_music() {},
+		$: () => ({ length: 0 }),
+	});
+	vm.runInContext(read("js/generated_zones.js"), c);
+	for (const name of ["cave_queue_rewards", "update_cave_doors", "update_cave_hud", "update_cave_info"])
+		c[name] = () => {};
+	c.render_cave_choice = () => {
+		c.cave_open_choice = c.cave_client_state.choice.id;
+		shown.push(c.cave_open_choice);
+	};
+	const state = { paused: true, choice: { id: "one", votes: {} } };
+	c.receive_cave_state({ type: "state", state });
+	c.receive_cave_state({ type: "state", state });
+	assert.deepEqual(shown, ["one"], "a repeated snapshot respects the player's dismissal");
+	c.receive_cave_state({ type: "state", state: { paused: true, choice: { id: "two", votes: {} } } });
+	assert.deepEqual(
+		shown,
+		["one", "two"],
+		"a new pending vote is visible even without its separate choice notification",
+	);
 });
 
 test("Cave Info follows proximity and map changes without waiting for another event", () => {
@@ -460,6 +660,21 @@ test("daily admission stays limited in production; Dev permits repeat visits but
 	c.Prod = true;
 	assert.equal((await c.generated_visit_info(p)).available, false);
 	await assert.rejects(c.open_generated_zone(p), /daily_opening_used/);
+	c.Prod = false;
+	for (const member of members) claims.delete("member:" + member.real_id);
+	const cancelled = [];
+	c.xy_emit = (player, event, data) => cancelled.push({ event, data });
+	c.install_generated_run = () => {
+		throw Error("install_failed");
+	};
+	await assert.rejects(c.open_generated_zone(p), /install_failed/);
+	assert.equal(cancelled.length, 1);
+	assert.equal(cancelled[0].event, "ui");
+	assert.equal(
+		cancelled[0].data.cancel,
+		true,
+		"failure after the entrance animation tells clients to restore the party",
+	);
 });
 
 test("Nera can use the doorway when a fallen character is beside a wall", () => {
@@ -954,7 +1169,7 @@ function encounterFixture(encounter) {
 			chest.items = [];
 		},
 		cave_say: (r, message) => {
-			(r.messages ||= []).push(message);
+			(r.messages ||= []).push(typeof message === "string" ? message : message.message);
 		},
 		cave_credit: () => true,
 		cave_reward: () => {},
@@ -1201,6 +1416,97 @@ test("revive here charges only fallen players who remain; the doorway is free", 
 		assert.equal(run.cave.amber, mode === "here" ? before - 2 : mode === "departed" ? before - 1 : before);
 		assert.equal(second.rip, mode === "departed");
 	}
+});
+
+test("cave revival translates choices and results while keeping canonical CODE fields", () => {
+	const { c, p, run } = encounterFixture(G.events.dreams.encounters[0]);
+	const logs = [];
+	run.cave.amber = 0;
+	p.rip = true;
+	p.socket.emit = (event, packet) => {
+		if (event === "game_log") logs.push(packet);
+	};
+	c.safe_xy_nearby = (map, x, y) => ({ x, y });
+	load(c, "node/logic/cave_of_many_dreams.js", ["cave_say", "cave_offer_rescue"]);
+	c.cave_offer_rescue(run, p);
+	const state = c.cave_snapshot(run, p);
+	const german = require("../../js/phrases").create("de", c.localization.catalog("de"));
+	const display = (ref) => german(ref.phrase, ref.phrase_args);
+	assert.equal(state.choice.title, "A Hand in the Dark");
+	assert.equal(display(state.choice.title_message), "Eine Hand im Dunkeln");
+	assert.equal(state.choice.options[0].label, "Revive here — 1 Amber total");
+	assert.equal(display(state.choice.options[0].label_message), "Hier wiederbeleben — insgesamt 1 Amber");
+	assert.equal(state.choice.options[0].amber, 1);
+	assert.equal(state.choice.options[0].unavailable, "Not enough in the shared purse.");
+	assert.equal(display(state.choice.options[0].unavailable_message), "Im gemeinsamen Beutel ist nicht genug.");
+	assert.equal(display(state.choice.fallback_message), "Zum Eingang zurückkehren");
+	c.cave_resolve_vote(run, state.choice.deadline + 1);
+	const resolved = c.cave_snapshot(run, p).choice;
+	assert.equal(p.rip, false);
+	assert.equal(resolved.result_label, "No reply was chosen.");
+	assert.equal(display(resolved.result_message), "Es wurde keine Antwort gewählt.");
+	assert.ok(resolved.summary.includes("You're back at the doorway. No Amber spent."));
+	assert.ok(
+		resolved.summary_messages.some(
+			(entry) => display(entry) === "Ihr seid wieder am Eingang. Es wurde kein Amber ausgegeben.",
+		),
+	);
+	assert.equal(logs[0].message, "You're back at the doorway. No Amber spent.");
+	assert.equal(display(logs[0]), "Ihr seid wieder am Eingang. Es wurde kein Amber ausgegeben.");
+});
+
+test("cave encounter results translate the selected outcome and keep CODE text unchanged", () => {
+	for (const optionId of ["e02_0", "e02_2"]) {
+		const { c, p, run, room } = encounterFixture(G.events.dreams.encounters.find((e) => e.id === "e02"));
+		const option = room.encounter.options.find((o) => o.id === optionId);
+		room.encounter.options = [option, room.encounter.options.find((o) => o.effect === "leave")];
+		room.voted = false;
+		load(c, "node/logic/cave_of_many_dreams.js", ["cave_say"]);
+		c.cave_begin_vote(run, room);
+		const before = c.cave_snapshot(run, p).choice;
+		const german = require("../../js/phrases").create("de", c.localization.catalog("de"));
+		assert.equal(german(before.title_message.phrase), "Das herrenlose Paket");
+		assert.equal(before.title, "The Unclaimed Parcel");
+		run.cave.vote.votes.a = run.cave.vote.votes.b = optionId;
+		c.cave_resolve_vote(run, Date.now());
+		const after = c.cave_snapshot(run, p).choice;
+		const canonical = option.result || option.outcomes[0].text;
+		const result = after.summary_messages[after.summary.indexOf(canonical)];
+		assert.ok(result);
+		assert.equal(result.message, canonical);
+		assert.equal(
+			german(result.phrase, result.phrase_args),
+			option.result
+				? "Wir untersuchen sie 20 Sekunden lang und nehmen dann die Vorräte mit."
+				: "Ihr öffnet die Kiste und nehmt den Inhalt mit.",
+		);
+	}
+});
+
+test("cave traveler chat and combat cues preserve CODE text with translated display metadata", async () => {
+	const { c, p, run, room } = encounterFixture(G.events.dreams.encounters[0]);
+	const events = [];
+	p.socket.emit = (event, data) => events.push({ event, data });
+	room.kind = "citizen";
+	room.look = G.events.dreams.travelers.find((entry) => entry.name === "Pip");
+	room.actors = [];
+	run.cave.actors.clear();
+	c.cave_activate(run, room);
+	const result = await c.cave_interaction(p, { action: "talk", room: room.id, actor: room.npc.id });
+	assert.equal(result.chat.text, room.look.says[0]);
+	assert.equal(result.chat.text_message.phrase, "event.dreams.traveler.Pip.says.0");
+	assert.ok(!run.paused_at, "ordinary traveler chat does not pause the cave");
+	const german = require("../../js/phrases").create("de", c.localization.catalog("de"));
+	assert.equal(german(result.chat.text_message.phrase), "Verzeihung! Schwere Tasche.");
+	load(c, "node/logic/cave_of_many_dreams.js", ["cave_cue"]);
+	c.cave_cue(run, room.npc, c.localization.message("server.cave.cue_sentinel"), "danger");
+	const cue = events.find((entry) => entry.data.type === "cue").data.cue;
+	assert.equal(cue.text, "The sentinel is winding up. Move away!");
+	assert.equal(german(cue.text_message.phrase), "Der Wächter holt aus. Geht weg!");
+	const camp = G.events.dreams.camps[0][1];
+	const notice = c.localization.message("server.cave.wave_wait", { camp: { phrase: "event.dreams.camp.0.1.name" } });
+	assert.equal(notice.message, camp.name + ": Something is moving in the nest. Another pack in 10 seconds.");
+	assert.match(german(notice.phrase, notice.phrase_args), /^Fledermausquartier:/);
 });
 
 test("cave chests spread around an occupied drop point and stay on safe ground", () => {

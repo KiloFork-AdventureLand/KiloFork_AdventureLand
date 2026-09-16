@@ -48,7 +48,7 @@ show_json(visit);
 
 setInterval(function() {
     if (character.cave &amp;&amp; character.cave.paused) return;
-    // Your usual fighting or farming code goes here.
+    // {{ phrase("docs.cave.routine_comment") }}
 }, 250);</div>
 <p><a href="/docs/function/cave_info">cave_info</a> · <a href="/docs/function/cave_enter">cave_enter</a> · <a href="/docs/function/cave_reply">cave_reply</a> · <a href="/docs/function/cave_buy">cave_buy</a> · <a href="/docs/function/cave_exit">cave_exit</a></p>
 <hr><p>{{ phrase("docs.cave.travelers") }}</p>
@@ -62,7 +62,7 @@ if (traveler) {
 }</div>
 <p><a href="/docs/function/cave_talk">cave_talk</a></p>
 <hr><p>{{ phrase("docs.cave.chest_code") }}</p>
-<div class="code">// Open nearby cave chests. Run this in your normal loot loop.
+<div class="code">// {{ phrase("docs.cave.loot_comment") }}
 if (character.cave &amp;&amp; !character.cave.paused &amp;&amp; !character.rip) {
     for (var id in parent.chests) {
         var chest = parent.chests[id];
