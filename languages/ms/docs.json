@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Lain kali, jangan usik tali itu.",
 	"docs.cave.comic.keeper": "Penjaga batu",
 	"docs.cave.comic.sign": "Jangan tarik",
-	"docs.cave.comic.clank": "Kelentang!"
+	"docs.cave.comic.clank": "Kelentang!",
+	"docs.cave.returns": "Mengembalikan apabila berjaya: {fields}.",
+	"docs.cave.state": "character.cave mengandungi keadaan gua terkini dan menjadi null apabila anda keluar. Pantau perubahan dengan character.on(\"cave\", callback).",
+	"docs.cave.restart": "Jika mula semula pelayan menamatkan lawatan anda, akaun mendapat semula lawatan hariannya. Memuat semula halaman atau memutuskan sambungan tidak memulihkannya."
 }

@@ -18,7 +18,7 @@ var skills={
 		"skin": "rimeglass",
 		"type": "monster",
 		"class": [],
-		"explanation": "At half health, the Djinn casts for 3 seconds. Deal damage equal to 5% of its maximum HP, or stun it, to break the shell and lower resistance by 160 for 5 seconds. Otherwise, it fires at up to three nearby contributors. Ordinary freezing does not interrupt it.",
+		"explanation": "At half health, the Djinn casts for 3 seconds. Deal damage equal to 5% of its maximum HP, or stun it, to break the shell and lower resistance by 160 for 5 seconds. Otherwise, it fires at up to three nearby contributors. Ordinary freezing does not interrupt it. Purify cannot dispel the shell.",
 		"monster": true
 	},
 

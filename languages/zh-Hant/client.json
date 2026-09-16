@@ -333,7 +333,7 @@
 	"cave.supply.decoy": "巡邏隊誘餌",
 	"cave.supply.truce": "衛兵通行證",
 	"cave.hunt_clock": "狩獵：{kills}/{count} · {time}",
-	"cave.practice_clock": "{name}：{hp}生命值 · {time}",
+	"cave.practice_clock": "{name}：{hp} HP · {time}",
 	"cave.error.cave_entering": "洞窟正把你們吸進去。抓穩了！",
 	"cave.floor_location": "第{floor}層 · {x}, {y}",
 	"cave.shared": "隊伍錢袋",
@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "洞窟無法開啟。你今天的造訪次數沒有被扣除。請再試一次。",
 	"cave.error.generation_timeout": "洞窟開啟逾時。你今天的造訪次數沒有被扣除。請再試一次。",
 	"cave.error.zone_busy": "所有洞窟都有人了。請稍後再試。",
-	"cave.error.admission_expired": "入場確認已過期。你今天的造訪次數沒有被扣除。請再試一次。"
+	"cave.error.admission_expired": "入場確認已過期。你今天的造訪次數沒有被扣除。請再試一次。",
+	"cave.currency_limits": "每次進入最多可出現{gold}洞窟金幣和{amber}個Cave Amber。花掉它們不會讓更多金幣或Cave Amber出現。"
 }

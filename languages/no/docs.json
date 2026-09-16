@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "La tauet være neste gang.",
 	"docs.cave.comic.keeper": "Steinvokter",
 	"docs.cave.comic.sign": "Ikke trekk",
-	"docs.cave.comic.clank": "Klonk!"
+	"docs.cave.comic.clank": "Klonk!",
+	"docs.cave.returns": "Returnerer ved suksess: {fields}.",
+	"docs.cave.state": "character.cave inneholder hulens nyeste tilstand og blir null når du forlater den. Følg endringer med character.on(\"cave\", callback).",
+	"docs.cave.restart": "Hvis en omstart av serveren avslutter besøket ditt, får kontoen sitt daglige besøk tilbake. Å laste siden på nytt eller koble fra gir det ikke tilbake."
 }

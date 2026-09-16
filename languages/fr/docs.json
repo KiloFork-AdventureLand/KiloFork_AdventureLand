@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "La prochaine fois, laisse la corde tranquille.",
 	"docs.cave.comic.keeper": "Gardien de pierre",
 	"docs.cave.comic.sign": "Ne pas tirer",
-	"docs.cave.comic.clank": "Clac !"
+	"docs.cave.comic.clank": "Clac !",
+	"docs.cave.returns": "Renvoie en cas de succès : {fields}.",
+	"docs.cave.state": "character.cave contient le dernier état de la grotte et devient null quand tu la quittes. Écoute les changements avec character.on(\"cave\", callback).",
+	"docs.cave.restart": "Si un redémarrage du serveur met fin à ta visite, le compte récupère sa visite quotidienne. Recharger la page ou se déconnecter ne la rend pas."
 }

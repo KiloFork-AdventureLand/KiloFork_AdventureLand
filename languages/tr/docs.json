@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Bir dahakine ipe dokunma.",
 	"docs.cave.comic.keeper": "Taş Bekçi",
 	"docs.cave.comic.sign": "Çekmeyin",
-	"docs.cave.comic.clank": "Tak!"
+	"docs.cave.comic.clank": "Tak!",
+	"docs.cave.returns": "Başarılı olduğunda dönen değer: {fields}.",
+	"docs.cave.state": "character.cave mağaranın son durumunu içerir; çıkınca null olur. Değişiklikleri character.on(\"cave\", callback) ile dinleyebilirsin.",
+	"docs.cave.restart": "Sunucunun yeniden başlaması ziyaretini bitirirse hesabın günlük giriş hakkı geri verilir. Sayfayı yenilemek veya bağlantıyı kesmek bu hakkı geri getirmez."
 }

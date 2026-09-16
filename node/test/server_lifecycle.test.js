@@ -181,13 +181,38 @@ test("worker accepts late grids and completes unavailable or failed requests wit
 	const port = new EventEmitter(),
 		results = [];
 	port.postMessage = (data) => results.push(structuredClone(data));
-	context.require = () => ({ workerData: { G: {}, smap_data: {}, amap_data: {} }, parentPort: port });
+	context.require = (name) =>
+		name === "worker_threads"
+			? { workerData: { G: {}, smap_data: {}, amap_data: {} }, parentPort: port }
+			: require(name.startsWith(".") ? require("node:path").resolve(__dirname, "..", name) : name);
+	context.fs = require("node:fs");
+	context.path = require("node:path");
+	context.URL = URL;
+	context.URLSearchParams = URLSearchParams;
+	context.options.base_url = "https://adventure.test";
+	context.__dirname = context.path.resolve(__dirname, "..");
 	context.setInterval = () => {};
 	const source = read("node/server_worker.js");
 	vm.runInContext(source.slice(source.indexOf("var { workerData, parentPort }")), context);
-	const request = { type: "fast_astar", map: "late", sx: 0, sy: 0, tx: 48, ty: 0, id: "monster", in: "late-1" };
+	const request = {
+		type: "fast_astar",
+		map: "late",
+		sx: 0,
+		sy: 0,
+		tx: 48,
+		ty: 0,
+		id: "monster",
+		in: "late-1",
+		path_token: "route-1",
+	};
 	port.emit("message", request);
-	assert.deepEqual(results[0], { type: "monster_move", move: null, id: "monster", in: "late-1" });
+	assert.deepEqual(results[0], {
+		type: "monster_move",
+		move: null,
+		id: "monster",
+		in: "late-1",
+		path_token: "route-1",
+	});
 	port.emit("message", { type: "map_data", map: "late", smap_data: {}, amap_data: { "0|0": 8, "24|0": 8, "48|0": 8 } });
 	port.emit("message", request);
 	assert.ok(results[1].move[0] > 0);

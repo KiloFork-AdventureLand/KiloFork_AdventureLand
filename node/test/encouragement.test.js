@@ -558,6 +558,9 @@ test("99% damage survives the real disconnect and retarget handlers before a lat
 		});
 		load(h.c, "node/server.js", ["defeat_player", "restore_state", "stop_pursuit", "target_player"]);
 		load(h.c, "node/server_functions.js", ["pmap_remove", "server_tax"]);
+		load(h.c, "node/logic/tavern_wheel.js", ["tavern_wheel_disconnect"]);
+		load(h.c, "node/logic/tavern_slots.js", ["tavern_slots_disconnect"]);
+		load(h.c, "node/logic/tavern_poker.js", ["tavern_poker_definition", "tavern_poker_disconnect"]);
 		h.c.D.drops.monsters.goo = [[chance, "ringsj"]];
 		h.hit(old, m, 990);
 		assert.equal(m.hp, 10);

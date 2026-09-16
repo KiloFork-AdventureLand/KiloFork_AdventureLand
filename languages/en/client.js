@@ -660,3 +660,6 @@ Object.assign(module.exports, {
  "cave.error.zone_busy": "All caves are occupied. Try again shortly.",
  "cave.error.admission_expired": "The entry check expired. Your daily visit has not been used. Try again."
 });
+
+// Cave INFO: current currency limits. gold and amber are numeric amounts from G.events.dreams.
+module.exports["cave.currency_limits"] = "Up to {gold} cave gold and {amber} Cave Amber can appear per visit. Spending them does not make more appear.";

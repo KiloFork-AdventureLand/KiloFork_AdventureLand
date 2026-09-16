@@ -196,8 +196,8 @@ test("Cove Mantle's fixed map bonuses do not leak through cached item properties
 		const item = { name: "covemantle", level, stat_type: "int" };
 		const outside = G.calculate_item_properties(item, { map: "winter_cove", class: "mage" });
 		const inside = G.calculate_item_properties(item, { map: "cave", class: "mage" });
-		assert.equal(inside.attack - outside.attack, 300);
-		assert.equal(inside.lifesteal - outside.lifesteal, 30);
+		assert.equal(inside.attack - outside.attack, 240);
+		assert.equal(inside.lifesteal - outside.lifesteal, 24);
 		for (const map of ["main", "winter_cove"]) {
 			const properties = G.calculate_item_properties(item, { map, class: "mage" });
 			assert.equal(properties.attack, outside.attack);

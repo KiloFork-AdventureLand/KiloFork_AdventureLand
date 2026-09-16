@@ -3757,7 +3757,7 @@ function render_learn_article(article, args) {
 	show_modal(html, { wrap: false, url: args && args.url, close: { label: phrase.html("interface.learn_article.close"), classes: "ui-close-docs" } });
 	$(".code").codemirror({ trim: true });
 	if ($(".cave-guide").length) {
-		$(".cave-guide").closest(".guide-article").css({width:"640px",maxWidth:"calc(100vw - 120px)",textAlign:"left"});
+		$(".cave-guide").closest(".guide-article").css({width:"640px",maxWidth:"calc(100vw * var(--browser-zoom-inverse, 1) - 120px)"});
 		$(".cave-guide .CodeMirror").each(function(){ if(this.CodeMirror) this.CodeMirror.setOption("lineWrapping",true); });
 	}
 	position_modals();

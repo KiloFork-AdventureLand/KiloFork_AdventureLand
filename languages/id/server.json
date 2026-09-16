@@ -387,5 +387,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die memberi satu lemparan ulang per kunjungan saat lemparan pertama kalah. Pakai sebelum bermain.",
 	"server.cave.story_dagger": "{npc}: Cari bilah melengkung seperti kait dengan mata berwarna gading dan punggung merah. Itulah Last Word. Dia membawanya di samping belati biasa.",
 	"server.cave.story_send": "{npc}: Belanjakan emas gua sebelum pergi. Amber yang kalian simpan diberikan kepada kelompok saat seseorang keluar.",
-	"server.cave.story_stairs": "{npc}: Tangganya berubah setiap kali aku datang ke sini. Aku mengikuti obor."
+	"server.cave.story_stairs": "{npc}: Tangganya berubah setiap kali aku datang ke sini. Aku mengikuti obor.",
+	"server.cave.helpers_limit": "Kamu sudah punya dua pembantu.",
+	"server.cave.gold_limit": "Seluruh emas gua untuk kunjungan ini sudah muncul: {amount}. Kamu masih bisa menemukan item dan memperoleh XP.",
+	"server.cave.amber_limit": "Seluruh {amount} Cave Amber untuk kunjungan ini sudah muncul. Kamu masih bisa menemukan item dan memperoleh XP."
 }

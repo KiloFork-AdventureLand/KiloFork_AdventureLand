@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Sa susunod, huwag mong pakialaman ang lubid.",
 	"docs.cave.comic.keeper": "Bantay na bato",
 	"docs.cave.comic.sign": "Huwag hilahin",
-	"docs.cave.comic.clank": "Kalang!"
+	"docs.cave.comic.clank": "Kalang!",
+	"docs.cave.returns": "Ibinabalik kapag matagumpay: {fields}.",
+	"docs.cave.state": "Nasa character.cave ang pinakabagong estado ng kuweba at nagiging null ito kapag umalis ka. Subaybayan ang mga pagbabago gamit ang character.on(\"cave\", callback).",
+	"docs.cave.restart": "Kung matapos ang pagbisita mo dahil sa pag-restart ng server, maibabalik ang arawang pagbisita ng account. Hindi ito maibabalik sa pag-reload o pagdiskonekta."
 }

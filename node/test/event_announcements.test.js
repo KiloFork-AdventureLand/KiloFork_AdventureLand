@@ -73,16 +73,17 @@ function setup(extra = {}) {
 	return { context, banner, opened, visuals };
 }
 
-test("every defined event has colors, a pixel effect and an existing modal", () => {
+test("announced events have colors and a pixel effect; every event has an existing modal", () => {
 	const { context } = setup();
-	assert.equal(Object.keys(context.G.events).length, 11);
+	assert.equal(context.G.events.dreams.announcement, false, "Dorr's guide stays proximity-based");
 	const effects = new Set(["confetti", "sparks", "bubbles", "splash", "snow", "fireworks", "hearts", "embers"]);
 	for (const event of Object.values(context.G.events)) {
+		assert(fs.existsSync(path.join(root, "docs/guide", event.modal + ".html")), event.modal);
+		if (event.announcement === false) continue;
 		assert.match(event.announcement.color, /^#[\dA-F]{6}$/);
 		assert.match(event.announcement.accent, /^#[\dA-F]{6}$/);
 		assert(effects.has(event.announcement.effect));
 		assert(event.announcement.text.length > 0);
-		assert(fs.existsSync(path.join(root, "docs/guide", event.modal + ".html")), event.modal);
 	}
 });
 
@@ -179,18 +180,24 @@ test("each card opens its own guide, with the anniversary window only after char
 		context.S = { [key]: true };
 		context.render_event_announcements();
 		const handlers = [...banner.content.matchAll(/onclick='([^']+)'/g)];
+		if (context.G.events[key].announcement === false) {
+			assert.equal(handlers.length, 0);
+			continue;
+		}
 		assert.equal(handlers.length, 1);
 		vm.runInContext(handlers[0][1], context);
 	}
 	assert.deepEqual(
 		opened,
-		Object.values(context.G.events).map((event) => [event.modal, "/docs/ref/" + event.modal]),
+		Object.values(context.G.events)
+			.filter((event) => event.announcement)
+			.map((event) => [event.modal, "/docs/ref/" + event.modal]),
 	);
 	context.character = { name: "Visitor" };
 	context.open_event_announcement("anniversary");
 	assert.deepEqual(opened.at(-1), ["anniversary-window"]);
 	context.open_event_announcement("missing");
-	assert.equal(opened.length, 12);
+	assert.equal(opened.length, Object.values(context.G.events).filter((event) => event.announcement).length + 1);
 });
 
 test("no-HTML returns before DOM work; no-graphics retains text without sprites or effects", () => {
@@ -247,8 +254,16 @@ test("compact cards put the Steam-style left chevron before the sprite", () => {
 	assert.equal((banner.content.match(/event-announcement-arrow/g) || []).length, 1);
 	const css = fs.readFileSync(path.join(root, "css/index.css"), "utf8");
 	assert.match(css, /min-height:76px/);
-	assert.match(css, /#event-announcements \.event-announcement,\s*\.upcoming-cards \.event-announcement\{[^}]*display:flex/, "card layout must outrank the later generic gamebutton rule");
-	assert.match(css, /\.event-announcement-copy\{[^}]*min-width:0;[^}]*overflow-wrap:anywhere/, "long translated text must wrap within its flex column");
+	assert.match(
+		css,
+		/#event-announcements \.event-announcement,\s*\.upcoming-cards \.event-announcement\{[^}]*display:flex/,
+		"card layout must outrank the later generic gamebutton rule",
+	);
+	assert.match(
+		css,
+		/\.event-announcement-copy\{[^}]*min-width:0;[^}]*overflow-wrap:anywhere/,
+		"long translated text must wrap within its flex column",
+	);
 	assert.match(css, /\.event-announcement-arrow\{[^}]*color:#69d6cf;font-size:40px;line-height:26px/);
 });
 
@@ -259,7 +274,12 @@ test("upcoming cards have no actions and skip all graphics in headless mode", ()
 	let html = "";
 	context.$ = (selector) => {
 		assert.equal(selector, "#features .upcoming-cards");
-		return { length: 1, html: (value) => { html = value; } };
+		return {
+			length: 1,
+			html: (value) => {
+				html = value;
+			},
+		};
 	};
 	context.render_upcoming_content();
 	assert.equal((html.match(/<article /g) || []).length, 4);
@@ -269,7 +289,10 @@ test("upcoming cards have no actions and skip all graphics in headless mode", ()
 	assert.match(html, /New Rare Drops/);
 	assert.match(html, /Sucker Punch/);
 	const skins = ["teaser_witch", "teaser_blackwake", "teaser_werdars", "teaser_rare"];
-	assert.deepEqual(visuals.map(([item]) => item.skin), skins);
+	assert.deepEqual(
+		visuals.map(([item]) => item.skin),
+		skins,
+	);
 	const sheet = design.imagesets.teasers;
 	const png = fs.readFileSync(path.join(root, sheet.file.split("?")[0]));
 	assert.equal(png.readUInt32BE(16), sheet.columns * sheet.size);
@@ -280,12 +303,23 @@ test("upcoming cards have no actions and skip all graphics in headless mode", ()
 	});
 	assert.doesNotMatch(html, /onclick=|onmousedown=|<button|<a\s|event-announcement-arrow/);
 	context.no_graphics = true;
-	context.PIXI = new Proxy({}, { get() { throw new Error("Headless cards touched PIXI"); } });
-	context.sprite = context.item_container = () => { throw new Error("Headless cards requested a sprite"); };
+	context.PIXI = new Proxy(
+		{},
+		{
+			get() {
+				throw new Error("Headless cards touched PIXI");
+			},
+		},
+	);
+	context.sprite = context.item_container = () => {
+		throw new Error("Headless cards requested a sprite");
+	};
 	context.render_upcoming_content();
 	assert.match(html, /New Rare Drops/);
 	assert.doesNotMatch(html, /event-announcement-effects|class="sprite"|class="item"/);
 	context.no_html = true;
-	context.$ = () => { throw new Error("No-HTML cards touched the DOM"); };
+	context.$ = () => {
+		throw new Error("No-HTML cards touched the DOM");
+	};
 	context.render_upcoming_content();
 });

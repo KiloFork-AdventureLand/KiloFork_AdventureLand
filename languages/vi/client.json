@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Không mở được hang. Lượt vào hôm nay chưa bị dùng. Hãy thử lại.",
 	"cave.error.generation_timeout": "Mở hang mất quá nhiều thời gian. Lượt vào hôm nay chưa bị dùng. Hãy thử lại.",
 	"cave.error.zone_busy": "Tất cả hang đều có người. Hãy thử lại sau một lát.",
-	"cave.error.admission_expired": "Kiểm tra vào hang đã hết hạn. Lượt vào hôm nay chưa bị dùng. Hãy thử lại."
+	"cave.error.admission_expired": "Kiểm tra vào hang đã hết hạn. Lượt vào hôm nay chưa bị dùng. Hãy thử lại.",
+	"cave.currency_limits": "Mỗi lượt vào có thể xuất hiện tối đa {gold} vàng hang động và {amber} Cave Amber. Tiêu chúng không khiến có thêm."
 }

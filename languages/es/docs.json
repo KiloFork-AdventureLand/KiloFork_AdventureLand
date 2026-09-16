@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "La próxima vez, deja la cuerda en paz.",
 	"docs.cave.comic.keeper": "Guardián de piedra",
 	"docs.cave.comic.sign": "No tirar",
-	"docs.cave.comic.clank": "¡Clonc!"
+	"docs.cave.comic.clank": "¡Clonc!",
+	"docs.cave.returns": "Devuelve al completarse correctamente: {fields}.",
+	"docs.cave.state": "character.cave contiene el último estado de la cueva y pasa a ser null al salir. Escucha los cambios con character.on(\"cave\", callback).",
+	"docs.cave.restart": "Si un reinicio del servidor termina tu visita, la cuenta recupera su visita diaria. Recargar la página o desconectarse no la devuelve."
 }

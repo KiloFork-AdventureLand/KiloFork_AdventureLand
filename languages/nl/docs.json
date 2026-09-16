@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Blijf de volgende keer van dat touw af.",
 	"docs.cave.comic.keeper": "Stenen wachter",
 	"docs.cave.comic.sign": "Niet trekken",
-	"docs.cave.comic.clank": "Kloenk!"
+	"docs.cave.comic.clank": "Kloenk!",
+	"docs.cave.returns": "Geeft bij succes terug: {fields}.",
+	"docs.cave.state": "character.cave bevat de laatste toestand van de grot en wordt null wanneer je vertrekt. Volg wijzigingen met character.on(\"cave\", callback).",
+	"docs.cave.restart": "Als een serverherstart je bezoek beëindigt, krijgt het account zijn dagelijkse bezoek terug. Herladen of de verbinding verbreken herstelt het niet."
 }

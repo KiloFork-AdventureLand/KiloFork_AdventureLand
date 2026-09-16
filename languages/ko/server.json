@@ -387,5 +387,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die는 첫 주사위 굴림에서 졌을 때 탐험마다 한 번 더 굴릴 기회를 줘. 게임 전에 장착해.",
 	"server.cave.story_dagger": "{npc}: 상아색 날과 붉은 등 부분이 있는 갈고리 모양 칼날을 찾아. 그게 Last Word야. 그 녀석은 평범한 단검 옆에 그걸 차고 있어.",
 	"server.cave.story_send": "{npc}: 떠나기 전에 동굴 골드를 써. 남은 Amber는 누군가 나갈 때 파티에 돌아가.",
-	"server.cave.story_stairs": "{npc}: 여기 올 때마다 계단이 바뀌어. 난 횃불을 따라가지."
+	"server.cave.story_stairs": "{npc}: 여기 올 때마다 계단이 바뀌어. 난 횃불을 따라가지.",
+	"server.cave.helpers_limit": "이미 동료가 두 명 있습니다.",
+	"server.cave.gold_limit": "이번 방문에서 나올 동굴 골드 {amount}가 모두 나타났습니다. 아이템을 찾고 XP를 얻는 것은 계속할 수 있습니다.",
+	"server.cave.amber_limit": "이번 방문에서 나올 Cave Amber {amount}개가 모두 나타났습니다. 아이템을 찾고 XP를 얻는 것은 계속할 수 있습니다."
 }

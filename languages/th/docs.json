@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "คราวหน้าอย่าไปยุ่งกับเชือกนะ",
 	"docs.cave.comic.keeper": "ผู้เฝ้าประตูหิน",
 	"docs.cave.comic.sign": "ห้ามดึง",
-	"docs.cave.comic.clank": "เคร้ง!"
+	"docs.cave.comic.clank": "เคร้ง!",
+	"docs.cave.returns": "ค่าที่คืนเมื่อสำเร็จ: {fields}",
+	"docs.cave.state": "character.cave เก็บสถานะล่าสุดของถ้ำ และจะเป็น null เมื่อออกจากถ้ำ ติดตามการเปลี่ยนแปลงด้วย character.on(\"cave\", callback)",
+	"docs.cave.restart": "หากการรีสตาร์ตเซิร์ฟเวอร์ทำให้การเข้าถ้ำของคุณสิ้นสุดลง บัญชีจะได้สิทธิ์เข้าประจำวันคืน การโหลดหน้าใหม่หรือการตัดการเชื่อมต่อจะไม่คืนสิทธิ์นี้"
 }

@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "洞窟を開けませんでした。本日の訪問権は使われていません。もう一度お試しください。",
 	"cave.error.generation_timeout": "洞窟を開く処理がタイムアウトしました。本日の訪問権は使われていません。もう一度お試しください。",
 	"cave.error.zone_busy": "すべての洞窟が使用中です。少し待ってからお試しください。",
-	"cave.error.admission_expired": "入場確認の期限が切れました。本日の訪問権は使われていません。もう一度お試しください。"
+	"cave.error.admission_expired": "入場確認の期限が切れました。本日の訪問権は使われていません。もう一度お試しください。",
+	"cave.currency_limits": "1回の訪問で出現するのは、洞窟の金貨が最大{gold}、Cave Amberが最大{amber}個です。使っても出現量は増えません。"
 }

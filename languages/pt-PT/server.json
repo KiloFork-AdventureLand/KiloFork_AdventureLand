@@ -390,5 +390,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die dá uma segunda jogada por visita quando a primeira perde. Equipem-no antes de jogar.",
 	"server.cave.story_dagger": "{npc}: Procurem uma lâmina curva com fio de marfim e dorso vermelho. É Last Word. Ele leva-a ao lado de uma adaga vulgar.",
 	"server.cave.story_send": "{npc}: Gastem o ouro da caverna antes de sair. O Amber que guardarem vai para o grupo quando alguém sair.",
-	"server.cave.story_stairs": "{npc}: As escadas mudam sempre que venho cá. Eu sigo as tochas."
+	"server.cave.story_stairs": "{npc}: As escadas mudam sempre que venho cá. Eu sigo as tochas.",
+	"server.cave.helpers_limit": "Já tens dois ajudantes.",
+	"server.cave.gold_limit": "Todo o ouro da caverna desta visita já apareceu: {amount}. Ainda podes encontrar itens e ganhar XP.",
+	"server.cave.amber_limit": "Todos os {amount} Cave Amber desta visita já apareceram. Ainda podes encontrar itens e ganhar XP."
 }

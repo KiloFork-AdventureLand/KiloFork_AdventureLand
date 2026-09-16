@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "동굴을 열지 못했습니다. 오늘의 방문 기회는 사용되지 않았습니다. 다시 시도해 주세요.",
 	"cave.error.generation_timeout": "동굴을 여는 데 너무 오래 걸렸습니다. 오늘의 방문 기회는 사용되지 않았습니다. 다시 시도해 주세요.",
 	"cave.error.zone_busy": "모든 동굴이 사용 중입니다. 잠시 후 다시 시도해 주세요.",
-	"cave.error.admission_expired": "입장 확인 시간이 만료되었습니다. 오늘의 방문 기회는 사용되지 않았습니다. 다시 시도해 주세요."
+	"cave.error.admission_expired": "입장 확인 시간이 만료되었습니다. 오늘의 방문 기회는 사용되지 않았습니다. 다시 시도해 주세요.",
+	"cave.currency_limits": "한 번 방문할 때 동굴 골드는 최대 {gold}, Cave Amber는 최대 {amber}개까지 나타납니다. 사용해도 추가로 나타나지 않습니다."
 }

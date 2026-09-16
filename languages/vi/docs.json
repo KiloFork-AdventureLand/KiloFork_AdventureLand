@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Lần sau đừng đụng vào dây nữa.",
 	"docs.cave.comic.keeper": "Người gác bằng đá",
 	"docs.cave.comic.sign": "Không kéo",
-	"docs.cave.comic.clank": "Keng!"
+	"docs.cave.comic.clank": "Keng!",
+	"docs.cave.returns": "Giá trị trả về khi thành công: {fields}.",
+	"docs.cave.state": "character.cave chứa trạng thái mới nhất của hang động và trở thành null khi bạn rời đi. Theo dõi thay đổi bằng character.on(\"cave\", callback).",
+	"docs.cave.restart": "Nếu máy chủ khởi động lại khiến lượt vào kết thúc, tài khoản sẽ được hoàn lại lượt vào hằng ngày. Tải lại trang hoặc ngắt kết nối không hoàn lại lượt."
 }

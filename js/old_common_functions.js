@@ -392,7 +392,9 @@ function can_stack(a,b,d,args)
 {
 	if(a && b && a.name && G.items[a.name].s && a.name==b.name && a.q+b.q+(d||0)<=(G.items[a.name].s===true&&9999||G.items[a.name].s))
 	{
-		if((a.p || b.p) && a.p!=b.p) return false; // property
+		// Provenance-only titles can share a stack; stat-bearing properties cannot.
+		var ap=G.titles?.[a.p]?.stackable ? null : a.p, bp=G.titles?.[b.p]?.stackable ? null : b.p;
+		if((ap || bp) && ap!=bp) return false; // property
 		if(a.name=="cxjar" && a.data!=b.data) return false;
 		if(!args || !args.ignore_pvp) if(a.v && !b.v || !a.v && b.v) return false; // pvp
 		if(a.l || b.l || a.b || b.b) return false; // blocked and locked

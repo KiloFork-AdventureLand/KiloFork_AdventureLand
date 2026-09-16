@@ -397,6 +397,7 @@ async function init_game() {
 			};
 		}
 		Server.version = "" + Version;
+		Server.info.cave_boot = crypto.randomBytes(12).toString("hex");
 		Server.key = server_key;
 		Server.address = server_def.address;
 		Server.path = server_def.path;
@@ -16506,7 +16507,11 @@ async function server_loop() {
 			server.stopped = true;
 		} else if (
 			server.stopped &&
-			((!pending_logins.size && !Object.keys(dc_players).length && !Object.keys(players).length && !tavern_pending()) ||
+			((!pending_logins.size &&
+				!Object.keys(dc_players).length &&
+				!Object.keys(players).length &&
+				!tavern_pending() &&
+				!cave_pending()) ||
 				gameplay == "hardcore" ||
 				gameplay == "test")
 		) {
@@ -16537,7 +16542,7 @@ function shutdown() {
 
 function shutdown_routine() {
 	generated_layout_queue.close();
-	for (var key in generated_runs) destroy_generated_run(key);
+	for (var key in generated_runs) destroy_generated_run(key, "restart");
 	server_log("shutdown_routine", 1);
 	if (Dev && server.shutdown) process.exit();
 	server.shutdown = true;

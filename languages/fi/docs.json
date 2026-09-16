@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Jätä ensi kerralla köysi rauhaan.",
 	"docs.cave.comic.keeper": "Kivivartija",
 	"docs.cave.comic.sign": "Älä vedä",
-	"docs.cave.comic.clank": "Klonk!"
+	"docs.cave.comic.clank": "Klonk!",
+	"docs.cave.returns": "Palauttaa onnistuessaan: {fields}.",
+	"docs.cave.state": "character.cave sisältää luolan uusimman tilan ja saa arvon null, kun poistut. Seuraa muutoksia kutsulla character.on(\"cave\", callback).",
+	"docs.cave.restart": "Jos palvelimen uudelleenkäynnistys päättää käyntisi, tili saa päivittäisen käyntinsä takaisin. Sivun lataaminen uudelleen tai yhteyden katkaiseminen ei palauta sitä."
 }

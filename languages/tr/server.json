@@ -387,5 +387,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die, ilk atışınız kaybettiğinde her ziyarette bir kez daha zar atmanızı sağlar. Oynamadan önce takın.",
 	"server.cave.story_dagger": "{npc}: Fildişi rengi ağızlı, kırmızı sırtlı, kıvrık bir bıçak arayın. O, Last Word. Yanında da sıradan bir hançer taşır.",
 	"server.cave.story_send": "{npc}: Gitmeden mağara altınını harcayın. Sakladığınız Amber, biri ayrıldığında partiye gider.",
-	"server.cave.story_stairs": "{npc}: Buraya her gelişimde merdivenler değişiyor. Ben meşaleleri takip ediyorum."
+	"server.cave.story_stairs": "{npc}: Buraya her gelişimde merdivenler değişiyor. Ben meşaleleri takip ediyorum.",
+	"server.cave.helpers_limit": "Zaten iki yardımcın var.",
+	"server.cave.gold_limit": "Bu ziyaret için ayrılan {amount} mağara altınının tamamı ortaya çıktı. Hâlâ eşya bulabilir ve XP kazanabilirsin.",
+	"server.cave.amber_limit": "Bu ziyaret için ayrılan {amount} Cave Amber’ın tamamı ortaya çıktı. Hâlâ eşya bulabilir ve XP kazanabilirsin."
 }

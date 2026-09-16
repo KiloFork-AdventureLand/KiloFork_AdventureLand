@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Другия път остави въжето на мира.",
 	"docs.cave.comic.keeper": "Каменен пазител",
 	"docs.cave.comic.sign": "Не дърпай",
-	"docs.cave.comic.clank": "Дрън!"
+	"docs.cave.comic.clank": "Дрън!",
+	"docs.cave.returns": "Връща при успех: {fields}.",
+	"docs.cave.state": "character.cave съдържа последното състояние на пещерата и става null, когато я напуснеш. Следи промените с character.on(\"cave\", callback).",
+	"docs.cave.restart": "Ако рестарт на сървъра прекрати посещението ти, акаунтът получава обратно дневното си посещение. Презареждането или прекъсването на връзката не го възстановява."
 }

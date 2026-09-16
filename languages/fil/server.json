@@ -387,5 +387,8 @@
 	"server.cave.story_dice": "{npc}: Nagbibigay ang Loaded Die ng isang muling paghagis bawat pagbisita kapag talo ang unang hagis. Isuot ito bago maglaro.",
 	"server.cave.story_dagger": "{npc}: Hanapin ang talim na parang kawit, may gilid na kulay garing at pulang likod. Iyon ang Last Word. Dala niya ito sa tabi ng karaniwang punyal.",
 	"server.cave.story_send": "{npc}: Gastusin ang ginto ng kuweba bago umalis. Mapupunta sa grupo ang naitabi ninyong Amber kapag may lumabas.",
-	"server.cave.story_stairs": "{npc}: Nagbabago ang hagdan tuwing pumupunta ako rito. Sinusundan ko ang mga sulo."
+	"server.cave.story_stairs": "{npc}: Nagbabago ang hagdan tuwing pumupunta ako rito. Sinusundan ko ang mga sulo.",
+	"server.cave.helpers_limit": "May dalawa ka nang katulong.",
+	"server.cave.gold_limit": "Lumitaw na ang lahat ng ginto ng kuweba para sa pagbisitang ito: {amount}. Makakahanap ka pa rin ng mga item at makakakuha ng XP.",
+	"server.cave.amber_limit": "Lumitaw na ang lahat ng {amount} Cave Amber para sa pagbisitang ito. Makakahanap ka pa rin ng mga item at makakakuha ng XP."
 }

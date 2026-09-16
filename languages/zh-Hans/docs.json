@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "下次别碰绳子了。",
 	"docs.cave.comic.keeper": "石雕守卫",
 	"docs.cave.comic.sign": "请勿拉动",
-	"docs.cave.comic.clank": "哐当！"
+	"docs.cave.comic.clank": "哐当！",
+	"docs.cave.returns": "成功时返回：{fields}。",
+	"docs.cave.state": "character.cave保存洞窟的最新状态，离开洞窟后变为null。使用character.on(\"cave\", callback)监听变化。",
+	"docs.cave.restart": "如果服务器重启导致本次探索结束，账号会恢复当日的进入次数。刷新页面或断开连接不会恢复次数。"
 }

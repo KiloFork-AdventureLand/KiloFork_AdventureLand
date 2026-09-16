@@ -333,7 +333,7 @@
 	"cave.supply.decoy": "járőrt elterelő csali",
 	"cave.supply.truce": "őrségi menlevél",
 	"cave.hunt_clock": "Vadászat: {kills}/{count} · {time}",
-	"cave.practice_clock": "{name}: {hp} ÉP · {time}",
+	"cave.practice_clock": "{name}: {hp} HP · {time}",
 	"cave.error.cave_entering": "A barlang beszippant titeket. Kapaszkodjatok!",
 	"cave.floor_location": "{floor}. szint · {x}, {y}",
 	"cave.shared": "Közös erszény",
@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "A barlang nem nyílt meg. A napi látogatásod nem veszett el. Próbáld újra.",
 	"cave.error.generation_timeout": "A barlang megnyitása túl sokáig tartott. A napi látogatásod nem veszett el. Próbáld újra.",
 	"cave.error.zone_busy": "Minden barlang foglalt. Próbáld meg kis idő múlva.",
-	"cave.error.admission_expired": "A belépési ellenőrzés lejárt. A napi látogatásod nem veszett el. Próbáld újra."
+	"cave.error.admission_expired": "A belépési ellenőrzés lejárt. A napi látogatásod nem veszett el. Próbáld újra.",
+	"cave.currency_limits": "Látogatásonként legfeljebb {gold} barlangi arany és {amber} Cave Amber jelenhet meg. Attól, hogy elköltesz belőlük, nem jelenik meg több."
 }

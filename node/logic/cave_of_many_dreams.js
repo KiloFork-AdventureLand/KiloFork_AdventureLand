@@ -280,7 +280,6 @@ function cave_spawn(run, room, type, side, offset = 0, look) {
 	actor.aggro = 0;
 	actor.target = null;
 	actor.last_level = future_s(86400);
-	actor.socket = false_socket;
 	actor.zone_actor.initial_hp = actor.hp;
 	if (look) {
 		actor.name = look.name;
@@ -514,6 +513,11 @@ function cave_credit(run, gold, amber, source) {
 	// moves those same amounts into the purse without rolling or multiplying.
 	state.gold_earned += gold;
 	state.amber_earned += amber;
+	for (var currency of ["gold", "amber"])
+		if (state[currency + "_earned"] >= rules[currency + "_limit"] && !state[currency + "_limit_notice"]) {
+			state[currency + "_limit_notice"] = true;
+			cave_say(run, localization.message("server.cave." + currency + "_limit", { amount: rules[currency + "_limit"] }));
+		}
 	for (var other of people) if (other !== player && other.map === drop.map) cave_send_chest(other.socket, id, drop);
 	return id;
 }
@@ -603,7 +607,7 @@ function cave_deliver(run, token, items) {
 			!player.socket.disconnected &&
 			player.real_id === recipient.character &&
 			player.owner === recipient.owner &&
-			can_add_item(player, item.name, item.q || 1)
+			can_add_item(player, item)
 		) {
 			receipt.slot = add_item(player, item, { announce: false });
 			receipt.where = "inventory";
@@ -630,46 +634,54 @@ function cave_deliver(run, token, items) {
 	return recipient;
 }
 async function cave_mail(recipient, item, id, attempt = 0) {
-	var result = await tx(
-		async () => {
-			if (await tx_get("ML_cave:" + A.id)) return;
-			await tx_save({
-				_id: "ML_cave:" + A.id,
-				type: "mail",
-				created: new Date(),
-				read: false,
-				item: true,
-				taken: false,
-				fro: "Dorr",
-				to: A.recipient.name,
-				owner: [A.recipient.owner],
-				character: A.recipient.character,
-				cave_award: true,
-				info: {
-					sender: A.recipient.owner,
-					receiver: A.recipient.owner,
-					subject: "From the cave",
-					message: "You left this with me.",
-					item: JSON.stringify(A.item),
-				},
-				blobs: ["info"],
-			});
-		},
-		{ recipient, item, id },
-	);
-	if (result.failed) {
-		if (attempt >= 4) throw Error(result.reason);
-		await new Promise((resolve) => setTimeout(resolve, 1000 * (attempt + 1)));
-		return cave_mail(recipient, item, id, attempt + 1);
-	}
+	cave_mail.pending = (cave_mail.pending || 0) + 1;
 	try {
-		var count = await update_mail_count(recipient.owner);
-		for (var player of Object.values(players))
-			if (player.owner === recipient.owner && !player.dc && !player.socket.disconnected)
-				player.socket.emit("game_response", { response: "mail_received", count });
-	} catch (e) {
-		log_trace("cave mail count", e);
+		var result = await tx(
+			async () => {
+				if (await tx_get("ML_cave:" + A.id)) return;
+				await tx_save({
+					_id: "ML_cave:" + A.id,
+					type: "mail",
+					created: new Date(),
+					read: false,
+					item: true,
+					taken: false,
+					fro: "Dorr",
+					to: A.recipient.name,
+					owner: [A.recipient.owner],
+					character: A.recipient.character,
+					cave_award: true,
+					info: {
+						sender: A.recipient.owner,
+						receiver: A.recipient.owner,
+						subject: "From the cave",
+						message: "You left this with me.",
+						item: JSON.stringify(A.item),
+					},
+					blobs: ["info"],
+				});
+			},
+			{ recipient, item, id },
+		);
+		if (result.failed) {
+			if (attempt >= 4) throw Error(result.reason);
+			await new Promise((resolve) => setTimeout(resolve, 1000 * (attempt + 1)));
+			return cave_mail(recipient, item, id, attempt + 1);
+		}
+		try {
+			var count = await update_mail_count(recipient.owner);
+			for (var player of Object.values(players))
+				if (player.owner === recipient.owner && !player.dc && !player.socket.disconnected)
+					player.socket.emit("game_response", { response: "mail_received", count });
+		} catch (e) {
+			log_trace("cave mail count", e);
+		}
+	} finally {
+		cave_mail.pending--;
 	}
+}
+function cave_pending() {
+	return !!(cave_mail.pending || generated_refund_visit.pending);
 }
 function cave_settle_purse(run) {
 	var state = run.cave;
@@ -785,7 +797,10 @@ function cave_resume(run, now = Date.now()) {
 	// Extend the existing admission locks along with the playing time, once per conversation.
 	void db
 		.collection("GeneratedZone")
-		.updateMany({ run: run.key, active: true }, { $max: { expires: run.expires } })
+		.updateMany(
+			{ _id: { $in: run.members.map((m) => "member:" + m.character) }, run: run.key, active: true },
+			{ $max: { expires: run.expires } },
+		)
 		.catch((e) => log_trace("cave admission clock", e));
 }
 function cave_resolve_vote(run, now) {
@@ -829,23 +844,23 @@ function cave_revival_option(run, room, option) {
 		label_message: { phrase: "server.cave.revive_here", phrase_args: { amber: count } },
 	});
 }
+function cave_option_unavailable(run, room, option) {
+	if (option.needs && !run.cave.flags[option.needs]) return "server.cave.need_tool";
+	if ((option.cost || 0) > run.cave.gold || (option.amber || 0) > run.cave.amber) return "server.cave.purse_short";
+	if (
+		(["guide", "escort", "hire", "cover"].includes(option.effect) || option.outcomes?.some((o) => o.join || o.ally)) &&
+		!room.npc?.zone_actor.follow &&
+		cave_helpers_full(run)
+	)
+		return "server.cave.helpers_limit";
+}
 function cave_apply(run, room, option) {
 	option = cave_revival_option(run, room, option);
 	var state = run.cave,
 		effect = option.effect;
-	if (
-		(option.needs && !state.flags[option.needs]) ||
-		(option.cost || 0) > state.gold ||
-		(option.amber || 0) > state.amber
-	) {
-		cave_say(
-			run,
-			localization.message(
-				option.needs && !state.flags[option.needs]
-					? "server.cave.need_borrowed_tool"
-					: "server.cave.insufficient_purse",
-			),
-		);
+	var unavailable = cave_option_unavailable(run, room, option);
+	if (unavailable) {
+		cave_say(run, localization.message(unavailable));
 		effect = room.kind === "revival" ? "revive_landing" : room.encounter.group === "bad" ? "time" : "leave";
 	} else {
 		state.gold -= option.cost || 0;
@@ -1125,7 +1140,9 @@ function cave_apply(run, room, option) {
 				!r.done &&
 				(effect === "appraise"
 					? r.encounter?.kind === "rogue"
-					: r.floor === room.floor && !r.required && r.encounter && r !== room),
+					: option.travelers
+						? r.floor === room.floor && r.kind === "citizen"
+						: r.floor === room.floor && !r.required && r.encounter && r !== room),
 		);
 		for (var r of marked) r.revealed = true;
 		cave_say(
@@ -1134,7 +1151,7 @@ function cave_apply(run, room, option) {
 				? Object.assign(localization.message("server.cave.reveal_rooms", { count: marked.length }), {
 						message:
 							"I found " +
-							marked.map((r) => r.encounter.name).join(" and ") +
+							marked.map((r) => r.encounter?.name || r.look?.name || r.npc?.name || r.name).join(" and ") +
 							". Use Directions in CAVE INFO to get there.",
 					})
 				: localization.message("server.cave.reveal_none"),
@@ -1590,7 +1607,7 @@ function cave_tick(run, now) {
 			}
 			continue;
 		}
-		if (room.practice && (room.npc.hp <= 1 || room.practice_end <= now)) {
+		if (room.practice && room.npc && (room.npc.hp <= 1 || room.practice_end <= now)) {
 			if (room.npc.hp <= 1) {
 				cave_say(run, localization.message("server.cave.practice_win", { npc: room.npc.name }));
 				if (room.practice_amber) cave_credit(run, 0, room.practice_amber, room);
@@ -1616,6 +1633,7 @@ function cave_tick(run, now) {
 		}
 		if (
 			room.rescue &&
+			room.npc &&
 			room.voted &&
 			room.decision &&
 			room.actors.filter((m) => m.zone_actor.predator).every((m) => m.dead) &&
@@ -1647,7 +1665,7 @@ function cave_tick(run, now) {
 			cave_complete(run, room);
 			continue;
 		}
-		if (room.rescue && room.npc.dead) {
+		if (room.rescue && room.npc?.dead) {
 			for (var m of room.actors)
 				if (!m.dead) {
 					cave_set_side(m, "enemy");
@@ -1655,7 +1673,7 @@ function cave_tick(run, now) {
 				}
 			if (room.actors.every((m) => m.dead)) cave_complete(run, room);
 		}
-		if (room.conflict && (room.npc.dead || room.rival.dead)) {
+		if (room.conflict && room.npc && room.rival && (room.npc.dead || room.rival.dead)) {
 			var winner = room.npc.dead ? room.rival : room.npc;
 			if (room.decision !== "both" || winner.dead) {
 				if (!winner.dead) cave_set_side(winner, "neutral");
@@ -1664,12 +1682,12 @@ function cave_tick(run, now) {
 				continue;
 			}
 		}
-		if (room.escort && room.npc.dead) {
+		if (room.escort && room.npc?.dead) {
 			cave_say(run, localization.message("server.cave.escort_lost", { npc: room.npc.name }));
 			cave_complete(run, room);
 			continue;
 		}
-		if (room.escort && !room.npc.dead) {
+		if (room.escort && room.npc && !room.npc.dead) {
 			var door =
 				G.maps[room.map].doors.find((d) => G.maps[d[4]]?.generated?.floor > room.floor) || G.maps[room.map].doors[0];
 			if (door && simple_distance(room.npc, { x: door[0], y: door[1], map: room.map, in: room.map }) < 120) {
@@ -1703,6 +1721,12 @@ function cave_snapshot(run, player) {
 		floor,
 		gold: state.gold,
 		amber: state.amber,
+		limits: {
+			gold: G.events.dreams.gold_limit,
+			amber: G.events.dreams.amber_limit,
+			gold_spawned: state.gold_earned,
+			amber_spawned: state.amber_earned,
+		},
 		supplies: ["tool", "lamp", "decoy", "message", "truce"].filter((k) => state.flags[k]),
 		roster: run.members.map((m) => ({ name: m.name, left: m.left })),
 		doors: (run.manifest?.[floor]?.definition.doors || []).map((d, index) => ({
@@ -1721,8 +1745,8 @@ function cave_snapshot(run, player) {
 			)
 			.map((r) => ({
 				id: r.id,
-				x: r.x,
-				y: r.y,
+				x: r.kind === "citizen" ? (r.npc?.x ?? r.x) : r.x,
+				y: r.kind === "citizen" ? (r.npc?.y ?? r.y) : r.y,
 				done: r.encounter?.kind === "merchant" ? !!r.stock?.sold : r.done,
 				floor: r.floor,
 				kind: r.kind,
@@ -1730,6 +1754,7 @@ function cave_snapshot(run, player) {
 				waves: r.kind === "farm" ? r.waves : undefined,
 				name:
 					r.encounter?.name ||
+					r.look?.name ||
 					r.name ||
 					(r.kind === "boss"
 						? G.monsters[["cave_lockbreaker", "cave_sentinel", "cave_mothkeeper"][r.floor]].name
@@ -1774,25 +1799,18 @@ function cave_snapshot(run, player) {
 					),
 					options: v.options
 						.map((o) => cave_revival_option(run, v.room, o))
-						.map((o) => ({
-							id: o.id,
-							label: cave_reply_label(v.room, o),
-							label_message: o.label_message || cave_dialogue_ref(v.room, "options." + o.id + ".label"),
-							cost: o.cost || 0,
-							amber: o.amber || 0,
-							unavailable:
-								o.needs && !state.flags[o.needs]
-									? "You need a pry bar."
-									: (o.cost || 0) > state.gold || (o.amber || 0) > state.amber
-										? "Not enough in the shared purse."
-										: null,
-							unavailable_message:
-								o.needs && !state.flags[o.needs]
-									? { phrase: "server.cave.need_tool" }
-									: (o.cost || 0) > state.gold || (o.amber || 0) > state.amber
-										? { phrase: "server.cave.purse_short" }
-										: undefined,
-						})),
+						.map((o) => {
+							var unavailable = cave_option_unavailable(run, v.room, o);
+							return {
+								id: o.id,
+								label: cave_reply_label(v.room, o),
+								label_message: o.label_message || cave_dialogue_ref(v.room, "options." + o.id + ".label"),
+								cost: o.cost || 0,
+								amber: o.amber || 0,
+								unavailable: unavailable ? localization.phrase(unavailable) : null,
+								unavailable_message: unavailable ? { phrase: unavailable } : undefined,
+							};
+						}),
 					fallback:
 						v.fallback === "time"
 							? "Wait and lose 45 seconds"
@@ -1873,6 +1891,7 @@ async function cave_interaction(player, data) {
 			player.socket.emit("cave", { type: "choice", state: current });
 			return { state: current };
 		}
+		if (player.rip) throw Error("defeated");
 		var room = run.cave.rooms.find((r) => r.id === data.room);
 		var speakers = (room?.actors || []).filter(
 			(a) => !a.dead && a.map === player.map && ["neutral", "ally", "victim"].includes(a.zone_actor.side),
@@ -2011,7 +2030,6 @@ function cave_resume_floor(run, map, onlyRoom) {
 			delete actor.npc;
 			delete actor.rival;
 			delete actor.guard;
-			actor.socket = false_socket;
 			actor.zone_actor = Object.assign({}, state.zone_actor, { path_token: null });
 			actor.last_level = future_s(86400);
 			instances[map].monsters[actor.id] = actor;
@@ -2081,7 +2099,8 @@ function cave_follow_through(run, from, player) {
 	var followers = [...run.cave.actors].filter((a) => a.map === from && a.zone_actor.follow && !a.dead).slice(0, 2);
 	for (var actor of followers) {
 		var old = run.cave.rooms.find((r) => r.id === actor.zone_actor.room);
-		if (old.escort && !old.done) continue;
+		// A rescue or escort must finish on its own floor before its actor can leave it.
+		if (!old || !old.done) continue;
 		var point = safe_xy_nearby(player.map, player.x + 48, player.y + 48);
 		if (!point) continue;
 		var room = {
@@ -2105,11 +2124,14 @@ function cave_follow_through(run, from, player) {
 	}
 }
 
-function cave_follow_actor(run, actor) {
-	if (actor?.zone_actor.follow) return true;
+function cave_helpers_full(run) {
 	var count = [...run.cave.actors].filter((a) => a.zone_actor.follow && !a.dead).length;
 	for (var room of run.cave.rooms) count += (room.saved || []).filter((a) => a.zone_actor.follow).length;
-	if (count >= 2) {
+	return count >= 2;
+}
+function cave_follow_actor(run, actor) {
+	if (actor?.zone_actor.follow) return true;
+	if (cave_helpers_full(run)) {
 		cave_say(run, localization.message("server.cave.helpers_full"));
 		cave_credit(run, 0, 2, actor);
 		return false;

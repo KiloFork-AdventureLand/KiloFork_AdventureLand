@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Låt repet vara nästa gång.",
 	"docs.cave.comic.keeper": "Stenväktare",
 	"docs.cave.comic.sign": "Dra inte",
-	"docs.cave.comic.clank": "Klang!"
+	"docs.cave.comic.clank": "Klang!",
+	"docs.cave.returns": "Returnerar vid framgång: {fields}.",
+	"docs.cave.state": "character.cave innehåller grottans senaste tillstånd och blir null när du lämnar den. Följ ändringar med character.on(\"cave\", callback).",
+	"docs.cave.restart": "Om en serveromstart avslutar ditt besök får kontot tillbaka sitt dagliga besök. Att ladda om sidan eller koppla från återställer det inte."
 }

@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Příště nech to lano být.",
 	"docs.cave.comic.keeper": "Kamenný strážce",
 	"docs.cave.comic.sign": "Netahejte",
-	"docs.cave.comic.clank": "Řach!"
+	"docs.cave.comic.clank": "Řach!",
+	"docs.cave.returns": "Při úspěchu vrací: {fields}.",
+	"docs.cave.state": "character.cave obsahuje nejnovější stav jeskyně a po odchodu má hodnotu null. Změny sleduj pomocí character.on(\"cave\", callback).",
+	"docs.cave.restart": "Pokud návštěvu ukončí restart serveru, účet dostane svůj denní vstup zpět. Obnovení stránky ani odpojení ho nevrátí."
 }

@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "下次別碰繩子了。",
 	"docs.cave.comic.keeper": "石雕守衛",
 	"docs.cave.comic.sign": "請勿拉動",
-	"docs.cave.comic.clank": "鏘啷！"
+	"docs.cave.comic.clank": "鏘啷！",
+	"docs.cave.returns": "成功時回傳：{fields}。",
+	"docs.cave.state": "character.cave儲存洞窟的最新狀態，離開洞窟後會變為null。使用character.on(\"cave\", callback)監聽變化。",
+	"docs.cave.restart": "如果伺服器重新啟動導致本次探索結束，帳號會恢復當日的進入次數。重新整理頁面或中斷連線不會恢復次數。"
 }

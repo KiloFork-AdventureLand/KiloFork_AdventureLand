@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Jeskyni se nepodařilo otevřít. Tvá denní návštěva nebyla využita. Zkus to znovu.",
 	"cave.error.generation_timeout": "Otevírání jeskyně trvalo příliš dlouho. Tvá denní návštěva nebyla využita. Zkus to znovu.",
 	"cave.error.zone_busy": "Všechny jeskyně jsou obsazené. Zkus to za chvíli.",
-	"cave.error.admission_expired": "Platnost ověření vstupu vypršela. Tvá denní návštěva nebyla využita. Zkus to znovu."
+	"cave.error.admission_expired": "Platnost ověření vstupu vypršela. Tvá denní návštěva nebyla využita. Zkus to znovu.",
+	"cave.currency_limits": "Během jedné návštěvy se může objevit až {gold} jeskynního zlata a {amber} Cave Amber. Jejich utracení nezpůsobí, že se objeví další."
 }

@@ -333,7 +333,7 @@
 	"cave.supply.decoy": "diversivo per la pattuglia",
 	"cave.supply.truce": "lasciapassare delle guardie",
 	"cave.hunt_clock": "Caccia: {kills}/{count} · {time}",
-	"cave.practice_clock": "{name}: {hp} PV · {time}",
+	"cave.practice_clock": "{name}: {hp} HP · {time}",
 	"cave.error.cave_entering": "La grotta vi sta risucchiando. Tenetevi forte!",
 	"cave.floor_location": "Piano {floor} · {x}, {y}",
 	"cave.shared": "Cassa comune",
@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "La grotta non si è aperta. La tua visita giornaliera non è stata usata. Riprova.",
 	"cave.error.generation_timeout": "La grotta ha impiegato troppo tempo ad aprirsi. La tua visita giornaliera non è stata usata. Riprova.",
 	"cave.error.zone_busy": "Tutte le grotte sono occupate. Riprova tra poco.",
-	"cave.error.admission_expired": "La verifica d’ingresso è scaduta. La tua visita giornaliera non è stata usata. Riprova."
+	"cave.error.admission_expired": "La verifica d’ingresso è scaduta. La tua visita giornaliera non è stata usata. Riprova.",
+	"cave.currency_limits": "Per ogni visita possono apparire fino a {gold} di oro della grotta e {amber} Cave Amber. Spenderli non ne fa apparire altri."
 }

@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "В следующий раз не трогай верёвку.",
 	"docs.cave.comic.keeper": "Каменный страж",
 	"docs.cave.comic.sign": "Не тянуть",
-	"docs.cave.comic.clank": "Лязг!"
+	"docs.cave.comic.clank": "Лязг!",
+	"docs.cave.returns": "Возвращает при успехе: {fields}.",
+	"docs.cave.state": "character.cave содержит последнее состояние пещеры и становится null при выходе. Следи за изменениями через character.on(\"cave\", callback).",
+	"docs.cave.restart": "Если перезапуск сервера завершит твоё посещение, аккаунт получит ежедневный вход обратно. Перезагрузка страницы или отключение его не восстанавливают."
 }

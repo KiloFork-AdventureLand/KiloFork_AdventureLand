@@ -616,6 +616,7 @@ docs = {
 			craftsman: "crafting",
 			cx: "cosmetics",
 			daily_events: "events",
+			dreamkeeper: "dreams",
 			events: "events",
 			exchange: "exchanges",
 			favors: "server_services",

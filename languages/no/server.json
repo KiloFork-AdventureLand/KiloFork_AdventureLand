@@ -389,5 +389,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die gir dere ett omkast per besøk når det første kastet taper. Utstyr den før dere spiller.",
 	"server.cave.story_dagger": "{npc}: Se etter en krokformet klinge med elfenbensfarget egg og rød rygg. Det er Last Word. Han bærer den ved siden av en vanlig dolk.",
 	"server.cave.story_send": "{npc}: Bruk grottegullet før dere går. Det Amber dere beholder, går til gruppen når noen forlater grotten.",
-	"server.cave.story_stairs": "{npc}: Trappene endrer seg hver gang jeg kommer hit. Jeg følger faklene."
+	"server.cave.story_stairs": "{npc}: Trappene endrer seg hver gang jeg kommer hit. Jeg følger faklene.",
+	"server.cave.helpers_limit": "Du har allerede to hjelpere.",
+	"server.cave.gold_limit": "Alt hulegullet for dette besøket har dukket opp: {amount}. Du kan fortsatt finne gjenstander og tjene XP.",
+	"server.cave.amber_limit": "Alle {amount} Cave Amber for dette besøket har dukket opp. Du kan fortsatt finne gjenstander og tjene XP."
 }

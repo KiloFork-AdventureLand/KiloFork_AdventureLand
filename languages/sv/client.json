@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Grottan kunde inte öppnas. Ditt dagliga besök har inte använts. Försök igen.",
 	"cave.error.generation_timeout": "Det tog för lång tid att öppna grottan. Ditt dagliga besök har inte använts. Försök igen.",
 	"cave.error.zone_busy": "Alla grottor är upptagna. Försök strax igen.",
-	"cave.error.admission_expired": "Inträdeskontrollen löpte ut. Ditt dagliga besök har inte använts. Försök igen."
+	"cave.error.admission_expired": "Inträdeskontrollen löpte ut. Ditt dagliga besök har inte använts. Försök igen.",
+	"cave.currency_limits": "Upp till {gold} grottguld och {amber} Cave Amber kan dyka upp per besök. Att spendera dem gör inte att fler dyker upp."
 }

@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Hindi nabuksan ang kuweba. Hindi nagamit ang arawang pagbisita mo. Subukan ulit.",
 	"cave.error.generation_timeout": "Masyadong natagalan ang pagbukas ng kuweba. Hindi nagamit ang arawang pagbisita mo. Subukan ulit.",
 	"cave.error.zone_busy": "May gumagamit ng lahat ng kuweba. Subukan ulit mamaya.",
-	"cave.error.admission_expired": "Nag-expire ang pagsusuri sa pagpasok. Hindi nagamit ang arawang pagbisita mo. Subukan ulit."
+	"cave.error.admission_expired": "Nag-expire ang pagsusuri sa pagpasok. Hindi nagamit ang arawang pagbisita mo. Subukan ulit.",
+	"cave.currency_limits": "Hanggang {gold} ginto ng kuweba at {amber} Cave Amber ang maaaring lumitaw sa bawat pagbisita. Hindi madaragdagan ang lilitaw kapag ginastos mo ang mga ito."
 }

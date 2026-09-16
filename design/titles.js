@@ -81,4 +81,4 @@ var titles={
 };
 
 // A single origin title preserves material stacks and never adds combat stats.
-titles.cavefound={type:"all_items",manual:true,title:"Cave-found",source:"dreams"};
+titles.cavefound={type:"all_items",manual:true,misc:true,stackable:true,title:"Cave-found",source:"dreams"};

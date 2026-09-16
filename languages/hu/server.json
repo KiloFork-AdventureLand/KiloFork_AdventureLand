@@ -387,5 +387,8 @@
 	"server.cave.story_dice": "{npc}: A Loaded Die látogatásonként egyszer újradobást ad, ha az első dobás veszít. Vegyétek fel játék előtt.",
 	"server.cave.story_dagger": "{npc}: Elefántcsontszínű élű, vörös hátú, kampós pengét keressetek. Az a Last Word. Egy egyszerű tőr mellett hordja.",
 	"server.cave.story_send": "{npc}: Költsétek el a barlangi aranyat, mielőtt távoztok. A megtartott Amber a csapathoz kerül, amikor valaki kilép.",
-	"server.cave.story_stairs": "{npc}: A lépcsők minden látogatásomkor máshol vannak. Én a fáklyákat követem."
+	"server.cave.story_stairs": "{npc}: A lépcsők minden látogatásomkor máshol vannak. Én a fáklyákat követem.",
+	"server.cave.helpers_limit": "Már van két segítőd.",
+	"server.cave.gold_limit": "A látogatás során megszerezhető összes barlangi arany megjelent: {amount}. Tárgyakat továbbra is találhatsz, és XP-t is szerezhetsz.",
+	"server.cave.amber_limit": "A látogatás során megszerezhető Cave Amber teljes mennyisége megjelent: {amount}. Tárgyakat továbbra is találhatsz, és XP-t is szerezhetsz."
 }

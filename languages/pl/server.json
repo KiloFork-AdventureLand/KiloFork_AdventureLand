@@ -393,5 +393,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die daje jeden ponowny rzut na wizytę, gdy pierwszy jest przegrany. Załóżcie go przed grą.",
 	"server.cave.story_dagger": "{npc}: Szukajcie zakrzywionej klingi z krawędzią w kolorze kości słoniowej i czerwonym grzbietem. To Last Word. Nosi ją obok zwykłego sztyletu.",
 	"server.cave.story_send": "{npc}: Wydajcie jaskiniowe złoto przed wyjściem. Zachowane Amber trafi do drużyny, gdy ktoś wyjdzie.",
-	"server.cave.story_stairs": "{npc}: Za każdym razem schody są gdzie indziej. Podążam za pochodniami."
+	"server.cave.story_stairs": "{npc}: Za każdym razem schody są gdzie indziej. Podążam za pochodniami.",
+	"server.cave.helpers_limit": "Masz już dwóch pomocników.",
+	"server.cave.gold_limit": "Pojawiło się już całe złoto jaskini dostępne podczas tej wizyty: {amount}. Nadal możesz znajdować przedmioty i zdobywać XP.",
+	"server.cave.amber_limit": "Pojawiło się już całe Cave Amber dostępne podczas tej wizyty: {amount}. Nadal możesz znajdować przedmioty i zdobywać XP."
 }

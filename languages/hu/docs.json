@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Legközelebb hagyd békén a kötelet.",
 	"docs.cave.comic.keeper": "Kőőr",
 	"docs.cave.comic.sign": "Ne húzd meg",
-	"docs.cave.comic.clank": "Csörr!"
+	"docs.cave.comic.clank": "Csörr!",
+	"docs.cave.returns": "Siker esetén visszaadott érték: {fields}.",
+	"docs.cave.state": "A character.cave a barlang legfrissebb állapotát tartalmazza, és kilépéskor null lesz az értéke. A változásokat a character.on(\"cave\", callback) hívással figyelheted.",
+	"docs.cave.restart": "Ha a szerver újraindítása vet véget a látogatásodnak, a fiók visszakapja a napi látogatását. Az oldal újratöltése vagy a kapcsolat megszakítása nem állítja vissza."
 }

@@ -390,5 +390,8 @@
 	"server.cave.story_dice": "{npc} : Loaded Die vous accorde un second lancer par visite si le premier est perdant. Équipez-le avant de jouer.",
 	"server.cave.story_dagger": "{npc} : Cherchez une lame recourbée au tranchant ivoire et au dos rouge. C'est Last Word. Il la porte à côté d'une dague ordinaire.",
 	"server.cave.story_send": "{npc} : Dépensez l'or de la grotte avant de partir. L'Amber conservé revient au groupe dès que quelqu'un sort.",
-	"server.cave.story_stairs": "{npc} : Les escaliers changent chaque fois que je viens ici. Je suis les torches."
+	"server.cave.story_stairs": "{npc} : Les escaliers changent chaque fois que je viens ici. Je suis les torches.",
+	"server.cave.helpers_limit": "Tu as déjà deux compagnons.",
+	"server.cave.gold_limit": "Tout l’or de la grotte de cette visite est apparu : {amount}. Tu peux encore trouver des objets et gagner de l’XP.",
+	"server.cave.amber_limit": "Les {amount} Cave Amber de cette visite sont tous apparus. Tu peux encore trouver des objets et gagner de l’XP."
 }

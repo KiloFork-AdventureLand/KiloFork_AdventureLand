@@ -144,7 +144,10 @@ test("cave mail updates the saved unread count and every connected character on 
 	};
 	load(h.context, "node/logic/cave_of_many_dreams.js", ["cave_mail"]);
 	const recipient = { owner: "US_reader", name: "Reader", character: "CH_reader" };
-	await h.context.cave_mail(recipient, { name: "cave_amber", q: 1 }, "reward");
+	const pending = h.context.cave_mail(recipient, { name: "cave_amber", q: 1 }, "reward");
+	assert.equal(h.context.cave_pending(), true, "graceful shutdown must wait for the reward write");
+	await pending;
+	assert.equal(h.context.cave_pending(), false);
 	assert.equal(h.records.get("IE_userdata-US_reader").info.mail, 2);
 	assert.deepEqual(
 		events,

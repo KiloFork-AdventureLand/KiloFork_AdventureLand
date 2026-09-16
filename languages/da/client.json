@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Grotten kunne ikke åbnes. Dit daglige besøg er ikke brugt. Prøv igen.",
 	"cave.error.generation_timeout": "Det tog for lang tid at åbne grotten. Dit daglige besøg er ikke brugt. Prøv igen.",
 	"cave.error.zone_busy": "Alle grotter er optaget. Prøv igen om lidt.",
-	"cave.error.admission_expired": "Adgangstjekket udløb. Dit daglige besøg er ikke brugt. Prøv igen."
+	"cave.error.admission_expired": "Adgangstjekket udløb. Dit daglige besøg er ikke brugt. Prøv igen.",
+	"cave.currency_limits": "Der kan dukke op til {gold} huleguld og {amber} Cave Amber op pr. besøg. Der dukker ikke mere op, fordi du bruger dem."
 }

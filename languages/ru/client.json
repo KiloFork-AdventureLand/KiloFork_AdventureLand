@@ -333,7 +333,7 @@
 	"cave.supply.decoy": "приманка для патруля",
 	"cave.supply.truce": "пропуск стражи",
 	"cave.hunt_clock": "Охота: {kills}/{count} · {time}",
-	"cave.practice_clock": "{name}: {hp} ОЗ · {time}",
+	"cave.practice_clock": "{name}: {hp} HP · {time}",
 	"cave.error.cave_entering": "Пещера затягивает вас внутрь. Держитесь!",
 	"cave.floor_location": "Этаж {floor} · {x}, {y}",
 	"cave.shared": "Общая казна",
@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Не удалось открыть пещеру. Ежедневный вход не потрачен. Попробуйте ещё раз.",
 	"cave.error.generation_timeout": "Пещера открывалась слишком долго. Ежедневный вход не потрачен. Попробуйте ещё раз.",
 	"cave.error.zone_busy": "Все пещеры заняты. Попробуйте чуть позже.",
-	"cave.error.admission_expired": "Время проверки входа истекло. Ежедневный вход не потрачен. Попробуйте ещё раз."
+	"cave.error.admission_expired": "Время проверки входа истекло. Ежедневный вход не потрачен. Попробуйте ещё раз.",
+	"cave.currency_limits": "За одно посещение может появиться до {gold} золота пещеры и {amber} Cave Amber. Если их потратить, больше не появится."
 }

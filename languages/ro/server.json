@@ -393,5 +393,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die vă oferă o singură aruncare în plus pe vizită dacă prima e pierzătoare. Echipați-l înainte să jucați.",
 	"server.cave.story_dagger": "{npc}: Căutați o lamă curbată ca un cârlig, cu tăiș de culoarea fildeșului și spinare roșie. Este Last Word. O poartă alături de un pumnal obișnuit.",
 	"server.cave.story_send": "{npc}: Cheltuiți aurul din peșteră înainte să plecați. Amber păstrat ajunge la grup când cineva iese.",
-	"server.cave.story_stairs": "{npc}: Scările se schimbă de fiecare dată când vin aici. Eu urmez torțele."
+	"server.cave.story_stairs": "{npc}: Scările se schimbă de fiecare dată când vin aici. Eu urmez torțele.",
+	"server.cave.helpers_limit": "Ai deja două ajutoare.",
+	"server.cave.gold_limit": "A apărut tot aurul peșterii pentru această vizită: {amount}. Încă poți găsi obiecte și câștiga XP.",
+	"server.cave.amber_limit": "Au apărut toate cele {amount} Cave Amber pentru această vizită. Încă poți găsi obiecte și câștiga XP."
 }

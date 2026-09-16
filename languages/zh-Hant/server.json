@@ -387,5 +387,8 @@
 	"server.cave.story_dice": "{npc}：帶上Loaded Die後，如果第一次擲骰輸了，每次探險可重擲一次。開玩前先裝備好。",
 	"server.cave.story_dagger": "{npc}：找一把象牙色刃口、紅色刀背的鉤形刀。那就是Last Word。他把它和一把普通匕首一同帶著。",
 	"server.cave.story_send": "{npc}：離開前把洞窟金幣花掉。只要有人離開，剩下的Amber就會交給隊伍。",
-	"server.cave.story_stairs": "{npc}：我每次來，樓梯的位置都會變。我跟著火把走。"
+	"server.cave.story_stairs": "{npc}：我每次來，樓梯的位置都會變。我跟著火把走。",
+	"server.cave.helpers_limit": "你已經有兩名幫手了。",
+	"server.cave.gold_limit": "本次進入可出現的{amount}洞窟金幣已全部出現。你仍可找到物品並獲得XP。",
+	"server.cave.amber_limit": "本次進入可出現的{amount}個Cave Amber已全部出現。你仍可找到物品並獲得XP。"
 }

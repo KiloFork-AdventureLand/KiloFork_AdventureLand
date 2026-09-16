@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Następnym razem zostaw linę w spokoju.",
 	"docs.cave.comic.keeper": "Kamienny strażnik",
 	"docs.cave.comic.sign": "Nie ciągnąć",
-	"docs.cave.comic.clank": "Brzęk!"
+	"docs.cave.comic.clank": "Brzęk!",
+	"docs.cave.returns": "Zwraca po pomyślnym wykonaniu: {fields}.",
+	"docs.cave.state": "character.cave zawiera najnowszy stan jaskini i przyjmuje wartość null po jej opuszczeniu. Śledź zmiany za pomocą character.on(\"cave\", callback).",
+	"docs.cave.restart": "Jeśli restart serwera zakończy twoją wizytę, konto odzyska swoje dzienne wejście. Odświeżenie strony ani rozłączenie go nie przywraca."
 }

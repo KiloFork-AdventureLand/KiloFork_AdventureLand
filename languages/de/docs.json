@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Lass nächstes Mal das Seil in Ruhe.",
 	"docs.cave.comic.keeper": "Steinwächter",
 	"docs.cave.comic.sign": "Nicht ziehen",
-	"docs.cave.comic.clank": "Klong!"
+	"docs.cave.comic.clank": "Klong!",
+	"docs.cave.returns": "Gibt bei Erfolg zurück: {fields}.",
+	"docs.cave.state": "character.cave enthält den aktuellen Höhlenzustand und wird beim Verlassen null. Verfolge Änderungen mit character.on(\"cave\", callback).",
+	"docs.cave.restart": "Wenn ein Serverneustart deinen Besuch beendet, erhält der Account seinen täglichen Besuch zurück. Neuladen oder ein Verbindungsabbruch stellt ihn nicht wieder her."
 }

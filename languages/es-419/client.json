@@ -333,7 +333,7 @@
 	"cave.supply.decoy": "distracción para la patrulla",
 	"cave.supply.truce": "pase de la guardia",
 	"cave.hunt_clock": "Cacería: {kills}/{count} · {time}",
-	"cave.practice_clock": "{name}: {hp} PV · {time}",
+	"cave.practice_clock": "{name}: {hp} HP · {time}",
 	"cave.error.cave_entering": "La cueva los está atrayendo al interior. ¡Sujétense!",
 	"cave.floor_location": "Piso {floor} · {x}, {y}",
 	"cave.shared": "Fondo del grupo",
@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "No se pudo abrir la cueva. No se usó tu visita diaria. Inténtalo de nuevo.",
 	"cave.error.generation_timeout": "La cueva tardó demasiado en abrirse. No se usó tu visita diaria. Inténtalo de nuevo.",
 	"cave.error.zone_busy": "Todas las cuevas están ocupadas. Inténtalo en un momento.",
-	"cave.error.admission_expired": "La verificación de entrada venció. No se usó tu visita diaria. Inténtalo de nuevo."
+	"cave.error.admission_expired": "La verificación de entrada venció. No se usó tu visita diaria. Inténtalo de nuevo.",
+	"cave.currency_limits": "Pueden aparecer hasta {gold} de oro de la cueva y {amber} Cave Amber por visita. Gastarlos no hace que aparezcan más."
 }

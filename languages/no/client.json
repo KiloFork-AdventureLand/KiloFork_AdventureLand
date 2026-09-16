@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Grotten kunne ikke åpnes. Dagens besøk er ikke brukt. Prøv igjen.",
 	"cave.error.generation_timeout": "Det tok for lang tid å åpne grotten. Dagens besøk er ikke brukt. Prøv igjen.",
 	"cave.error.zone_busy": "Alle grottene er opptatt. Prøv igjen om litt.",
-	"cave.error.admission_expired": "Inngangssjekken utløp. Dagens besøk er ikke brukt. Prøv igjen."
+	"cave.error.admission_expired": "Inngangssjekken utløp. Dagens besøk er ikke brukt. Prøv igjen.",
+	"cave.currency_limits": "Opptil {gold} hulegull og {amber} Cave Amber kan dukke opp per besøk. Det dukker ikke opp mer selv om du bruker dem."
 }

@@ -579,6 +579,131 @@ test("a cave gold letter can be claimed once by its assigned character", async (
 	assert.equal(events.at(-1).failed, true);
 });
 
+function restartFixture() {
+	const { c, p, run } = fixture();
+	const records = new Map();
+	for (const owner of ["owner", "other"])
+		records.set("daily:dreams:" + owner, {
+			_id: "daily:dreams:" + owner,
+			owner,
+			run: run.key,
+			server: "SR_USII",
+			boot: "before",
+			state: "active",
+			resets: Date.now() + 86400000,
+			members: run.members.filter((m) => m.owner === owner).map((m) => "member:" + m.character),
+		});
+	for (const m of run.members)
+		records.set("member:" + m.character, { _id: "member:" + m.character, run: run.key, active: true });
+	const matches = (doc, query) =>
+		Object.entries(query).every(([key, value]) => (value?.$in ? value.$in.includes(doc[key]) : doc[key] === value));
+	const collection = {
+		async findOne(query) {
+			const doc = [...records.values()].find((doc) => matches(doc, query));
+			return doc ? clone(doc) : null;
+		},
+		async updateOne(query, update) {
+			const doc = [...records.values()].find((doc) => matches(doc, query));
+			if (doc) Object.assign(doc, update.$set);
+			return { matchedCount: doc ? 1 : 0 };
+		},
+		async updateMany(query, update) {
+			assert.ok(query._id.$in.length <= 3, "membership writes stay bounded");
+			for (const doc of records.values()) if (matches(doc, query)) Object.assign(doc, update.$set);
+		},
+		async deleteMany(query) {
+			for (const [id, doc] of records) if (matches(doc, query)) records.delete(id);
+		},
+	};
+	Object.assign(c, {
+		db: { collection: () => collection },
+		server_id: "SR_USII",
+		Server: { info: { cave_boot: "before" } },
+		region: "US",
+		server_name: "II",
+		log_trace() {},
+		get: async () => c.Server,
+	});
+	p.p = { home: "USII" };
+	return { c, p, run, records, collection };
+}
+
+test("a new server session restores interrupted visits, including when queried from another server", async () => {
+	const { c, p, records } = restartFixture();
+	assert.equal((await c.generated_visit_info(p)).available, false, "the running visit remains consumed");
+	c.Server.info.cave_boot = "after";
+	c.server_id = "SR_EUI";
+	assert.equal((await c.generated_visit_info(p)).available, true);
+	assert.equal(records.has("daily:dreams:owner"), false);
+	assert.equal(records.get("member:a").active, false);
+	assert.equal(records.get("member:b").active, false);
+	assert.equal(records.get("member:c").active, true, "another account is reconciled independently");
+	assert.equal((await c.generated_visit_info(p)).available, true, "recovery is idempotent");
+});
+
+test("ordinary disconnection consumes the visit even if the server restarts later", async () => {
+	const { c, p, run, records } = restartFixture();
+	for (const member of run.members.filter((m) => m.owner === p.owner))
+		c.generated_leave_member(run, member, "disconnect");
+	await new Promise(setImmediate);
+	c.Server.info.cave_boot = "after";
+	assert.equal((await c.generated_visit_info(p)).available, false);
+	assert.equal(records.get("daily:dreams:owner").state, "active");
+});
+
+test("graceful restart refunds only accounts still inside and waits for the write", async () => {
+	const { c, run, records, collection } = restartFixture();
+	run.floors = [];
+	c.generated_leave_member(run, run.members[2], "exit");
+	await new Promise(setImmediate);
+	c.get_player = () => null;
+	const remove = collection.deleteMany;
+	let finish;
+	collection.deleteMany = async (query) => {
+		await new Promise((resolve) => {
+			finish = resolve;
+		});
+		return remove(query);
+	};
+	c.destroy_generated_run(run.key, "restart");
+	assert.equal(c.cave_pending(), true);
+	await new Promise(setImmediate);
+	assert.equal(records.get("daily:dreams:owner").state, "refunding");
+	finish();
+	await new Promise(setImmediate);
+	assert.equal(c.cave_pending(), false);
+	assert.equal(records.has("daily:dreams:owner"), false);
+	assert.equal(records.get("daily:dreams:other").state, "active");
+});
+
+test("an interrupted refund or entry reservation recovers without erasing a newer visit", async () => {
+	const { c, p, records, collection } = restartFixture();
+	c.Server.info.cave_boot = "after";
+	const remove = collection.deleteMany;
+	collection.deleteMany = async () => {
+		throw Error("write interrupted");
+	};
+	await assert.rejects(c.generated_visit_info(p), /write interrupted/);
+	assert.equal(records.get("member:a").active, false);
+	assert.equal(records.get("daily:dreams:owner").state, "refunding");
+	collection.deleteMany = remove;
+	assert.equal((await c.generated_visit_info(p)).available, true);
+	const other = { ...p, owner: "other" };
+	records.get("daily:dreams:other").state = "preparing";
+	records.get("member:c").active = false;
+	assert.equal((await c.generated_visit_info(other)).available, true);
+	records.set("daily:dreams:owner", {
+		_id: "daily:dreams:owner",
+		run: "new",
+		state: "active",
+		boot: "after",
+		server: "SR_USII",
+		members: ["member:a"],
+	});
+	await c.generated_refund_visit(p.owner, "run");
+	assert.equal(records.get("daily:dreams:owner").run, "new");
+});
+
 test("daily admission stays limited in production; Dev permits repeat visits but keeps character locks", async () => {
 	const { c, p } = fixture();
 	const members = [p, { ...p, name: "B", real_id: "b" }, { ...p, name: "C", real_id: "c", owner: "other" }];
@@ -619,6 +744,8 @@ test("daily admission stays limited in production; Dev permits repeat visits but
 		db: { collection: () => collection },
 		region: "US",
 		server_name: "II",
+		server_id: "SR_USII",
+		Server: { info: { cave_boot: "boot" } },
 		generated_party: () => members,
 		can_walk: () => true,
 		simple_distance: () => 0,
@@ -632,6 +759,10 @@ test("daily admission stays limited in production; Dev permits repeat visits but
 		generated_transport() {},
 	});
 	load(c, "node/logic/generated_maps.js", ["generated_admission", "open_generated_zone", "generated_visit_info"]);
+	c.G = { ...G, events: { ...G.events, dreams: { ...G.events.dreams, disabled: true } } };
+	await assert.rejects(c.open_generated_zone(p), /cave_closed/);
+	assert.equal(claims.size, 0, "disabled admission cannot consume a daily visit");
+	c.G.events.dreams.disabled = false;
 	await c.open_generated_zone(p);
 	assert.deepEqual([...claims.keys()].filter((id) => id.startsWith("daily:")).sort(), [
 		"daily:dreams:other",
@@ -1208,6 +1339,201 @@ function encounterFixture(encounter) {
 	return { c, p, run, room };
 }
 
+test("cave status attacks damage fresh and restored monsters through the real combat handler", () => {
+	const { c, p, run, room } = encounterFixture(G.events.dreams.encounters[0]);
+	Object.assign(c, {
+		Math: Object.assign(Object.create(Math), { random: () => 0.5 }),
+		min: Math.min,
+		max: Math.max,
+		ceil: Math.ceil,
+		floor: Math.floor,
+		round: Math.round,
+		abs: Math.abs,
+		B: { dps_tank_mult: 1, heal_multiplier: 1 },
+		mode: {},
+		is_invinc: () => false,
+		is_invis: () => false,
+		is_same: () => false,
+		is_in_pvp: () => false,
+		instance_is_frozen: () => false,
+		damage_multiplier: G.damage_multiplier,
+		distance: G.distance,
+		point_distance: (a, b, x, y) => Math.hypot(a - x, b - y),
+		mssince: (date) => Date.now() - date,
+		ssince: (date) => (Date.now() - date) / 1000,
+		xy_emit() {},
+		disappearing_text() {},
+		server_log() {},
+		add_pdps() {},
+		add_coop_points() {},
+		encouragement_points() {},
+		encouragement_wound() {},
+		set_ghash() {},
+		achievement_logic_monster_damage() {},
+		achievement_logic_burn_last_hit() {},
+		ccms() {},
+		monster_abilities: { damage() {} },
+	});
+	Object.assign(p, { type: "mage", a: {}, p: {}, last: {}, crit: 0, critdamage: 0, m: 0, targets: 0 });
+	c.instances.zone_a = { monsters: {}, players: {} };
+	load(c, "node/server_functions.js", ["add_condition"]);
+	load(c, "node/server.js", ["complete_attack", "redirect_guardians_oath_damage"]);
+	load(c, "node/logic/cave_of_many_dreams.js", ["cave_suspend_floor", "cave_resume_floor"]);
+	const fresh = c.cave_spawn(run, room, "cave_wolf", "enemy");
+	room.actors = [fresh];
+	room.enemies = [fresh];
+	c.cave_suspend_floor(run, "zone_a", room);
+	c.cave_resume_floor(run, "zone_a", room);
+	const restored = room.actors[0];
+	for (const target of [c.cave_spawn(run, room, "cave_wolf", "enemy"), restored]) {
+		assert.equal(target.socket, undefined, "a monster must not be treated as a connected player");
+		Object.assign(target, { hp: 100000, max_hp: 100000, a: {}, points: {}, hits: 0, m: 0, outgoing: 0 });
+		for (const condition of ["frozen", "burned", "poisoned", "woven"]) {
+			const before = target.hp;
+			const action = {
+				hid: p.id,
+				source: "attack",
+				projectile: "magic",
+				x: target.x,
+				y: target.y,
+				m: 0,
+				pid: condition,
+			};
+			c.complete_attack(p, target, {
+				attack: 1000,
+				damage_type: "magical",
+				atype: "attack",
+				heal: false,
+				positive: false,
+				procs: true,
+				conditions: [condition],
+				apiercing: 0,
+				rpiercing: 0,
+				attacker: p,
+				target,
+				action,
+				def: action,
+			});
+			assert.ok(target.hp < before, condition + " must not cancel its hit");
+			assert.ok(target.s[condition]?.ms > 0, condition + " is applied");
+		}
+		// Purify uses the same handler for ordinary conditions and the Djinn's protected shell.
+		target.s = { rimeshell: { ms: 3000, remaining: 32000 }, warcry: { ms: 1000 } };
+		const before = target.hp;
+		const action = {
+			hid: p.id,
+			source: "purify",
+			purify: true,
+			projectile: "purify",
+			x: target.x,
+			y: target.y,
+			m: 0,
+			pid: "purify",
+		};
+		c.complete_attack(p, target, {
+			attack: 1000,
+			first_attack: 1000,
+			non_existent: 0,
+			damage_type: "pure",
+			atype: "purify",
+			heal: false,
+			positive: false,
+			procs: false,
+			conditions: [],
+			apiercing: 0,
+			rpiercing: 0,
+			attacker: p,
+			target,
+			action,
+			def: action,
+		});
+		assert.equal(target.s.warcry, undefined, "ordinary buffs are still removed");
+		assert.equal(target.s.rimeshell.remaining, 32000, "Purify cannot remove Rime Shell");
+		assert.equal(before - target.hp, 1400, "only the removed buff adds Purify damage");
+	}
+});
+
+test("an unfinished rescue keeps its follower until its battle ends, then travels safely", () => {
+	const { c, p, run, room } = encounterFixture(G.events.dreams.encounters.find((e) => e.id === "e20"));
+	load(c, "node/logic/cave_of_many_dreams.js", ["cave_follow_through"]);
+	c.transport_monster_to = (actor, instance, map, x, y) => Object.assign(actor, { in: instance, map, x, y });
+	const actor = room.npc;
+	c.cave_apply(
+		run,
+		room,
+		room.encounter.options.find((option) => option.effect === "cover"),
+	);
+	Object.assign(p, { map: "zone_b", in: "zone_b" });
+	c.cave_follow_through(run, "zone_a", p);
+	assert.equal(room.npc, actor);
+	assert.equal(actor.map, "zone_a");
+	c.cave_tick(run, Date.now());
+	assert.ok(!room.done, "leaving does not skip the rescue fight");
+	for (const monster of room.actors) if (monster.zone_actor.predator) monster.dead = true;
+	c.cave_random = () => 0.9; // The rescued rogue accepts the party's help.
+	c.cave_tick(run, Date.now());
+	assert.equal(room.done, true);
+	c.cave_follow_through(run, "zone_a", p);
+	assert.equal(actor.map, "zone_b");
+	assert.equal(room.npc, null);
+	c.cave_tick(run, Date.now());
+});
+
+test("a failing cave cannot interrupt another cave or the world tick", () => {
+	const { c, p, run } = fixture();
+	let ticks = 0,
+		logs = 0;
+	run.members = [run.members[0]];
+	const other = { ...run, key: "other", floors: [] };
+	Object.assign(c, {
+		generated_runs: { run, other },
+		generated_last_tick: 0,
+		cave_tick: (record) => {
+			if (record === run) throw Error("broken encounter");
+			ticks++;
+		},
+		log_trace: () => logs++,
+	});
+	load(c, "node/logic/generated_maps.js", ["generated_maps_tick"]);
+	c.generated_maps_tick();
+	assert.equal(ticks, 1);
+	assert.equal(logs, 1);
+	c.generated_last_tick = 0;
+	c.generated_maps_tick();
+	assert.equal(ticks, 2);
+	assert.equal(logs, 1, "a persistent failure does not flood the log");
+});
+
+test("full helper slots prevent a paid promise and traveler directions name real people", () => {
+	const { c, p, run, room } = encounterFixture(G.events.dreams.encounters.find((e) => e.id === "e05"));
+	const helper = c.cave_spawn(run, room, "cave_npc", "ally");
+	const helper2 = c.cave_spawn(run, room, "cave_npc", "ally");
+	helper.zone_actor.follow = helper2.zone_actor.follow = true;
+	const option = room.encounter.options.find((o) => o.cost === 2000);
+	const before = run.cave.gold;
+	assert.equal(c.cave_option_unavailable(run, room, option), "server.cave.helpers_limit");
+	c.cave_apply(run, room, option);
+	assert.equal(run.cave.gold, before);
+	assert.ok(!room.npc.zone_actor.follow);
+	const traveler = {
+		id: "traveler",
+		kind: "citizen",
+		floor: room.floor,
+		map: room.map,
+		x: 500,
+		y: 500,
+		look: { name: "Pip" },
+		npc: { x: 520, y: 540 },
+	};
+	run.cave.rooms.push(traveler);
+	c.cave_apply(run, room, { effect: "reveal", travelers: true });
+	assert.equal(traveler.revealed, true);
+	const objective = c.cave_snapshot(run, p).objectives.find((o) => o.id === traveler.id);
+	assert.equal(objective.name, "Pip");
+	assert.equal(objective.x, 520);
+	assert.equal(objective.y, 540);
+});
+
 test("every cave encounter option and venture outcome can finish through its real handlers", () => {
 	let checked = 0;
 	for (const encounter of G.events.dreams.encounters)
@@ -1493,6 +1819,9 @@ test("cave traveler chat and combat cues preserve CODE text with translated disp
 	run.cave.actors.clear();
 	c.cave_activate(run, room);
 	const result = await c.cave_interaction(p, { action: "talk", room: room.id, actor: room.npc.id });
+	p.rip = true;
+	await assert.rejects(c.cave_interaction(p, { action: "talk", room: room.id, actor: room.npc.id }), /defeated/);
+	p.rip = false;
 	assert.equal(result.chat.text, room.look.says[0]);
 	assert.equal(result.chat.text_message.phrase, "event.dreams.traveler.Pip.says.0");
 	assert.ok(!run.paused_at, "ordinary traveler chat does not pause the cave");

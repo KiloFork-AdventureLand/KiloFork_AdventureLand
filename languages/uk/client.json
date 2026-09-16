@@ -333,7 +333,7 @@
 	"cave.supply.decoy": "принада для патруля",
 	"cave.supply.truce": "перепустка варти",
 	"cave.hunt_clock": "Полювання: {kills}/{count} · {time}",
-	"cave.practice_clock": "{name}: {hp} ОЗ · {time}",
+	"cave.practice_clock": "{name}: {hp} HP · {time}",
 	"cave.error.cave_entering": "Печера затягує вас усередину. Тримайтеся!",
 	"cave.floor_location": "Поверх {floor} · {x}, {y}",
 	"cave.shared": "Спільний гаманець",
@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Не вдалося відкрити печеру. Щоденний вхід не витрачено. Спробуйте ще раз.",
 	"cave.error.generation_timeout": "Печера відкривалася надто довго. Щоденний вхід не витрачено. Спробуйте ще раз.",
 	"cave.error.zone_busy": "Усі печери зайняті. Спробуйте трохи згодом.",
-	"cave.error.admission_expired": "Час перевірки входу минув. Щоденний вхід не витрачено. Спробуйте ще раз."
+	"cave.error.admission_expired": "Час перевірки входу минув. Щоденний вхід не витрачено. Спробуйте ще раз.",
+	"cave.currency_limits": "За одне відвідування може з’явитися до {gold} золота печери та {amber} Cave Amber. Якщо їх витратити, більше не з’явиться."
 }

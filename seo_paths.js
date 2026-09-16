@@ -65,12 +65,6 @@ const DOCS_PATHS = [
 	"/docs/guide/world/cave-story",
 	"/docs/guide/cave-of-many-dreams",
 	"/docs/guide/world/cave-of-many-dreams",
-	"/docs/function/cave_enter",
-	"/docs/function/cave_info",
-	"/docs/function/cave_reply",
-	"/docs/function/cave_buy",
-	"/docs/function/cave_talk",
-	"/docs/function/cave_exit",
 	"/docs/ref/event-anniversary",
 	"/docs/guide/event-anniversary",
 	"/docs/guide/world/event-anniversary",
@@ -89,7 +83,7 @@ const DOCS_PATHS = [
 	"/docs/code/functions/poker_sit_out",
 	"/docs/code/functions/poker_sit_in",
 	"/docs/guide/tavern-games",
-	"/docs/guide/services/tavern-games",
+	"/docs/guide/world/tavern-games",
 ];
 
 const DOCS_DATA_KEYS = [

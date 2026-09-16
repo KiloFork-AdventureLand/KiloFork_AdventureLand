@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "في المرة القادمة، اترك الحبل وشأنه.",
 	"docs.cave.comic.keeper": "الحارس الحجري",
 	"docs.cave.comic.sign": "ممنوع السحب",
-	"docs.cave.comic.clank": "صلصلة!"
+	"docs.cave.comic.clank": "صلصلة!",
+	"docs.cave.returns": "القيمة المعادة عند النجاح: {fields}.",
+	"docs.cave.state": "يحتوي character.cave على أحدث حالة للكهف، وتصبح قيمته null عند المغادرة. تابع التغييرات باستخدام character.on(\"cave\", callback).",
+	"docs.cave.restart": "إذا أنهت إعادة تشغيل الخادم زيارتك، يستعيد الحساب زيارته اليومية. إعادة تحميل الصفحة أو قطع الاتصال لا يعيدانها."
 }

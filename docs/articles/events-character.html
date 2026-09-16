@@ -268,3 +268,11 @@ character.remove(listener);</div>
 <p>{{ phrase_html("docs.articles.events-character.picked-pick-failed-and-the-fishing-mining-result") }}</p>
 
 <p>{{ phrase_html("docs.articles.events-character.merrit-a-delivered-market-parcel-with-item-quantity") }}</p>
+
+<hr>
+<p><span class="dlabel" data-event="cave">cave</span></p>
+<p>{{ phrase("docs.cave.state") }}</p>
+
+<div class="code">character.on("cave", function (state) {
+    if (state) game_log(state.floor + 1 + ": " + state.remaining_ms);
+});</div>

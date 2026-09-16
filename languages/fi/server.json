@@ -390,5 +390,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die antaa kerran käynnissä uuden heiton, jos ensimmäinen häviää. Varustakaa se ennen peliä.",
 	"server.cave.story_dagger": "{npc}: Etsikää koukkumaista terää, jossa on norsunluunvärinen reuna ja punainen selkä. Se on Last Word. Hän kantaa sitä tavallisen tikarin rinnalla.",
 	"server.cave.story_send": "{npc}: Käyttäkää luolakulta ennen lähtöä. Säästynyt Amber annetaan ryhmälle, kun joku lähtee.",
-	"server.cave.story_stairs": "{npc}: Portaat muuttuvat joka kerta, kun tulen tänne. Seuraan soihtuja."
+	"server.cave.story_stairs": "{npc}: Portaat muuttuvat joka kerta, kun tulen tänne. Seuraan soihtuja.",
+	"server.cave.helpers_limit": "Sinulla on jo kaksi apulaista.",
+	"server.cave.gold_limit": "Kaikki tämän käynnin luolakulta on ilmestynyt: {amount}. Voit yhä löytää esineitä ja ansaita XP:tä.",
+	"server.cave.amber_limit": "Kaikki tämän käynnin {amount} Cave Amber ovat ilmestyneet. Voit yhä löytää esineitä ja ansaita XP:tä."
 }

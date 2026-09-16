@@ -390,5 +390,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die geeft jullie één keer per bezoek een tweede worp als de eerste verliest. Rust hem uit voordat jullie spelen.",
 	"server.cave.story_dagger": "{npc}: Zoek een haakvormig lemmet met een ivoorkleurige snede en een rode rug. Dat is Last Word. Hij draagt hem naast een gewone dolk.",
 	"server.cave.story_send": "{npc}: Geef het grotgoud uit voordat jullie vertrekken. Het Amber dat jullie bewaren gaat naar de groep zodra iemand vertrekt.",
-	"server.cave.story_stairs": "{npc}: De trappen veranderen elke keer dat ik hier kom. Ik volg de fakkels."
+	"server.cave.story_stairs": "{npc}: De trappen veranderen elke keer dat ik hier kom. Ik volg de fakkels.",
+	"server.cave.helpers_limit": "Je hebt al twee helpers.",
+	"server.cave.gold_limit": "Al het grotgoud voor dit bezoek is verschenen: {amount}. Je kunt nog steeds voorwerpen vinden en XP verdienen.",
+	"server.cave.amber_limit": "Alle {amount} Cave Amber voor dit bezoek zijn verschenen. Je kunt nog steeds voorwerpen vinden en XP verdienen."
 }

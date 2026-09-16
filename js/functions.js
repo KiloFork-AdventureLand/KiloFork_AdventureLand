@@ -2597,6 +2597,7 @@ function remove_sprite(sprite) {
 function destroy_sprite(sprite, mode) {
 	if (mode != "just") remove_sprite(sprite);
 	try {
+		if (sprite.cave_sparks && !sprite.cave_sparks._destroyed) sprite.cave_sparks.destroy();
 		if (mode == "children" || mode == "just") sprite.destroy({ children: true });
 		else sprite.destroy();
 		leave_references(sprite);

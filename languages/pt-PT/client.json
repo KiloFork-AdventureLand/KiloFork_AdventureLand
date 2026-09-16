@@ -333,7 +333,7 @@
 	"cave.supply.decoy": "distração para a patrulha",
 	"cave.supply.truce": "salvo-conduto da guarda",
 	"cave.hunt_clock": "Caçada: {kills}/{count} · {time}",
-	"cave.practice_clock": "{name}: {hp} PV · {time}",
+	"cave.practice_clock": "{name}: {hp} HP · {time}",
 	"cave.error.cave_entering": "A caverna está a puxar-vos para dentro. Segurem-se!",
 	"cave.floor_location": "Piso {floor} · {x}, {y}",
 	"cave.shared": "Bolsa comum",
@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Não foi possível abrir a caverna. A tua visita diária não foi usada. Tenta novamente.",
 	"cave.error.generation_timeout": "A caverna demorou demasiado a abrir. A tua visita diária não foi usada. Tenta novamente.",
 	"cave.error.zone_busy": "Todas as cavernas estão ocupadas. Tenta daqui a pouco.",
-	"cave.error.admission_expired": "A verificação de entrada expirou. A tua visita diária não foi usada. Tenta novamente."
+	"cave.error.admission_expired": "A verificação de entrada expirou. A tua visita diária não foi usada. Tenta novamente.",
+	"cave.currency_limits": "Podem aparecer até {gold} de ouro da caverna e {amber} Cave Amber por visita. Gastá-los não faz aparecer mais."
 }

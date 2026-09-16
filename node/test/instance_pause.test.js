@@ -52,6 +52,7 @@ function fixture() {
 	const shot = { attacker: rat, target: a, eta: new Date(now - 1) };
 	const run = {
 		key: "run",
+		members: [{ character: "A" }, { character: "B" }],
 		floors: ["one", "two"],
 		expires: now + 1000,
 		cave: { rooms: [{ actors: [rat], hunt: { deadline: now + 5000 }, practice_end: now + 3000 }] },
@@ -165,7 +166,7 @@ test("the trainer always offers a real practice fight and reopening does not pau
 });
 
 test("entry cameras shake only for entrants; spectators see sprite motion without world-position changes", () => {
-	function scene(entering) {
+	function scene(entering, reduced = false) {
 		let now = 1000,
 			camera = 0;
 		class Clock extends Date {
@@ -203,6 +204,9 @@ test("entry cameras shake only for entrants; spectators see sprite motion withou
 			render_interaction() {},
 			PIXI: { Graphics },
 			no_graphics: false,
+			socket: {},
+			matchMedia: () => ({ matches: reduced }),
+			$: () => ({ length: 0 }),
 			current_map: "main",
 			character: { name: entering ? "A" : "C" },
 			animatables: {},
@@ -230,13 +234,17 @@ test("entry cameras shake only for entrants; spectators see sprite motion withou
 		assert.equal(sprite.real_x, 816);
 		assert.equal(sprite.real_y, 1200);
 		assert.ok(sprite.pivot.y > 0);
-		assert.equal(camera > 0, entering);
+		assert.equal(camera > 0, entering && !reduced);
 		now += 900;
 		c.draw_cave_entrance();
+		assert.ok(sprite.pivot.y > 0, "the pull stays in place until the map handoff");
+		c.current_map = "zone_arrival";
+		c.finish_cave_entry("key");
 		assert.equal(sprite.pivot.y, 0);
 		assert.equal(sprite.pivot.x, 0);
 		assert.equal(c.cave_entry_scenes.length, 0);
 	}
 	scene(false);
 	scene(true);
+	scene(true, true);
 });

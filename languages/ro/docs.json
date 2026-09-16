@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Data viitoare, lasă frânghia în pace.",
 	"docs.cave.comic.keeper": "Paznic de piatră",
 	"docs.cave.comic.sign": "Nu trageți",
-	"docs.cave.comic.clank": "Zdrang!"
+	"docs.cave.comic.clank": "Zdrang!",
+	"docs.cave.returns": "Returnează la succes: {fields}.",
+	"docs.cave.state": "character.cave conține cea mai recentă stare a peșterii și devine null când pleci. Urmărește schimbările cu character.on(\"cave\", callback).",
+	"docs.cave.restart": "Dacă o repornire a serverului îți încheie vizita, contul își primește înapoi vizita zilnică. Reîncărcarea paginii sau deconectarea nu o restabilește."
 }

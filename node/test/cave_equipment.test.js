@@ -77,6 +77,32 @@ test("cave equipment recipes and an ordinary pickaxe craft through the real hand
 	}
 });
 
+test("Cave-found materials stack normally and do not pass their title through crafting", () => {
+	const { context, player, messages, failures, recipe } = inventoryFixture("cave_tunnelaxe");
+	for (const item of player.items) item.p = "cavefound";
+	socketHandler(context, "craft")({ items: recipe.items.map((_, index) => [index, index]) });
+	assert.deepEqual(failures, []);
+	assert.equal(messages.at(-1)[1].name, "cave_tunnelaxe");
+	assert.equal(player.items.find(Boolean).p, undefined);
+	for (const [oldTitle, newTitle] of [
+		["cavefound", undefined],
+		[undefined, "cavefound"],
+	]) {
+		player.items = [{ name: "cave_amber", q: 3, p: oldTitle }];
+		player.citems = plain(player.items);
+		player.esize = 0;
+		const item = { name: "cave_amber", q: 2, p: newTitle };
+		assert.ok(context.can_add_item(player, item));
+		assert.equal(context.add_item(player, item, { announce: false }), 0);
+		assert.equal(player.items.length, 1);
+		assert.equal(player.items[0].q, 5);
+	}
+	assert.equal(
+		G.can_stack({ name: "cave_amber", q: 1, p: "shiny" }, { name: "cave_amber", q: 1, p: "cavefound" }),
+		false,
+	);
+});
+
 test("cave crafts reject upgraded inputs, missing materials and short gold without consuming anything", () => {
 	for (const name of equipment) {
 		for (const invalid of ["level", "quantity", "gold", "distance"]) {

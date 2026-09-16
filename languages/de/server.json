@@ -389,5 +389,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die erlaubt euch einmal pro Besuch einen zweiten Wurf, wenn der erste verliert. Legt ihn vor dem Spiel an.",
 	"server.cave.story_dagger": "{npc}: Sucht nach einer Hakenklinge mit elfenbeinfarbener Schneide und rotem Rücken. Das ist Last Word. Er trägt sie neben einem gewöhnlichen Dolch.",
 	"server.cave.story_send": "{npc}: Gebt euer Höhlengold vor dem Verlassen aus. Das übrige Amber geht an die Gruppe, sobald jemand geht.",
-	"server.cave.story_stairs": "{npc}: Die Treppen ändern sich bei jedem Besuch. Ich folge den Fackeln."
+	"server.cave.story_stairs": "{npc}: Die Treppen ändern sich bei jedem Besuch. Ich folge den Fackeln.",
+	"server.cave.helpers_limit": "Du hast bereits zwei Helfer.",
+	"server.cave.gold_limit": "Das gesamte Höhlengold für diesen Besuch ist erschienen: {amount}. Du kannst weiterhin Gegenstände finden und XP verdienen.",
+	"server.cave.amber_limit": "Alle {amount} Cave Amber für diesen Besuch sind erschienen. Du kannst weiterhin Gegenstände finden und XP verdienen."
 }

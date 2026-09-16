@@ -390,5 +390,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die permite repetir una tirada por visita cuando perdéis la primera. Equipadlo antes de jugar.",
 	"server.cave.story_dagger": "{npc}: Buscad una hoja curva con filo de marfil y lomo rojo. Esa es Last Word. La lleva junto a una daga corriente.",
 	"server.cave.story_send": "{npc}: Gastad el oro de la cueva antes de marcharos. El Amber que conservéis irá al grupo cuando alguien salga.",
-	"server.cave.story_stairs": "{npc}: Las escaleras cambian cada vez que vengo. Yo sigo las antorchas."
+	"server.cave.story_stairs": "{npc}: Las escaleras cambian cada vez que vengo. Yo sigo las antorchas.",
+	"server.cave.helpers_limit": "Ya tienes dos ayudantes.",
+	"server.cave.gold_limit": "Ya ha aparecido todo el oro de la cueva de esta visita: {amount}. Aún puedes encontrar objetos y ganar XP.",
+	"server.cave.amber_limit": "Ya han aparecido los {amount} Cave Amber de esta visita. Aún puedes encontrar objetos y ganar XP."
 }

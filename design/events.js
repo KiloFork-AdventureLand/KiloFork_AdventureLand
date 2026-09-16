@@ -100,7 +100,10 @@ var events={
 
 // Seeded rooms never determine loot or votes. Reply pools are sampled on the server.
 events.dreams={
+	disabled:false, // Stop new admissions without interrupting parties already inside.
 	"name": "Cave of Many Dreams",
+	// Discovery is through Dorr and the nearby INFO button, not a global event banner.
+	"announcement": false,
 	"modal": "cave-of-many-dreams",
 	"sprite": "stonekey",
 	"type": "daily",
@@ -2871,6 +2874,7 @@ events.dreams={
 				{
 					"id": "e43_2",
 					"label": "Ask where the other travelers are",
+					"travelers": true,
 					"effect": "reveal"
 				},
 				{

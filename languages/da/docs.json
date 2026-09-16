@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Lad rebet være næste gang.",
 	"docs.cave.comic.keeper": "Stenvogter",
 	"docs.cave.comic.sign": "Træk ikke",
-	"docs.cave.comic.clank": "Klonk!"
+	"docs.cave.comic.clank": "Klonk!",
+	"docs.cave.returns": "Returnerer ved succes: {fields}.",
+	"docs.cave.state": "character.cave indeholder hulens seneste tilstand og bliver null, når du forlader den. Følg ændringer med character.on(\"cave\", callback).",
+	"docs.cave.restart": "Hvis en servergenstart afslutter dit besøg, får kontoen sit daglige besøg tilbage. Genindlæsning eller afbrydelse af forbindelsen giver det ikke tilbage."
 }

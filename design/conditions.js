@@ -4,8 +4,9 @@ var conditions = {
 		"skin": "rimeglass",
 		"ui": true,
 		"buff": true,
+		"persistent": true,
 		"duration": 3000,
-		"explanation": "Deal damage equal to 5% of the Djinn’s maximum HP within 3 seconds, or stun it, to break the shell. Ordinary freezing does not interrupt it."
+		"explanation": "Deal damage equal to 5% of the Djinn’s maximum HP within 3 seconds, or stun it, to break the shell. Ordinary freezing does not interrupt it. Purify cannot dispel the shell."
 	},
 	"rimeexposed":{
 		"name": "Cracked Shell",

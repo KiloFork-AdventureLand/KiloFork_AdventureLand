@@ -387,5 +387,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die cho phép tung lại một lần mỗi chuyến đi nếu lần tung đầu bị thua. Hãy trang bị trước khi chơi.",
 	"server.cave.story_dagger": "{npc}: Tìm lưỡi dao cong như móc, có cạnh màu ngà và sống dao đỏ. Đó là Last Word. Hắn mang nó cạnh một con dao găm thường.",
 	"server.cave.story_send": "{npc}: Hãy tiêu vàng hang động trước khi rời đi. Số Amber giữ lại sẽ được trao cho nhóm khi có người ra ngoài.",
-	"server.cave.story_stairs": "{npc}: Mỗi lần ta đến đây, cầu thang lại đổi chỗ. Ta đi theo những ngọn đuốc."
+	"server.cave.story_stairs": "{npc}: Mỗi lần ta đến đây, cầu thang lại đổi chỗ. Ta đi theo những ngọn đuốc.",
+	"server.cave.helpers_limit": "Bạn đã có hai người trợ giúp.",
+	"server.cave.gold_limit": "Toàn bộ {amount} vàng hang động cho lượt vào này đã xuất hiện. Bạn vẫn có thể tìm vật phẩm và nhận XP.",
+	"server.cave.amber_limit": "Toàn bộ {amount} Cave Amber cho lượt vào này đã xuất hiện. Bạn vẫn có thể tìm vật phẩm và nhận XP."
 }

@@ -5969,31 +5969,21 @@ Object.assign(module.exports, {
 // Public cave function reference. Preserve function names and return fields.
 module.exports["docs.cave.function.cave_reply"]="Votes once as this character. Use the current choice.id and one of its option IDs. An absolute majority can settle before the one-minute deadline.";
 
-// Public cave function reference. Preserve function names and return fields.
-module.exports["docs.cave.function.cave_buy"]="Buys the merchant\u2019s one item with this character\u2019s gold. A random original party member receives it. Returns recipient, item and gold. A second purchase rejects.";
 
 // Public cave function reference. Preserve function names and return fields.
 module.exports["docs.cave.function.cave_exit"]="Exits from anywhere in the cave, including while fallen. You cannot return to this visit. Returns exited:true.";
 
-// Cave guide text.
-module.exports["docs.cave.death"] = "You lose no XP, gold or items when you die here. Nera can revive you where you fell for 1 Amber per fallen character, paid from the shared purse. Reviving at this floor’s doorway is free. Respawn calls Nera; it does not leave the cave. Exit leaves for good.";
 
 // Cave guide text.
 module.exports["docs.cave.supplies"] = "A lamp can lead the moths to Mothstep Boots. A pry bar opens locked hatches. A distraction draws a patrol away for eight seconds. A former captain’s message can win a guard over. A guard’s pass lets you skip one guardroom. Helpers fight beside you and can follow you downstairs. You can keep two helpers at a time.";
 
-// Cave guide text.
-module.exports["docs.cave.craft"] = "Take Cave Amber to Cole to craft Locktooth, Counterweight Shield, Mothstep Boots or Loaded Die. The recipes also use familiar materials from outside the cave.";
 
-// Cave guide text.
-module.exports["docs.cave.rare_drops"] = "The Dark Mage and the cornered rogue carry these rare weapons. The Dark Mage must die to his own reflected spell. The rogue only drops Last Word if he was carrying it and monsters kill him before he betrays you.";
 
 // Cave guide text.
 module.exports["docs.cave.function.cave_enter"] = "Enter the Cave of Many Dreams with your current party. Everyone must be near Dorr in Mainland, alive and out of combat. Every participating account needs its daily visit; characters from one account share that visit. It resets at midnight on the account’s home server. Dev servers allow repeat visits for testing.";
 
 // Cave daily-visit query. CODE field names and function names stay unchanged.
 module.exports["docs.cave.function.cave_info"] = "Checks this account’s daily cave visit from anywhere. Returns available, resets, home and server_time. Dev servers also return unlimited: true and allow repeat visits without using the daily visit. resets and server_time are timestamps in milliseconds. The reset is midnight on the account’s home server. It does not enter the cave or use the daily visit.";
-// Cave pause state for CODE. Keep property names and function names unchanged.
-module.exports["docs.cave.pause_code"] = "Use cave_info() to check the daily visit. While inside, character.cave.paused says whether a forced vote has paused play. remaining_ms is the time left on the cave clock. Keep your voting code running, but return early from fighting and farming loops while paused. The server also rejects gameplay actions during the pause.";
 
 // Cave guide section, English playtest.
 module.exports["docs.cave.visit"]="Each account gets one visit a day, resetting at midnight on its home server. Characters on the same account share that visit. Dev servers allow repeat visits for testing.";
@@ -6004,8 +5994,6 @@ module.exports["docs.cave.death"]="You lose no XP, gold or items when you die he
 // Cave guide section, English playtest.
 module.exports["docs.cave.rare_drops"]="Nightjudge drops when the Dark Mage dies to his reflected spell. Last Word only drops from a rogue carrying it, killed by monsters before betrayal.";
 
-// Cave guide section, English playtest.
-module.exports["docs.cave.craft"]="Take Cave Amber to Cole. Choose a recipe below to see the other ingredients.";
 
 // Cave guide section, English playtest.
 module.exports["docs.cave.pause_code"]="Pause your combat routine while character.cave.paused is true. The example checks your daily visit, then leaves a place for your usual routine.";
@@ -6153,3 +6141,12 @@ module.exports["docs.cave.comic.sign"] = "Do not pull";
 
 // Cave comic sound lettering when the gates lift. Short metal clanking sound.
 module.exports["docs.cave.comic.clank"] = "Clank!";
+
+// CODE function reference. fields is a literal list of return fields or object shapes; preserve it exactly.
+module.exports["docs.cave.returns"] = "Returns on success: {fields}.";
+
+// CODE character reference and event article. Preserve character.cave, null, and character.on("cave", callback) exactly.
+module.exports["docs.cave.state"] = "character.cave holds the latest cave state and becomes null when you leave. Listen for changes with character.on(\"cave\", callback).";
+
+// Cave visit rules in INFO and cave_enter(). Restart restores admission, not the run or its unclaimed rewards.
+module.exports["docs.cave.restart"] = "If a server restart ends your visit, the account gets its daily visit back. Reloading or disconnecting does not restore it.";

@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "Наступного разу не чіпай мотузку.",
 	"docs.cave.comic.keeper": "Кам'яний вартовий",
 	"docs.cave.comic.sign": "Не тягнути",
-	"docs.cave.comic.clank": "Брязь!"
+	"docs.cave.comic.clank": "Брязь!",
+	"docs.cave.returns": "Повертає в разі успіху: {fields}.",
+	"docs.cave.state": "character.cave містить останній стан печери й стає null після виходу. Стеж за змінами через character.on(\"cave\", callback).",
+	"docs.cave.restart": "Якщо перезапуск сервера завершить твоє відвідування, акаунт отримає щоденний вхід назад. Перезавантаження сторінки чи від’єднання його не відновлює."
 }

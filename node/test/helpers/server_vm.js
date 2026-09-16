@@ -81,13 +81,38 @@ function localize(context) {
 	return context;
 }
 
+const generatedFunctions = ["node/logic/generated_maps.js", "node/logic/cave_of_many_dreams.js"].flatMap((file) => {
+	const source = read(file);
+	return Array.from(source.matchAll(/^(?:async )?function (\w+)\(/gm), ([, name]) => [name, extract(source, name)]);
+});
+
+function generatedContext(context) {
+	// Shared server handlers depend on these modules even for ordinary, non-cave characters.
+	// Load the real functions, preserving each fixture's explicit environment and overrides.
+	context.generated_maps ||= Object.create(null);
+	context.generated_runs ||= Object.create(null);
+	context.generated_openings ||= new Set();
+	context.generated_last_tick ??= 0;
+	for (const [name, source] of generatedFunctions) if (!context[name]) vm.runInContext(source, context);
+}
+
 function load(context, file, names) {
 	localize(context);
+	if (
+		[
+			"node/server.js",
+			"node/server_functions.js",
+			"node/logic/generated_maps.js",
+			"node/logic/cave_of_many_dreams.js",
+		].includes(file)
+	)
+		generatedContext(context);
 	vm.runInContext(names.map((name) => extract(read(file), name)).join("\n"), context);
 }
 
 function socketHandler(context, event) {
 	localize(context);
+	generatedContext(context);
 	const source = read("node/server.js");
 	const start = source.indexOf('\t\tsocket.on("' + event + '",');
 	assert.notEqual(start, -1);

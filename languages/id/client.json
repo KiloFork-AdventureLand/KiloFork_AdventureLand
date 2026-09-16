@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Gua tidak bisa dibuka. Kunjungan harianmu belum terpakai. Coba lagi.",
 	"cave.error.generation_timeout": "Pembukaan gua terlalu lama. Kunjungan harianmu belum terpakai. Coba lagi.",
 	"cave.error.zone_busy": "Semua gua terisi. Coba lagi sebentar lagi.",
-	"cave.error.admission_expired": "Pemeriksaan masuk kedaluwarsa. Kunjungan harianmu belum terpakai. Coba lagi."
+	"cave.error.admission_expired": "Pemeriksaan masuk kedaluwarsa. Kunjungan harianmu belum terpakai. Coba lagi.",
+	"cave.currency_limits": "Hingga {gold} emas gua dan {amber} Cave Amber dapat muncul per kunjungan. Menghabiskannya tidak membuat lebih banyak muncul."
 }

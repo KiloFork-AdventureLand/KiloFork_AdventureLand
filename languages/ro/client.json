@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Peștera nu s-a putut deschide. Vizita ta zilnică nu a fost folosită. Încearcă din nou.",
 	"cave.error.generation_timeout": "Deschiderea peșterii a durat prea mult. Vizita ta zilnică nu a fost folosită. Încearcă din nou.",
 	"cave.error.zone_busy": "Toate peșterile sunt ocupate. Încearcă din nou în curând.",
-	"cave.error.admission_expired": "Verificarea intrării a expirat. Vizita ta zilnică nu a fost folosită. Încearcă din nou."
+	"cave.error.admission_expired": "Verificarea intrării a expirat. Vizita ta zilnică nu a fost folosită. Încearcă din nou.",
+	"cave.currency_limits": "La fiecare vizită pot apărea până la {gold} aur al peșterii și {amber} Cave Amber. Cheltuirea lor nu face să apară mai mult."
 }

@@ -825,3 +825,12 @@ module.exports["server.cave.rogue_betrayal"] = "The rogue vanishes behind you. H
 
 // Cave notice. The escorted NPC has died.
 module.exports["server.cave.escort_lost"] = "{npc} did not make it. The escort is over.";
+
+// Unavailable cave choice: the party already has the maximum two living or saved helpers.
+module.exports["server.cave.helpers_limit"] = "You already have two helpers.";
+
+// Cave notice after the entire visit allowance has spawned. amount is total cave gold, not the purse balance; XP stays literal.
+module.exports["server.cave.gold_limit"] = "All {amount} cave gold for this visit has appeared. You can still find items and earn XP.";
+
+// Cave notice after the entire visit allowance has spawned. amount is total Amber, not the purse balance; Cave Amber and XP stay literal.
+module.exports["server.cave.amber_limit"] = "All {amount} Cave Amber for this visit has appeared. You can still find items and earn XP.";

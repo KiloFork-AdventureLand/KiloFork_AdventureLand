@@ -392,5 +392,8 @@
 	"server.cave.story_dice": "{npc}: Loaded Die concede un secondo lancio per visita quando il primo è perdente. Equipaggiatelo prima di giocare.",
 	"server.cave.story_dagger": "{npc}: Cercate una lama uncinata con filo color avorio e dorso rosso. È Last Word. La porta accanto a un pugnale comune.",
 	"server.cave.story_send": "{npc}: Spendete l'oro della grotta prima di uscire. L'Amber conservato va al gruppo quando qualcuno se ne va.",
-	"server.cave.story_stairs": "{npc}: Le scale cambiano ogni volta che vengo qui. Io seguo le torce."
+	"server.cave.story_stairs": "{npc}: Le scale cambiano ogni volta che vengo qui. Io seguo le torce.",
+	"server.cave.helpers_limit": "Hai già due aiutanti.",
+	"server.cave.gold_limit": "È apparso tutto l’oro della grotta per questa visita: {amount}. Puoi ancora trovare oggetti e guadagnare XP.",
+	"server.cave.amber_limit": "Sono apparsi tutti i {amount} Cave Amber per questa visita. Puoi ancora trovare oggetti e guadagnare XP."
 }

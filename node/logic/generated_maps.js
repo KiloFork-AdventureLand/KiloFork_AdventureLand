@@ -237,6 +237,8 @@ function generated_leave_member(record, member, reason) {
 	if (!member || member.left) return;
 	member.left = true;
 	member.left_reason = reason;
+	// Keep interrupted membership until its durable refund completes. A crash can then recover it.
+	if (record.restarting) return;
 	void db
 		.collection("GeneratedZone")
 		.updateOne({ _id: "member:" + member.character, run: record.key }, { $set: { active: false } })
@@ -280,14 +282,18 @@ function generated_recover_login(player) {
 	player.hp = Math.max(1, player.hp || 0);
 	return true;
 }
-function destroy_generated_run(key) {
+function destroy_generated_run(key, reason = "closed") {
 	var record = generated_runs[key];
 	if (!record || record.closing) return;
 	record.closing = true;
+	record.restarting = reason === "restart";
+	if (record.restarting)
+		for (var owner of new Set(record.members.filter((m) => !m.left).map((m) => m.owner)))
+			void generated_refund_visit(owner, record.key).catch((e) => log_trace("cave restart refund", e));
 	if (record.cave) cave_settle_purse(record);
 	for (var member of record.members) {
 		var p = get_player(member.name);
-		if (p && generated_entry(p)?.record === record) generated_exit(p, "closed");
+		if (p && generated_entry(p)?.record === record) generated_exit(p, reason);
 	}
 	for (var map_name of record.floors || []) {
 		if (instances[map_name]) destroy_instance(map_name);
@@ -299,10 +305,14 @@ function destroy_generated_run(key) {
 		delete generated_maps[map_name];
 		for (var worker of workers) worker.postMessage({ type: "remove_map", map: map_name });
 	}
-	void db
-		.collection("GeneratedZone")
-		.updateMany({ run: key, active: true }, { $set: { active: false } })
-		.catch((e) => log_trace("zone close", e));
+	if (!record.restarting)
+		void db
+			.collection("GeneratedZone")
+			.updateMany(
+				{ _id: { $in: record.members.map((m) => "member:" + m.character) }, run: key, active: true },
+				{ $set: { active: false } },
+			)
+			.catch((e) => log_trace("zone close", e));
 	delete generated_runs[key];
 }
 function generated_maps_tick() {
@@ -311,25 +321,33 @@ function generated_maps_tick() {
 	generated_last_tick = now;
 	for (var key in generated_runs) {
 		var record = generated_runs[key];
-		if (record.expires <= generated_clock(record, now)) {
-			destroy_generated_run(key);
-			continue;
-		}
-		for (var member of record.members) {
-			var p = get_player(member.name);
-			if (!member.left && (!p || p.real_id !== member.character || p.socket.disconnected || p.dc))
-				generated_leave_member(record, member, "disconnect");
-		}
-		if (record.members.every((m) => m.left)) {
-			destroy_generated_run(key);
-			continue;
-		}
-		cave_tick(record, now);
-		for (var key of record.floors) {
-			var entry = generated_maps[key];
-			if (!entry) continue;
-			if (record.members.some((m) => !m.left && get_player(m.name)?.map === key)) entry.last_occupied = now;
-			else if (now - entry.last_occupied > 20000) unload_generated_floor(record, key);
+		try {
+			if (record.expires <= generated_clock(record, now)) {
+				destroy_generated_run(key);
+				continue;
+			}
+			for (var member of record.members) {
+				var p = get_player(member.name);
+				if (!member.left && (!p || p.real_id !== member.character || p.socket.disconnected || p.dc))
+					generated_leave_member(record, member, "disconnect");
+			}
+			if (record.members.every((m) => m.left)) {
+				destroy_generated_run(key);
+				continue;
+			}
+			cave_tick(record, now);
+			for (var key of record.floors) {
+				var entry = generated_maps[key];
+				if (!entry) continue;
+				if (record.members.some((m) => !m.left && get_player(m.name)?.map === key)) entry.last_occupied = now;
+				else if (now - entry.last_occupied > 20000) unload_generated_floor(record, key);
+			}
+		} catch (error) {
+			// A broken run must not skip other caves or the rest of the world's instance loop.
+			if (!record.last_error || now - record.last_error >= 5000) {
+				record.last_error = now;
+				log_trace("generated run " + record.key, error);
+			}
 		}
 	}
 }
@@ -337,6 +355,7 @@ function generated_party(player) {
 	return Object.values(players).filter((p) => p === player || (player.party && p.party === player.party));
 }
 function generated_admission(player, members) {
+	if (G.events.dreams.disabled) throw Error("cave_closed");
 	if (!check_player(player) || player.rip || player.map !== "main" || !can_walk(player)) throw Error("cant_enter");
 	if (members.length < 1 || members.length > 3) throw Error("party_too_large");
 	if (
@@ -380,6 +399,7 @@ async function open_generated_zone(player) {
 			// Dev visits do not read or consume the account's daily reservation.
 			// Character locks and all party admission checks still apply.
 			if (Dev && !Prod) continue;
+			await generated_refund_visit(account.owner);
 			var daily = "daily:dreams:" + account.owner,
 				window = generated_daily_window(account.p.home || region + server_name);
 			try {
@@ -389,6 +409,9 @@ async function open_generated_zone(player) {
 						$set: {
 							run: key,
 							owner: account.owner,
+							server: server_id,
+							boot: Server.info.cave_boot,
+							members: members.filter((p) => p.owner === account.owner).map((p) => "member:" + p.real_id),
 							state: "preparing",
 							home: window.home,
 							resets: window.resets,
@@ -488,13 +511,47 @@ function generated_daily_window(home, now = Date.now()) {
 	return { home, resets: midnight + 86400000 - offset };
 }
 
+async function generated_refund_visit(owner, interrupted_run) {
+	generated_refund_visit.pending = (generated_refund_visit.pending || 0) + 1;
+	try {
+		var collection = db.collection("GeneratedZone"),
+			daily = await collection.findOne({ _id: "daily:dreams:" + owner });
+		if (!daily || !daily.members?.length) return daily;
+		if (daily.state !== "refunding") {
+			if (daily.state !== "active" && daily.state !== "preparing") return daily;
+			if (interrupted_run) {
+				if (daily.run !== interrupted_run) return daily;
+			} else {
+				if (!daily.boot || !daily.server) return daily;
+				var source = daily.server === server_id ? Server : await get(daily.server);
+				if (!source?.info?.cave_boot || source.info.cave_boot === daily.boot) return daily;
+				// An ordinary exit or disconnect already clears every membership for this account.
+				if (
+					daily.state === "active" &&
+					!(await collection.findOne({ _id: { $in: daily.members }, run: daily.run, active: true }))
+				)
+					return daily;
+			}
+			var marked = await collection.updateOne(
+				{ _id: daily._id, run: daily.run, state: daily.state },
+				{ $set: { state: "refunding" } },
+			);
+			if (!marked.matchedCount) return generated_refund_visit(owner, interrupted_run);
+		}
+		// This order is restart-safe: a retry finishes a marked refund even if membership is already cleared.
+		await collection.updateMany({ _id: { $in: daily.members }, run: daily.run }, { $set: { active: false } });
+		await collection.deleteMany({ _id: { $in: [daily._id] }, run: daily.run, state: "refunding" });
+		return null;
+	} finally {
+		generated_refund_visit.pending--;
+	}
+}
+
 async function generated_visit_info(player) {
 	var window = generated_daily_window(player.p.home || region + server_name);
 	if (Dev && !Prod)
 		return { available: true, unlimited: true, resets: window.resets, home: window.home, server_time: Date.now() };
-	var daily = await db
-		.collection("GeneratedZone")
-		.findOne({ _id: "daily:dreams:" + player.owner }, { projection: { resets: 1, state: 1, lease: 1 } });
+	var daily = await generated_refund_visit(player.owner);
 	var used = daily && daily.resets > Date.now() && (daily.state === "active" || daily.lease > Date.now());
 	return { available: !used, resets: used ? daily.resets : window.resets, home: window.home, server_time: Date.now() };
 }

@@ -333,7 +333,7 @@
 	"cave.supply.decoy": "Ablenkung für die Patrouille",
 	"cave.supply.truce": "Passierschein der Wache",
 	"cave.hunt_clock": "Jagd: {kills}/{count} · {time}",
-	"cave.practice_clock": "{name}: {hp} LP · {time}",
+	"cave.practice_clock": "{name}: {hp} HP · {time}",
 	"cave.error.cave_entering": "Die Höhle zieht euch hinein. Haltet euch fest!",
 	"cave.floor_location": "Etage {floor} · {x}, {y}",
 	"cave.shared": "Gruppenkasse",
@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Die Höhle konnte nicht geöffnet werden. Dein täglicher Besuch wurde nicht verbraucht. Versuch es erneut.",
 	"cave.error.generation_timeout": "Das Öffnen der Höhle hat zu lange gedauert. Dein täglicher Besuch wurde nicht verbraucht. Versuch es erneut.",
 	"cave.error.zone_busy": "Alle Höhlen sind belegt. Versuch es gleich noch einmal.",
-	"cave.error.admission_expired": "Die Eintrittsprüfung ist abgelaufen. Dein täglicher Besuch wurde nicht verbraucht. Versuch es erneut."
+	"cave.error.admission_expired": "Die Eintrittsprüfung ist abgelaufen. Dein täglicher Besuch wurde nicht verbraucht. Versuch es erneut.",
+	"cave.currency_limits": "Pro Besuch können bis zu {gold} Höhlengold und {amber} Cave Amber erscheinen. Wenn du sie ausgibst, erscheinen dadurch keine weiteren."
 }

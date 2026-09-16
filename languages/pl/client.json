@@ -333,7 +333,7 @@
 	"cave.supply.decoy": "wabik na patrol",
 	"cave.supply.truce": "przepustka straży",
 	"cave.hunt_clock": "Polowanie: {kills}/{count} · {time}",
-	"cave.practice_clock": "{name}: {hp} PŻ · {time}",
+	"cave.practice_clock": "{name}: {hp} HP · {time}",
 	"cave.error.cave_entering": "Jaskinia wciąga was do środka. Trzymajcie się!",
 	"cave.floor_location": "Piętro {floor} · {x}, {y}",
 	"cave.shared": "Wspólna sakiewka",
@@ -362,5 +362,6 @@
 	"cave.error.generation_worker_exit": "Nie udało się otworzyć jaskini. Dzisiejsza wizyta nie została wykorzystana. Spróbuj ponownie.",
 	"cave.error.generation_timeout": "Otwieranie jaskini trwało zbyt długo. Dzisiejsza wizyta nie została wykorzystana. Spróbuj ponownie.",
 	"cave.error.zone_busy": "Wszystkie jaskinie są zajęte. Spróbuj za chwilę.",
-	"cave.error.admission_expired": "Weryfikacja wejścia wygasła. Dzisiejsza wizyta nie została wykorzystana. Spróbuj ponownie."
+	"cave.error.admission_expired": "Weryfikacja wejścia wygasła. Dzisiejsza wizyta nie została wykorzystana. Spróbuj ponownie.",
+	"cave.currency_limits": "Podczas jednej wizyty może pojawić się do {gold} złota jaskini i {amber} Cave Amber. Wydawanie ich nie sprawia, że pojawia się więcej."
 }

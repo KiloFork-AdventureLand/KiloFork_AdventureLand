@@ -2628,5 +2628,8 @@
 	"docs.cave.comic.page5.speech3": "次は縄に触らないでね。",
 	"docs.cave.comic.keeper": "石の番人",
 	"docs.cave.comic.sign": "引くな",
-	"docs.cave.comic.clank": "ガシャン！"
+	"docs.cave.comic.clank": "ガシャン！",
+	"docs.cave.returns": "成功時の戻り値：{fields}。",
+	"docs.cave.state": "character.caveには洞窟の最新の状態が入り、洞窟を出るとnullになります。character.on(\"cave\", callback)で変更を受け取れます。",
+	"docs.cave.restart": "サーバーの再起動で訪問が終了した場合、アカウントの1日の訪問枠が戻ります。ページの再読み込みや切断では戻りません。"
 }

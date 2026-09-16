@@ -17,8 +17,8 @@ var items={
 		"skin": "covemantle",
 		"name": "Cove Mantle",
 		"cave": {
-			"attack": 300,
-			"lifesteal": 30
+			"attack": 240,
+			"lifesteal": 24
 		},
 		"scroll": true,
 		"stat": 6,
@@ -43,7 +43,7 @@ var items={
 		"cx": {
 			"accent": "#779DB8"
 		},
-		"explanation": "The dark feeds its wearer. In Cave of Darkness only: +300 attack and +30% lifesteal."
+		"explanation": "The dark feeds its wearer. In Cave of Darkness only: +240 attack and +24% lifesteal."
 	},
 	"stillwaterlens":{
 		"type": "orb",

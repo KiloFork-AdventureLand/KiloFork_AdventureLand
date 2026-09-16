@@ -5,7 +5,7 @@ module.exports = {
 	// Item tooltip prose. Preserve the item name when referenced; concise in-world voice.
 	"item.djinncrown.explanation": "A cold crown for a restless mind.",
 	// Item tooltip and guide. Bonuses apply only in Cave of Darkness; preserve the map name and quantities. Attack uses normal equipment scaling.
-	"item.covemantle.explanation": "The dark feeds its wearer. In Cave of Darkness only: +300 attack and +30% lifesteal.",
+	"item.covemantle.explanation": "The dark feeds its wearer. In Cave of Darkness only: +240 attack and +24% lifesteal.",
 	// Item tooltip prose. Preserve the item name when referenced; concise in-world voice.
 	"item.stillwaterlens.explanation": "Something beneath the glass has stopped moving.",
 	// Rime Djinn tooltip; a shell broken by a burst of damage.
@@ -13,7 +13,7 @@ module.exports = {
 	// Rime Djinn condition name. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
 	"condition.rimeshell.name": "Rime Shell",
 	// Rime Djinn condition explanation. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
-	"condition.rimeshell.explanation": "Deal damage equal to 5% of the Djinn’s maximum HP within 3 seconds, or stun it, to break the shell. Ordinary freezing does not interrupt it.",
+	"condition.rimeshell.explanation": "Deal damage equal to 5% of the Djinn’s maximum HP within 3 seconds, or stun it, to break the shell. Ordinary freezing does not interrupt it. Purify cannot dispel the shell.",
 	// Rime Djinn condition name. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
 	"condition.rimeexposed.name": "Cracked Shell",
 	// Rime Djinn condition explanation. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
@@ -25,7 +25,7 @@ module.exports = {
 	// Rime Djinn skill name. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
 	"skill.rimeshell.name": "Rime Shell",
 	// Rime Djinn skill explanation. Translate the ability name consistently. HP is health; stun interrupts, ordinary freeze does not. Quantities and timings must be exact.
-	"skill.rimeshell.explanation": "At half health, the Djinn casts for 3 seconds. Deal damage equal to 5% of its maximum HP, or stun it, to break the shell and lower resistance by 160 for 5 seconds. Otherwise, it fires at up to three nearby contributors. Ordinary freezing does not interrupt it.",
+	"skill.rimeshell.explanation": "At half health, the Djinn casts for 3 seconds. Deal damage equal to 5% of its maximum HP, or stun it, to break the shell and lower resistance by 160 for 5 seconds. Otherwise, it fires at up to three nearby contributors. Ordinary freezing does not interrupt it. Purify cannot dispel the shell.",
 	// Title in the existing tutorial index and article header. Keep CODE unchanged.
 	"tutorial.js-hello.title": "Make CODE speak",
 	// Title in the existing tutorial index and article header. Keep CODE unchanged.
