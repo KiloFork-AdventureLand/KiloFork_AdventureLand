@@ -2,6 +2,7 @@
 	{% if c==0 %}<div class='page1'>{%endif%}{% if c==6 %}<div class='page2 hidden'>{%endif%}{% if c==12 %}<div class='page3 hidden'>{%endif%}
 		{% if characters[c] %}
 			<div class="gamebutton mb5 selection-character" data-character="{{characters[c]._id|e}}" data-name="{{characters[c].info.name|e}}" data-home="{{characters[c].info.p.home|e}}" onmouseenter="show_character_home(this)" onmouseleave="hide_character_home()" onclick="if(bc(this)) return; enter_selected_character('{{characters[c].info.name}}','{{characters[c]._id}}')" style='text-align: left; width: 160px'>
+				<span class="selection-home-server gray"></span>
 				<span class='cskin' data-skin="{{characters[c].info.skin}}" data-cx='{{characters[c]|get_cx|safe}}' data-rip="{% if characters[c].info.rip%}1{%endif%}" style="float:left; margin-right: 5px; margin-top: -5px; margin-left: -4px; margin-bottom: -7px;"></span>
 				{{characters[c].info.name|sshorten}}
 				<span class='characterav{{characters[c].info.name}}'>

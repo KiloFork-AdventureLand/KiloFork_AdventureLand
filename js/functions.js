@@ -73,9 +73,9 @@ function server_to_ui(key) {
 	return key;
 }
 
-function home_server_name(home) {
+function home_server_name(home, short) {
 	var parts = /^(US|EU|ASIA)(.+)$/.exec(home || "");
-	return parts ? (server_names[parts[1]] || parts[1]) + " " + parts[2] : home || "";
+	return parts ? (short ? parts[1] : server_names[parts[1]] || parts[1]) + " " + parts[2] : home || "";
 }
 
 function home_server_label(home, html) {
@@ -120,6 +120,7 @@ function update_login_server() {
 			return entry.id == id;
 		});
 		if (current) this.dataset.home = current.home || "";
+		$(this).find(".selection-home-server").text(home_server_name(this.dataset.home, true));
 		$(this).toggleClass("away-home", !!(home && this.dataset.home && this.dataset.home != home));
 	});
 	var hover = $("#character-home-hover");

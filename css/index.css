@@ -679,6 +679,16 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	text-align: center;
 	color: white;
 }
+.selection-character{
+	position: relative;
+}
+.selection-home-server{
+	position: absolute;
+	top: 0;
+	right: 2px;
+	font-size: 16px;
+	line-height: 12px;
+}
 .selection-character.away-home{
 	border-color: #F3A05D;
 }
