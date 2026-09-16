@@ -2532,7 +2532,7 @@
 	"docs.guide.tavern-games.blinds-and-two-cards": "<span class=\"guide-flow-icon tavern-side\">BB</span><span class=\"guide-flow-label\">ブラインドと 2 枚のカード</span>",
 	"docs.guide.tavern-games.four-betting-streets": "<span class=\"guide-flow-icon tavern-choice\">コール</span><span class=\"guide-flow-label\">4 回のベッティングラウンド</span>",
 	"docs.guide.tavern-games.showdown-rake-from-each-pot": "<span class=\"guide-flow-icon tavern-even\">2%</span><span class=\"guide-flow-label\">ショーダウン · 各ポットからレーキ</span>",
-	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "酒場には 5 席のノーリミットホールデムテーブルが 1 つあり、プレイヤーのゴールド同士で勝負します。ブラインドはサーバーに応じて決まり、バイインはビッグブラインド 40 ～ 200 個分。着席中はスタックが財布から出て、退席した瞬間に戻ります。各判断には 20 秒に加えて 30 秒のタイムバンクがあり、両方が切れると無料ならサーバーがチェックし、そうでなければフォールドします。店は配られる各ポットの 2%、最大でビッグブラインド 10 個分を受け取ります。",
+	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "Tavernには5人用のノーリミットHold'emテーブルが1台あります。参加費はビッグブラインドの40〜200倍です。各判断の制限時間は20秒で、1ハンドにつき1回、追加の30秒を使えます。店は各ポットの配当から2%を受け取り、上限はビッグブラインドの10倍です。",
 	"docs.guide.tavern-games.servers": "サーバー",
 	"docs.guide.tavern-games.small-blind": "スモールブラインド",
 	"docs.guide.tavern-games.big-blind": "ビッグブラインド",
@@ -2541,7 +2541,7 @@
 	"docs.guide.tavern-games.tier-ii": "II サーバー",
 	"docs.guide.tavern-games.tier-iii": "III サーバー",
 	"docs.guide.tavern-games.tier-iv": "IV+ サーバー",
-	"docs.guide.tavern-games.leaving-the-table": "<b>テーブルを離れる。</b> 退席を押す、スツールから離れる、ドアを使う、ログアウトする、いずれも現在のハンドの後に退席となり、スタックは全額財布に戻ります。切断された席はスタックを保持します: タイマーは動き続け、あと 2 ハンドはブラインドが支払われ、その後は離席扱いとなって 5 分後に精算されます。再起動は進行中のハンドを無効にし、すべてのベットを返却します。テーブルは配る前にシャッフルしたデッキへのコミットメントを公開し、ハンドの後にそれを検証する鍵とデッキの順序を公開します。",
+	"docs.guide.tavern-games.leaving-the-table": "<b>席を離れる。</b> 退席を選ぶか席から離れると、ハンド終了後にチップが所持金に戻ります。切断した席は最大であと2ハンド分のブラインドを払い、その後は休席します。席は5分間確保されますが、精算はハンド終了を待ちます。同じサーバーに再接続すると続けられます。サーバーの変更もハンド終了を待つ必要があります。",
 	"docs.guide.tavern-games.code-play-a-hand": "CODE: ハンドをプレイする",
 	"docs.articles.hub.viewing_items": "ログイン後、{bank}を選ぶと、保存済みの銀行のアイテムとゴールドを確認できます。キャラクターを観戦中に{inventory}または{equipment}を選んでください。アイテムをクリックすると詳細を確認できます。これらの画面ではアイテムの移動や装備はできません。",
 	"docs.guide.tavern-games.restarts": "<b>再起動。</b>再起動はカウントダウンの前に酒場のゲームを閉じます。結果の出ていない輪、スロット、ダイスの賭け金は全額返却され、ポーカーテーブルはハンドを無効にして各スタックを精算し、カウントダウン中のあらゆる要求は <span class='dlabel'>tavern_closing</span> で失敗します。",
@@ -2634,5 +2634,7 @@
 	"docs.cave.restart": "サーバーの再起動で訪問が終了した場合、アカウントの1日の訪問枠が戻ります。ページの再読み込みや切断では戻りません。",
 	"docs.guide.events-and-home.choosing-server": "キャラクターを選ぶ前に、キャラクター一覧の上に表示されたサーバーを確認しましょう。サーバー一覧から変更できます。各キャラクターの「ホーム」には保存されたホームサーバーが表示されます。自分でサーバーを選んだ場合やサーバーへのリンクを開いた場合を除き、ログイン時は利用可能なホームサーバーが優先されます。すでにプレイ中のキャラクターは、現在いるサーバーで開きます。",
 	"docs.guide.events-and-home.saved-home": "ホームサーバーはキャラクターごとに保存され、初めてゲームに入ったときに設定されます。以前遊んだサーバーを訪れても変更されません。",
-	"docs.guide.events-and-home.hop-sickness": "レベル60以上のキャラクターがホーム以外の別の非PvPサーバーに入ると、{condition}によりXP、ゴールド、運、攻撃力が低下します。基本持続時間はオンラインでのプレイ時間で12分です。同じサーバーに再接続しても残り時間は維持されます。保存されたホームに戻るか、Beanにホームを変更してもらうと、すぐに解除されます。"
+	"docs.guide.events-and-home.hop-sickness": "レベル60以上のキャラクターがホーム以外の別の非PvPサーバーに入ると、{condition}によりXP、ゴールド、運、攻撃力が低下します。基本持続時間はオンラインでのプレイ時間で12分です。同じサーバーに再接続しても残り時間は維持されます。保存されたホームに戻るか、Beanにホームを変更してもらうと、すぐに解除されます。",
+	"docs.guide.tavern-games.deck-verification": "<b>デッキの検証。</b> 配る前に、テーブルはデッキを確定したことを示す暗号学的コミットメントを公開します。ハンド終了後には鍵とデッキの全順序が公開され、フォールドしたカードも確認できます。",
+	"docs.functions.poker_act.reopening": "自分の席のcan_raiseでレイズ可能か確認できます。最小レイズに満たないオールインでも、複数回の増額の合計がフルレイズに達すると、再びレイズできるようになります。"
 }

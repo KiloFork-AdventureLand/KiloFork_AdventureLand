@@ -67,6 +67,19 @@ function fixture(options = {}) {
 	});
 	vm.runInContext(read("node/logic/tavern.js"), c);
 	vm.runInContext(read("node/logic/tavern_poker.js"), c);
+	// Gameplay tests complete the persistence boundary immediately; the durability cases below use the real transaction.
+	c.tavern_poker_checkpoint = (seats, id, awards, complete) => {
+		const table = c.tavern_poker_table();
+		for (const seat of seats) {
+			seat.revision = (seat.revision || 0) + 1;
+			seat.hand = awards ? null : id;
+			if (awards && !table.closing) seat.balance = awards[seat.index];
+			c.tavern_poker_mirror(seat);
+		}
+		complete({ success: true, invalid: [], voided: !!table.closing });
+		if (table.closing) c.tavern_poker_shutdown();
+	};
+
 	c.tavern_poker_now = () => now;
 	load(c, "node/server_functions.js", ["house_debt", "house_edge", "fail_response", "success_response"]);
 	vm.runInContext(read("node/logic/tavern_wheel.js"), c);

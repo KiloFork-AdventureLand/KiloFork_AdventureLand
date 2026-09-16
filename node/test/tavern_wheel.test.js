@@ -117,8 +117,8 @@ test("a wager locks the gold, decides the slice at once and starts the shared sp
 	assert.deepEqual(log.data.phrase_args, { side: { phrase: "interface.wheel.sun" }, amount: "1000000" });
 	assert.equal(log.data.message, "Wheel: SUN for 1000000 gold");
 	assert.deepEqual(logs, ["resend:u+cid+reopen+nc"]);
-	assert.equal(c.house_debt(), 990000, "pending winnings count as house debt");
-	assert.equal(c.tavern_wheel_debt(), 990000);
+	assert.equal(c.house_debt(), 1990000, "pending winnings count as house debt");
+	assert.equal(c.tavern_wheel_debt(), 1990000);
 });
 
 test("the server refuses bad sides, a second spin, empty pockets and wagers the house cannot cover", () => {
@@ -435,4 +435,37 @@ test("a settlement without a running wheel parks the wheel on the result, even a
 	c.wheel_finish({ event: "won", won: true, index: 2, net: 1, gold: 1 });
 	assert.equal(c.tavern_wheel.busy, false);
 	assert.equal(underPointer(c.tavern_wheel.rotation), 2);
+});
+
+test("concurrent maximum winning wagers reserve full payouts, and losing wagers reserve restart refunds", () => {
+	const f = fixture({ gold: 1000000000000 });
+	f.c.tavern_wheel_roll = () => 1;
+	const refs = [];
+	for (let i = 0; i < 3; i++) {
+		const gold = Math.floor(((f.c.S.gold - f.c.house_debt()) * 0.4) / (1 - f.c.house_edge() / 100));
+		f.bet({ type: "wheel", side: "sun", gold });
+		assert.ok(f.player.q.wheel);
+		refs.push(f.player.q.wheel);
+		f.c.players["pending-" + i] = { q: f.player.q };
+		f.player.q = {};
+	}
+	for (let i = 0; i < refs.length; i++) {
+		delete f.c.players["pending-" + i];
+		f.c.tavern_wheel_settle(f.player, refs[i], true);
+	}
+	assert.ok(f.c.S.gold >= 0, "every accepted payout is covered");
+	f.c.tavern_wheel_roll = () => 0;
+	f.bet({ type: "wheel", side: "sun", gold: 10000 });
+	assert.equal(f.c.house_debt(), 10000, "an unfinished loss may still be refunded on shutdown");
+});
+
+test("manual wheel completion reaches a player outside the room exactly once", () => {
+	const f = fixture();
+	f.bet({ type: "wheel", side: "sun", gold: 10000 });
+	const ref = f.player.q.wheel;
+	delete f.player.q.wheel;
+	f.player.in = f.player.map = "main";
+	f.c.tavern.players = {};
+	f.c.tavern_wheel_settle(f.player, ref);
+	assert.equal(f.packets.filter((p) => p.event === "tavern" && p.data.type === "wheel").length, 1);
 });

@@ -2532,7 +2532,7 @@
 	"docs.guide.tavern-games.blinds-and-two-cards": "<span class=\"guide-flow-icon tavern-side\">BB</span><span class=\"guide-flow-label\">Mörkar och två kort</span>",
 	"docs.guide.tavern-games.four-betting-streets": "<span class=\"guide-flow-icon tavern-choice\">SYNA</span><span class=\"guide-flow-label\">Fyra satsningsrundor</span>",
 	"docs.guide.tavern-games.showdown-rake-from-each-pot": "<span class=\"guide-flow-icon tavern-even\">2%</span><span class=\"guide-flow-label\">Showdown · Rake från varje pott</span>",
-	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "Tavernan har ett enda Hold'em-bord utan limit med fem platser, där spelarnas guld spelar mot spelarnas guld. Mörkarna följer servern: köp in för 40 till 200 stormörkar; din stack lämnar din pung medan du sitter och kommer tillbaka i samma stund som du lämnar. Varje beslut har 20 sekunder plus en tidsbank på 30 sekunder; när båda tar slut checkar servern om det är gratis, annars lägger den sig. Huset behåller 2 % av varje utdelad pott, högst 10 stormörkar.",
+	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "Tavern har ett Hold'em-bord utan insatsgräns för fem spelare. Inköpet är 40 till 200 stora mörkar. Varje beslut har 20 sekunder, med en extra tidsbank på 30 sekunder en gång per hand. Huset tar 2% av varje utdelad pott, högst 10 stora mörkar.",
 	"docs.guide.tavern-games.servers": "Servrar",
 	"docs.guide.tavern-games.small-blind": "Lillmörk",
 	"docs.guide.tavern-games.big-blind": "Stormörk",
@@ -2541,7 +2541,7 @@
 	"docs.guide.tavern-games.tier-ii": "II-servrar",
 	"docs.guide.tavern-games.tier-iii": "III-servrar",
 	"docs.guide.tavern-games.tier-iv": "IV+-servrar",
-	"docs.guide.tavern-games.leaving-the-table": "<b>Att lämna bordet.</b> Tryck på Lämna, gå ifrån din pall, använd en dörr eller logga ut så lämnar du efter den pågående given; din stack återvänder i sin helhet till din pung. En frånkopplad plats behåller sin stack: klockan går vidare, mörkar läggs i två givar till, sedan sitter platsen ut och betalas ut efter fem minuter. En omstart ogiltigförklarar den pågående given och återlämnar varje insats. Före varje giv publicerar bordet ett åtagande för den blandade kortleken, och efter given nyckeln och lekens ordning som bekräftar det.",
+	"docs.guide.tavern-games.leaving-the-table": "<b>Lämna bordet.</b> Välj att lämna eller gå därifrån för att få tillbaka markerna efter handen. En frånkopplad plats betalar mörkar i högst två händer till och står sedan över. Platsen reserveras i fem minuter; utbetalningen väntar tills handen är slut. Anslut till samma server igen för att fortsätta. Ett serverbyte måste också vänta tills handen är slut.",
 	"docs.guide.tavern-games.code-play-a-hand": "CODE: Spela en giv",
 	"docs.articles.hub.viewing_items": "Välj {bank} efter inloggningen för att se sparade föremål och guld i banken. Välj {inventory} eller {equipment} när du tittar på en karaktär. Klicka på ett föremål för att se detaljer. Du kan inte flytta eller utrusta föremål i dessa vyer.",
 	"docs.guide.tavern-games.restarts": "<b>Omstarter.</b> En omstart stänger tavernans spel innan nedräkningen: oavgjorda insatser på hjulet, slotmaskinen och tärningarna återlämnas i sin helhet, pokerbordet ogiltigförklarar given och betalar ut varje stack, och varje förfrågan under nedräkningen misslyckas med <span class='dlabel'>tavern_closing</span>.",
@@ -2634,5 +2634,7 @@
 	"docs.cave.restart": "Om en serveromstart avslutar ditt besök får kontot tillbaka sitt dagliga besök. Att ladda om sidan eller koppla från återställer det inte.",
 	"docs.guide.events-and-home.choosing-server": "Kontrollera servern ovanför karaktärslistan innan du väljer en karaktär. Byt via serverlistan. Varje karaktärs Hem-rad visar dess sparade hem. Vid inloggning prioriteras en tillgänglig hemserver, om du inte själv har valt en server eller öppnat en serverlänk. Karaktärer som redan är i spelet öppnas på sin nuvarande server.",
 	"docs.guide.events-and-home.saved-home": "Varje karaktär har ett eget sparat hem som bestäms första gången den går in i spelet. Att besöka en bekant server ändrar det inte.",
-	"docs.guide.events-and-home.hop-sickness": "{condition} sänker XP, guld, tur och anfallskraft när en karaktär på nivå 60 eller högre går in på en annan server utan PvP utanför hemmet. Grundtiden är 12 minuters spel online. Återanslutning till samma server bevarar den återstående tiden. Att återvända till det sparade hemmet eller byta hem hos Bean tar bort effekten direkt."
+	"docs.guide.events-and-home.hop-sickness": "{condition} sänker XP, guld, tur och anfallskraft när en karaktär på nivå 60 eller högre går in på en annan server utan PvP utanför hemmet. Grundtiden är 12 minuters spel online. Återanslutning till samma server bevarar den återstående tiden. Att återvända till det sparade hemmet eller byta hem hos Bean tar bort effekten direkt.",
+	"docs.guide.tavern-games.deck-verification": "<b>Kontrollera kortleken.</b> Före given publicerar bordet en kryptografisk utfästelse. Efter handen avslöjas nyckeln och hela kortlekens ordning, även kastade kort.",
+	"docs.functions.poker_act.reopening": "Fältet can_raise för din plats visar om du får höja. Flera små all-in-höjningar öppnar för en ny höjning när deras sammanlagda ökning når en full höjning."
 }

@@ -2532,7 +2532,7 @@
 	"docs.guide.tavern-games.blinds-and-two-cards": "<span class=\"guide-flow-icon tavern-side\">BB</span><span class=\"guide-flow-label\">Blinds og to kort</span>",
 	"docs.guide.tavern-games.four-betting-streets": "<span class=\"guide-flow-icon tavern-choice\">SYN</span><span class=\"guide-flow-label\">Fire satsingsrunder</span>",
 	"docs.guide.tavern-games.showdown-rake-from-each-pot": "<span class=\"guide-flow-icon tavern-even\">2%</span><span class=\"guide-flow-label\">Showdown · Rake fra hver pott</span>",
-	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "Tavernaen har ett no-limit Hold'em-bord med fem plasser, der spillernes gull spiller mot spillernes gull. Blinds følger serveren: kjøp inn for 40 til 200 big blinds; stacken din forlater pungen mens du sitter og kommer tilbake i det øyeblikket du går. Hver avgjørelse har 20 sekunder pluss en tidsbank på 30 sekunder; når begge går ut, sjekker serveren hvis det er gratis, og kaster ellers. Huset beholder 2 % av hver tildelt pott, høyst 10 big blinds.",
+	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "Tavern har ett Hold'em-bord uten innsatsgrense for fem spillere. Innkjøpet er 40 til 200 storeblinder. Hver avgjørelse har 20 sekunder, med én ekstra tidsreserve på 30 sekunder per hånd. Huset tar 2% av hver utdelt pott, maksimalt 10 storeblinder.",
 	"docs.guide.tavern-games.servers": "Servere",
 	"docs.guide.tavern-games.small-blind": "Small blind",
 	"docs.guide.tavern-games.big-blind": "Big blind",
@@ -2541,7 +2541,7 @@
 	"docs.guide.tavern-games.tier-ii": "II-servere",
 	"docs.guide.tavern-games.tier-iii": "III-servere",
 	"docs.guide.tavern-games.tier-iv": "IV+-servere",
-	"docs.guide.tavern-games.leaving-the-table": "<b>Å forlate bordet.</b> Trykk på Forlat, gå bort fra krakken din, bruk en dør eller logg ut, så forlater du bordet etter hånden som pågår; stacken din kommer helt tilbake i pungen. En frakoblet plass beholder stacken sin: klokken går videre, blinds legges i to hender til, deretter sitter plassen over og utbetales etter fem minutter. En omstart annullerer hånden som pågår og gir hver innsats tilbake. Før hver deling publiserer bordet en forpliktelse for den stokkede kortstokken, og etter hånden nøkkelen og stokkens rekkefølge som bekrefter den.",
+	"docs.guide.tavern-games.leaving-the-table": "<b>Forlate bordet.</b> Velg å forlate bordet eller gå unna for å få sjetongene utbetalt etter hånden. En frakoblet plass betaler blinder i opptil to hender til, og står deretter over. Plassen holdes i fem minutter; utbetalingen venter til hånden er ferdig. Koble til samme server igjen for å fortsette. Serverbytte må også vente til hånden er ferdig.",
 	"docs.guide.tavern-games.code-play-a-hand": "CODE: Spill en hånd",
 	"docs.articles.hub.viewing_items": "Velg {bank} etter innlogging for å se lagrede gjenstander og gull i banken. Velg {inventory} eller {equipment} mens du følger en figur. Klikk på en gjenstand for å se detaljer. Du kan ikke flytte eller utstyre gjenstander i disse visningene.",
 	"docs.guide.tavern-games.restarts": "<b>Omstarter.</b> En omstart stenger tavernaens spill før nedtellingen: uavgjorte innsatser på hjulet, spilleautomaten og terningene gis tilbake i sin helhet, pokerbordet annullerer hånden og betaler ut hver stack, og enhver forespørsel under nedtellingen mislykkes med <span class='dlabel'>tavern_closing</span>.",
@@ -2634,5 +2634,7 @@
 	"docs.cave.restart": "Hvis en omstart av serveren avslutter besøket ditt, får kontoen sitt daglige besøk tilbake. Å laste siden på nytt eller koble fra gir det ikke tilbake.",
 	"docs.guide.events-and-home.choosing-server": "Sjekk serveren over figurlisten før du velger en figur. Bytt via serverlisten. Hjem-linjen til hver figur viser det lagrede hjemmet. Ved innlogging foretrekkes en tilgjengelig hjemmeserver, med mindre du har valgt en server selv eller åpnet en serverlenke. Figurer som allerede spiller, åpnes på sin nåværende server.",
 	"docs.guide.events-and-home.saved-home": "Hver figur har sitt eget lagrede hjem, som bestemmes første gang den går inn i spillet. Et besøk på en kjent server endrer det ikke.",
-	"docs.guide.events-and-home.hop-sickness": "{condition} reduserer XP, gull, flaks og angrepskraft når en figur på nivå 60 eller høyere går inn på en annen server uten PvP utenfor hjemmet sitt. Grunnvarigheten er 12 minutter med spilling på nett. Å koble til samme server igjen bevarer tiden som gjenstår. Å vende tilbake til det lagrede hjemmet eller bytte hjem hos Bean fjerner effekten umiddelbart."
+	"docs.guide.events-and-home.hop-sickness": "{condition} reduserer XP, gull, flaks og angrepskraft når en figur på nivå 60 eller høyere går inn på en annen server uten PvP utenfor hjemmet sitt. Grunnvarigheten er 12 minutter med spilling på nett. Å koble til samme server igjen bevarer tiden som gjenstår. Å vende tilbake til det lagrede hjemmet eller bytte hjem hos Bean fjerner effekten umiddelbart.",
+	"docs.guide.tavern-games.deck-verification": "<b>Kontroll av kortstokken.</b> Før utdelingen publiserer bordet en kryptografisk forpliktelse. Etter hånden avsløres nøkkelen og hele kortrekkefølgen, også kastede kort.",
+	"docs.functions.poker_act.reopening": "Feltet can_raise for plassen din viser om du kan høyne. Flere små all-in-høyninger åpner for ny høyning når den samlede økningen når en full høyning."
 }

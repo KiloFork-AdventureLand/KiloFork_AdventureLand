@@ -1,7 +1,7 @@
 // Release highlights. Dates, item/character names and CODE identifiers stay unchanged.
 module.exports = {
 	// Release highlight for the Tavern games. Fortune's Wheel is the wheel game, Sun and Moon its sides; Texas Hold'em is the poker variant; server tiers I to IV and PVP are server names; bet_wheel(), play_slots(), poker_join() and poker_act() are CODE.
-	"update.15_09_26.wheel": "The Tavern's games grew: Fortune's Wheel turns for even money on Sun or Moon, the slot machine spins three reels of prizes up to 1,000,000,000 gold for a 1,000,000 stake, and a five-seat Texas Hold'em table replaced the tables by the door. Blinds follow the server, from 100,000 / 200,000 on I servers to 100,000,000 / 200,000,000 on PVP; buy in for 40 to 200 big blinds, and your stack comes back the moment you leave, even after a disconnect. The draws are fair, and the house keeps only its edge from winnings and 2% of each pot. CODE plays with bet_wheel(), play_slots(), poker_join() and poker_act().",
+	"update.15_09_26.wheel": "The Tavern now has Fortune's Wheel, three-reel slots, and a five-seat Texas Hold'em table. Poker blinds follow the server. Buy in for 40 to 200 big blinds; leaving cashes out after the hand. CODE can play with bet_wheel(), play_slots(), poker_join() and poker_act().",
 	// Release highlight for cooperative Rime Djinn and four items. Preserve Rime Djinn, Frozen Cove, Tracker and Rimeglass.
 	"update.14_09_26.rime_djinn": "Rime Djinn now haunt Frozen Cove. Break their shells together, earn Tracker rewards, and gather Rimeglass for three new pieces of equipment.",
 	// Release highlight: failed character startup now releases its online claim so the player can reconnect.

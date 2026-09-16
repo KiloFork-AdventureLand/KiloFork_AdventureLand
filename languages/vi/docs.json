@@ -2532,7 +2532,7 @@
 	"docs.guide.tavern-games.blinds-and-two-cards": "<span class=\"guide-flow-icon tavern-side\">BB</span><span class=\"guide-flow-label\">Blind và hai lá bài</span>",
 	"docs.guide.tavern-games.four-betting-streets": "<span class=\"guide-flow-icon tavern-choice\">THEO</span><span class=\"guide-flow-label\">Bốn vòng cược</span>",
 	"docs.guide.tavern-games.showdown-rake-from-each-pot": "<span class=\"guide-flow-icon tavern-even\">2%</span><span class=\"guide-flow-label\">Lật bài · Phí từ mỗi pot</span>",
-	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "Quán Rượu có một bàn Hold'em không giới hạn năm ghế, nơi vàng của người chơi đấu với vàng của người chơi. Blind theo máy chủ: mua vào từ 40 đến 200 big blind; chip của bạn rời khỏi túi khi bạn ngồi và trở về ngay khi bạn rời bàn. Mỗi quyết định có 20 giây cộng thêm ngân hàng thời gian 30 giây; khi cả hai hết, máy chủ sẽ check nếu miễn phí, còn không thì bỏ bài. Nhà cái giữ 2% mỗi pot được trao, tối đa 10 big blind.",
+	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "Tavern có một bàn Hold'em không giới hạn dành cho năm người. Mức mua vào là từ 40 đến 200 lần cược mù lớn. Mỗi quyết định có 20 giây, cùng một lần dùng thêm 30 giây dự trữ trong mỗi ván. Nhà cái thu 2% từ mỗi pot được trao, tối đa 10 lần cược mù lớn.",
 	"docs.guide.tavern-games.servers": "Máy chủ",
 	"docs.guide.tavern-games.small-blind": "Small blind",
 	"docs.guide.tavern-games.big-blind": "Big blind",
@@ -2541,7 +2541,7 @@
 	"docs.guide.tavern-games.tier-ii": "Máy chủ II",
 	"docs.guide.tavern-games.tier-iii": "Máy chủ III",
 	"docs.guide.tavern-games.tier-iv": "Máy chủ IV+",
-	"docs.guide.tavern-games.leaving-the-table": "<b>Rời bàn.</b> Nhấn Rời bàn, đi khỏi ghế, dùng cửa hoặc đăng xuất, bạn sẽ rời bàn sau ván hiện tại; chip của bạn trở về túi đầy đủ. Ghế bị mất kết nối giữ nguyên chip: đồng hồ vẫn chạy, blind được đặt thêm hai ván nữa, rồi ghế tạm nghỉ và được thanh toán sau năm phút. Khởi động lại sẽ hủy ván đang chơi và hoàn lại mọi cược. Trước mỗi lần chia, bàn công bố một cam kết về bộ bài đã xáo, và sau ván công bố khóa cùng thứ tự bộ bài để kiểm chứng.",
+	"docs.guide.tavern-games.leaving-the-table": "<b>Rời bàn.</b> Chọn rời bàn hoặc đi xa để nhận lại chip sau ván bài. Ghế bị mất kết nối vẫn trả cược mù trong tối đa hai ván nữa, rồi tạm nghỉ. Ghế được giữ trong năm phút; việc rút chip phải chờ ván bài kết thúc. Kết nối lại cùng máy chủ để tiếp tục. Chuyển máy chủ cũng phải chờ hết ván.",
 	"docs.guide.tavern-games.code-play-a-hand": "CODE: Chơi một ván",
 	"docs.articles.hub.viewing_items": "Sau khi đăng nhập, chọn {bank} để xem vật phẩm và vàng đã lưu trong ngân hàng. Khi đang theo dõi một nhân vật, chọn {inventory} hoặc {equipment}. Nhấp vào vật phẩm để xem chi tiết. Các màn hình này không cho phép di chuyển hoặc trang bị vật phẩm.",
 	"docs.guide.tavern-games.restarts": "<b>Khởi động lại.</b> Khởi động lại sẽ đóng các trò chơi của Quán Rượu trước khi đếm ngược: các cược vòng quay, máy đánh bạc và xúc xắc chưa có kết quả được hoàn lại đầy đủ, bàn poker hủy ván và trả lại toàn bộ chip cho từng ghế, và mọi yêu cầu trong lúc đếm ngược sẽ thất bại với <span class='dlabel'>tavern_closing</span>.",
@@ -2634,5 +2634,7 @@
 	"docs.cave.restart": "Nếu máy chủ khởi động lại khiến lượt vào kết thúc, tài khoản sẽ được hoàn lại lượt vào hằng ngày. Tải lại trang hoặc ngắt kết nối không hoàn lại lượt.",
 	"docs.guide.events-and-home.choosing-server": "Trước khi chọn nhân vật, hãy kiểm tra máy chủ phía trên danh sách nhân vật. Dùng danh sách máy chủ để đổi. Dòng Nhà của mỗi nhân vật cho biết máy chủ nhà đã lưu. Khi đăng nhập, trò chơi ưu tiên máy chủ nhà có thể truy cập, trừ khi bạn tự chọn máy chủ hoặc mở liên kết đến một máy chủ. Nhân vật đang chơi sẽ được mở trên máy chủ hiện tại của họ.",
 	"docs.guide.events-and-home.saved-home": "Mỗi nhân vật có máy chủ nhà riêng, được lưu khi vào trò chơi lần đầu. Ghé lại một máy chủ quen thuộc không làm thay đổi nhà.",
-	"docs.guide.events-and-home.hop-sickness": "{condition} làm giảm XP, vàng, may mắn và sức tấn công khi nhân vật từ cấp 60 vào một máy chủ khác không có PvP và không phải nhà. Thời lượng cơ bản là 12 phút chơi trực tuyến. Kết nối lại cùng máy chủ vẫn giữ thời gian còn lại. Trở về nhà đã lưu hoặc đổi nhà với Bean sẽ xóa hiệu ứng ngay lập tức."
+	"docs.guide.events-and-home.hop-sickness": "{condition} làm giảm XP, vàng, may mắn và sức tấn công khi nhân vật từ cấp 60 vào một máy chủ khác không có PvP và không phải nhà. Thời lượng cơ bản là 12 phút chơi trực tuyến. Kết nối lại cùng máy chủ vẫn giữ thời gian còn lại. Trở về nhà đã lưu hoặc đổi nhà với Bean sẽ xóa hiệu ứng ngay lập tức.",
+	"docs.guide.tavern-games.deck-verification": "<b>Kiểm chứng bộ bài.</b> Trước khi chia bài, bàn công bố một cam kết mật mã. Sau ván, bàn tiết lộ khóa và toàn bộ thứ tự bộ bài, kể cả những lá đã bỏ.",
+	"docs.functions.poker_act.reopening": "Trường can_raise của ghế cho biết bạn có được tố thêm hay không. Nhiều lần tố tất tay chưa đủ mức sẽ mở lại quyền tố khi tổng mức tăng đạt một lần tố đủ mức."
 }

@@ -1,8 +1,8 @@
 // Shared server scope. Tavern Hold'em: one five-seat no-limit table in the Tavern. Player gold plays against player
 // gold and the house keeps only the rake of each awarded pot. A buy-in leaves the purse at once and lives on the seat,
-// mirrored into player.p.poker so a lost server or a stale seat can always be refunded; tavern_poker_cash_out is the
-// only way back to the purse. Blinds follow the server tier, decided once at startup. The table is ticked once a second
-// from tavern_loop; every decision has a clock, a personal time bank and an automatic check-or-fold at the end.
+// mirrored into player.p.poker for recovery. Cash-out and transactional login recovery return it to the purse.
+// Blinds follow the server tier, decided once at startup. The table is ticked once a second from tavern_loop;
+// every decision has a clock, a personal time bank and an automatic check-or-fold at the end.
 function tavern_poker_definition() {
 	return G.games && G.games.poker;
 }
@@ -111,13 +111,148 @@ function tavern_poker_far(player, x, y, limit) {
 	return dx * dx + dy * dy > limit * limit;
 }
 
-// Escrow mirror: the seat's stack is written into the character's saved data whenever it changes, so a refund after
-// a crash returns what the seat held at the last save.
+// During a hand the durable balance is its opening stack, including every chip in the pot. All participants'
+// balances change in one transaction at showdown. A lost process therefore voids a whole hand, never half of one.
 function tavern_poker_mirror(seat) {
 	if (seat.settled) return;
 	var player = seat.player || dc_players[seat.id];
 	if (!player || !player.p) return;
-	player.p.poker = { token: seat.token, stack: seat.stack, server: server_id, at: new Date() };
+	player.p.poker = {
+		token: seat.token,
+		stack: seat.balance === undefined ? seat.stack : seat.balance,
+		server: server_id,
+		revision: seat.revision || 0,
+		hand: seat.hand || null,
+		last_hand: seat.last_hand,
+		voided: seat.voided,
+	};
+}
+
+// Called inside the authenticated login transaction. An active hand on another live server must finish first.
+// Removing the token in this same transaction fences an old server that resumes after crash recovery.
+async function tavern_poker_recover(entity, read) {
+	var escrow = entity.info && entity.info.p && entity.info.p.poker;
+	if (!escrow) return true;
+	var seat = tavern_poker_seat_by_id(entity._id);
+	if (escrow.server == server_id && seat && seat.token == escrow.token && !seat.settled) return true;
+	if (escrow.hand && escrow.server != server_id) {
+		var source = await read(escrow.server);
+		if (source && source.online && Date.now() - +new Date(source.updated) < 60000) return false;
+	}
+	entity.info.gold += Math.max(0, parseInt(escrow.stack) || 0);
+	delete entity.info.p.poker;
+	return true;
+}
+
+// Save the buy-ins before revealing a deck, and commit every award together before exposing a result. Character
+// saves preserve newer escrow revisions, including a commit whose acknowledgement has not reached this process.
+function tavern_poker_checkpoint(seats, id, awards, complete) {
+	var table = tavern_poker_table();
+	if (table.saving) return;
+	table.saving = true;
+	var entries = seats.map(function (seat) {
+		return {
+			id: seat.id,
+			token: seat.token,
+			player: seat.player || dc_players[seat.id],
+			gold: awards && awards[seat.index],
+			index: seat.index,
+		};
+	});
+	tx(
+		async () => {
+			var rows = [],
+				invalid = [];
+			for (var entry of A.entries) {
+				var entity = await tx_get(entry.id);
+				if (!A.awards && entity && entry.player && owns_character_session(entity, entry.player)) {
+					var player = entry.player;
+					// A character snapshot must not detach a bank withdrawal or an in-flight grant from its own transaction.
+					if (
+						player.user ||
+						player.mounting ||
+						player.unmounting ||
+						player.mount_call ||
+						player.unmount_call ||
+						player.sync_call ||
+						player.stop_call ||
+						player.merrit_grant
+					)
+						ex("poker_save_busy");
+					sync_entity(entity, player_to_server(player));
+				}
+				var escrow = entity && entity.info && entity.info.p && entity.info.p.poker;
+				if (
+					!escrow ||
+					escrow.token != entry.token ||
+					(!A.awards && entity.server && entity.server != server_id) ||
+					(A.awards && escrow.hand != A.id && escrow.last_hand != A.id)
+				)
+					invalid.push(entry.index);
+				rows.push({ entry: entry, entity: entity, escrow: escrow });
+			}
+			R.invalid = invalid;
+			if (invalid.length && !A.awards) return;
+			var receipt_id = "IE_POKER-" + server_id;
+			if (A.awards) {
+				var receipt = await tx_get(receipt_id);
+				if (receipt && receipt.info.hand == A.id) {
+					R.voided = receipt.info.voided;
+					R.escrows = receipt.info.escrows;
+					return;
+				}
+			}
+			R.voided = invalid.length > 0 || A.voided;
+			R.escrows = {};
+			for (var row of rows) {
+				var entry = row.entry,
+					escrow = row.escrow;
+				if (invalid.indexOf(entry.index) != -1) continue;
+				// Retry after a lost commit reply without applying the same award twice.
+				if (A.awards && escrow.last_hand == A.id) {
+					R.escrows[entry.index] = escrow;
+					continue;
+				}
+				escrow = Object.assign({}, escrow, { revision: escrow.revision + 1 || 1 });
+				if (A.awards) {
+					if (!R.voided) escrow.stack = entry.gold;
+					escrow.hand = null;
+					escrow.last_hand = A.id;
+					escrow.voided = !!R.voided;
+				} else escrow.hand = A.id;
+				row.entity.info.p.poker = escrow;
+				await tx_save(row.entity);
+				R.escrows[entry.index] = escrow;
+			}
+			if (A.awards) await tx_save({ _id: receipt_id, info: { hand: A.id, voided: R.voided, escrows: R.escrows } });
+		},
+		{ entries: entries, id: id, awards: !!awards, voided: !!table.closing },
+		3,
+	)
+		.catch(function () {
+			return { failed: true, reason: "exception" };
+		})
+		.then(function (result) {
+			table.saving = false;
+			if (result.success) {
+				(result.invalid || []).forEach(function (index) {
+					var seat = table.seats[index];
+					if (seat) seat.settled = seat.leaving = true;
+				});
+				seats.forEach(function (seat) {
+					var escrow = result.escrows && result.escrows[seat.index];
+					if (!escrow) return;
+					seat.balance = escrow.stack;
+					seat.revision = escrow.revision;
+					seat.hand = escrow.hand;
+					seat.last_hand = escrow.last_hand;
+					seat.voided = escrow.voided;
+					tavern_poker_mirror(seat);
+				});
+			} else server_log("#X poker checkpoint pending: " + (result.reason || "failed"), 1);
+			complete(result);
+			if (table.closing && !table.saving) tavern_poker_shutdown();
+		});
 }
 
 function tavern_poker_log(entry) {
@@ -277,6 +412,7 @@ function tavern_poker_state() {
 				leaving: !!seat.leaving,
 				folded: !!seat.folded,
 				allin: !!seat.allin,
+				can_raise: !!(hand && !hand.over && tavern_poker_can_raise(seat, hand)),
 				cards: 0,
 			};
 			if (hand && hand.entries.indexOf(seat) != -1) {
@@ -296,6 +432,7 @@ function tavern_poker_state() {
 			bet: hand.bet,
 			min_raise: hand.min_raise,
 			acting: hand.acting,
+			settling: !!hand.settlement,
 			deadline: hand.deadline,
 			banked: !!hand.banked,
 			over: hand.over,
@@ -348,6 +485,7 @@ function tavern_poker_request(player, data) {
 		view.cards = mine && table.hand && table.hand.entries.indexOf(mine) != -1 ? mine.cards.slice() : [];
 		return done({ table: view });
 	}
+	if (tavern_poker_table().saving) return fail("poker_in_hand");
 	if (player.map != "tavern" || player.in != "tavern") return fail("not_in_tavern");
 	if (event == "join") return tavern_poker_join(player, data, fail, done);
 	if (event == "leave") return tavern_poker_leave(player, fail, done);
@@ -374,6 +512,8 @@ function tavern_poker_join(player, data, fail, done) {
 		if (gold > player.gold) return fail("gold_not_enough");
 		player.gold -= gold;
 		seat.stack += gold;
+		seat.balance = seat.stack;
+		seat.revision = (seat.revision || 0) + 1;
 		if (seat.out && seat.broke) ((seat.out = false), (seat.broke = false), (seat.out_at = null));
 		tavern_poker_mirror(seat);
 		tavern_poker_log({ t: "join", name: player.name, g: gold });
@@ -399,6 +539,8 @@ function tavern_poker_join(player, data, fail, done) {
 		owner: player.owner,
 		name: player.name,
 		stack: gold,
+		balance: gold,
+		revision: 0,
 		token: randomStr(16),
 		player: player,
 		dc: null,
@@ -462,18 +604,38 @@ function tavern_poker_act(player, data, fail, done) {
 }
 
 // Dealing. The button moves clockwise; heads-up the button posts the small blind and acts first before the flop.
-function tavern_poker_deal() {
+function tavern_poker_start() {
+	var table = tavern_poker_table(),
+		ready = tavern_poker_ready();
+	if (ready.length < 2 || tavern_closing() || table.saving) return;
+	var id = randomStr(24);
+	tavern_poker_checkpoint(ready, id, null, function (result) {
+		if (!result.success || result.invalid.length) {
+			ready
+				.filter(function (seat) {
+					return seat.settled;
+				})
+				.forEach(function (seat) {
+					tavern_poker_cash_out(seat, "settled");
+				});
+			table.next = tavern_poker_now() + 3000;
+			return;
+		}
+		tavern_poker_deal(ready, id);
+	});
+}
+
+function tavern_poker_deal(ready, id) {
 	var def = tavern_poker_definition(),
 		table = tavern_poker_table(),
 		blinds = tavern_poker_blinds(),
-		ready = tavern_poker_ready(),
 		now = tavern_poker_now();
-	if (ready.length < 2 || tavern_closing()) return;
 	table.hands++;
 	table.button = tavern_poker_next_index(table.button, ready);
 	var deck = tavern_poker_deck(),
 		key = crypto.randomBytes(16).toString("hex"),
 		hand = {
+			id: id,
 			n: table.hands,
 			at: now,
 			street: "preflop",
@@ -503,7 +665,7 @@ function tavern_poker_deal() {
 		seat.allin = false;
 		seat.acted = false;
 		seat.banked = false;
-		seat.noraise = false;
+		seat.acted_bet = null;
 		seat.before = seat.stack;
 		seat.best = null;
 		if (seat.dc) seat.missed++;
@@ -551,6 +713,7 @@ function tavern_poker_apply(seat, action, amount, auto) {
 	if (action == "raise") action = "bet";
 	if (action == "call" && to_call <= 0) action = "check";
 	if (action == "allin") ((action = "bet"), (amount = seat.bet + seat.stack));
+	result.action = action;
 	if (action == "fold") seat.folded = true;
 	else if (action == "check") {
 		if (to_call > 0) return { reason: "poker_invalid_action" };
@@ -560,9 +723,9 @@ function tavern_poker_apply(seat, action, amount, auto) {
 		amount = parseInt(amount) || 0;
 		var max = seat.bet + seat.stack,
 			min = hand.bet + hand.min_raise;
-		if (seat.noraise && amount < max) return { reason: "poker_invalid_action" };
 		if (amount >= max) amount = max;
 		else if (amount < min) return { reason: "poker_min_raise", extra: { min: Math.min(min, max), max: max } };
+		if (amount > hand.bet && !tavern_poker_can_raise(seat, hand)) return { reason: "poker_invalid_action" };
 		if (amount <= hand.bet) {
 			// An all-in that cannot reach the current bet is a call for less.
 			result.action = "call";
@@ -573,8 +736,7 @@ function tavern_poker_apply(seat, action, amount, auto) {
 			result.amount = tavern_poker_post(seat, amount - seat.bet);
 			hand.entries.forEach(function (other) {
 				if (other == seat) return;
-				if (full) ((other.acted = false), (other.noraise = false));
-				else if (other.acted) other.noraise = true;
+				if (full) other.acted = false;
 			});
 			if (full) hand.min_raise = amount - hand.bet;
 			hand.bet = amount;
@@ -582,6 +744,7 @@ function tavern_poker_apply(seat, action, amount, auto) {
 		}
 	} else return { reason: "poker_invalid_action" };
 	seat.acted = true;
+	seat.acted_bet = hand.bet;
 	result.action = result.action || action;
 	hand.actions.push(
 		"s" + seat.index + ":" + result.action + (result.amount ? ":" + result.amount : "") + (auto ? ":auto" : ""),
@@ -596,6 +759,16 @@ function tavern_poker_apply(seat, action, amount, auto) {
 	});
 	tavern_poker_advance();
 	return result;
+}
+
+function tavern_poker_can_raise(seat, hand) {
+	if (hand.over || seat.folded || seat.allin || hand.entries.indexOf(seat) == -1) return false;
+	return (
+		hand.entries.some(function (other) {
+			return other != seat && !other.folded && !other.allin;
+		}) &&
+		(seat.acted_bet == null || hand.bet - seat.acted_bet >= hand.min_raise)
+	);
 }
 
 // Moves the action to the next seat, or ends the betting round.
@@ -633,7 +806,7 @@ function tavern_poker_next_street() {
 	hand.entries.forEach(function (seat) {
 		seat.bet = 0;
 		seat.acted = false;
-		seat.noraise = false;
+		seat.acted_bet = null;
 	});
 	hand.bet = 0;
 	hand.min_raise = blinds[1];
@@ -682,14 +855,24 @@ function tavern_poker_timeout() {
 }
 
 // Showdown and awards. Pots are built per contribution level so every all-in competes only for what it covered; an
-// uncalled bet returns to its owner without rake; ties split, odd gold to the first winner after the button.
+// uncalled bet returns to its owner without rake; ties split, odd gold clockwise from the winner after the button.
 function tavern_poker_finish() {
+	var table = tavern_poker_table(),
+		hand = table.hand;
+	if (table.saving || hand.over) return;
+	if (!hand.settlement) tavern_poker_calculate();
+	tavern_poker_checkpoint(hand.entries, hand.id, hand.settlement.awards, function (result) {
+		if (!result.success) return;
+		tavern_poker_award(hand, result);
+	});
+}
+
+function tavern_poker_calculate() {
 	var table = tavern_poker_table(),
 		def = tavern_poker_definition(),
 		blinds = tavern_poker_blinds(),
 		hand = table.hand,
-		live = tavern_poker_live(hand),
-		now = tavern_poker_now();
+		live = tavern_poker_live(hand);
 	while (live.length > 1 && hand.board.length < 5) hand.board.push(hand.deck.pop());
 	if (live.length > 1)
 		live.forEach(function (seat) {
@@ -746,9 +929,12 @@ function tavern_poker_finish() {
 		rake_total += rake;
 		var share = Math.floor(pot / winners.length),
 			odd = pot - share * winners.length,
-			first = tavern_poker_next_index(table.button, winners);
-		winners.forEach(function (seat) {
-			var gold = share + (seat.index == first ? odd : 0);
+			count = def.seats;
+		winners = winners.slice().sort(function (a, b) {
+			return ((a.index - table.button + count - 1) % count) - ((b.index - table.button + count - 1) % count);
+		});
+		winners.forEach(function (seat, index) {
+			var gold = share + (index < odd ? 1 : 0);
 			seat.stack += gold;
 			results.winners[seat.index] = (results.winners[seat.index] || 0) + gold;
 		});
@@ -765,6 +951,29 @@ function tavern_poker_finish() {
 			results.hands[seat.index] = seat.best.hand;
 			results.shown[seat.index] = seat.cards.slice();
 		});
+	var awards = {};
+	hand.entries.forEach(function (seat) {
+		awards[seat.index] = seat.stack;
+		seat.stack = seat.balance - seat.total;
+	});
+	hand.settlement = { awards: awards, results: results, rake: rake_total };
+}
+
+function tavern_poker_award(hand, saved) {
+	var table = tavern_poker_table(),
+		def = tavern_poker_definition(),
+		blinds = tavern_poker_blinds(),
+		now = tavern_poker_now(),
+		results = hand.settlement.results,
+		rake_total = saved.voided ? 0 : hand.settlement.rake;
+	hand.entries.forEach(function (seat) {
+		seat.stack = seat.settled ? 0 : seat.balance;
+	});
+	if (saved.voided) {
+		results = { winners: {}, returned: {}, hands: {}, shown: {}, pots: [], voided: true };
+		hand.voided = true;
+		tavern_poker_log({ t: "void" });
+	}
 	S.gold += rake_total;
 	tavern.poker.gain = (tavern.poker.gain || 0) + rake_total;
 	hand.rake = rake_total;
@@ -873,7 +1082,7 @@ function tavern_poker_pending() {
 	tavern_poker_refunds = tavern_poker_refunds.filter(function (started) {
 		return now - started < 15000;
 	});
-	return tavern_poker_refunds.length;
+	return tavern_poker_refunds.length + (tavern.poker && tavern.poker.table && tavern.poker.table.saving ? 1 : 0);
 }
 
 function tavern_poker_refund(seat, gold, reason) {
@@ -932,26 +1141,6 @@ function tavern_poker_login(player) {
 		tavern_poker_emit();
 		return;
 	}
-	var escrow = player.p && player.p.poker;
-	if (!escrow) return;
-	var gold = parseInt(escrow.stack) || 0;
-	delete player.p.poker;
-	if (gold <= 0) return;
-	player.gold += gold;
-	tavern_poker_record({
-		t: "refund",
-		name: player.name,
-		gold: gold,
-		reason: "login",
-		result: "ok",
-		from: escrow.server,
-	});
-	tavern_poker_message(
-		player,
-		"server.game_log.poker_refund",
-		{ amount: String(to_pretty_num(gold)) },
-		{ color: "gold" },
-	);
 }
 
 function tavern_poker_disconnect(player) {
@@ -972,20 +1161,9 @@ function tavern_poker_shutdown() {
 	if (!tavern.poker || !tavern.poker.table) return;
 	var table = tavern_poker_table(),
 		hand = table.hand;
-	if (hand && !hand.over) {
-		hand.entries.forEach(function (seat) {
-			seat.stack += seat.total;
-			seat.total = 0;
-			seat.bet = 0;
-			tavern_poker_mirror(seat);
-		});
-		hand.over = true;
-		hand.voided = true;
-		hand.acting = -1;
-		hand.results = { winners: {}, hands: {}, shown: {}, pots: [], voided: true };
-		tavern_poker_log({ t: "void" });
-		tavern_poker_record({ t: "void", n: hand.n, actions: hand.actions });
-	}
+	table.closing = true;
+	if (table.saving) return;
+	if (hand && !hand.over) return tavern_poker_finish();
 	table.seats.slice().forEach(function (seat) {
 		if (seat) tavern_poker_cash_out(seat, "shutdown");
 	});
@@ -996,6 +1174,8 @@ function tavern_poker_tick() {
 	if (!def || !instances.tavern || !tavern.poker || !tavern.poker.table) return;
 	var table = tavern_poker_table(),
 		now = tavern_poker_now();
+	if (table.saving) return;
+	if (table.closing) return tavern_poker_shutdown();
 	try {
 		table.seats.slice().forEach(function (seat) {
 			if (!seat) return;
@@ -1020,10 +1200,11 @@ function tavern_poker_tick() {
 		});
 		var hand = table.hand;
 		if (hand && !hand.over) {
+			if (hand.settlement) return tavern_poker_finish();
 			if (hand.acting >= 0) {
 				if (now >= hand.deadline) tavern_poker_timeout();
 			} else if (hand.next_at && now >= hand.next_at) tavern_poker_next_street();
-		} else if (!tavern_closing() && now >= table.next && tavern_poker_ready().length >= 2) tavern_poker_deal();
+		} else if (!tavern_closing() && now >= table.next && tavern_poker_ready().length >= 2) tavern_poker_start();
 	} catch (e) {
 		log_trace("#X poker tick", e);
 	}

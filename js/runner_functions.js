@@ -2047,21 +2047,21 @@ character.remove = function (id) {
 	}
 };
 character.trigger = function (event, args) {
-	var new_listeners = [];
-	for (var i = 0; i < character.listeners.length; i++) {
-		var l = character.listeners[i];
+	var listeners = character.listeners.slice();
+	for (var i = 0; i < listeners.length; i++) {
+		var l = listeners[i];
+		if (character.listeners.indexOf(l) == -1) continue;
 		if (l.event == event || l.event == "all") {
+			if (l.once) character.remove(l.id);
 			try {
 				if (l.event == "all") l.f(event, args);
 				else l.f(args, event);
 			} catch (e) {
 				game_log(parent.phrase("code.listener_error", { event: l.event, error: String(e) }), colors.code_error);
 			}
-			if (l.once || (l.f && l.f.delete));
-			else new_listeners.push(l);
-		} else new_listeners.push(l);
+			if (l.f && l.f.delete) character.remove(l.id);
+		}
 	}
-	character.listeners = new_listeners;
 };
 
 game.listeners = [];
@@ -2089,21 +2089,21 @@ game.remove = function (id) {
 	}
 };
 game.trigger = function (event, args) {
-	var new_listeners = [];
-	for (var i = 0; i < game.listeners.length; i++) {
-		var l = game.listeners[i];
+	var listeners = game.listeners.slice();
+	for (var i = 0; i < listeners.length; i++) {
+		var l = listeners[i];
+		if (game.listeners.indexOf(l) == -1) continue;
 		if (l.event == event || l.event == "all") {
+			if (l.once) game.remove(l.id);
 			try {
 				if (l.event == "all") l.f(event, args);
 				else l.f(args, event);
 			} catch (e) {
 				game_log(parent.phrase("code.listener_error", { event: l.event, error: String(e) }), colors.code_error);
 			}
-			if (l.once || (l.f && l.f.delete));
-			else new_listeners.push(l);
-		} else new_listeners.push(l);
+			if (l.f && l.f.delete) game.remove(l.id);
+		}
 	}
-	game.listeners = new_listeners;
 };
 
 function trigger_character_event(name, data) {

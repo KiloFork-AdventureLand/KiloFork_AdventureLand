@@ -2532,7 +2532,7 @@
 	"docs.guide.tavern-games.blinds-and-two-cards": "<span class=\"guide-flow-icon tavern-side\">BB</span><span class=\"guide-flow-label\">盲注与两张底牌</span>",
 	"docs.guide.tavern-games.four-betting-streets": "<span class=\"guide-flow-icon tavern-choice\">跟注</span><span class=\"guide-flow-label\">四轮下注</span>",
 	"docs.guide.tavern-games.showdown-rake-from-each-pot": "<span class=\"guide-flow-icon tavern-even\">2%</span><span class=\"guide-flow-label\">摊牌 · 每个底池抽水</span>",
-	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "酒馆有一张五人无限注德州扑克牌桌，玩家的金币与玩家的金币对决。盲注随服务器而定：买入 40 至 200 个大盲注；入座期间筹码离开钱袋，离桌那一刻即返还。每次决定有 20 秒，外加 30 秒的时间银行；两者都用完时，服务器在免费时替你过牌，否则弃牌。庄家从每个派发的底池抽水 2%，最多 10 个大盲注。",
+	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "Tavern设有一张五人无限注Hold'em牌桌。买入金额为40至200个大盲注。每次行动有20秒思考时间，每手牌还可使用一次额外的30秒时间。庄家从每个派发的底池中抽取2%，上限为10个大盲注。",
 	"docs.guide.tavern-games.servers": "服务器",
 	"docs.guide.tavern-games.small-blind": "小盲注",
 	"docs.guide.tavern-games.big-blind": "大盲注",
@@ -2541,7 +2541,7 @@
 	"docs.guide.tavern-games.tier-ii": "II 服",
 	"docs.guide.tavern-games.tier-iii": "III 服",
 	"docs.guide.tavern-games.tier-iv": "IV+ 服",
-	"docs.guide.tavern-games.leaving-the-table": "<b>离开牌桌。</b>按下离桌、走离凳子、使用门或登出，你都会在本局结束后离桌，筹码全额退回钱袋。断线的座位保留筹码：计时继续，再下两局盲注，随后该座位暂离，并在五分钟后结算。重启会使进行中的一局作废并退回所有下注。每次发牌前牌桌公布对洗好牌组的承诺，本局结束后公布用于验证的密钥和牌组顺序。",
+	"docs.guide.tavern-games.leaving-the-table": "<b>离开牌桌。</b> 选择离开或走远，即可在本手牌结束后取回筹码。断线座位最多再支付两手牌的盲注，随后暂停参与。座位保留五分钟；结算需等本手牌结束。在同一服务器重连即可继续。切换服务器也需等本手牌结束。",
 	"docs.guide.tavern-games.code-play-a-hand": "CODE：玩一局",
 	"docs.articles.hub.viewing_items": "登录后，选择{bank}查看已保存的银行物品和金币。观战角色时，选择{inventory}或{equipment}。点击物品可查看详情。这些界面无法移动或装备物品。",
 	"docs.guide.tavern-games.restarts": "<b>重启。</b>重启会在倒计时之前关闭酒馆的游戏：尚未结算的转轮、老虎机和骰子下注全额退回，扑克牌桌作废本局并结算每位玩家的筹码，倒计时期间的任何请求都会以 <span class='dlabel'>tavern_closing</span> 失败。",
@@ -2634,5 +2634,7 @@
 	"docs.cave.restart": "如果服务器重启导致本次探索结束，账号会恢复当日的进入次数。刷新页面或断开连接不会恢复次数。",
 	"docs.guide.events-and-home.choosing-server": "选择角色前，请查看角色列表上方的服务器。可在服务器列表中切换。每个角色的“家园”一栏显示其已保存的家园服务器。登录时会优先选择可用的家园服务器，除非你自行选择了服务器或打开了服务器链接。已在游戏中的角色会在其当前所在的服务器打开。",
 	"docs.guide.events-and-home.saved-home": "每个角色都有独立保存的家园服务器，在首次进入游戏时确定。访问以前玩过的服务器不会改变家园。",
-	"docs.guide.events-and-home.hop-sickness": "等级达到60级的角色进入家园以外的另一个非PvP服务器时，{condition}会降低XP、金币、幸运和攻击力。基础持续时间为12分钟在线游戏时间。重新连接同一服务器会保留剩余时间。回到已保存的家园，或请Bean更改家园，即可立即解除。"
+	"docs.guide.events-and-home.hop-sickness": "等级达到60级的角色进入家园以外的另一个非PvP服务器时，{condition}会降低XP、金币、幸运和攻击力。基础持续时间为12分钟在线游戏时间。重新连接同一服务器会保留剩余时间。回到已保存的家园，或请Bean更改家园，即可立即解除。",
+	"docs.guide.tavern-games.deck-verification": "<b>验证牌组。</b> 发牌前，牌桌会公布一个密码学承诺值。本手牌结束后，会公开密钥和完整牌序，包括已弃的手牌。",
+	"docs.functions.poker_act.reopening": "座位的can_raise字段表示你能否加注。多次不足额全押的累计加注额达到一次完整加注时，已行动的玩家才能重新加注。"
 }

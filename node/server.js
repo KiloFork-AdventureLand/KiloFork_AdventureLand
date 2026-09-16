@@ -787,6 +787,8 @@ function player_to_server(player, place) {
 			char[prop] = player[prop];
 		}
 	}
+	// Poker gold and its escrow must travel in the same snapshot, even when the large p object is omitted.
+	char.poker = (player.p && player.p.poker && Object.assign({}, player.p.poker)) || null;
 	if (place == "sync" && !Object.keys(player.q).length && player.type != "merchant") {
 		char.max_xp_multiplier = player.p.max_xp_multiplier || 1;
 		char.encouragement_reached80 = !!player.p.encouragement_reached80;
@@ -11329,6 +11331,7 @@ function init_socket_io(socket_server) {
 						R.mainframe = true;
 					}
 					if (R.entity.server) ex("ingame");
+					if (!(await tavern_poker_recover(R.entity, tx_get))) ex("ingame");
 					if (A[3].cancelled || Date.now() >= A[3].deadline) ex("cancelled");
 					A[3].claim_written = true;
 					R.previous_online = R.entity.last_online;
@@ -16139,6 +16142,7 @@ setInterval(function () {
 
 // Sync player data to MongoDB entity (following qwazy's sync_entity pattern, mirrors update_character)
 function sync_entity(entity, data) {
+	var saved_poker = entity.info.p && entity.info.p.poker;
 	entity.info.x = data["x"];
 	entity.info.y = data["y"];
 	entity.info.s = data["s"];
@@ -16153,7 +16157,15 @@ function sync_entity(entity, data) {
 	entity.info.items = data["items"];
 	entity.info.slots = data["slots"];
 	entity.info.rip = data.rip;
-	if (data.p) entity.info.p = data.p;
+	if (data.p) entity.info.p = Object.assign({}, data.p);
+	if (data.poker !== undefined) {
+		entity.info.p = entity.info.p || {};
+		var poker = data.poker;
+		if (poker && saved_poker && poker.token == saved_poker.token && (saved_poker.revision || 0) > (poker.revision || 0))
+			poker = saved_poker;
+		if (poker) entity.info.p.poker = Object.assign({}, poker);
+		else delete entity.info.p.poker;
+	}
 	if (data.max_xp_multiplier !== undefined) {
 		entity.info.p = entity.info.p || {};
 		entity.info.p.max_xp_multiplier = data.max_xp_multiplier;

@@ -70,6 +70,19 @@ function fixture(options = {}) {
 	});
 	vm.runInContext(read("node/logic/tavern.js"), c);
 	vm.runInContext(read("node/logic/tavern_poker.js"), c);
+	// Gameplay tests complete the persistence boundary immediately; the durability cases below use the real transaction.
+	c.tavern_poker_checkpoint = (seats, id, awards, complete) => {
+		const table = c.tavern_poker_table();
+		for (const seat of seats) {
+			seat.revision = (seat.revision || 0) + 1;
+			seat.hand = awards ? null : id;
+			if (awards && !table.closing) seat.balance = awards[seat.index];
+			c.tavern_poker_mirror(seat);
+		}
+		complete({ success: true, invalid: [], voided: !!table.closing });
+		if (table.closing) c.tavern_poker_shutdown();
+	};
+
 	c.tavern_poker_now = () => now;
 	load(c, "node/server_functions.js", ["house_debt", "house_edge", "fail_response", "success_response"]);
 	vm.runInContext(read("node/logic/tavern_wheel.js"), c);
@@ -569,7 +582,7 @@ test("disconnecting keeps the seat: the clock still folds, blinds are posted for
 	assert.equal(hands, poker.blind_hands);
 	assert.ok(actor.stack >= before - poker.blind_hands * BB, "at most two blinds were lost");
 	f.advance(60000);
-	actor.stack = 77 * BB;
+	actor.balance = actor.stack = 77 * BB;
 	const player = f.c.dc_players[actor.id];
 	player.login();
 	assert.equal(actor.player, player);
@@ -675,7 +688,7 @@ test("walking away, using Leave and sitting out cash out at the right moment, an
 	}
 });
 
-test("a shutdown voids the live hand without rake and cashes out every seat; stale escrow is refunded at login", () => {
+test("a shutdown voids the live hand without rake and cashes out every seat; stale escrow is refunded at login", async () => {
 	const f = fixture();
 	const [a, b, cc] = sit(f, ["A", "B", "C"]);
 	f.tick(4000);
@@ -697,10 +710,11 @@ test("a shutdown voids the live hand without rake and cashes out every seat; sta
 	const late = f.join_socket("Late");
 	late.gold = 5;
 	late.p.poker = { token: "old", stack: 44 * BB, server: "SR_other" };
+	const entity = { _id: late.real_id, info: late };
+	await f.c.tavern_poker_recover(entity, async () => null);
 	late.login();
 	assert.equal(late.gold, 5 + 44 * BB);
 	assert.equal(late.p.poker, undefined);
-	assert.ok(f.packets.some((p) => p.to === "Late" && p.data && p.data.phrase === "server.game_log.poker_refund"));
 	late.login();
 	assert.equal(late.gold, 5 + 44 * BB, "a second login does not pay again");
 });
@@ -724,36 +738,9 @@ test("a seat whose escrow was already returned by another login is forfeited on 
 	assert.deepEqual(plain(f.refunds), [], "no transaction refund was attempted");
 	assert.ok(f.c.S.logs.poker.some((entry) => entry.t === "forfeit" && entry.gold === 100 * BB));
 	assert.equal(a.p.poker, undefined);
-	// The same arrival during a live hand folds the seat out and forfeits at the end of the hand.
-	const g = fixture();
-	const [x, y] = sit(g, ["X", "Y"]);
-	g.tick(4000);
-	const hand = g.table().hand;
-	const dropped = g.table().seats[hand.acting];
-	const other = g.table().seats[1 - hand.acting];
-	dropped.player.disconnect();
-	const player = g.c.dc_players[dropped.id];
-	player.stop();
-	const mirrored = player.p.poker.stack;
-	assert.equal(mirrored, 100 * BB - dropped.total, "the mirror already excludes the chips in the pot");
-	player.gold += mirrored;
-	delete player.p.poker;
-	player.login();
-	assert.equal(dropped.settled, true);
-	assert.equal(g.table().seats[dropped.index], dropped, "a seat in a hand waits for the hand to end");
-	g.tick(poker.action_ms + poker.bank_ms + 2000);
-	assert.equal(hand.over, true, "the clock folded the settled seat");
-	assert.equal(g.table().seats[dropped.index], null, "then it was cleared");
-	assert.equal(player.gold, 8000000000 - 100 * BB + mirrored, "one refund only; the blind stays in the pot");
-	assert.equal(other.player.p.poker.stack, other.stack);
-	assert.equal(
-		seat_gold(g) + g.c.S.gold + player.gold + other.player.gold,
-		2 * 8000000000 + 3000000000,
-		"the refund paid elsewhere and the vanished seat cancel out",
-	);
 });
 
-test("thousands of random hands conserve gold: stacks plus pots plus rake always equal the buy-ins", () => {
+test("400 random hands conserve gold: stacks plus pots plus rake always equal the buy-ins", () => {
 	const purse = 1000000000000;
 	const f = fixture({ gold: purse });
 	const names = ["A", "B", "C", "D", "E"];
@@ -767,7 +754,7 @@ test("thousands of random hands conserve gold: stacks plus pots plus rake always
 		for (const seat of table.seats)
 			if (seat && seat.stack < BB && seat.out)
 				seat.player.request({ event: "join", gold: Math.min(100 * BB, 200 * BB - seat.stack) });
-		for (const seat of table.seats) if (seat) assert.equal(seat.player.p.poker.stack, seat.stack);
+		for (const seat of table.seats) if (seat) assert.equal(seat.player.p.poker.stack, seat.balance);
 		const hand = table.hand;
 		const seat = acting(f);
 		if (seat) {
@@ -782,7 +769,10 @@ test("thousands of random hands conserve gold: stacks plus pots plus rake always
 					amount: hand.bet + hand.min_raise + rnd(5) * BB,
 				});
 				if (!reply.success) act(seat.player, to_call > 0 ? "call" : "check");
-			} else act(seat.player, "allin");
+			} else {
+				const reply = seat.player.request({ event: "act", action: "allin" });
+				if (!reply.success) act(seat.player, to_call > 0 ? "call" : "check");
+			}
 		} else f.tick(1000);
 		if (hand && hand.over && hand.n > hands) hands = hand.n;
 		assert.equal(
@@ -874,6 +864,8 @@ test("the poker overlay, floor table and packets stay silent without graphics", 
 	c.poker_event({ event: "cards", n: 1, cards: ["A_hearts", "K_hearts"] });
 	c.poker_response({ failed: true, response: "poker_far", place: "poker" });
 	c.poker_response({ success: true, seat: 0, buyin: 1, place: "poker" });
+	assert.equal(c.poker_texture("A_hearts"), null);
+	c.poker_floor_burst({}, 1);
 	c.poker_map_attach({});
 	c.poker_map_show();
 	c.poker_map_update({});
@@ -885,6 +877,191 @@ test("the poker overlay, floor table and packets stay silent without graphics", 
 		"CODE hears the poker event",
 	);
 	assert.ok(!emitted.some((entry) => entry.event === "move"), "no walk without graphics");
-	assert.deepEqual(plain(c.poker_card_xy("10_spades")), [8, 3]);
+	assert.deepEqual(plain(c.poker_card_xy("10_spades")), [9, 3]);
 	assert.deepEqual(plain(c.poker_card_xy(null)), [0, 4]);
+	// Pure HTML also follows the server's legal raise state, without creating graphics.
+	Object.assign(state.hand, { over: false, acting: 0, bet: 40, min_raise: 20 });
+	Object.assign(state.seats[0], { can_raise: false, bet: 30, stack: 70 });
+	assert.doesNotMatch(c.poker_actions_html(), /pk-raise|pk-allin/);
+	state.seats[0].stack = 10;
+	assert.match(c.poker_actions_html(), /pk-allin/, "an all-in call remains available");
+	state.hand.settling = true;
+	assert.doesNotMatch(c.poker_actions_html(), /poker_action\(/, "no action while the award is saving");
+});
+
+// Execute the actual MongoDB transaction helper against the optimistic store, including write conflicts.
+function durable_fixture(beforeCommit) {
+	const f = fixture();
+	const people = sit(f, ["A", "B"], 40 * BB);
+	load(f.c, "node/server.js", ["player_to_server", "sync_entity"]);
+	load(f.c, "node/logic/character_sessions.js", ["owns_character_session"]);
+	load(f.c, "node/logic/tavern_poker.js", ["tavern_poker_checkpoint"]);
+	const documents = people.map((player) => {
+		player._id = player.real_id;
+		player.secret = "session-" + player.name;
+		player.type = "warrior";
+		return {
+			_id: player.real_id,
+			owner: player.owner,
+			server: f.c.server_id,
+			info: { gold: 8000000000, secret: player.secret, p: {} },
+		};
+	});
+	documents.push({ _id: f.c.server_id, online: true, updated: new Date() });
+	const store = require("./helpers/server_vm").transactions(f.c, documents, beforeCommit);
+	return Object.assign(f, { people, store });
+}
+
+async function checkpoint_done(f) {
+	for (let i = 0; i < 100 && f.table().saving; i++) await new Promise(setImmediate);
+	assert.equal(!!f.table().saving, false, "checkpoint completed");
+}
+
+test("periodic saves include escrow and its removal with the purse, without saving the large p object", async () => {
+	const f = durable_fixture(),
+		[a] = f.people;
+	const entity = f.store.records.get(a.real_id);
+	const save = plain(f.c.player_to_server(a, "sync"));
+	assert.equal(save.p, undefined);
+	f.c.sync_entity(entity, save);
+	const reboot = fixture();
+	await reboot.c.tavern_poker_recover(entity, async () => null);
+	assert.equal(entity.info.gold, 8000000000);
+	assert.equal(entity.info.p.poker, undefined);
+	a.request({ event: "leave" });
+	f.c.sync_entity(entity, plain(f.c.player_to_server(a, "sync")));
+	await reboot.c.tavern_poker_recover(entity, async () => null);
+	assert.equal(entity.info.gold, 8000000000, "cash-out cannot leave a second refund");
+});
+
+test("a crash with all chips in the pot returns every opening stack; live hands cannot be claimed on another server", async () => {
+	const f = durable_fixture(),
+		[a, b] = f.people;
+	f.tick(4000);
+	await checkpoint_done(f);
+	act(a, "allin");
+	act(b, "call");
+	assert.equal(f.table().hand.pot, 80 * BB);
+	const other = fixture();
+	other.c.server_id = "SR_other";
+	const read = async (id) => plain(f.store.records.get(id));
+	for (const p of f.people) {
+		const entity = plain(f.store.records.get(p.real_id));
+		assert.equal(entity.info.p.poker.stack, 40 * BB);
+		assert.equal(await other.c.tavern_poker_recover(entity, read), false);
+		assert.equal(await other.c.tavern_poker_recover(entity, async () => null), true);
+		assert.equal(entity.info.gold, 8000000000);
+		await other.c.tavern_poker_recover(entity, async () => null);
+		assert.equal(entity.info.gold, 8000000000, "refund is consumed exactly once");
+	}
+});
+
+test("awards commit together, survive a lost acknowledgement, and stale autosaves cannot replace newer balances", async () => {
+	const f = durable_fixture(),
+		[a, b] = f.people;
+	f.tick(4000);
+	await checkpoint_done(f);
+	const stale = plain(f.c.player_to_server(b, "sync"));
+	const tx = f.c.tx;
+	let lost = true;
+	f.c.tx = async (...args) => {
+		const result = await tx(...args);
+		if (lost) {
+			lost = false;
+			return { failed: true, reason: "lost_reply" };
+		}
+		return result;
+	};
+	act(a, "fold");
+	await checkpoint_done(f);
+	assert.equal(f.table().hand.over, false, "a result waits for its receipt");
+	const after = f.people.map((p) => plain(f.store.records.get(p.real_id)));
+	assert.equal(
+		after.reduce((sum, e) => sum + e.info.gold + e.info.p.poker.stack, 0) + f.table().hand.settlement.rake,
+		16000000000,
+	);
+	assert.ok(after.every((e) => !e.info.p.poker.hand));
+	f.c.sync_entity(after[1], stale);
+	assert.equal(after[1].info.p.poker.stack, f.store.records.get(b.real_id).info.p.poker.stack);
+	f.tick();
+	await checkpoint_done(f);
+	assert.equal(f.table().hand.over, true);
+	assert.equal(f.c.S.gold, 3000000000 + f.table().hand.rake);
+	assert.equal(seat_gold(f) + a.gold + b.gold + f.table().hand.rake, 16000000000);
+});
+
+test("a consumed remote escrow cannot post another blind, and recovery fences a delayed showdown", async () => {
+	const f = durable_fixture(),
+		[a] = f.people;
+	const other = fixture();
+	other.c.server_id = "SR_other";
+	let entity = f.store.records.get(a.real_id);
+	f.c.sync_entity(entity, plain(f.c.player_to_server(a)));
+	a.disconnect();
+	a.stop();
+	entity.server = "";
+	await other.c.tavern_poker_recover(entity, async () => null);
+	entity.server = "SR_other";
+	f.tick(4000);
+	await checkpoint_done(f);
+	assert.equal(f.table().hand, null);
+	assert.equal(f.table().seats[0], null);
+	assert.equal(entity.info.gold, 8000000000);
+
+	const g = durable_fixture(),
+		[x, y] = g.people;
+	g.tick(4000);
+	await checkpoint_done(g);
+	x.disconnect();
+	x.stop();
+	entity = g.store.records.get(x.real_id);
+	entity.server = "";
+	await other.c.tavern_poker_recover(entity, async () => null);
+	entity.server = "SR_other";
+	g.tick(poker.action_ms + poker.bank_ms + 1000);
+	await checkpoint_done(g);
+	assert.equal(g.table().hand.voided, true, "resumed process cannot award refunded chips");
+	assert.equal(g.table().seats[0], null);
+	assert.equal(g.table().seats[1].stack + y.gold, 8000000000);
+	assert.equal(g.c.S.gold, 3000000000);
+});
+
+test("a short all-in cannot reopen a raise, but cumulative short raises can", () => {
+	const f = fixture();
+	const [a, b, c] = sit(f, ["A", "B", "C"], 40 * BB);
+	a.request({ event: "join", gold: 60 * BB });
+	c.request({ event: "join", gold: 60 * BB });
+	f.tick(4000);
+	act(a, "raise", 30 * BB);
+	act(b, "allin");
+	act(c, "call");
+	assert.equal(f.state().seats[0].can_raise, false);
+	assert.equal(a.request({ event: "act", action: "allin" }).failed, true);
+	act(a, "call");
+	const g = fixture();
+	const [y, z, d, x] = sit(g, ["Y", "Z", "D", "X"], 40 * BB);
+	x.request({ event: "join", gold: 100 * BB });
+	z.request({ event: "join", gold: 20 * BB });
+	d.request({ event: "join", gold: 60 * BB });
+	g.tick(4000);
+	act(x, "raise", 30 * BB);
+	act(y, "allin");
+	act(z, "allin");
+	act(d, "call");
+	assert.equal(g.state().seats[3].can_raise, true);
+	assert.equal(x.request({ event: "act", action: "raise", amount: 89 * BB }).success, true);
+});
+
+test("dealing waits for an in-flight bank or character save instead of saving half of it", async () => {
+	const f = durable_fixture(),
+		[a] = f.people;
+	a.mount_call = true;
+	f.tick(4000);
+	await checkpoint_done(f);
+	assert.equal(f.table().hand, null);
+	assert.equal(f.store.records.get(a.real_id).info.gold, 8000000000);
+	delete a.mount_call;
+	f.tick(4000);
+	await checkpoint_done(f);
+	assert.ok(f.table().hand && !f.table().hand.over);
 });

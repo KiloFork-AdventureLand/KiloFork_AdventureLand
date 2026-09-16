@@ -2532,7 +2532,7 @@
 	"docs.guide.tavern-games.blinds-and-two-cards": "<span class=\"guide-flow-icon tavern-side\">BB</span><span class=\"guide-flow-label\">盲注與兩張底牌</span>",
 	"docs.guide.tavern-games.four-betting-streets": "<span class=\"guide-flow-icon tavern-choice\">跟注</span><span class=\"guide-flow-label\">四輪下注</span>",
 	"docs.guide.tavern-games.showdown-rake-from-each-pot": "<span class=\"guide-flow-icon tavern-even\">2%</span><span class=\"guide-flow-label\">攤牌 · 每個底池抽水</span>",
-	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "酒館有一張五人無限注德州撲克牌桌，玩家的金幣與玩家的金幣對決。盲注隨伺服器而定：買入 40 至 200 個大盲注；入座期間籌碼離開錢袋，離桌那一刻即返還。每次決定有 20 秒，外加 30 秒的時間銀行；兩者都用完時，伺服器在免費時替你過牌，否則棄牌。莊家從每個派發的底池抽水 2%，最多 10 個大盲注。",
+	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "Tavern設有一張五人無限注Hold'em牌桌。買入金額為40至200個大盲注。每次行動有20秒思考時間，每手牌還可使用一次額外的30秒時間。莊家從每個派發的底池中抽取2%，上限為10個大盲注。",
 	"docs.guide.tavern-games.servers": "伺服器",
 	"docs.guide.tavern-games.small-blind": "小盲注",
 	"docs.guide.tavern-games.big-blind": "大盲注",
@@ -2541,7 +2541,7 @@
 	"docs.guide.tavern-games.tier-ii": "II 伺服器",
 	"docs.guide.tavern-games.tier-iii": "III 伺服器",
 	"docs.guide.tavern-games.tier-iv": "IV+ 伺服器",
-	"docs.guide.tavern-games.leaving-the-table": "<b>離開牌桌。</b>按下離桌、走離凳子、使用門或登出，你都會在本局結束後離桌，籌碼全額退回錢袋。斷線的座位保留籌碼：計時繼續，再下兩局盲注，隨後該座位暫離，並在五分鐘後結算。重新啟動會使進行中的一局作廢並退回所有下注。每次發牌前牌桌公布對洗好牌組的承諾，本局結束後公布用於驗證的金鑰和牌組順序。",
+	"docs.guide.tavern-games.leaving-the-table": "<b>離開牌桌。</b> 選擇離開或走遠，即可在這手牌結束後取回籌碼。斷線座位最多再支付兩手牌的盲注，接著暫停參與。座位保留五分鐘；結算須等這手牌結束。在同一伺服器重新連線即可繼續。切換伺服器也須等這手牌結束。",
 	"docs.guide.tavern-games.code-play-a-hand": "CODE：玩一局",
 	"docs.articles.hub.viewing_items": "登入後，選擇{bank}查看已儲存的銀行物品和金幣。觀戰角色時，選擇{inventory}或{equipment}。點擊物品可查看詳細資訊。這些畫面無法移動或裝備物品。",
 	"docs.guide.tavern-games.restarts": "<b>重新啟動。</b>重新啟動會在倒數之前關閉酒館的遊戲：尚未結算的轉輪、拉霸機和骰子下注全額退回，撲克牌桌作廢本局並結算每位玩家的籌碼，倒數期間的任何請求都會以 <span class='dlabel'>tavern_closing</span> 失敗。",
@@ -2634,5 +2634,7 @@
 	"docs.cave.restart": "如果伺服器重新啟動導致本次探索結束，帳號會恢復當日的進入次數。重新整理頁面或中斷連線不會恢復次數。",
 	"docs.guide.events-and-home.choosing-server": "選擇角色前，請確認角色清單上方的伺服器。可透過伺服器清單切換。每個角色的「家園」一欄會顯示已儲存的家園伺服器。登入時會優先選擇可用的家園伺服器，除非你自行選擇了伺服器或開啟了伺服器連結。已在遊戲中的角色會在目前所在的伺服器開啟。",
 	"docs.guide.events-and-home.saved-home": "每個角色都有各自儲存的家園伺服器，在首次進入遊戲時決定。造訪以前玩過的伺服器並不會改變家園。",
-	"docs.guide.events-and-home.hop-sickness": "等級達到60級的角色進入家園以外的另一個非PvP伺服器時，{condition}會降低XP、金幣、幸運及攻擊力。基本持續時間為12分鐘的線上遊玩時間。重新連線至同一伺服器會保留剩餘時間。返回已儲存的家園，或請Bean更改家園，即可立即解除。"
+	"docs.guide.events-and-home.hop-sickness": "等級達到60級的角色進入家園以外的另一個非PvP伺服器時，{condition}會降低XP、金幣、幸運及攻擊力。基本持續時間為12分鐘的線上遊玩時間。重新連線至同一伺服器會保留剩餘時間。返回已儲存的家園，或請Bean更改家園，即可立即解除。",
+	"docs.guide.tavern-games.deck-verification": "<b>驗證牌組。</b> 發牌前，牌桌會公布一個密碼學承諾值。這手牌結束後，會公開金鑰及完整牌序，包含已蓋棄的手牌。",
+	"docs.functions.poker_act.reopening": "座位的can_raise欄位表示你能否加注。多次不足額全押的累計加注額達到一次完整加注時，已行動的玩家才可再次加注。"
 }

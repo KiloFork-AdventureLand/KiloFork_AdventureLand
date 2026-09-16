@@ -125,6 +125,8 @@ function fixture(beforeCommit) {
 		timers.delete(timer);
 	};
 	vm.runInContext(read("node/logic/character_sessions.js"), c);
+	c.tavern = {};
+	load(c, "node/logic/tavern_poker.js", ["tavern_poker_recover", "tavern_poker_seat_by_id", "tavern_poker_table"]);
 	load(c, "adventure_functions.js", ["msince", "hsince"]);
 	load(c, "node/server_functions.js", ["delete_observer", "init_player_exit"]);
 	load(c, "node/server.js", ["sync_entity", "sync_loop", "mount_call", "unmount_call", "sync_call", "stop_call"]);
@@ -772,4 +774,24 @@ test("cron requires an affirmative recovery response; failures do not clear or a
 		assert.equal(writes, 0);
 		assert.equal(notices, reply === true ? 1 : 0);
 	}
+});
+
+test("login refunds an abandoned poker stack inside the session claim and consumes it once", async () => {
+	const f = fixture();
+	f.character().info.p.poker = { token: "abandoned", stack: 50, server: "SR_old", hand: "lost-hand" };
+	await f.auth(f.data);
+	assert.ok(f.events.some((e) => e.event === "start"));
+	assert.equal(f.character().info.gold, 150);
+	assert.equal(f.character().info.p.poker, undefined);
+});
+
+test("login cannot reclaim chips from a hand on another live server", async () => {
+	const f = fixture();
+	f.character().info.p.poker = { token: "active", stack: 50, server: "SR_old", hand: "active-hand" };
+	f.records.set("SR_old", { _id: "SR_old", online: true, updated: new Date() });
+	await f.auth(f.data);
+	assert.ok(!f.events.some((e) => e.event === "start"));
+	assert.equal(f.character().server, "");
+	assert.equal(f.character().info.gold, 100);
+	assert.equal(f.character().info.p.poker.stack, 50);
 });

@@ -36,7 +36,16 @@ function tavern_slots_bet(player, data, bet_failure, request_id) {
 	if (player.q.slots) return bet_failure("slots_spinning");
 	if (cost > player.gold) return bet_failure("gold_not_enough");
 	var edge = house_edge(),
-		prize = tavern_slots_draw(slots),
+		largest = Math.max.apply(
+			null,
+			slots.prizes.map(function (prize) {
+				return prize[1];
+			}),
+		),
+		liability = largest - cost - ceil((Math.max(0, largest - cost) * edge) / 100);
+	// Admission is decided before drawing, so low reserves cannot change the published prize odds.
+	if (liability > S.gold - house_debt()) return bet_failure("tavern_gold_not_enough");
+	var prize = tavern_slots_draw(slots),
 		stops = tavern_slots_stops(slots, prize && prize[0]),
 		gross = prize ? prize[1] : 0,
 		cut = prize ? ceil((max(0, gross - cost) * edge) / 100.0) : 0;
@@ -86,7 +95,7 @@ function tavern_slots_settle(player, ref, quiet) {
 				),
 			);
 	}
-	instance_emit(tavern, "tavern", {
+	tavern_result(player, {
 		event: ref.won ? "won" : "lost",
 		type: "slots",
 		name: player.name,
@@ -124,12 +133,12 @@ function tavern_slots_disconnect(player) {
 	tavern_slots_settle(player, ref, true);
 }
 
-// Net winnings the house still owes to reels that are turning.
+// Reserve the decided payout or a shutdown refund. The stake is already in the house purse.
 function tavern_slots_debt() {
 	var gold = 0;
 	for (var id in players) {
 		var q = players[id].q;
-		if (q && q.slots && q.slots.won) gold += q.slots.payout - q.slots.cost;
+		if (q && q.slots) gold += Math.max(q.slots.payout, q.slots.cost);
 	}
 	return gold;
 }

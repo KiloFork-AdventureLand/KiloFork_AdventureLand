@@ -70,7 +70,7 @@ function tavern_wheel_settle(player, ref, quiet) {
 			{ color: ref.won ? "gold" : "gray" },
 		),
 	);
-	instance_emit(tavern, "tavern", {
+	tavern_result(player, {
 		event: ref.won ? "won" : "lost",
 		type: "wheel",
 		name: player.name,
@@ -108,12 +108,12 @@ function tavern_wheel_disconnect(player) {
 	tavern_wheel_settle(player, ref, true);
 }
 
-// Winnings the house still owes to wheels that are turning.
+// Reserve the decided payout or a shutdown refund. The stake is already in the house purse.
 function tavern_wheel_debt() {
 	var gold = 0;
 	for (var id in players) {
 		var q = players[id].q;
-		if (q && q.wheel && q.wheel.won) gold += q.wheel.net;
+		if (q && q.wheel) gold += q.wheel.won ? q.wheel.gold * 2 - q.wheel.cut : q.wheel.gold;
 	}
 	return gold;
 }

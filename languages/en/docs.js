@@ -5344,7 +5344,7 @@ module.exports = {
 	// docs/guide/tavern-games.html; Flow node. Fixed HTML: preserve every tag and attribute; translate the label only.
 	"docs.guide.tavern-games.showdown-rake-from-each-pot": "<span class=\"guide-flow-icon tavern-even\">2%</span><span class=\"guide-flow-label\">Showdown · Rake From Each Pot</span>",
 	// docs/guide/tavern-games.html; Guide paragraph. Hold'em is the poker variant; keep the numbers.
-	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "The Tavern has one five-seat no-limit Hold'em table where player gold plays against player gold. Blinds follow the server: buy in for 40 to 200 big blinds, and your stack leaves your purse while you sit and comes back the moment you leave. Every decision has 20 seconds plus a 30-second time bank; when both run out the server checks if it is free and folds otherwise. The house keeps 2% of each awarded pot, at most 10 big blinds.",
+	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "The Tavern has one five-seat no-limit Hold'em table. Buy in for 40 to 200 big blinds. Each decision allows 20 seconds, with one extra 30-second time bank per hand. The house takes 2% from each awarded pot, capped at 10 big blinds.",
 	// docs/guide/tavern-games.html; Blinds table column heading.
 	"docs.guide.tavern-games.servers": "Servers",
 	// docs/guide/tavern-games.html; Blinds table column heading. Poker term.
@@ -5364,7 +5364,7 @@ module.exports = {
 	// docs/guide/tavern-games.html; blinds table row label for PVP servers.
 	"docs.guide.tavern-games.tier-pvp": "PVP servers",
 	// docs/guide/tavern-games.html; Guide note. Fixed HTML: preserve the tags.
-	"docs.guide.tavern-games.leaving-the-table": "<b>Leaving the table.</b> Press Leave, walk away from your stool, use a door or log out and you leave after the current hand; your stack returns to your purse in full. A disconnected seat keeps its stack: the clock still runs, blinds are posted for two more hands, then the seat sits out and is cashed out after five minutes. A restart voids the running hand and returns every bet. Before each deal the table publishes a commitment to its shuffled deck, and after the hand the key and the deck order that verify it.",
+	"docs.guide.tavern-games.leaving-the-table": "<b>Leaving.</b> Leave or walk away to cash out after the hand. A disconnected seat posts blinds for up to two more hands, then sits out. It is kept for five minutes; cash-out waits for the hand to end. Reconnect on the same server to resume. Switching servers also waits for the hand to end.",
 	// docs/guide/tavern-games.html; Guide note on restarts for every Tavern game. Keep tavern_closing as the CODE reason.
 	"docs.guide.tavern-games.restarts":
 		"<b>Restarts.</b> A restart closes the Tavern's games before the countdown: wheel, slots and dice wagers that have not settled are returned in full, the poker table voids its hand and cashes every stack out, and any request during the countdown fails with <span class='dlabel'>tavern_closing</span>.",
@@ -6156,3 +6156,9 @@ module.exports["docs.cave.state"] = "character.cave holds the latest cave state 
 
 // Cave visit rules in INFO and cave_enter(). Restart restores admission, not the run or its unclaimed rewards.
 module.exports["docs.cave.restart"] = "If a server restart ends your visit, the account gets its daily visit back. Reloading or disconnecting does not restore it.";
+
+// Tavern guide: the public deck proof also exposes folded hole cards. Preserve the HTML tags.
+module.exports["docs.guide.tavern-games.deck-verification"] = "<b>Deck verification.</b> Before dealing, the table publishes a commitment. After the hand, it reveals the key and full deck order, including folded cards.";
+
+// Poker CODE reference: can_raise is the exact seat field; short all-ins can cumulatively reopen a full raise.
+module.exports["docs.functions.poker_act.reopening"] = "Your seat's can_raise says whether you may raise. Several short all-ins reopen betting when their combined increase reaches a full raise.";

@@ -344,6 +344,7 @@ function slots_draw(now) {
 var tavern_slots_map = { sprite: null, cells: null, textures: {}, spin: null, symbols: null };
 
 function slots_item_texture(name) {
+	if (no_graphics) return null;
 	var cached = tavern_slots_map.textures[name];
 	if (cached) return cached;
 	var pos = G.positions[name];

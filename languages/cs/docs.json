@@ -2532,7 +2532,7 @@
 	"docs.guide.tavern-games.blinds-and-two-cards": "<span class=\"guide-flow-icon tavern-side\">BB</span><span class=\"guide-flow-label\">Blindy a dvě karty</span>",
 	"docs.guide.tavern-games.four-betting-streets": "<span class=\"guide-flow-icon tavern-choice\">CALL</span><span class=\"guide-flow-label\">Čtyři sázková kola</span>",
 	"docs.guide.tavern-games.showdown-rake-from-each-pot": "<span class=\"guide-flow-icon tavern-even\">2%</span><span class=\"guide-flow-label\">Showdown · Rake z každého potu</span>",
-	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "V hospodě je jeden pětimístný stůl no-limit Hold'em, kde zlato hráčů hraje proti zlatu hráčů. Blindy se řídí serverem: vlož 40 až 200 big blindů; tvůj stack opouští měšec, dokud sedíš, a vrací se ve chvíli, kdy odejdeš. Každé rozhodnutí má 20 sekund plus 30sekundovou časovou banku; když vyprší obojí, server dá check, pokud je zdarma, jinak složí. Podnik si nechává 2 % z každého vyplaceného potu, nejvýše 10 big blindů.",
+	"docs.guide.tavern-games.the-tavern-has-one-five-seat-no-limit": "V Tavern je jeden stůl pro pět hráčů na Hold'em bez limitu. Vstupní vklad je 40 až 200 velkých blindů. Na každé rozhodnutí máš 20 sekund a jednou za rozdání dalších 30 sekund z časové rezervy. Podnik si z každého vyplaceného banku bere 2%, nejvýše však 10 velkých blindů.",
 	"docs.guide.tavern-games.servers": "Servery",
 	"docs.guide.tavern-games.small-blind": "Small blind",
 	"docs.guide.tavern-games.big-blind": "Big blind",
@@ -2541,7 +2541,7 @@
 	"docs.guide.tavern-games.tier-ii": "Servery II",
 	"docs.guide.tavern-games.tier-iii": "Servery III",
 	"docs.guide.tavern-games.tier-iv": "Servery IV+",
-	"docs.guide.tavern-games.leaving-the-table": "<b>Odchod od stolu.</b> Stiskni Odejít, odejdi od stoličky, použij dveře nebo se odhlas a odejdeš po aktuálním rozdání; tvůj stack se vrátí do měšce celý. Odpojené místo si drží stack: hodiny běží dál, blindy se sázejí ještě dvě rozdání, pak místo pauzíruje a po pěti minutách je vyplaceno. Restart zruší probíhající rozdání a vrátí každou sázku. Před každým rozdáním stůl zveřejní závazek k zamíchanému balíčku a po rozdání klíč a pořadí balíčku, které ho ověřují.",
+	"docs.guide.tavern-games.leaving-the-table": "<b>Odchod od stolu.</b> Zvol odchod nebo se vzdal a po rozdání dostaneš žetony zpět. Odpojené místo platí blindy ještě nejvýše dvě rozdání, potom vynechává hru. Místo zůstává rezervované pět minut; výplata čeká na konec rozdání. Pro pokračování se připoj ke stejnému serveru. I změna serveru musí počkat na konec rozdání.",
 	"docs.guide.tavern-games.code-play-a-hand": "CODE: Zahraj rozdání",
 	"docs.articles.hub.viewing_items": "Po přihlášení zvol {bank} a prohlédni si uložené předměty a zlato v bance. Při sledování postavy zvol {inventory} nebo {equipment}. Kliknutím na předmět zobrazíš podrobnosti. V těchto oknech nelze předměty přesouvat ani nasazovat.",
 	"docs.guide.tavern-games.restarts": "<b>Restarty.</b> Restart zavře hry v hospodě ještě před odpočtem: nerozhodnuté sázky na kolo, automaty a kostky se vracejí celé, pokerový stůl zruší rozdání a vyplatí každý stack a každý požadavek během odpočtu selže s <span class='dlabel'>tavern_closing</span>.",
@@ -2634,5 +2634,7 @@
 	"docs.cave.restart": "Pokud návštěvu ukončí restart serveru, účet dostane svůj denní vstup zpět. Obnovení stránky ani odpojení ho nevrátí.",
 	"docs.guide.events-and-home.choosing-server": "Před výběrem postavy zkontroluj server nad seznamem postav. Změnit ho můžeš v seznamu serverů. Řádek Domov ukazuje uložený domov každé postavy. Při přihlášení se upřednostní dostupný domovský server, pokud sis server nevybral sám nebo neotevřel odkaz na server. Postavy, které už hrají, se otevřou na svém současném serveru.",
 	"docs.guide.events-and-home.saved-home": "Každá postava má vlastní uložený domov, který se určí při prvním vstupu do hry. Návštěva známého serveru ho nezmění.",
-	"docs.guide.events-and-home.hop-sickness": "{condition} snižuje XP, zlato, štěstí a sílu útoku, když postava na úrovni 60 nebo vyšší vstoupí na jiný server bez PvP mimo svůj domov. Základní doba trvání je 12 minut hraní online. Opětovné připojení ke stejnému serveru zachová zbývající čas. Návrat do uloženého domova nebo změna domova u Bean účinek ihned odstraní."
+	"docs.guide.events-and-home.hop-sickness": "{condition} snižuje XP, zlato, štěstí a sílu útoku, když postava na úrovni 60 nebo vyšší vstoupí na jiný server bez PvP mimo svůj domov. Základní doba trvání je 12 minut hraní online. Opětovné připojení ke stejnému serveru zachová zbývající čas. Návrat do uloženého domova nebo změna domova u Bean účinek ihned odstraní.",
+	"docs.guide.tavern-games.deck-verification": "<b>Ověření balíčku.</b> Před rozdáním stůl zveřejní kryptografický závazek. Po rozdání odhalí klíč a úplné pořadí balíčku včetně zahozených karet.",
+	"docs.functions.poker_act.reopening": "Pole can_raise u tvého místa určuje, zda smíš navýšit sázku. Několik neúplných navýšení all-in znovu umožní navyšovat, když jejich součet dosáhne plného navýšení."
 }

@@ -161,7 +161,7 @@ test("a stake locks the gold, decides the reels at once and starts the shared ma
 		game: "slots",
 	});
 	assert.deepEqual(logs, ["resend:u+cid+reopen+nc"]);
-	assert.equal(c.house_debt(), ref.payout - 1000000, "the pending net win counts as house debt");
+	assert.equal(c.house_debt(), ref.payout, "the full pending payout counts as house debt");
 	bet({ type: "slots", request_id: "r2" });
 	assert.equal(packets.filter((packet) => packet.event === "game_response").at(-1).data.response, "slots_spinning");
 	assert.equal(player.gold, 4000000, "a refused spin costs nothing");
@@ -254,7 +254,7 @@ test("a losing spin keeps the stake, shows an honest miss and still fulfills the
 
 test("the smallest prize returns more than the stake after every house edge tier", () => {
 	for (const [house, edge] of [
-		[100000000, 2],
+		[1000000000, 2],
 		[1500000000, 1.5],
 		[2500000000, 1],
 		[6000000000, 0.5],
@@ -384,4 +384,17 @@ test("the slots panel and its effects stay silent without graphics", () => {
 	c.slots_tavern_event({ event: "won", name: "A", net: 1, gold: 1, stops: [1, 2, 3] });
 	c.slots_animate();
 	assert.equal(c.tavern_slots.spin, null);
+});
+
+test("insufficient reserves reject a spin before drawing any prize", () => {
+	const f = fixture({ house: 100000000 });
+	let draws = 0;
+	f.c.tavern_slots_roll = () => {
+		draws++;
+		return 0;
+	};
+	f.bet({ type: "slots", request_id: "uncovered" });
+	assert.equal(draws, 0);
+	assert.equal(f.player.q.slots, undefined);
+	assert.ok(f.packets.some((p) => p.event === "game_response" && p.data.response === "tavern_gold_not_enough"));
 });

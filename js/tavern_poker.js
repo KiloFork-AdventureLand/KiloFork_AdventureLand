@@ -36,7 +36,7 @@ function poker_card_xy(card) {
 	var def = poker_definition();
 	if (!card || !def) return [0, 4];
 	var parts = card.split("_"),
-		column = def.ranks.indexOf(parts[0]),
+		column = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"].indexOf(parts[0]),
 		row = def.suits.indexOf(parts[1]);
 	if (column < 0 || row < 0) return [0, 4];
 	return [column, row];
@@ -49,7 +49,7 @@ function poker_card_html(card, big) {
 		"<span class='pk-card" +
 		(big ? " pk-big" : "") +
 		(card ? "" : " pk-back") +
-		"' style='background-position: " +
+		"' style='--pk-card-x:" + -xy[0] * tavern_poker_card_w + "px;--pk-card-y:" + -xy[1] * tavern_poker_card_h + "px;background-position: " +
 		-xy[0] * tavern_poker_card_w * scale +
 		"px " +
 		-xy[1] * tavern_poker_card_h * scale +
@@ -95,13 +95,6 @@ function poker_refresh() {
 	poker_clock();
 }
 
-// The overlay fits the window: a smaller screen sees the same 900x760 layout scaled down as a whole.
-function poker_zoom() {
-	var width = typeof viewport_width == "function" ? viewport_width() : $(window).width(),
-		height = $(window).height();
-	return Math.max(0.5, Math.min(1, Math.floor(Math.min((width - 32) / 900, (height - 48) / 760) * 100) / 100));
-}
-
 function poker_closed() {
 	if (tavern_poker.timer) clearInterval(tavern_poker.timer);
 	tavern_poker.timer = null;
@@ -122,7 +115,7 @@ function poker_css() {
 		".pk-card.pk-big{width:64px;height:88px;background-size:832px 440px;margin:0}.pk-board .pk-slot{width:64px;height:88px;border:2px dashed #3C8049;box-sizing:border-box}" +
 		".pk-seat{position:absolute;width:190px;min-height:124px;background:black;border:4px solid gray;padding:6px 8px;text-align:center;box-sizing:border-box}" +
 		".pk-active{border-color:#FFE737}.pk-folded{opacity:.5}.pk-winner{border-color:#FFD888;box-shadow:0 0 0 3px #7A5A10;animation:pk-glow .7s ease-in-out 4}.pk-empty{border-style:dashed}.pk-me{border-color:#6DB7B8}.pk-me.pk-active{border-color:#FFE737}" +
-		".pk-front-l{left:112px;top:396px}.pk-front-c{left:355px;top:396px}.pk-front-r{left:598px;top:396px}.pk-side-l{left:8px;top:150px}.pk-side-r{left:702px;top:150px}" +
+		".pk-front-l{left:112px;top:364px}.pk-front-c{left:355px;top:364px}.pk-front-r{left:598px;top:364px}.pk-side-l{left:8px;top:150px}.pk-side-r{left:702px;top:150px}" +
 		".pk-name{color:#E6B16B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pk-dealer{display:inline-block;background:#FFE737;color:black;padding:0 6px;font-size:18px;margin-left:4px}.pk-stack{color:#FFD888}" +
 		".pk-hand{height:48px;margin:4px 0}.pk-hand.pk-mine{height:92px}" +
 		".pk-bet{position:absolute;left:50%;top:-36px;transform:translateX(-50%);background:#24552F;border:3px solid #9D5F3E;padding:0 8px;color:#FFE737;white-space:nowrap;font-size:20px}" +
@@ -140,6 +133,7 @@ function poker_css() {
 		"@keyframes pk-glow{0%,100%{box-shadow:0 0 0 3px #7A5A10}50%{box-shadow:0 0 0 6px #FFD888,0 0 26px #FFE737}}" +
 		".pk-fly{position:absolute;z-index:3;transform:translate(-50%,-50%);color:#FFE737;font-size:24px;background:#24552F;border:3px solid #9D5F3E;padding:0 8px;white-space:nowrap;pointer-events:none}" +
 		".pk-burst{position:absolute;z-index:4;width:72px;height:72px;margin:-44px 0 0 -36px;background-repeat:no-repeat;background-size:576px 72px;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none}" +
+		"@media(max-width:959px){.pk{width:min(900px,calc(100vw - 40px));height:auto;box-sizing:border-box;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:10px;font-size:20px}.pk-title,.pk-info,.pk-table,.pk-seat,.pk-actions,.pk-tools,.pk-log{position:relative;inset:auto;width:auto;max-height:none}.pk-title{order:0;grid-column:1/-1;grid-row:1;line-height:28px}.pk-info{order:1;grid-column:1/-1;grid-row:2;text-align:center;font-size:16px}.pk-table{order:2;grid-column:1/-1;grid-row:3;height:160px;border-radius:70px}.pk-pot{top:28px;font-size:20px}.pk-board{top:76px;height:44px}.pk-board .pk-slot{width:32px;height:44px}.pk-board .pk-big{width:32px;height:44px;background-size:416px 220px;background-position:var(--pk-card-x) var(--pk-card-y)!important}.pk-seat{min-width:0;min-height:0;padding:6px 2px}.pk-bet,.pk-side-l .pk-bet,.pk-side-r .pk-bet{position:static;transform:none;padding:0;border-width:1px;font-size:16px;white-space:normal}.pk-head{flex-wrap:wrap}.pk-name{font-size:18px}.pk-stack{font-size:18px}.pk-me{order:3;grid-column:1/-1}.pk-seat:not(.pk-me){order:6}.pk-hand.pk-mine{height:92px}.pk-actions{order:4;grid-column:1/-1;grid-row:5}.pk-actions .gamebutton{min-width:0;margin:3px;padding:7px;font-size:20px}.pk-actions.gray{padding:8px 0}.pk-raise{display:block;padding:6px 2px;box-sizing:border-box}.pk-row{white-space:normal}.pk-raise input{width:116px;margin:4px 2px}.pk-raise .pk-go{margin-top:4px}.pk-tools{order:5;grid-column:1/-1;text-align:center;display:flex;flex-wrap:wrap;justify-content:center;gap:6px}.pk-tools .gamebutton{display:inline-block;margin:0}.pk-log{order:7;grid-column:1/-1;max-height:120px;font-size:16px}.pk-buyin input{width:110px}.pk-ring{inset:20px}.pk-presets .gamebutton{font-size:16px;padding:5px}}" +
 		"</style>"
 	);
 }
@@ -248,14 +242,14 @@ function poker_seat_html(seat, index) {
 	var timer = live && hand.acting == seat.index ? "<div class='pk-timer" + (hand.banked ? " pk-bank" : "") + "'><i style='width: 100%'></i></div>" : "";
 	// The character's own sprite as a portrait, through the same renderer as the party list.
 	var entity = !no_graphics && typeof get_entity == "function" ? get_entity(seat.name) : null,
-		face = entity && entity.skin && typeof sprite == "function" ? "<div class='pk-face'>" + sprite(entity.skin, { cx: entity.cx || {}, scale: 1.5 }) + "</div>" : "";
+		face = entity && entity.skin && typeof sprite == "function" ? "<div class='pk-face'>" + sprite(entity.skin, { cx: entity.cx || {}, scale: 1 }) + "</div>" : "";
 	return (
 		"<div class='" +
 		classes +
 		"'><div class='pk-head'>" +
 		face +
 		"<div class='pk-who'><div class='pk-name'>" +
-		seat.name +
+		phrase.escape(seat.name) +
 		(state.button === seat.index ? "<span class='pk-dealer'>D</span>" : "") +
 		"</div><div class='pk-stack'>" +
 		poker_pretty(seat.stack) +
@@ -282,7 +276,7 @@ function poker_actions_html() {
 		hand = state.hand,
 		me = poker_me();
 	if (!me) return "<div class='pk-actions gray'>" + phrase.html("interface.poker.take_a_seat", { min: poker_pretty(state.buyin[0]), max: poker_pretty(state.buyin[1]) }) + "</div>";
-	if (!hand || hand.over || hand.acting != me.index) {
+	if (!hand || hand.over || hand.settling || hand.acting != me.index) {
 		var text;
 		if (hand && !hand.over && hand.acting >= 0 && state.seats[hand.acting]) text = phrase.html("interface.poker.waiting_for", { name: state.seats[hand.acting].name });
 		else if (me.out) text = phrase.html("interface.poker.sitting_out_hint");
@@ -300,7 +294,9 @@ function poker_actions_html() {
 			phrase.html("interface.poker.call", { amount: poker_pretty(Math.min(to_call, me.stack)) }) +
 			"</div>";
 	else html += "<div class='gamebutton clickable pk-call' style='border-color: #A7C16D' onclick='poker_action(\"check\")'>" + phrase.html("interface.poker.check") + "</div>";
-	html += "<div class='gamebutton clickable pk-allin' style='border-color: #FFE737' onclick='poker_action(\"allin\")'>" + phrase.html("interface.poker.all_in") + "</div></div>";
+	if (me.can_raise !== false || max <= hand.bet) html += "<div class='gamebutton clickable pk-allin' style='border-color: #FFE737' onclick='poker_action(\"allin\")'>" + phrase.html("interface.poker.all_in") + "</div>";
+	html += "</div>";
+	if (max <= hand.bet || me.can_raise === false) return html + "</div>";
 	// The raise box: type an amount or pick a preset, then RAISE sends it.
 	html += "<div class='pk-raise'><div class='pk-row'><span class='gray'>" + phrase.html(hand.bet ? "interface.poker.raise_to" : "interface.poker.bet") + "</span> ";
 	html += "<input type='text' class='pk-amount' value='" + poker_pretty(min_raise) + "' onkeydown='if(event.keyCode==13) poker_raise()'>";
@@ -354,9 +350,7 @@ function poker_html() {
 	var state = poker_state();
 	if (!state)
 		return (
-			"<div class='pk' style='zoom: " +
-			poker_zoom() +
-			"'><div class='pk-title'>" +
+			"<div class='pk'><div class='pk-title'>" +
 			phrase.html("interface.poker.title") +
 			"</div><div class='pk-actions gray'>" +
 			phrase.html("interface.poker.loading") +
@@ -366,7 +360,7 @@ function poker_html() {
 		me = poker_me(),
 		board = "";
 	for (var i = 0; i < 5; i++) board += hand && hand.board[i] ? poker_card_html(hand.board[i], true) : "<span class='pk-slot'></span>";
-	var html = "<div class='pk' data-decision='" + (hand && !hand.over ? hand.n + ":" + hand.street + ":" + hand.acting : "") + "' style='zoom: " + poker_zoom() + "'>";
+	var html = "<div class='pk' data-decision='" + (hand && !hand.over ? hand.n + ":" + hand.street + ":" + hand.acting : "") + "'>";
 	html +=
 		"<div class='pk-log'>" +
 		state.log
@@ -495,6 +489,7 @@ function poker_floor_burst(entity, count) {
 	var a_map = current_map;
 	for (var i = 0; i < count; i++)
 		draw_timeout(function () {
+			if (no_graphics) return;
 			if (entity.real_x === undefined) entity = get_entity(entity);
 			if (!entity || a_map != current_map) return;
 			var burst = new_sprite("poker_win", "animation"),
@@ -509,6 +504,7 @@ function poker_floor_burst(entity, count) {
 			burst.anchor.set(0.5, 1);
 			map.addChild(burst);
 			(function step(frame) {
+				if (no_graphics) return;
 				if (frame >= 8 || a_map != current_map) return destroy_sprite(burst);
 				burst.frame = frame;
 				set_texture(burst, frame);
@@ -538,9 +534,13 @@ function poker_overlay_win(index, gold) {
 			sx = seat[0].offsetLeft + seat[0].offsetWidth / 2,
 			sy = seat[0].offsetTop + 30;
 		if (t < 1) {
-			var eased = t * t;
+			var eased = t * t,
+				felt = pk.find(".pk-table")[0],
+				pot = pk.find(".pk-pot")[0],
+				from_x = felt.offsetLeft + felt.offsetWidth / 2,
+				from_y = felt.offsetTop + pot.offsetTop;
 			if (!fly[0].parentNode) pk.append(fly);
-			fly.css({ left: 450 + (sx - 450) * eased, top: 108 + (sy - 108) * eased });
+			fly.css({ left: from_x + (sx - from_x) * eased, top: from_y + (sy - from_y) * eased });
 			return requestAnimationFrame(frame);
 		}
 		fly.remove();
@@ -622,7 +622,7 @@ function poker_event(data) {
 	var previous = tavern_poker.state;
 	tavern_poker.state = data;
 	tavern_poker.skew = Date.now() - data.now;
-	data.next_at = Date.now() + data.next;
+	data.next_at = data.now + data.next;
 	if (typeof call_code_function == "function") call_code_function("trigger_event", "poker", data);
 	if (no_graphics) return;
 	var hand = data.hand,
@@ -738,6 +738,7 @@ function poker_walk(index) {
 var tavern_poker_map = { sprite: null, board: null, seats: null, button: null };
 
 function poker_texture(card) {
+	if (no_graphics) return null;
 	var key = card || "back";
 	if (tavern_poker.textures[key]) return tavern_poker.textures[key];
 	if (!tavern_poker.base) {

@@ -7,6 +7,12 @@ function tavern_closing() {
 	return !!((tavern && tavern.closed) || server.shutdown || !server.live);
 }
 
+// The room sees the result, and its owner still receives completion after walking through the door.
+function tavern_result(player, data) {
+	instance_emit(tavern, "tavern", data);
+	if (player.socket && (!tavern.players || tavern.players[player.id] !== player)) player.socket.emit("tavern", data);
+}
+
 // The CODE promise behind a refunded wager settles with the reason and the returned gold; the panel logs it too.
 function tavern_refund_response(player, place, request_id, gold) {
 	if (!player.socket) return;
@@ -32,7 +38,7 @@ function tavern_refund_wheel(player) {
 	player.gold += ref.gold;
 	S.gold -= ref.gold;
 	tavern_refund_response(player, "wheel", ref.request_id, ref.gold);
-	instance_emit(tavern, "tavern", {
+	tavern_result(player, {
 		event: "refund",
 		type: "wheel",
 		name: player.name,
@@ -49,7 +55,7 @@ function tavern_refund_slots(player) {
 	player.gold += ref.cost;
 	S.gold -= ref.cost;
 	tavern_refund_response(player, "slots", ref.request_id, ref.cost);
-	instance_emit(tavern, "tavern", {
+	tavern_result(player, {
 		event: "refund",
 		type: "slots",
 		name: player.name,

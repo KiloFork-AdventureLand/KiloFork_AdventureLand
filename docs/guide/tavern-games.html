@@ -66,6 +66,7 @@
 	<div class="guide-paytable-row" data-tier="PVP"><span>{{ phrase("docs.guide.tavern-games.tier-pvp") }}</span></div>
 </div>
 <div class="guide-note">{{ phrase_html("docs.guide.tavern-games.leaving-the-table") }}</div>
+<div class="guide-note">{{ phrase_html("docs.guide.tavern-games.deck-verification") }}</div>
 <div class="guide-note">{{ phrase_html("docs.guide.tavern-games.restarts") }}</div>
 
 <div class="divider"></div>
@@ -113,35 +114,41 @@ inspect_tavern().catch(show_json);</div>
 <div class="code">// Walk up to a free stool, buy in for the smallest amount, play every hand with a plain rule, and leave after a while.
 // The table object carries the stools as offsets from its anchor, your seat (me) and your two hole cards (cards).
 async function play_poker(hands) {
+	if (!Number.isInteger(hands) || hands &lt; 1) return;
 	var table = await get_poker_table();
-	if (table.buyin[0] &gt; character.gold) return game_log("Not enough gold to buy in");
+	if (table.me &gt;= 0 || table.buyin[0] &gt; character.gold) return;
 	var seat = table.seats.indexOf(null);
-	if (seat == -1) return game_log("The table is full");
+	if (seat == -1) return;
 	await smart_move({ map: "tavern", x: table.x + table.stools[seat][0], y: table.y + table.stools[seat][1] });
-	var joined = await poker_join(table.buyin[0], seat);
-	game_log("Seat " + joined.seat + " with " + joined.stack + " gold");
-	var cards = [],
-		played = 0,
-		listener = game.on("poker", async function (data) {
-			if (data.event == "cards") return (cards = data.cards); // your hole cards for the new hand, e.g. ["Kh", "3s"]
-			var me = data.seats[joined.seat],
-				hand = data.hand;
-			if (!me || !hand) return;
+	var cards = [], cards_n = -1, played = 0, last_hand = -1, busy = false, joined = false;
+	var listener = game.on("poker", async function (data) {
+		if (data.event == "cards") { cards = data.cards; cards_n = data.n; return; }
+		if (data.event != "state" || !joined || busy) return;
+		var me = data.seats[seat], hand = data.hand;
+		if (!me || me.name != character.name || !hand || hand.settling) return;
+		if (hand.over) {
+			if (hand.n == cards_n &amp;&amp; hand.n != last_hand &amp;&amp; !hand.results.voided) {
+				last_hand = hand.n;
+				played++;
+			}
+			if (played &lt; hands) return;
+		} else if (hand.acting != seat) return;
+		busy = true;
+		try {
 			if (hand.over) {
-				if (++played &gt;= hands) {
-					game.remove(listener);
-					await poker_leave(); // between hands the stack returns to your purse at once
-				}
+				await poker_leave();
+				game.remove(listener);
 				return;
 			}
-			if (hand.acting != joined.seat) return;
 			var to_call = hand.bet - me.bet,
-				pair = cards.length == 2 &amp;&amp; cards[0][0] == cards[1][0];
-			if (pair &amp;&amp; hand.street == "preflop") return poker_act("raise", hand.bet + 2 * hand.min_raise).catch(show_json);
-			if (to_call == 0) return poker_act("check");
-			if (to_call &lt;= 2 * data.blinds[1]) return poker_act("call");
-			poker_act("fold");
-		});
+				pair = cards_n == hand.n &amp;&amp; cards.length == 2 &amp;&amp; cards[0].split("_")[0] == cards[1].split("_")[0];
+			if (pair &amp;&amp; hand.street == "preflop" &amp;&amp; me.can_raise) await poker_act("raise", hand.bet + 2 * hand.min_raise);
+			else await poker_act(to_call == 0 ? "check" : to_call &lt;= 2 * data.blinds[1] ? "call" : "fold");
+		} catch (error) { show_json(error); }
+		finally { busy = false; }
+	});
+	try { await poker_join(table.buyin[0], seat); joined = true; }
+	catch (error) { game.remove(listener); throw error; }
 }
 
 // Sitting out keeps the seat and the stack while you step away; sit back in to be dealt again:

@@ -3,10 +3,19 @@
 <p>{{ phrase_html("docs.functions.poker_act.returns-promise-resolving-with-action-amount-stack-and-pot") }}</p>
 <p>{{ phrase_html("docs.functions.poker_act.promise-failures-unless-a-function-specific-note-says") }}</p>
 <p>{{ phrase_html("docs.functions.poker_act.notes-for-bet-and-raise-amount-is-the-total") }}</p>
+<p>{{ phrase("docs.functions.poker_act.reopening") }}</p>
 <p>{{ phrase_html("docs.functions.poker_act.example") }}</p>
-<div class="code">
-	game.on("poker", async function (table) { var me = table.seats.find(function (seat) { return seat &amp;&amp; seat.name == character.name; }); if (!me || !table.hand || table.hand.over ||
-	table.hand.acting != me.index) return; var to_call = table.hand.bet - me.bet; await poker_act(to_call &gt; 2 * table.blinds[1] ? "fold" : to_call &gt; 0 ? "call" : "check"); });
+<div class="code">var poker_busy = false;
+game.on("poker", async function (table) {
+	if (table.event != "state" || poker_busy) return;
+	var me = table.seats.find(function (seat) { return seat &amp;&amp; seat.name == character.name; });
+	if (!me || !table.hand || table.hand.over || table.hand.settling || table.hand.acting != me.index) return;
+	var to_call = table.hand.bet - me.bet;
+	poker_busy = true;
+	try { await poker_act(to_call &gt; 2 * table.blinds[1] ? "fold" : to_call &gt; 0 ? "call" : "check"); }
+	catch (error) { show_json(error); }
+	finally { poker_busy = false; }
+});
 </div>
 
 <p></p>
