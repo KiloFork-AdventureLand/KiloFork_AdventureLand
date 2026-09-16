@@ -450,5 +450,6 @@
 	"response.poker_broke": "再次買入才能繼續遊戲",
 	"response.poker_unavailable": "撲克牌桌暫時關閉",
 	"response.tavern_closing": "伺服器重新啟動期間，酒館的遊戲已關閉",
-	"response.poker_stool_far": "站到空凳子旁邊才能入座"
+	"response.poker_stool_far": "站到空凳子旁邊才能入座",
+	"response.poker_saving": "撲克桌正在更新，請稍後再試。"
 }

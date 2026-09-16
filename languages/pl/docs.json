@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Każda postać ma własny zapisany serwer domowy, ustalany przy pierwszym wejściu do gry. Odwiedzenie znajomego serwera go nie zmienia.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} obniża XP, złoto, szczęście i siłę ataku, gdy postać na poziomie 60 lub wyższym wchodzi na inny serwer bez PvP poza swoim domem. Podstawowy czas trwania to 12 minut gry online. Ponowne połączenie z tym serwerem zachowuje pozostały czas. Powrót na zapisany serwer domowy lub zmiana domu u Bean natychmiast usuwa efekt.",
 	"docs.guide.tavern-games.deck-verification": "<b>Weryfikacja talii.</b> Przed rozdaniem stół publikuje zobowiązanie kryptograficzne. Po rozdaniu ujawnia klucz i pełną kolejność talii, w tym spasowane karty.",
-	"docs.functions.poker_act.reopening": "Pole can_raise twojego miejsca wskazuje, czy możesz podbić. Kilka niepełnych podbić all-in ponownie pozwala podbijać, gdy ich łączny wzrost osiągnie pełne podbicie."
+	"docs.functions.poker_act.reopening": "Pole can_raise twojego miejsca wskazuje, czy możesz podbić. Kilka niepełnych podbić all-in ponownie pozwala podbijać, gdy ich łączny wzrost osiągnie pełne podbicie.",
+	"docs.poker.waiting": "Jeśli akcja kończy się błędem poker_saving, odczekaj chwilę i spróbuj ponownie. Jeśli logowanie kończy się błędem poker_hand_active, poczekaj na koniec rozdania lub połącz się ponownie z serwerem, na którym ono trwa."
 }

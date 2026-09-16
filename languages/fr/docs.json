@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Chaque personnage possède son propre foyer enregistré, défini à sa première entrée en jeu. Visiter un serveur connu ne le modifie pas.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} réduit les XP, l'or, la chance et la puissance d'attaque lorsqu'un personnage de niveau 60 ou plus rejoint un autre serveur sans PvP, hors de son foyer. Sa durée de base est de 12 minutes de jeu en ligne. Se reconnecter à ce serveur conserve le temps restant. Revenir au foyer enregistré ou changer de foyer auprès de Bean dissipe immédiatement l'effet.",
 	"docs.guide.tavern-games.deck-verification": "<b>Vérification du paquet.</b> Avant la distribution, la table publie un engagement cryptographique. Après la main, elle révèle la clé et l'ordre complet du paquet, y compris les cartes couchées.",
-	"docs.functions.poker_act.reopening": "Le champ can_raise de votre place indique si vous pouvez relancer. Plusieurs petites relances à tapis rouvrent le droit de relancer lorsque leur augmentation cumulée atteint une relance complète."
+	"docs.functions.poker_act.reopening": "Le champ can_raise de votre place indique si vous pouvez relancer. Plusieurs petites relances à tapis rouvrent le droit de relancer lorsque leur augmentation cumulée atteint une relance complète.",
+	"docs.poker.waiting": "Si une action échoue avec poker_saving, attendez un instant et réessayez. Si la connexion échoue avec poker_hand_active, attendez la fin de votre main ou reconnectez-vous au serveur où elle se joue."
 }

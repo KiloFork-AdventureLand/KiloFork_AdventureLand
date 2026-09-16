@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Každá postava má vlastní uložený domov, který se určí při prvním vstupu do hry. Návštěva známého serveru ho nezmění.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} snižuje XP, zlato, štěstí a sílu útoku, když postava na úrovni 60 nebo vyšší vstoupí na jiný server bez PvP mimo svůj domov. Základní doba trvání je 12 minut hraní online. Opětovné připojení ke stejnému serveru zachová zbývající čas. Návrat do uloženého domova nebo změna domova u Bean účinek ihned odstraní.",
 	"docs.guide.tavern-games.deck-verification": "<b>Ověření balíčku.</b> Před rozdáním stůl zveřejní kryptografický závazek. Po rozdání odhalí klíč a úplné pořadí balíčku včetně zahozených karet.",
-	"docs.functions.poker_act.reopening": "Pole can_raise u tvého místa určuje, zda smíš navýšit sázku. Několik neúplných navýšení all-in znovu umožní navyšovat, když jejich součet dosáhne plného navýšení."
+	"docs.functions.poker_act.reopening": "Pole can_raise u tvého místa určuje, zda smíš navýšit sázku. Několik neúplných navýšení all-in znovu umožní navyšovat, když jejich součet dosáhne plného navýšení.",
+	"docs.poker.waiting": "Pokud akce selže s poker_saving, chvíli počkej a zkus to znovu. Pokud přihlášení selže s poker_hand_active, počkej na konec svého rozdání nebo se znovu připoj k serveru, kde probíhá."
 }

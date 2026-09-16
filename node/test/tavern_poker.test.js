@@ -33,6 +33,7 @@ function fixture(options = {}) {
 		crypto,
 		Math,
 		Date,
+		performance: { now: () => now },
 		JSON,
 		console,
 		Object,
@@ -1064,4 +1065,110 @@ test("dealing waits for an in-flight bank or character save instead of saving ha
 	f.tick(4000);
 	await checkpoint_done(f);
 	assert.ok(f.table().hand && !f.table().hand.over);
+});
+
+test("forfeiting clears only the consumed token from attached and disconnected mirrors", async () => {
+	for (const disconnected of [false, true]) {
+		const f = durable_fixture(),
+			[a] = f.people;
+		f.tick(4000);
+		await checkpoint_done(f);
+		const seat = f.table().seats[0];
+		if (disconnected) a.disconnect();
+		delete f.store.records.get(a.real_id).info.p.poker;
+		f.c.tavern_poker_finish();
+		await checkpoint_done(f);
+		assert.equal(seat.settled, true);
+		assert.equal(a.p.poker, undefined);
+		const entity = f.store.records.get(a.real_id);
+		f.c.sync_entity(entity, plain(f.c.player_to_server(a, "sync")));
+		assert.equal(entity.info.p.poker, undefined, "an autosave cannot restore the consumed mirror");
+	}
+	const f = fixture(),
+		[a] = sit(f, ["A"]),
+		seat = f.table().seats[0];
+	const disconnected = { p: { poker: { token: "new-seat", stack: 123 } } };
+	f.c.dc_players[a.real_id] = disconnected;
+	const arriving = { ...a, p: {} };
+	f.c.tavern_poker_login(arriving);
+	assert.equal(a.p.poker, undefined, "login clears the old attached mirror before detaching it");
+	assert.equal(disconnected.p.poker.token, "new-seat", "a different escrow remains intact");
+});
+
+test("a hung checkpoint stops delaying shutdown after 30 seconds without unlocking the table", async () => {
+	const f = durable_fixture(),
+		[a] = f.people;
+	let release;
+	f.c.tx = () =>
+		new Promise((resolve) => {
+			release = resolve;
+		});
+	f.tick(4000);
+	assert.equal(f.c.tavern_pending(), 1);
+	assert.equal(a.request({ event: "sit_out" }).response, "poker_saving");
+	assert.equal(a.request({ event: "info" }).success, true, "table information remains available");
+	f.advance(30000);
+	assert.equal(f.c.tavern_pending(), 0);
+	assert.equal(f.c.tavern_pending(), 0);
+	assert.equal(f.table().saving, true, "an unknown commit must not permit another transaction");
+	assert.equal(f.logs.filter((line) => line.includes("checkpoint exceeded 30 seconds")).length, 1);
+	release({ failed: true });
+	await checkpoint_done(f);
+	assert.equal(f.table().saving, false, "a delayed reply is still handled");
+});
+
+test("the award transaction voids incorrect or invalid totals and returns the persisted opening balances", async () => {
+	for (const corrupt of [
+		(s) => s.awards[0]++,
+		(s) => (s.awards[0] = -1),
+		(s) => (s.awards[0] = NaN),
+		(s) => (s.rake = 0.5),
+	]) {
+		const f = durable_fixture(),
+			[a] = f.people;
+		f.tick(4000);
+		await checkpoint_done(f);
+		const calculate = f.c.tavern_poker_calculate;
+		f.c.tavern_poker_calculate = () => {
+			calculate();
+			corrupt(f.table().hand.settlement);
+		};
+		act(a, "fold");
+		await checkpoint_done(f);
+		assert.equal(f.table().hand.voided, true);
+		assert.equal(f.c.S.gold, 3000000000, "no rake on a failed invariant");
+		for (const p of f.people) {
+			const saved = f.store.records.get(p.real_id);
+			assert.equal(saved.info.gold + saved.info.p.poker.stack, 8000000000);
+			assert.equal(saved.info.p.poker.hand, null);
+		}
+		assert.equal(f.store.records.get("IE_POKER-SR_test").info.conservation_failed, true);
+		assert.ok(f.logs.some((line) => line.includes("did not conserve gold")));
+	}
+});
+
+test("recovery adds numeric legacy purses and uses locally observed heartbeat progress despite clock skew", async () => {
+	const f = fixture();
+	const entity = {
+		_id: "CH_late",
+		info: { gold: "100", p: { poker: { token: "legacy", stack: "50", server: "SR_old" } } },
+	};
+	await f.c.tavern_poker_recover(entity, async () => null);
+	assert.equal(entity.info.gold, 150);
+	for (const skew of [-3600000, 3600000]) {
+		const source = { _id: "SR_skew" + skew, online: true, updated: new Date(Date.now() + skew) };
+		assert.equal(f.c.tavern_poker_source_live(source), true);
+		f.advance(59000);
+		assert.equal(f.c.tavern_poker_source_live(source), true);
+		source.updated = new Date(+source.updated + 15000);
+		assert.equal(f.c.tavern_poker_source_live(source), true);
+		f.advance(59000);
+		assert.equal(f.c.tavern_poker_source_live(source), true, "progress resets the local observation interval");
+		f.advance(1000);
+		assert.equal(
+			f.c.tavern_poker_source_live(source),
+			false,
+			"an unchanged heartbeat expires even if dated in the future",
+		);
+	}
 });

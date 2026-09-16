@@ -450,5 +450,6 @@
 	"response.poker_broke": "Oynamaya devam etmek için yeniden giriş yap",
 	"response.poker_unavailable": "Poker masası şu an kapalı",
 	"response.tavern_closing": "Sunucu yeniden başlatılırken Taverna'nın oyunları kapalı",
-	"response.poker_stool_far": "Oturmak için boş bir taburenin yanında dur"
+	"response.poker_stool_far": "Oturmak için boş bir taburenin yanında dur",
+	"response.poker_saving": "Poker masası güncelleniyor. Biraz sonra tekrar dene."
 }

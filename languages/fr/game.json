@@ -450,5 +450,6 @@
 	"response.poker_broke": "Cavez à nouveau pour continuer à jouer",
 	"response.poker_unavailable": "La table de poker est fermée pour le moment",
 	"response.tavern_closing": "Les jeux de la taverne sont fermés pendant le redémarrage du serveur",
-	"response.poker_stool_far": "Placez-vous à côté d'un tabouret libre pour vous asseoir"
+	"response.poker_stool_far": "Placez-vous à côté d'un tabouret libre pour vous asseoir",
+	"response.poker_saving": "La table de poker se met à jour. Réessayez dans un instant."
 }

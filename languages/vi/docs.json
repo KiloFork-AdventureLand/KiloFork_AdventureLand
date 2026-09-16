@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Mỗi nhân vật có máy chủ nhà riêng, được lưu khi vào trò chơi lần đầu. Ghé lại một máy chủ quen thuộc không làm thay đổi nhà.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} làm giảm XP, vàng, may mắn và sức tấn công khi nhân vật từ cấp 60 vào một máy chủ khác không có PvP và không phải nhà. Thời lượng cơ bản là 12 phút chơi trực tuyến. Kết nối lại cùng máy chủ vẫn giữ thời gian còn lại. Trở về nhà đã lưu hoặc đổi nhà với Bean sẽ xóa hiệu ứng ngay lập tức.",
 	"docs.guide.tavern-games.deck-verification": "<b>Kiểm chứng bộ bài.</b> Trước khi chia bài, bàn công bố một cam kết mật mã. Sau ván, bàn tiết lộ khóa và toàn bộ thứ tự bộ bài, kể cả những lá đã bỏ.",
-	"docs.functions.poker_act.reopening": "Trường can_raise của ghế cho biết bạn có được tố thêm hay không. Nhiều lần tố tất tay chưa đủ mức sẽ mở lại quyền tố khi tổng mức tăng đạt một lần tố đủ mức."
+	"docs.functions.poker_act.reopening": "Trường can_raise của ghế cho biết bạn có được tố thêm hay không. Nhiều lần tố tất tay chưa đủ mức sẽ mở lại quyền tố khi tổng mức tăng đạt một lần tố đủ mức.",
+	"docs.poker.waiting": "Nếu thao tác thất bại với poker_saving, hãy chờ một lát rồi thử lại. Nếu đăng nhập thất bại với poker_hand_active, hãy chờ ván của bạn kết thúc hoặc kết nối lại máy chủ đang diễn ra ván đó."
 }

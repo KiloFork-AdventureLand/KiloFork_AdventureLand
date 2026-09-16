@@ -453,5 +453,6 @@
 	"response.poker_broke": "Intră din nou ca să continui să joci",
 	"response.poker_unavailable": "Masa de poker este închisă momentan",
 	"response.tavern_closing": "Jocurile tavernei sunt închise cât timp serverul repornește",
-	"response.poker_stool_far": "Stai lângă un scaun liber ca să te așezi"
+	"response.poker_stool_far": "Stai lângă un scaun liber ca să te așezi",
+	"response.poker_saving": "Masa de poker se actualizează. Încearcă din nou în câteva clipe."
 }

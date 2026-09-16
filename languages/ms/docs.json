@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Setiap watak mempunyai rumah tersimpan sendiri yang ditetapkan apabila mula memasuki permainan. Melawat pelayan yang pernah dimainkan tidak mengubahnya.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} mengurangkan XP, emas, tuah dan kuasa serangan apabila watak tahap 60 ke atas memasuki pelayan bukan PvP lain di luar rumahnya. Tempoh asas ialah 12 minit bermain dalam talian. Menyambung semula ke pelayan yang sama mengekalkan baki masa. Kembali ke rumah tersimpan atau menukar rumah melalui Bean menghapuskan kesan serta-merta.",
 	"docs.guide.tavern-games.deck-verification": "<b>Pengesahan dek.</b> Sebelum kad diedarkan, meja menerbitkan komitmen kriptografi. Selepas pusingan, kunci dan susunan penuh dek didedahkan, termasuk kad yang telah dilipat.",
-	"docs.functions.poker_act.reopening": "Nilai can_raise pada tempat anda menunjukkan sama ada anda boleh menaikkan taruhan. Beberapa kenaikan all-in yang tidak penuh membuka semula hak menaikkan apabila jumlah kenaikannya mencapai satu kenaikan penuh."
+	"docs.functions.poker_act.reopening": "Nilai can_raise pada tempat anda menunjukkan sama ada anda boleh menaikkan taruhan. Beberapa kenaikan all-in yang tidak penuh membuka semula hak menaikkan apabila jumlah kenaikannya mencapai satu kenaikan penuh.",
+	"docs.poker.waiting": "Jika tindakan gagal dengan poker_saving, tunggu sebentar dan cuba lagi. Jika log masuk gagal dengan poker_hand_active, tunggu sehingga pusingan anda selesai atau sambung semula ke pelayan tempat pusingan itu berlangsung."
 }

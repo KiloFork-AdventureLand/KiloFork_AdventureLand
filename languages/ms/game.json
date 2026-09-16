@@ -450,5 +450,6 @@
 	"response.poker_broke": "Buy-in semula untuk terus bermain",
 	"response.poker_unavailable": "Meja poker ditutup buat masa ini",
 	"response.tavern_closing": "Permainan Kedai Minuman ditutup semasa pelayan dimulakan semula",
-	"response.poker_stool_far": "Berdiri di sebelah kerusi kosong untuk duduk"
+	"response.poker_stool_far": "Berdiri di sebelah kerusi kosong untuk duduk",
+	"response.poker_saving": "Meja poker sedang dikemas kini. Cuba lagi sebentar nanti."
 }

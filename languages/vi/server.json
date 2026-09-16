@@ -390,5 +390,6 @@
 	"server.cave.story_stairs": "{npc}: Mỗi lần ta đến đây, cầu thang lại đổi chỗ. Ta đi theo những ngọn đuốc.",
 	"server.cave.helpers_limit": "Bạn đã có hai người trợ giúp.",
 	"server.cave.gold_limit": "Toàn bộ {amount} vàng hang động cho lượt vào này đã xuất hiện. Bạn vẫn có thể tìm vật phẩm và nhận XP.",
-	"server.cave.amber_limit": "Toàn bộ {amount} Cave Amber cho lượt vào này đã xuất hiện. Bạn vẫn có thể tìm vật phẩm và nhận XP."
+	"server.cave.amber_limit": "Toàn bộ {amount} Cave Amber cho lượt vào này đã xuất hiện. Bạn vẫn có thể tìm vật phẩm và nhận XP.",
+	"server.game_error.poker_hand_active": "Ván poker của bạn vẫn đang diễn ra trên máy chủ khác. Hãy chờ ván kết thúc hoặc kết nối lại máy chủ đó."
 }

@@ -450,5 +450,6 @@
 	"response.poker_broke": "Rientra con un nuovo buy-in per continuare a giocare",
 	"response.poker_unavailable": "Il tavolo da poker è chiuso al momento",
 	"response.tavern_closing": "I giochi della taverna sono chiusi mentre il server si riavvia",
-	"response.poker_stool_far": "Mettiti accanto a uno sgabello libero per sederti"
+	"response.poker_stool_far": "Mettiti accanto a uno sgabello libero per sederti",
+	"response.poker_saving": "Il tavolo da poker si sta aggiornando. Riprova tra poco."
 }

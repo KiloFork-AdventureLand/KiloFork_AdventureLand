@@ -392,5 +392,6 @@
 	"server.cave.story_stairs": "{npc}: Die Treppen ändern sich bei jedem Besuch. Ich folge den Fackeln.",
 	"server.cave.helpers_limit": "Du hast bereits zwei Helfer.",
 	"server.cave.gold_limit": "Das gesamte Höhlengold für diesen Besuch ist erschienen: {amount}. Du kannst weiterhin Gegenstände finden und XP verdienen.",
-	"server.cave.amber_limit": "Alle {amount} Cave Amber für diesen Besuch sind erschienen. Du kannst weiterhin Gegenstände finden und XP verdienen."
+	"server.cave.amber_limit": "Alle {amount} Cave Amber für diesen Besuch sind erschienen. Du kannst weiterhin Gegenstände finden und XP verdienen.",
+	"server.game_error.poker_hand_active": "Deine Pokerhand läuft noch auf einem anderen Server. Warte auf ihr Ende oder verbinde dich wieder mit diesem Server."
 }

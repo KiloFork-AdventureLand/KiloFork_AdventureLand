@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Jeder Charakter hat einen eigenen Heimatserver, der beim ersten Betreten des Spiels gespeichert wird. Der Besuch eines bekannten Servers ändert ihn nicht.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} senkt XP, Gold, Glück und Angriffskraft, wenn ein Charakter ab Stufe 60 einen anderen Server ohne PvP außerhalb seiner Heimat betritt. Die Grunddauer beträgt 12 Minuten Spielzeit online. Beim erneuten Verbinden mit demselben Server bleibt die Restzeit erhalten. Die Rückkehr zur gespeicherten Heimat oder ein Heimatwechsel bei Bean hebt den Effekt sofort auf.",
 	"docs.guide.tavern-games.deck-verification": "<b>Das Deck überprüfen.</b> Vor dem Austeilen veröffentlicht der Tisch eine kryptografische Festlegung. Nach der Hand werden der Schlüssel und die vollständige Kartenreihenfolge offengelegt, auch die abgelegten Karten.",
-	"docs.functions.poker_act.reopening": "can_raise an deinem Platz zeigt, ob du erhöhen darfst. Mehrere unvollständige All-in-Erhöhungen erlauben erneutes Erhöhen, sobald ihre Summe eine volle Erhöhung erreicht."
+	"docs.functions.poker_act.reopening": "can_raise an deinem Platz zeigt, ob du erhöhen darfst. Mehrere unvollständige All-in-Erhöhungen erlauben erneutes Erhöhen, sobald ihre Summe eine volle Erhöhung erreicht.",
+	"docs.poker.waiting": "Schlägt eine Aktion mit poker_saving fehl, warte kurz und versuche es erneut. Schlägt die Anmeldung mit poker_hand_active fehl, warte auf das Ende deiner Hand oder verbinde dich wieder mit dem Server, auf dem sie läuft."
 }

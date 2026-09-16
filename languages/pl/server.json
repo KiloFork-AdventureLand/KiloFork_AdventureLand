@@ -396,5 +396,6 @@
 	"server.cave.story_stairs": "{npc}: Za każdym razem schody są gdzie indziej. Podążam za pochodniami.",
 	"server.cave.helpers_limit": "Masz już dwóch pomocników.",
 	"server.cave.gold_limit": "Pojawiło się już całe złoto jaskini dostępne podczas tej wizyty: {amount}. Nadal możesz znajdować przedmioty i zdobywać XP.",
-	"server.cave.amber_limit": "Pojawiło się już całe Cave Amber dostępne podczas tej wizyty: {amount}. Nadal możesz znajdować przedmioty i zdobywać XP."
+	"server.cave.amber_limit": "Pojawiło się już całe Cave Amber dostępne podczas tej wizyty: {amount}. Nadal możesz znajdować przedmioty i zdobywać XP.",
+	"server.game_error.poker_hand_active": "Twoje rozdanie pokera nadal trwa na innym serwerze. Poczekaj na jego koniec lub połącz się ponownie z tamtym serwerem."
 }

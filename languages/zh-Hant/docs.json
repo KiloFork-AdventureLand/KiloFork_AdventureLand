@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "每個角色都有各自儲存的家園伺服器，在首次進入遊戲時決定。造訪以前玩過的伺服器並不會改變家園。",
 	"docs.guide.events-and-home.hop-sickness": "等級達到60級的角色進入家園以外的另一個非PvP伺服器時，{condition}會降低XP、金幣、幸運及攻擊力。基本持續時間為12分鐘的線上遊玩時間。重新連線至同一伺服器會保留剩餘時間。返回已儲存的家園，或請Bean更改家園，即可立即解除。",
 	"docs.guide.tavern-games.deck-verification": "<b>驗證牌組。</b> 發牌前，牌桌會公布一個密碼學承諾值。這手牌結束後，會公開金鑰及完整牌序，包含已蓋棄的手牌。",
-	"docs.functions.poker_act.reopening": "座位的can_raise欄位表示你能否加注。多次不足額全押的累計加注額達到一次完整加注時，已行動的玩家才可再次加注。"
+	"docs.functions.poker_act.reopening": "座位的can_raise欄位表示你能否加注。多次不足額全押的累計加注額達到一次完整加注時，已行動的玩家才可再次加注。",
+	"docs.poker.waiting": "若操作因 poker_saving 失敗，請稍等片刻後再試。若登入因 poker_hand_active 失敗，請等這手牌結束，或重新連線至牌局所在的伺服器。"
 }

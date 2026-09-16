@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "每个角色都有独立保存的家园服务器，在首次进入游戏时确定。访问以前玩过的服务器不会改变家园。",
 	"docs.guide.events-and-home.hop-sickness": "等级达到60级的角色进入家园以外的另一个非PvP服务器时，{condition}会降低XP、金币、幸运和攻击力。基础持续时间为12分钟在线游戏时间。重新连接同一服务器会保留剩余时间。回到已保存的家园，或请Bean更改家园，即可立即解除。",
 	"docs.guide.tavern-games.deck-verification": "<b>验证牌组。</b> 发牌前，牌桌会公布一个密码学承诺值。本手牌结束后，会公开密钥和完整牌序，包括已弃的手牌。",
-	"docs.functions.poker_act.reopening": "座位的can_raise字段表示你能否加注。多次不足额全押的累计加注额达到一次完整加注时，已行动的玩家才能重新加注。"
+	"docs.functions.poker_act.reopening": "座位的can_raise字段表示你能否加注。多次不足额全押的累计加注额达到一次完整加注时，已行动的玩家才能重新加注。",
+	"docs.poker.waiting": "如果操作因 poker_saving 失败，请稍等片刻后重试。如果登录因 poker_hand_active 失败，请等待这手牌结束，或重新连接到牌局所在的服务器。"
 }

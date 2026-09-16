@@ -912,3 +912,6 @@ module.exports = {
 	// js/game.js hardcore-mode browser/tab title. Fierce is an emphatic adjective identifying the hardcore mode, not a proper game or character name. Keep {character} exactly; it contains the raw character name. Use a short natural title and avoid assumptions about the character's gender. No HTML.
 	"game.title.hardcore": "Fierce {character}",
 };
+
+// Poker action refused while a durable checkpoint is in flight. Ask the player to retry shortly; this is not a whole-hand wait.
+module.exports["response.poker_saving"] = "The poker table is updating. Try again shortly.";

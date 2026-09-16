@@ -450,5 +450,6 @@
 	"response.poker_broke": "Mua vào lại để tiếp tục chơi",
 	"response.poker_unavailable": "Bàn poker hiện đang đóng",
 	"response.tavern_closing": "Các trò chơi của Quán Rượu đóng cửa trong lúc máy chủ khởi động lại",
-	"response.poker_stool_far": "Đứng cạnh một ghế trống để ngồi xuống"
+	"response.poker_stool_far": "Đứng cạnh một ghế trống để ngồi xuống",
+	"response.poker_saving": "Bàn poker đang cập nhật. Hãy thử lại sau giây lát."
 }

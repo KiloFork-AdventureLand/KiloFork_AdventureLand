@@ -392,5 +392,6 @@
 	"server.cave.story_stairs": "{npc}: Trapporna ändras varje gång jag kommer hit. Jag följer facklorna.",
 	"server.cave.helpers_limit": "Du har redan två medhjälpare.",
 	"server.cave.gold_limit": "Allt grottguld för det här besöket har dykt upp: {amount}. Du kan fortfarande hitta föremål och tjäna XP.",
-	"server.cave.amber_limit": "Alla {amount} Cave Amber för det här besöket har dykt upp. Du kan fortfarande hitta föremål och tjäna XP."
+	"server.cave.amber_limit": "Alla {amount} Cave Amber för det här besöket har dykt upp. Du kan fortfarande hitta föremål och tjäna XP.",
+	"server.game_error.poker_hand_active": "Din pokerhand pågår fortfarande på en annan server. Vänta tills den är slut eller anslut till den servern igen."
 }

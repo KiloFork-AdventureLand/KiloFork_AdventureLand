@@ -392,5 +392,6 @@
 	"server.cave.story_stairs": "{npc}: Trappene endrer seg hver gang jeg kommer hit. Jeg følger faklene.",
 	"server.cave.helpers_limit": "Du har allerede to hjelpere.",
 	"server.cave.gold_limit": "Alt hulegullet for dette besøket har dukket opp: {amount}. Du kan fortsatt finne gjenstander og tjene XP.",
-	"server.cave.amber_limit": "Alle {amount} Cave Amber for dette besøket har dukket opp. Du kan fortsatt finne gjenstander og tjene XP."
+	"server.cave.amber_limit": "Alle {amount} Cave Amber for dette besøket har dukket opp. Du kan fortsatt finne gjenstander og tjene XP.",
+	"server.game_error.poker_hand_active": "Pokerhånden din pågår fortsatt på en annen server. Vent til den er ferdig, eller koble til den serveren igjen."
 }

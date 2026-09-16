@@ -450,5 +450,6 @@
 	"response.poker_broke": "ادخل مجددًا لمواصلة اللعب",
 	"response.poker_unavailable": "طاولة البوكر مغلقة حاليًا",
 	"response.tavern_closing": "ألعاب الحانة مغلقة أثناء إعادة تشغيل الخادم",
-	"response.poker_stool_far": "قف بجانب مقعد فارغ لتجلس"
+	"response.poker_stool_far": "قف بجانب مقعد فارغ لتجلس",
+	"response.poker_saving": "جارٍ تحديث طاولة البوكر. حاول مرة أخرى بعد قليل."
 }

@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Fiecare personaj are propriul server de acasă salvat, stabilit când intră pentru prima dată în joc. Vizitarea unui server cunoscut nu îl schimbă.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} reduce XP, aurul, norocul și puterea de atac când un personaj de nivel 60 sau mai mare intră pe alt server fără PvP, departe de casă. Durata de bază este de 12 minute de joc online. Reconectarea la același server păstrează timpul rămas. Revenirea pe serverul de acasă salvat sau schimbarea acestuia la Bean elimină imediat efectul.",
 	"docs.guide.tavern-games.deck-verification": "<b>Verificarea pachetului.</b> Înainte de împărțire, masa publică un angajament criptografic. După mână, dezvăluie cheia și ordinea completă a pachetului, inclusiv cărțile abandonate.",
-	"docs.functions.poker_act.reopening": "Câmpul can_raise al locului tău arată dacă poți mări miza. Mai multe măriri all-in incomplete permit din nou mărirea când creșterea lor cumulată atinge o mărire completă."
+	"docs.functions.poker_act.reopening": "Câmpul can_raise al locului tău arată dacă poți mări miza. Mai multe măriri all-in incomplete permit din nou mărirea când creșterea lor cumulată atinge o mărire completă.",
+	"docs.poker.waiting": "Dacă o acțiune eșuează cu poker_saving, așteaptă puțin și încearcă din nou. Dacă autentificarea eșuează cu poker_hand_active, așteaptă să se termine mâna ta sau reconectează-te la serverul pe care se joacă."
 }

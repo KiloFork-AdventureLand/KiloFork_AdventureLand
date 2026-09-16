@@ -393,5 +393,6 @@
 	"server.cave.story_stairs": "{npc}: Portaat muuttuvat joka kerta, kun tulen tänne. Seuraan soihtuja.",
 	"server.cave.helpers_limit": "Sinulla on jo kaksi apulaista.",
 	"server.cave.gold_limit": "Kaikki tämän käynnin luolakulta on ilmestynyt: {amount}. Voit yhä löytää esineitä ja ansaita XP:tä.",
-	"server.cave.amber_limit": "Kaikki tämän käynnin {amount} Cave Amber ovat ilmestyneet. Voit yhä löytää esineitä ja ansaita XP:tä."
+	"server.cave.amber_limit": "Kaikki tämän käynnin {amount} Cave Amber ovat ilmestyneet. Voit yhä löytää esineitä ja ansaita XP:tä.",
+	"server.game_error.poker_hand_active": "Pokerijakosi on yhä kesken toisella palvelimella. Odota sen päättymistä tai yhdistä uudelleen sille palvelimelle."
 }

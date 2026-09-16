@@ -450,5 +450,6 @@
 	"response.poker_broke": "Kauf dich erneut ein, um weiterzuspielen",
 	"response.poker_unavailable": "Der Pokertisch ist gerade geschlossen",
 	"response.tavern_closing": "Die Spiele der Taverne sind geschlossen, während der Server neu startet",
-	"response.poker_stool_far": "Stell dich neben einen freien Hocker, um dich zu setzen"
+	"response.poker_stool_far": "Stell dich neben einen freien Hocker, um dich zu setzen",
+	"response.poker_saving": "Der Pokertisch wird aktualisiert. Versuche es gleich noch einmal."
 }

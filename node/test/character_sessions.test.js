@@ -49,6 +49,7 @@ function fixture(beforeCommit) {
 		},
 	};
 	const c = vm.createContext({
+		performance,
 		console: { log() {}, error() {} },
 		players: {},
 		sockets: {},
@@ -126,7 +127,12 @@ function fixture(beforeCommit) {
 	};
 	vm.runInContext(read("node/logic/character_sessions.js"), c);
 	c.tavern = {};
-	load(c, "node/logic/tavern_poker.js", ["tavern_poker_recover", "tavern_poker_seat_by_id", "tavern_poker_table"]);
+	load(c, "node/logic/tavern_poker.js", [
+		"tavern_poker_recover",
+		"tavern_poker_seat_by_id",
+		"tavern_poker_table",
+		"tavern_poker_source_live",
+	]);
 	load(c, "adventure_functions.js", ["msince", "hsince"]);
 	load(c, "node/server_functions.js", ["delete_observer", "init_player_exit"]);
 	load(c, "node/server.js", ["sync_entity", "sync_loop", "mount_call", "unmount_call", "sync_call", "stop_call"]);
@@ -794,4 +800,12 @@ test("login cannot reclaim chips from a hand on another live server", async () =
 	assert.equal(f.character().server, "");
 	assert.equal(f.character().info.gold, 100);
 	assert.equal(f.character().info.p.poker.stack, 50);
+	assert.ok(
+		f.events.some(
+			(e) =>
+				e.event === "game_error" &&
+				e.data.reason === "poker_hand_active" &&
+				e.data.phrase === "server.game_error.poker_hand_active",
+		),
+	);
 });

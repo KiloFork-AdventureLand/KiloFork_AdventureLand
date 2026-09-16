@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Hver figur har sit eget gemte hjem, som fastlægges første gang, den går ind i spillet. Et besøg på en velkendt server ændrer det ikke.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} sænker XP, guld, held og angrebskraft, når en figur på niveau 60 eller højere går ind på en anden server uden PvP væk fra sit hjem. Grundvarigheden er 12 minutters onlinespil. Genforbindelse til samme server bevarer den resterende tid. At vende tilbage til det gemte hjem eller skifte hjem hos Bean fjerner effekten med det samme.",
 	"docs.guide.tavern-games.deck-verification": "<b>Kontrol af kortene.</b> Før kortene gives, offentliggør bordet en kryptografisk forpligtelse. Efter hånden afsløres nøglen og hele kortenes rækkefølge, også foldede kort.",
-	"docs.functions.poker_act.reopening": "Din plads' can_raise viser, om du må forhøje. Flere små all-in-forhøjelser åbner igen for forhøjelse, når deres samlede stigning når en fuld forhøjelse."
+	"docs.functions.poker_act.reopening": "Din plads' can_raise viser, om du må forhøje. Flere små all-in-forhøjelser åbner igen for forhøjelse, når deres samlede stigning når en fuld forhøjelse.",
+	"docs.poker.waiting": "Hvis en handling fejler med poker_saving, så vent lidt og prøv igen. Hvis login fejler med poker_hand_active, så vent, til din hånd er slut, eller opret forbindelse til serveren, hvor den spilles, igen."
 }

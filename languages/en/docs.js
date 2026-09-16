@@ -6162,3 +6162,6 @@ module.exports["docs.guide.tavern-games.deck-verification"] = "<b>Deck verificat
 
 // Poker CODE reference: can_raise is the exact seat field; short all-ins can cumulatively reopen a full raise.
 module.exports["docs.functions.poker_act.reopening"] = "Your seat's can_raise says whether you may raise. Several short all-ins reopen betting when their combined increase reaches a full raise.";
+
+// Poker guide and action references. Keep poker_saving and poker_hand_active exactly; they are CODE reason identifiers.
+module.exports["docs.poker.waiting"] = "If an action fails with poker_saving, wait briefly and retry. If login fails with poker_hand_active, wait for your hand to finish or reconnect to its server.";

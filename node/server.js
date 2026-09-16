@@ -11331,7 +11331,7 @@ function init_socket_io(socket_server) {
 						R.mainframe = true;
 					}
 					if (R.entity.server) ex("ingame");
-					if (!(await tavern_poker_recover(R.entity, tx_get))) ex("ingame");
+					if (!(await tavern_poker_recover(R.entity, tx_get))) ex("poker_hand_active");
 					if (A[3].cancelled || Date.now() >= A[3].deadline) ex("cancelled");
 					A[3].claim_written = true;
 					R.previous_online = R.entity.last_online;
@@ -11353,7 +11353,13 @@ function init_socket_io(socket_server) {
 				if (R.failed) {
 					socket.emit(
 						"game_error",
-						localization.message("server.game_error.authentication_failed", { reason: R.reason }, { reason: R.reason }),
+						localization.message(
+							R.reason == "poker_hand_active"
+								? "server.game_error.poker_hand_active"
+								: "server.game_error.authentication_failed",
+							{ reason: R.reason },
+							{ reason: R.reason },
+						),
 					);
 					cancel_character_login(attempt);
 					return;

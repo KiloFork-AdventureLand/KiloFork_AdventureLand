@@ -450,5 +450,6 @@
 	"response.poker_broke": "Vlož znovu, abys mohl hrát dál",
 	"response.poker_unavailable": "Pokerový stůl je teď zavřený",
 	"response.tavern_closing": "Hry v hospodě jsou zavřené, dokud se server restartuje",
-	"response.poker_stool_far": "Postav se vedle volné stoličky, aby ses posadil"
+	"response.poker_stool_far": "Postav se vedle volné stoličky, aby ses posadil",
+	"response.poker_saving": "Pokerový stůl se aktualizuje. Zkus to za chvíli znovu."
 }

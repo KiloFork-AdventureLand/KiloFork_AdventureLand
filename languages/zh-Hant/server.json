@@ -390,5 +390,6 @@
 	"server.cave.story_stairs": "{npc}：我每次來，樓梯的位置都會變。我跟著火把走。",
 	"server.cave.helpers_limit": "你已經有兩名幫手了。",
 	"server.cave.gold_limit": "本次進入可出現的{amount}洞窟金幣已全部出現。你仍可找到物品並獲得XP。",
-	"server.cave.amber_limit": "本次進入可出現的{amount}個Cave Amber已全部出現。你仍可找到物品並獲得XP。"
+	"server.cave.amber_limit": "本次進入可出現的{amount}個Cave Amber已全部出現。你仍可找到物品並獲得XP。",
+	"server.game_error.poker_hand_active": "你的這手牌仍在另一個伺服器上進行。請等牌局結束，或重新連線至該伺服器。"
 }

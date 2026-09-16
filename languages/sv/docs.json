@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Varje karaktär har ett eget sparat hem som bestäms första gången den går in i spelet. Att besöka en bekant server ändrar det inte.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} sänker XP, guld, tur och anfallskraft när en karaktär på nivå 60 eller högre går in på en annan server utan PvP utanför hemmet. Grundtiden är 12 minuters spel online. Återanslutning till samma server bevarar den återstående tiden. Att återvända till det sparade hemmet eller byta hem hos Bean tar bort effekten direkt.",
 	"docs.guide.tavern-games.deck-verification": "<b>Kontrollera kortleken.</b> Före given publicerar bordet en kryptografisk utfästelse. Efter handen avslöjas nyckeln och hela kortlekens ordning, även kastade kort.",
-	"docs.functions.poker_act.reopening": "Fältet can_raise för din plats visar om du får höja. Flera små all-in-höjningar öppnar för en ny höjning när deras sammanlagda ökning når en full höjning."
+	"docs.functions.poker_act.reopening": "Fältet can_raise för din plats visar om du får höja. Flera små all-in-höjningar öppnar för en ny höjning när deras sammanlagda ökning når en full höjning.",
+	"docs.poker.waiting": "Om en åtgärd misslyckas med poker_saving, vänta en kort stund och försök igen. Om inloggningen misslyckas med poker_hand_active, vänta tills din hand är slut eller anslut igen till servern där den spelas."
 }

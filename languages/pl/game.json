@@ -450,5 +450,6 @@
 	"response.poker_broke": "Wpłać ponownie, aby grać dalej",
 	"response.poker_unavailable": "Stół pokerowy jest teraz zamknięty",
 	"response.tavern_closing": "Gry tawerny są zamknięte, dopóki serwer się restartuje",
-	"response.poker_stool_far": "Stań obok wolnego stołka, aby usiąść"
+	"response.poker_stool_far": "Stań obok wolnego stołka, aby usiąść",
+	"response.poker_saving": "Stół pokerowy jest aktualizowany. Spróbuj ponownie za chwilę."
 }

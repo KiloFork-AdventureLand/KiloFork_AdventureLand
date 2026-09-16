@@ -393,5 +393,6 @@
 	"server.cave.story_stairs": "{npc}: As escadas mudam sempre que venho cá. Eu sigo as tochas.",
 	"server.cave.helpers_limit": "Já tens dois ajudantes.",
 	"server.cave.gold_limit": "Todo o ouro da caverna desta visita já apareceu: {amount}. Ainda podes encontrar itens e ganhar XP.",
-	"server.cave.amber_limit": "Todos os {amount} Cave Amber desta visita já apareceram. Ainda podes encontrar itens e ganhar XP."
+	"server.cave.amber_limit": "Todos os {amount} Cave Amber desta visita já apareceram. Ainda podes encontrar itens e ganhar XP.",
+	"server.game_error.poker_hand_active": "A tua mão de póquer ainda está a decorrer noutro servidor. Espera que termine ou volta a ligar-te a esse servidor."
 }

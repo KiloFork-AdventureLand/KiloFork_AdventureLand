@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Minden karakternek saját mentett otthona van, amely az első játékba lépéskor dől el. Egy korábbról ismert szerver meglátogatása nem változtatja meg.",
 	"docs.guide.events-and-home.hop-sickness": "A(z) {condition} csökkenti az XP-t, az aranyat, a szerencsét és a támadóerőt, amikor egy legalább 60. szintű karakter az otthonán kívüli másik, nem PvP szerverre lép. Az alapidőtartam 12 perc online játék. Az ugyanarra a szerverre való újracsatlakozás megőrzi a hátralévő időt. A mentett otthonba való visszatérés vagy az otthon megváltoztatása Beannél azonnal megszünteti a hatást.",
 	"docs.guide.tavern-games.deck-verification": "<b>A pakli ellenőrzése.</b> Osztás előtt az asztal közzétesz egy kriptográfiai kötelezettségvállalást. A leosztás végén felfedi a kulcsot és a pakli teljes sorrendjét, a bedobott lapokkal együtt.",
-	"docs.functions.poker_act.reopening": "A helyed can_raise mezője jelzi, hogy emelhetsz-e. Több, teljes emelésnél kisebb all-in újra lehetővé teszi az emelést, ha az összesített növekedés eléri a teljes emelés mértékét."
+	"docs.functions.poker_act.reopening": "A helyed can_raise mezője jelzi, hogy emelhetsz-e. Több, teljes emelésnél kisebb all-in újra lehetővé teszi az emelést, ha az összesített növekedés eléri a teljes emelés mértékét.",
+	"docs.poker.waiting": "Ha egy művelet poker_saving hibával meghiúsul, várj egy kicsit, majd próbáld újra. Ha a bejelentkezés poker_hand_active hibával meghiúsul, várd meg a leosztásod végét, vagy csatlakozz újra ahhoz a szerverhez, ahol tart."
 }

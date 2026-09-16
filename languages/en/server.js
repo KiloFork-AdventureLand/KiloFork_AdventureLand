@@ -834,3 +834,6 @@ module.exports["server.cave.gold_limit"] = "All {amount} cave gold for this visi
 
 // Cave notice after the entire visit allowance has spawned. amount is total Amber, not the purse balance; Cave Amber and XP stay literal.
 module.exports["server.cave.amber_limit"] = "All {amount} Cave Amber for this visit has appeared. You can still find items and earn XP.";
+
+// Login refused because the character has a poker hand on a different live server. Reconnect there or wait for that hand to end.
+module.exports["server.game_error.poker_hand_active"] = "Your poker hand is still running on another server. Wait for it to finish, or reconnect there.";

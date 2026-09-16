@@ -393,5 +393,6 @@
 	"server.cave.story_stairs": "{npc} : Les escaliers changent chaque fois que je viens ici. Je suis les torches.",
 	"server.cave.helpers_limit": "Tu as déjà deux compagnons.",
 	"server.cave.gold_limit": "Tout l’or de la grotte de cette visite est apparu : {amount}. Tu peux encore trouver des objets et gagner de l’XP.",
-	"server.cave.amber_limit": "Les {amount} Cave Amber de cette visite sont tous apparus. Tu peux encore trouver des objets et gagner de l’XP."
+	"server.cave.amber_limit": "Les {amount} Cave Amber de cette visite sont tous apparus. Tu peux encore trouver des objets et gagner de l’XP.",
+	"server.game_error.poker_hand_active": "Votre main de poker est toujours en cours sur un autre serveur. Attendez qu'elle se termine ou reconnectez-vous à ce serveur."
 }

@@ -450,5 +450,6 @@
 	"response.poker_broke": "Koop opnieuw in om verder te spelen",
 	"response.poker_unavailable": "De pokertafel is op dit moment gesloten",
 	"response.tavern_closing": "De spellen van de taverne zijn gesloten terwijl de server herstart",
-	"response.poker_stool_far": "Ga naast een vrije kruk staan om te gaan zitten"
+	"response.poker_stool_far": "Ga naast een vrije kruk staan om te gaan zitten",
+	"response.poker_saving": "De pokertafel wordt bijgewerkt. Probeer het zo nog eens."
 }

@@ -390,5 +390,6 @@
 	"server.cave.story_stairs": "{npc}: Nagbabago ang hagdan tuwing pumupunta ako rito. Sinusundan ko ang mga sulo.",
 	"server.cave.helpers_limit": "May dalawa ka nang katulong.",
 	"server.cave.gold_limit": "Lumitaw na ang lahat ng ginto ng kuweba para sa pagbisitang ito: {amount}. Makakahanap ka pa rin ng mga item at makakakuha ng XP.",
-	"server.cave.amber_limit": "Lumitaw na ang lahat ng {amount} Cave Amber para sa pagbisitang ito. Makakahanap ka pa rin ng mga item at makakakuha ng XP."
+	"server.cave.amber_limit": "Lumitaw na ang lahat ng {amount} Cave Amber para sa pagbisitang ito. Makakahanap ka pa rin ng mga item at makakakuha ng XP.",
+	"server.game_error.poker_hand_active": "Tuloy pa ang hand mo sa poker sa ibang server. Hintaying matapos ito o kumonekta ulit doon."
 }

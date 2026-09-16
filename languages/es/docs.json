@@ -2636,5 +2636,6 @@
 	"docs.guide.events-and-home.saved-home": "Cada personaje tiene su propio hogar guardado, que se fija al entrar en el juego por primera vez. Visitar un servidor conocido no lo cambia.",
 	"docs.guide.events-and-home.hop-sickness": "{condition} reduce XP, oro, suerte y potencia de ataque cuando un personaje de nivel 60 o superior entra en otro servidor sin PvP fuera de su hogar. La duración base es de 12 minutos de juego en línea. Reconectarse a ese servidor conserva el tiempo restante. Volver al hogar guardado o cambiarlo con Bean elimina el efecto de inmediato.",
 	"docs.guide.tavern-games.deck-verification": "<b>Verificación de la baraja.</b> Antes de repartir, la mesa publica un compromiso criptográfico. Tras la mano, revela la clave y el orden completo de la baraja, incluidas las cartas retiradas.",
-	"docs.functions.poker_act.reopening": "El campo can_raise de tu asiento indica si puedes subir. Varias subidas all-in incompletas permiten volver a subir cuando su incremento acumulado alcanza una subida completa."
+	"docs.functions.poker_act.reopening": "El campo can_raise de tu asiento indica si puedes subir. Varias subidas all-in incompletas permiten volver a subir cuando su incremento acumulado alcanza una subida completa.",
+	"docs.poker.waiting": "Si una acción falla con poker_saving, espera un momento y vuelve a intentarlo. Si el inicio de sesión falla con poker_hand_active, espera a que termine tu mano o vuelve a conectarte al servidor donde se está jugando."
 }
