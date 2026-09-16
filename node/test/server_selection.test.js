@@ -195,7 +195,7 @@ test("online character observation and active gameplay are preserved", () => {
 	assert.equal(calls.length, 0);
 	for (const key of ["character", "observing"]) {
 		context[key] = {};
-		context.select_login_server(servers[1], true);
+		context.select_login_server(servers[1], key === "character");
 		assert.equal(context.server_path, servers[0].path);
 		context[key] = null;
 	}
@@ -208,5 +208,13 @@ test("clicking the selected server can retry a disconnected connection", () => {
 	const { context, calls } = client();
 	context.socket.connected = false;
 	context.select_login_server(servers[0], true);
+	assert.ok(calls.some((call) => call[0] === "connect"));
+});
+
+test("manual server selection can leave an online character's observer view", () => {
+	const { context, calls } = client();
+	context.observing = { name: "Online" };
+	context.select_login_server(servers[1], true);
+	assert.equal(context.server_path, servers[1].path);
 	assert.ok(calls.some((call) => call[0] === "connect"));
 });

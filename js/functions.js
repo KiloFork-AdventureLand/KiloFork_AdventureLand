@@ -84,7 +84,7 @@ function home_server_label(home, html) {
 }
 
 function select_login_server(server, explicit) {
-	if (character || observing || (window.auth_sent && mssince(window.auth_sent) < 10000)) return;
+	if (character || (!explicit && observing) || (window.auth_sent && mssince(window.auth_sent) < 10000)) return;
 	if (!explicit && selection_server_explicit) return;
 	var available = (X.servers || []).find(function (entry) {
 		return entry.address == server.address && entry.path == server.path;
