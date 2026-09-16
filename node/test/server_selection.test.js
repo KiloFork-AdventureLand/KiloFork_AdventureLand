@@ -93,7 +93,7 @@ function client() {
 		remove() {
 			return this;
 		},
-		text(value) {
+		html(value) {
 			labels[selector] = value;
 			return this;
 		},
@@ -104,8 +104,9 @@ function client() {
 			return this;
 		},
 	});
-	const phrase = (id, values = {}) => id + JSON.stringify(values);
-	phrase.html = phrase;
+	const phrases = require("../../js/phrases");
+	const phrase = phrases.create("en", require("../../languages/en/interface"));
+	phrase.escape = phrases.escape;
 	const context = vm.createContext({
 		X: { servers },
 		server_address: servers[0].address,

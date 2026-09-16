@@ -108,7 +108,12 @@ function update_login_server() {
 		return entry.address == server_address && entry.path == server_path;
 	});
 	var home = selected && selected.region + selected.name;
-	$(".selection-destination").text(selected ? phrase("interface.selection.destination", { server: home_server_name(home) }) : phrase("game.no_live_server_found"));
+	var destination = phrase.html("game.no_live_server_found");
+	if (selected)
+		destination = phrase.html("interface.selection.destination").replace("{server}", function () {
+			return "<span style='color:white'>" + phrase.escape(home_server_name(home)) + "</span>";
+		});
+	$(".selection-destination").html(destination);
 	$(".selection-connecting").toggle(!!selected && !socket_welcomed);
 	$(".selection-server").each(function () {
 		var current = this.dataset.address == server_address && this.dataset.path == server_path;

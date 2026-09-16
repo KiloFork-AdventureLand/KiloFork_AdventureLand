@@ -690,7 +690,7 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	line-height: 12px;
 }
 .selection-character.away-home{
-	border-color: #F3A05D;
+	border-color: #F7BB87;
 }
 .selection-server[aria-current="true"] .selection-server-name{
 	text-decoration: underline;
