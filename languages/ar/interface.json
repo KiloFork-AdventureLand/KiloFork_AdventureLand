@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "الخادم: {server}",
 	"interface.selection.home": "الموطن: {server}",
-	"interface.selection.home_unset": "الموطن: غير محدد"
+	"interface.selection.home_unset": "الموطن: غير محدد",
+	"interface.selection.away_home": "هذا ليس خادم موطن {name}."
 }

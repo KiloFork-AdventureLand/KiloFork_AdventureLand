@@ -942,5 +942,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Server: {server}",
 	"interface.selection.home": "Heimat: {server}",
-	"interface.selection.home_unset": "Heimat: nicht gesetzt"
+	"interface.selection.home_unset": "Heimat: nicht gesetzt",
+	"interface.selection.away_home": "Dies ist nicht der Heimatserver von {name}."
 }

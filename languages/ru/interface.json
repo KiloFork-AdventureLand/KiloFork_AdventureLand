@@ -954,5 +954,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Сервер: {server}",
 	"interface.selection.home": "Дом: {server}",
-	"interface.selection.home_unset": "Дом: не задан"
+	"interface.selection.home_unset": "Дом: не задан",
+	"interface.selection.away_home": "Это не домашний сервер персонажа {name}."
 }

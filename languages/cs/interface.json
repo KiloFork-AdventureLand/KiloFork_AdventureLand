@@ -950,5 +950,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Server: {server}",
 	"interface.selection.home": "Domov: {server}",
-	"interface.selection.home_unset": "Domov: neurčen"
+	"interface.selection.home_unset": "Domov: neurčen",
+	"interface.selection.away_home": "Toto není domovský server postavy {name}."
 }

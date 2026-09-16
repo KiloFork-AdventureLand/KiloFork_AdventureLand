@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "サーバー: {server}",
 	"interface.selection.home": "ホーム: {server}",
-	"interface.selection.home_unset": "ホーム: 未設定"
+	"interface.selection.home_unset": "ホーム: 未設定",
+	"interface.selection.away_home": "ここは{name}のホームサーバーではありません。"
 }

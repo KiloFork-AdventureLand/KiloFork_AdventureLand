@@ -2632,7 +2632,7 @@
 	"docs.cave.returns": "成功時回傳：{fields}。",
 	"docs.cave.state": "character.cave儲存洞窟的最新狀態，離開洞窟後會變為null。使用character.on(\"cave\", callback)監聽變化。",
 	"docs.cave.restart": "如果伺服器重新啟動導致本次探索結束，帳號會恢復當日的進入次數。重新整理頁面或中斷連線不會恢復次數。",
-	"docs.guide.events-and-home.choosing-server": "選擇角色前，請確認角色清單上方的伺服器。可透過伺服器清單切換。每個角色的「家園」一欄會顯示已儲存的家園伺服器。登入時會優先選擇可用的家園伺服器，除非你自行選擇了伺服器或開啟了伺服器連結。已在遊戲中的角色會在目前所在的伺服器開啟。",
+	"docs.guide.events-and-home.choosing-server": "選擇角色前，請確認角色清單上方的伺服器。可透過伺服器清單切換。角色卡片的橘色邊框表示目前所選的伺服器不是該角色的家園伺服器。將滑鼠移至卡片上即可查看其家園。登入時會優先選擇可用的家園伺服器，除非你自行選擇了伺服器或開啟了伺服器連結。已在遊戲中的角色會在目前所在的伺服器開啟。",
 	"docs.guide.events-and-home.saved-home": "每個角色都有各自儲存的家園伺服器，在首次進入遊戲時決定。造訪以前玩過的伺服器並不會改變家園。",
 	"docs.guide.events-and-home.hop-sickness": "等級達到60級的角色進入家園以外的另一個非PvP伺服器時，{condition}會降低XP、金幣、幸運及攻擊力。基本持續時間為12分鐘的線上遊玩時間。重新連線至同一伺服器會保留剩餘時間。返回已儲存的家園，或請Bean更改家園，即可立即解除。",
 	"docs.guide.tavern-games.deck-verification": "<b>驗證牌組。</b> 發牌前，牌桌會公布一個密碼學承諾值。這手牌結束後，會公開金鑰及完整牌序，包含已蓋棄的手牌。",

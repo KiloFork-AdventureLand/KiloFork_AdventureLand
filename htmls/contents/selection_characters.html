@@ -1,7 +1,7 @@
 {% for c in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] %}
 	{% if c==0 %}<div class='page1'>{%endif%}{% if c==6 %}<div class='page2 hidden'>{%endif%}{% if c==12 %}<div class='page3 hidden'>{%endif%}
 		{% if characters[c] %}
-			<div class="gamebutton mb5" onclick="if(bc(this)) return; enter_selected_character('{{characters[c].info.name}}','{{characters[c]._id}}')" style='text-align: left; width: 160px; vertical-align: top'>
+			<div class="gamebutton mb5 selection-character" data-character="{{characters[c]._id|e}}" data-name="{{characters[c].info.name|e}}" data-home="{{characters[c].info.p.home|e}}" onmouseenter="show_character_home(this)" onmouseleave="hide_character_home()" onclick="if(bc(this)) return; enter_selected_character('{{characters[c].info.name}}','{{characters[c]._id}}')" style='text-align: left; width: 160px'>
 				<span class='cskin' data-skin="{{characters[c].info.skin}}" data-cx='{{characters[c]|get_cx|safe}}' data-rip="{% if characters[c].info.rip%}1{%endif%}" style="float:left; margin-right: 5px; margin-top: -5px; margin-left: -4px; margin-bottom: -7px;"></span>
 				{{characters[c].info.name|sshorten}}
 				<span class='characterav{{characters[c].info.name}}'>
@@ -17,15 +17,13 @@
 					<span style="flex-shrink:0">{{ phrase("pages.contents.selection_characters.lv", {"level": characters[c].level}) }}</span>
 					<span class="gray selection-class" title="{{ class_name|e }}" style="flex:1; min-width:0; overflow:hidden; {%if characters[c].private%}text-decoration: underline #C7BAFF;{%endif%}">{{ class_name }}</span>
 				</span>
-				<div class="selection-home gray" data-character="{{characters[c]._id|e}}" data-home="{{characters[c].info.p.home|e}}" style="clear:both; font-size:16px; line-height:20px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap"></div>
 			</div>
 		{% else %}
-			<div class="gamebutton mb5" onclick="if(bc(this)) return; $('.nchb').click()" style='text-align: left; width: 160px; vertical-align: top'>
+			<div class="gamebutton mb5" onclick="if(bc(this)) return; $('.nchb').click()" style='text-align: left; width: 160px'>
 				<span class='cskin' data-skin="thehelmet" style="float:left; margin-right: 5px; margin-top: -5px; margin-left: -4px; margin-bottom: -5px"></span>
 				{%if c < user.info.slots %}<span style='color'>{{ phrase("pages.contents.selection_characters.free-slot") }}</span>{%else%}<span style='color:gray'>{{ phrase("pages.contents.selection_characters.available-slot") }}</span>{% endif %}
 				<br />
 				<span style='color:gray'>{{ phrase("pages.contents.selection_characters.unused") }}</span>
-				<div style="clear:both; height:20px"></div>
 			</div>
 		{% endif %}
 	{% if c==5 or c==11 or c==17 %}</div>{%endif%}
@@ -39,6 +37,7 @@
 <script>
 	user_id="{{user and user._id or ''}}";
 	user_auth="{{user and user.info.auths[0] or ''}}";
+	$(window).off("resize.character_home").on("resize.character_home", hide_character_home);
 	$(".cskin").each(function(){
 		$(this).html(sprite($(this).data("skin"),{cx:$(this).data("cx"),rip:$(this).data("rip")||0,height:52,overflow:true,scale:2})); /* height: +50 +4 | margin-bottom: -5 -4 [03/10/18] */
 		/* overflow:true,scale:2 - otherwise female ranger's tattoo can't possible align with natural pixel offsetting [24/04/20] */

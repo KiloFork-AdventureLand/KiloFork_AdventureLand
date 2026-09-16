@@ -87,6 +87,12 @@ function client() {
 	const calls = [],
 		labels = {};
 	const dom = (selector) => ({
+		removeAttr() {
+			return this;
+		},
+		remove() {
+			return this;
+		},
 		text(value) {
 			labels[selector] = value;
 			return this;
@@ -133,6 +139,7 @@ function client() {
 		"select_login_server",
 		"update_login_server",
 		"enter_selected_character",
+		"hide_character_home",
 	]) {
 		vm.runInContext(extract(read("js/functions.js"), name), context);
 	}

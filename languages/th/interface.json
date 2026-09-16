@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "เซิร์ฟเวอร์: {server}",
 	"interface.selection.home": "บ้าน: {server}",
-	"interface.selection.home_unset": "บ้าน: ยังไม่ตั้ง"
+	"interface.selection.home_unset": "บ้าน: ยังไม่ตั้ง",
+	"interface.selection.away_home": "ที่นี่ไม่ใช่เซิร์ฟเวอร์บ้านของ {name}"
 }

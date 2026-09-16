@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Máy chủ: {server}",
 	"interface.selection.home": "Nhà: {server}",
-	"interface.selection.home_unset": "Nhà: chưa đặt"
+	"interface.selection.home_unset": "Nhà: chưa đặt",
+	"interface.selection.away_home": "Đây không phải máy chủ nhà của {name}."
 }

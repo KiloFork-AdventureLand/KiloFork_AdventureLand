@@ -679,6 +679,22 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	text-align: center;
 	color: white;
 }
+.selection-character.away-home{
+	border-color: #F3A05D;
+}
+.selection-server[aria-current="true"] .selection-server-name{
+	text-decoration: underline;
+}
+.selection-server[aria-current="true"] .selection-server-arrow{
+	color: #85c76b;
+}
+.game-hover{
+	position: fixed;
+	z-index: 500;
+	pointer-events: none;
+	text-align: left;
+	max-width: min(280px, calc(100vw * var(--browser-zoom-inverse, 1) - 48px));
+}
 .theinventory{
 	position: relative;
 }

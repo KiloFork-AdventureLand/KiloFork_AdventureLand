@@ -942,5 +942,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Διακομιστής: {server}",
 	"interface.selection.home": "Έδρα: {server}",
-	"interface.selection.home_unset": "Έδρα: δεν ορίστηκε"
+	"interface.selection.home_unset": "Έδρα: δεν ορίστηκε",
+	"interface.selection.away_home": "Αυτός ο διακομιστής δεν είναι η έδρα του χαρακτήρα {name}."
 }

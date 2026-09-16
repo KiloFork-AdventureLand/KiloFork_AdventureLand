@@ -942,5 +942,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Serveur : {server}",
 	"interface.selection.home": "Foyer : {server}",
-	"interface.selection.home_unset": "Foyer : non défini"
+	"interface.selection.home_unset": "Foyer : non défini",
+	"interface.selection.away_home": "Ce serveur n’est pas le foyer de {name}."
 }

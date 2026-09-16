@@ -943,5 +943,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Servidor: {server}",
 	"interface.selection.home": "Lar: {server}",
-	"interface.selection.home_unset": "Lar: não definido"
+	"interface.selection.home_unset": "Lar: não definido",
+	"interface.selection.away_home": "Este servidor não é o lar de {name}."
 }

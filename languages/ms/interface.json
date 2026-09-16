@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Pelayan: {server}",
 	"interface.selection.home": "Rumah: {server}",
-	"interface.selection.home_unset": "Rumah: belum tetap"
+	"interface.selection.home_unset": "Rumah: belum tetap",
+	"interface.selection.away_home": "Ini bukan pelayan rumah {name}."
 }

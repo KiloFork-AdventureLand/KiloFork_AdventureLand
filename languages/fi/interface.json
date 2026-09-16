@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Palvelin: {server}",
 	"interface.selection.home": "Koti: {server}",
-	"interface.selection.home_unset": "Koti: ei asetettu"
+	"interface.selection.home_unset": "Koti: ei asetettu",
+	"interface.selection.away_home": "Tämä ei ole hahmon {name} kotipalvelin."
 }

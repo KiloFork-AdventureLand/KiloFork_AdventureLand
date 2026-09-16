@@ -942,5 +942,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Server: {server}",
 	"interface.selection.home": "Hem: {server}",
-	"interface.selection.home_unset": "Hem: inte valt"
+	"interface.selection.home_unset": "Hem: inte valt",
+	"interface.selection.away_home": "Det här är inte hemservern för {name}."
 }

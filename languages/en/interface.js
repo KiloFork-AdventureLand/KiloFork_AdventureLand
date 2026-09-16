@@ -1,10 +1,12 @@
 module.exports = {
 	// Character selection destination and own-condition tooltip. server is the full realm name, e.g. Americas II. Short label.
 	"interface.selection.destination": "Server: {server}",
-	// Character card, condition tooltip and log. server is the saved home, e.g. Americas II. Keep compact for a 160px card.
+	// Character hover, condition tooltip and log. server is the saved home, e.g. Americas II.
 	"interface.selection.home": "Home: {server}",
-	// Character card before its first entry. Home has not been assigned yet. Keep compact for a 160px card.
+	// Home details before the character's first entry. Home has not been assigned yet.
 	"interface.selection.home_unset": "Home: not set",
+	// Character-card hover when the selected server differs from the saved home. name is the unchanged character name.
+	"interface.selection.away_home": "This is not {name}'s home server.",
 	// HUB account button and bank viewer heading. Opens saved bank items and gold, without moving them.
 	"interface.hub.bank": "BANK",
 	// HUB button for the watched character's equipped item slots, not account character slots or CODE slots.

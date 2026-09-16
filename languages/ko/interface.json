@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "서버: {server}",
 	"interface.selection.home": "홈: {server}",
-	"interface.selection.home_unset": "홈: 미설정"
+	"interface.selection.home_unset": "홈: 미설정",
+	"interface.selection.away_home": "이곳은 {name}의 홈 서버가 아닙니다."
 }

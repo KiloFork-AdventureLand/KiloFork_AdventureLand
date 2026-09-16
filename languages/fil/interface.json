@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Server: {server}",
 	"interface.selection.home": "Tahanan: {server}",
-	"interface.selection.home_unset": "Tahanan: wala pa"
+	"interface.selection.home_unset": "Tahanan: wala pa",
+	"interface.selection.away_home": "Hindi ito ang server na tahanan ni {name}."
 }

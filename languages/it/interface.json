@@ -946,5 +946,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Server: {server}",
 	"interface.selection.home": "Casa: {server}",
-	"interface.selection.home_unset": "Casa: non scelta"
+	"interface.selection.home_unset": "Casa: non scelta",
+	"interface.selection.away_home": "Questo non è il server di casa di {name}."
 }

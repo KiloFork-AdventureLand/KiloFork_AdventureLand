@@ -344,12 +344,11 @@
 		</div>
 		{% for server in servers %}
 		<div class="clickable enableclicks selection-server" data-address="{{server.address|e}}" data-path="{{server.path|e}}" onclick="select_login_server({address:this.dataset.address,path:this.dataset.path},true)">
-			&gt; {{server.region=="EU" and "Europas" or server.region=="US" and "Americas" or "Eastlands"}} {% if server.gameplay!="hardcore" and server.gameplay!="dungeon" %}{{server.name}}{% endif %}{% if
-			server.gameplay=="hardcore" %} <span style="color: #dc3529">{{ phrase("pages.contents.selection.xhardcore") }}</span>{% elif server.gameplay=="dungeon" %} <span style="color: #72396e">{{ phrase("pages.contents.selection.dungeon") }}</span>{% endif%}{% if server.info.players
+			<span class="selection-server-arrow">&gt;</span> <span class="selection-server-name">{{server.region=="EU" and "Europas" or server.region=="US" and "Americas" or "Eastlands"}} {% if server.gameplay!="hardcore" and server.gameplay!="dungeon" %}{{server.name}}{% endif %}{% if
+			server.gameplay=="hardcore" %} <span style="color: #dc3529">{{ phrase("pages.contents.selection.xhardcore") }}</span>{% elif server.gameplay=="dungeon" %} <span style="color: #72396e">{{ phrase("pages.contents.selection.dungeon") }}</span>{% endif%}</span>{% if server.info.players
 			%} <span style="color: #85c76b">[{{server.info.players+domain.boost}}]</span>{% endif %}{% if user.admin%} <span style="color: gray">[{{server.info.observers}}]</span>{%endif%}{% if
 			server.gameplay=="hardcore" %}{% elif server.gameplay=="dungeon" %}{% elif server.info.pvp %} <span style="color: #5de376">{{ phrase("pages.contents.selection.luck") }}</span> <span style="color: #4b9dde">{{ phrase("pages.contents.selection.xp") }}</span>
 			<span style="color: gold">{{ phrase("pages.contents.selection.gold") }}</span>{% endif %}
-			<span class="selection-current hidden" style="color:#85c76b">[{{ phrase("interface.load_servers_list.here") }}]</span>
 		</div>
 		{% endfor %}
 	</div>

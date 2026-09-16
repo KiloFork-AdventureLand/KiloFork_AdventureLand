@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "服务器：{server}",
 	"interface.selection.home": "家园：{server}",
-	"interface.selection.home_unset": "家园：未设置"
+	"interface.selection.home_unset": "家园：未设置",
+	"interface.selection.away_home": "这不是{name}的家园服务器。"
 }

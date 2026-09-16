@@ -112,20 +112,44 @@ function update_login_server() {
 	$(".selection-connecting").toggle(!!selected && !socket_welcomed);
 	$(".selection-server").each(function () {
 		var current = this.dataset.address == server_address && this.dataset.path == server_path;
-		$(this).attr("aria-current", current ? "true" : null).css("color", current ? "#85c76b" : "").find(".selection-current").toggle(current);
+		$(this).attr("aria-current", current ? "true" : null);
 	});
-	$(".selection-home").each(function () {
+	$(".selection-character").each(function () {
 		var id = this.dataset.character;
 		var current = (X.characters || []).find(function (entry) {
 			return entry.id == id;
 		});
 		if (current) this.dataset.home = current.home || "";
-		var label = home_server_label(this.dataset.home);
-		$(this).text(label).attr("title", label).css("color", this.dataset.home && this.dataset.home == home ? "#85c76b" : "");
+		$(this).toggleClass("away-home", !!(home && this.dataset.home && this.dataset.home != home));
 	});
+	var hover = $("#character-home-hover");
+	if (hover.length) show_character_home(hover.data("card"));
+}
+
+function hide_character_home() {
+	$(".selection-character[aria-describedby='character-home-hover']").removeAttr("aria-describedby");
+	$("#character-home-hover").remove();
+}
+
+function show_character_home(card) {
+	hide_character_home();
+	if (window.no_graphics || window.no_html || !card || !card.isConnected || !$(card).is(":visible") || !$(card).hasClass("away-home")) return;
+	var hover = $("<div id='character-home-hover' class='gamebutton game-hover' role='tooltip'></div>");
+	hover.html(phrase.html("interface.selection.away_home", { name: card.dataset.name }) + "<div class='gray mt5'>" + home_server_label(card.dataset.home, true) + "</div>");
+	hover.data("card", card).appendTo($(card).closest("#pagewrapped"));
+	$(card).attr("aria-describedby", "character-home-hover");
+	var bounds = card.getBoundingClientRect(),
+		zoom = 1 + (window.browser_zoom || 0) / 100;
+	var width = hover.outerWidth(),
+		height = hover.outerHeight(),
+		left = bounds.left / zoom,
+		top = bounds.bottom / zoom + 8;
+	if (top + height > viewport_height() - 8) top = bounds.top / zoom - height - 8;
+	hover.css({ left: Math.max(8, Math.min(left, viewport_width() - width - 8)), top: Math.max(8, Math.min(top, viewport_height() - height - 8)) });
 }
 
 function enter_selected_character(name, id) {
+	hide_character_home();
 	if (!socket_welcomed || !socket || !socket.connected) return ui_log(phrase.html("game.connecting_to_the_server"));
 	if (!observe_character(name)) log_in(user_id, id, user_auth);
 }

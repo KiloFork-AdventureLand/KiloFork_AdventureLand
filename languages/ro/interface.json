@@ -946,5 +946,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Server: {server}",
 	"interface.selection.home": "Acasă: {server}",
-	"interface.selection.home_unset": "Acasă: nestabilit"
+	"interface.selection.home_unset": "Acasă: nestabilit",
+	"interface.selection.away_home": "Acesta nu este serverul de acasă al personajului {name}."
 }

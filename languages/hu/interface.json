@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Szerver: {server}",
 	"interface.selection.home": "Otthon: {server}",
-	"interface.selection.home_unset": "Otthon: nincs még"
+	"interface.selection.home_unset": "Otthon: nincs még",
+	"interface.selection.away_home": "Ez nem {name} otthonszervere."
 }

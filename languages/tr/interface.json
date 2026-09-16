@@ -941,5 +941,6 @@
 	"interface.poker.bb_x": "{x} BB",
 	"interface.selection.destination": "Sunucu: {server}",
 	"interface.selection.home": "Ana sunucu: {server}",
-	"interface.selection.home_unset": "Ana sunucu: yok"
+	"interface.selection.home_unset": "Ana sunucu: yok",
+	"interface.selection.away_home": "Burası {name} adlı karakterin ana sunucusu değil."
 }
