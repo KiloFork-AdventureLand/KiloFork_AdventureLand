@@ -90,7 +90,6 @@ var cave_server_offset = 0;
 var cave_ui_next = 0;
 var cave_reward_run = null;
 var cave_reward_seen = 0;
-var cave_reward_queue = [];
 var cave_active_reward = null;
 var cave_notice_until = 0;
 var cave_hud_width = 0;
@@ -123,7 +122,7 @@ function receive_cave_state(data) {
 	call_code_function("trigger_event", "cave", cave_client_state);
 	if (no_graphics) return;
 	if (!!previous !== !!cave_client_state || previous?.paused !== cave_client_state?.paused) reflect_music();
-	cave_queue_rewards(data.state);
+	cave_receive_rewards(data.state);
 	update_cave_doors();
 	if (data.type === "ended") {
 		cave_open_choice = null;
@@ -296,7 +295,7 @@ function update_cave_hud(force) {
 			$("#cave-hud").remove();
 			reposition_ui();
 		}
-		if (!cave_reward_queue.length && Date.now() >= cave_notice_until) {
+		if (Date.now() >= cave_notice_until) {
 			$("#cave-reward-note").remove();
 			return;
 		}
@@ -814,33 +813,25 @@ function cave_transport_failed(data) {
 		text = phrase(key);
 	ui_log(text === key ? phrase("response.transport_cant_reach") : text, "#DCA99B");
 }
-function cave_queue_rewards(state) {
+function cave_receive_rewards(state) {
 	if (no_graphics || !state) return;
 	if (state.run !== cave_reward_run) {
 		cave_reward_run = state.run;
 		cave_reward_seen = 0;
-		cave_reward_queue = [];
 		cave_active_reward = null;
 		cave_notice_until = 0;
 	}
 	for (var reward of state.rewards || []) {
 		if (reward.id > cave_reward_seen) {
-			cave_reward_queue.push(reward);
 			cave_reward_seen = reward.id;
-		} else {
-			var index = cave_reward_queue.findIndex((r) => r.id === reward.id);
-			if (index >= 0) cave_reward_queue[index] = reward;
-			if (cave_active_reward?.id === reward.id) cave_active_reward = reward;
-		}
+			cave_active_reward = reward;
+			cave_notice_until = Date.now() + 3500;
+			cave_reward_feedback(reward);
+		} else if (cave_active_reward?.id === reward.id) cave_active_reward = reward;
 	}
 }
 function cave_show_reward() {
 	if (no_graphics) return;
-	if (Date.now() >= cave_notice_until && cave_reward_queue.length) {
-		cave_active_reward = cave_reward_queue.shift();
-		cave_notice_until = Date.now() + 3500;
-		cave_reward_feedback(cave_active_reward);
-	}
 	var visible = cave_active_reward && Date.now() < cave_notice_until;
 	$(".cave-reward-note").toggle(!!visible);
 	if (visible) {

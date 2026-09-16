@@ -303,7 +303,7 @@ test("socket-driven cave visuals are safe with a throwing fake PIXI runtime", ()
 	c.decorate_cave_chest({});
 	c.draw_cave_chests();
 	c.cave_reward_feedback({});
-	c.cave_queue_rewards({ run: "test", rewards: [] });
+	c.cave_receive_rewards({ run: "test", rewards: [] });
 	c.cave_show_reward();
 	c.chests = {};
 	load(c, "js/game.js", ["add_chest"]);
@@ -423,6 +423,74 @@ test("cave entry waits for the map handoff and releases input without another dr
 	assert.equal(c.cave_entry_scenes.length, 0);
 });
 
+test("cave loot appears on receipt without queuing or replaying repeated snapshots", () => {
+	let now = 10000;
+	const feedback = [],
+		rewards = [],
+		note = {
+			toggle(visible) {
+				this.visible = visible;
+				return this;
+			},
+			html(value) {
+				this.contents = value;
+				return this;
+			},
+			data(key, value) {
+				if (value === undefined) return this[key];
+				this[key] = value;
+				return this;
+			},
+		};
+	const c = vm.createContext({
+		no_graphics: false,
+		character: {},
+		Date: { now: () => now },
+		call_code_function() {},
+		reflect_music() {},
+		$: (selector) => (selector === ".cave-reward-note" ? note : { length: 0 }),
+	});
+	vm.runInContext(read("js/generated_zones.js"), c);
+	c.update_cave_doors = c.update_cave_info = () => {};
+	c.update_cave_hud = () => c.cave_show_reward();
+	c.cave_reward_feedback = (reward) => feedback.push({ id: reward.id, at: now });
+	c.cave_reward_html = (reward) => `${reward.id}:${reward.where}`;
+	const receive = () => c.receive_cave_state({ type: "state", state: { run: "test", rewards } });
+	for (let id = 1; id <= 5; id++) {
+		now += 100;
+		rewards.push({ id, where: "purse", amber: 1 });
+		receive();
+		assert.equal(feedback.length, id, "every chest triggers feedback immediately");
+		assert.deepEqual(feedback.at(-1), { id, at: now });
+		assert.equal(note.contents, `${id}:purse`, "the newest chest replaces the banner immediately");
+		assert.equal(note.visible, true);
+		assert.equal(c.cave_notice_until, now + 3500);
+	}
+	const until = c.cave_notice_until;
+	now += 100;
+	receive();
+	assert.equal(feedback.length, 5, "repeated snapshots do not replay rewards");
+	assert.equal(c.cave_notice_until, until, "repeated snapshots do not extend the banner");
+	now = until + 1;
+	c.cave_show_reward();
+	assert.equal(note.visible, false, "the last banner expires without showing an older reward");
+	assert.equal(feedback.length, 5);
+	now += 3500;
+	receive();
+	assert.equal(note.visible, false, "old receipts stay hidden after expiry");
+	assert.equal(feedback.length, 5);
+
+	rewards.push({ id: 6, where: "mail_pending" });
+	receive();
+	const mailUntil = c.cave_notice_until;
+	now += 100;
+	rewards[5] = { id: 6, where: "mail" };
+	receive();
+	assert.equal(note.contents, "6:mail", "delivery updates still refresh the visible reward");
+	assert.equal(feedback.length, 6, "delivery updates do not replay loot feedback");
+	assert.equal(c.cave_notice_until, mailUntil);
+});
+
 test("a first paused cave snapshot opens its choice without reopening a dismissed conversation", () => {
 	const shown = [];
 	const c = vm.createContext({
@@ -433,7 +501,7 @@ test("a first paused cave snapshot opens its choice without reopening a dismisse
 		$: () => ({ length: 0 }),
 	});
 	vm.runInContext(read("js/generated_zones.js"), c);
-	for (const name of ["cave_queue_rewards", "update_cave_doors", "update_cave_hud", "update_cave_info"])
+	for (const name of ["cave_receive_rewards", "update_cave_doors", "update_cave_hud", "update_cave_info"])
 		c[name] = () => {};
 	c.render_cave_choice = () => {
 		c.cave_open_choice = c.cave_client_state.choice.id;
