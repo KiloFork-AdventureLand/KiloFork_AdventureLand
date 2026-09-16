@@ -947,5 +947,8 @@
 	"interface.poker.walk_to_sit": "Přistup blíž a posaď se",
 	"interface.poker.three_quarter_pot": "¾ POTU",
 	"interface.poker.pot_x": "{x}× POT",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Server: {server}",
+	"interface.selection.home": "Domov: {server}",
+	"interface.selection.home_unset": "Domov: neurčen"
 }

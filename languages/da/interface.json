@@ -939,5 +939,8 @@
 	"interface.poker.walk_to_sit": "Gå hen for at sætte dig",
 	"interface.poker.three_quarter_pot": "¾ PULJE",
 	"interface.poker.pot_x": "{x}× PULJE",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Server: {server}",
+	"interface.selection.home": "Hjem: {server}",
+	"interface.selection.home_unset": "Hjem: ikke valgt"
 }

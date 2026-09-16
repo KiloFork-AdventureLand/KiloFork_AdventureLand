@@ -2631,5 +2631,8 @@
 	"docs.cave.comic.clank": "Klonk!",
 	"docs.cave.returns": "Returnerer ved suksess: {fields}.",
 	"docs.cave.state": "character.cave inneholder hulens nyeste tilstand og blir null når du forlater den. Følg endringer med character.on(\"cave\", callback).",
-	"docs.cave.restart": "Hvis en omstart av serveren avslutter besøket ditt, får kontoen sitt daglige besøk tilbake. Å laste siden på nytt eller koble fra gir det ikke tilbake."
+	"docs.cave.restart": "Hvis en omstart av serveren avslutter besøket ditt, får kontoen sitt daglige besøk tilbake. Å laste siden på nytt eller koble fra gir det ikke tilbake.",
+	"docs.guide.events-and-home.choosing-server": "Sjekk serveren over figurlisten før du velger en figur. Bytt via serverlisten. Hjem-linjen til hver figur viser det lagrede hjemmet. Ved innlogging foretrekkes en tilgjengelig hjemmeserver, med mindre du har valgt en server selv eller åpnet en serverlenke. Figurer som allerede spiller, åpnes på sin nåværende server.",
+	"docs.guide.events-and-home.saved-home": "Hver figur har sitt eget lagrede hjem, som bestemmes første gang den går inn i spillet. Et besøk på en kjent server endrer det ikke.",
+	"docs.guide.events-and-home.hop-sickness": "{condition} reduserer XP, gull, flaks og angrepskraft når en figur på nivå 60 eller høyere går inn på en annen server uten PvP utenfor hjemmet sitt. Grunnvarigheten er 12 minutter med spilling på nett. Å koble til samme server igjen bevarer tiden som gjenstår. Å vende tilbake til det lagrede hjemmet eller bytte hjem hos Bean fjerner effekten umiddelbart."
 }

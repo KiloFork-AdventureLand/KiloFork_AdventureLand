@@ -938,5 +938,8 @@
 	"interface.poker.walk_to_sit": "走近入座",
 	"interface.poker.three_quarter_pot": "¾ 底池",
 	"interface.poker.pot_x": "{x}× 底池",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "服务器：{server}",
+	"interface.selection.home": "家园：{server}",
+	"interface.selection.home_unset": "家园：未设置"
 }

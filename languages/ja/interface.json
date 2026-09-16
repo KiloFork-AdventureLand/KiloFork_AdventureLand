@@ -938,5 +938,8 @@
 	"interface.poker.walk_to_sit": "近づいて座る",
 	"interface.poker.three_quarter_pot": "¾ ポット",
 	"interface.poker.pot_x": "{x}× ポット",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "サーバー: {server}",
+	"interface.selection.home": "ホーム: {server}",
+	"interface.selection.home_unset": "ホーム: 未設定"
 }

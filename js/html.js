@@ -5526,6 +5526,11 @@ function render_condition(selector, name) {
 	}
 	if (def && def.encouragement && !(condition && condition.ms)) minutes = undefined;
 	if (def) def = Object.assign({}, def, { name: phrase.definition("condition", name, "name", def.name), explanation: phrase.definition("condition", name, "explanation", def.explanation) });
+	if (def && target === character && (name == "hopsickness" || name == "realmfatigue")) {
+		def.explanation += "<br /><br />" + phrase.html("interface.selection.destination", { server: home_server_name(server_region + server_identifier) });
+		def.explanation += "<br />" + home_server_label(character.home, true);
+		def.explanation += "<br /><span class='clickable' style='color:#85c76b' onclick=\"open_guide('events-and-home',get_guide_url('events-and-home'))\">" + phrase.html("interface.server.info") + "</span>";
+	}
 	render_item(selector, { skin: (condition && condition.skin) || (def && def.skin), item: def, prop: def, minutes: minutes, condition: condition });
 }
 

@@ -677,25 +677,21 @@ async function get_browser_servers(req) {
 	return servers.filter((s) => s.address === "de.adventure.land").map((s) => Object.assign({}, s, { address: "cloudflare.adventure.land" }));
 }
 
-function select_server(req, user, servers) {
+function select_server(req, user, servers, characters) {
 	if (!servers || !servers.length) return null;
 	if (Dev) return servers[0];
+	// Fresh character records are authoritative; the account's character list can contain old homes.
+	var chars = characters || gf(user, "characters", []);
+	for (var i = 0; i < chars.length; i++) {
+		var home = characters ? chars[i].info && chars[i].info.p && chars[i].info.p.home : chars[i].home;
+		var home_server = servers.find((server) => server.region + server.name === home);
+		if (home_server) return home_server;
+	}
 	try {
 		var geoip = require("geoip-lite");
 		var ip = get_ip(req);
 		var geo = geoip.lookup(ip);
 		var latlon = (geo && geo.ll) || [0, 0];
-
-		var u_server = "";
-		var chars = gf(user, "characters", []);
-		if (user && chars && chars.length) {
-			for (var i = 0; i < chars.length; i++) {
-				if (chars[i].home) {
-					u_server = chars[i].home;
-					break;
-				}
-			}
-		}
 
 		var min_dist = 99999999999,
 			the_server = null,
@@ -713,10 +709,6 @@ function select_server(req, user, servers) {
 			if (server.gameplay === "test") {
 				rank = -1000;
 				dist += 29999999999;
-			}
-			if (server.region + server.name === u_server) {
-				dist = -1;
-				rank = 99999999;
 			}
 			if (dist < min_dist || (dist === min_dist && rank > max_rank)) {
 				min_dist = dist;
@@ -1520,7 +1512,8 @@ function shtml(path, vars) {
 async function render_selection(req, res, user, domain, level, server) {
 	domain.canonical_url = SEO_ORIGIN + "/";
 	var servers = await get_browser_servers(req);
-	if (!server) server = select_server(req, user, servers);
+	domain.server_explicit = !!(server || domain.url_address);
+	if (!server && domain.url_address) server = servers.find((s) => s.address === domain.url_address && s.path === domain.url_path);
 	var total = 0,
 		characters = [],
 		data = null;
@@ -1531,6 +1524,7 @@ async function render_selection(req, res, user, domain, level, server) {
 		data = await get_user_data(user);
 	}
 	domain.servers = servers_to_client(domain, servers);
+	if (!server) server = select_server(req, user, servers, characters);
 	res.status(200).send(
 		nunjucks.render("htmls/index.html", {
 			domain: domain,
@@ -1546,8 +1540,10 @@ async function render_selection(req, res, user, domain, level, server) {
 
 async function selection_info(req, user, domain) {
 	var servers = await get_browser_servers(req);
-	var server = select_server(req, user, servers);
 	var characters = await get_characters(user);
+	var server = select_server(req, user, servers, characters);
+	domain.characters = characters_to_client(characters);
+	domain.servers = servers_to_client(domain, servers);
 	return {
 		type: "content",
 		html: nunjucks.render("htmls/contents/selection.html", {

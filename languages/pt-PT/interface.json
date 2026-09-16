@@ -939,5 +939,8 @@
 	"interface.poker.walk_to_sit": "Aproxima-te para te sentares",
 	"interface.poker.three_quarter_pot": "¾ POTE",
 	"interface.poker.pot_x": "{x}× POTE",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Servidor: {server}",
+	"interface.selection.home": "Lar: {server}",
+	"interface.selection.home_unset": "Lar: por definir"
 }

@@ -938,5 +938,8 @@
 	"interface.poker.walk_to_sit": "เดินเข้าไปเพื่อนั่ง",
 	"interface.poker.three_quarter_pot": "¾ พ็อต",
 	"interface.poker.pot_x": "{x}× พ็อต",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "เซิร์ฟเวอร์: {server}",
+	"interface.selection.home": "บ้าน: {server}",
+	"interface.selection.home_unset": "บ้าน: ยังไม่ตั้ง"
 }

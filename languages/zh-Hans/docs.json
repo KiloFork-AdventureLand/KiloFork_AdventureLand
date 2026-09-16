@@ -2631,5 +2631,8 @@
 	"docs.cave.comic.clank": "哐当！",
 	"docs.cave.returns": "成功时返回：{fields}。",
 	"docs.cave.state": "character.cave保存洞窟的最新状态，离开洞窟后变为null。使用character.on(\"cave\", callback)监听变化。",
-	"docs.cave.restart": "如果服务器重启导致本次探索结束，账号会恢复当日的进入次数。刷新页面或断开连接不会恢复次数。"
+	"docs.cave.restart": "如果服务器重启导致本次探索结束，账号会恢复当日的进入次数。刷新页面或断开连接不会恢复次数。",
+	"docs.guide.events-and-home.choosing-server": "选择角色前，请查看角色列表上方的服务器。可在服务器列表中切换。每个角色的“家园”一栏显示其已保存的家园服务器。登录时会优先选择可用的家园服务器，除非你自行选择了服务器或打开了服务器链接。已在游戏中的角色会在其当前所在的服务器打开。",
+	"docs.guide.events-and-home.saved-home": "每个角色都有独立保存的家园服务器，在首次进入游戏时确定。访问以前玩过的服务器不会改变家园。",
+	"docs.guide.events-and-home.hop-sickness": "等级达到60级的角色进入家园以外的另一个非PvP服务器时，{condition}会降低XP、金币、幸运和攻击力。基础持续时间为12分钟在线游戏时间。重新连接同一服务器会保留剩余时间。回到已保存的家园，或请Bean更改家园，即可立即解除。"
 }

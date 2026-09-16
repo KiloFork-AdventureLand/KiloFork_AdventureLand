@@ -938,5 +938,8 @@
 	"interface.poker.walk_to_sit": "Dekati untuk duduk",
 	"interface.poker.three_quarter_pot": "¾ POT",
 	"interface.poker.pot_x": "{x}× POT",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Pelayan: {server}",
+	"interface.selection.home": "Rumah: {server}",
+	"interface.selection.home_unset": "Rumah: belum tetap"
 }

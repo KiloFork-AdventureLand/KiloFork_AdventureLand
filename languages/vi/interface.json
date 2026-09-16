@@ -938,5 +938,8 @@
 	"interface.poker.walk_to_sit": "Lại gần để ngồi",
 	"interface.poker.three_quarter_pot": "¾ POT",
 	"interface.poker.pot_x": "{x}× POT",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Máy chủ: {server}",
+	"interface.selection.home": "Nhà: {server}",
+	"interface.selection.home_unset": "Nhà: chưa đặt"
 }

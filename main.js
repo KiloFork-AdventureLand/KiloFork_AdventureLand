@@ -130,7 +130,6 @@ app.get("/hub", async (req, res, next) => {
 	var user = await get_user(req),
 		domain = await get_domain(req, user);
 	var servers = await get_browser_servers(req);
-	var server = select_server(req, user, servers);
 	var total = 0,
 		characters = [],
 		data = null;
@@ -142,6 +141,7 @@ app.get("/hub", async (req, res, next) => {
 	}
 	domain.servers = servers_to_client(domain, servers);
 	domain.characters = domain.characters || [];
+	var server = select_server(req, user, servers, characters);
 	res.set("Cache-Control", "no-store");
 	res.status(200).send(
 		nunjucks.render("htmls/comm.html", {

@@ -939,5 +939,8 @@
 	"interface.poker.walk_to_sit": "Loop erheen om te zitten",
 	"interface.poker.three_quarter_pot": "¾ POT",
 	"interface.poker.pot_x": "{x}× POT",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Server: {server}",
+	"interface.selection.home": "Thuis: {server}",
+	"interface.selection.home_unset": "Thuis: niet ingesteld"
 }

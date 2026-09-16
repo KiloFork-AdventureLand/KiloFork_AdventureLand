@@ -943,5 +943,8 @@
 	"interface.poker.walk_to_sit": "Apropie-te ca să te așezi",
 	"interface.poker.three_quarter_pot": "¾ POT",
 	"interface.poker.pot_x": "{x}× POT",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Server: {server}",
+	"interface.selection.home": "Acasă: {server}",
+	"interface.selection.home_unset": "Acasă: nestabilit"
 }

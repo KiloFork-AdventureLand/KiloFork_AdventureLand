@@ -1457,7 +1457,7 @@ function init_socket(args) {
 		return;
 	}
 	if (window.socket) {
-		if (!socket_welcomed) return add_log(phrase.html("game.another_server_connection_in_progress_please_wait"));
+		if (!socket_welcomed && !args.selection) return add_log(phrase.html("game.another_server_connection_in_progress_please_wait"));
 		window.socket.destroy();
 	}
 	$(".disconnected").hide();
@@ -1487,6 +1487,7 @@ function init_socket(args) {
 	add_log(phrase.html("game.connecting_to_the_server"));
 	socket_ready = false;
 	socket_welcomed = false;
+	update_login_server();
 	render_event_announcements();
 	observing = null;
 	$("#observeui").hide();
@@ -1532,6 +1533,7 @@ function init_socket(args) {
 		server_region = data.region;
 		server_identifier = data.name;
 		server_name = server_names[data.region] + " " + data.name;
+		update_login_server();
 		clear_game_logs();
 		add_log(phrase.html("game.welcome_to", { value: server_names[data.region], name: data.name }));
 		add_update_notes();
@@ -2337,7 +2339,14 @@ function init_socket(args) {
 			else if (response == "condition") {
 				var def = G.conditions[data.name],
 					from = data.from;
-				if (def.debuff) {
+				if (data.name == "hopsickness" || data.name == "realmfatigue") {
+					ui_log(
+						phrase.html("response.condition", { name: phrase.definition("condition", data.name, "name", def.name) }) +
+							(character ? " — " + home_server_label(character.home, true) : "") +
+							" <span class='clickable' style='color:#85c76b' onclick=\"open_guide('events-and-home',get_guide_url('events-and-home'))\">" + phrase.html("interface.server.info") + "</span>",
+						"gray",
+					);
+				} else if (def.debuff) {
 					ui_log(phrase.html("response.condition", { name: phrase.definition("condition", data.name, "name", def.name) }), "gray");
 				} else if (from) {
 					ui_log(phrase.html("response.condition.buffed_you_with", { from: from, name: phrase.definition("condition", data.name, "name", def.name) }), "gray");

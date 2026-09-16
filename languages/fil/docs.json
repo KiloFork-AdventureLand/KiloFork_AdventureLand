@@ -2631,5 +2631,8 @@
 	"docs.cave.comic.clank": "Kalang!",
 	"docs.cave.returns": "Ibinabalik kapag matagumpay: {fields}.",
 	"docs.cave.state": "Nasa character.cave ang pinakabagong estado ng kuweba at nagiging null ito kapag umalis ka. Subaybayan ang mga pagbabago gamit ang character.on(\"cave\", callback).",
-	"docs.cave.restart": "Kung matapos ang pagbisita mo dahil sa pag-restart ng server, maibabalik ang arawang pagbisita ng account. Hindi ito maibabalik sa pag-reload o pagdiskonekta."
+	"docs.cave.restart": "Kung matapos ang pagbisita mo dahil sa pag-restart ng server, maibabalik ang arawang pagbisita ng account. Hindi ito maibabalik sa pag-reload o pagdiskonekta.",
+	"docs.guide.events-and-home.choosing-server": "Bago pumili ng karakter, tingnan ang server sa itaas ng listahan ng mga karakter. Palitan ito gamit ang listahan ng mga server. Ipinapakita ng linyang Tahanan ang naka-save na tahanan ng bawat karakter. Sa pag-log in, uunahin ang available na tahanan maliban kung ikaw mismo ang pumili ng server o nagbukas ng link sa isang server. Ang mga karakter na naglalaro na ay bubuksan sa kasalukuyan nilang server.",
+	"docs.guide.events-and-home.saved-home": "May sariling naka-save na tahanan ang bawat karakter, na itinatakda sa unang pagpasok nito sa laro. Hindi ito nababago ng pagbisita sa isang pamilyar na server.",
+	"docs.guide.events-and-home.hop-sickness": "Binabawasan ng {condition} ang XP, ginto, suwerte at lakas ng atake kapag ang karakter na level 60 pataas ay pumasok sa ibang server na hindi PvP at hindi nito tahanan. Ang karaniwang tagal ay 12 minuto ng paglalaro online. Mananatili ang natitirang oras kapag muling kumonekta sa parehong server. Agad mawawala ang epekto kapag bumalik sa naka-save na tahanan o nagpalit ng tahanan kay Bean."
 }

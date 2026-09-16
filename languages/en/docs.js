@@ -1,5 +1,11 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Home guide: check destination before entering. Servers is the existing server list; Home is the character card label. Online characters are observed on their current server.
+	"docs.guide.events-and-home.choosing-server": "Before choosing a character, check the server above the character list. Use the Servers list to change it. Each character's Home line shows its saved home. Signing in prefers an available saved home unless you chose a server yourself or opened a server link. Characters already running open on their current server.",
+	// Home guide: home belongs to each character, assigned on first entry, not changed by visiting.
+	"docs.guide.events-and-home.saved-home": "Each character has its own saved home, set when it first enters the game. Visiting a familiar server does not change it.",
+	// Home guide. condition is the translated Hop Sickness name. Keep XP, PvP and Bean. Level 60+, non-PvP, 12 online minutes; reconnect preserves time and returning/changing home clears it.
+	"docs.guide.events-and-home.hop-sickness": "{condition} lowers XP, gold, luck and attack power after a character of level 60 or above enters another non-PvP server away from home. The base duration is 12 minutes of online play. Reconnecting to that server preserves the remaining time. Returning to the saved home or changing home with Bean clears it immediately.",
 	// CODE example requirements and Promise result. Preserve Tracktrix, Cavalry, Cave of Many Dreams, assigned, queued and reason exactly.
 	"docs.cavalry.code": "Carry Tracktrix and stand near a level 3+ monster. The call resolves with assigned (0–4) and queued; failures reject with reason. Cavalry cannot enter the Cave of Many Dreams.",
 	// Four sentries split into pairs or solo; priority uses caller character level. Calls stay at their original position.

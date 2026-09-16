@@ -452,7 +452,7 @@ var conditions = {
 	hopsickness: {
 		skin: "condition_bad",
 		name: "Hop Sickness",
-		explanation: "You are away from your home server. Kiss rewards are blocked while Hop Sickness is active. Return home or ask Bean in Mainland to change your home.",
+		explanation: "Leaving home for another non-PvP server at level 60 or above causes this condition. It lasts up to 12 minutes of online play and blocks kiss rewards. Returning to your saved home clears it immediately. Bean in Mainland can change your home.",
 		luck: -80,
 		gold: -80,
 		xp: -80,
@@ -466,7 +466,7 @@ var conditions = {
 	realmfatigue: {
 		skin: "condition_bad",
 		name: "Realm Fatigue",
-		explanation: "Another non-merchant character on your account was recently on a different server. Home bonuses and kiss rewards are blocked. Keep your non-merchant characters on one server; activity elsewhere extends the timer.",
+		explanation: "Another non-merchant character on your account was recently on a different server. Home bonuses and kiss rewards are blocked for 30 minutes; activity elsewhere extends the timer. Returning home does not clear it. Keep your non-merchant characters on one server.",
 		ui: true,
 		persistent: true,
 		duration: 1000 * 60 * 30,

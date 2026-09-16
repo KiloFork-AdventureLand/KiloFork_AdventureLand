@@ -951,5 +951,8 @@
 	"interface.poker.walk_to_sit": "Підійдіть, щоб сісти",
 	"interface.poker.three_quarter_pot": "¾ БАНКУ",
 	"interface.poker.pot_x": "{x}× БАНК",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Сервер: {server}",
+	"interface.selection.home": "Дім: {server}",
+	"interface.selection.home_unset": "Дім: не задано"
 }

@@ -938,5 +938,8 @@
 	"interface.poker.walk_to_sit": "Kävele lähemmäs istuaksesi",
 	"interface.poker.three_quarter_pot": "¾ POTTI",
 	"interface.poker.pot_x": "{x}× POTTI",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Palvelin: {server}",
+	"interface.selection.home": "Koti: {server}",
+	"interface.selection.home_unset": "Koti: ei asetettu"
 }

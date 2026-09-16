@@ -73,6 +73,63 @@ function server_to_ui(key) {
 	return key;
 }
 
+function home_server_name(home) {
+	var parts = /^(US|EU|ASIA)(.+)$/.exec(home || "");
+	return parts ? (server_names[parts[1]] || parts[1]) + " " + parts[2] : home || "";
+}
+
+function home_server_label(home, html) {
+	var translate = html ? phrase.html : phrase;
+	return home ? translate("interface.selection.home", { server: home_server_name(home) }) : translate("interface.selection.home_unset");
+}
+
+function select_login_server(server, explicit) {
+	if (character || observing || (window.auth_sent && mssince(window.auth_sent) < 10000)) return;
+	if (!explicit && selection_server_explicit) return;
+	var available = (X.servers || []).find(function (entry) {
+		return entry.address == server.address && entry.path == server.path;
+	});
+	if (!available) return;
+	if (explicit) {
+		selection_server_explicit = true;
+		// Keep a manual choice through language changes, sign-in reloads and refreshes.
+		history.replaceState({}, "", "/server/" + encodeURIComponent(available.region) + "/" + encodeURIComponent(available.name) + "/" + location.search);
+	}
+	if (server_address != available.address || server_path != available.path || (explicit && window.socket && !socket.connected)) {
+		server_address = available.address;
+		server_path = available.path;
+		if (window.socket) init_socket({ selection: true });
+	}
+	update_login_server();
+}
+
+function update_login_server() {
+	var selected = (X.servers || []).find(function (entry) {
+		return entry.address == server_address && entry.path == server_path;
+	});
+	var home = selected && selected.region + selected.name;
+	$(".selection-destination").text(selected ? phrase("interface.selection.destination", { server: home_server_name(home) }) : phrase("game.no_live_server_found"));
+	$(".selection-connecting").toggle(!!selected && !socket_welcomed);
+	$(".selection-server").each(function () {
+		var current = this.dataset.address == server_address && this.dataset.path == server_path;
+		$(this).attr("aria-current", current ? "true" : null).css("color", current ? "#85c76b" : "").find(".selection-current").toggle(current);
+	});
+	$(".selection-home").each(function () {
+		var id = this.dataset.character;
+		var current = (X.characters || []).find(function (entry) {
+			return entry.id == id;
+		});
+		if (current) this.dataset.home = current.home || "";
+		var label = home_server_label(this.dataset.home);
+		$(this).text(label).attr("title", label).css("color", this.dataset.home && this.dataset.home == home ? "#85c76b" : "");
+	});
+}
+
+function enter_selected_character(name, id) {
+	if (!socket_welcomed || !socket || !socket.connected) return ui_log(phrase.html("game.connecting_to_the_server"));
+	if (!observe_character(name)) log_in(user_id, id, user_auth);
+}
+
 function is_hidden() {
 	return document.hidden;
 }
@@ -5768,6 +5825,7 @@ setInterval(function () {
 }, 2000);
 
 function update_servers_and_characters() {
+	if (inside == "selection") update_login_server();
 	var keys = { 1: null, 2: null, 3: null, merchant: null },
 		order = 1,
 		c_count = 0;

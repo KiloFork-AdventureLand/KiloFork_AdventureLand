@@ -938,5 +938,8 @@
 	"interface.poker.walk_to_sit": "اقترب لتجلس",
 	"interface.poker.three_quarter_pot": "¾ الوعاء",
 	"interface.poker.pot_x": "{x}× الوعاء",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "الخادم: {server}",
+	"interface.selection.home": "الموطن: {server}",
+	"interface.selection.home_unset": "الموطن: غير محدد"
 }

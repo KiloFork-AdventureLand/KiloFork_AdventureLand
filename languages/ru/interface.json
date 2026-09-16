@@ -951,5 +951,8 @@
 	"interface.poker.walk_to_sit": "Подойдите, чтобы сесть",
 	"interface.poker.three_quarter_pot": "¾ БАНКА",
 	"interface.poker.pot_x": "{x}× БАНК",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Сервер: {server}",
+	"interface.selection.home": "Дом: {server}",
+	"interface.selection.home_unset": "Дом: не задан"
 }

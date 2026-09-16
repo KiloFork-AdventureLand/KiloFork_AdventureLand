@@ -42,7 +42,10 @@
 
 <div class="divider"></div>
 <div class="title mt15">{{ phrase("docs.guide.events-and-home.home-and-blessings") }}</div>
+<p>{{ phrase("docs.guide.events-and-home.choosing-server") }}</p>
+<p>{{ phrase("docs.guide.events-and-home.saved-home") }}</p>
 <p>{{ phrase("docs.guide.events-and-home.speak-with-bean-while-on-the-realm-this") }}</p>
+<p>{{ phrase("docs.guide.events-and-home.hop-sickness", {"condition": phrase("condition.hopsickness.name")}) }}</p>
 <p>{{ phrase("docs.guide.events-and-home.if-another-non-merchant-character-on-your-account") }}</p>
 <div class="guide-note">{{ phrase("docs.guide.events-and-home.settle-on-one-realm-for-30-minutes-to") }}</div>
 <p>{{ phrase("docs.guide.events-and-home.changing-home-has-a-36-hour-cooldown-so") }}</p>
@@ -62,7 +65,10 @@
 
 report_live_events();
 show_json(server.status);</div>
-<div class="code">var fatigue = character.s.realmfatigue;
+<div class="code">show_json({server: server.region + server.id, home: character.home});
+var sickness = character.s.hopsickness;
+if (sickness) game_log("Hop Sickness: " + Math.ceil(sickness.ms / 60000) + " minutes remaining");
+var fatigue = character.s.realmfatigue;
 if (fatigue) game_log("Realm Fatigue: " + Math.ceil(fatigue.ms / 60000) + " minutes remaining");</div>
 <div class="code">async function join_goobrawl_if_live() {
 	if (!server.status.goobrawl) return game_log("No Goo Brawl here");

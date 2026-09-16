@@ -939,5 +939,8 @@
 	"interface.poker.walk_to_sit": "Gå fram för att sätta dig",
 	"interface.poker.three_quarter_pot": "¾ POTT",
 	"interface.poker.pot_x": "{x}× POTT",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Server: {server}",
+	"interface.selection.home": "Hem: {server}",
+	"interface.selection.home_unset": "Hem: inte valt"
 }

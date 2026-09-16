@@ -939,5 +939,8 @@
 	"interface.poker.walk_to_sit": "Πλησίασε για να καθίσεις",
 	"interface.poker.three_quarter_pot": "¾ ΠΟΤ",
 	"interface.poker.pot_x": "{x}× ΠΟΤ",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Διακομιστής: {server}",
+	"interface.selection.home": "Έδρα: {server}",
+	"interface.selection.home_unset": "Έδρα: δεν ορίστηκε"
 }

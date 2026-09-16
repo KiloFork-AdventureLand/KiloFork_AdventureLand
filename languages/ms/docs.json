@@ -2631,5 +2631,8 @@
 	"docs.cave.comic.clank": "Kelentang!",
 	"docs.cave.returns": "Mengembalikan apabila berjaya: {fields}.",
 	"docs.cave.state": "character.cave mengandungi keadaan gua terkini dan menjadi null apabila anda keluar. Pantau perubahan dengan character.on(\"cave\", callback).",
-	"docs.cave.restart": "Jika mula semula pelayan menamatkan lawatan anda, akaun mendapat semula lawatan hariannya. Memuat semula halaman atau memutuskan sambungan tidak memulihkannya."
+	"docs.cave.restart": "Jika mula semula pelayan menamatkan lawatan anda, akaun mendapat semula lawatan hariannya. Memuat semula halaman atau memutuskan sambungan tidak memulihkannya.",
+	"docs.guide.events-and-home.choosing-server": "Sebelum memilih watak, semak pelayan di atas senarai watak. Tukar melalui senarai pelayan. Baris Rumah bagi setiap watak menunjukkan rumah yang disimpan. Semasa log masuk, rumah yang tersedia diberi keutamaan, melainkan anda memilih pelayan sendiri atau membuka pautan pelayan. Watak yang sedang bermain akan dibuka pada pelayan semasa mereka.",
+	"docs.guide.events-and-home.saved-home": "Setiap watak mempunyai rumah tersimpan sendiri yang ditetapkan apabila mula memasuki permainan. Melawat pelayan yang pernah dimainkan tidak mengubahnya.",
+	"docs.guide.events-and-home.hop-sickness": "{condition} mengurangkan XP, emas, tuah dan kuasa serangan apabila watak tahap 60 ke atas memasuki pelayan bukan PvP lain di luar rumahnya. Tempoh asas ialah 12 minit bermain dalam talian. Menyambung semula ke pelayan yang sama mengekalkan baki masa. Kembali ke rumah tersimpan atau menukar rumah melalui Bean menghapuskan kesan serta-merta."
 }

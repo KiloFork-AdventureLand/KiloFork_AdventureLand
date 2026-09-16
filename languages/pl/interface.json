@@ -951,5 +951,8 @@
 	"interface.poker.walk_to_sit": "Podejdź, aby usiąść",
 	"interface.poker.three_quarter_pot": "¾ PULI",
 	"interface.poker.pot_x": "{x}× PULA",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Serwer: {server}",
+	"interface.selection.home": "Dom: {server}",
+	"interface.selection.home_unset": "Dom: nieustalony"
 }

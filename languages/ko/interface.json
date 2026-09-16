@@ -938,5 +938,8 @@
 	"interface.poker.walk_to_sit": "다가가서 앉기",
 	"interface.poker.three_quarter_pot": "¾ 팟",
 	"interface.poker.pot_x": "{x}× 팟",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "서버: {server}",
+	"interface.selection.home": "홈: {server}",
+	"interface.selection.home_unset": "홈: 미설정"
 }

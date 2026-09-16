@@ -5,7 +5,16 @@
 			thelooks = 0;
 	</script>
 	<div id="pagewrapped" class="loginorselection hidewithmodals">
-		<div class="menu">{% include "htmls/contents/selection_characters.html"%}</div>
+		<div class="menu">
+			<div class="mb5" style="display:flex; align-items:center; justify-content:space-between; gap:8px; max-width:394px; text-align:left">
+				<div style="min-width:0; font-size:24px">
+					<div class="selection-destination" aria-live="polite"></div>
+					<div class="selection-connecting gray" style="font-size:16px">{{ phrase("game.connecting_to_the_server") }}</div>
+				</div>
+				<div class="gamebutton" style="padding:6px 8px; font-size:24px; line-height:18px" onclick="pcs(event); open_guide('events-and-home',get_guide_url('events-and-home'))">{{ phrase("interface.server.info") }}</div>
+			</div>
+			{% include "htmls/contents/selection_characters.html"%}
+		</div>
 		<div class="newcharacter onback-hide hidden">
 			{#
 			<div class="whiteheader mb4 clickable" onclick="$('.charactername').focus()" style="margin-left: -6px">&gt; Name</div>
@@ -334,12 +343,13 @@
 			<span class="disconnected hidden" style="color: red">{{ phrase("pages.contents.selection.x-disconnected") }}</span>
 		</div>
 		{% for server in servers %}
-		<div class="clickable enableclicks" onclick="server_address='{{server.address}}'; server_path='{{server.path}}'; init_socket();">
+		<div class="clickable enableclicks selection-server" data-address="{{server.address|e}}" data-path="{{server.path|e}}" onclick="select_login_server({address:this.dataset.address,path:this.dataset.path},true)">
 			&gt; {{server.region=="EU" and "Europas" or server.region=="US" and "Americas" or "Eastlands"}} {% if server.gameplay!="hardcore" and server.gameplay!="dungeon" %}{{server.name}}{% endif %}{% if
 			server.gameplay=="hardcore" %} <span style="color: #dc3529">{{ phrase("pages.contents.selection.xhardcore") }}</span>{% elif server.gameplay=="dungeon" %} <span style="color: #72396e">{{ phrase("pages.contents.selection.dungeon") }}</span>{% endif%}{% if server.info.players
 			%} <span style="color: #85c76b">[{{server.info.players+domain.boost}}]</span>{% endif %}{% if user.admin%} <span style="color: gray">[{{server.info.observers}}]</span>{%endif%}{% if
 			server.gameplay=="hardcore" %}{% elif server.gameplay=="dungeon" %}{% elif server.info.pvp %} <span style="color: #5de376">{{ phrase("pages.contents.selection.luck") }}</span> <span style="color: #4b9dde">{{ phrase("pages.contents.selection.xp") }}</span>
 			<span style="color: gold">{{ phrase("pages.contents.selection.gold") }}</span>{% endif %}
+			<span class="selection-current hidden" style="color:#85c76b">[{{ phrase("interface.load_servers_list.here") }}]</span>
 		</div>
 		{% endfor %}
 	</div>
@@ -358,4 +368,8 @@
 	{% endif %}
 	on_load_progress();
 	inside="selection";
+	X.characters={{domain.characters|to_json|safe}};
+	X.servers={{domain.servers|to_json|safe}};
+	{% if server %}select_login_server({address:"{{server.address}}",path:"{{server.path}}"},false);{% endif %}
+	update_login_server();
 </script>

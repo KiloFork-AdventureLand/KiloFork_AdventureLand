@@ -938,5 +938,8 @@
 	"interface.poker.walk_to_sit": "Lépj közelebb, hogy leülj",
 	"interface.poker.three_quarter_pot": "¾ KASSZA",
 	"interface.poker.pot_x": "{x}× KASSZA",
-	"interface.poker.bb_x": "{x} BB"
+	"interface.poker.bb_x": "{x} BB",
+	"interface.selection.destination": "Szerver: {server}",
+	"interface.selection.home": "Otthon: {server}",
+	"interface.selection.home_unset": "Otthon: nincs még"
 }
