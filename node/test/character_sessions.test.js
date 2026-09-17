@@ -724,84 +724,84 @@ test("lost mount acknowledgement releases only its bank lock on logout", async (
 	assert.equal(f.character().info.gold, 100);
 });
 
-for (const occupied of ["player", "logout", "login", "none"]) {
-	test("stale recovery preserves " + occupied + " ownership and only releases an absent session", async () => {
-		const f = fixture(),
-			p = publish(f);
-		f.character().last_sync = new Date(0);
-		if (occupied !== "player") delete f.c.players[f.socket.id];
-		if (occupied === "logout") f.c.dc_players[p.real_id] = p;
-		if (occupied === "login") f.c.pending_logins.set(p.real_id, { id: p.real_id, deadline: Date.now() + 60000 });
-		f.c.sync_loop = () => {};
-		const result = await f.c.recover_character_session({
-			id: p.real_id,
-			server: f.c.server_id,
-			secret: p.secret,
-			last_sync: new Date(0),
-		});
-		assert.equal(result, occupied === "none");
-		assert.equal(f.character().online, occupied !== "none");
-	});
-}
-
-test("recovery refuses changed timestamps and sessions and a concurrent fresh sync", async () => {
-	for (const mismatch of ["last_sync", "secret", "conflict"]) {
-		let f;
-		f = fixture(({ session, versions }) => {
-			if (mismatch === "conflict" && session.pending.size) {
-				f.character().last_sync = new Date();
-				versions.set("CH_fixture", 1);
-			}
-		});
-		const p = publish(f);
-		delete f.c.players[f.socket.id];
-		f.character().last_sync = new Date(0);
-		const data = { id: p.real_id, server: f.c.server_id, secret: p.secret, last_sync: new Date(0) };
-		if (mismatch === "last_sync") f.character().last_sync = new Date();
-		if (mismatch === "secret") f.character().info.secret = "replacement";
-		assert.equal(await f.c.recover_character_session(data), false);
-		assert.equal(f.character().online, true);
-	}
+test("missing process memory never releases an old character or bank claim", async () => {
+	const f = fixture(),
+		p = publish(f);
+	f.character().last_sync = new Date(0);
+	f.owner().server = f.c.server_id;
+	f.owner().mounted_to = p.real_id;
+	delete f.c.players[f.socket.id];
+	delete f.c.instances.main.players[p.id];
+	const before = structuredClone(f.records);
+	assert.equal(typeof f.c.recover_character_session, "undefined");
+	f.c.sync_loop();
+	await flush();
+	assert.deepEqual(f.records, before);
+	const next = f.connection();
+	await next.auth(next.data);
+	await flush();
+	assert.deepEqual(f.records, before);
+	assert.equal(f.stats.writes, 0);
+	assert.ok(f.events.some((e) => e.data && e.data.reason === "ingame"));
 });
 
-test("cron requires an affirmative recovery response; failures do not clear or announce claims", async () => {
-	for (const reply of [true, false, null, "", { released: true }]) {
-		let writes = 0,
-			notices = 0,
-			calls = 0;
-		const c = vm.createContext({
-			console: { log() {} },
-			get_servers: async () => [{ _id: "SR_fixture", updated: new Date() }],
-			get_domain: () => ({}),
-			post_get: (x) => x,
-			db: {
-				collection: () => ({
-					find: () => ({
-						toArray: async () => [{ _id: "CH_fixture", last_sync: new Date(0), info: { secret: "fixture" } }],
-					}),
-					updateOne: () => {
-						writes++;
-					},
-				}),
-			},
-			server_eval: async (_server, code, data, timeout) => {
-				calls++;
-				assert.ok(code.includes("recover_character_session"));
-				assert.equal(data.id, "CH_fixture");
-				assert.equal(timeout, 5000);
-				return reply;
-			},
-			send_email: () => {
-				notices++;
-			},
-		});
-		load(c, "adventure_functions.js", ["msince"]);
-		load(c, "crons.js", ["unstuck_characters"]);
-		await c.unstuck_characters();
-		assert.equal(calls, 1);
-		assert.equal(writes, 0);
-		assert.equal(notices, reply === true ? 1 : 0);
-	}
+test("offline-server monitoring leaves character and bank ownership untouched", async () => {
+	const f = fixture(),
+		p = publish(f);
+	f.owner().server = f.c.server_id;
+	f.owner().mounted_to = p.real_id;
+	const character = structuredClone(f.character()),
+		owner = structuredClone(f.owner());
+	f.records.set(f.c.server_id, {
+		_id: f.c.server_id,
+		online: true,
+		updated: new Date(0),
+		machine: "fixture",
+		address: "fixture.invalid",
+		info: { players: 1, observers: 1, total_players: 1, merchants: 1 },
+	});
+	const collection = f.c.db.collection;
+	f.c.db.collection = (kind) => ({
+		...collection(kind),
+		find() {
+			assert.equal(kind, "server", "monitoring must not scan character or bank claims");
+			return { toArray: async () => [structuredClone(f.records.get(f.c.server_id))] };
+		},
+	});
+	f.c.get_domain = () => ({});
+	f.c.send_email = () => {};
+	load(f.c, "adventure_functions.js", ["ssince"]);
+	load(f.c, "crons.js", ["check_servers"]);
+	await f.c.check_servers();
+	assert.equal(f.records.get(f.c.server_id).online, false);
+	assert.deepEqual(f.character(), character);
+	assert.deepEqual(f.owner(), owner);
+	assert.equal(f.stats.writes, 1);
+});
+
+test("cron registration retains server monitoring without an unstick route or job", async () => {
+	const routes = new Map(),
+		intervals = [];
+	let monitored = 0;
+	const c = vm.createContext({
+		process: { env: { pm_id: "0" } },
+		Prod: true,
+		Staging: false,
+		app: { all: (path, handler) => routes.set(path, handler) },
+		setInterval: (callback) => intervals.push(callback),
+		setTimeout() {},
+		enforce_limitations() {},
+		retry_stripe_purchases: async () => {},
+		mainframe_renew_access: async () => {},
+	});
+	vm.runInContext(read("crons.js"), c);
+	assert.equal(routes.has("/cr/unstuck"), false);
+	assert.equal(typeof c.unstuck_characters, "undefined");
+	assert.equal(routes.has("/cr/check_servers"), true);
+	c.check_servers = async () => monitored++;
+	c.verify_steam_installs = async () => {};
+	for (const callback of intervals) await callback();
+	assert.equal(monitored, 1);
 });
 
 test("login refunds an abandoned poker stack inside the session claim and consumes it once", async () => {

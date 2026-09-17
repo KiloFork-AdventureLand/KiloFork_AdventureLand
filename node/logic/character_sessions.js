@@ -88,42 +88,6 @@ function retry_character_logins() {
 	}
 }
 
-// The existing authenticated server RPC calls this. Absence, not elapsed time,
-// permits recovery; live players and unsaved logout snapshots keep their claims.
-async function recover_character_session(data) {
-	if (!server.live || data.server !== server_id || typeof data.id !== "string") return false;
-	if (pending_logins.has(data.id) || dc_players[data.id]) {
-		sync_loop();
-		return false;
-	}
-	for (var player of Object.values(players)) {
-		if (player.real_id === data.id) {
-			sync_loop();
-			return false;
-		}
-	}
-	var result = await tx(async () => {
-		var entity = await tx_get(A.id);
-		if (
-			!entity ||
-			!entity.online ||
-			entity.server !== server_id ||
-			(entity.info && entity.info.secret) !== A.secret ||
-			+entity.last_sync !== +new Date(A.last_sync) ||
-			msince(entity.last_sync) <= 30
-		)
-			return;
-		// Also recheck memory after the read: an earlier authentication may have resumed.
-		if (pending_logins.has(A.id) || dc_players[A.id]) return;
-		for (var player of Object.values(players)) if (player.real_id === A.id) return;
-		entity.online = false;
-		entity.server = "";
-		await tx_save(entity);
-		R.released = true;
-	}, data);
-	return result.success === true && result.released === true;
-}
-
 async function character_save_tx(callback, args, tries) {
 	try {
 		return await tx(callback, args, tries);
