@@ -5971,7 +5971,7 @@ Object.assign(module.exports, {
   "docs.cave.hunts": "Monster camps hold three packs with a reward for each clear. After each clear, the next pack comes out of the nest ten seconds later. The third pack is the last. Some travelers also offer timed hunts: kill the marked monsters before the hunt clock ends.",
   "docs.cave.loot": "NPC rewards go to a random member of the original party. Merchants take gold from the shared cave purse and give their one item to a random party member. Each item can be bought only once. Items found here carry the Cave-found title.",
   "docs.cave.purse": "Open glowing cave chests to collect cave gold and Amber. Spend cave gold at merchants or during encounters; it never becomes carried gold or mail. Each floor has a merchant near its doorway, along an upper wall. Unspent Amber goes to the party when someone exits or the run ends. Items go into the recipient’s bag, or into MAIL if they are offline or their bag is full.",
-  "docs.cave.exit": "Exit works anywhere, even while fallen or voting. Leaving or reloading ends your visit and returns you outside alive. Nobody can join later, and magiport cannot move anyone in or out. Time running out sends everyone home.",
+  "docs.cave.exit": "Exit ends your visit and returns you outside alive, even while fallen or voting. Reloading or disconnecting keeps your place until the cave ends. Speak to Dorr on the same server to return where you disconnected, with your cave health; fallen characters remain fallen. The clock keeps running while nobody is inside. Only original entrants can return. Magiport cannot enter or leave the cave.",
   "docs.cave.code": "Use cave_enter() beside Dorr. Read character.cave for the timer, purse, objectives and door locations. Set reply_id below to an available option ID. Each option shows its total shared-gold cost in cost, its total Amber cost in amber, and any reason it is unavailable. Revive here costs 1 Amber per fallen character; the doorway option is free.",
   "docs.cave.failure": "These functions return Promises. A failed request rejects with a reason.",
   "docs.cave.story": "Dorr\u2019s story",
@@ -6173,3 +6173,9 @@ module.exports["docs.functions.poker_act.reopening"] = "Your seat's can_raise sa
 
 // Poker guide and action references. Keep poker_saving and poker_hand_active exactly; they are CODE reason identifiers.
 module.exports["docs.poker.waiting"] = "If an action fails with poker_saving, wait briefly and retry. If login fails with poker_hand_active, wait for your hand to finish or reconnect to its server.";
+
+// Cave guide and function references. Only original entrants can return. Preserve Dorr and all CODE identifiers and field names.
+module.exports["docs.cave.return_code"] = "Use cave_enter() beside Dorr to return to your active cave on the same server. You do not need to recreate the party or spend another visit. cave_info() returns resume with run and server when a return is available; on that server it also includes remaining_ms. A successful return includes resumed: true.";
+
+// Cave rewards guide. Explicit exits and run completion settle shared Amber; disconnecting does not. Keep Amber and MAIL unchanged.
+module.exports["docs.cave.disconnect_purse"] = "Disconnecting does not pay out the shared purse. Amber stays in the cave until an explicit exit or the run ends. Each payout names the recipient and says whether it went to their bag or MAIL.";

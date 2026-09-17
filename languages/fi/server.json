@@ -349,7 +349,7 @@
 	"server.cave.helpers_full": "Teillä on jo kaksi auttajaa. Ottakaa sen sijaan 2 Amber.",
 	"server.cave.revival_each": "Elvytys tässä — 1 Amber henkeä kohti",
 	"server.cave.mail_subject": "Luolasta",
-	"server.cave.mail_body": "Jätit tämän minulle.",
+	"server.cave.mail_body": "Pidin luolasta saamasi palkinnon turvassa. Nouda se tässä kirjeessä mainitulla hahmolla.",
 	"server.cave.cue_decoy": "Partio seuraa houkutinta.",
 	"server.cave.cue_join": "Lähettikö kapteeni teidät? Tulen mukaan.",
 	"server.cave.cue_turn": "{npc} kääntyy teitä kohti!",

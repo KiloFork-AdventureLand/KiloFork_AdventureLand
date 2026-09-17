@@ -346,7 +346,7 @@
 	"server.cave.helpers_full": "你们已经有两名帮手了。改拿 2 Amber 吧。",
 	"server.cave.revival_each": "原地复活 — 每人 1 Amber",
 	"server.cave.mail_subject": "来自洞窟",
-	"server.cave.mail_body": "这是你留在我这儿的。",
+	"server.cave.mail_body": "我替你保管好了洞窟奖励。请使用这封信上写明的角色领取。",
 	"server.cave.cue_decoy": "巡逻队跟着诱饵走了。",
 	"server.cave.cue_join": "队长派你们来的？我跟你们走。",
 	"server.cave.cue_turn": "{npc}转向了你们！",

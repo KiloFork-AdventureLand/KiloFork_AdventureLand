@@ -349,7 +349,7 @@
 	"server.cave.helpers_full": "Вече имате двама помощници. Вземете 2 Amber вместо това.",
 	"server.cave.revival_each": "Съживяване тук — по 1 Amber на човек",
 	"server.cave.mail_subject": "От пещерата",
-	"server.cave.mail_body": "Остави това при мен.",
+	"server.cave.mail_body": "Запазих наградата ти от пещерата. Вземи я с героя, посочен в това писмо.",
 	"server.cave.cue_decoy": "Патрулът следва примамката.",
 	"server.cave.cue_join": "Капитанът ли ви прати? Идвам с вас.",
 	"server.cave.cue_turn": "{npc} се обръща към вас!",

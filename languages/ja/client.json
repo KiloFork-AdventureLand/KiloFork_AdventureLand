@@ -269,7 +269,7 @@
 	"cave.info_button": "洞窟情報",
 	"cave.visit_unlimited": "Dev：訪問回数無制限",
 	"cave.keeper_dev": "魔物の群れと戦い、商談をまとめ、次の武器に使うCave Amberを持ち帰ろう。仲間を集めておいで。中で過ごせるのは24分。このDevサーバーなら、外に出たあとも再び入れるよ。",
-	"cave.keeper": "魔物の群れと戦い、商談をまとめ、次の武器に使うCave Amberを持ち帰ろう。仲間を集めておいで。中で過ごせるのは24分。1アカウントにつき1日1回、外に出たら戻れないよ。",
+	"cave.keeper": "モンスターの群れと戦い、商人と取引して、次の武器に使うCave Amberを持ち帰ろう。仲間を集めて。中で過ごせるのは24分。訪問は1アカウントにつき1日1回だ。切断されたら、自分の洞窟が閉じる前にここへ戻っておいで。",
 	"cave.enter": "一緒に入る",
 	"cave.exit": "退出",
 	"cave.purse": "共用財布：{gold}ゴールド · Amber {amber}",
@@ -323,7 +323,7 @@
 	"cave.you": "あなた",
 	"cave.inventory_slot": "所持品のスロット{slot}",
 	"cave.carried_gold": "所持ゴールドに追加",
-	"cave.in_mail": "Dorrからの手紙に入っています。メールで受け取ってください",
+	"cave.in_mail": "メールで送りました。{name}でCOM → MAILを開いて受け取ってください。",
 	"cave.mail_pending": "Dorrが郵送しています",
 	"cave.recent_rewards": "最近の報酬と受け取り先",
 	"cave.objectives": "階段を開く",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "洞窟を開く処理がタイムアウトしました。本日の訪問権は使われていません。もう一度お試しください。",
 	"cave.error.zone_busy": "すべての洞窟が使用中です。少し待ってからお試しください。",
 	"cave.error.admission_expired": "入場確認の期限が切れました。本日の訪問権は使われていません。もう一度お試しください。",
-	"cave.currency_limits": "1回の訪問で出現するのは、洞窟の金貨が最大{gold}、Cave Amberが最大{amber}個です。使っても出現量は増えません。"
+	"cave.currency_limits": "1回の訪問で出現するのは、洞窟の金貨が最大{gold}、Cave Amberが最大{amber}個です。使っても出現量は増えません。",
+	"cave.return": "洞窟に戻る",
+	"cave.keeper_return": "あなたの洞窟はまだ{server}で開いている。時間切れになる前に戻ろう。切断された場所から、そのときの体力で続けられる。",
+	"cave.error.cave_other_server": "あなたの洞窟は別のサーバーにある。INFOを開いて、どのサーバーか確認しよう。"
 }

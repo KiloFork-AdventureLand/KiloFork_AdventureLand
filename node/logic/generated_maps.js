@@ -17,6 +17,12 @@ function generated_clock(record, now = Date.now()) {
 function generated_member(record, player) {
 	return record && player && record.members.find((m) => m.character === player.real_id && m.owner === player.owner);
 }
+function generated_return_run(player) {
+	return Object.values(generated_runs).find((record) => {
+		var member = generated_member(record, player);
+		return member?.disconnected && !member.left && !record.closing && record.expires > generated_clock(record);
+	});
+}
 function generated_entry(player) {
 	return player && generated_maps[player.map];
 }
@@ -256,12 +262,25 @@ function generated_restore_health(player) {
 function generated_disconnect(player) {
 	var entry = generated_entry(player);
 	if (!entry) return false;
-	var record = entry.record;
-	cave_settle_purse(record);
+	var record = entry.record,
+		member = generated_member(record, player);
 	// The normal disconnect routine removes spatial membership before saving.
-	// Save the outside location only after that removal.
+	// Keep the cave state separate from the safe outside character saved at logout.
 	release_frozen_player(player);
-	generated_leave_member(record, generated_member(record, player), "disconnect");
+	if (member && !member.left && !record.closing) {
+		member.disconnected = {
+			map: player.map,
+			x: player.x,
+			y: player.y,
+			at: Date.now(),
+			hp: player.hp,
+			mp: player.mp,
+			rip: player.rip,
+			rip_time: player.rip_time,
+			s: clone(player.s),
+			last: Object.assign({}, player.last),
+		};
+	}
 	delete player.cave;
 	delete player.state;
 	generated_restore_health(player);
@@ -269,7 +288,70 @@ function generated_disconnect(player) {
 	[player.x, player.y] = G.maps.main.spawns[record.exit_spawn];
 	player.going_x = player.x;
 	player.going_y = player.y;
+	// A conversation cannot stop the clock while everyone is disconnected.
+	if (!cave_players(record).length) cave_resume(record);
 	return true;
+}
+async function generated_return(player, record) {
+	var member = generated_member(record, player);
+	if (!member?.disconnected || member.left || record.closing) throw Error("cave_closed");
+	if (member.rejoining) throw Error("already_opening");
+	generated_admission(player, [player]);
+	member.rejoining = true;
+	var saved = member.disconnected,
+		outside,
+		animated = false;
+	try {
+		await ensure_generated_floor(record, record.floors.indexOf(saved.map));
+		generated_admission(player, [player]);
+		animated = true;
+		await cave_enter_effect([player], record.key);
+		generated_admission(player, [player]);
+		if (generated_return_run(player) !== record || member.disconnected !== saved) throw Error("cave_closed");
+		var point = safe_xy_nearby(saved.map, saved.x, saved.y);
+		if (!point) throw Error("transport_failed");
+		outside = {
+			hp: player.hp,
+			mp: player.mp,
+			rip: player.rip,
+			rip_time: player.rip_time,
+			s: player.s,
+			last: Object.assign({}, player.last),
+		};
+		player.hp = Math.min(player.hp, saved.hp);
+		player.mp = Math.min(player.mp, saved.mp);
+		player.rip = !!saved.rip;
+		if (saved.rip_time) player.rip_time = saved.rip_time;
+		else delete player.rip_time;
+		player.s = clone(saved.s);
+		for (var key in player.s)
+			if (typeof player.s[key].ms === "number") {
+				player.s[key].ms -= Date.now() - saved.at;
+				if (player.s[key].ms <= 0) delete player.s[key];
+			}
+		for (var key in saved.last)
+			if (!player.last[key] || +saved.last[key] > +player.last[key]) player.last[key] = saved.last[key];
+		generated_transport(player, saved.map, [point.x, point.y], 1);
+		if (!check_player(player) || generated_entry(player)?.record !== record) throw Error("transport_failed");
+		delete member.disconnected;
+		if (record.paused_at) {
+			var frozen = instances[player.in].frozen;
+			if (frozen) {
+				frozen.actors.add(player);
+				(frozen.joined ||= new Map()).set(player, Date.now());
+			}
+		} else if (record.cave.vote && !record.cave.vote.resolved) cave_pause(record);
+		cave_wake_near(record, player);
+		cave_publish(record, false, player);
+		return { run: record.key, expires: record.expires, level: record.level, resumed: true };
+	} catch (error) {
+		if (outside && player.map === "main") Object.assign(player, outside);
+		if (animated && check_player(player) && player.map === "main")
+			xy_emit(player, "ui", { type: "cave_enter", key: record.key, cancel: true });
+		throw error;
+	} finally {
+		delete member.rejoining;
+	}
 }
 function generated_recover_login(player) {
 	if (!/^zone_[a-f0-9]{24}_[0-7]$/.test(player.map || "")) return;
@@ -326,11 +408,6 @@ function generated_maps_tick() {
 				destroy_generated_run(key);
 				continue;
 			}
-			for (var member of record.members) {
-				var p = get_player(member.name);
-				if (!member.left && (!p || p.real_id !== member.character || p.socket.disconnected || p.dc))
-					generated_leave_member(record, member, "disconnect");
-			}
 			if (record.members.every((m) => m.left)) {
 				destroy_generated_run(key);
 				continue;
@@ -375,8 +452,13 @@ function generated_admission(player, members) {
 	if (members.some((p) => generated_entry(p))) throw Error("already_inside");
 }
 async function open_generated_zone(player) {
+	var returning = generated_return_run(player);
+	if (returning) return generated_return(player, returning);
 	var members = generated_party(player);
 	generated_admission(player, members);
+	var prior = await db.collection("GeneratedZone").findOne({ _id: "member:" + player.real_id });
+	if (prior?.active && prior.expires > Date.now() && prior.server && prior.server !== server_id)
+		throw Error("cave_other_server");
 	var accounts = [
 		...new Map(
 			members
@@ -431,7 +513,7 @@ async function open_generated_zone(player) {
 			try {
 				await collection.updateOne(
 					{ _id: id, $or: [{ active: false }, { expires: { $lt: Date.now() } }] },
-					{ $set: { run: key, active: true, expires: Date.now() + 30 * 60 * 1000 } },
+					{ $set: { run: key, server: server_id, active: true, expires: Date.now() + 30 * 60 * 1000 } },
 					{ upsert: true },
 				);
 			} catch (error) {
@@ -525,7 +607,7 @@ async function generated_refund_visit(owner, interrupted_run) {
 				if (!daily.boot || !daily.server) return daily;
 				var source = daily.server === server_id ? Server : await get(daily.server);
 				if (!source?.info?.cave_boot || source.info.cave_boot === daily.boot) return daily;
-				// An ordinary exit or disconnect already clears every membership for this account.
+				// Explicit exits and expired runs already clear membership; disconnects retain it.
 				if (
 					daily.state === "active" &&
 					!(await collection.findOne({ _id: { $in: daily.members }, run: daily.run, active: true }))
@@ -549,11 +631,29 @@ async function generated_refund_visit(owner, interrupted_run) {
 
 async function generated_visit_info(player) {
 	var window = generated_daily_window(player.p.home || region + server_name);
-	if (Dev && !Prod)
-		return { available: true, unlimited: true, resets: window.resets, home: window.home, server_time: Date.now() };
-	var daily = await generated_refund_visit(player.owner);
+	var unlimited = Dev && !Prod,
+		daily = unlimited ? null : await generated_refund_visit(player.owner);
 	var used = daily && daily.resets > Date.now() && (daily.state === "active" || daily.lease > Date.now());
-	return { available: !used, resets: used ? daily.resets : window.resets, home: window.home, server_time: Date.now() };
+	var info = {
+		available: !used,
+		resets: used ? daily.resets : window.resets,
+		home: window.home,
+		server_time: Date.now(),
+	};
+	if (unlimited) info.unlimited = true;
+	var record = generated_return_run(player);
+	if (record)
+		info.resume = {
+			run: record.key,
+			server: server_id.slice(3),
+			remaining_ms: record.expires - generated_clock(record),
+		};
+	else {
+		var member = await db.collection("GeneratedZone").findOne({ _id: "member:" + player.real_id });
+		if (member?.active && member.expires > Date.now() && member.server && member.server !== server_id)
+			info.resume = { run: member.run, server: member.server.slice(3) };
+	}
+	return info;
 }
 
 // Movement workers keep only their assigned generated floors, including after a worker restart.

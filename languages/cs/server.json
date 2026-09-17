@@ -352,7 +352,7 @@
 	"server.cave.helpers_full": "Už máte dva pomocníky. Vezměte si místo toho 2 Amber.",
 	"server.cave.revival_each": "Oživit zde — 1 Amber na osobu",
 	"server.cave.mail_subject": "Z jeskyně",
-	"server.cave.mail_body": "Tohle u mě zůstalo.",
+	"server.cave.mail_body": "Uschoval jsem tvou odměnu z jeskyně. Vyzvedni si ji s postavou uvedenou na tomto dopise.",
 	"server.cave.cue_decoy": "Hlídka následuje návnadu.",
 	"server.cave.cue_join": "Posílá vás kapitán? Jdu s vámi.",
 	"server.cave.cue_turn": "{npc} se otáčí směrem k vám!",

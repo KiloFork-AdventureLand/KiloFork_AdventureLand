@@ -269,7 +269,7 @@
 	"cave.info_button": "洞窟資訊",
 	"cave.visit_unlimited": "Dev：造訪次數不限",
 	"cave.keeper_dev": "挑戰成群的怪物，談成幾筆交易，再帶回打造下一把武器所需的 Cave Amber。召集隊友吧，你們在裡面有24分鐘。在這個 Dev 伺服器上，離開後可以再次進入。",
-	"cave.keeper": "挑戰成群的怪物，談成幾筆交易，再帶回打造下一把武器所需的 Cave Amber。召集隊友吧，你們在裡面有24分鐘。每個帳號每天限入一次，離開後就不能返回。",
+	"cave.keeper": "挑戰成群的怪物，與商人討價還價，把 Cave Amber 帶回家打造下一把武器。召集隊友吧，你們在裡面有24分鐘。每個帳號每天可進入一次。如果斷線，請在你的洞窟關閉前回到這裡。",
 	"cave.enter": "一起進入",
 	"cave.exit": "離開",
 	"cave.purse": "隊伍錢袋：{gold}金幣 · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "你",
 	"cave.inventory_slot": "在背包第{slot}格",
 	"cave.carried_gold": "已加入身上的金幣",
-	"cave.in_mail": "在Dorr的信裡，請到郵件領取",
+	"cave.in_mail": "已郵寄。使用{name}開啟COM → MAIL領取。",
 	"cave.mail_pending": "Dorr正在郵寄",
 	"cave.recent_rewards": "最近的獎勵及去向",
 	"cave.objectives": "開啟樓梯",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "洞窟開啟逾時。你今天的造訪次數沒有被扣除。請再試一次。",
 	"cave.error.zone_busy": "所有洞窟都有人了。請稍後再試。",
 	"cave.error.admission_expired": "入場確認已過期。你今天的造訪次數沒有被扣除。請再試一次。",
-	"cave.currency_limits": "每次進入最多可出現{gold}洞窟金幣和{amber}個Cave Amber。花掉它們不會讓更多金幣或Cave Amber出現。"
+	"cave.currency_limits": "每次進入最多可出現{gold}洞窟金幣和{amber}個Cave Amber。花掉它們不會讓更多金幣或Cave Amber出現。",
+	"cave.return": "返回洞窟",
+	"cave.keeper_return": "你的洞窟仍在 {server} 開放。請在時間耗盡前返回。你會從斷線時的位置繼續，生命值也與當時相同。",
+	"cave.error.cave_other_server": "你的洞窟在另一個伺服器上。開啟 INFO 查看是哪個伺服器。"
 }

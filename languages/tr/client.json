@@ -269,7 +269,7 @@
 	"cave.info_button": "MAĞARA BİLGİSİ",
 	"cave.visit_unlimited": "Dev: sınırsız ziyaret",
 	"cave.keeper_dev": "Canavar sürüleriyle savaş, pazarlık yap ve bir sonraki silahın için eve Cave Amber getir. Grubunu topla; içeride 24 dakikanız var. Bu Dev sunucusunda çıktıktan sonra yeniden girebilirsiniz.",
-	"cave.keeper": "Canavar sürüleriyle savaş, pazarlık yap ve bir sonraki silahın için eve Cave Amber getir. Grubunu topla; içeride 24 dakikanız var. Hesap başına günde bir ziyaret; çıktıktan sonra geri dönemezsiniz.",
+	"cave.keeper": "Canavar sürüleriyle savaş, pazarlık yap ve bir sonraki silahın için eve Cave Amber getir. Grubunu topla; içeride 24 dakikanız var. Hesap başına günde bir ziyaret. Bağlantın kesilirse mağaran kapanmadan buraya dön.",
 	"cave.enter": "Birlikte gir",
 	"cave.exit": "Çıkış",
 	"cave.purse": "Ortak kese: {gold} altın · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Siz",
 	"cave.inventory_slot": "Envanterde, {slot}. yuvada",
 	"cave.carried_gold": "Üzerinizdeki altına eklendi",
-	"cave.in_mail": "Dorr'dan gelen mektupta; POSTA bölümünden alın",
+	"cave.in_mail": "Postalandı. Almak için {name} ile COM → MAIL bölümünü aç.",
 	"cave.mail_pending": "Dorr postayla gönderiyor",
 	"cave.recent_rewards": "Son ödüller ve nereye gittikleri",
 	"cave.objectives": "Merdivenleri aç",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Mağaranın açılması çok uzun sürdü. Günlük ziyaret hakkınız kullanılmadı. Tekrar deneyin.",
 	"cave.error.zone_busy": "Tüm mağaralar dolu. Birazdan tekrar deneyin.",
 	"cave.error.admission_expired": "Giriş kontrolünün süresi doldu. Günlük ziyaret hakkınız kullanılmadı. Tekrar deneyin.",
-	"cave.currency_limits": "Her ziyarette en fazla {gold} mağara altını ve {amber} Cave Amber ortaya çıkabilir. Bunları harcamak yenilerinin ortaya çıkmasını sağlamaz."
+	"cave.currency_limits": "Her ziyarette en fazla {gold} mağara altını ve {amber} Cave Amber ortaya çıkabilir. Bunları harcamak yenilerinin ortaya çıkmasını sağlamaz.",
+	"cave.return": "Mağaraya dön",
+	"cave.keeper_return": "Mağaran {server} sunucusunda hâlâ açık. Süre dolmadan dön. Bağlantının kesildiği yerden, oradaki canınla devam edeceksin.",
+	"cave.error.cave_other_server": "Mağaran başka bir sunucuda. Hangisi olduğunu görmek için INFO aç."
 }

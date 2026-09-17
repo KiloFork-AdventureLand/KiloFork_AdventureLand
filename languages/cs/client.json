@@ -269,7 +269,7 @@
 	"cave.info_button": "O JESKYNI",
 	"cave.visit_unlimited": "Dev: neomezené návštěvy",
 	"cave.keeper_dev": "Bojujte se skupinami nestvůr, smlouvejte a přineste domů Cave Amber na další zbraň. Svolej družinu — uvnitř máte 24 minut. Na tomto Dev serveru můžete po odchodu vstoupit znovu.",
-	"cave.keeper": "Bojujte se skupinami nestvůr, smlouvejte a přineste domů Cave Amber na další zbraň. Svolej družinu — uvnitř máte 24 minut. Jedna návštěva na účet denně; po odchodu se už nevrátíte.",
+	"cave.keeper": "Bojuj se skupinami příšer, smlouvej a přines domů Cave Amber na svou další zbraň. Svolej družinu: uvnitř máte 24 minut. Jedna návštěva na účet denně. Pokud se odpojíš, vrať se sem, než se tvoje jeskyně zavře.",
 	"cave.enter": "Vstoupit společně",
 	"cave.exit": "Odejít",
 	"cave.purse": "Společný měšec: {gold} zlata · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Ty",
 	"cave.inventory_slot": "V inventáři, pozice {slot}",
 	"cave.carried_gold": "Přidáno ke zlatu, které neseš",
-	"cave.in_mail": "V dopise od Dorr — vyzvedni v POŠTĚ",
+	"cave.in_mail": "Odesláno poštou. Otevři COM → MAIL za postavu {name} a vyzvedni si to.",
 	"cave.mail_pending": "Dorr to posílá poštou",
 	"cave.recent_rewards": "Poslední odměny a kam se dostaly",
 	"cave.objectives": "Otevřít schody",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Otevírání jeskyně trvalo příliš dlouho. Tvá denní návštěva nebyla využita. Zkus to znovu.",
 	"cave.error.zone_busy": "Všechny jeskyně jsou obsazené. Zkus to za chvíli.",
 	"cave.error.admission_expired": "Platnost ověření vstupu vypršela. Tvá denní návštěva nebyla využita. Zkus to znovu.",
-	"cave.currency_limits": "Během jedné návštěvy se může objevit až {gold} jeskynního zlata a {amber} Cave Amber. Jejich utracení nezpůsobí, že se objeví další."
+	"cave.currency_limits": "Během jedné návštěvy se může objevit až {gold} jeskynního zlata a {amber} Cave Amber. Jejich utracení nezpůsobí, že se objeví další.",
+	"cave.return": "Vrátit se do jeskyně",
+	"cave.keeper_return": "Tvoje jeskyně je na {server} stále otevřená. Vrať se, než vyprší čas. Budeš pokračovat z místa odpojení se zdravím, které jsi tam měl.",
+	"cave.error.cave_other_server": "Tvoje jeskyně je na jiném serveru. Otevři INFO a zjisti, na kterém."
 }

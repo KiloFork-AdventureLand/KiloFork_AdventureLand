@@ -349,7 +349,7 @@
 	"server.cave.helpers_full": "Ya tenéis dos ayudantes. Tomad 2 Amber en su lugar.",
 	"server.cave.revival_each": "Revivir aquí — 1 Amber por persona",
 	"server.cave.mail_subject": "Desde la cueva",
-	"server.cave.mail_body": "Me dejaste esto.",
+	"server.cave.mail_body": "He guardado tu recompensa de la cueva. Recógela con el personaje que figura en esta carta.",
 	"server.cave.cue_decoy": "La patrulla sigue el señuelo.",
 	"server.cave.cue_join": "¿Os envía el capitán? Voy con vosotros.",
 	"server.cave.cue_turn": "¡{npc} se vuelve hacia vosotros!",

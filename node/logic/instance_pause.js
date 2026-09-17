@@ -51,13 +51,15 @@ function shift_entity_timers(actor, ms) {
 function release_frozen_player(player, now = Date.now()) {
 	var frozen = instances[player.in]?.frozen;
 	if (!frozen || !frozen.actors.delete(player)) return;
-	shift_entity_timers(player, now - frozen.at);
+	shift_entity_timers(player, now - (frozen.joined?.get(player) ?? frozen.at));
+	frozen.joined?.delete(player);
 }
 function resume_frozen_instance(instance, now) {
 	var frozen = instance?.frozen;
 	if (!frozen) return;
 	var ms = now - frozen.at;
-	for (var actor of frozen.actors) if (actor.in === instance.name) shift_entity_timers(actor, ms);
+	for (var actor of frozen.actors)
+		if (actor.in === instance.name) shift_entity_timers(actor, now - (frozen.joined?.get(actor) ?? frozen.at));
 	for (var projectile of Object.values(projectiles)) {
 		if (projectile.attacker.in === instance.name) projectile.eta = new Date(+projectile.eta + ms);
 	}

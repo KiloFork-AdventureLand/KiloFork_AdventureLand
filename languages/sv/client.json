@@ -269,7 +269,7 @@
 	"cave.info_button": "GROTTINFO",
 	"cave.visit_unlimited": "Dev: obegränsade besök",
 	"cave.keeper_dev": "Slåss mot monsterflockar, gör affärer och ta hem Cave Amber till nästa vapen. Samla gruppen — ni har 24 minuter där inne. På den här Dev-servern kan ni gå in igen efter att ni lämnat.",
-	"cave.keeper": "Slåss mot monsterflockar, gör affärer och ta hem Cave Amber till nästa vapen. Samla gruppen — ni har 24 minuter där inne. Ett besök per konto och dag; när ni lämnar kan ni inte återvända.",
+	"cave.keeper": "Slåss mot monstergrupper, förhandla och ta hem Cave Amber till ditt nästa vapen. Samla gruppen: ni har 24 minuter där inne. Ett besök per konto och dag. Om anslutningen bryts, kom tillbaka hit innan din grotta stänger.",
 	"cave.enter": "Gå in tillsammans",
 	"cave.exit": "Lämna",
 	"cave.purse": "Gemensam kassa: {gold} guld · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Du",
 	"cave.inventory_slot": "I inventariet, plats {slot}",
 	"cave.carried_gold": "Tillagt till guldet du bär",
-	"cave.in_mail": "I ett brev från Dorr – hämta det i POST",
+	"cave.in_mail": "Skickat med posten. Öppna COM → MAIL som {name} för att hämta det.",
 	"cave.mail_pending": "Dorr skickar det med posten",
 	"cave.recent_rewards": "Senaste belöningarna och var de hamnade",
 	"cave.objectives": "Öppna trappan",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Det tog för lång tid att öppna grottan. Ditt dagliga besök har inte använts. Försök igen.",
 	"cave.error.zone_busy": "Alla grottor är upptagna. Försök strax igen.",
 	"cave.error.admission_expired": "Inträdeskontrollen löpte ut. Ditt dagliga besök har inte använts. Försök igen.",
-	"cave.currency_limits": "Upp till {gold} grottguld och {amber} Cave Amber kan dyka upp per besök. Att spendera dem gör inte att fler dyker upp."
+	"cave.currency_limits": "Upp till {gold} grottguld och {amber} Cave Amber kan dyka upp per besök. Att spendera dem gör inte att fler dyker upp.",
+	"cave.return": "Tillbaka till grottan",
+	"cave.keeper_return": "Din grotta är fortfarande öppen på {server}. Återvänd innan tiden tar slut. Du fortsätter där anslutningen bröts, med den hälsa du hade där.",
+	"cave.error.cave_other_server": "Din grotta finns på en annan server. Öppna INFO för att se vilken."
 }

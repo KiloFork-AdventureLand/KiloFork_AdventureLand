@@ -346,7 +346,7 @@
 	"server.cave.helpers_full": "助っ人はすでに2人います。代わりに2 Amberをどうぞ。",
 	"server.cave.revival_each": "ここで蘇生 — 1人につき1 Amber",
 	"server.cave.mail_subject": "洞窟から",
-	"server.cave.mail_body": "私に預けていった物だよ。",
+	"server.cave.mail_body": "洞窟で手に入れた報酬を預かっておいたよ。この手紙に名前が書かれたキャラクターで受け取ってくれ。",
 	"server.cave.cue_decoy": "巡回兵はおとりを追っていく。",
 	"server.cave.cue_join": "隊長に言われて来たのか？ 一緒に行くよ。",
 	"server.cave.cue_turn": "{npc}がこちらを向いた！",

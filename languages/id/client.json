@@ -269,7 +269,7 @@
 	"cave.info_button": "INFO GUA",
 	"cave.visit_unlimited": "Dev: kunjungan tanpa batas",
 	"cave.keeper_dev": "Lawan kawanan monster, buat kesepakatan, dan bawa pulang Cave Amber untuk senjata berikutnya. Kumpulkan kelompokmu; kalian punya 24 menit di dalam. Di server Dev ini, kalian bisa masuk lagi setelah keluar.",
-	"cave.keeper": "Lawan kawanan monster, buat kesepakatan, dan bawa pulang Cave Amber untuk senjata berikutnya. Kumpulkan kelompokmu; kalian punya 24 menit di dalam. Satu kunjungan per akun setiap hari; setelah keluar, kalian tidak bisa kembali.",
+	"cave.keeper": "Lawan kawanan monster, tawar-menawar, dan bawa pulang Cave Amber untuk senjata berikutnya. Kumpulkan party-mu: kalian punya 24 menit di dalam. Satu kunjungan per akun setiap hari. Jika terputus, kembalilah ke sini sebelum guamu ditutup.",
 	"cave.enter": "Masuk bersama",
 	"cave.exit": "Keluar",
 	"cave.purse": "Kas bersama: {gold} emas · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Kamu",
 	"cave.inventory_slot": "Di inventaris, slot {slot}",
 	"cave.carried_gold": "Ditambahkan ke emas bawaan",
-	"cave.in_mail": "Dalam surat dari Dorr; ambil di SURAT",
+	"cave.in_mail": "Dikirim lewat surat. Buka COM → MAIL sebagai {name} untuk mengambilnya.",
 	"cave.mail_pending": "Dorr sedang mengirimkannya lewat surat",
 	"cave.recent_rewards": "Hadiah terbaru dan tempat menerimanya",
 	"cave.objectives": "Buka tangga",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Pembukaan gua terlalu lama. Kunjungan harianmu belum terpakai. Coba lagi.",
 	"cave.error.zone_busy": "Semua gua terisi. Coba lagi sebentar lagi.",
 	"cave.error.admission_expired": "Pemeriksaan masuk kedaluwarsa. Kunjungan harianmu belum terpakai. Coba lagi.",
-	"cave.currency_limits": "Hingga {gold} emas gua dan {amber} Cave Amber dapat muncul per kunjungan. Menghabiskannya tidak membuat lebih banyak muncul."
+	"cave.currency_limits": "Hingga {gold} emas gua dan {amber} Cave Amber dapat muncul per kunjungan. Menghabiskannya tidak membuat lebih banyak muncul.",
+	"cave.return": "Kembali ke gua",
+	"cave.keeper_return": "Guamu masih terbuka di {server}. Kembalilah sebelum waktu habis. Kamu akan melanjutkan dari lokasi saat terputus, dengan kesehatan yang kamu miliki di sana.",
+	"cave.error.cave_other_server": "Guamu berada di server lain. Buka INFO untuk melihat servernya."
 }

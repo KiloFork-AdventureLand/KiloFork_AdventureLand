@@ -269,7 +269,7 @@
 	"cave.info_button": "GROTINFO",
 	"cave.visit_unlimited": "Dev: onbeperkt bezoek",
 	"cave.keeper_dev": "Vecht tegen groepen monsters, sluit een goede deal en breng Cave Amber mee voor je volgende wapen. Verzamel je groep: jullie hebben 24 minuten binnen. Op deze Dev-server kunnen jullie na vertrek weer naar binnen.",
-	"cave.keeper": "Vecht tegen groepen monsters, sluit een goede deal en breng Cave Amber mee voor je volgende wapen. Verzamel je groep: jullie hebben 24 minuten binnen. Eén bezoek per account per dag; na vertrek kun je niet terug.",
+	"cave.keeper": "Vecht tegen groepen monsters, onderhandel en breng Cave Amber mee voor je volgende wapen. Verzamel je groep: jullie hebben binnen 24 minuten. Eén bezoek per account per dag. Verlies je de verbinding, kom dan hier terug voordat je grot sluit.",
 	"cave.enter": "Samen naar binnen",
 	"cave.exit": "Vertrekken",
 	"cave.purse": "Groepskas: {gold} goud · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Jij",
 	"cave.inventory_slot": "In de inventaris, vak {slot}",
 	"cave.carried_gold": "Toegevoegd aan je meegedragen goud",
-	"cave.in_mail": "In een brief van Dorr — haal het op bij POST",
+	"cave.in_mail": "Per post verstuurd. Open COM → MAIL als {name} om het op te halen.",
 	"cave.mail_pending": "Dorr stuurt het per post",
 	"cave.recent_rewards": "Recente beloningen en waar ze zijn",
 	"cave.objectives": "Trap openen",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Het openen van de grot duurde te lang. Je dagelijkse bezoek is niet gebruikt. Probeer het opnieuw.",
 	"cave.error.zone_busy": "Alle grotten zijn bezet. Probeer het zo nog eens.",
 	"cave.error.admission_expired": "De toegangscontrole is verlopen. Je dagelijkse bezoek is niet gebruikt. Probeer het opnieuw.",
-	"cave.currency_limits": "Per bezoek kunnen er maximaal {gold} grotgoud en {amber} Cave Amber verschijnen. Door ze uit te geven verschijnen er geen extra."
+	"cave.currency_limits": "Per bezoek kunnen er maximaal {gold} grotgoud en {amber} Cave Amber verschijnen. Door ze uit te geven verschijnen er geen extra.",
+	"cave.return": "Terug naar de grot",
+	"cave.keeper_return": "Je grot is nog open op {server}. Keer terug voordat de tijd om is. Je gaat verder waar de verbinding wegviel, met de gezondheid die je daar had.",
+	"cave.error.cave_other_server": "Je grot bevindt zich op een andere server. Open INFO om te zien welke."
 }

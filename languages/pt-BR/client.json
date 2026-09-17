@@ -269,7 +269,7 @@
 	"cave.info_button": "INFO DA CAVERNA",
 	"cave.visit_unlimited": "Dev: visitas ilimitadas",
 	"cave.keeper_dev": "Enfrente grupos de monstros, faça negócios e traga Cave Amber para sua próxima arma. Reúna seu grupo: vocês têm 24 minutos lá dentro. Neste servidor Dev, vocês podem entrar de novo depois de sair.",
-	"cave.keeper": "Enfrente grupos de monstros, faça negócios e traga Cave Amber para sua próxima arma. Reúna seu grupo: vocês têm 24 minutos lá dentro. Uma visita por conta por dia; depois de sair, não dá para voltar.",
+	"cave.keeper": "Enfrente grupos de monstros, negocie e traga Cave Amber para sua próxima arma. Reúna seu grupo: vocês têm 24 minutos lá dentro. Uma visita por conta por dia. Se desconectar, volte aqui antes que sua caverna feche.",
 	"cave.enter": "Entrar juntos",
 	"cave.exit": "Sair",
 	"cave.purse": "Fundo do grupo: {gold} de ouro · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Você",
 	"cave.inventory_slot": "No inventário, espaço {slot}",
 	"cave.carried_gold": "Adicionado ao ouro que você carrega",
-	"cave.in_mail": "Numa carta de Dorr; resgate no CORREIO",
+	"cave.in_mail": "Enviado pelo correio. Abra COM → MAIL com {name} para retirar.",
 	"cave.mail_pending": "Dorr está enviando pelo correio",
 	"cave.recent_rewards": "Recompensas recentes e para onde foram",
 	"cave.objectives": "Abrir as escadas",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "A caverna demorou demais para abrir. Sua visita diária não foi usada. Tente de novo.",
 	"cave.error.zone_busy": "Todas as cavernas estão ocupadas. Tente daqui a pouco.",
 	"cave.error.admission_expired": "A verificação de entrada expirou. Sua visita diária não foi usada. Tente de novo.",
-	"cave.currency_limits": "Podem aparecer até {gold} de ouro da caverna e {amber} Cave Amber por visita. Gastá-los não faz aparecer mais."
+	"cave.currency_limits": "Podem aparecer até {gold} de ouro da caverna e {amber} Cave Amber por visita. Gastá-los não faz aparecer mais.",
+	"cave.return": "Voltar à caverna",
+	"cave.keeper_return": "Sua caverna ainda está aberta em {server}. Volte antes que o tempo acabe. Você continuará de onde desconectou, com a vida que tinha lá.",
+	"cave.error.cave_other_server": "Sua caverna está em outro servidor. Abra INFO para saber qual."
 }

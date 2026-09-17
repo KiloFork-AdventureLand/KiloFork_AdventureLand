@@ -352,7 +352,7 @@
 	"server.cave.helpers_full": "У вас уже двоє помічників. Візьміть натомість 2 Amber.",
 	"server.cave.revival_each": "Воскреснути тут — 1 Amber з кожного",
 	"server.cave.mail_subject": "З печери",
-	"server.cave.mail_body": "Це залишилося в мене.",
+	"server.cave.mail_body": "Я зберіг твою нагороду з печери. Забери її персонажем, указаним у цьому листі.",
 	"server.cave.cue_decoy": "Патруль іде за приманкою.",
 	"server.cave.cue_join": "Вас прислав капітан? Я з вами.",
 	"server.cave.cue_turn": "{npc} повертається до вас!",

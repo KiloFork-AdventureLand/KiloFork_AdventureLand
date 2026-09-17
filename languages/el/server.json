@@ -349,7 +349,7 @@
 	"server.cave.helpers_full": "Έχετε ήδη δύο βοηθούς. Πάρτε 2 Amber αντί γι’ αυτό.",
 	"server.cave.revival_each": "Αναβίωση εδώ — 1 Amber το άτομο",
 	"server.cave.mail_subject": "Από τη σπηλιά",
-	"server.cave.mail_body": "Μου άφησες αυτό.",
+	"server.cave.mail_body": "Φύλαξα την ανταμοιβή σου από τη σπηλιά. Παράλαβέ την με τον χαρακτήρα που αναγράφεται σε αυτό το γράμμα.",
 	"server.cave.cue_decoy": "Η περίπολος ακολουθεί τον αντιπερισπασμό.",
 	"server.cave.cue_join": "Σας έστειλε ο καπετάνιος; Έρχομαι μαζί σας.",
 	"server.cave.cue_turn": "{npc}: Στρέφεται προς το μέρος σας!",

@@ -346,7 +346,7 @@
 	"server.cave.helpers_full": "Zaten iki yardımcınız var. Onun yerine 2 Amber alın.",
 	"server.cave.revival_each": "Burada diril — kişi başı 1 Amber",
 	"server.cave.mail_subject": "Mağaradan",
-	"server.cave.mail_body": "Bunu bana bırakmıştın.",
+	"server.cave.mail_body": "Mağaradaki ödülünü güvende tuttum. Bu mektupta adı yazan karakterle alabilirsin.",
 	"server.cave.cue_decoy": "Devriye dikkatini dağıtan şeyin peşine takılır.",
 	"server.cave.cue_join": "Sizi kaptan mı gönderdi? Ben de geliyorum.",
 	"server.cave.cue_turn": "{npc} size doğru dönüyor!",

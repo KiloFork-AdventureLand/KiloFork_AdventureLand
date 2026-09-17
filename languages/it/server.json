@@ -351,7 +351,7 @@
 	"server.cave.helpers_full": "Avete già due aiutanti. Prendete invece 2 Amber.",
 	"server.cave.revival_each": "Risorgete qui — 1 Amber a testa",
 	"server.cave.mail_subject": "Dalla grotta",
-	"server.cave.mail_body": "Mi avevi lasciato questo.",
+	"server.cave.mail_body": "Ho tenuto al sicuro la tua ricompensa della grotta. Ritirala con il personaggio indicato su questa lettera.",
 	"server.cave.cue_decoy": "La pattuglia segue il diversivo.",
 	"server.cave.cue_join": "Vi manda il capitano? Vengo con voi.",
 	"server.cave.cue_turn": "{npc} si volta verso di voi!",

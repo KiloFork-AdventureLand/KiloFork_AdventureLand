@@ -269,7 +269,7 @@
 	"cave.info_button": "THÔNG TIN HANG",
 	"cave.visit_unlimited": "Dev: không giới hạn lượt vào",
 	"cave.keeper_dev": "Chiến đấu với từng bầy quái vật, mặc cả và mang Cave Amber về để rèn vũ khí tiếp theo. Tập hợp tổ đội đi, các bạn có 24 phút bên trong. Trên máy chủ Dev này, các bạn có thể vào lại sau khi rời đi.",
-	"cave.keeper": "Chiến đấu với từng bầy quái vật, mặc cả và mang Cave Amber về để rèn vũ khí tiếp theo. Tập hợp tổ đội đi, các bạn có 24 phút bên trong. Mỗi tài khoản một lượt mỗi ngày; đã ra ngoài thì không thể quay lại.",
+	"cave.keeper": "Chiến đấu với các bầy quái vật, mặc cả và mang Cave Amber về cho vũ khí tiếp theo. Tập hợp tổ đội: các bạn có 24 phút bên trong. Mỗi tài khoản được vào một lần mỗi ngày. Nếu mất kết nối, hãy quay lại đây trước khi hang của bạn đóng.",
 	"cave.enter": "Cùng vào",
 	"cave.exit": "Thoát",
 	"cave.purse": "Quỹ chung: {gold} vàng · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Bạn",
 	"cave.inventory_slot": "Trong túi đồ, ô {slot}",
 	"cave.carried_gold": "Đã cộng vào vàng mang theo",
-	"cave.in_mail": "Trong thư từ Dorr; nhận ở mục THƯ",
+	"cave.in_mail": "Đã gửi thư. Mở COM → MAIL bằng nhân vật {name} để nhận.",
 	"cave.mail_pending": "Dorr đang gửi qua thư",
 	"cave.recent_rewards": "Phần thưởng gần đây và nơi nhận",
 	"cave.objectives": "Mở cầu thang",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Mở hang mất quá nhiều thời gian. Lượt vào hôm nay chưa bị dùng. Hãy thử lại.",
 	"cave.error.zone_busy": "Tất cả hang đều có người. Hãy thử lại sau một lát.",
 	"cave.error.admission_expired": "Kiểm tra vào hang đã hết hạn. Lượt vào hôm nay chưa bị dùng. Hãy thử lại.",
-	"cave.currency_limits": "Mỗi lượt vào có thể xuất hiện tối đa {gold} vàng hang động và {amber} Cave Amber. Tiêu chúng không khiến có thêm."
+	"cave.currency_limits": "Mỗi lượt vào có thể xuất hiện tối đa {gold} vàng hang động và {amber} Cave Amber. Tiêu chúng không khiến có thêm.",
+	"cave.return": "Trở lại hang",
+	"cave.keeper_return": "Hang của bạn vẫn mở trên {server}. Hãy trở lại trước khi hết giờ. Bạn sẽ tiếp tục từ vị trí bị mất kết nối, với lượng máu khi đó.",
+	"cave.error.cave_other_server": "Hang của bạn nằm trên máy chủ khác. Mở INFO để xem máy chủ nào."
 }

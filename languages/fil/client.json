@@ -269,7 +269,7 @@
 	"cave.info_button": "INFO NG KUWEBA",
 	"cave.visit_unlimited": "Dev: walang limitasyong pagbisita",
 	"cave.keeper_dev": "Labanan ang mga kawan ng monster, makipagtawaran, at mag-uwi ng Cave Amber para sa susunod mong sandata. Tipunin ang grupo; may 24 minuto kayo sa loob. Sa Dev server na ito, puwede kayong pumasok ulit pagkatapos lumabas.",
-	"cave.keeper": "Labanan ang mga kawan ng monster, makipagtawaran, at mag-uwi ng Cave Amber para sa susunod mong sandata. Tipunin ang grupo; may 24 minuto kayo sa loob. Isang pagbisita bawat account kada araw; wala nang balikan kapag lumabas.",
+	"cave.keeper": "Lumaban sa mga grupo ng halimaw, makipagtawaran, at mag-uwi ng Cave Amber para sa susunod mong sandata. Tipunin ang party mo: may 24 minuto kayo sa loob. Isang pagbisita bawat account kada araw. Kapag naputol ang koneksyon, bumalik dito bago magsara ang kuweba mo.",
 	"cave.enter": "Sabay-sabay pumasok",
 	"cave.exit": "Lumabas",
 	"cave.purse": "Pondo ng grupo: {gold} gold · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Ikaw",
 	"cave.inventory_slot": "Nasa inventory, slot {slot}",
 	"cave.carried_gold": "Idinagdag sa dala mong gold",
-	"cave.in_mail": "Nasa sulat mula kay Dorr — kunin sa LIHAM",
+	"cave.in_mail": "Naipadala na sa mail. Buksan ang COM → MAIL gamit si {name} para kunin ito.",
 	"cave.mail_pending": "Ipinapadala ito ni Dorr sa mail",
 	"cave.recent_rewards": "Mga bagong reward at kung saan napunta",
 	"cave.objectives": "Buksan ang hagdan",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Masyadong natagalan ang pagbukas ng kuweba. Hindi nagamit ang arawang pagbisita mo. Subukan ulit.",
 	"cave.error.zone_busy": "May gumagamit ng lahat ng kuweba. Subukan ulit mamaya.",
 	"cave.error.admission_expired": "Nag-expire ang pagsusuri sa pagpasok. Hindi nagamit ang arawang pagbisita mo. Subukan ulit.",
-	"cave.currency_limits": "Hanggang {gold} ginto ng kuweba at {amber} Cave Amber ang maaaring lumitaw sa bawat pagbisita. Hindi madaragdagan ang lilitaw kapag ginastos mo ang mga ito."
+	"cave.currency_limits": "Hanggang {gold} ginto ng kuweba at {amber} Cave Amber ang maaaring lumitaw sa bawat pagbisita. Hindi madaragdagan ang lilitaw kapag ginastos mo ang mga ito.",
+	"cave.return": "Bumalik sa kuweba",
+	"cave.keeper_return": "Bukas pa ang kuweba mo sa {server}. Bumalik bago maubos ang oras. Magpapatuloy ka sa lugar kung saan naputol ang koneksyon, gamit ang kalusugan mo noon.",
+	"cave.error.cave_other_server": "Nasa ibang server ang kuweba mo. Buksan ang INFO para malaman kung alin."
 }

@@ -122,13 +122,16 @@ function receive_cave_state(data) {
 	call_code_function("trigger_event", "cave", cave_client_state);
 	if (no_graphics) return;
 	if (!!previous !== !!cave_client_state || previous?.paused !== cave_client_state?.paused) reflect_music();
-	cave_receive_rewards(data.state);
+	cave_receive_rewards(data.state, data.type === "returned");
 	update_cave_doors();
 	if (data.type === "ended") {
 		cave_open_choice = null;
 		if ($(".modal:last").hasClass("cave-dialogue-modal")) hide_modal();
 		if ($("#cave-vote,#cave-status").length) $("#topleftcornerui").empty();
-		if (cave_visit) cave_visit.available = !!cave_visit.unlimited;
+		if (cave_visit) {
+			cave_visit.available = !!cave_visit.unlimited;
+			delete cave_visit.resume;
+		}
 		update_cave_hud(true);
 		update_cave_info();
 		return;
@@ -228,7 +231,8 @@ function cave_load_visit() {
 			cave_visit = data.visit;
 			cave_visit.checked = Date.now();
 			cave_server_offset = data.visit.server_time - Date.now();
-			$("#cave-keeper-greeting").text(phrase(cave_visit.unlimited ? "cave.keeper_dev" : "cave.keeper"));
+			$("#cave-keeper-greeting").text(phrase(cave_visit.resume ? "cave.keeper_return" : cave_visit.unlimited ? "cave.keeper_dev" : "cave.keeper", { server: cave_visit.resume?.server }));
+			$("#cave-keeper-enter").text(phrase(cave_visit.resume ? "cave.return" : "cave.enter"));
 			update_cave_hud(true);
 			update_cave_info();
 		})
@@ -252,6 +256,7 @@ function cave_info_available() {
 }
 function cave_visit_text() {
 	if (!cave_visit) return phrase("cave.checking_visit");
+	if (cave_visit.resume) return phrase("cave.return") + " · " + cave_visit.resume.server;
 	if (cave_visit.unlimited) return phrase("cave.visit_unlimited");
 	if (cave_visit.available || cave_visit.resets <= cave_now()) return phrase("cave.visit_ready");
 	var minutes = Math.max(0, Math.ceil((cave_visit.resets - cave_now()) / 60000));
@@ -276,7 +281,7 @@ function cave_reward_html(reward) {
 			: reward.where === "gold"
 				? phrase("cave.carried_gold")
 				: reward.where === "mail"
-					? phrase("cave.in_mail")
+					? phrase("cave.in_mail", { name: reward.recipient })
 					: phrase("cave.mail_pending");
 	return icon + text + "<div style='font-size:18px'>" + html_escape(where) + "</div>";
 }
@@ -414,12 +419,12 @@ function render_cave_keeper(message) {
 			"<div " +
 			(message ? "" : "id='cave-keeper-greeting' ") +
 			"style='font-size:24px'>" +
-			(message ? html_escape(message) : phrase.html(cave_visit?.unlimited ? "cave.keeper_dev" : "cave.keeper")) +
+			(message ? html_escape(message) : phrase.html(cave_visit?.resume ? "cave.keeper_return" : cave_visit?.unlimited ? "cave.keeper_dev" : "cave.keeper", { server: cave_visit?.resume?.server })) +
 			"</div>",
 	});
 	$("#topleftcornerui > div").append(
-		"<div style='clear:both;float:right;margin-top:7px'><div class='slimbutton' onclick='cave_manual(\"enter\")'>" +
-			phrase.html("cave.enter") +
+		"<div style='clear:both;float:right;margin-top:7px'><div id='cave-keeper-enter' class='slimbutton' onclick='cave_manual(\"enter\")'>" +
+			phrase.html(cave_visit?.resume ? "cave.return" : "cave.enter") +
 			"</div> <div class='slimbutton' onclick='open_cave_info()'>" +
 			phrase.html("interface.item.info") +
 			"</div></div>",
@@ -813,9 +818,9 @@ function cave_transport_failed(data) {
 		text = phrase(key);
 	ui_log(text === key ? phrase("response.transport_cant_reach") : text, "#DCA99B");
 }
-function cave_receive_rewards(state) {
+function cave_receive_rewards(state, returning) {
 	if (no_graphics || !state) return;
-	if (state.run !== cave_reward_run) {
+	if (state.run !== cave_reward_run || returning) {
 		cave_reward_run = state.run;
 		cave_reward_seen = 0;
 		cave_active_reward = null;
@@ -824,6 +829,7 @@ function cave_receive_rewards(state) {
 	for (var reward of state.rewards || []) {
 		if (reward.id > cave_reward_seen) {
 			cave_reward_seen = reward.id;
+			if (returning) continue;
 			cave_active_reward = reward;
 			cave_notice_until = Date.now() + 3500;
 			cave_reward_feedback(reward);

@@ -346,7 +346,7 @@
 	"server.cave.helpers_full": "이미 동료가 두 명 있습니다. 대신 2 Amber를 받으세요.",
 	"server.cave.revival_each": "여기서 부활 — 한 사람당 1 Amber",
 	"server.cave.mail_subject": "동굴에서",
-	"server.cave.mail_body": "내게 맡겨 둔 물건이야.",
+	"server.cave.mail_body": "동굴에서 얻은 보상을 안전하게 맡아 두었어. 이 편지에 이름이 적힌 캐릭터로 받아 가.",
 	"server.cave.cue_decoy": "순찰대가 유인책을 따라간다.",
 	"server.cave.cue_join": "대장이 보냈어? 나도 같이 갈게.",
 	"server.cave.cue_turn": "{npc}의 시선이 여러분을 향한다!",

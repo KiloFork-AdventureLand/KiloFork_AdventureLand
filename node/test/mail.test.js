@@ -150,10 +150,22 @@ test("cave mail updates the saved unread count and every connected character on 
 	assert.equal(h.context.cave_pending(), false);
 	assert.equal(h.records.get("IE_userdata-US_reader").info.mail, 2);
 	assert.deepEqual(
-		events,
+		events.filter((event) => event.event === "game_response"),
 		["first", "second"].map((name) => ({ name, event: "game_response", response: "mail_received", count: 2 })),
 	);
+	const notices = events.filter((event) => event.event === "game_log");
+	assert.equal(notices.length, 2, "both online characters receive the mail collection instructions");
+	for (const notice of notices) {
+		assert.equal(notice.phrase, "cave.in_mail");
+		assert.equal(notice.phrase_args.name, "Reader");
+		assert.match(notice.message, /Mailed.*COM → MAIL as Reader/);
+	}
 	await h.context.cave_mail(recipient, { name: "cave_amber", q: 1 }, "reward");
+	assert.equal(
+		events.filter((event) => event.event === "game_log").length,
+		2,
+		"a retried delivery does not repeat the notice",
+	);
 	assert.equal(h.records.get("IE_userdata-US_reader").info.mail, 2, "retries must not add letters or unread counts");
 	assert.equal([...h.records.keys()].filter((key) => key.startsWith("ML_cave:")).length, 1);
 	const saved = h.records.get("IE_userdata-US_reader");
@@ -182,7 +194,10 @@ test("only trusted cave reward mail carries translated subject and body metadata
 	assert.equal(reward.body_message.phrase, "server.cave.mail_body");
 	const localization = require("../../languages");
 	assert.equal(localization.phrase(reward.subject_message.phrase, {}, "de"), "Aus der Höhle");
-	assert.equal(localization.phrase(reward.body_message.phrase, {}, "de"), "Du hast das bei mir gelassen.");
+	assert.equal(
+		localization.phrase(reward.body_message.phrase, {}, "de"),
+		"Ich habe deine Höhlenbelohnung sicher verwahrt. Hole sie mit dem Charakter ab, der auf diesem Brief steht.",
+	);
 });
 
 test("a mail notification updates COM without opening Mail or touching graphics", () => {
@@ -192,6 +207,7 @@ test("a mail notification updates COM without opening Mail or touching graphics"
 		console,
 		Dev: false,
 		no_graphics: true,
+		inside: "game",
 		character: {},
 		G: { skills: {} },
 		trade_slots: [],

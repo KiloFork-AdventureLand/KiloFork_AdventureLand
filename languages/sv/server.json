@@ -348,7 +348,7 @@
 	"server.cave.helpers_full": "Ni har redan två hjälpare. Ta 2 Amber i stället.",
 	"server.cave.revival_each": "Återuppliva här — 1 Amber var",
 	"server.cave.mail_subject": "Från grottan",
-	"server.cave.mail_body": "Du lämnade det här hos mig.",
+	"server.cave.mail_body": "Jag har förvarat din belöning från grottan säkert. Hämta den med karaktären som står på brevet.",
 	"server.cave.cue_decoy": "Patrullen följer lockbetet.",
 	"server.cave.cue_join": "Skickade kaptenen er? Jag följer med.",
 	"server.cave.cue_turn": "{npc} vänder sig mot er!",

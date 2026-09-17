@@ -489,6 +489,13 @@ test("cave loot appears on receipt without queuing or replaying repeated snapsho
 	assert.equal(note.contents, "6:mail", "delivery updates still refresh the visible reward");
 	assert.equal(feedback.length, 6, "delivery updates do not replay loot feedback");
 	assert.equal(c.cave_notice_until, mailUntil);
+	c.receive_cave_state({ type: "returned", state: { run: "test", rewards } });
+	assert.equal(feedback.length, 6, "returning does not replay old loot receipts");
+	assert.equal(note.visible, false);
+	rewards.push({ id: 7, where: "purse", amber: 1 });
+	receive();
+	assert.equal(feedback.length, 7, "new loot still appears immediately after returning");
+	assert.equal(note.contents, "7:purse");
 });
 
 test("a first paused cave snapshot opens its choice without reopening a dismissed conversation", () => {
@@ -709,10 +716,9 @@ test("a new server session restores interrupted visits, including when queried f
 	assert.equal((await c.generated_visit_info(p)).available, true, "recovery is idempotent");
 });
 
-test("ordinary disconnection consumes the visit even if the server restarts later", async () => {
+test("explicit departure consumes the visit even if the server restarts later", async () => {
 	const { c, p, run, records } = restartFixture();
-	for (const member of run.members.filter((m) => m.owner === p.owner))
-		c.generated_leave_member(run, member, "disconnect");
+	for (const member of run.members.filter((m) => m.owner === p.owner)) c.generated_leave_member(run, member, "exit");
 	await new Promise(setImmediate);
 	c.Server.info.cave_boot = "after";
 	assert.equal((await c.generated_visit_info(p)).available, false);
@@ -1127,12 +1133,13 @@ test("native loot handler protects cave chests and collects each reward once", (
 	assert.equal(run.cave.gold, 4000);
 });
 
-test("cave departures and recovery save an alive character outside and release membership", async () => {
+test("cave disconnect and recovery save an alive character outside while retaining the return state", async () => {
 	const { c, p, run } = fixture(),
 		writes = [];
 	run.exit_spawn = G.maps.main.spawns.findIndex((x) => x[0] === 816 && x[1] === 1200);
 	assert.ok(run.exit_spawn >= 0);
 	Object.assign(c, {
+		clone: structuredClone,
 		release_frozen_player() {},
 		cave_settle_purse() {},
 		db: { collection: () => ({ updateOne: async (...args) => writes.push(args) }) },
@@ -1164,8 +1171,9 @@ test("cave departures and recovery save an alive character outside and release m
 	assert.deepEqual([p.x, p.y], [816, 1200]);
 	assert.equal(p.state, undefined);
 	assert.equal(p.s.burned, undefined);
-	assert.equal(run.members[0].left, true);
-	assert.equal(writes.length, 1);
+	assert.ok(!run.members[0].left);
+	assert.equal(run.members[0].disconnected.rip, true);
+	assert.equal(writes.length, 0);
 	assert.equal(c.generated_disconnect(p), false);
 	Object.assign(p, { map: "zone_0123456789abcdef01234567_0", rip: true, hp: 0 });
 	assert.equal(c.generated_recover_login(p), true);

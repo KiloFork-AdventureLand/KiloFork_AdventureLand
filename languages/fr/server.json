@@ -349,7 +349,7 @@
 	"server.cave.helpers_full": "Vous avez déjà deux compagnons. Prenez plutôt 2 Amber.",
 	"server.cave.revival_each": "Revivre ici — 1 Amber par personne",
 	"server.cave.mail_subject": "De la grotte",
-	"server.cave.mail_body": "Tu m'avais laissé ceci.",
+	"server.cave.mail_body": "J’ai gardé ta récompense de la grotte en lieu sûr. Récupère-la avec le personnage nommé sur cette lettre.",
 	"server.cave.cue_decoy": "La patrouille suit le leurre.",
 	"server.cave.cue_join": "Le capitaine vous envoie ? Je viens avec vous.",
 	"server.cave.cue_turn": "{npc} se tourne vers vous !",

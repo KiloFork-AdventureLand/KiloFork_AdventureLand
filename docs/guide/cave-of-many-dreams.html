@@ -21,6 +21,7 @@
 	<h3>{{ phrase("docs.cave.loot_heading") }}</h3>
 	<p>{{ phrase("docs.cave.loot") }}</p>
 	<p>{{ phrase("docs.cave.purse") }}</p>
+	<p>{{ phrase("docs.cave.disconnect_purse") }}</p>
 	<p id="cave-currency-limits"></p>
 	<p>{{ phrase("docs.cave.drop_chances") }}</p>
 	<h3>{{ phrase("docs.cave.drops") }}</h3>
@@ -60,6 +61,14 @@
 	<p>{{ phrase("docs.cave.exit") }}</p>
 	<hr />
 	<h3>{{ phrase("docs.cave.code_heading") }}</h3>
+	<p>{{ phrase("docs.cave.return_code") }}</p>
+	<!-- prettier-ignore -->
+	<div class="code">var visit = await cave_info();
+if (visit.resume &amp;&amp; visit.resume.server === server.region + server.id) {
+    var result = await cave_enter();
+    show_json(result);
+}</div>
+	<hr />
 	<p>{{ phrase("docs.cave.code") }}</p>
 	<!-- prettier-ignore -->
 	<div class="code">var last_choice = null;

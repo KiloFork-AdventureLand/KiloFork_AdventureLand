@@ -269,7 +269,7 @@
 	"cave.info_button": "INFO DE LA CUEVA",
 	"cave.visit_unlimited": "Dev: visitas ilimitadas",
 	"cave.keeper_dev": "Lucha contra grupos de monstruos, haz tratos y llévate Cave Amber para tu próxima arma. Reúne a tu grupo: tenéis 24 minutos dentro. En este servidor Dev podéis volver a entrar después de salir.",
-	"cave.keeper": "Lucha contra grupos de monstruos, haz tratos y llévate Cave Amber para tu próxima arma. Reúne a tu grupo: tenéis 24 minutos dentro. Una visita por cuenta al día; no podéis volver después de salir.",
+	"cave.keeper": "Lucha contra grupos de monstruos, negocia y lleva a casa Cave Amber para tu próxima arma. Reúne a tu grupo: tenéis 24 minutos dentro. Una visita por cuenta al día. Si te desconectas, vuelve aquí antes de que cierre tu cueva.",
 	"cave.enter": "Entrar juntos",
 	"cave.exit": "Salir",
 	"cave.purse": "Fondo común: {gold} de oro · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Tú",
 	"cave.inventory_slot": "En el inventario, casilla {slot}",
 	"cave.carried_gold": "Añadido al oro que llevas",
-	"cave.in_mail": "En una carta de Dorr; recógelo en CORREO",
+	"cave.in_mail": "Enviado por correo. Abre COM → MAIL con {name} para recogerlo.",
 	"cave.mail_pending": "Dorr lo está enviando por correo",
 	"cave.recent_rewards": "Recompensas recientes y dónde fueron a parar",
 	"cave.objectives": "Abrir las escaleras",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "La cueva ha tardado demasiado en abrirse. No has gastado tu visita diaria. Inténtalo de nuevo.",
 	"cave.error.zone_busy": "Todas las cuevas están ocupadas. Inténtalo dentro de poco.",
 	"cave.error.admission_expired": "La comprobación de entrada ha caducado. No has gastado tu visita diaria. Inténtalo de nuevo.",
-	"cave.currency_limits": "Pueden aparecer hasta {gold} de oro de la cueva y {amber} Cave Amber por visita. Gastarlos no hace que aparezcan más."
+	"cave.currency_limits": "Pueden aparecer hasta {gold} de oro de la cueva y {amber} Cave Amber por visita. Gastarlos no hace que aparezcan más.",
+	"cave.return": "Volver a la cueva",
+	"cave.keeper_return": "Tu cueva sigue abierta en {server}. Vuelve antes de que se acabe el tiempo. Continuarás donde te desconectaste, con la salud que tenías allí.",
+	"cave.error.cave_other_server": "Tu cueva está en otro servidor. Abre INFO para ver en cuál."
 }

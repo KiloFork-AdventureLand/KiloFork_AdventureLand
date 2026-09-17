@@ -269,7 +269,7 @@
 	"cave.info_button": "동굴 정보",
 	"cave.visit_unlimited": "Dev: 무제한 방문",
 	"cave.keeper_dev": "몬스터 무리와 싸우고, 거래를 성사시키고, 다음 무기를 만들 Cave Amber를 가져오세요. 파티를 모으세요. 안에서 보낼 시간은 24분입니다. 이 Dev 서버에서는 나온 뒤 다시 입장할 수 있어요.",
-	"cave.keeper": "몬스터 무리와 싸우고, 거래를 성사시키고, 다음 무기를 만들 Cave Amber를 가져오세요. 파티를 모으세요. 안에서 보낼 시간은 24분입니다. 계정당 하루 한 번 입장하며, 나오면 돌아갈 수 없어요.",
+	"cave.keeper": "몬스터 무리와 싸우고, 거래를 하고, 다음 무기에 쓸 Cave Amber를 가져오세요. 파티를 모으세요. 안에서 보낼 수 있는 시간은 24분입니다. 계정당 하루 한 번 방문할 수 있습니다. 연결이 끊기면 자신의 동굴이 닫히기 전에 여기로 돌아오세요.",
 	"cave.enter": "함께 입장",
 	"cave.exit": "나가기",
 	"cave.purse": "공동 주머니: 골드 {gold} · Amber {amber}",
@@ -323,7 +323,7 @@
 	"cave.you": "나",
 	"cave.inventory_slot": "인벤토리의 {slot}번 칸",
 	"cave.carried_gold": "소지 골드에 추가됨",
-	"cave.in_mail": "Dorr의 편지에 있습니다. 편지 메뉴에서 받으세요.",
+	"cave.in_mail": "우편으로 보냈습니다. {name} 캐릭터로 COM → MAIL을 열어 받으세요.",
 	"cave.mail_pending": "Dorr가 우편으로 보내는 중입니다",
 	"cave.recent_rewards": "최근 보상과 수령 위치",
 	"cave.objectives": "계단 열기",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "동굴을 여는 데 너무 오래 걸렸습니다. 오늘의 방문 기회는 사용되지 않았습니다. 다시 시도해 주세요.",
 	"cave.error.zone_busy": "모든 동굴이 사용 중입니다. 잠시 후 다시 시도해 주세요.",
 	"cave.error.admission_expired": "입장 확인 시간이 만료되었습니다. 오늘의 방문 기회는 사용되지 않았습니다. 다시 시도해 주세요.",
-	"cave.currency_limits": "한 번 방문할 때 동굴 골드는 최대 {gold}, Cave Amber는 최대 {amber}개까지 나타납니다. 사용해도 추가로 나타나지 않습니다."
+	"cave.currency_limits": "한 번 방문할 때 동굴 골드는 최대 {gold}, Cave Amber는 최대 {amber}개까지 나타납니다. 사용해도 추가로 나타나지 않습니다.",
+	"cave.return": "동굴로 돌아가기",
+	"cave.keeper_return": "당신의 동굴은 아직 {server}에서 열려 있습니다. 시간이 끝나기 전에 돌아오세요. 연결이 끊긴 위치에서 당시 체력으로 이어서 진행합니다.",
+	"cave.error.cave_other_server": "당신의 동굴은 다른 서버에 있습니다. INFO를 열어 어느 서버인지 확인하세요."
 }

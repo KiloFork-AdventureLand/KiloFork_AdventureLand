@@ -269,7 +269,7 @@
 	"cave.info_button": "INFO GUA",
 	"cave.visit_unlimited": "Dev: lawatan tanpa had",
 	"cave.keeper_dev": "Lawan kawanan raksasa, tawar-menawar, dan bawa pulang Cave Amber untuk senjata seterusnya. Kumpulkan ahli kumpulanmu; kamu ada 24 minit di dalam. Di pelayan Dev ini, kamu boleh masuk lagi selepas keluar.",
-	"cave.keeper": "Lawan kawanan raksasa, tawar-menawar, dan bawa pulang Cave Amber untuk senjata seterusnya. Kumpulkan ahli kumpulanmu; kamu ada 24 minit di dalam. Satu lawatan bagi setiap akaun sehari; setelah keluar, kamu tidak boleh kembali.",
+	"cave.keeper": "Lawan kumpulan raksasa, tawar-menawar dan bawa pulang Cave Amber untuk senjata seterusnya. Kumpulkan pasukanmu: kamu ada 24 minit di dalam. Satu lawatan bagi setiap akaun sehari. Jika terputus sambungan, kembali ke sini sebelum guamu ditutup.",
 	"cave.enter": "Masuk bersama",
 	"cave.exit": "Keluar",
 	"cave.purse": "Wang bersama: {gold} emas · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Kamu",
 	"cave.inventory_slot": "Dalam inventori, slot {slot}",
 	"cave.carried_gold": "Ditambah pada emas yang dibawa",
-	"cave.in_mail": "Dalam surat daripada Dorr — tuntut di E-MEL",
+	"cave.in_mail": "Dihantar melalui surat. Buka COM → MAIL sebagai {name} untuk mengambilnya.",
 	"cave.mail_pending": "Dorr sedang menghantarnya melalui mel",
 	"cave.recent_rewards": "Ganjaran terkini dan tempat ia dihantar",
 	"cave.objectives": "Buka tangga",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Gua mengambil masa terlalu lama untuk dibuka. Lawatan harianmu belum digunakan. Cuba lagi.",
 	"cave.error.zone_busy": "Semua gua sedang digunakan. Cuba lagi sebentar nanti.",
 	"cave.error.admission_expired": "Semakan masuk telah tamat tempoh. Lawatan harianmu belum digunakan. Cuba lagi.",
-	"cave.currency_limits": "Sehingga {gold} emas gua dan {amber} Cave Amber boleh muncul setiap lawatan. Membelanjakannya tidak menyebabkan lebih banyak muncul."
+	"cave.currency_limits": "Sehingga {gold} emas gua dan {amber} Cave Amber boleh muncul setiap lawatan. Membelanjakannya tidak menyebabkan lebih banyak muncul.",
+	"cave.return": "Kembali ke gua",
+	"cave.keeper_return": "Guamu masih terbuka di {server}. Kembali sebelum masa tamat. Kamu akan menyambung dari tempat sambungan terputus, dengan kesihatan yang kamu ada ketika itu.",
+	"cave.error.cave_other_server": "Guamu berada di pelayan lain. Buka INFO untuk melihat pelayannya."
 }

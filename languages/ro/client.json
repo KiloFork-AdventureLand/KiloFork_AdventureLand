@@ -269,7 +269,7 @@
 	"cave.info_button": "INFO PEȘTERĂ",
 	"cave.visit_unlimited": "Dev: vizite nelimitate",
 	"cave.keeper_dev": "Luptați cu grupuri de monștri, încheiați târguri și aduceți acasă Cave Amber pentru următoarea armă. Adună grupul: aveți 24 de minute înăuntru. Pe acest server Dev, puteți intra din nou după ce ieșiți.",
-	"cave.keeper": "Luptați cu grupuri de monștri, încheiați târguri și aduceți acasă Cave Amber pentru următoarea armă. Adună grupul: aveți 24 de minute înăuntru. O vizită pe cont în fiecare zi; după ce ieșiți, nu mai puteți reveni.",
+	"cave.keeper": "Luptă cu grupuri de monștri, negociază și adu acasă Cave Amber pentru următoarea ta armă. Strânge-ți grupul: aveți 24 de minute înăuntru. O vizită pe cont în fiecare zi. Dacă te deconectezi, revino aici înainte să se închidă peștera ta.",
 	"cave.enter": "Intrați împreună",
 	"cave.exit": "Ieșire",
 	"cave.purse": "Pungă comună: {gold} aur · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Tu",
 	"cave.inventory_slot": "În inventar, locul {slot}",
 	"cave.carried_gold": "Adăugat la aurul purtat",
-	"cave.in_mail": "Într-o scrisoare de la Dorr — revendică în POȘTĂ",
+	"cave.in_mail": "Trimis prin poștă. Deschide COM → MAIL cu {name} pentru a-l ridica.",
 	"cave.mail_pending": "Dorr îl trimite prin poștă",
 	"cave.recent_rewards": "Recompense recente și unde au ajuns",
 	"cave.objectives": "Deschide scările",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Deschiderea peșterii a durat prea mult. Vizita ta zilnică nu a fost folosită. Încearcă din nou.",
 	"cave.error.zone_busy": "Toate peșterile sunt ocupate. Încearcă din nou în curând.",
 	"cave.error.admission_expired": "Verificarea intrării a expirat. Vizita ta zilnică nu a fost folosită. Încearcă din nou.",
-	"cave.currency_limits": "La fiecare vizită pot apărea până la {gold} aur al peșterii și {amber} Cave Amber. Cheltuirea lor nu face să apară mai mult."
+	"cave.currency_limits": "La fiecare vizită pot apărea până la {gold} aur al peșterii și {amber} Cave Amber. Cheltuirea lor nu face să apară mai mult.",
+	"cave.return": "Înapoi în peșteră",
+	"cave.keeper_return": "Peștera ta este încă deschisă pe {server}. Revino înainte să expire timpul. Vei continua din locul deconectării, cu viața pe care o aveai acolo.",
+	"cave.error.cave_other_server": "Peștera ta este pe alt server. Deschide INFO ca să vezi pe care."
 }

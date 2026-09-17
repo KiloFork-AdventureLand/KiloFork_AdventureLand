@@ -269,7 +269,7 @@
 	"cave.info_button": "O JASKINI",
 	"cave.visit_unlimited": "Dev: wizyty bez limitu",
 	"cave.keeper_dev": "Walczcie z grupami potworów, dobijajcie targu i przynieście Cave Amber na kolejną broń. Zbierz drużynę — w środku macie 24 minuty. Na tym serwerze Dev po wyjściu możecie wejść ponownie.",
-	"cave.keeper": "Walczcie z grupami potworów, dobijajcie targu i przynieście Cave Amber na kolejną broń. Zbierz drużynę — w środku macie 24 minuty. Jedna wizyta na konto dziennie; po wyjściu nie można wrócić.",
+	"cave.keeper": "Walcz z grupami potworów, targuj się i przynieś do domu Cave Amber na następną broń. Zbierz drużynę: macie w środku 24 minuty. Jedna wizyta dziennie na konto. Jeśli stracisz połączenie, wróć tutaj, zanim twoja jaskinia się zamknie.",
 	"cave.enter": "Wejdźcie razem",
 	"cave.exit": "Wyjdź",
 	"cave.purse": "Wspólna sakiewka: {gold} złota · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Ty",
 	"cave.inventory_slot": "W ekwipunku, miejsce {slot}",
 	"cave.carried_gold": "Dodano do złota przy postaci",
-	"cave.in_mail": "W liście od Dorr — odbierz w POCZCIE",
+	"cave.in_mail": "Wysłano pocztą. Otwórz COM → MAIL postacią {name}, aby odebrać.",
 	"cave.mail_pending": "Dorr wysyła to pocztą",
 	"cave.recent_rewards": "Ostatnie nagrody i gdzie trafiły",
 	"cave.objectives": "Otwórz schody",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Otwieranie jaskini trwało zbyt długo. Dzisiejsza wizyta nie została wykorzystana. Spróbuj ponownie.",
 	"cave.error.zone_busy": "Wszystkie jaskinie są zajęte. Spróbuj za chwilę.",
 	"cave.error.admission_expired": "Weryfikacja wejścia wygasła. Dzisiejsza wizyta nie została wykorzystana. Spróbuj ponownie.",
-	"cave.currency_limits": "Podczas jednej wizyty może pojawić się do {gold} złota jaskini i {amber} Cave Amber. Wydawanie ich nie sprawia, że pojawia się więcej."
+	"cave.currency_limits": "Podczas jednej wizyty może pojawić się do {gold} złota jaskini i {amber} Cave Amber. Wydawanie ich nie sprawia, że pojawia się więcej.",
+	"cave.return": "Wróć do jaskini",
+	"cave.keeper_return": "Twoja jaskinia jest nadal otwarta na {server}. Wróć, zanim minie czas. Wznowisz grę w miejscu rozłączenia, z takim zdrowiem, jakie było tam wtedy.",
+	"cave.error.cave_other_server": "Twoja jaskinia jest na innym serwerze. Otwórz INFO, aby sprawdzić, na którym."
 }

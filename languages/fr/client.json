@@ -269,7 +269,7 @@
 	"cave.info_button": "INFOS GROTTE",
 	"cave.visit_unlimited": "Dev : visites illimitées",
 	"cave.keeper_dev": "Affrontez des groupes de monstres, négociez et rapportez du Cave Amber pour votre prochaine arme. Rassemblez votre groupe : vous avez 24 minutes à l’intérieur. Sur ce serveur Dev, vous pouvez revenir après être sortis.",
-	"cave.keeper": "Affrontez des groupes de monstres, négociez et rapportez du Cave Amber pour votre prochaine arme. Rassemblez votre groupe : vous avez 24 minutes à l’intérieur. Une visite par compte et par jour ; toute sortie est définitive.",
+	"cave.keeper": "Affronte des groupes de monstres, négocie et rapporte du Cave Amber pour ta prochaine arme. Rassemble ton groupe : vous avez 24 minutes à l’intérieur. Une visite par compte et par jour. Si tu es déconnecté, reviens ici avant la fermeture de ta grotte.",
 	"cave.enter": "Entrer ensemble",
 	"cave.exit": "Sortir",
 	"cave.purse": "Bourse commune : {gold} or · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Vous",
 	"cave.inventory_slot": "Dans l’inventaire, case {slot}",
 	"cave.carried_gold": "Ajouté à l’or que vous portez",
-	"cave.in_mail": "Dans une lettre de Dorr ; récupérez-le dans COURRIER",
+	"cave.in_mail": "Envoyé par courrier. Ouvre COM → MAIL avec {name} pour le récupérer.",
 	"cave.mail_pending": "Dorr l’envoie par courrier",
 	"cave.recent_rewards": "Dernières récompenses et où les trouver",
 	"cave.objectives": "Ouvrir l’escalier",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "La grotte a mis trop de temps à s’ouvrir. Votre visite quotidienne n’a pas été utilisée. Réessayez.",
 	"cave.error.zone_busy": "Toutes les grottes sont occupées. Réessayez dans un instant.",
 	"cave.error.admission_expired": "La vérification d’entrée a expiré. Votre visite quotidienne n’a pas été utilisée. Réessayez.",
-	"cave.currency_limits": "Jusqu’à {gold} pièces d’or de la grotte et {amber} Cave Amber peuvent apparaître par visite. Les dépenser n’en fait pas apparaître davantage."
+	"cave.currency_limits": "Jusqu’à {gold} pièces d’or de la grotte et {amber} Cave Amber peuvent apparaître par visite. Les dépenser n’en fait pas apparaître davantage.",
+	"cave.return": "Retourner à la grotte",
+	"cave.keeper_return": "Ta grotte est encore ouverte sur {server}. Reviens avant la fin du temps imparti. Tu reprendras à l’endroit où tu as été déconnecté, avec la santé que tu avais là-bas.",
+	"cave.error.cave_other_server": "Ta grotte est sur un autre serveur. Ouvre INFO pour savoir lequel."
 }

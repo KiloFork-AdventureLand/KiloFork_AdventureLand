@@ -45,7 +45,10 @@ function cave_shuffle(values) {
 function cave_players(run) {
 	return run.members
 		.filter((m) => !m.left)
-		.map((m) => get_player(m.name))
+		.map((m) => {
+			var player = get_player(m.name);
+			return player?.real_id === m.character && player.owner === m.owner ? player : null;
+		})
 		.filter((p) => p && generated_entry(p)?.record === run && !p.dc && !p.socket.disconnected);
 }
 function cave_say(run, message) {
@@ -655,11 +658,12 @@ async function cave_mail(recipient, item, id, attempt = 0) {
 						sender: A.recipient.owner,
 						receiver: A.recipient.owner,
 						subject: "From the cave",
-						message: "You left this with me.",
+						message: "I kept your cave reward safe. Collect it with the character named on this letter.",
 						item: JSON.stringify(A.item),
 					},
 					blobs: ["info"],
 				});
+				R.created = true;
 			},
 			{ recipient, item, id },
 		);
@@ -671,8 +675,14 @@ async function cave_mail(recipient, item, id, attempt = 0) {
 		try {
 			var count = await update_mail_count(recipient.owner);
 			for (var player of Object.values(players))
-				if (player.owner === recipient.owner && !player.dc && !player.socket.disconnected)
+				if (player.owner === recipient.owner && !player.dc && !player.socket.disconnected) {
 					player.socket.emit("game_response", { response: "mail_received", count });
+					if (result.created)
+						player.socket.emit(
+							"game_log",
+							localization.message("cave.in_mail", { name: recipient.name }, { color: "#D4BB88" }),
+						);
+				}
 		} catch (e) {
 			log_trace("cave mail count", e);
 		}
@@ -1728,7 +1738,7 @@ function cave_snapshot(run, player) {
 			amber_spawned: state.amber_earned,
 		},
 		supplies: ["tool", "lamp", "decoy", "message", "truce"].filter((k) => state.flags[k]),
-		roster: run.members.map((m) => ({ name: m.name, left: m.left })),
+		roster: run.members.map((m) => ({ name: m.name, left: m.left, disconnected: !!m.disconnected })),
 		doors: (run.manifest?.[floor]?.definition.doors || []).map((d, index) => ({
 			id: index,
 			x: run.manifest[floor].definition.spawns[index][0],
@@ -1856,7 +1866,7 @@ function cave_snapshot(run, player) {
 			.map((r) => ({ room: r.id, name: r.npc.name, hp: r.npc.hp, deadline: r.practice_end })),
 	};
 }
-function cave_publish(run, open = false) {
+function cave_publish(run, open = false, returning) {
 	run.cave.last_publish = Date.now();
 	for (var actor of run.cave.actors) {
 		var state = [actor.zone_actor.side, actor.zone_actor.rare, actor.zone_actor.betrayed].join(":");
@@ -1869,7 +1879,10 @@ function cave_publish(run, open = false) {
 	for (var player of cave_players(run)) {
 		var state = cave_snapshot(run, player);
 		player.cave = state;
-		player.socket.emit("cave", { type: open === "result" ? "result" : open ? "choice" : "state", state });
+		player.socket.emit("cave", {
+			type: player === returning ? "returned" : open === "result" ? "result" : open ? "choice" : "state",
+			state,
+		});
 	}
 }
 async function cave_interaction(player, data) {

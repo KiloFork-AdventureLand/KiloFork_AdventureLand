@@ -543,7 +543,7 @@ Object.assign(module.exports, {
   "cave.visit_unlimited": "Dev: unlimited visits",
   // Dorr's first invitation beside the Mainland entrance. Describe real cave activities, the 24-minute visit and the relevant entry limit. Keep Cave Amber and Dev unchanged.
   "cave.keeper_dev": "Fight monster packs, strike a bargain, and bring home Cave Amber for your next weapon. Gather your party—you have 24 minutes inside. On this Dev server, you can visit again after leaving.",
-  "cave.keeper": "Fight monster packs, strike a bargain, and bring home Cave Amber for your next weapon. Gather your party—you have 24 minutes inside. One visit per account each day; no returning once you leave.",
+  "cave.keeper": "Fight monster packs, strike a bargain, and bring home Cave Amber for your next weapon. Gather your party—you have 24 minutes inside. One visit per account each day. If you disconnect, return here before your cave closes.",
   "cave.enter": "Enter together",
   "cave.exit": "Exit",
   "cave.purse": "Shared purse: {gold} gold · {amber} Amber",
@@ -611,7 +611,8 @@ Object.assign(module.exports, {
 	"cave.you": "You",
 	"cave.inventory_slot": "In inventory, slot {slot}",
 	"cave.carried_gold": "Added to carried gold",
-	"cave.in_mail": "In a letter from Dorr—claim it in MAIL",
+	// Reward receipt. {name} is the recipient character; COM and MAIL are menu labels.
+	"cave.in_mail": "Mailed. Open COM → MAIL as {name} to collect it.",
 	"cave.mail_pending": "Dorr is sending it by mail",
 	"cave.recent_rewards": "Recent rewards and where they went",
 	"cave.objectives": "Open the stairs",
@@ -663,3 +664,12 @@ Object.assign(module.exports, {
 
 // Cave INFO: current currency limits. gold and amber are numeric amounts from G.events.dreams.
 module.exports["cave.currency_limits"] = "Up to {gold} cave gold and {amber} Cave Amber can appear per visit. Spending them does not make more appear.";
+
+// Dorr's existing entry button when this character can return to its original cave.
+module.exports["cave.return"] = "Return to cave";
+
+// Dorr's return greeting. {server} is a fixed server identifier such as EUI. The saved cave health is restored.
+module.exports["cave.keeper_return"] = "Your cave is still open on {server}. Return before time runs out. You will continue where you disconnected, with the health you had there.";
+
+// An original entrant tried to return on a different server. INFO shows the correct server.
+module.exports["cave.error.cave_other_server"] = "Your cave is on another server. Open INFO to see which one.";

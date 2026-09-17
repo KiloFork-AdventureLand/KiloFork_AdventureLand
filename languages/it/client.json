@@ -269,7 +269,7 @@
 	"cave.info_button": "INFO GROTTA",
 	"cave.visit_unlimited": "Dev: visite illimitate",
 	"cave.keeper_dev": "Affrontate gruppi di mostri, fate affari e riportate Cave Amber per la vostra prossima arma. Raduna il gruppo: avete 24 minuti dentro. Su questo server Dev potete entrare di nuovo dopo essere usciti.",
-	"cave.keeper": "Affrontate gruppi di mostri, fate affari e riportate Cave Amber per la vostra prossima arma. Raduna il gruppo: avete 24 minuti dentro. Una visita per account al giorno; una volta usciti, non si torna indietro.",
+	"cave.keeper": "Affronta gruppi di mostri, contratta e porta a casa Cave Amber per la tua prossima arma. Raduna il gruppo: avete 24 minuti all’interno. Una visita al giorno per account. Se ti disconnetti, torna qui prima che la tua grotta chiuda.",
 	"cave.enter": "Entrate insieme",
 	"cave.exit": "Esci",
 	"cave.purse": "Cassa comune: {gold} oro · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Tu",
 	"cave.inventory_slot": "Nell’inventario, casella {slot}",
 	"cave.carried_gold": "Aggiunto all’oro che porti",
-	"cave.in_mail": "In una lettera di Dorr; ritiralo in POSTA",
+	"cave.in_mail": "Spedito per posta. Apri COM → MAIL con {name} per ritirarlo.",
 	"cave.mail_pending": "Dorr lo sta inviando per posta",
 	"cave.recent_rewards": "Ultime ricompense e dove sono finite",
 	"cave.objectives": "Apri le scale",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "La grotta ha impiegato troppo tempo ad aprirsi. La tua visita giornaliera non è stata usata. Riprova.",
 	"cave.error.zone_busy": "Tutte le grotte sono occupate. Riprova tra poco.",
 	"cave.error.admission_expired": "La verifica d’ingresso è scaduta. La tua visita giornaliera non è stata usata. Riprova.",
-	"cave.currency_limits": "Per ogni visita possono apparire fino a {gold} di oro della grotta e {amber} Cave Amber. Spenderli non ne fa apparire altri."
+	"cave.currency_limits": "Per ogni visita possono apparire fino a {gold} di oro della grotta e {amber} Cave Amber. Spenderli non ne fa apparire altri.",
+	"cave.return": "Torna nella grotta",
+	"cave.keeper_return": "La tua grotta è ancora aperta su {server}. Torna prima che scada il tempo. Riprenderai dal punto della disconnessione, con la salute che avevi lì.",
+	"cave.error.cave_other_server": "La tua grotta si trova su un altro server. Apri INFO per sapere quale."
 }

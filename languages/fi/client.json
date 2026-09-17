@@ -269,7 +269,7 @@
 	"cave.info_button": "LUOLAN TIEDOT",
 	"cave.visit_unlimited": "Dev: rajattomat käynnit",
 	"cave.keeper_dev": "Taistelkaa hirviölaumoja vastaan, tehkää kauppoja ja tuokaa kotiin Cave Amberia seuraavaa asetta varten. Kokoa ryhmäsi — teillä on 24 minuuttia luolassa. Tällä Dev-palvelimella voitte palata poistuttuanne.",
-	"cave.keeper": "Taistelkaa hirviölaumoja vastaan, tehkää kauppoja ja tuokaa kotiin Cave Amberia seuraavaa asetta varten. Kokoa ryhmäsi — teillä on 24 minuuttia luolassa. Yksi käynti tiliä kohti päivässä; poistuttuanne ette voi palata.",
+	"cave.keeper": "Taistele hirviöjoukkoja vastaan, käy kauppaa ja tuo Cave Amber kotiin seuraavaa asettasi varten. Kokoa ryhmäsi: teillä on sisällä 24 minuuttia. Yksi käynti tiliä kohti päivässä. Jos yhteys katkeaa, palaa tänne ennen kuin luolasi sulkeutuu.",
 	"cave.enter": "Sisään yhdessä",
 	"cave.exit": "Poistu",
 	"cave.purse": "Yhteinen kukkaro: {gold} kultaa · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Sinä",
 	"cave.inventory_slot": "Repussa, paikka {slot}",
 	"cave.carried_gold": "Lisätty mukana olevaan kultaan",
-	"cave.in_mail": "Dorrin kirjeessä — lunasta POSTISTA",
+	"cave.in_mail": "Lähetetty postitse. Avaa COM → MAIL hahmolla {name} ja nouda palkinto.",
 	"cave.mail_pending": "Dorr lähettää sen postitse",
 	"cave.recent_rewards": "Viimeisimmät palkinnot ja niiden määränpäät",
 	"cave.objectives": "Avaa portaat",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Luolan avaaminen kesti liian kauan. Päivän käyntioikeuttasi ei ole käytetty. Yritä uudelleen.",
 	"cave.error.zone_busy": "Kaikki luolat ovat varattuja. Yritä pian uudelleen.",
 	"cave.error.admission_expired": "Sisäänpääsyn tarkistus vanheni. Päivän käyntioikeuttasi ei ole käytetty. Yritä uudelleen.",
-	"cave.currency_limits": "Yhdellä käynnillä voi ilmestyä enintään {gold} luolakultaa ja {amber} Cave Amber. Niiden käyttäminen ei tuo lisää."
+	"cave.currency_limits": "Yhdellä käynnillä voi ilmestyä enintään {gold} luolakultaa ja {amber} Cave Amber. Niiden käyttäminen ei tuo lisää.",
+	"cave.return": "Palaa luolaan",
+	"cave.keeper_return": "Luolasi on yhä auki palvelimella {server}. Palaa ennen ajan loppumista. Jatkat yhteyden katkeamispaikasta sillä terveydellä, joka sinulla oli siellä.",
+	"cave.error.cave_other_server": "Luolasi on toisella palvelimella. Avaa INFO nähdäksesi millä."
 }

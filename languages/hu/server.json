@@ -346,7 +346,7 @@
 	"server.cave.helpers_full": "Már két segítőtök van. Vigyetek inkább 2 Ambert.",
 	"server.cave.revival_each": "Feltámadás itt — fejenként 1 Amber",
 	"server.cave.mail_subject": "A barlangból",
-	"server.cave.mail_body": "Ezt nálam hagytad.",
+	"server.cave.mail_body": "Biztonságban megőriztem a barlangi jutalmadat. A levélen megnevezett karakterrel veheted át.",
 	"server.cave.cue_decoy": "A járőr követi a csalit.",
 	"server.cave.cue_join": "A kapitány küldött titeket? Veletek megyek.",
 	"server.cave.cue_turn": "{npc} felétek fordul!",

@@ -786,7 +786,7 @@ module.exports["server.cave.story_stairs"] = "{npc}: The stairs change every tim
 module.exports["server.cave.mail_subject"] = "From the cave";
 
 // Cave notice. Body of trusted cave reward mail sent by Dorr.
-module.exports["server.cave.mail_body"] = "You left this with me.";
+module.exports["server.cave.mail_body"] = "I kept your cave reward safe. Collect it with the character named on this letter.";
 
 // Cave notice. Overhead cue: patrol follows its decoy.
 module.exports["server.cave.cue_decoy"] = "The patrol follows the distraction.";

@@ -348,7 +348,7 @@
 	"server.cave.helpers_full": "Ihr habt schon zwei Helfer. Nehmt stattdessen 2 Amber.",
 	"server.cave.revival_each": "Hier wiederbeleben — je 1 Amber",
 	"server.cave.mail_subject": "Aus der Höhle",
-	"server.cave.mail_body": "Du hast das bei mir gelassen.",
+	"server.cave.mail_body": "Ich habe deine Höhlenbelohnung sicher verwahrt. Hole sie mit dem Charakter ab, der auf diesem Brief steht.",
 	"server.cave.cue_decoy": "Die Patrouille folgt der Ablenkung.",
 	"server.cave.cue_join": "Der Hauptmann schickt euch? Ich komme mit.",
 	"server.cave.cue_turn": "{npc} wendet sich euch zu!",

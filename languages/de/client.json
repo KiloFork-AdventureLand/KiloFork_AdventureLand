@@ -269,7 +269,7 @@
 	"cave.info_button": "HÖHLENINFO",
 	"cave.visit_unlimited": "Dev: unbegrenzte Besuche",
 	"cave.keeper_dev": "Kämpft gegen Monstergruppen, handelt und bringt Cave Amber für eure nächste Waffe heim. Versammelt eure Gruppe — drinnen habt ihr 24 Minuten. Auf diesem Dev-Server könnt ihr nach dem Verlassen erneut hinein.",
-	"cave.keeper": "Kämpft gegen Monstergruppen, handelt und bringt Cave Amber für eure nächste Waffe heim. Versammelt eure Gruppe — drinnen habt ihr 24 Minuten. Ein Besuch pro Konto und Tag; nach dem Verlassen gibt es kein Zurück.",
+	"cave.keeper": "Bekämpfe Monstergruppen, handle und bring Cave Amber für deine nächste Waffe nach Hause. Versammle deine Gruppe: Ihr habt drinnen 24 Minuten. Ein Besuch pro Konto und Tag. Wird deine Verbindung getrennt, komm zurück, bevor deine Höhle schließt.",
 	"cave.enter": "Gemeinsam eintreten",
 	"cave.exit": "Verlassen",
 	"cave.purse": "Gruppenkasse: {gold} Gold · {amber} Amber",
@@ -323,7 +323,7 @@
 	"cave.you": "Du",
 	"cave.inventory_slot": "Im Inventar, Platz {slot}",
 	"cave.carried_gold": "Zum mitgeführten Gold hinzugefügt",
-	"cave.in_mail": "In einem Brief von Dorr – in POST abholen",
+	"cave.in_mail": "Per Post verschickt. Öffne COM → MAIL als {name}, um es abzuholen.",
 	"cave.mail_pending": "Dorr schickt es per Post",
 	"cave.recent_rewards": "Letzte Belohnungen und wo sie sind",
 	"cave.objectives": "Treppe öffnen",
@@ -363,5 +363,8 @@
 	"cave.error.generation_timeout": "Das Öffnen der Höhle hat zu lange gedauert. Dein täglicher Besuch wurde nicht verbraucht. Versuch es erneut.",
 	"cave.error.zone_busy": "Alle Höhlen sind belegt. Versuch es gleich noch einmal.",
 	"cave.error.admission_expired": "Die Eintrittsprüfung ist abgelaufen. Dein täglicher Besuch wurde nicht verbraucht. Versuch es erneut.",
-	"cave.currency_limits": "Pro Besuch können bis zu {gold} Höhlengold und {amber} Cave Amber erscheinen. Wenn du sie ausgibst, erscheinen dadurch keine weiteren."
+	"cave.currency_limits": "Pro Besuch können bis zu {gold} Höhlengold und {amber} Cave Amber erscheinen. Wenn du sie ausgibst, erscheinen dadurch keine weiteren.",
+	"cave.return": "Zurück in die Höhle",
+	"cave.keeper_return": "Deine Höhle ist auf {server} noch offen. Kehre zurück, bevor die Zeit abläuft. Du setzt deinen Besuch am Ort der Trennung mit deinen damaligen Lebenspunkten fort.",
+	"cave.error.cave_other_server": "Deine Höhle liegt auf einem anderen Server. Öffne INFO, um zu sehen, auf welchem."
 }
