@@ -126,6 +126,7 @@ function update_login_server() {
 		});
 		if (current) this.dataset.home = current.home || "";
 		$(this).find(".selection-home-server").text(home_server_name(this.dataset.home, true));
+		$(this).toggleClass("at-home", !!(home && this.dataset.home == home));
 		$(this).toggleClass("away-home", !!(home && this.dataset.home && this.dataset.home != home));
 	});
 	var hover = $("#character-home-hover");

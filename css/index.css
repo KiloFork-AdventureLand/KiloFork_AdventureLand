@@ -689,8 +689,11 @@ canvas { display:block; } /*replaces the overflow: hidden solution [07/07/16] */
 	font-size: 16px;
 	line-height: 12px;
 }
-.selection-character.away-home{
-	border-color: #F7BB87;
+.selection-character.at-home{
+	border-color: #B7DFA3;
+}
+.selection-character.away-home .selection-home-server{
+	color: #F08080;
 }
 .selection-server[aria-current="true"] .selection-server-name{
 	text-decoration: underline;
