@@ -742,7 +742,17 @@ var maps = {
 		],
 		animatables: {
 			the_door: { x: 888, y: -672, position: "door0" },
-			dreams_gate: { x: 816, y: 1160, position: "dreams_gate", role: "dreamkeeper" },
+			dreams_gate: {
+				x: 816,
+				y: 1160,
+				position: "dreams_gate",
+				role: "dreamkeeper",
+				// Native movement checks actor corners; bases need at least 24 by 12 pixels.
+				collision: [
+					[-52, 8, -28, 20],
+					[28, 8, 52, 20],
+				],
+			},
 		},
 		on_death: ["main", 5],
 		on_exit: ["main", 0],

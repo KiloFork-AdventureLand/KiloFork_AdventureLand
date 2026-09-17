@@ -4567,6 +4567,7 @@ var hiding_places = [];
 function server_bfs(map) {
 	if (
 		precomputed_bfs &&
+		(!G.maps[map].collision_key || precomputed_bfs.collision?.[map] === G.maps[map].collision_key) &&
 		precomputed_bfs.smap_data &&
 		precomputed_bfs.smap_data[map] !== undefined &&
 		precomputed_bfs.amap_data &&

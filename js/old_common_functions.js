@@ -197,6 +197,22 @@ function process_game_data()
 		if(map.ignore) continue;
 		// var M=map.data={x_lines:(G.geometry[name].x_lines||[]).slice(),y_lines:(G.geometry[name].y_lines||[]).slice()},LD=5;
 		var M=map.data=G.geometry[name];
+		// Composed scenery uses the same collision lines as the map's native tiles.
+		var fixtures=Object.values(map.animatables||{}).filter(function(a){ return a.collision; });
+		map.collision_key=fixtures.length ? JSON.stringify(fixtures.map(function(a){ return [a.x,a.y,a.collision]; })) : null;
+		if(M && fixtures.length)
+		{
+			function add_line(axis,line) {
+				if(!M[axis].some(function(old){ return old[0]===line[0] && old[1]===line[1] && old[2]===line[2]; })) M[axis].push(line);
+			}
+			fixtures.forEach(function(a){ a.collision.forEach(function(box){
+				var x1=a.x+box[0],y1=a.y+box[1],x2=a.x+box[2],y2=a.y+box[3];
+				add_line("x_lines",[x1,y1,y2]); add_line("x_lines",[x2,y1,y2]);
+				add_line("y_lines",[y1,x1,x2]); add_line("y_lines",[y2,x1,x2]);
+			}); });
+			M.x_lines.sort(function(a,b){ return a[0]-b[0]; });
+			M.y_lines.sort(function(a,b){ return a[0]-b[0]; });
+		}
 		// Instead of extending lines, applied the emulated move forward logic everywhere [18/07/18]
 		// G.geometry[name].x_lines=[]; G.geometry[name].y_lines=[]; // New system [17/07/18]
 		// map.data.x_lines.forEach(function(line){
