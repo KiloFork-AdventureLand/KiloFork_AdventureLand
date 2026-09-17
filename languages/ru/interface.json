@@ -965,5 +965,5 @@
 	"interface.cavalry.unavailable": "Cavalry сейчас не может ответить.",
 	"interface.cavalry.location": "Cavalry не может войти сюда.",
 	"interface.cavalry.guarded": "В пределах 150 пикселей от этих монстров есть игрок уровня 80+.",
-	"interface.cavalry.not_threatened": "Cavalry нужны монстры, которые уже атакуют вас или вашу группу."
+	"interface.cavalry.not_threatened": "Самый высокий уровень на вашем аккаунте — {level}. Cavalry сражается только с монстрами, которые уже атакуют вас или вашу группу."
 }

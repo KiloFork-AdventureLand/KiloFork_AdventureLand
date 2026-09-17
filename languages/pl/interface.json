@@ -965,5 +965,5 @@
 	"interface.cavalry.unavailable": "Cavalry nie może teraz odpowiedzieć.",
 	"interface.cavalry.location": "Cavalry nie może tu wejść.",
 	"interface.cavalry.guarded": "W odległości do 150 pikseli od tych potworów jest gracz na poziomie 80+.",
-	"interface.cavalry.not_threatened": "Cavalry potrzebuje potworów, które już atakują ciebie lub twoją drużynę."
+	"interface.cavalry.not_threatened": "Najwyższy poziom na twoim koncie to {level}. Cavalry walczy tylko z potworami, które już atakują ciebie lub twoją drużynę."
 }

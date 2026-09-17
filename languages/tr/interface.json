@@ -952,5 +952,5 @@
 	"interface.cavalry.unavailable": "Cavalry şu anda yanıt veremiyor.",
 	"interface.cavalry.location": "Cavalry buraya giremez.",
 	"interface.cavalry.guarded": "Bu canavarların 150 piksel yakınında seviye 80+ bir oyuncu var.",
-	"interface.cavalry.not_threatened": "Cavalry için sana veya grubuna zaten saldıran canavarlar olmalı."
+	"interface.cavalry.not_threatened": "Hesabındaki en yüksek seviye {level}. Cavalry yalnızca sana veya grubuna zaten saldıran canavarlarla savaşır."
 }

@@ -1,6 +1,6 @@
 module.exports = {
-	// Refusal for a level-80+ caller with ordinary level-3+ monsters nearby but none attacking the caller or party. The CODE reason remains no_monsters. Keep Cavalry.
-	"interface.cavalry.not_threatened": "Cavalry needs monsters that are already attacking you or your party.",
+	// Refusal for an account at level 80+ with ordinary level-3+ monsters nearby but none attacking the caller or party. level is the account’s highest recorded character level as a string, which can be higher than the calling character’s level. Explain that the account level sets the rule. CODE reason remains no_monsters. Keep Cavalry.
+	"interface.cavalry.not_threatened": "Your account's highest level is {level}. Cavalry only fights monsters already attacking you or your party.",
 	// Offensive assistance refuses monsters near any living connected level-80+ player, regardless of party.
 	"interface.cavalry.guarded": "A level-80+ player is within 150 pixels of these monsters.",
 	// Generated private adventures reject Cavalry calls; fixed team name.

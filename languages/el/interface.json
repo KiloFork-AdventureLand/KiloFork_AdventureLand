@@ -953,5 +953,5 @@
 	"interface.cavalry.unavailable": "Η Cavalry δεν μπορεί να απαντήσει τώρα.",
 	"interface.cavalry.location": "Η Cavalry δεν μπορεί να μπει εδώ.",
 	"interface.cavalry.guarded": "Υπάρχει παίκτης επιπέδου 80+ σε απόσταση έως 150 pixel από αυτά τα τέρατα.",
-	"interface.cavalry.not_threatened": "Η Cavalry χρειάζεται τέρατα που ήδη επιτίθενται σε εσένα ή στην ομάδα σου."
+	"interface.cavalry.not_threatened": "Το υψηλότερο επίπεδο στον λογαριασμό σου είναι {level}. Η Cavalry πολεμά μόνο τέρατα που ήδη επιτίθενται σε εσένα ή στην ομάδα σου."
 }

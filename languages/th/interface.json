@@ -952,5 +952,5 @@
 	"interface.cavalry.unavailable": "Cavalry ยังตอบรับไม่ได้ในตอนนี้",
 	"interface.cavalry.location": "Cavalry เข้ามาในสถานที่นี้ไม่ได้",
 	"interface.cavalry.guarded": "มีผู้เล่นเลเวล 80 ขึ้นไปอยู่ในระยะ 150 พิกเซลจากมอนสเตอร์เหล่านี้",
-	"interface.cavalry.not_threatened": "จะเรียก Cavalry ได้ต้องมีมอนสเตอร์ที่กำลังโจมตีคุณหรือปาร์ตี้ของคุณอยู่แล้ว"
+	"interface.cavalry.not_threatened": "เลเวลสูงสุดในบัญชีของคุณคือ {level} Cavalry จะต่อสู้กับมอนสเตอร์ที่กำลังโจมตีคุณหรือปาร์ตี้ของคุณอยู่แล้วเท่านั้น"
 }

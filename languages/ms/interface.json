@@ -952,5 +952,5 @@
 	"interface.cavalry.unavailable": "Cavalry tidak dapat menjawab sekarang.",
 	"interface.cavalry.location": "Cavalry tidak boleh memasuki tempat ini.",
 	"interface.cavalry.guarded": "Ada pemain tahap 80+ dalam jarak 150 piksel daripada raksasa-raksasa ini.",
-	"interface.cavalry.not_threatened": "Untuk memanggil Cavalry, mesti ada raksasa yang sudah menyerang kamu atau kumpulan kamu."
+	"interface.cavalry.not_threatened": "Tahap tertinggi dalam akaun kamu ialah {level}. Cavalry hanya melawan raksasa yang sudah menyerang kamu atau kumpulan kamu."
 }

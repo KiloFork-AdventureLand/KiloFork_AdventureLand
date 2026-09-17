@@ -961,5 +961,5 @@
 	"interface.cavalry.unavailable": "Cavalry teď nemůže odpovědět.",
 	"interface.cavalry.location": "Cavalry sem nemůže vstoupit.",
 	"interface.cavalry.guarded": "Do 150 pixelů od těchto příšer je hráč na úrovni 80+.",
-	"interface.cavalry.not_threatened": "Cavalry potřebuje příšery, které už útočí na tebe nebo tvou skupinu."
+	"interface.cavalry.not_threatened": "Nejvyšší úroveň na tvém účtu je {level}. Cavalry bojuje jen s příšerami, které už útočí na tebe nebo tvou skupinu."
 }

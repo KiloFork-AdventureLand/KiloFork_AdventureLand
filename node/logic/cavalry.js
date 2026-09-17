@@ -136,7 +136,7 @@ async function cavalry_reserve(player) {
 		id = "MK_cavalry-" + player.owner;
 	var saved = await marks.findOne({ _id: id }, { maxTimeMS: 3000 });
 	if (saved && saved.next_call > Date.now()) throw Object.assign(Error("cooldown"), { next_call: saved.next_call });
-	// Read only the highest saved level; switching to a new alt cannot buy a shorter wait.
+	// Rescues and cooldowns use the account's highest level, including other characters.
 	var highest = await db
 		.collection("character")
 		.find({ owner: player.owner }, { projection: { level: 1 } })
@@ -148,7 +148,7 @@ async function cavalry_reserve(player) {
 	for (var sibling of Object.values(players))
 		if (sibling.owner === player.owner) account_level = Math.max(account_level, sibling.level);
 	if (!cavalry_player_active(player) || player.in !== call.in || G.maps[player.map].generated) throw Error("location");
-	call.newcomer = player.level < cavalry_config().newcomer_level;
+	call.newcomer = account_level < cavalry_config().newcomer_level;
 	var candidates = cavalry_monsters(call);
 	if (!candidates.length) {
 		var nearby = Object.values(instances[call.in]?.monsters || {}).filter((monster) =>
@@ -157,6 +157,7 @@ async function cavalry_reserve(player) {
 		if (nearby.length && nearby.every(cavalry_guarded)) throw Error("guarded");
 		throw Object.assign(Error("no_monsters"), {
 			phrase: !call.newcomer && nearby.length ? "interface.cavalry.not_threatened" : "interface.cavalry.no_monsters",
+			phrase_args: !call.newcomer && nearby.length ? { level: String(account_level) } : {},
 		});
 	}
 	call.targets = candidates
@@ -213,7 +214,10 @@ async function cavalry_interaction(player, data, socket) {
 					? error.message
 					: "unavailable";
 				if (error.next_call) response.next_call = error.next_call;
-				if (reason === "no_monsters" && error.phrase) response.phrase = error.phrase;
+				if (reason === "no_monsters" && error.phrase) {
+					response.phrase = error.phrase;
+					response.phrase_args = error.phrase_args;
+				}
 				if (reason === "unavailable") log_trace("cavalry call", error);
 			} finally {
 				cavalry_pending.delete(player.owner);
@@ -230,7 +234,8 @@ async function cavalry_interaction(player, data, socket) {
 	else Object.assign(response, { success: true, queued: !response.assigned });
 	if (response.next_call) response.cooldown_ms = Math.max(0, response.next_call - Date.now());
 	response.phrase = response.phrase || "interface.cavalry." + (reason || (response.queued ? "queued" : "coming"));
-	response.phrase_args = reason === "cooldown" ? { minutes: String(Math.ceil(response.cooldown_ms / 60000)) } : {};
+	response.phrase_args =
+		response.phrase_args || (reason === "cooldown" ? { minutes: String(Math.ceil(response.cooldown_ms / 60000)) } : {});
 	response.message = phrase(response.phrase, response.phrase_args, "en");
 	socket.emit("game_response", response);
 	return response;

@@ -952,5 +952,5 @@
 	"interface.cavalry.unavailable": "Cavalry ei voi vastata juuri nyt.",
 	"interface.cavalry.location": "Cavalry ei pääse tähän paikkaan.",
 	"interface.cavalry.guarded": "Vähintään tason 80 pelaaja on enintään 150 pikselin päässä näistä hirviöistä.",
-	"interface.cavalry.not_threatened": "Cavalry tarvitsee hirviöitä, jotka jo hyökkäävät sinun tai ryhmäsi kimppuun."
+	"interface.cavalry.not_threatened": "Tilisi korkein taso on {level}. Cavalry taistelee vain hirviöitä vastaan, jotka jo hyökkäävät sinun tai ryhmäsi kimppuun."
 }

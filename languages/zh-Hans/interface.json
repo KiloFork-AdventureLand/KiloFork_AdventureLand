@@ -952,5 +952,5 @@
 	"interface.cavalry.unavailable": "Cavalry现在无法响应。",
 	"interface.cavalry.location": "Cavalry无法进入这里。",
 	"interface.cavalry.guarded": "这些怪物的150像素范围内有80级及以上玩家。",
-	"interface.cavalry.not_threatened": "呼叫Cavalry需要有正在攻击你或你队伍的怪物。"
+	"interface.cavalry.not_threatened": "你账号的最高等级为{level}级。Cavalry只会攻击已经在攻击你或你队伍的怪物。"
 }

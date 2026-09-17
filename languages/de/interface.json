@@ -953,5 +953,5 @@
 	"interface.cavalry.unavailable": "Cavalry kann gerade nicht antworten.",
 	"interface.cavalry.location": "Cavalry kann diesen Ort nicht betreten.",
 	"interface.cavalry.guarded": "Ein Spieler ab Stufe 80 ist höchstens 150 Pixel von diesen Monstern entfernt.",
-	"interface.cavalry.not_threatened": "Cavalry braucht Monster, die dich oder deine Gruppe bereits angreifen."
+	"interface.cavalry.not_threatened": "Das höchste Level auf deinem Konto ist {level}. Cavalry bekämpft nur Monster, die dich oder deine Gruppe bereits angreifen."
 }

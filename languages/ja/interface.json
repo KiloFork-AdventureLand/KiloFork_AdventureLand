@@ -952,5 +952,5 @@
 	"interface.cavalry.unavailable": "Cavalryは今は応答できません。",
 	"interface.cavalry.location": "Cavalryはこの場所に入れません。",
 	"interface.cavalry.guarded": "これらのモンスターから150ピクセル以内にレベル80以上のプレイヤーがいます。",
-	"interface.cavalry.not_threatened": "Cavalryを呼ぶには、あなたかパーティーをすでに攻撃しているモンスターが必要です。"
+	"interface.cavalry.not_threatened": "アカウント内の最高レベルは{level}です。Cavalryは、あなたかパーティーをすでに攻撃しているモンスターとだけ戦います。"
 }

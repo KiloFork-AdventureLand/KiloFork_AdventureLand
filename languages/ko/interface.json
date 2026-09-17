@@ -952,5 +952,5 @@
 	"interface.cavalry.unavailable": "Cavalry는 지금 응답할 수 없습니다.",
 	"interface.cavalry.location": "Cavalry는 이곳에 들어올 수 없습니다.",
 	"interface.cavalry.guarded": "이 몬스터들로부터 150픽셀 이내에 레벨 80 이상 플레이어가 있습니다.",
-	"interface.cavalry.not_threatened": "Cavalry를 부르려면 자신이나 파티를 이미 공격 중인 몬스터가 있어야 합니다."
+	"interface.cavalry.not_threatened": "계정의 최고 레벨은 {level}입니다. Cavalry는 자신이나 파티를 이미 공격 중인 몬스터와만 싸웁니다."
 }

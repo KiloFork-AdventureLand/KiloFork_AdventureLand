@@ -493,32 +493,36 @@ test("newcomers get 90 seconds and a fixed group, with no fresh-spawn farming or
 	assert.equal(fresh.hp, fresh.max_hp);
 });
 
-test("veteran callers get a brief three-threat rescue and cannot clear idle monsters", async () => {
-	const { c, player, monster, call, advance, now } = fixture(),
-		p = player("Veteran", "main", 85);
-	const threats = Array.from({ length: 5 }, (_, i) => monster("m" + i, "main", 200 + i));
+test("a low-level caller sees the account level that restricts their rescue", async () => {
+	const { c, player, monster, call, advance, now, storage } = fixture(),
+		p = player("Alt", "main", 20);
+	storage.levels.set(p.owner, 100);
+	const threats = Array.from({ length: 5 }, (_, i) => monster("m" + i, "main", 100 + i));
 	const refusal = await call(p);
 	assert.equal(refusal.reason, "no_monsters");
 	assert.equal(refusal.phrase, "interface.cavalry.not_threatened");
-	assert.equal(refusal.message, "Cavalry needs monsters that are already attacking you or your party.");
+	assert.equal(refusal.phrase_args.level, "100");
+	assert.equal(
+		refusal.message,
+		"Your account's highest level is 100. Cavalry only fights monsters already attacking you or your party.",
+	);
+	assert.equal(storage.marks.size, 0);
 	for (const m of threats) m.target = p.name;
 	const result = await call(p),
 		rescue = c.cavalry_calls.get(p.id);
 	assert.equal(rescue.newcomer, false);
 	assert.equal(rescue.targets.length, 3);
 	assert.equal(rescue.expires - now(), 15000);
-	assert.equal(result.cooldown_ms, 95 * 60000);
+	assert.equal(result.cooldown_ms, 110 * 60000);
 	advance(15001);
 	assert.ok(Object.values(c.npcs).every((npc) => !npc.cavalry_call));
 });
 
-test("a level-20 caller on a veteran account can clear level-9 Boo Boos from ordinary spawn growth", async () => {
-	const { c, player, call, advance, storage, now } = fixture(),
+test("a level-20 newcomer can clear level-9 Boo Boos from ordinary spawn growth", async () => {
+	const { c, player, call, advance, now } = fixture(),
 		map = "spookytown";
 	c.instances[map] = { name: map, map, players: {}, monsters: {}, pmap: {}, npcs: 0 };
 	const p = player("Wizard", map, 20);
-	storage.levels.set(p.owner, 100);
-	storage.marks.set("MK_cavalry-" + p.owner, { level: 100, next_call: 0 });
 	Object.assign(c, { total_monsters: 100, monster_c: {}, server: { live: true }, really_old: new c.Date(0) });
 	load(c, "node/server.js", ["new_monster", "level_monster"]);
 	const pack = structuredClone(G.maps[map].monsters.find((spawn) => spawn.type === "booboo" && spawn.grow));
@@ -536,7 +540,7 @@ test("a level-20 caller on a veteran account can clear level-9 Boo Boos from ord
 	assert.equal(rescue.targets.length, grown.length);
 	assert.equal(rescue.newcomer, true);
 	assert.equal(rescue.expires - now(), 90000);
-	assert.equal(result.cooldown_ms, 110 * 60000);
+	assert.equal(result.cooldown_ms, 30 * 60000);
 	advance(1200);
 	assert.ok(grown.some((monster) => c.cavalry_assisted.has(monster)));
 	assert.ok(grown.some((monster) => c.cavalry_cleared_spawn(monster)));

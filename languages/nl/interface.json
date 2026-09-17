@@ -953,5 +953,5 @@
 	"interface.cavalry.unavailable": "Cavalry kan nu niet reageren.",
 	"interface.cavalry.location": "Cavalry kan hier niet naar binnen.",
 	"interface.cavalry.guarded": "Er is een speler van niveau 80+ binnen 150 pixels van deze monsters.",
-	"interface.cavalry.not_threatened": "Cavalry heeft monsters nodig die jou of je groep al aanvallen."
+	"interface.cavalry.not_threatened": "Het hoogste niveau op je account is {level}. Cavalry vecht alleen tegen monsters die jou of je groep al aanvallen."
 }
