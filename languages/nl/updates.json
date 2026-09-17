@@ -756,5 +756,6 @@
 	"update.30_08_20.players_are_now_sorted_based_on_online_status_and": "Spelers worden nu gesorteerd op onlinestatus en ouderdom",
 	"update.30_10_21.new_slenderman_dynamics": "Nieuwe werking voor Slenderman",
 	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp dringt niet langer door spreukimmuniteit; in plaats daarvan hebben vaardigheden die er wel doorheen dringen de markering .pierces_immunity",
-	"update.14_09_26.cave": "Ga met je groep de Cave of Many Dreams in. Verken veranderende verdiepingen, verdien 10× XP van vijanden en geef grotgoud uit bij handelaren. Vind bijlen en zeisen of handel in Cave Amber om zeldzame uitrusting te maken. Doodgaan binnen kost geen XP of goud."
+	"update.14_09_26.cave": "Ga met je groep de Cave of Many Dreams in. Verken veranderende verdiepingen, verdien 10× XP van vijanden en geef grotgoud uit bij handelaren. Vind bijlen en zeisen of handel in Cave Amber om zeldzame uitrusting te maken. Doodgaan binnen kost geen XP of goud.",
+	"update.14_09_26.cavalry": "Roep Cavalry op via Tracktrix voor hulp tegen monsters van niveau 3 of hoger. Vier wachters verdelen zich over gevechten en helpen avonturiers van een lager niveau eerst."
 }

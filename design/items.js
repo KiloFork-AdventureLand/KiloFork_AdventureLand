@@ -6630,7 +6630,7 @@ var misc={
 		"g":400000,
 	},
 	"tracker":{
-		"cavalry":{"range":320,"min_level":3,"call_cooldown":10000},
+		"cavalry":{"range":320,"min_level":3,"max_targets":3,"duration":15000,"newcomer_level":80,"newcomer_targets":24,"newcomer_duration":90000,"veteran_range":150,"cooldown_base":600000,"cooldown_per_level":60000},
 		"type":"tracker",
 		"skin":"tracker",
 		"name":"Tracktrix",

@@ -929,6 +929,10 @@ var maps = {
 		key: "jayson_smallNPCcave",
 		name: "Wizard's Crib",
 		npcs: [
+			{ id: "cavalry_paladin", position: [-172, -162, 0] },
+			{ id: "cavalry_mage", position: [-136, -162, 0] },
+			{ id: "cavalry_warrior", position: [-172, -136, 0] },
+			{ id: "cavalry_priest", position: [-136, -136, 0] },
 			{ id: "lostandfound", position: [-24, -178] },
 			{ id: "wnpc", position: [32, -178, 3] },
 		],

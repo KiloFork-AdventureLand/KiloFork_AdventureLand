@@ -944,5 +944,14 @@
 	"interface.selection.home": "Έδρα: {server}",
 	"interface.selection.home_unset": "Έδρα: δεν ορίστηκε",
 	"interface.selection.away_home": "Αυτός ο διακομιστής δεν είναι η έδρα του χαρακτήρα {name}.",
-	"interface.cavalry.call": "Κάλεσε την Cavalry"
+	"interface.cavalry.call": "ΚΑΛΕΣΕ ΤΗΝ CAVALRY!",
+	"interface.cavalry.coming": "Η Cavalry έρχεται!",
+	"interface.cavalry.queued": "Η Cavalry είναι απασχολημένη. Η κλήση σου περιμένει.",
+	"interface.cavalry.tracker": "Έχε μαζί σου ένα Tracktrix για να καλέσεις την Cavalry.",
+	"interface.cavalry.no_monsters": "Δεν υπάρχουν κατάλληλα τέρατα επιπέδου 3+ κοντά.",
+	"interface.cavalry.cooldown": "Η Cavalry θα μπορεί να απαντήσει ξανά σε {minutes} λεπ.",
+	"interface.cavalry.unavailable": "Η Cavalry δεν μπορεί να απαντήσει τώρα.",
+	"interface.cavalry.location": "Η Cavalry δεν μπορεί να μπει εδώ.",
+	"interface.cavalry.guarded": "Υπάρχει παίκτης επιπέδου 80+ σε απόσταση έως 150 pixel από αυτά τα τέρατα.",
+	"interface.cavalry.not_threatened": "Η Cavalry χρειάζεται τέρατα που ήδη επιτίθενται σε εσένα ή στην ομάδα σου."
 }

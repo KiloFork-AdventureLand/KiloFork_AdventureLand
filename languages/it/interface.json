@@ -948,5 +948,14 @@
 	"interface.selection.home": "Casa: {server}",
 	"interface.selection.home_unset": "Casa: non scelta",
 	"interface.selection.away_home": "Questo non è il server di casa di {name}.",
-	"interface.cavalry.call": "Chiama Cavalry"
+	"interface.cavalry.call": "CHIAMA CAVALRY!",
+	"interface.cavalry.coming": "Cavalry sta arrivando!",
+	"interface.cavalry.queued": "Cavalry è occupata. La tua chiamata è in attesa.",
+	"interface.cavalry.tracker": "Porta un Tracktrix per chiamare Cavalry.",
+	"interface.cavalry.no_monsters": "Nessun mostro di livello 3+ idoneo nelle vicinanze.",
+	"interface.cavalry.cooldown": "Cavalry potrà rispondere di nuovo tra {minutes} min.",
+	"interface.cavalry.unavailable": "Cavalry non può rispondere al momento.",
+	"interface.cavalry.location": "Cavalry non può entrare qui.",
+	"interface.cavalry.guarded": "Un giocatore di livello 80+ si trova entro 150 pixel da questi mostri.",
+	"interface.cavalry.not_threatened": "Cavalry richiede mostri che stiano già attaccando te o il tuo gruppo."
 }

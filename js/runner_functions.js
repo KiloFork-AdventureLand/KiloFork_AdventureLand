@@ -159,7 +159,7 @@ function interact(name, timeout_ms) {
 		parent.socket.emit("monsterhunt");
 		return promise; // {started:true} / {completed:true} / {failed:true}
 	}
-	if (name == "newyear_tree" || name == "the_lever") {
+	if (name == "newyear_tree" || name == "the_lever" || name == "cavalry") {
 		if (timeout_ms === undefined) timeout_ms = 5000;
 		timeout_ms = max(0, timeout_ms);
 		var token_quantity = quantity("funtoken"),
@@ -169,6 +169,7 @@ function interact(name, timeout_ms) {
 				return data && data.request_id == request_id && data.place == "interaction";
 			}).then(function (data) {
 				if (data.failed) return rejecting_promise(data);
+				if (name == "cavalry") return data;
 				if (name == "newyear_tree")
 					return wait_for(
 						function () {

@@ -943,5 +943,14 @@
 	"interface.selection.home": "Rumah: {server}",
 	"interface.selection.home_unset": "Rumah: belum tetap",
 	"interface.selection.away_home": "Ini bukan pelayan rumah {name}.",
-	"interface.cavalry.call": "Panggil Cavalry"
+	"interface.cavalry.call": "PANGGIL CAVALRY!",
+	"interface.cavalry.coming": "Cavalry sedang dalam perjalanan!",
+	"interface.cavalry.queued": "Cavalry sedang sibuk. Panggilan anda sedang menunggu.",
+	"interface.cavalry.tracker": "Bawa Tracktrix untuk memanggil Cavalry.",
+	"interface.cavalry.no_monsters": "Tiada raksasa tahap 3+ yang memenuhi syarat berdekatan.",
+	"interface.cavalry.cooldown": "Cavalry boleh dipanggil semula dalam {minutes} min.",
+	"interface.cavalry.unavailable": "Cavalry tidak dapat menjawab sekarang.",
+	"interface.cavalry.location": "Cavalry tidak boleh memasuki tempat ini.",
+	"interface.cavalry.guarded": "Ada pemain tahap 80+ dalam jarak 150 piksel daripada raksasa-raksasa ini.",
+	"interface.cavalry.not_threatened": "Untuk memanggil Cavalry, mesti ada raksasa yang sudah menyerang kamu atau kumpulan kamu."
 }

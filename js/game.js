@@ -497,7 +497,9 @@ function reset_topleft() {
 	if (ctarget && ctarget.type == "monster" && last_target_cid != ctarget.cid) {
 		render_monster(ctarget);
 	} else if (ctarget && ctarget.npc) {
-		render_npc(ctarget);
+		if (G.npcs[ctarget.npc].cavalry) {
+			if (last_target_cid != ctarget.cid) render_character(ctarget);
+		} else render_npc(ctarget);
 	} else if (ctarget && ctarget.type == "character" && last_target_cid != ctarget.cid) {
 		render_character(ctarget);
 	} else if (!ctarget && rendered_target != null) {
@@ -590,7 +592,15 @@ function draw_entities() {
 }
 
 function sync_entity(current, monster) {
+	var repositioned = monster.position_id !== undefined && monster.position_id !== current.position_id;
 	adopt_soft_properties(current, monster); // previously only move_num, speed, dead
+	if (repositioned) {
+		// Authoritative relocations also work within one map, before their visual motion begins.
+		current.resync = true;
+		current.vx = current.vy = 0;
+		delete current.entity_motion;
+		delete current.entity_strike;
+	}
 	if (monster.cave && !monster.moving) {
 		// A traveler can stop mid-walk to speak, or the whole instance can pause.
 		current.moving=false;
@@ -3194,10 +3204,11 @@ function init_socket(args) {
 		if (data.source == "shield_slam") {
 			animate_shield_slam(attacker, target, data.shield);
 		} else if (new_attacks) {
+			var origin = projectile_origin(attacker, target, data.origin_offset || 0);
 			if (G.projectiles[data.projectile] && G.projectiles[data.projectile].animation)
 				map_animation(G.projectiles[data.projectile].animation, {
-					x: get_x(attacker),
-					y: get_y(attacker) - 15,
+					x: origin.x,
+					y: origin.y,
 					target: target,
 					m: data.m,
 					id: data.pid,
@@ -3474,6 +3485,12 @@ function init_socket(args) {
 function npc_right_click(event) {
 	if (this.role === "dreamkeeper") { if (event) event.stopPropagation(); return render_cave_keeper(); }
 	var npc = G.npcs[this.npc];
+	if (npc.cavalry) {
+		if (event) event.stopPropagation();
+		if (no_graphics) return;
+		xtarget = this;
+		return render_character(this);
+	}
 	tutorial_npc(this);
 	sfx("npc", this.x, this.y);
 	if (this.type == "character") npc = G.npcs[this.npc];
@@ -4988,6 +5005,7 @@ function update_sprite(sprite) {
 		sprite.last_ms = sprite.last_update = sprite.last_frame = new Date();
 		return;
 	}
+	if (sprite.atype === "effect") { update_map_effect(sprite); return; }
 	if (sprite.atype == "shield_slam_item") {
 		update_shield_slam_item(sprite);
 		return;
@@ -5028,10 +5046,11 @@ function update_sprite(sprite) {
 		if (sprite.npc && !sprite.moving && sprite.allow === false) sprite.direction = 0;
 		if (sprite.orientation && !sprite.moving && !sprite.target) sprite.direction = sprite.orientation;
 
-		if ((sprite.moving || aa || (sprite.fx && sprite.fx.aaa)) && sprite.walking === null) {
+		var animated = sprite.moving || aa || (sprite.fx && sprite.fx.aaa) || sprite.entity_motion || sprite.entity_strike;
+		if (animated && sprite.walking === null) {
 			if (sprite.last_stop && msince(sprite.last_stop) < 320) sprite.walking = sprite.last_walking;
 			else (reset_ms_check(sprite, "walk", 350), (sprite.walking = 1));
-		} else if (!(sprite.moving || aa || (sprite.fx && sprite.fx.aaa)) && sprite.walking) {
+		} else if (!animated && sprite.walking) {
 			sprite.last_stop = new Date();
 			sprite.last_walking = sprite.walking || sprite.last_walking || 1;
 			sprite.walking = null;
@@ -5039,6 +5058,7 @@ function update_sprite(sprite) {
 
 		var sequence = [0, 1, 2, 1],
 			base_ms = 350;
+		if (sprite.entity_motion || sprite.entity_strike) base_ms = 180;
 		if (sprite.mtype == "wabbit") ((sequence = [0, 1, 2]), (base_ms = 220));
 
 		if (sprite.walking && ms_check(sprite, "walk", base_ms - ((sprite.speed + ((sprite.fx && sprite.fx.aaa && 500) || 0)) / 2 || 0))) sprite.walking++; //sprite.updates%20==1
@@ -5312,6 +5332,7 @@ function update_sprite(sprite) {
 	}
 	if (sprite.type == "character" || sprite.cosmetic_emote) cosmetic_emote_logic(sprite);
 	if (sprite.type == "npc" && sprite.citizen_behavior) citizen_behavior_logic(sprite);
+	if (sprite.motion || sprite.entity_motion || sprite.entity_strike) update_entity_motion(sprite);
 
 	if (sprite.last_ms && sprite.s) {
 		var ms = mssince(sprite.last_ms);

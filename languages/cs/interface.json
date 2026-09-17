@@ -952,5 +952,14 @@
 	"interface.selection.home": "Domov: {server}",
 	"interface.selection.home_unset": "Domov: neurčen",
 	"interface.selection.away_home": "Toto není domovský server postavy {name}.",
-	"interface.cavalry.call": "Přivolat Cavalry"
+	"interface.cavalry.call": "PŘIVOLAT CAVALRY!",
+	"interface.cavalry.coming": "Cavalry je na cestě!",
+	"interface.cavalry.queued": "Cavalry má práci. Tvé volání čeká.",
+	"interface.cavalry.tracker": "K přivolání Cavalry u sebe měj Tracktrix.",
+	"interface.cavalry.no_monsters": "V okolí nejsou vhodné příšery na úrovni 3+.",
+	"interface.cavalry.cooldown": "Cavalry bude moci znovu odpovědět za {minutes} min.",
+	"interface.cavalry.unavailable": "Cavalry teď nemůže odpovědět.",
+	"interface.cavalry.location": "Cavalry sem nemůže vstoupit.",
+	"interface.cavalry.guarded": "Do 150 pixelů od těchto příšer je hráč na úrovni 80+.",
+	"interface.cavalry.not_threatened": "Cavalry potřebuje příšery, které už útočí na tebe nebo tvou skupinu."
 }

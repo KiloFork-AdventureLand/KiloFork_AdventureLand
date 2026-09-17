@@ -956,5 +956,14 @@
 	"interface.selection.home": "Dom: {server}",
 	"interface.selection.home_unset": "Dom: nieustalony",
 	"interface.selection.away_home": "To nie jest serwer domowy postaci {name}.",
-	"interface.cavalry.call": "Wezwij Cavalry"
+	"interface.cavalry.call": "WEZWIJ CAVALRY!",
+	"interface.cavalry.coming": "Cavalry już nadciąga!",
+	"interface.cavalry.queued": "Cavalry jest zajęta. Twoje wezwanie czeka.",
+	"interface.cavalry.tracker": "Noś przy sobie Tracktrix, aby wezwać Cavalry.",
+	"interface.cavalry.no_monsters": "W pobliżu nie ma odpowiednich potworów na poziomie 3+.",
+	"interface.cavalry.cooldown": "Cavalry będzie mogła odpowiedzieć za {minutes} min.",
+	"interface.cavalry.unavailable": "Cavalry nie może teraz odpowiedzieć.",
+	"interface.cavalry.location": "Cavalry nie może tu wejść.",
+	"interface.cavalry.guarded": "W odległości do 150 pikseli od tych potworów jest gracz na poziomie 80+.",
+	"interface.cavalry.not_threatened": "Cavalry potrzebuje potworów, które już atakują ciebie lub twoją drużynę."
 }

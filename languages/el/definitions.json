@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "Έλεγξε την αλληλογραφία σου",
 	"tutorial.task.mail": "Άνοιξε την αλληλογραφία",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "Κάλεσε τέσσερις φρουρούς για βοήθεια εναντίον κοντινών τεράτων επιπέδου 3 ή υψηλότερου."
+	"interaction.cavalry.summary": "Κάλεσε τέσσερις φρουρούς για βοήθεια εναντίον κοντινών τεράτων επιπέδου 3 ή υψηλότερου.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

@@ -756,5 +756,6 @@
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Vylepšení hry, které má vyřešit potíže se shlukováním a nemizejícími příšerami.",
 	"update.30_10_21.new_slenderman_dynamics": "Nová dynamika Slendermana",
 	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp už nepronikne imunitou vůči kouzlům; dovednosti, které jí pronikají, mají místo toho příznak .pierces_immunity",
-	"update.14_09_26.cave": "Vstup s družinou do Cave of Many Dreams. Prozkoumávej měnící se patra, získávej 10× XP za nepřátele a utrácej jeskynní zlato u obchodníků. Nacházej sekery a kosy nebo obchoduj s Cave Amber a vyráběj vzácnou výbavu. Smrt uvnitř nestojí XP ani zlato."
+	"update.14_09_26.cave": "Vstup s družinou do Cave of Many Dreams. Prozkoumávej měnící se patra, získávej 10× XP za nepřátele a utrácej jeskynní zlato u obchodníků. Nacházej sekery a kosy nebo obchoduj s Cave Amber a vyráběj vzácnou výbavu. Smrt uvnitř nestojí XP ani zlato.",
+	"update.14_09_26.cavalry": "Přivolej Cavalry přes Tracktrix na pomoc proti monstrům úrovně 3 a vyšší. Čtyři strážci se rozdělí mezi boje a nejprve pomohou dobrodruhům nižší úrovně."
 }

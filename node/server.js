@@ -88,6 +88,7 @@ eval("" + fs.readFileSync(path.resolve(__dirname, "../models.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "server_functions.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/market_patron_runtime.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/encouragement.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/cavalry.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/character_sessions.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/chat.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/generated_maps.js")));
@@ -799,6 +800,8 @@ function player_to_server(player, place) {
 
 function player_to_client(player, stranger) {
 	var data = {};
+	if (player.motion)
+		data.motion = Object.assign({}, player.motion, { age: Date.now() - player.motion.started, started: undefined });
 	[
 		"hp",
 		"max_hp",
@@ -836,6 +839,7 @@ function player_to_client(player, stranger) {
 		"going_y",
 		"abs",
 		"move_num",
+		"position_id",
 		"angle",
 		"cid",
 		"guild",
@@ -867,6 +871,7 @@ function player_to_client(player, stranger) {
 	data.owner = (!player.private && player.owner) || "";
 
 	if (player.is_npc) {
+		if (is_cavalry(player)) for (var stat of ["str", "int", "dex", "vit", "for"]) data[stat] = player[stat];
 		// data.id="$"+data.id;
 		data.name = player.name;
 		if (player.direction !== undefined) {
@@ -1516,11 +1521,7 @@ function calculate_player_stats(player) {
 		player.stealth = true;
 	}
 	item_attack = max(item_attack, 5);
-	if (player.type == "paladin") {
-		player.attack += item_attack * (player.str / 20.0 + player.int / 40.0);
-	} else {
-		player.attack += item_attack * (player[class_def.main_stat] / 20.0);
-	}
+	player.attack += weapon_stat_attack(player.type, player, item_attack);
 	player.attack += player.a_attack;
 	if (player.type == "priest") {
 		player.attack *= 1.6;
@@ -2797,6 +2798,7 @@ function issue_monster_award(monster, award) {
 }
 
 function kill_monster(attacker, target) {
+	if (is_cavalry(attacker)) attacker = cavalry_reward_player(attacker, target);
 	if (cave_death(attacker, target)) return;
 	if (target.dead) {
 		return;
@@ -2818,6 +2820,7 @@ function kill_monster(attacker, target) {
 		}
 	}
 	issue_monster_award(target);
+	if (cavalry_cleared_spawn(target)) target.cavalry_cleared = true;
 	remove_monster(target, { no_decrease: no_decrease });
 }
 
@@ -3087,6 +3090,7 @@ function issue_player_award(attacker, target) {
 function commence_attack(attacker, target, atype) {
 	if (instance_is_frozen(attacker) || instance_is_frozen(target))
 		return { failed: true, reason: "cave_paused", place: atype };
+	if (!cavalry_attack_valid(attacker, target)) return { failed: true, reason: "target_gone" };
 	if ((attacker.zone_actor || target.zone_actor) && G.skills[atype].hostile && !cave_hostile(attacker, target))
 		return { failed: true, reason: "friendly_target", place: atype, id: target.id };
 	if (
@@ -3453,6 +3457,7 @@ function commence_attack(attacker, target, atype) {
 	info.attacker = attacker;
 	info.target = target;
 	info.atype = atype;
+	if (is_cavalry(attacker)) info.cavalry_call = attacker.cavalry_call;
 	projectiles[pid] = info;
 
 	var action = {
@@ -3470,6 +3475,7 @@ function commence_attack(attacker, target, atype) {
 		// Capture the equipped item at cast time; do not expose other item data.
 		action.shield = { name: attacker.slots.offhand.name, level: attacker.slots.offhand.level || 0 };
 	}
+	if (attacker.volley_offset) action.origin_offset = attacker.volley_offset;
 
 	if (def.projectile) {
 		action.projectile = def.projectile;
@@ -3614,6 +3620,12 @@ function redirect_guardians_oath_damage(target, attack, mp_eligible) {
 }
 
 function complete_attack(attacker, target, info) {
+	if (
+		is_cavalry(target) ||
+		!cavalry_attack_valid(attacker, target, info) ||
+		(info.cavalry_call && info.cavalry_call !== attacker.cavalry_call)
+	)
+		return;
 	if (!cave_accept_attack(target, info)) return;
 	var defense = "armor";
 	var pierce = "apiercing";
@@ -4038,7 +4050,8 @@ function complete_attack(attacker, target, info) {
 			}
 			if (attack >= 1) {
 				target.last.attacked = new Date();
-				if (target.is_monster && attacker.is_player) {
+				if (target.is_monster && is_cavalry(attacker)) cavalry_assisted.set(target, attacker.cavalry_call);
+				if (target.is_monster && attacker.is_player && !is_cavalry(attacker)) {
 					target.points[attacker.name] = (target.points[attacker.name] || 0) + 1;
 				}
 			}
@@ -4138,7 +4151,7 @@ function complete_attack(attacker, target, info) {
 				encouragement_wound(target, attacker, net);
 			} else delete target.encouragement_wound;
 		} else if (target.is_player && net < 0) {
-			encouragement_heal(attacker, target, -net, target.max_hp - original);
+			encouragement_heal(cavalry_reward_player(attacker, target), target, -net, target.max_hp - original);
 		}
 		if (!info.heal) def.damage = attack;
 		if (
@@ -4163,6 +4176,7 @@ function complete_attack(attacker, target, info) {
 
 		if (
 			target.dreturn &&
+			!is_cavalry(attacker) &&
 			i_attack > 0 &&
 			first &&
 			attacker.range < 75 &&
@@ -4256,7 +4270,7 @@ function complete_attack(attacker, target, info) {
 					transport_monster_to(target, target.in, target.map, point.x, point.y);
 				}
 				if (target.drop_on_hit) {
-					drop_something(attacker, target, 1);
+					drop_something(cavalry_reward_player(attacker, target), target, 1);
 				}
 				if (
 					!attacker.is_npc &&
@@ -4339,6 +4353,7 @@ function complete_attack(attacker, target, info) {
 }
 
 function target_player(monster, player, no_increase) {
+	if (is_cavalry(player)) return;
 	if (monster.zone_actor) {
 		if (player && cave_hostile(monster, player)) monster.zone_actor.prey = player;
 		return;
@@ -10763,6 +10778,7 @@ function init_socket_io(socket_server) {
 					);
 				return;
 			}
+			if (data.type === "cavalry") return cavalry_interaction(player, data, socket);
 			if (data.type == "merrit_info") {
 				market_patron_info(player);
 				return;
@@ -12996,6 +13012,8 @@ function add_pdps(player, target, points) {
 }
 
 function add_coop_points(m, attacker, mnet, contribution) {
+	if (is_cavalry(attacker)) attacker = cavalry_reward_player(attacker, m);
+	if (!attacker) return;
 	if (!m) {
 		return;
 	}
@@ -13306,7 +13324,7 @@ function new_monster(instance, map_def, args) {
 		calculate_monster_stats(monster);
 	}
 	if (args.before_respawn) {
-		while (monster.level < args.before_respawn.level / 2) {
+		while (monster.level < (args.before_respawn.cavalry_cleared ? 1 : args.before_respawn.level / 2)) {
 			level_monster(monster, { silent: true });
 		}
 		calculate_monster_stats(monster);
@@ -15195,9 +15213,11 @@ function npc_loop() {
 	var ms_since = 32;
 	try {
 		var now_date = new Date();
+		cavalry_tick();
 
 		for (var id in npcs) {
 			var npc = npcs[id];
+			if (is_cavalry(npc)) continue;
 			var delay = -npc.delay * npc.d_multiplier;
 			if (npc.rip && Math.random() < 0.0005) {
 				delete npc.s.block;

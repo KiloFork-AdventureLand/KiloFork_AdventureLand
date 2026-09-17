@@ -2639,5 +2639,12 @@
 	"docs.functions.poker_act.reopening": "Pole can_raise u tvého místa určuje, zda smíš navýšit sázku. Několik neúplných navýšení all-in znovu umožní navyšovat, když jejich součet dosáhne plného navýšení.",
 	"docs.poker.waiting": "Pokud akce selže s poker_saving, chvíli počkej a zkus to znovu. Pokud přihlášení selže s poker_hand_active, počkej na konec svého rozdání nebo se znovu připoj k serveru, kde probíhá.",
 	"docs.tutorial.mail.open": "Otevři {com} a pak Poštu. K dokončení této lekce stačí otevřít poštovní schránku, i když je prázdná.",
-	"docs.tutorial.mail.take": "Otevři dopis od Daisy a zvol {take}, abys získal Tracktrix. Vyzvednout ho může kterákoli postava na tvém účtu. K dokončení této lekce si předmět vyzvedávat nemusíš."
+	"docs.tutorial.mail.take": "Otevři dopis od Daisy a zvol {take}, abys získal Tracktrix. Vyzvednout ho může kterákoli postava na tvém účtu. K dokončení této lekce si předmět vyzvedávat nemusíš.",
+	"docs.cavalry.intro": "Ve Wizard's Crib čekají čtyři strážci: Paladin, Mág, Válečník a Kněz. Kliknutím na strážce si prohlédneš jeho vybavení.",
+	"docs.cavalry.manual": "Nos u sebe Tracktrix, klikni na něj a zvol {action} Cavalry dorazí do okruhu 320 od místa přivolání.",
+	"docs.cavalry.combat": "Válečník zůstává v náporu. Mág vystřeluje tři projektily a občas se teleportuje. Kněz léčí zraněné hráče; Paladin léčí a chrání blízké spojence. Zabití s jejich pomocí stále přinášejí běžné XP, kořist i postup v Tracktrix.",
+	"docs.cavalry.dispatch": "Rozdělují se mezi volání a přednostně pomáhají dobrodruhům na nižších úrovních. Odcházejí, když pomoc skončí, vybrané příšery zmizí nebo přivolávající zemře, odpojí se, změní mapu či opustí oblast přivolání.",
+	"docs.cavalry.code": "Nos Tracktrix a dodržuj pravidla pomoci. Zavolej jednou. Výsledek obsahuje assigned (0–4), queued, next_call a cooldown_ms; při neúspěchu je Promise odmítnuta s reason. Cavalry nemůže vstoupit do Cave of Many Dreams.",
+	"docs.cavalry.rescue": "Postavy pod úrovní 80 získají až 90 sekund pomoci proti nejvýše 24 blízkým příšerám na úrovni 3 a vyšší. Příšery poražené s touto pomocí, které se znovu objevují, se vrátí na úrovni 1. Ostatní postavy získají až 15 sekund pomoci proti třem příšerám, které už útočí na ně nebo jejich skupinu. Bossové, vzácné příšery a příšery, které se objeví až po přivolání, jsou vyloučeni.",
+	"docs.cavalry.cooldown": "Čekací doba je společná pro všechny postavy a servery účtu: 10 minut plus jedna minuta za úroveň, podle nejvyšší úrovně na účtu nebo mezi blízkými hráči. Cavalry přestane útočit na příšeru, pokud je do 150 pixelů od ní hráč na úrovni 80+."
 }

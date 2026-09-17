@@ -944,5 +944,14 @@
 	"interface.selection.home": "Heimat: {server}",
 	"interface.selection.home_unset": "Heimat: nicht gesetzt",
 	"interface.selection.away_home": "Dies ist nicht der Heimatserver von {name}.",
-	"interface.cavalry.call": "Cavalry rufen"
+	"interface.cavalry.call": "CAVALRY RUFEN!",
+	"interface.cavalry.coming": "Cavalry ist unterwegs!",
+	"interface.cavalry.queued": "Cavalry ist beschäftigt. Dein Ruf wartet.",
+	"interface.cavalry.tracker": "Trage einen Tracktrix bei dir, um Cavalry zu rufen.",
+	"interface.cavalry.no_monsters": "Keine geeigneten Monster ab Stufe 3 in der Nähe.",
+	"interface.cavalry.cooldown": "Cavalry kann in {minutes} Min. wieder antworten.",
+	"interface.cavalry.unavailable": "Cavalry kann gerade nicht antworten.",
+	"interface.cavalry.location": "Cavalry kann diesen Ort nicht betreten.",
+	"interface.cavalry.guarded": "Ein Spieler ab Stufe 80 ist höchstens 150 Pixel von diesen Monstern entfernt.",
+	"interface.cavalry.not_threatened": "Cavalry braucht Monster, die dich oder deine Gruppe bereits angreifen."
 }

@@ -943,5 +943,14 @@
 	"interface.selection.home": "Otthon: {server}",
 	"interface.selection.home_unset": "Otthon: nincs még",
 	"interface.selection.away_home": "Ez nem {name} otthonszervere.",
-	"interface.cavalry.call": "Cavalry hívása"
+	"interface.cavalry.call": "CAVALRY HÍVÁSA!",
+	"interface.cavalry.coming": "A Cavalry már úton van!",
+	"interface.cavalry.queued": "A Cavalry elfoglalt. A hívásod várakozik.",
+	"interface.cavalry.tracker": "Legyen nálad Tracktrix, hogy hívhasd a Cavalry csapatát.",
+	"interface.cavalry.no_monsters": "Nincs a közelben megfelelő, legalább 3. szintű szörny.",
+	"interface.cavalry.cooldown": "A Cavalry {minutes} perc múlva hívható újra.",
+	"interface.cavalry.unavailable": "A Cavalry most nem tud válaszolni.",
+	"interface.cavalry.location": "A Cavalry nem léphet be ide.",
+	"interface.cavalry.guarded": "Egy legalább 80. szintű játékos van ezektől a szörnyektől legfeljebb 150 pixelre.",
+	"interface.cavalry.not_threatened": "A Cavalry hívásához olyan szörnyek kellenek, amelyek már téged vagy a csapatodat támadják."
 }

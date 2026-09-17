@@ -756,5 +756,6 @@
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Peliparannus, jonka tarkoitus on korjata ryhmittymiseen ja katoamattomiin hirviöihin liittyvät ongelmat.",
 	"update.30_10_21.new_slenderman_dynamics": "Uusi Slendermanin mekaniikka",
 	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp ei enää läpäise loitsuimmuniteettia; sen sijaan taidoilla, jotka läpäisevät sen, on merkintä .pierces_immunity",
-	"update.14_09_26.cave": "Mene Cave of Many Dreams -luolaan ryhmäsi kanssa. Tutki vaihtuvia kerroksia, saa vihollisista 10× XP:tä ja käytä luolakultaa kauppiailla. Löydä kirveitä ja viikatteita tai käy kauppaa Cave Amberilla valmistaaksesi harvinaisia varusteita. Kuolema luolassa ei vie XP:tä tai kultaa."
+	"update.14_09_26.cave": "Mene Cave of Many Dreams -luolaan ryhmäsi kanssa. Tutki vaihtuvia kerroksia, saa vihollisista 10× XP:tä ja käytä luolakultaa kauppiailla. Löydä kirveitä ja viikatteita tai käy kauppaa Cave Amberilla valmistaaksesi harvinaisia varusteita. Kuolema luolassa ei vie XP:tä tai kultaa.",
+	"update.14_09_26.cavalry": "Kutsu Cavalry Tracktrixin avulla avuksi vähintään tason 3 hirviöitä vastaan. Neljä vartijaa jakautuu taisteluihin ja auttaa alemman tason seikkailijoita ensin."
 }

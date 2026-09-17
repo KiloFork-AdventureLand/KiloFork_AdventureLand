@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "Kiểm tra thư",
 	"tutorial.task.mail": "Mở thư",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "Gọi bốn lính gác giúp đối phó với quái vật cấp 3 trở lên ở gần."
+	"interaction.cavalry.summary": "Gọi bốn lính gác giúp đối phó với quái vật cấp 3 trở lên ở gần.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

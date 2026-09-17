@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "Revisa tu correo",
 	"tutorial.task.mail": "Abre el correo",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "Llama a cuatro centinelas para que te ayuden con los monstruos cercanos de nivel 3 o superior."
+	"interaction.cavalry.summary": "Llama a cuatro centinelas para que te ayuden con los monstruos cercanos de nivel 3 o superior.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

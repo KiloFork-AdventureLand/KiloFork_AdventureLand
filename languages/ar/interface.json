@@ -943,5 +943,14 @@
 	"interface.selection.home": "الموطن: {server}",
 	"interface.selection.home_unset": "الموطن: غير محدد",
 	"interface.selection.away_home": "هذا ليس خادم موطن {name}.",
-	"interface.cavalry.call": "استدعاء Cavalry"
+	"interface.cavalry.call": "استدعاء CAVALRY!",
+	"interface.cavalry.coming": "Cavalry في الطريق!",
+	"interface.cavalry.queued": "Cavalry مشغولة. استدعاؤك قيد الانتظار.",
+	"interface.cavalry.tracker": "احمل Tracktrix لاستدعاء Cavalry.",
+	"interface.cavalry.no_monsters": "لا توجد وحوش مؤهلة بمستوى 3 أو أعلى بالقرب منك.",
+	"interface.cavalry.cooldown": "يمكن استدعاء Cavalry مجددًا بعد {minutes} د.",
+	"interface.cavalry.unavailable": "لا تستطيع Cavalry الاستجابة الآن.",
+	"interface.cavalry.location": "لا تستطيع Cavalry دخول هذا المكان.",
+	"interface.cavalry.guarded": "يوجد لاعب بمستوى 80 أو أعلى على بُعد لا يتجاوز 150 بكسل من هذه الوحوش.",
+	"interface.cavalry.not_threatened": "تحتاج Cavalry إلى وحوش تهاجمك أنت أو مجموعتك بالفعل."
 }

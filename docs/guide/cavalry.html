@@ -1,0 +1,16 @@
+<h4>Cavalry</h4>
+<p>{{ phrase("docs.cavalry.intro") }}</p>
+<p>{{ phrase("docs.cavalry.manual", {action: phrase("interface.cavalry.call")}) }}</p>
+<div class="divider"></div>
+<p>{{ phrase("docs.cavalry.combat") }}</p>
+<p>{{ phrase("docs.cavalry.dispatch") }}</p>
+<p>{{ phrase("docs.cavalry.rescue") }}</p>
+<p>{{ phrase("docs.cavalry.cooldown") }}</p>
+<div class="divider"></div>
+<div class="title mt15">CODE</div>
+<p>{{ phrase("docs.cavalry.code") }}</p>
+<div class="code">async function call_for_help() {
+	return await interact("cavalry");
+}
+call_for_help();</div>
+<p><span class="rref clickable" onclick="render_function_reference('interact')">interact</span></p>

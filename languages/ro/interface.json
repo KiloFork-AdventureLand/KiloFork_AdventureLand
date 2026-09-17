@@ -948,5 +948,14 @@
 	"interface.selection.home": "Acasă: {server}",
 	"interface.selection.home_unset": "Acasă: nestabilit",
 	"interface.selection.away_home": "Acesta nu este serverul de acasă al personajului {name}.",
-	"interface.cavalry.call": "Cheamă Cavalry"
+	"interface.cavalry.call": "CHEAMĂ CAVALRY!",
+	"interface.cavalry.coming": "Cavalry este pe drum!",
+	"interface.cavalry.queued": "Cavalry este ocupată. Chemarea ta așteaptă.",
+	"interface.cavalry.tracker": "Poartă un Tracktrix pentru a chema Cavalry.",
+	"interface.cavalry.no_monsters": "Nu sunt monștri eligibili de nivel 3+ în apropiere.",
+	"interface.cavalry.cooldown": "Cavalry va putea răspunde din nou peste {minutes} min.",
+	"interface.cavalry.unavailable": "Cavalry nu poate răspunde acum.",
+	"interface.cavalry.location": "Cavalry nu poate intra aici.",
+	"interface.cavalry.guarded": "Un jucător de nivel 80+ se află la cel mult 150 de pixeli de acești monștri.",
+	"interface.cavalry.not_threatened": "Cavalry are nevoie de monștri care te atacă deja pe tine sau grupul tău."
 }

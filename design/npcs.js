@@ -360,6 +360,58 @@ var npcs={
 		"skin":"thehelmet",
 		"type":"fullstatic",
 	},
+	"cavalry_paladin":{
+		"name":"Cavalry I", "role":"cavalry", "class":"paladin",
+		"skin":"thehelmet", "type":"fullstatic", "moving":true,
+		"level":100, "speed":150, "frequency":4.4, "attack_motion":true,
+		"cavalry":{"str":2650,"int":1200,"dex":180,"vit":600},
+		"slots":{
+			"mainhand":{"name":"hammer","level":10}, "offhand":{"name":"dawnwardaegis","level":10},
+			"helmet":{"name":"xhelmet","level":10,"stat_type":"str"}, "chest":{"name":"oathplate","level":10,"stat_type":"str"},
+			"pants":{"name":"xpants","level":10,"stat_type":"str"}, "gloves":{"name":"xgloves","level":10,"stat_type":"str"},
+			"shoes":{"name":"xboots","level":10,"stat_type":"str"}, "cape":{"name":"vcape","level":10,"stat_type":"str"},
+			"ring1":{"name":"strring","level":5}, "ring2":{"name":"strring","level":5}, "orb":{"name":"orbofstr","level":5}
+		}
+	},
+	"cavalry_mage":{
+		"name":"Cavalry II", "role":"cavalry", "class":"mage",
+		"skin":"thehelmet", "type":"fullstatic", "moving":true,
+		"level":100, "speed":140, "frequency":3.6, "attack_motion":true,
+		"cavalry":{"str":200,"int":2250,"dex":220,"vit":500},
+		"slots":{
+			"mainhand":{"name":"staff4","level":10},
+			"helmet":{"name":"xhelmet","level":10,"stat_type":"int"}, "chest":{"name":"xarmor","level":10,"stat_type":"int"},
+			"pants":{"name":"starkillers","level":10,"stat_type":"int"}, "gloves":{"name":"xgloves","level":10,"stat_type":"int"},
+			"shoes":{"name":"xboots","level":10,"stat_type":"int"}, "cape":{"name":"vcape","level":10,"stat_type":"int"},
+			"ring1":{"name":"intring","level":5}, "ring2":{"name":"intring","level":5}, "orb":{"name":"orbofint","level":5}
+		}
+	},
+	"cavalry_warrior":{
+		"name":"Cavalry III", "role":"cavalry", "class":"warrior",
+		"skin":"thehelmet", "type":"fullstatic", "moving":true,
+		"level":100, "speed":210, "frequency":5.2, "attack_motion":true,
+		"cavalry":{"str":2300,"int":150,"dex":300,"vit":650},
+		"slots":{
+			"mainhand":{"name":"heartwood","level":10}, "offhand":{"name":"vsword","level":10},
+			"helmet":{"name":"xhelmet","level":10,"stat_type":"str"}, "chest":{"name":"xarmor","level":10,"stat_type":"str"},
+			"pants":{"name":"xpants","level":10,"stat_type":"str"}, "gloves":{"name":"xgloves","level":10,"stat_type":"str"},
+			"shoes":{"name":"xboots","level":10,"stat_type":"str"}, "cape":{"name":"vcape","level":10,"stat_type":"str"},
+			"ring1":{"name":"strring","level":5}, "ring2":{"name":"strring","level":5}, "orb":{"name":"orbofstr","level":5}
+		}
+	},
+	"cavalry_priest":{
+		"name":"Cavalry IV", "role":"cavalry", "class":"priest",
+		"skin":"thehelmet", "type":"fullstatic", "moving":true,
+		"level":100, "speed":145, "frequency":4.2, "attack_motion":true,
+		"cavalry":{"str":200,"int":4400,"dex":180,"vit":550},
+		"slots":{
+			"mainhand":{"name":"lmace","level":10}, "offhand":{"name":"mshield","level":10},
+			"helmet":{"name":"xhelmet","level":10,"stat_type":"int"}, "chest":{"name":"xarmor","level":10,"stat_type":"int"},
+			"pants":{"name":"starkillers","level":10,"stat_type":"int"}, "gloves":{"name":"xgloves","level":10,"stat_type":"int"},
+			"shoes":{"name":"xboots","level":10,"stat_type":"int"}, "cape":{"name":"vcape","level":10,"stat_type":"int"},
+			"ring1":{"name":"intring","level":5}, "ring2":{"name":"intring","level":5}, "orb":{"name":"orbofint","level":5}
+		}
+	},
 	"pvp":{
 		"role":"pvp_announcer",
 		"name":"Ace",

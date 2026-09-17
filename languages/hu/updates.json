@@ -756,5 +756,6 @@
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Játékfejlesztés, amely a torlódással és az el nem tűnő szörnyekkel kapcsolatos problémákat hivatott megoldani.",
 	"update.30_10_21.new_slenderman_dynamics": "Új Slenderman-dinamika",
 	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "A Stomp már nem hatol át a varázslat-immunitáson; helyette azok a képességek kapták meg a .pierces_immunity jelzőt, amelyek áthatolnak rajta",
-	"update.14_09_26.cave": "Lépj be a Cave of Many Dreams területére a csapatoddal. Fedezz fel változó szinteket, szerezz 10× XP-t az ellenfelektől, és költsd el a barlangi aranyat a kereskedőknél. Keress fejszéket és kaszákat, vagy kereskedj Cave Amber-rel ritka felszerelések készítéséhez. Odabent a halál nem jár XP- vagy aranyvesztéssel."
+	"update.14_09_26.cave": "Lépj be a Cave of Many Dreams területére a csapatoddal. Fedezz fel változó szinteket, szerezz 10× XP-t az ellenfelektől, és költsd el a barlangi aranyat a kereskedőknél. Keress fejszéket és kaszákat, vagy kereskedj Cave Amber-rel ritka felszerelések készítéséhez. Odabent a halál nem jár XP- vagy aranyvesztéssel.",
+	"update.14_09_26.cavalry": "Hívd a Cavalry csapatát a Tracktrix segítségével a legalább 3. szintű szörnyek ellen. A négy őrszem megoszlik a csaták között, és először az alacsonyabb szintű kalandoroknak segít."
 }

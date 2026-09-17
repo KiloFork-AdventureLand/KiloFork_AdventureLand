@@ -943,5 +943,14 @@
 	"interface.selection.home": "Rumah: {server}",
 	"interface.selection.home_unset": "Rumah: belum diatur",
 	"interface.selection.away_home": "Ini bukan server rumah {name}.",
-	"interface.cavalry.call": "Panggil Cavalry"
+	"interface.cavalry.call": "PANGGIL CAVALRY!",
+	"interface.cavalry.coming": "Cavalry sedang menuju ke sini!",
+	"interface.cavalry.queued": "Cavalry sedang sibuk. Panggilanmu menunggu.",
+	"interface.cavalry.tracker": "Bawa Tracktrix untuk memanggil Cavalry.",
+	"interface.cavalry.no_monsters": "Tidak ada monster level 3+ yang memenuhi syarat di sekitar.",
+	"interface.cavalry.cooldown": "Cavalry bisa dipanggil lagi dalam {minutes} menit.",
+	"interface.cavalry.unavailable": "Cavalry belum bisa menjawab sekarang.",
+	"interface.cavalry.location": "Cavalry tidak bisa memasuki tempat ini.",
+	"interface.cavalry.guarded": "Ada pemain level 80+ dalam jarak 150 piksel dari monster-monster ini.",
+	"interface.cavalry.not_threatened": "Untuk memanggil Cavalry, harus ada monster yang sudah menyerangmu atau kelompokmu."
 }

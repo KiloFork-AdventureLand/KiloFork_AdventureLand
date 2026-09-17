@@ -756,5 +756,6 @@
 	"update.14_09_26.progression": "성장 가이드가 첫 Goo 전투부터 장비 계획, 유용한 사냥터, 현재 기회를 제안합니다. HP와 MP 위에서 목표를 선택하거나 설정의 튜토리얼 옆에서 가이드를 끄세요. CODE에서도 get_progression()으로 같은 조언을 읽을 수 있습니다.",
 	"update.14_09_26.rime_djinn": "Frozen Cove에 Rime Djinn이 나타났습니다. 함께 껍질을 깨고 Tracker 보상을 얻으세요. Rimeglass를 모으면 세 가지 새 장비를 제작할 수 있습니다.",
 	"update.15_09_26.wheel": "Tavern에 Fortune's Wheel, 릴 3개의 슬롯머신, 5인용 Texas Hold'em 테이블이 생겼습니다. 포커 블라인드는 서버에 따라 달라집니다. 빅 블라인드의 40~200배로 참가하며, 떠날 때는 핸드가 끝난 뒤 정산됩니다. CODE는 bet_wheel(), play_slots(), poker_join(), poker_act()로 플레이할 수 있습니다.",
-	"update.14_09_26.cave": "파티와 함께 Cave of Many Dreams에 들어가세요. 매번 달라지는 층을 탐험하고, 적에게서 10배의 XP를 얻고, 상인에게 동굴 금화를 쓰세요. 도끼와 낫을 찾거나 Cave Amber를 거래해 희귀 장비를 만들 수 있습니다. 안에서 죽어도 XP나 금화를 잃지 않습니다."
+	"update.14_09_26.cave": "파티와 함께 Cave of Many Dreams에 들어가세요. 매번 달라지는 층을 탐험하고, 적에게서 10배의 XP를 얻고, 상인에게 동굴 금화를 쓰세요. 도끼와 낫을 찾거나 Cave Amber를 거래해 희귀 장비를 만들 수 있습니다. 안에서 죽어도 XP나 금화를 잃지 않습니다.",
+	"update.14_09_26.cavalry": "Tracktrix로 Cavalry를 불러 레벨 3 이상의 몬스터와 싸울 때 도움받으세요. 보초 네 명이 여러 전투로 나뉘어 출동하며, 레벨이 낮은 모험가부터 돕습니다."
 }

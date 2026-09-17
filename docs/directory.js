@@ -375,6 +375,7 @@ docs = {
 		c0: [[1, "open", "cosmo0"]],
 	},
 	interactions: {
+		cavalry: {title:"Cavalry",article:"cavalry",icon:"tracker",summary:"Call four sentries to help with nearby level 3+ monsters.",functions:["interact"],proximity:false},
 		dreams: {title:"Cave of Many Dreams",article:"cave-of-many-dreams",icon:"cave_info",summary:"Enter with your party. Vote, fight and find your way down in 24 minutes.",functions:["cave_info","cave_enter","cave_reply","cave_buy","cave_exit","cave_talk"],proximity:true},
 		anniversary: {
 			title: "Mira's Anniversary Workshop",
@@ -608,6 +609,7 @@ docs = {
 			witch: "crafting",
 		},
 		npc_roles: {
+			cavalry: "cavalry",
 			anniversary_crafter: "anniversary",
 			announcer: "prototype",
 			blocker: "pvp",
@@ -799,6 +801,7 @@ docs = {
 			[
 				["adventure-api", "Adventure Land JSON API", "api,json,automation,code,data", "#55BDF0"],
 				["tracktrix", "Scoring for Tracktrix Achievements", "", "#5461C3"],
+				["cavalry", "Cavalry", "tracktrix,rescue,sentries,help", "#C6AA62"],
 				//["faq-soon","Looting Dynamics (Soon)","","#C01941"],
 			],
 		],

@@ -1726,6 +1726,45 @@ function tavern_loop() {
 	}
 }
 
+function weapon_stat_attack(type, stats, weapon_attack) {
+	return (
+		weapon_attack *
+		(type === "paladin"
+			? stats.str / 20 + stats.int / 40
+			: stats[(G.classes[type] || G.classes.merchant).main_stat] / 20)
+	);
+}
+
+// NPC transfers keep instance/spatial membership without player save or travel penalties.
+function transport_npc_to(npc, destination, point, effect) {
+	var instance = instances[destination],
+		previous = instances[npc.in];
+	if (!npc.is_npc || !instance || !point || !Number.isFinite(point.x) || !Number.isFinite(point.y)) return false;
+	if (destination !== npc.in) {
+		if (previous) {
+			xy_emit(npc, "disappear", { id: npc.id, reason: "transport", effect: effect ? 1 : 0 });
+			delete previous.players[npc.id];
+			previous.npcs--;
+		}
+		instance.players[npc.id] = npc;
+		instance.npcs++;
+	}
+	pmap_remove(npc);
+	npc.in = destination;
+	npc.map = instance.map;
+	npc.x = npc.going_x = point.x;
+	npc.y = npc.going_y = point.y;
+	npc.vx = npc.vy = 0;
+	npc.moving = false;
+	npc.abs = npc.u = true;
+	npc.position_id = (npc.position_id || 0) + 1;
+	npc.m++;
+	npc.cid++;
+	resume_instance(instance);
+	pmap_add(npc);
+	return true;
+}
+
 function create_npc(npc, map_def, instance) {
 	var entity = {
 		speed: npc.speed || 20,

@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "Tingnan ang iyong mga liham",
 	"tutorial.task.mail": "Buksan ang mga liham",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "Tumawag ng apat na bantay para tumulong laban sa mga halimaw na level 3 pataas sa malapit."
+	"interaction.cavalry.summary": "Tumawag ng apat na bantay para tumulong laban sa mga halimaw na level 3 pataas sa malapit.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

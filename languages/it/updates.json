@@ -756,5 +756,6 @@
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "Un miglioramento del gioco che punta a risolvere i problemi di ammassamento e dei mostri che non scompaiono.",
 	"update.30_10_21.new_slenderman_dynamics": "Nuove dinamiche di Slenderman",
 	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp non penetra più l'immunità agli incantesimi; le abilità che la penetrano hanno invece il contrassegno .pierces_immunity",
-	"update.14_09_26.cave": "Entra nella Cave of Many Dreams con il tuo gruppo. Esplora piani sempre diversi, guadagna 10× XP dai nemici e spendi l’oro della grotta dai mercanti. Trova asce e falci oppure scambia Cave Amber per creare equipaggiamento raro. Morire all’interno non costa XP né oro."
+	"update.14_09_26.cave": "Entra nella Cave of Many Dreams con il tuo gruppo. Esplora piani sempre diversi, guadagna 10× XP dai nemici e spendi l’oro della grotta dai mercanti. Trova asce e falci oppure scambia Cave Amber per creare equipaggiamento raro. Morire all’interno non costa XP né oro.",
+	"update.14_09_26.cavalry": "Chiama Cavalry tramite Tracktrix per ricevere aiuto contro i mostri di livello 3 o superiore. Le quattro sentinelle si dividono tra le battaglie e aiutano prima gli avventurieri di livello inferiore."
 }

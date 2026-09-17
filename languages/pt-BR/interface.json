@@ -945,5 +945,14 @@
 	"interface.selection.home": "Lar: {server}",
 	"interface.selection.home_unset": "Lar: não definido",
 	"interface.selection.away_home": "Este servidor não é o lar de {name}.",
-	"interface.cavalry.call": "Chamar a Cavalry"
+	"interface.cavalry.call": "CHAMAR A CAVALRY!",
+	"interface.cavalry.coming": "A Cavalry está a caminho!",
+	"interface.cavalry.queued": "A Cavalry está ocupada. Seu chamado está na fila.",
+	"interface.cavalry.tracker": "Leve um Tracktrix para chamar a Cavalry.",
+	"interface.cavalry.no_monsters": "Não há monstros de nível 3+ que atendam aos requisitos por perto.",
+	"interface.cavalry.cooldown": "A Cavalry poderá atender novamente em {minutes} min.",
+	"interface.cavalry.unavailable": "A Cavalry não pode atender agora.",
+	"interface.cavalry.location": "A Cavalry não pode entrar neste lugar.",
+	"interface.cavalry.guarded": "Há um jogador de nível 80+ a até 150 pixels desses monstros.",
+	"interface.cavalry.not_threatened": "A Cavalry precisa de monstros que já estejam atacando você ou seu grupo."
 }

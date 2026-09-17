@@ -1,6 +1,24 @@
 module.exports = {
-	// Tracktrix action. Cavalry is the fixed name of the four-sentry team.
-	"interface.cavalry.call": "Call in the Cavalry",
+	// Refusal for a level-80+ caller with ordinary level-3+ monsters nearby but none attacking the caller or party. The CODE reason remains no_monsters. Keep Cavalry.
+	"interface.cavalry.not_threatened": "Cavalry needs monsters that are already attacking you or your party.",
+	// Offensive assistance refuses monsters near any living connected level-80+ player, regardless of party.
+	"interface.cavalry.guarded": "A level-80+ player is within 150 pixels of these monsters.",
+	// Generated private adventures reject Cavalry calls; fixed team name.
+	"interface.cavalry.location": "Cavalry cannot enter this place.",
+	// Call refusal for a disconnected/dead character, an in-flight request or unavailable persistence. Keep Cavalry.
+	"interface.cavalry.unavailable": "Cavalry cannot answer right now.",
+	// Account cooldown refusal. minutes is the remaining time rounded up, formatted as a string; use a compact minute unit, not count pluralization. Keep Cavalry.
+	"interface.cavalry.cooldown": "Cavalry can answer again in {minutes} min.",
+	// No ordinary monsters meet the rescue rules. The monster level, not the player level, must be at least 3.
+	"interface.cavalry.no_monsters": "No eligible level 3+ monsters nearby.",
+	// Missing required inventory item. Tracktrix and Cavalry are fixed names.
+	"interface.cavalry.tracker": "Carry a Tracktrix to call the Cavalry.",
+	// Call accepted but no sentry is assigned yet.
+	"interface.cavalry.queued": "Cavalry is busy. Your call is waiting.",
+	// Successful call feedback; keep Cavalry unchanged.
+	"interface.cavalry.coming": "Cavalry is on the way!",
+	// Tracktrix action and guide references. Uppercase action label with an exclamation mark, including the team name CAVALRY; use the locale’s punctuation.
+	"interface.cavalry.call": "CALL IN THE CAVALRY!",
 	// Character selection destination and own-condition tooltip. server is the full realm name, e.g. Americas II. Short label.
 	"interface.selection.destination": "Server: {server}",
 	// Character hover, condition tooltip and log. server is the saved home, e.g. Americas II.

@@ -2639,5 +2639,12 @@
 	"docs.functions.poker_act.reopening": "Koltuğundaki can_raise, bahis artırıp artıramayacağını gösterir. Birkaç küçük all-in artışının toplamı tam bir artırıma ulaştığında yeniden artırma hakkı doğar.",
 	"docs.poker.waiting": "Bir işlem poker_saving ile başarısız olursa biraz bekleyip tekrar dene. Giriş poker_hand_active ile başarısız olursa elinin bitmesini bekle veya elin oynandığı sunucuya yeniden bağlan.",
 	"docs.tutorial.mail.open": "{com} menüsünü, ardından Posta'yı aç. Posta kutun boş olsa bile açman bu dersi tamamlar.",
-	"docs.tutorial.mail.take": "Daisy'nin mektubunu aç ve Tracktrix'i almak için {take} seçeneğine bas. Hesabındaki herhangi bir karakter onu alabilir. Bu ders için eşyayı alman şart değil."
+	"docs.tutorial.mail.take": "Daisy'nin mektubunu aç ve Tracktrix'i almak için {take} seçeneğine bas. Hesabındaki herhangi bir karakter onu alabilir. Bu ders için eşyayı alman şart değil.",
+	"docs.cavalry.intro": "Wizard's Crib’de dört muhafız bekliyor: bir Paladin, Büyücü, Savaşçı ve Rahip. Ekipmanını incelemek için birine tıkla.",
+	"docs.cavalry.manual": "Tracktrix'i yanında taşı, üzerine tıkla ve {action} seçeneğini seç. Cavalry, çağrı noktanın 320 menzili içinde gelir.",
+	"docs.cavalry.combat": "Savaşçı sürekli hücum halindedir. Büyücü aynı anda üç atış yapar ve arada ışınlanır. Rahip yaralı oyuncuları iyileştirir; Paladin yakındaki dostları iyileştirir ve korur. Yardım ettikleri kesimlerde normal XP, ganimet ve Tracktrix ilerlemesi korunur.",
+	"docs.cavalry.dispatch": "Çağrılar arasında bölünür, düşük seviyeli maceracılara öncelik verirler. Kurtarma sona erdiğinde, hedef canavarlar kalmadığında veya çağıran kişi öldüğünde, bağlantısı kesildiğinde, harita değiştirdiğinde ya da çağrı alanından çıktığında ayrılırlar.",
+	"docs.cavalry.code": "Tracktrix'i yanında taşı ve kurtarma kurallarına uy. Bir kez çağır. Sonuç assigned (0–4), queued, next_call ve cooldown_ms içerir; başarısız çağrılar reason ile reddedilir. Cavalry, Cave of Many Dreams'e giremez.",
+	"docs.cavalry.rescue": "80. seviyenin altındaki karakterler, yakındaki 3. seviye ve üzeri en fazla 24 canavara karşı 90 saniyeye kadar yardım alır. Yardımla öldürülen canavarlardan yeniden doğanlar 1. seviyede döner. Diğer karakterler, kendilerine veya gruplarına zaten saldıran üç canavara karşı 15 saniyeye kadar yardım alır. Baş canavarlar, nadir canavarlar ve çağrıdan sonra ortaya çıkan canavarlar kapsam dışıdır.",
+	"docs.cavalry.cooldown": "Bekleme süresi, hesaptaki karakterler ve sunucular arasında ortaktır: 10 dakika ve seviye başına bir dakika. Hesaptaki veya yakındaki oyuncular arasındaki en yüksek seviye kullanılır. Seviye 80+ bir oyuncu bir canavarın 150 piksel yakınına geldiğinde Cavalry o canavara saldırmayı bırakır."
 }

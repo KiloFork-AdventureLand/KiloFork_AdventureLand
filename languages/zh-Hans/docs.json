@@ -2639,5 +2639,12 @@
 	"docs.functions.poker_act.reopening": "座位的can_raise字段表示你能否加注。多次不足额全押的累计加注额达到一次完整加注时，已行动的玩家才能重新加注。",
 	"docs.poker.waiting": "如果操作因 poker_saving 失败，请稍等片刻后重试。如果登录因 poker_hand_active 失败，请等待这手牌结束，或重新连接到牌局所在的服务器。",
 	"docs.tutorial.mail.open": "打开{com}，再选择邮件。只需打开邮箱即可完成本课，即使邮箱是空的也算。",
-	"docs.tutorial.mail.take": "打开Daisy的信，选择{take}即可领取Tracktrix。你账号中的任何角色都可以领取。完成本课不要求领取物品。"
+	"docs.tutorial.mail.take": "打开Daisy的信，选择{take}即可领取Tracktrix。你账号中的任何角色都可以领取。完成本课不要求领取物品。",
+	"docs.cavalry.intro": "四名哨兵在Wizard's Crib待命：圣骑士、法师、战士和牧师各一名。点击任意一名即可查看其装备。",
+	"docs.cavalry.manual": "随身携带Tracktrix，点击它并选择{action}Cavalry会抵达呼叫地点周围320范围内。",
+	"docs.cavalry.combat": "战士始终保持冲锋状态。法师一次发射三枚投射物，并偶尔闪现。牧师治疗受伤的玩家；圣骑士治疗并保护附近的盟友。在他们的帮助下击杀怪物，仍可获得正常的XP、战利品和Tracktrix击杀记录。",
+	"docs.cavalry.dispatch": "他们会分队响应不同呼叫，优先帮助等级较低的冒险者。救援结束、目标怪物全部消失，或呼叫者死亡、断线、切换地图、离开呼叫区域时，他们就会离开。",
+	"docs.cavalry.code": "携带Tracktrix并遵守救援规则。调用一次即可。结果包含assigned（0–4）、queued、next_call和cooldown_ms；失败时Promise会以reason拒绝。Cavalry无法进入Cave of Many Dreams。",
+	"docs.cavalry.rescue": "80级以下的角色可获得最多90秒的援助，对付附近最多24只3级及以上的怪物。在援助下击败的怪物如果会重生，将以1级返回。其他角色可获得最多15秒的援助，对付三只已经在攻击自己或队伍的怪物。首领、稀有怪物和呼叫后出现的怪物不在援助范围内。",
+	"docs.cavalry.cooldown": "冷却时间在账号的所有角色和服务器间共享：以账号内或附近玩家的最高等级为准，基础10分钟，每级再加1分钟。只要怪物的150像素范围内有80级及以上玩家，Cavalry就会停止攻击该怪物。"
 }

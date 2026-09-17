@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "Semak e-mel anda",
 	"tutorial.task.mail": "Buka e-mel",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "Panggil empat pengawal untuk membantu melawan raksasa tahap 3 atau lebih tinggi berdekatan."
+	"interaction.cavalry.summary": "Panggil empat pengawal untuk membantu melawan raksasa tahap 3 atau lebih tinggi berdekatan.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

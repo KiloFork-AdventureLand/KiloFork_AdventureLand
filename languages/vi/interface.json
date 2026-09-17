@@ -943,5 +943,14 @@
 	"interface.selection.home": "Nhà: {server}",
 	"interface.selection.home_unset": "Nhà: chưa đặt",
 	"interface.selection.away_home": "Đây không phải máy chủ nhà của {name}.",
-	"interface.cavalry.call": "Gọi Cavalry"
+	"interface.cavalry.call": "GỌI CAVALRY!",
+	"interface.cavalry.coming": "Cavalry đang đến!",
+	"interface.cavalry.queued": "Cavalry đang bận. Lời gọi của bạn đang chờ.",
+	"interface.cavalry.tracker": "Mang theo Tracktrix để gọi Cavalry.",
+	"interface.cavalry.no_monsters": "Không có quái vật cấp 3+ đủ điều kiện ở gần.",
+	"interface.cavalry.cooldown": "Có thể gọi lại Cavalry sau {minutes} phút.",
+	"interface.cavalry.unavailable": "Cavalry hiện không thể đáp lại.",
+	"interface.cavalry.location": "Cavalry không thể vào nơi này.",
+	"interface.cavalry.guarded": "Có người chơi cấp 80+ trong phạm vi 150 pixel tính từ những quái vật này.",
+	"interface.cavalry.not_threatened": "Để gọi Cavalry, phải có quái vật đang tấn công bạn hoặc tổ đội của bạn."
 }

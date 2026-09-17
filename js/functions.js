@@ -2561,6 +2561,8 @@ function safe_x_move(sprite, x) {
 }
 
 function attack_animation_logic(sprite, source) {
+	if (no_graphics) return;
+	if (sprite.attack_motion) return play_entity_strike(sprite);
 	var only_up = false,
 		multiplier = 1.5;
 	if (sprite.type == "character") multiplier = 3.5;

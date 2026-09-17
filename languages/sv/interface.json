@@ -944,5 +944,14 @@
 	"interface.selection.home": "Hem: {server}",
 	"interface.selection.home_unset": "Hem: inte valt",
 	"interface.selection.away_home": "Det här är inte hemservern för {name}.",
-	"interface.cavalry.call": "Kalla in Cavalry"
+	"interface.cavalry.call": "KALLA IN CAVALRY!",
+	"interface.cavalry.coming": "Cavalry är på väg!",
+	"interface.cavalry.queued": "Cavalry är upptagen. Ditt anrop väntar.",
+	"interface.cavalry.tracker": "Ha en Tracktrix med dig för att kalla på Cavalry.",
+	"interface.cavalry.no_monsters": "Det finns inga lämpliga monster på nivå 3+ i närheten.",
+	"interface.cavalry.cooldown": "Cavalry kan svara igen om {minutes} min.",
+	"interface.cavalry.unavailable": "Cavalry kan inte svara just nu.",
+	"interface.cavalry.location": "Cavalry kan inte ta sig in här.",
+	"interface.cavalry.guarded": "En spelare på nivå 80+ är inom 150 pixlar från dessa monster.",
+	"interface.cavalry.not_threatened": "Cavalry behöver monster som redan attackerar dig eller din grupp."
 }

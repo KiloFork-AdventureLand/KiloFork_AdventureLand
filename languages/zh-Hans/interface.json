@@ -943,5 +943,14 @@
 	"interface.selection.home": "家园：{server}",
 	"interface.selection.home_unset": "家园：未设置",
 	"interface.selection.away_home": "这不是{name}的家园服务器。",
-	"interface.cavalry.call": "呼叫Cavalry"
+	"interface.cavalry.call": "呼叫CAVALRY！",
+	"interface.cavalry.coming": "Cavalry正在赶来！",
+	"interface.cavalry.queued": "Cavalry正在忙碌。你的呼叫已排队。",
+	"interface.cavalry.tracker": "携带Tracktrix才能呼叫Cavalry。",
+	"interface.cavalry.no_monsters": "附近没有符合救援条件的3级及以上怪物。",
+	"interface.cavalry.cooldown": "{minutes}分钟后可再次呼叫Cavalry。",
+	"interface.cavalry.unavailable": "Cavalry现在无法响应。",
+	"interface.cavalry.location": "Cavalry无法进入这里。",
+	"interface.cavalry.guarded": "这些怪物的150像素范围内有80级及以上玩家。",
+	"interface.cavalry.not_threatened": "呼叫Cavalry需要有正在攻击你或你队伍的怪物。"
 }

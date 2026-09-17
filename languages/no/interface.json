@@ -944,5 +944,14 @@
 	"interface.selection.home": "Hjem: {server}",
 	"interface.selection.home_unset": "Hjem: ikke valgt",
 	"interface.selection.away_home": "Dette er ikke hjemmeserveren til {name}.",
-	"interface.cavalry.call": "Tilkall Cavalry"
+	"interface.cavalry.call": "TILKALL CAVALRY!",
+	"interface.cavalry.coming": "Cavalry er på vei!",
+	"interface.cavalry.queued": "Cavalry er opptatt. Anropet ditt venter.",
+	"interface.cavalry.tracker": "Ha en Tracktrix med deg for å tilkalle Cavalry.",
+	"interface.cavalry.no_monsters": "Det finnes ingen egnede monstre på nivå 3+ i nærheten.",
+	"interface.cavalry.cooldown": "Cavalry kan svare igjen om {minutes} min.",
+	"interface.cavalry.unavailable": "Cavalry kan ikke svare akkurat nå.",
+	"interface.cavalry.location": "Cavalry kan ikke komme inn her.",
+	"interface.cavalry.guarded": "En spiller på nivå 80+ er innenfor 150 piksler fra disse monstrene.",
+	"interface.cavalry.not_threatened": "Cavalry trenger monstre som allerede angriper deg eller gruppen din."
 }

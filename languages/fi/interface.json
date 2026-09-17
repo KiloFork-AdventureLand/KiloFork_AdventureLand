@@ -943,5 +943,14 @@
 	"interface.selection.home": "Koti: {server}",
 	"interface.selection.home_unset": "Koti: ei asetettu",
 	"interface.selection.away_home": "Tämä ei ole hahmon {name} kotipalvelin.",
-	"interface.cavalry.call": "Kutsu Cavalry"
+	"interface.cavalry.call": "KUTSU CAVALRY!",
+	"interface.cavalry.coming": "Cavalry on matkalla!",
+	"interface.cavalry.queued": "Cavalry on varattu. Kutsusi odottaa.",
+	"interface.cavalry.tracker": "Pidä Tracktrix mukana kutsuaksesi Cavalryn.",
+	"interface.cavalry.no_monsters": "Lähellä ei ole sopivia vähintään tason 3 hirviöitä.",
+	"interface.cavalry.cooldown": "Cavalry voi vastata uudelleen {minutes} min kuluttua.",
+	"interface.cavalry.unavailable": "Cavalry ei voi vastata juuri nyt.",
+	"interface.cavalry.location": "Cavalry ei pääse tähän paikkaan.",
+	"interface.cavalry.guarded": "Vähintään tason 80 pelaaja on enintään 150 pikselin päässä näistä hirviöistä.",
+	"interface.cavalry.not_threatened": "Cavalry tarvitsee hirviöitä, jotka jo hyökkäävät sinun tai ryhmäsi kimppuun."
 }

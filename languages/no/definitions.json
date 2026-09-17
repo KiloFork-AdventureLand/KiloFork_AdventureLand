@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "Sjekk posten din",
 	"tutorial.task.mail": "Åpne posten",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "Tilkall fire vakter som hjelper mot monstre på nivå 3 eller høyere i nærheten."
+	"interaction.cavalry.summary": "Tilkall fire vakter som hjelper mot monstre på nivå 3 eller høyere i nærheten.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

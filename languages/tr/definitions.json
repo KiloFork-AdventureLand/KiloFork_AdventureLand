@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "Postanı Kontrol Et",
 	"tutorial.task.mail": "Postayı Aç",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "Yakındaki 3. seviye ve üstü canavarlara karşı yardım için dört muhafızı çağır."
+	"interaction.cavalry.summary": "Yakındaki 3. seviye ve üstü canavarlara karşı yardım için dört muhafızı çağır.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

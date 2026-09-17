@@ -943,5 +943,14 @@
 	"interface.selection.home": "Tahanan: {server}",
 	"interface.selection.home_unset": "Tahanan: wala pa",
 	"interface.selection.away_home": "Hindi ito ang server na tahanan ni {name}.",
-	"interface.cavalry.call": "Tawagin ang Cavalry"
+	"interface.cavalry.call": "TAWAGIN ANG CAVALRY!",
+	"interface.cavalry.coming": "Paparating na ang Cavalry!",
+	"interface.cavalry.queued": "Abala ang Cavalry. Naghihintay ang tawag mo.",
+	"interface.cavalry.tracker": "Magdala ng Tracktrix para matawag ang Cavalry.",
+	"interface.cavalry.no_monsters": "Walang malapit na halimaw na level 3+ na pasok sa mga kundisyon.",
+	"interface.cavalry.cooldown": "Maaaring tawagin muli ang Cavalry pagkalipas ng {minutes} min.",
+	"interface.cavalry.unavailable": "Hindi makasagot ang Cavalry sa ngayon.",
+	"interface.cavalry.location": "Hindi makapasok ang Cavalry rito.",
+	"interface.cavalry.guarded": "May manlalarong level 80+ na nasa loob ng 150 pixel mula sa mga halimaw na ito.",
+	"interface.cavalry.not_threatened": "Kailangan ng Cavalry ng mga halimaw na umaatake na sa iyo o sa grupo mo."
 }

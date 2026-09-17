@@ -944,5 +944,14 @@
 	"interface.selection.home": "Thuis: {server}",
 	"interface.selection.home_unset": "Thuis: niet ingesteld",
 	"interface.selection.away_home": "Dit is niet de thuisserver van {name}.",
-	"interface.cavalry.call": "Roep Cavalry op"
+	"interface.cavalry.call": "ROEP CAVALRY OP!",
+	"interface.cavalry.coming": "Cavalry is onderweg!",
+	"interface.cavalry.queued": "Cavalry is bezig. Je oproep staat in de wacht.",
+	"interface.cavalry.tracker": "Draag een Tracktrix bij je om Cavalry op te roepen.",
+	"interface.cavalry.no_monsters": "Geen geschikte monsters van niveau 3+ in de buurt.",
+	"interface.cavalry.cooldown": "Cavalry kan over {minutes} min. weer reageren.",
+	"interface.cavalry.unavailable": "Cavalry kan nu niet reageren.",
+	"interface.cavalry.location": "Cavalry kan hier niet naar binnen.",
+	"interface.cavalry.guarded": "Er is een speler van niveau 80+ binnen 150 pixels van deze monsters.",
+	"interface.cavalry.not_threatened": "Cavalry heeft monsters nodig die jou of je groep al aanvallen."
 }

@@ -1,5 +1,9 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Saved account-wide cooldown; nearby means 150 pixels from the caller or captured monsters. The veteran check also runs at attack and impact, for all parties. Keep Cavalry.
+	"docs.cavalry.cooldown": "The account shares a cooldown across characters and servers: 10 minutes plus one minute per level, using the highest account or nearby player level. Cavalry stops attacking monsters whenever a level-80+ player is within 150 pixels.",
+	// Rescue eligibility uses the calling character’s current level, not the account’s highest level. Capture existing ordinary monsters, including population growth, but never add later spawns. Assisted newcomer kills reset a replacement spawn to level 1 after ordinary rewards; temporary monsters do not respawn. Keep all quantities and restrictions.
+	"docs.cavalry.rescue": "Characters below level 80 get up to 90 seconds against up to 24 nearby level 3+ monsters. Assisted monsters that respawn return at level 1. Other characters get up to 15 seconds against three monsters already attacking them or their party. Bosses, rare monsters and monsters that appear after the call are excluded.",
 	// Mail lesson. {take} is the existing localized TAKE button. The one gift is shared by all characters on an account; claiming it is optional for tutorial completion. Keep Daisy and Tracktrix.
 	"docs.tutorial.mail.take": "Open Daisy's letter and choose {take} to collect Tracktrix. Any character on your account can take it. Collecting it is optional for this lesson.",
 	// Mail lesson. {com} is the localized COM menu label; Mail is its existing mailbox tab. Opening an empty mailbox counts.
@@ -10,14 +14,14 @@ module.exports = {
 	"docs.guide.events-and-home.saved-home": "Each character has its own saved home, set when it first enters the game. Visiting a familiar server does not change it.",
 	// Home guide. condition is the translated Hop Sickness name. Keep XP, PvP and Bean. Level 60+, non-PvP, 12 online minutes; reconnect preserves time and returning/changing home clears it.
 	"docs.guide.events-and-home.hop-sickness": "{condition} lowers XP, gold, luck and attack power after a character of level 60 or above enters another non-PvP server away from home. The base duration is 12 minutes of online play. Reconnecting to that server preserves the remaining time. Returning to the saved home or changing home with Bean clears it immediately.",
-	// CODE example requirements and Promise result. Preserve Tracktrix, Cavalry, Cave of Many Dreams, assigned, queued and reason exactly.
-	"docs.cavalry.code": "Carry Tracktrix and stand near a level 3+ monster. The call resolves with assigned (0–4) and queued; failures reject with reason. Cavalry cannot enter the Cave of Many Dreams.",
-	// Four sentries split into pairs or solo; priority uses caller character level. Calls stay at their original position.
-	"docs.cavalry.dispatch": "They split between calls, giving lower-level adventurers priority. They leave a call when no level 3+ monsters remain, or its caller dies, disconnects, changes maps or leaves the calling area. Idle sentries return home.",
+	// Public CODE requirements and Promise fields. Preserve Tracktrix, Cavalry, Cave of Many Dreams, assigned, queued, next_call, cooldown_ms, reason and 0–4.
+	"docs.cavalry.code": "Carry Tracktrix and follow the rescue rules. Call once. Results include assigned (0–4), queued, next_call and cooldown_ms; failures reject with reason. Cavalry cannot enter the Cave of Many Dreams.",
+	// Sentries share nearby calls, split among separate rescues and return home when no assignment remains.
+	"docs.cavalry.dispatch": "They split between calls, helping lower-level adventurers first. They leave when the rescue ends, its monsters are gone, or the caller dies, disconnects, changes maps or leaves the calling area.",
 	// Class behavior and unchanged rewards. Tracker is the fixed item name; XP is experience.
 	"docs.cavalry.combat": "The Warrior stays charged. The Mage fires three projectiles and blinks. The Priest heals wounded players; the Paladin heals and protects nearby allies. Assisted kills keep normal XP, loot and Tracktrix credit.",
-	// Manual instructions; match the translated action label. Tracktrix and Cavalry are fixed names.
-	"docs.cavalry.manual": "Carry Tracktrix, open it, and choose Call in the Cavalry. They leap in to fight level 3+ monsters within 320 range of your calling spot. You can call once every 10 seconds.",
+	// Manual item-popup action. action is the translated uppercase action label and already ends with an exclamation mark. Keep Tracktrix and Cavalry.
+	"docs.cavalry.manual": "Carry Tracktrix, click it, and choose {action} Cavalry arrives within 320 range of your calling spot.",
 	// Guide introduction; preserve Wizard's Crib, translate class labels using established terms.
 	"docs.cavalry.intro": "Four sentries wait in Wizard's Crib: a Paladin, Mage, Warrior and Priest. Click one to inspect their equipment.",
 	// Guide introduction. Rime Djinn, Frozen Cove and Harpy are fixed game names. Ordinary aggro=1 permits passing attacks without target acquisition.

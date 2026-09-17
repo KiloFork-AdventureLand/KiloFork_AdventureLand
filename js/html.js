@@ -1280,6 +1280,8 @@ function render_character(player) {
 		onclick: "render_cosmetics(xtarget||ctarget,{toggle:true})",
 	});
 	html += "<div class='ihtml'>";
+	if (player.npc && G.npcs[player.npc].cavalry)
+		ihtml += info_line({line: phrase.definition("class", player.ctype, "name", player.ctype), color: "#C6AA62"});
 	ihtml += info_line({ name: phrase.html("interface.character.level"), color: "orange", value: player.level, afk: player.afk });
 	ihtml += info_line({ name: phrase.html("stat.hp.name"), color: colors.hp, value: player.hp + "/" + player.max_hp });
 	ihtml += info_line({ name: phrase.html("stat.mp.name"), color: "#365DC5", value: player.mp + "/" + player.max_mp });
@@ -1302,10 +1304,12 @@ function render_character(player) {
 		color: colors.inspect,
 	});
 	html += xhtml;
+	if (player.npc && G.npcs[player.npc].cavalry)
+		html += button_line({name: phrase.html("interface.item.info"), onclick: "open_guide('cavalry', get_guide_url('cavalry'))", color: "#C6AA62"});
 	html += "</div>";
 	var bid = player.party + "|" + player.stand + "|" + (character.slots.trade1 !== undefined);
 	html += "<div class='bhtml'>";
-	if (!player.party && character && !player.me && !player.stand)
+	if (!player.npc && !player.party && character && !player.me && !player.stand)
 		bhtml += button_line({
 			name: phrase.html("interface.character.party"),
 			onclick: "socket.emit('party',{event:'invite',id:'" + player.id + "'}); push_deferred('party')",
@@ -5339,6 +5343,9 @@ function render_item(selector, args) {
 					'"">' +
 					phrase.definition("item", name, "action", item.action) +
 					"</span></div>";
+			}
+			if (name == "tracker" && !args.from_player) {
+				html += "<div class='clickable' onclick='socket.emit(\"interaction\",{type:\"cavalry\"}); $(this).parent().remove()' style=\"color: #C6AA62\">" + phrase.html("interface.cavalry.call") + "</div>";
 			}
 			if (item.type == "computer") {
 				html += "<div class='clickable' onclick='add_log(phrase(\"interface.computer.beep\"))' style=\"color: #32A3B0\">" + phrase.html("interface.item.network") + "</div>";

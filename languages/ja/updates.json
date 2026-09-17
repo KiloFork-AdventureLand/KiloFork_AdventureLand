@@ -756,5 +756,6 @@
 	"update.14_09_26.progression": "成長ガイドが最初のGoo戦から装備の計画、役立つ狩場、開催中の機会を提案します。HPとMPの上で目標を選ぶか、設定のチュートリアルの隣でガイドをオフにできます。CODEでもget_progression()で同じ助言を取得できます。",
 	"update.14_09_26.rime_djinn": "Frozen CoveにRime Djinnが現れました。仲間と殻を壊してTracker報酬を獲得し、Rimeglassを集めて3つの新装備を製作しましょう。",
 	"update.15_09_26.wheel": "TavernにFortune's Wheel、3リールのスロット、5人用のTexas Hold'emテーブルが登場しました。ポーカーのブラインドはサーバーごとに異なります。参加費はビッグブラインドの40〜200倍で、退席時の精算はハンド終了後です。CODEではbet_wheel()、play_slots()、poker_join()、poker_act()で遊べます。",
-	"update.14_09_26.cave": "仲間とCave of Many Dreamsへ。訪れるたびに変わる階層を探索し、敵から10倍のXPを獲得して、洞窟の金を商人の店で使いましょう。斧や大鎌を見つけたり、Cave Amberを取引して希少な装備を作ったりできます。中で倒れてもXPや金は失いません。"
+	"update.14_09_26.cave": "仲間とCave of Many Dreamsへ。訪れるたびに変わる階層を探索し、敵から10倍のXPを獲得して、洞窟の金を商人の店で使いましょう。斧や大鎌を見つけたり、Cave Amberを取引して希少な装備を作ったりできます。中で倒れてもXPや金は失いません。",
+	"update.14_09_26.cavalry": "TracktrixからCavalryを呼び、レベル3以上のモンスターとの戦いを援護してもらいましょう。4人の衛兵は複数の戦闘に分かれて対応し、レベルの低い冒険者から助けます。"
 }

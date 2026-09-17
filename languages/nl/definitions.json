@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "Bekijk je post",
 	"tutorial.task.mail": "Open de post",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "Roep vier wachters op om te helpen tegen monsters van niveau 3 of hoger in de buurt."
+	"interaction.cavalry.summary": "Roep vier wachters op om te helpen tegen monsters van niveau 3 of hoger in de buurt.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

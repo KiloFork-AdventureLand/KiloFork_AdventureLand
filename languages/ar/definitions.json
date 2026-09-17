@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "تحقق من بريدك",
 	"tutorial.task.mail": "افتح البريد",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "استدعِ أربعة حراس للمساعدة في قتال الوحوش القريبة من المستوى 3 أو أعلى."
+	"interaction.cavalry.summary": "استدعِ أربعة حراس للمساعدة في قتال الوحوش القريبة من المستوى 3 أو أعلى.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

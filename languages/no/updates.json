@@ -756,5 +756,6 @@
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "En forbedring som skal løse problemene med ansamlinger og monstre som ikke forsvinner.",
 	"update.30_10_21.new_slenderman_dynamics": "Ny virkemåte for Slenderman",
 	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp trenger ikke lenger gjennom trolldomsimmunitet; i stedet har ferdighetene som gjør det, flagget .pierces_immunity",
-	"update.14_09_26.cave": "Gå inn i Cave of Many Dreams med gruppen din. Utforsk skiftende etasjer, få 10× XP fra fiender og bruk grottegull hos kjøpmenn. Finn økser og ljåer, eller handle med Cave Amber for å lage sjeldent utstyr. Å dø der inne koster verken XP eller gull."
+	"update.14_09_26.cave": "Gå inn i Cave of Many Dreams med gruppen din. Utforsk skiftende etasjer, få 10× XP fra fiender og bruk grottegull hos kjøpmenn. Finn økser og ljåer, eller handle med Cave Amber for å lage sjeldent utstyr. Å dø der inne koster verken XP eller gull.",
+	"update.14_09_26.cavalry": "Tilkall Cavalry gjennom Tracktrix for hjelp mot monstre på nivå 3 eller høyere. Fire vakter fordeler seg mellom kampene og hjelper eventyrere på lavere nivå først."
 }

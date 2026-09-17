@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "편지를 확인하세요",
 	"tutorial.task.mail": "편지 열기",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "보초 네 명을 불러 근처의 레벨 3 이상 몬스터를 상대할 때 도움받으세요."
+	"interaction.cavalry.summary": "보초 네 명을 불러 근처의 레벨 3 이상 몬스터를 상대할 때 도움받으세요.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

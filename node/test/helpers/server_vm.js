@@ -107,6 +107,11 @@ function load(context, file, names) {
 		].includes(file)
 	)
 		generatedContext(context);
+	if (file === "node/server.js") {
+		if (!context.is_cavalry) vm.runInContext(read("node/logic/cavalry.js"), context);
+		if (!context.weapon_stat_attack)
+			vm.runInContext(extract(read("node/server_functions.js"), "weapon_stat_attack"), context);
+	}
 	vm.runInContext(names.map((name) => extract(read(file), name)).join("\n"), context);
 }
 

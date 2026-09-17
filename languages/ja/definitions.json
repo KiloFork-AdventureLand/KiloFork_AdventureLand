@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "メールを確認しよう",
 	"tutorial.task.mail": "メールを開く",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "4人の衛兵を呼び、近くのレベル3以上のモンスターとの戦いを援護してもらいます。"
+	"interaction.cavalry.summary": "4人の衛兵を呼び、近くのレベル3以上のモンスターとの戦いを援護してもらいます。",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

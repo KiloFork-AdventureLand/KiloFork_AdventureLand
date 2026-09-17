@@ -943,5 +943,14 @@
 	"interface.selection.home": "ホーム: {server}",
 	"interface.selection.home_unset": "ホーム: 未設定",
 	"interface.selection.away_home": "ここは{name}のホームサーバーではありません。",
-	"interface.cavalry.call": "Cavalryを呼ぶ"
+	"interface.cavalry.call": "CAVALRYを呼ぶ！",
+	"interface.cavalry.coming": "Cavalryが向かっています！",
+	"interface.cavalry.queued": "Cavalryは出動中です。要請は順番待ちです。",
+	"interface.cavalry.tracker": "Cavalryを呼ぶにはTracktrixを所持してください。",
+	"interface.cavalry.no_monsters": "近くに救援対象となるレベル3以上のモンスターがいません。",
+	"interface.cavalry.cooldown": "Cavalryを再び呼べるまであと{minutes}分です。",
+	"interface.cavalry.unavailable": "Cavalryは今は応答できません。",
+	"interface.cavalry.location": "Cavalryはこの場所に入れません。",
+	"interface.cavalry.guarded": "これらのモンスターから150ピクセル以内にレベル80以上のプレイヤーがいます。",
+	"interface.cavalry.not_threatened": "Cavalryを呼ぶには、あなたかパーティーをすでに攻撃しているモンスターが必要です。"
 }

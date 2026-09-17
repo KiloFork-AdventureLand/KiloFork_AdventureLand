@@ -756,5 +756,6 @@
 	"update.30_10_16.a_game_improvement_that_aims_to_fix_issues_related": "O îmbunătățire menită să rezolve problemele legate de aglomerare și de monștrii care nu dispar.",
 	"update.30_10_21.new_slenderman_dynamics": "Dinamici noi pentru Slenderman",
 	"update.30_10_21.stomp_doesn_t_pierce_spell_immunity_now_instead_skills": "Stomp nu mai străpunge imunitatea la vrăji; în schimb, abilitățile care o străpung au indicatorul .pierces_immunity",
-	"update.14_09_26.cave": "Intră în Cave of Many Dreams cu grupul tău. Explorează niveluri schimbătoare, câștigă 10× XP de la inamici și cheltuiește aurul de peșteră la negustori. Găsește topoare și coase sau fă negoț cu Cave Amber pentru a fabrica echipament rar. Moartea înăuntru nu costă XP sau aur."
+	"update.14_09_26.cave": "Intră în Cave of Many Dreams cu grupul tău. Explorează niveluri schimbătoare, câștigă 10× XP de la inamici și cheltuiește aurul de peșteră la negustori. Găsește topoare și coase sau fă negoț cu Cave Amber pentru a fabrica echipament rar. Moartea înăuntru nu costă XP sau aur.",
+	"update.14_09_26.cavalry": "Cheamă Cavalry prin Tracktrix pentru ajutor împotriva monștrilor de nivel 3 sau mai mare. Patru santinele se împart între bătălii și ajută mai întâi aventurierii de nivel mai mic."
 }

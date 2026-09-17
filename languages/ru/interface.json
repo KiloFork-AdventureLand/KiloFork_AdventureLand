@@ -956,5 +956,14 @@
 	"interface.selection.home": "Дом: {server}",
 	"interface.selection.home_unset": "Дом: не задан",
 	"interface.selection.away_home": "Это не домашний сервер персонажа {name}.",
-	"interface.cavalry.call": "Вызвать Cavalry"
+	"interface.cavalry.call": "ВЫЗВАТЬ CAVALRY!",
+	"interface.cavalry.coming": "Cavalry уже в пути!",
+	"interface.cavalry.queued": "Cavalry занята. Ваш вызов ждёт очереди.",
+	"interface.cavalry.tracker": "Чтобы вызвать Cavalry, носите с собой Tracktrix.",
+	"interface.cavalry.no_monsters": "Поблизости нет подходящих монстров уровня 3+.",
+	"interface.cavalry.cooldown": "Cavalry снова сможет ответить через {minutes} мин.",
+	"interface.cavalry.unavailable": "Cavalry сейчас не может ответить.",
+	"interface.cavalry.location": "Cavalry не может войти сюда.",
+	"interface.cavalry.guarded": "В пределах 150 пикселей от этих монстров есть игрок уровня 80+.",
+	"interface.cavalry.not_threatened": "Cavalry нужны монстры, которые уже атакуют вас или вашу группу."
 }

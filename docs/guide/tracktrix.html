@@ -22,6 +22,10 @@
 </p>
 <div class="divider"></div>
 <div class="title mt15">CODE</div>
+<p><span class="clickable dlabel" onclick="open_guide('cavalry', get_guide_url('cavalry'))">{{ phrase("interface.cavalry.call") }}</span></p>
+<p>{{ phrase("docs.cavalry.manual", {action: phrase("interface.cavalry.call")}) }}</p>
+<div class="code">interact("cavalry");</div>
+<p><span class="rref clickable" onclick="render_function_reference('interact')">interact</span></p>
 <p>{{ phrase("docs.tutorial.tracktrix.code") }}</p>
 <div class="code">show_json(G.monsters.goo.achievements);</div>
 <p><span class="rref clickable" onclick="render_function_reference('show_json')">show_json</span> · <span class="clickable dlabel" onclick="load_documentation('G')">G</span></p>

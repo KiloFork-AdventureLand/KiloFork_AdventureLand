@@ -2639,5 +2639,12 @@
 	"docs.functions.poker_act.reopening": "Din plads' can_raise viser, om du må forhøje. Flere små all-in-forhøjelser åbner igen for forhøjelse, når deres samlede stigning når en fuld forhøjelse.",
 	"docs.poker.waiting": "Hvis en handling fejler med poker_saving, så vent lidt og prøv igen. Hvis login fejler med poker_hand_active, så vent, til din hånd er slut, eller opret forbindelse til serveren, hvor den spilles, igen.",
 	"docs.tutorial.mail.open": "Åbn {com} og derefter Post. Du skal blot åbne postkassen for at gennemføre denne lektion, også hvis den er tom.",
-	"docs.tutorial.mail.take": "Åbn brevet fra Daisy, og vælg {take} for at hente Tracktrix. Enhver figur på din konto kan hente den. Du behøver ikke hente genstanden for at gennemføre lektionen."
+	"docs.tutorial.mail.take": "Åbn brevet fra Daisy, og vælg {take} for at hente Tracktrix. Enhver figur på din konto kan hente den. Du behøver ikke hente genstanden for at gennemføre lektionen.",
+	"docs.cavalry.intro": "Fire vagter venter i Wizard's Crib: en Paladin, en Magiker, en Kriger og en Præst. Klik på en af dem for at se udstyret.",
+	"docs.cavalry.manual": "Hav Tracktrix på dig, klik på den, og vælg {action} Cavalry ankommer inden for en rækkevidde på 320 fra stedet, hvor du kaldte.",
+	"docs.cavalry.combat": "Krigeren holder sig i stormløb. Magikeren affyrer tre projektiler og teleporterer sig af og til. Præsten helbreder sårede spillere; Paladinen helbreder og beskytter allierede i nærheden. Drab med deres hjælp giver de sædvanlige XP, bytte og fremskridt i Tracktrix.",
+	"docs.cavalry.dispatch": "De fordeler sig mellem kald og hjælper eventyrere på lavere niveau først. De tager af sted, når redningen slutter, de udvalgte monstre er væk, eller den, der kaldte, dør, mister forbindelsen, skifter kort eller forlader området.",
+	"docs.cavalry.code": "Hav Tracktrix på dig, og følg redningsreglerne. Kald én gang. Resultatet indeholder assigned (0–4), queued, next_call og cooldown_ms; ved fejl afvises Promise med reason. Cavalry kan ikke komme ind i Cave of Many Dreams.",
+	"docs.cavalry.rescue": "Figurer under niveau 80 får op til 90 sekunders hjælp mod højst 24 monstre på niveau 3 eller højere i nærheden. Monstre, der besejres med hjælp og genopstår, vender tilbage på niveau 1. Andre figurer får op til 15 sekunders hjælp mod tre monstre, der allerede angriber dem eller deres gruppe. Bosser, sjældne monstre og monstre, der dukker op efter tilkaldelsen, er udelukket.",
+	"docs.cavalry.cooldown": "Ventetiden deles mellem kontoens figurer og servere: 10 minutter plus ét minut pr. niveau, baseret på det højeste niveau på kontoen eller blandt spillere i nærheden. Cavalry stopper med at angribe et monster, når en spiller på niveau 80+ er inden for 150 pixels af det."
 }

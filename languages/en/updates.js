@@ -1,5 +1,7 @@
 // Release highlights. Dates, item/character names and CODE identifiers stay unchanged.
 module.exports = {
+	// Release highlight. Cavalry and Tracktrix are fixed names.
+	"update.14_09_26.cavalry": "Call the Cavalry through Tracktrix for help with level 3+ monsters. Four sentries split between battles and help lower-level adventurers first.",
 	// Release highlight for the Tavern games. Fortune's Wheel is the wheel game, Sun and Moon its sides; Texas Hold'em is the poker variant; server tiers I to IV and PVP are server names; bet_wheel(), play_slots(), poker_join() and poker_act() are CODE.
 	"update.15_09_26.wheel": "The Tavern now has Fortune's Wheel, three-reel slots, and a five-seat Texas Hold'em table. Poker blinds follow the server. Buy in for 40 to 200 big blinds; leaving cashes out after the hand. CODE can play with bet_wheel(), play_slots(), poker_join() and poker_act().",
 	// Release highlight for cooperative Rime Djinn and four items. Preserve Rime Djinn, Frozen Cove, Tracker and Rimeglass.

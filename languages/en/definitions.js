@@ -1,5 +1,9 @@
 // English display text from loaded game definitions. Canonical G is not localized.
 module.exports = {
+	// Fixed name of the four-sentry team.
+	"interaction.cavalry.title": "Cavalry",
+	// Fixed name of the four-sentry team.
+	"role.cavalry.name": "Cavalry",
 	// Service directory and MCP summary; monster level is at least 3.
 	"interaction.cavalry.summary": "Call four sentries to help with nearby level 3+ monsters.",
 	// Fixed name of the four-sentry team.

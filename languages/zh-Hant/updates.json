@@ -756,5 +756,6 @@
 	"update.14_09_26.progression": "從第一場Goo戰鬥起，成長指南就會建議裝備計畫、實用狩獵地點與當前機會。可在HP與MP上方選擇目標，或使用設定中教學旁的開關停用指南。CODE也能透過get_progression()讀取相同建議。",
 	"update.14_09_26.rime_djinn": "Rime Djinn如今出沒於Frozen Cove。一起擊破牠們的外殼，取得Tracker獎勵，並收集Rimeglass製作三件新裝備。",
 	"update.15_09_26.wheel": "Tavern現在有Fortune's Wheel、三轉輪吃角子老虎機及五人Texas Hold'em牌桌。撲克盲注依伺服器而定。買入40至200個大盲注即可入座；離開時須等這手牌結束後結算。CODE可透過bet_wheel()、play_slots()、poker_join()及poker_act()參與遊戲。",
-	"update.14_09_26.cave": "與隊友一起進入 Cave of Many Dreams。探索每次都不同的樓層，擊敗敵人獲得10倍XP，並向商人花費洞窟金幣。尋找斧頭和鐮刀，或交易 Cave Amber 來製作稀有裝備。在裡面死亡不會損失XP或金幣。"
+	"update.14_09_26.cave": "與隊友一起進入 Cave of Many Dreams。探索每次都不同的樓層，擊敗敵人獲得10倍XP，並向商人花費洞窟金幣。尋找斧頭和鐮刀，或交易 Cave Amber 來製作稀有裝備。在裡面死亡不會損失XP或金幣。",
+	"update.14_09_26.cavalry": "透過Tracktrix呼叫Cavalry，協助對付3級以上怪物。四名哨兵會分隊支援不同戰鬥，並優先幫助等級較低的冒險者。"
 }

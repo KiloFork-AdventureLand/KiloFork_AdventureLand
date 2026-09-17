@@ -2194,5 +2194,7 @@
 	"tutorial.mail.title": "Перевірте пошту",
 	"tutorial.task.mail": "Відкрийте пошту",
 	"directory.guide.cavalry.title": "Cavalry",
-	"interaction.cavalry.summary": "Викличте чотирьох вартових на допомогу проти монстрів рівня 3 або вище поблизу."
+	"interaction.cavalry.summary": "Викличте чотирьох вартових на допомогу проти монстрів рівня 3 або вище поблизу.",
+	"role.cavalry.name": "Cavalry",
+	"interaction.cavalry.title": "Cavalry"
 }

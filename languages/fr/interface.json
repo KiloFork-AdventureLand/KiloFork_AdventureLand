@@ -944,5 +944,14 @@
 	"interface.selection.home": "Foyer : {server}",
 	"interface.selection.home_unset": "Foyer : non défini",
 	"interface.selection.away_home": "Ce serveur n’est pas le foyer de {name}.",
-	"interface.cavalry.call": "Appeler Cavalry"
+	"interface.cavalry.call": "APPELER CAVALRY !",
+	"interface.cavalry.coming": "Cavalry est en route !",
+	"interface.cavalry.queued": "Cavalry est occupée. Votre appel attend.",
+	"interface.cavalry.tracker": "Gardez un Tracktrix sur vous pour appeler Cavalry.",
+	"interface.cavalry.no_monsters": "Aucun monstre de niveau 3+ admissible à proximité.",
+	"interface.cavalry.cooldown": "Cavalry pourra répondre à nouveau dans {minutes} min.",
+	"interface.cavalry.unavailable": "Cavalry ne peut pas répondre pour le moment.",
+	"interface.cavalry.location": "Cavalry ne peut pas entrer ici.",
+	"interface.cavalry.guarded": "Un joueur de niveau 80+ se trouve à 150 pixels ou moins de ces monstres.",
+	"interface.cavalry.not_threatened": "Cavalry a besoin de monstres qui vous attaquent déjà, vous ou votre groupe."
 }

@@ -944,5 +944,14 @@
 	"interface.selection.home": "Дом: {server}",
 	"interface.selection.home_unset": "Дом: не е зададен",
 	"interface.selection.away_home": "Това не е домашният сървър на {name}.",
-	"interface.cavalry.call": "Повикай Cavalry"
+	"interface.cavalry.call": "ПОВИКАЙ CAVALRY!",
+	"interface.cavalry.coming": "Cavalry е на път!",
+	"interface.cavalry.queued": "Cavalry е заета. Повикването ти чака.",
+	"interface.cavalry.tracker": "Носи Tracktrix, за да повикаш Cavalry.",
+	"interface.cavalry.no_monsters": "Няма подходящи чудовища от ниво 3+ наблизо.",
+	"interface.cavalry.cooldown": "Cavalry ще може да отговори отново след {minutes} мин.",
+	"interface.cavalry.unavailable": "Cavalry не може да отговори в момента.",
+	"interface.cavalry.location": "Cavalry не може да влезе тук.",
+	"interface.cavalry.guarded": "Има играч от ниво 80+ на не повече от 150 пиксела от тези чудовища.",
+	"interface.cavalry.not_threatened": "Cavalry се нуждае от чудовища, които вече нападат теб или групата ти."
 }
