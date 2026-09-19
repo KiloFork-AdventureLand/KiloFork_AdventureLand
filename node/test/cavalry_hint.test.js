@@ -116,8 +116,7 @@ test("dangerous leveled monsters show one native CALL button that opens the exis
 	assert.match(state.html, />CALL<\/div>/);
 	assert.equal(state.sprites[0].skin, design.npcs.cavalry_warrior.skin);
 	assert.equal(state.sprites[0].args.j, 0);
-	assert.equal(state.sprites[0].args.scale, 2);
-	assert.equal(state.sprites[0].args.full, true);
+	assert.equal(state.sprites[0].args.overflow, true);
 	assert.equal(state.guides.length, 0, "No automatic popup");
 	vm.runInContext(state.html.match(/onclick='([^']+)'/)[1], c);
 	assert.deepEqual(state.guides, [["cavalry", "/docs/guide/advanced/cavalry"]]);

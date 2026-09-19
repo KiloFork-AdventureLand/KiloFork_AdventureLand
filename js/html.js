@@ -755,7 +755,7 @@ function render_server() {
 			"' style='padding: 6px 8px 6px 8px; font-size: 24px; line-height: 18px' onclick='pcs(event); open_interaction_guide(\"" +
 			context.key +
 			"\")'>";
-		if (visual.skin) html += sprite(visual.skin, { cx: clone(visual.cx || {}), scale: 2, full: true, j: 0 });
+		if (visual.skin) html += sprite(visual.skin, { cx: clone(visual.cx || {}), overflow: true, j: 0 });
 		else if (npc && npc.skin) html += sprite(npc.skin, { cx: clone(npc.cx || {}), overflow: true });
 		else if (visual_icon) html += "<div style='margin-top: -1px; margin-left: -3px; margin-right: -3px'>" + item_container({ skin: visual_icon.skin, bcolor: "black" }) + "</div>";
 		else if (icon) html += "<div style='margin-top: -1px; margin-left: -3px; margin-right: -3px'>" + item_container({ skin: icon.skin, bcolor: "black" }) + "</div>";
