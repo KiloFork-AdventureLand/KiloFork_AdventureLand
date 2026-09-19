@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Lleva a Leo un Wooden Basher +7, The Crypt Key, una Essence of Life y 120.000 de oro. La fabricación los consume y te entrega un Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "Cerca de Leo, o con un Computer, usa CODE para fabricar con los objetos y el oro necesarios en tu inventario:",
+  "docs.functions.buy.wooden_axe": "Gabriel vende Wooden Axe por 4.900 de oro. Abre su tienda en Mainland o usa CODE estando cerca:",
+  "docs.functions.giveaway.duration": "Elige entre 5 y 600 minutos para cualquier objeto. Su valor en oro no limita la duración. El temporizador avanza mientras tu personaje está conectado.",
 	"docs.functions.use_skill.regeneration_output": "Consulta la cantidad que recupera cada habilidad de regeneración en su campo <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Las acciones anteriores también cuentan. Cuando completes las tareas, elige {button} para avanzar.",
 	"docs.tutorial.compound.optional_practice": "Puedes continuar sin comprar pergaminos ni combinar objetos. Vuelve cuando tengas tres accesorios iguales.",

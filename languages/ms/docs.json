@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Bawa satu Wooden Basher +7, The Crypt Key, satu Essence of Life dan 120,000 emas kepada Leo. Pembuatan akan menggunakan semuanya dan memberi anda satu Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "Berhampiran Leo, atau dengan Computer, gunakan CODE untuk membuat item menggunakan barang dan emas yang diperlukan dalam inventori anda:",
+  "docs.functions.buy.wooden_axe": "Gabriel menjual Wooden Axe pada harga 4,900 emas. Buka kedainya di Mainland, atau gunakan CODE apabila berada berdekatan:",
+  "docs.functions.giveaway.duration": "Pilih 5–600 minit untuk mana-mana item. Nilai emasnya tidak mengehadkan tempoh. Pemasa berjalan semasa watak anda dalam talian.",
 	"docs.functions.use_skill.regeneration_output": "Baca jumlah yang dipulihkan oleh setiap kebolehan regenerasi daripada medan <span class=\"dlabel\">output</span>-nya.",
 	"docs.tutorial.helloworld.earlier_actions": "Tindakan terdahulu juga dikira. Setelah tugasan selesai, pilih {button} untuk meneruskan.",
 	"docs.tutorial.compound.optional_practice": "Anda boleh meneruskan tanpa membeli skrol atau menggabungkan item. Kembali apabila anda mempunyai tiga aksesori yang sama.",

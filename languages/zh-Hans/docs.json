@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "带上1件Wooden Basher +7、1把The Crypt Key、1份Essence of Life和120,000金币去找Leo。制作会消耗这些材料和金币，并获得1件Ghastly Battle Axe +0。",
+  "docs.guide.crafting.bataxe_code": "在Leo附近，或持有Computer时，可以通过CODE使用背包中的所需物品和金币进行制作：",
+  "docs.functions.buy.wooden_axe": "Gabriel以4,900金币出售Wooden Axe。在Mainland打开他的商店，或在附近使用CODE：",
+  "docs.functions.giveaway.duration": "任何物品都可选择5至600分钟。物品的金币价值不会限制时长。计时器只在你的角色在线时运行。",
 	"docs.functions.use_skill.regeneration_output": "可从每个再生能力的 <span class=\"dlabel\">output</span> 字段读取其恢复量。",
 	"docs.tutorial.helloworld.earlier_actions": "之前做过的操作也算数。完成任务后，选择{button}继续。",
 	"docs.tutorial.compound.optional_practice": "不买卷轴、不合成也可以继续。等你凑齐三个相同的饰品后再回来。",

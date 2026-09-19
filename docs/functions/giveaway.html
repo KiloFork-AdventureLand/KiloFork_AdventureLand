@@ -1,9 +1,10 @@
 <p><span class='dlabel'>giveaway(slot, num, q, minutes)</span></p>
 <p>{{ phrase("docs.functions.giveaway.creates-a-timed-merchant-stand-giveaway-from-an") }}</p>
+<p>{{ phrase("docs.functions.giveaway.duration") }}</p>
 <p>{{ phrase_html("docs.functions.giveaway.returns-promise-resolving-with-the-giveaway-response-or") }}</p>
 <p>{{ phrase_html("docs.functions.giveaway.promise-failures-unless-a-function-specific-note-says") }}</p>
 <p>{{ phrase_html("docs.functions.giveaway.example") }}</p>
-<div class='code'>giveaway("trade1", 0, 12, 20);</div>
+<div class='code'>giveaway("trade1", 0, 12, 600).then(show_json).catch(show_json);</div>
 
 <p></p>
 <span class='redlabel'>{{ phrase("docs.reference.source_code") }}</span>

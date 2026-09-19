@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Tuo Leolle yksi Wooden Basher +7, The Crypt Key, yksi Essence of Life ja 120 000 kultaa. Valmistus kuluttaa ne, ja saat yhden Ghastly Battle Axe +0:n.",
+  "docs.guide.crafting.bataxe_code": "Leon lähellä tai Computerin avulla voit valmistaa esineen CODElla repussasi olevista tarvittavista esineistä ja kullasta:",
+  "docs.functions.buy.wooden_axe": "Gabriel myy Wooden Axea 4 900 kullalla. Avaa hänen kauppansa Mainlandissa tai käytä CODEa hänen lähellään:",
+  "docs.functions.giveaway.duration": "Valitse mille tahansa esineelle 5–600 minuuttia. Esineen kulta-arvo ei rajoita kestoa. Ajastin käy hahmosi ollessa verkossa.",
 	"docs.functions.use_skill.regeneration_output": "Kunkin palautumiskyvyn palauttaman määrän voit lukea sen <span class=\"dlabel\">output</span>-kentästä.",
 	"docs.tutorial.helloworld.earlier_actions": "Myös aiemmat teot lasketaan. Kun tehtävät ovat valmiit, valitse {button} ja jatka eteenpäin.",
 	"docs.tutorial.compound.optional_practice": "Voit jatkaa ostamatta kääröjä tai yhdistämättä esineitä. Palaa, kun sinulla on kolme samanlaista asustetta.",

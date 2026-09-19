@@ -978,7 +978,7 @@ var npcs={
 		"items":[
 			"helmet","shoes","gloves","pants","coat",
 			"blade","claw","staff","bow","wshield",
-			"wand","mace","wbasher","cave_reedscythe",
+			"wand","mace","wbasher","waxe","cave_reedscythe",
 		],
 		"skin":"daggers",
 		"says":"Blades, blades, blades",

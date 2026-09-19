@@ -36,7 +36,14 @@
 <div class="guide-note">{{ phrase("docs.guide.crafting.craft-and-dismantle-both-consume-inputs-locked-items") }}</div>
 
 <div class="divider"></div>
+<div class="title mt15">Ghastly Battle Axe</div>
+<p>{{ phrase("docs.guide.crafting.bataxe_recipe") }}</p>
+<p><span class="craft-bataxe"></span></p>
+
+<div class="divider"></div>
 <div class="title mt15">CODE</div>
+<p>{{ phrase_html("docs.guide.crafting.bataxe_code") }}</p>
+<div class="code" id="craft-bataxe-code">auto_craft("bataxe").then(show_json).catch(show_json);</div>
 <p>{{ phrase_html("docs.guide.crafting.auto-craft-finds-the-required-inventory-stacks-craft") }}</p>
 <div class="code">async function make_fireblade() {
 	var blade = locate_item("blade");
@@ -76,6 +83,7 @@ async function dismantle_fireblade() {
 	$(".craft-blade").html(item_container({ skin: G.items.blade.skin }, { name: "blade" }));
 	$(".craft-fire").html(item_container({ skin: G.items.essenceoffire.skin }, { name: "essenceoffire" }));
 	$(".craft-fireblade").html(item_container({ skin: G.items.fireblade.skin }, { name: "fireblade" }));
+	$(".craft-bataxe").html(item_container({ skin: G.items.bataxe.skin }, { name: "bataxe" }));
 </script>
 
 <style>

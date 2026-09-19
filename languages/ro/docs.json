@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Adu-i lui Leo un Wooden Basher +7, The Crypt Key, o Essence of Life și 120.000 de aur. Fabricarea le consumă și îți oferă un Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "Lângă Leo sau cu un Computer, folosește CODE pentru a fabrica din obiectele și aurul necesare aflate în inventar:",
+  "docs.functions.buy.wooden_axe": "Gabriel vinde Wooden Axe pentru 4.900 de aur. Deschide-i magazinul din Mainland sau folosește CODE când ești în apropiere:",
+  "docs.functions.giveaway.duration": "Alege între 5 și 600 de minute pentru orice obiect. Valoarea sa în aur nu limitează durata. Cronometrul avansează cât timp personajul tău este online.",
 	"docs.functions.use_skill.regeneration_output": "Citește cantitatea refăcută de fiecare abilitate de regenerare din câmpul său <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Contează și acțiunile făcute mai devreme. Când ai terminat sarcinile, alege {button} pentru a merge mai departe.",
 	"docs.tutorial.compound.optional_practice": "Poți continua fără să cumperi pergamente sau să combini obiecte. Revino când ai trei accesorii identice.",

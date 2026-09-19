@@ -614,6 +614,14 @@ var craft={
 		],
 		"cost":24000,
 	},
+	"bataxe":{
+		"items":[
+			[1,"cryptkey"],
+			[1,"wbasher",7],
+			[1,"essenceoflife"],
+		],
+		"cost":120000,
+	},
 	"maceofthedead":{
 		"items":[
 			[1,"mbones"],

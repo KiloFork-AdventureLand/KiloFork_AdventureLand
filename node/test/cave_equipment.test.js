@@ -124,8 +124,8 @@ test("cave crafts reject upgraded inputs, missing materials and short gold witho
 	}
 });
 
-test("Gabriel sells Reed Scythe and ordinary Blade through the normal shop handler", () => {
-	for (const name of ["cave_reedscythe", "blade"]) {
+test("Gabriel sells Wooden Axe, Reed Scythe and ordinary Blade through the normal shop handler", () => {
+	for (const name of ["waxe", "cave_reedscythe", "blade"]) {
 		const { context, player, messages, failures } = inventoryFixture();
 		Object.assign(player, G.maps.main.ref.basics);
 		player.gold = G.items[name].g;
@@ -139,6 +139,24 @@ test("Gabriel sells Reed Scythe and ordinary Blade through the normal shop handl
 		assert.equal(failures.at(-1)[0], "buy_cost");
 		assert.equal(player.items.filter(Boolean).length, 1);
 	}
+});
+
+test("Wooden Axe uses the standard T1 curve and preserves stronger axes", () => {
+	assert.equal(G.items.waxe.tier, 1);
+	assert.equal(G.items.waxe.attack, 30);
+	assert.equal(G.items.waxe.range, 5);
+	assert.deepEqual(plain(G.items.waxe.upgrade), { range: 1, attack: 7 });
+	assert.deepEqual(plain(G.items.waxe.grades), [7, 9, 10, 12]);
+	assert.equal(G.items.waxe.g, 4900);
+	assert(G.skills.cleave.wtype.includes(G.items.waxe.wtype));
+	assert(G.classes.warrior.doublehand.axe);
+	for (let level = 0; level <= 12; level++) {
+		const axe = G.calculate_item_properties({ name: "waxe", level });
+		for (const name of ["bataxe", "cave_tunnelaxe"]) {
+			assert(axe.attack < G.calculate_item_properties({ name, level }).attack);
+		}
+	}
+	for (const table of ["glitch", "lglitch"]) assert(!G.drops[table].some((row) => row[1] === "waxe"));
 });
 
 test("the ordinary chest roller awards the new common weapons from their shared drop tables", () => {

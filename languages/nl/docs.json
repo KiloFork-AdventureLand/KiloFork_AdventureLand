@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Breng een Wooden Basher +7, The Crypt Key, één Essence of Life en 120.000 goud naar Leo. Bij het maken worden ze verbruikt en krijg je een Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "In de buurt van Leo, of met een Computer, kun je via CODE het voorwerp maken met de benodigde voorwerpen en het goud in je inventaris:",
+  "docs.functions.buy.wooden_axe": "Gabriel verkoopt Wooden Axe voor 4.900 goud. Open zijn winkel op Mainland of gebruik CODE als je in de buurt bent:",
+  "docs.functions.giveaway.duration": "Kies voor elk voorwerp 5–600 minuten. De goudwaarde beperkt de duur niet. De timer loopt zolang je personage online is.",
 	"docs.functions.use_skill.regeneration_output": "Lees in het veld <span class=\"dlabel\">output</span> hoeveel elke regeneratievaardigheid herstelt.",
 	"docs.tutorial.helloworld.earlier_actions": "Eerdere acties tellen ook mee. Kies {button} zodra de taken klaar zijn om verder te gaan.",
 	"docs.tutorial.compound.optional_practice": "Je kunt verder zonder rollen te kopen of voorwerpen te combineren. Kom terug zodra je drie dezelfde accessoires hebt.",

@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Занеси на Leo един Wooden Basher +7, The Crypt Key, една Essence of Life и 120 000 злато. Изработката ги изразходва и получаваш Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "Близо до Leo или с Computer използвай CODE, за да изработиш предмета с необходимите предмети и злато в инвентара си:",
+  "docs.functions.buy.wooden_axe": "Gabriel продава Wooden Axe за 4900 злато. Отвори магазина му на Mainland или използвай CODE, когато си наблизо:",
+  "docs.functions.giveaway.duration": "Избери от 5 до 600 минути за всеки предмет. Стойността му в злато не ограничава продължителността. Таймерът върви, докато героят ти е онлайн.",
 	"docs.functions.use_skill.regeneration_output": "Количеството HP или MP, възстановявано от всяка способност за регенерация, може да се прочете от нейното поле <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Предишните действия също се броят. Когато изпълниш задачите, избери {button}, за да продължиш.",
 	"docs.tutorial.compound.optional_practice": "Можеш да продължиш без покупка на свитъци или комбиниране на предмети. Върни се, когато имаш три еднакви аксесоара.",

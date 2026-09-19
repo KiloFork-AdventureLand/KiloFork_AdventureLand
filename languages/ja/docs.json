@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Wooden Basher +7を1個、The Crypt Keyを1個、Essence of Lifeを1個、120,000ゴールドをLeoに持っていこう。作成するとこれらが消費され、Ghastly Battle Axe +0を1個入手できる。",
+  "docs.guide.crafting.bataxe_code": "Leoの近くにいるか、Computerを持っていれば、インベントリ内の必要なアイテムとゴールドを使ってCODEで作成できる：",
+  "docs.functions.buy.wooden_axe": "GabrielはWooden Axeを4,900ゴールドで販売している。Mainlandで彼の店を開くか、近くでCODEを使おう：",
+  "docs.functions.giveaway.duration": "どのアイテムでも5～600分を選べる。アイテムのゴールド価値による時間制限はない。タイマーは自分のキャラクターがオンラインの間だけ進む。",
 	"docs.functions.use_skill.regeneration_output": "各再生アビリティの回復量は、<span class=\"dlabel\">output</span> フィールドから読み取れます。",
 	"docs.tutorial.helloworld.earlier_actions": "先に行った行動も数えられます。課題を終えたら、{button}を選んで先へ進みましょう。",
 	"docs.tutorial.compound.optional_practice": "スクロールの購入や合成をせずに続けても大丈夫です。同じアクセサリーが3つそろったら戻ってきましょう。",

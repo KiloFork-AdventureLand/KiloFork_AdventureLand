@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Leo'ya bir Wooden Basher +7, The Crypt Key, bir Essence of Life ve 120.000 altın götür. Üretim bunları tüketir ve sana bir Ghastly Battle Axe +0 verir.",
+  "docs.guide.crafting.bataxe_code": "Leo'nun yakınındayken veya bir Computer ile, envanterindeki gerekli eşyaları ve altını kullanarak CODE üzerinden üretim yapabilirsin:",
+  "docs.functions.buy.wooden_axe": "Gabriel, Wooden Axe'ı 4.900 altına satar. Mainland'deki dükkânını aç veya yakınındayken CODE kullan:",
+  "docs.functions.giveaway.duration": "Her eşya için 5–600 dakika seçebilirsin. Eşyanın altın değeri süreyi sınırlamaz. Sayaç, karakterin çevrim içiyken işler.",
 	"docs.functions.use_skill.regeneration_output": "Her yenilenme yeteneğinin ne kadar can veya mana yenilediğini <span class=\"dlabel\">output</span> alanından okuyabilirsin.",
 	"docs.tutorial.helloworld.earlier_actions": "Önceden yaptıkların da sayılır. Görevler tamamlandığında ilerlemek için {button} düğmesini seç.",
 	"docs.tutorial.compound.optional_practice": "Parşömen almadan veya birleştirme yapmadan devam edebilirsin. Aynı türden üç aksesuarın olduğunda geri dön.",

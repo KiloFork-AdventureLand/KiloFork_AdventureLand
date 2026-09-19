@@ -7555,10 +7555,7 @@ function init_socket_io(socket_server) {
 					return fail_response("not_enough");
 				}
 				if (data.giveaway) {
-					minutes = max(
-						5,
-						min(600, min(parseInt(data.minutes) || 5, max(60, round((calculate_item_value(item) * data.q) / 40000)))),
-					);
+					minutes = max(5, min(600, parseInt(data.minutes) || 5));
 				}
 				if (!price || data.giveaway) {
 					price = 1;
@@ -15808,7 +15805,7 @@ setInterval(function () {
 setInterval(function () {
 	try {
 		for (var id in players) {
-			var player = players[id];
+			const player = players[id];
 			players[id].pdps *= 0.8;
 			player.p.minutes++;
 			trade_slots.forEach(function (slot) {

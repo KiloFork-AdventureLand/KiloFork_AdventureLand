@@ -975,6 +975,7 @@ var positions={
 	"spearofthedead":["",13,7],
 	"mace":["",14,11],
 	"wbasher":["",13,11],
+	"waxe":["rawitems",19,4],
 	"fcape":["",9,6],
 	"test_orb":["",14,49],
 	//"fieldgen0x":["custom",0,2],

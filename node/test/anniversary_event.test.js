@@ -1363,6 +1363,43 @@ test("existing non-anniversary recipes still use the ordinary crafting path", ()
 		assert.equal(h.p.items[0].name, recipe.output?.name || name);
 	}
 });
+test("Bataxe consumes one key, one +7 Wooden Basher and one essence exactly once", () => {
+	const h = craftHarness("bataxe");
+	assert.equal(design.craft.bataxe.cost, 120000);
+	h.p.items[0].q = 3;
+	h.p.items[2].q = 2;
+	h.p.items[1].p = "shiny";
+	h.craft();
+	assert.deepEqual(h.failures, []);
+	assert.equal(h.p.gold, 0);
+	assert.equal(h.p.items.find((item) => item && item.name === "cryptkey").q, 2);
+	assert.equal(h.p.items.find((item) => item && item.name === "essenceoflife").q, 1);
+	const axe = h.p.items.find((item) => item && item.name === "bataxe");
+	assert.equal(axe.level, 0);
+	assert.equal(axe.p, "shiny");
+	assert(!h.p.items.some((item) => item && item.name === "wbasher"));
+	const after = plain({ gold: h.p.gold, items: h.p.items });
+	h.craft();
+	assert.equal(h.failures.length, 1);
+	assert.deepEqual(plain({ gold: h.p.gold, items: h.p.items }), after);
+});
+test("Bataxe refuses other levels, missing ingredients, locked items and insufficient gold", () => {
+	for (const alter of [
+		(h) => (h.p.items[1].level = 6),
+		(h) => (h.p.items[1].level = 8),
+		(h) => (h.p.items[0] = null),
+		(h) => (h.p.items[2] = null),
+		(h) => (h.p.items[1].l = "l"),
+		(h) => h.p.gold--,
+	]) {
+		const h = craftHarness("bataxe");
+		alter(h);
+		const before = plain({ gold: h.p.gold, items: h.p.items });
+		h.craft();
+		assert.equal(h.failures.length, 1);
+		assert.deepEqual(plain({ gold: h.p.gold, items: h.p.items }), before);
+	}
+});
 test("malformed or duplicate craft slots and insufficient quantities cannot spend inventory", () => {
 	for (const data of [
 		undefined,

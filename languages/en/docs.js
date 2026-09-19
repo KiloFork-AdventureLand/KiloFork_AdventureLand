@@ -1,5 +1,13 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Crafting guide: Leo consumes exactly one Wooden Basher +7, one The Crypt Key, one Essence of Life and 120,000 gold for a Ghastly Battle Axe +0. Preserve item and NPC names and levels.
+	"docs.guide.crafting.bataxe_recipe": "Bring a Wooden Basher +7, The Crypt Key, one Essence of Life and 120,000 gold to Leo. Crafting consumes them and gives you a Ghastly Battle Axe +0.",
+	// Crafting guide CODE example: Leo proximity or a carried Computer permits ordinary crafting. Preserve Leo, Computer and CODE.
+	"docs.guide.crafting.bataxe_code": "Near Leo, or with a Computer, use CODE to craft from the required items and gold in your inventory:",
+	// Buy reference: manual shop and CODE directions for the standard Wooden Axe at Gabriel on Mainland. Preserve proper names, CODE and the 4,900 gold price.
+	"docs.functions.buy.wooden_axe": "Gabriel sells Wooden Axe for 4,900 gold. Open his shop on Mainland, or use CODE while nearby:",
+	// Giveaway reference and market guide: all items accept 5 to 600 minutes regardless of value; the host character must be online for the timer to advance.
+	"docs.functions.giveaway.duration": "Choose 5–600 minutes for any item. Its gold value does not limit the duration. The timer runs while your character is online.",
 	// use_skill reference and Using Skills guide: numeric HP/MP regeneration output. Preserve the output CODE field and its span markup.
 	"docs.functions.use_skill.regeneration_output": "Read each regeneration ability's recovery amount from its <span class=\"dlabel\">output</span> field.",
 	// Nearby guide hint, based on the current character’s level, not account level. button is the localized short CALL label. Leveled means the monster has gained levels. Only the button is hidden at level 60+, not access to the guide. Keep Cavalry.

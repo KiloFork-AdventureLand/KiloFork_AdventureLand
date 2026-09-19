@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Dalhin kay Leo ang isang Wooden Basher +7, The Crypt Key, isang Essence of Life, at 120,000 ginto. Mauubos ang mga ito sa paggawa at makakakuha ka ng isang Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "Malapit kay Leo, o kung may Computer, gamitin ang CODE para gumawa gamit ang mga kailangang item at ginto sa iyong imbentaryo:",
+  "docs.functions.buy.wooden_axe": "Ibinebenta ni Gabriel ang Wooden Axe sa halagang 4,900 ginto. Buksan ang tindahan niya sa Mainland, o gamitin ang CODE kapag malapit ka:",
+  "docs.functions.giveaway.duration": "Pumili ng 5–600 minuto para sa anumang item. Hindi nililimitahan ng halaga nito sa ginto ang tagal. Umaandar ang timer habang online ang karakter mo.",
 	"docs.functions.use_skill.regeneration_output": "Makikita sa field na <span class=\"dlabel\">output</span> ng bawat kakayahan sa regeneration kung gaano karami ang naibabalik nito.",
 	"docs.tutorial.helloworld.earlier_actions": "Kasama rin sa bilang ang mga nauna mong ginawa. Kapag tapos na ang mga gawain, piliin ang {button} para magpatuloy.",
 	"docs.tutorial.compound.optional_practice": "Puwede kang magpatuloy nang hindi bumibili ng scroll o nagsasama ng mga item. Bumalik kapag may tatlong magkakaparehong accessory ka na.",

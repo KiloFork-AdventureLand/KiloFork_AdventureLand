@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "นำ Wooden Basher +7 หนึ่งชิ้น, The Crypt Key หนึ่งดอก, Essence of Life หนึ่งชิ้น และทอง 120,000 ไปหา Leo การคราฟต์จะใช้ของเหล่านี้กับทอง และมอบ Ghastly Battle Axe +0 ให้หนึ่งชิ้น",
+  "docs.guide.crafting.bataxe_code": "เมื่ออยู่ใกล้ Leo หรือมี Computer ให้ใช้ CODE เพื่อคราฟต์ด้วยไอเทมและทองที่ต้องใช้ในช่องเก็บของ:",
+  "docs.functions.buy.wooden_axe": "Gabriel ขาย Wooden Axe ในราคา 4,900 ทอง เปิดร้านของเขาที่ Mainland หรือใช้ CODE เมื่ออยู่ใกล้:",
+  "docs.functions.giveaway.duration": "เลือกเวลาได้ 5–600 นาทีสำหรับทุกไอเทม มูลค่าทองของไอเทมไม่จำกัดระยะเวลา ตัวจับเวลาจะเดินขณะที่ตัวละครของคุณออนไลน์อยู่",
 	"docs.functions.use_skill.regeneration_output": "ดูปริมาณ HP หรือ MP ที่ฟื้นฟูได้จากฟิลด์ <span class=\"dlabel\">output</span> ของความสามารถฟื้นฟูแต่ละแบบ",
 	"docs.tutorial.helloworld.earlier_actions": "สิ่งที่ทำไปก่อนหน้านี้ก็นับด้วย เมื่อทำงานครบแล้ว ให้เลือก {button} เพื่อไปต่อ",
 	"docs.tutorial.compound.optional_practice": "คุณไปต่อได้โดยไม่ต้องซื้อสกรอลล์หรือผสมไอเทม ค่อยกลับมาเมื่อมีเครื่องประดับแบบเดียวกันครบสามชิ้น",

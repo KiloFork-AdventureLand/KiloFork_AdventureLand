@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Mang một Wooden Basher +7, một The Crypt Key, một Essence of Life và 120.000 vàng đến Leo. Chế tạo sẽ tiêu hao những thứ này và trao cho bạn một Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "Khi ở gần Leo hoặc có Computer, hãy dùng CODE để chế tạo bằng các vật phẩm và vàng cần thiết trong túi đồ:",
+  "docs.functions.buy.wooden_axe": "Gabriel bán Wooden Axe với giá 4.900 vàng. Mở cửa hàng của anh ấy tại Mainland, hoặc dùng CODE khi ở gần:",
+  "docs.functions.giveaway.duration": "Chọn từ 5 đến 600 phút cho bất kỳ vật phẩm nào. Giá trị vàng của vật phẩm không giới hạn thời lượng. Bộ đếm thời gian chạy khi nhân vật của bạn trực tuyến.",
 	"docs.functions.use_skill.regeneration_output": "Đọc lượng hồi phục của từng kỹ năng tái tạo từ trường <span class=\"dlabel\">output</span> của kỹ năng đó.",
 	"docs.tutorial.helloworld.earlier_actions": "Những việc đã làm trước đó cũng được tính. Khi hoàn thành các nhiệm vụ, chọn {button} để đi tiếp.",
 	"docs.tutorial.compound.optional_practice": "Bạn có thể tiếp tục mà không cần mua cuộn giấy hay ghép đồ. Hãy quay lại khi có ba phụ kiện giống nhau.",

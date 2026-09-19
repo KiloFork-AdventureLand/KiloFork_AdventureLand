@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Přines postavě Leo jeden Wooden Basher +7, The Crypt Key, jednu Essence of Life a 120 000 zlata. Výroba je spotřebuje a získáš Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "U postavy Leo nebo s Computer můžeš pomocí CODE vyrábět z potřebných předmětů a zlata v inventáři:",
+  "docs.functions.buy.wooden_axe": "Gabriel prodává Wooden Axe za 4 900 zlata. Otevři jeho obchod na Mainland nebo použij CODE, když jsi poblíž:",
+  "docs.functions.giveaway.duration": "Pro každý předmět si vyber 5–600 minut. Jeho hodnota ve zlatě dobu trvání neomezuje. Časovač běží, dokud je tvoje postava online.",
 	"docs.functions.use_skill.regeneration_output": "Množství HP nebo MP obnovené každou regenerační schopností zjistíš z jejího pole <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Počítají se i dřívější akce. Po splnění úkolů zvol {button} a pokračuj dál.",
 	"docs.tutorial.compound.optional_practice": "Můžeš pokračovat bez nákupu svitků a slučování předmětů. Vrať se, až budeš mít tři stejné doplňky.",

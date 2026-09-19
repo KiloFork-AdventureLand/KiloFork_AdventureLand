@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Ta med en Wooden Basher +7, The Crypt Key, én Essence of Life og 120 000 gull til Leo. Fremstillingen bruker dem opp og gir deg en Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "I nærheten av Leo, eller med en Computer, kan du bruke CODE til å lage med de nødvendige gjenstandene og gullet i inventaret ditt:",
+  "docs.functions.buy.wooden_axe": "Gabriel selger Wooden Axe for 4 900 gull. Åpne butikken hans på Mainland, eller bruk CODE når du er i nærheten:",
+  "docs.functions.giveaway.duration": "Velg 5–600 minutter for enhver gjenstand. Gullverdien begrenser ikke varigheten. Tidsuret går mens figuren din er pålogget.",
 	"docs.functions.use_skill.regeneration_output": "Les hvor mye hver regenereringsevne gjenoppretter, i dens <span class=\"dlabel\">output</span>-felt.",
 	"docs.tutorial.helloworld.earlier_actions": "Tidligere handlinger teller også. Velg {button} når oppgavene er ferdige, for å gå videre.",
 	"docs.tutorial.compound.optional_practice": "Du kan fortsette uten å kjøpe skriftruller eller kombinere gjenstander. Kom tilbake når du har tre like tilbehørsgjenstander.",

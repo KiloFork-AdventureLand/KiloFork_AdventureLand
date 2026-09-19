@@ -3863,6 +3863,18 @@ var weapons={
 		"grades":[0,7],
 		"cx":{"accent":"#5085B0"},
 	},
+	"waxe":{
+		"type":"weapon",
+		"wtype":"axe",
+		"tier":1,
+		"skin":"waxe",
+		"damage_type":"physical",
+		"upgrade":{},
+		"name":"Wooden Axe",
+		"g":4900,
+		"exclusive":true,
+		"cx":{"accent":"#A1774F"},
+	},
 	"bataxe":{
 		"type":"weapon",
 		"wtype":"axe",

@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "أحضر إلى Leo قطعة Wooden Basher +7 وThe Crypt Key وقطعة واحدة من Essence of Life و120,000 ذهب. يستهلك التصنيع هذه المواد والذهب ويمنحك Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "بالقرب من Leo، أو بوجود Computer، استخدم CODE للتصنيع بالمواد والذهب المطلوبين في حقيبتك:",
+  "docs.functions.buy.wooden_axe": "يبيع Gabriel سلاح Wooden Axe مقابل 4,900 ذهب. افتح متجره في Mainland أو استخدم CODE وأنت بالقرب منه:",
+  "docs.functions.giveaway.duration": "اختر مدة من 5 إلى 600 دقيقة لأي غرض. لا تحد قيمته الذهبية من المدة. يعمل المؤقت ما دامت شخصيتك متصلة.",
 	"docs.functions.use_skill.regeneration_output": "يمكنك معرفة مقدار ما تستعيده كل قدرة تجدد من حقل <span class=\"dlabel\">output</span> الخاص بها.",
 	"docs.tutorial.helloworld.earlier_actions": "تُحتسب أفعالك السابقة أيضًا. عندما تنهي المهام، اختر {button} للمتابعة.",
 	"docs.tutorial.compound.optional_practice": "يمكنك المتابعة دون شراء لفائف أو دمج أغراض. عُد عندما يكون لديك ثلاثة إكسسوارات متطابقة.",

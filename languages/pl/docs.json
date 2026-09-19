@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Przynieś do Leo jeden Wooden Basher +7, The Crypt Key, jedną Essence of Life i 120 000 złota. Wytworzenie zużyje te składniki i złoto, a otrzymasz Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "W pobliżu Leo lub z Computer użyj CODE, aby wytworzyć przedmiot z wymaganych składników i złota w ekwipunku:",
+  "docs.functions.buy.wooden_axe": "Gabriel sprzedaje Wooden Axe za 4900 złota. Otwórz jego sklep na Mainland lub użyj CODE, będąc w pobliżu:",
+  "docs.functions.giveaway.duration": "Dla każdego przedmiotu możesz wybrać od 5 do 600 minut. Jego wartość w złocie nie ogranicza czasu trwania. Zegar odlicza czas, gdy twoja postać jest online.",
 	"docs.functions.use_skill.regeneration_output": "Ilość HP lub MP przywracaną przez każdą zdolność regeneracji odczytasz z jej pola <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Wcześniejsze działania też się liczą. Po wykonaniu zadań wybierz {button}, aby przejść dalej.",
 	"docs.tutorial.compound.optional_practice": "Możesz kontynuować bez kupowania zwojów i łączenia przedmiotów. Wróć, gdy będziesz mieć trzy takie same akcesoria.",

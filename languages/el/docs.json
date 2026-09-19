@@ -1,4 +1,8 @@
 {
+  "docs.guide.crafting.bataxe_recipe": "Φέρε στον Leo ένα Wooden Basher +7, το The Crypt Key, ένα Essence of Life και 120.000 χρυσό. Η κατασκευή τα καταναλώνει και σου δίνει ένα Ghastly Battle Axe +0.",
+  "docs.guide.crafting.bataxe_code": "Κοντά στον Leo, ή με ένα Computer, χρησιμοποίησε CODE για να κατασκευάσεις με τα απαιτούμενα αντικείμενα και τον χρυσό στο σακίδιό σου:",
+  "docs.functions.buy.wooden_axe": "Ο Gabriel πουλάει Wooden Axe για 4.900 χρυσό. Άνοιξε το κατάστημά του στο Mainland ή χρησιμοποίησε CODE όταν είσαι κοντά:",
+  "docs.functions.giveaway.duration": "Διάλεξε 5–600 λεπτά για οποιοδήποτε αντικείμενο. Η αξία του σε χρυσό δεν περιορίζει τη διάρκεια. Ο χρόνος μετράει όσο ο χαρακτήρας σου είναι συνδεδεμένος.",
 	"docs.functions.use_skill.regeneration_output": "Διάβασε την ποσότητα που αναπληρώνει κάθε ικανότητα αναγέννησης από το πεδίο <span class=\"dlabel\">output</span> της.",
 	"docs.tutorial.helloworld.earlier_actions": "Μετρούν και οι προηγούμενες ενέργειες. Όταν ολοκληρώσεις τις εργασίες, επίλεξε {button} για να προχωρήσεις.",
 	"docs.tutorial.compound.optional_practice": "Μπορείς να συνεχίσεις χωρίς να αγοράσεις παπύρους ή να συνδυάσεις αντικείμενα. Επίστρεψε όταν έχεις τρία ίδια αξεσουάρ.",
