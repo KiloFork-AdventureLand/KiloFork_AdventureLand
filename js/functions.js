@@ -471,6 +471,15 @@ function viewport_height() {
 	return $(window).height() / (1 + (window.browser_zoom || 0) / 100);
 }
 
+function map_game_pointer(point, x, y) {
+	// The game canvas is fixed at (0, 0), in the same logical pixels as viewport_width/height.
+	// Older engines unzoom getBoundingClientRect(), so PIXI's default mapping misses CSS zoom.
+	var zoom = 1 + (window.browser_zoom || 0) / 100;
+	point.x = x / zoom;
+	point.y = y / zoom;
+	return point;
+}
+
 var modals = [];
 function show_modal(mhtml, args) {
 	if (window.is_bot) return;

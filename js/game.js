@@ -1268,6 +1268,7 @@ function the_game(demo) {
 
 	renderer.plugins.interaction.cursorStyles.help = "help";
 	renderer.plugins.interaction.cursorStyles.crosshair = "crosshair";
+	if (!no_graphics) renderer.plugins.interaction.mapPositionToPoint = map_game_pointer;
 
 	// renderer.plugins.interaction.cursorStyles.pointer = function() {
 	// console.log('Should be a pointer');

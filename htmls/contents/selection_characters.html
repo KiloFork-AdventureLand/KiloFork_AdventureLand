@@ -1,7 +1,7 @@
 {% for c in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17] %}
 	{% if c==0 %}<div class='page1'>{%endif%}{% if c==6 %}<div class='page2 hidden'>{%endif%}{% if c==12 %}<div class='page3 hidden'>{%endif%}
 		{% if characters[c] %}
-			<div class="gamebutton mb5 selection-character" data-character="{{characters[c]._id|e}}" data-name="{{characters[c].info.name|e}}" data-home="{{characters[c].info.p.home|e}}" onmouseenter="show_character_home(this)" onmouseleave="hide_character_home()" onclick="if(bc(this)) return; enter_selected_character('{{characters[c].info.name}}','{{characters[c]._id}}')" style='text-align: left; width: 160px'>
+			<div class="gamebutton mb5 vtop selection-character" data-character="{{characters[c]._id|e}}" data-name="{{characters[c].info.name|e}}" data-home="{{characters[c].info.p.home|e}}" onmouseenter="show_character_home(this)" onmouseleave="hide_character_home()" onclick="if(bc(this)) return; enter_selected_character('{{characters[c].info.name}}','{{characters[c]._id}}')" style='text-align: left; width: 160px'>
 				<span class="selection-home-server"></span>
 				<span class='cskin' data-skin="{{characters[c].info.skin}}" data-cx='{{characters[c]|get_cx|safe}}' data-rip="{% if characters[c].info.rip%}1{%endif%}" style="float:left; margin-right: 5px; margin-top: -5px; margin-left: -4px; margin-bottom: -7px;"></span>
 				{{characters[c].info.name|sshorten}}
@@ -20,11 +20,13 @@
 				</span>
 			</div>
 		{% else %}
-			<div class="gamebutton mb5" onclick="if(bc(this)) return; $('.nchb').click()" style='text-align: left; width: 160px'>
+			<div class="gamebutton mb5 vtop" onclick="if(bc(this)) return; $('.nchb').click()" style='text-align: left; width: 160px'>
 				<span class='cskin' data-skin="thehelmet" style="float:left; margin-right: 5px; margin-top: -5px; margin-left: -4px; margin-bottom: -5px"></span>
-				{%if c < user.info.slots %}<span style='color'>{{ phrase("pages.contents.selection_characters.free-slot") }}</span>{%else%}<span style='color:gray'>{{ phrase("pages.contents.selection_characters.available-slot") }}</span>{% endif %}
-				<br />
-				<span style='color:gray'>{{ phrase("pages.contents.selection_characters.unused") }}</span>
+				{% set slot_name = phrase("pages.contents.selection_characters.available-slot") %}
+				{% if c < user.info.slots %}{% set slot_name = phrase("pages.contents.selection_characters.free-slot") %}{% endif %}
+				<span class="selection-slot-label" title="{{ slot_name|e }}" style="display:block; overflow:hidden; white-space:nowrap; {% if c >= user.info.slots %}color:gray;{% endif %}">{{ slot_name }}</span>
+				{% set unused = phrase("pages.contents.selection_characters.unused") %}
+				<span class="gray selection-slot-label" title="{{ unused|e }}" style="display:block; overflow:hidden; white-space:nowrap">{{ unused }}</span>
 			</div>
 		{% endif %}
 	{% if c==5 or c==11 or c==17 %}</div>{%endif%}
@@ -44,9 +46,9 @@
 		/* overflow:true,scale:2 - otherwise female ranger's tattoo can't possible align with natural pixel offsetting [24/04/20] */
 	});
 	(function () {
-		var labels = $(".selection-class").toArray(),
+		var labels = $(".selection-class, .selection-slot-label").toArray(),
 			segmenter = typeof Intl != "undefined" && Intl.Segmenter ? new Intl.Segmenter(undefined, { granularity: "grapheme" }) : null;
-		function truncate_classes() {
+		function truncate_labels() {
 			labels.forEach(function (label) {
 				if (!label.isConnected || !label.clientWidth) return;
 				label.textContent = label.title;
@@ -62,15 +64,15 @@
 				}
 			});
 		}
-		truncate_classes();
-		if (document.fonts) document.fonts.ready.then(truncate_classes);
+		truncate_labels();
+		if (document.fonts) document.fonts.ready.then(truncate_labels);
 		if (window.ResizeObserver) {
 			var observer = new ResizeObserver(function () {
 				labels.forEach(function (label) {
 					if (!label.isConnected) observer.unobserve(label);
 				});
-				truncate_classes();
-				if (document.fonts) document.fonts.ready.then(truncate_classes);
+				truncate_labels();
+				if (document.fonts) document.fonts.ready.then(truncate_labels);
 			});
 			labels.forEach(function (label) {
 				observer.observe(label);
