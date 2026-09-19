@@ -150,7 +150,7 @@ test("giveaway duration uses the same 5–600 minute bounds for cheap stacks and
 				fail_response: (reason) => failures.push(reason),
 			});
 			load(c, "node/server_functions.js", ["get_trade_slots"]);
-			load(c, "node/server.js", ["create_new_item", "consume"]);
+			load(c, "node/server.js", ["create_new_item", "create_new_sitem", "consume"]);
 			socketHandler(c, "equip")({ num: 0, slot: "trade1", q: item.q || 1, giveaway: true, minutes });
 			assert.deepEqual(failures, []);
 			assert.equal(p.slots.trade1.giveaway, expected);

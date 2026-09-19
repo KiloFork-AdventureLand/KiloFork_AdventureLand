@@ -1937,6 +1937,9 @@ function create_new_sitem(item, quantity) {
 	if (item.p) {
 		s_item.p = item.p;
 	}
+	if (Array.isArray(item.ps)) {
+		s_item.ps = item.ps.slice();
+	}
 	return s_item;
 }
 
@@ -7564,13 +7567,9 @@ function init_socket_io(socket_server) {
 					return fail_response("slot_occuppied");
 				}
 				if (def.s) {
-					player.slots[slot] = create_new_item(player.items[data.num].name, 1);
+					player.slots[slot] = create_new_sitem(item, data.q);
 					player.slots[slot].price = price;
-					player.slots[slot].q = data.q;
 					player.slots[slot].rid = randomStr(4);
-					if (player.items[data.num].data) {
-						player.slots[slot].data = player.items[data.num].data;
-					}
 					if (data.giveaway) {
 						player.slots[slot].giveaway = minutes;
 						player.slots[slot].list = [];
@@ -8723,7 +8722,8 @@ function init_socket_io(socket_server) {
 			if (actual.b || actual.v) {
 				return fail_response("item_blocked");
 			}
-			if (!can_add_item(buyer, create_new_item(item.name, data.q))) {
+			var trade_item = G.items[actual.name].s ? create_new_sitem(actual, data.q) : actual;
+			if (!can_add_item(buyer, trade_item)) {
 				return fail_response("trade_bspace");
 			}
 			var price = item.price * data.q;
@@ -8749,11 +8749,7 @@ function init_socket_io(socket_server) {
 				player.citems[num] = cache_item(player.items[num]);
 			}
 
-			if (G.items[item.name].s) {
-				bnum = add_item(buyer, create_new_item(item.name, data.q), { announce: false });
-			} else {
-				bnum = add_item(buyer, actual, { announce: false });
-			}
+			bnum = add_item(buyer, trade_item, { announce: false });
 
 			if (player.type == "merchant") {
 				merchant_xp_logic(player, buyer, price, price - round(price * (1 - player.tax)));
@@ -8833,7 +8829,8 @@ function init_socket_io(socket_server) {
 			if ((item.q || 1) < data.q) {
 				return fail_response("insufficient_q");
 			}
-			if (!can_add_item(player, create_new_item(item.name, data.q))) {
+			var trade_item = item.q ? create_new_sitem(item, data.q) : item;
+			if (!can_add_item(player, trade_item)) {
 				return fail_response("no_space");
 			}
 			var price = item.price * data.q;
@@ -8856,11 +8853,7 @@ function init_socket_io(socket_server) {
 				seller.cslots[data.slot] = cache_item(seller.slots[data.slot], true);
 			}
 
-			if (item.q) {
-				num = add_item(player, create_new_sitem(item, data.q), { announce: false });
-			} else {
-				num = add_item(player, item, { announce: false });
-			}
+			num = add_item(player, trade_item, { announce: false });
 
 			if (seller.owner != player.owner) {
 				item.src = "tb";
