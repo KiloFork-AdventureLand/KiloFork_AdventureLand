@@ -4,7 +4,7 @@ var MCP_API_TOKEN_PREFIX = "mcp_";
 var MCP_API_TOKEN_PATTERN = /^mcp_[A-Za-z0-9_-]{43}$/;
 var MCP_PROTOCOL_CURRENT = "2026-07-28";
 var MCP_PROTOCOL_LEGACY = "2025-11-25";
-var MCP_SERVER_INFO = { name: "adventure-land", version: "1.12.2", description: "Adventure Land game knowledge, progression context, and browser or Mainframe CODE control" };
+var MCP_SERVER_INFO = { name: "adventure-land", version: "1.12.3", description: "Adventure Land game knowledge, progression context, and browser or Mainframe CODE control" };
 var MCP_SOURCE_REPOSITORY = "https://github.com/kaansoral/adventureland_mongodb";
 var MCP_START_RESOURCE = "adventureland://guide/start-here";
 var MCP_CATALOG_RESOURCES = ["adventureland://catalog/docs", "adventureland://catalog/code-methods", "adventureland://catalog/game-data"];
@@ -128,12 +128,24 @@ function mcp_api_decrypt_token(secret, user_id) {
 }
 
 function mcp_api_rate_profile(method, args) {
-	if (method === "plan_character_progression" || (method === "resources/read" && args && /^adventureland:\/\/progression\/characters\/[^/]+\/?$/.test(String(args.uri || ""))))
+	var resource = null,
+		parts = [];
+	if (method === "resources/read" && args && typeof args.uri === "string" && args.uri.length <= 500) {
+		try {
+			resource = new URL(args.uri);
+			parts = mcp_resource_path_parts(resource);
+		} catch (e) {}
+	}
+	if (
+		method === "plan_character_progression" ||
+		(method === "prompts/get" && args && args.name === "improve_character") ||
+		(resource && resource.hostname === "progression" && parts[0] === "characters" && parts.length === 2)
+	)
 		return { name: "progression", rate_per_minute: 6, burst: 2 };
 	if (method === "get_bank" || (method === "resources/read" && args && args.uri === "adventureland://account/bank")) return { name: "bulk", rate_per_minute: 12, burst: 4 };
 	if (method === "get_game_data" && !(args && args.name)) return { name: "bulk", rate_per_minute: 12, burst: 4 };
 	if (method === "resources/read" && args && args.uri === "adventureland://source/runner-functions") return { name: "bulk", rate_per_minute: 12, burst: 4 };
-	if (method === "resources/read" && args && /^adventureland:\/\/game-data\/[^/]+\/?$/.test(String(args.uri || ""))) return { name: "bulk", rate_per_minute: 12, burst: 4 };
+	if (resource && resource.hostname === "game-data" && parts.length === 1) return { name: "bulk", rate_per_minute: 12, burst: 4 };
 	if (
 		[
 			"save_code",
@@ -574,7 +586,13 @@ function mcp_api_doc_entries() {
 	traverse((docs && docs.guide) || [], [], []);
 	((docs && docs.tutorial) || []).forEach(function (lesson) {
 		if (lesson.key.indexOf("js-") !== 0) return;
-		result.push({ name: lesson.key, title: lesson.title, keywords: "JavaScript crash course CODE", section: "Tutorial", docs_url: "https://adventure.land/docs/tutorial/" + encodeURIComponent(lesson.key) });
+		result.push({
+			name: lesson.key,
+			title: lesson.title,
+			keywords: "JavaScript crash course CODE",
+			section: "Tutorial",
+			docs_url: "https://adventure.land/docs/tutorial/" + encodeURIComponent(lesson.key),
+		});
 	});
 	for (var i = 0; i < ((docs && docs.references) || []).length; i++) {
 		var entry = docs.references[i];
@@ -955,8 +973,7 @@ function mcp_api_code_eval_valid(code) {
 async function mcp_api_browser_code_status(args) {
 	var target = await mcp_api_code_target(args, "browser");
 	if (target.failed) {
-		if (target.reason === "character_offline")
-			return { success: true, character: target.character, runtime: "browser", online: false, code_running: false };
+		if (target.reason === "character_offline") return { success: true, character: target.character, runtime: "browser", online: false, code_running: false };
 		return target;
 	}
 	return await mcp_api_comm_relay(target);
@@ -970,7 +987,7 @@ async function mcp_api_browser_code_start(args) {
 	var status = await mcp_api_comm_relay(target);
 	if (status.failed) return status;
 	if (status.code_running) return Object.assign(status, { already_running: true, slot: slot });
-	var result = await mcp_api_comm_relay(target, "parent.api_call(\"load_code\",{name:" + JSON.stringify(slot) + ",run:\"1\"});");
+	var result = await mcp_api_comm_relay(target, 'parent.api_call("load_code",{name:' + JSON.stringify(slot) + ',run:"1"});');
 	if (!result.failed) Object.assign(result, { requested_state: "running", slot: slot });
 	return result;
 }
@@ -991,7 +1008,7 @@ async function mcp_api_browser_code_reload(args) {
 	if (!slot) return { failed: true, reason: "code_not_found" };
 	var target = await mcp_api_code_target(args, "browser");
 	if (target.failed) return target;
-	var result = await mcp_api_comm_relay(target, "parent.api_call(\"load_code\",{name:" + JSON.stringify(slot) + ",run:\"1\"});");
+	var result = await mcp_api_comm_relay(target, 'parent.api_call("load_code",{name:' + JSON.stringify(slot) + ',run:"1"});');
 	if (!result.failed) Object.assign(result, { requested_state: "running", slot: slot });
 	return result;
 }
@@ -1063,6 +1080,7 @@ function mcp_api_mainframe_runtime(bot) {
 }
 
 function mcp_api_safe_snapshot(value, depth) {
+	// Bounds public data only; this is not a privacy filter for database records.
 	if (value === undefined || value === null || typeof value === "boolean" || typeof value === "number") return value;
 	if (typeof value === "string") return value.slice(0, 500);
 	if (value instanceof Date) return value.toISOString();
@@ -1077,10 +1095,38 @@ function mcp_api_safe_snapshot(value, depth) {
 		.sort()
 		.slice(0, 100)
 		.forEach(function (name) {
+			if (["__proto__", "constructor", "prototype"].includes(name)) return;
 			var clean = mcp_api_safe_snapshot(value[name], depth + 1);
 			if (clean !== undefined) result[name] = clean;
 		});
 	return result;
+}
+
+function mcp_api_public_item(item, trade) {
+	if (!item || typeof item !== "object" || Array.isArray(item) || typeof item.name !== "string") return null;
+	// Keep in sync with cache_item in node/server_functions.js. New saved fields
+	// stay private until reviewed against the normal client payload.
+	var fields = ["name", "level", "q", "stat_type", "p", "ps", "l", "ld", "m", "v", "r", "skin", "charges", "data", "expires", "gift", "acl"];
+	if (trade) fields = fields.concat(["price", "b", "rid", "giveaway", "gf"]);
+	if (trade && item.giveaway) fields.push("list");
+	var result = {};
+	fields.forEach(function (name) {
+		if (!Object.prototype.hasOwnProperty.call(item, name)) return;
+		var value = mcp_api_safe_snapshot(item[name], 0);
+		if (value !== undefined) result[name] = value;
+	});
+	return result;
+}
+
+function mcp_api_public_slots(character) {
+	// Match character_slots and get_trade_slots; do not expose inactive listings
+	// or new internal keys saved alongside equipment.
+	var slots = ["ring1", "ring2", "earring1", "earring2", "belt", "mainhand", "offhand", "helmet", "chest", "pants", "shoes", "gloves", "amulet", "orb", "elixir", "cape"];
+	var progress = (character && character.info && character.info.p) || {};
+	var count = progress.trades ? 4 : 0;
+	if (progress.stand) count = character.type === "merchant" && character.level >= 80 ? 30 : character.type === "merchant" && (character.level >= 70 || progress.stand === "cstand") ? 24 : 16;
+	for (var i = 1; i <= count; i++) slots.push("trade" + i);
+	return slots;
 }
 
 function mcp_api_character_profile(character, detailed) {
@@ -1106,11 +1152,17 @@ function mcp_api_character_profile(character, detailed) {
 		inventory_items: inventory.filter(Boolean).length,
 	};
 	if (detailed) {
-		profile.equipment = mcp_api_safe_snapshot(info.slots || {}, 0);
-		profile.inventory = mcp_api_safe_snapshot(inventory, 0);
+		profile.equipment = {};
+		mcp_api_public_slots(character).forEach(function (slot) {
+			if (!Object.prototype.hasOwnProperty.call(info.slots || {}, slot)) return;
+			profile.equipment[slot] = mcp_api_public_item(info.slots[slot], /^trade(?:[1-9]|[12][0-9]|30)$/.test(slot));
+		});
+		profile.inventory = inventory.slice(0, 100).map(function (item) {
+			return mcp_api_public_item(item, false);
+		});
+		// player_to_client exposes s and q, but never the private progress object p.
 		profile.conditions = mcp_api_safe_snapshot(info.s || {}, 0);
 		profile.quests = mcp_api_safe_snapshot(info.q || {}, 0);
-		profile.progress = mcp_api_safe_snapshot(info.p || {}, 0);
 	}
 	return profile;
 }
@@ -1148,11 +1200,10 @@ function mcp_api_owned_item(item) {
 	var result = { name: item.name };
 	if (item.level !== undefined && Number.isFinite(Number(item.level))) result.level = Math.trunc(Math.max(0, Math.min(100, Number(item.level))));
 	if (item.q !== undefined && Number.isFinite(Number(item.q))) result.q = Math.trunc(Math.max(1, Math.min(Number.MAX_SAFE_INTEGER, Number(item.q))));
-	if (item.grace !== undefined && Number.isFinite(Number(item.grace))) result.grace = Math.max(0, Math.min(100000, Number(item.grace)));
 	if (typeof item.stat_type === "string" && /^[a-z_]{1,32}$/.test(item.stat_type)) result.stat_type = item.stat_type;
 	if (typeof item.p === "string" && /^[A-Za-z0-9_]{1,100}$/.test(item.p)) result.p = item.p;
 	if (item.l || item.locked) result.locked = true;
-	if (item.b || item.blocked) result.blocked = true;
+	if (item.blocked) result.blocked = true;
 	return result;
 }
 
@@ -1510,8 +1561,8 @@ function mcp_api_progression_state(character, bot, warnings) {
 	warnings = warnings || [];
 	var info = character && character.info && typeof character.info === "object" && !Array.isArray(character.info) ? character.info : {};
 	var equipment = {};
-	Object.keys(info.slots || {}).forEach(function (slot) {
-		var item = mcp_api_owned_item(info.slots[slot]);
+	mcp_api_public_slots(character).forEach(function (slot) {
+		var item = mcp_api_owned_item((info.slots || {})[slot]);
 		if (item) equipment[slot] = item;
 	});
 	var inventory = [];
@@ -1839,9 +1890,11 @@ async function mcp_api_list_mainframe_characters(args) {
 		if (!character_name) continue;
 		var access = await mainframe_get_access(characters[i]);
 		var assignment = await mainframe_get_assignment(characters[i]);
-		var bot = assignment && snapshot.bots.find(function (candidate) {
-			return candidate.character_id === get_id(characters[i]) && candidate.assignment_id === assignment.assignment_id;
-		});
+		var bot =
+			assignment &&
+			snapshot.bots.find(function (candidate) {
+				return candidate.character_id === get_id(characters[i]) && candidate.assignment_id === assignment.assignment_id;
+			});
 		result.push({
 			character: character_name,
 			character_id: get_id(characters[i]),
@@ -2190,8 +2243,7 @@ var MCP_TOOL_META = {
 		idempotentHint: true,
 	},
 	browser_code_stop: {
-		description:
-			"Stop CODE on an account-owned character that is already connected in an open browser. A successful result means the request was queued, not that the browser confirmed completion.",
+		description: "Stop CODE on an account-owned character that is already connected in an open browser. A successful result means the request was queued, not that the browser confirmed completion.",
 		idempotentHint: true,
 	},
 	browser_code_reload: {
@@ -2880,24 +2932,24 @@ function send_mcp_api_json(res, result) {
 }
 
 function validate_mcp_api_args(ref, args) {
-	for (var name in args) {
+	for (var name of Object.keys(args)) {
 		if (name === "token") continue;
-		if (!ref[name]) return { failed: true, reason: "invalid_field", field: name };
+		if (name === "F" || !Object.prototype.hasOwnProperty.call(ref, name)) return { failed: true, reason: "invalid_field", field: name };
 		if (ref[name].type === "string" && typeof args[name] !== "string") return { failed: true, reason: "invalid_field", field: name };
 		if (ref[name].type === "number" && (!Number.isFinite(args[name]) || !Number.isSafeInteger(args[name]))) return { failed: true, reason: "invalid_field", field: name };
 		if (ref[name].type === "enum" && !ref[name].values.includes(args[name])) return { failed: true, reason: "invalid_field", field: name };
 		if (ref[name].type === "identifier" && !["string", "number"].includes(typeof args[name])) return { failed: true, reason: "invalid_field", field: name };
 		if (ref[name].type === "identifier" && (!String(args[name]).length || String(args[name]).length > 100)) return { failed: true, reason: "invalid_field", field: name };
 	}
-	for (var name in ref) {
+	for (var name of Object.keys(ref)) {
 		if (name === "F") continue;
-		if (!ref[name].optional && args[name] === undefined) return { failed: true, reason: "missing_field", field: name };
+		if (!ref[name].optional && (!Object.prototype.hasOwnProperty.call(args, name) || args[name] === undefined)) return { failed: true, reason: "missing_field", field: name };
 	}
 	return null;
 }
 
 async function handle_mcp_api_call(req, res) {
-	var ref = MCP_API_REF[req.params.method];
+	var ref = Object.prototype.hasOwnProperty.call(MCP_API_REF, req.params.method) ? MCP_API_REF[req.params.method] : null;
 	if (!ref) return send_mcp_api_json(res, { failed: true, reason: "invalid_call", name: req.params.method });
 	var args = req.body;
 	if (!args || typeof args !== "object" || Array.isArray(args)) return send_mcp_api_json(res, { failed: true, reason: "invalid_arguments" });
@@ -3114,7 +3166,7 @@ async function handle_mcp_transport(req, res) {
 	}
 	if (message.method === "tools/call") {
 		var name = message.params && message.params.name;
-		var ref = MCP_API_REF[name];
+		var ref = typeof name === "string" && Object.prototype.hasOwnProperty.call(MCP_API_REF, name) ? MCP_API_REF[name] : null;
 		if (!ref) return res.status(200).send(mcp_jsonrpc_error(message.id, -32601, "Unknown tool"));
 		var args = (message.params && message.params.arguments) || {};
 		if (!args || typeof args !== "object" || Array.isArray(args)) return res.status(200).send(mcp_jsonrpc_error(message.id, -32602, "Invalid tool arguments"));
@@ -3122,6 +3174,7 @@ async function handle_mcp_transport(req, res) {
 		if (invalid) return res.status(200).send(mcp_jsonrpc_error(message.id, -32602, "Invalid tool arguments", invalid));
 		try {
 			var method_args = Object.assign({}, args, { req: req, res: res, user: user });
+			delete method_args.token;
 			var result = await ref.F(method_args);
 			var tool_result = {
 				content: [{ type: "text", text: JSON.stringify(result) }],
