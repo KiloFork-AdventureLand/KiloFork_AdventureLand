@@ -7797,7 +7797,7 @@ function init_socket_io(socket_server) {
 				add_item(player, item, { announce: false });
 			}
 			resend(player, "reopen+u+cid");
-			success_response("data");
+			success_response("data", { slot: data.slot });
 		});
 		socket.on("secondhands", function (data) {
 			var player = players[socket.id];

@@ -6141,6 +6141,26 @@ function add_alert(e) {
 	if (Dev) alert(e);
 }
 
+var last_equipment_sound = 0;
+function equipment_sound(data) {
+	if (no_graphics || no_html || !window.sound_sfx || !character || !data || data.failed || data.success === false) return;
+	var sound;
+	if ((data.place == "equip" || data.place == "unequip") && data.slot != "elixir" && in_arr(data.slot, character_slots)) sound = data.place;
+	else if (
+		data.place == "equip_batch" &&
+		Array.isArray(data.slots) &&
+		data.slots.some(function (entry) {
+			return entry && entry.slot != "elixir" && in_arr(entry.slot, character_slots);
+		})
+	)
+		sound = "equip";
+	if (!sound) return;
+	var now = Date.now();
+	if (now - last_equipment_sound < 250) return;
+	last_equipment_sound = now;
+	sfx(sound);
+}
+
 function sfx(type, x, y) {
 	try {
 		if (!window.sound_sfx || no_html) return;
@@ -6304,7 +6324,7 @@ function pcs(type) {
 
 var audio_sound_names = {
 	music: ["christmas", "horror01", "horror02", "casual05", "casual02", "rpg07", "rpg08", "rpg10", "rpg14", "rpg16", "cave_exploration", "cave_choices", "poker"],
-	sfx: ["click", "fx_explosion", "coin_collect", "drop_egg", "hit_8bit", "magic_8bit", "use_8bit", "chat", "walk", "drop", "open", "whoosh", "reflect", "crackle01", "crackle0", "level_up"],
+	sfx: ["click", "fx_explosion", "coin_collect", "drop_egg", "hit_8bit", "magic_8bit", "use_8bit", "chat", "walk", "drop", "open", "whoosh", "reflect", "crackle01", "crackle0", "level_up", "equip", "unequip"],
 };
 
 function normalize_audio_volume(value) {
@@ -6365,6 +6385,16 @@ function init_fx() {
 	}
 	if (window.fx_init) return;
 	window.fx_init = 1;
+	sounds.equip = new Howl({
+		src: [url_factory("/sounds/fx/equip.ogg?v=1"), url_factory("/sounds/fx/equip.wav?v=1")],
+		format: ["opus", "wav"],
+		volume: 0.5,
+	});
+	sounds.unequip = new Howl({
+		src: [url_factory("/sounds/fx/unequip.ogg?v=1"), url_factory("/sounds/fx/unequip.wav?v=1")],
+		format: ["opus", "wav"],
+		volume: 0.5,
+	});
 	sounds.fx_explosion = new Howl({
 		src: [url_factory("/sounds/fx/EXPLOSION_Short_Kickback_Crackle_stereo.wav")],
 		volume: 0.3,

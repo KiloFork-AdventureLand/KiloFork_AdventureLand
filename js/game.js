@@ -2004,6 +2004,7 @@ function init_socket(args) {
 			} else if (data.place) {
 				resolve_deferred(data.place, data);
 			}
+			equipment_sound(data);
 			if (!data.failed && data.place == "equip" && data.slot && !in_arr(data.slot, trade_slots)) tut("equip");
 			if (
 				data.place == "equip_batch" &&
