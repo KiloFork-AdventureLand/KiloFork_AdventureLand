@@ -3190,6 +3190,7 @@ function init_socket(args) {
 		// more draw_trigger's might be needed in the future [24/09/18]
 		var hitchhikers = data.hitchhikers;
 		delete data.hitchhikers;
+		equipment_sound(data);
 		if (character) (adopt_soft_properties(character, data), rip_logic());
 		update_tutorial_state();
 		if (hitchhikers)

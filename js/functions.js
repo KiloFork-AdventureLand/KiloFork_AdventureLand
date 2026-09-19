@@ -6141,11 +6141,21 @@ function add_alert(e) {
 	if (Dev) alert(e);
 }
 
-var last_equipment_sound = 0;
+var last_equipment_sound = {};
 function equipment_sound(data) {
 	if (no_graphics || no_html || !window.sound_sfx || !character || !data || data.failed || data.success === false) return;
 	var sound;
-	if ((data.place == "equip" || data.place == "unequip") && data.slot != "elixir" && in_arr(data.slot, character_slots)) sound = data.place;
+	// The unequip response does not identify the slot. Use the confirmed slot update.
+	if (
+		!data.place &&
+		data.slots &&
+		character.slots &&
+		character_slots.some(function (slot) {
+			return slot != "elixir" && character.slots[slot] && data.slots[slot] === null;
+		})
+	)
+		sound = "unequip";
+	else if (data.place == "equip" && data.slot != "elixir" && in_arr(data.slot, character_slots)) sound = "equip";
 	else if (
 		data.place == "equip_batch" &&
 		Array.isArray(data.slots) &&
@@ -6156,8 +6166,10 @@ function equipment_sound(data) {
 		sound = "equip";
 	if (!sound) return;
 	var now = Date.now();
-	if (now - last_equipment_sound < 250) return;
-	last_equipment_sound = now;
+	if (now - (last_equipment_sound[sound] || 0) < 250) return;
+	last_equipment_sound[sound] = now;
+	if (sounds.equip) sounds.equip.stop();
+	if (sounds.unequip) sounds.unequip.stop();
 	sfx(sound);
 }
 
@@ -6386,12 +6398,12 @@ function init_fx() {
 	if (window.fx_init) return;
 	window.fx_init = 1;
 	sounds.equip = new Howl({
-		src: [url_factory("/sounds/fx/equip.ogg?v=1"), url_factory("/sounds/fx/equip.wav?v=1")],
+		src: [url_factory("/sounds/fx/equip.ogg?v=2"), url_factory("/sounds/fx/equip.wav?v=2")],
 		format: ["opus", "wav"],
 		volume: 0.5,
 	});
 	sounds.unequip = new Howl({
-		src: [url_factory("/sounds/fx/unequip.ogg?v=1"), url_factory("/sounds/fx/unequip.wav?v=1")],
+		src: [url_factory("/sounds/fx/unequip.ogg?v=2"), url_factory("/sounds/fx/unequip.wav?v=2")],
 		format: ["opus", "wav"],
 		volume: 0.5,
 	});

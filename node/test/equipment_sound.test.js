@@ -21,7 +21,7 @@ function fixture() {
 		sounds: {},
 		Dev: true,
 		Date: { now: () => now },
-		last_equipment_sound: 0,
+		last_equipment_sound: {},
 		in_arr: (value, list) => list.includes(value),
 		url_factory: (url) => url,
 		console: {
@@ -36,6 +36,9 @@ function fixture() {
 		tut() {},
 		call_code_function() {},
 		draw_trigger() {},
+		adopt_soft_properties: Object.assign,
+		rip_logic() {},
+		update_tutorial_state() {},
 		add_alert(error) {
 			throw error;
 		},
@@ -52,6 +55,7 @@ function fixture() {
 		let volume = options.volume;
 		this.volume = (value) => (value === undefined ? volume : (volume = value));
 		this.play = () => played.push({ url: options.src[0], volume });
+		this.stop = () => {};
 	};
 	vm.runInContext(
 		functions.slice(
@@ -63,23 +67,25 @@ function fixture() {
 	for (const name of ["equipment_sound", "sfx", "apply_audio_volume", "init_fx"])
 		vm.runInContext(extract(functions, name), client);
 	client.init_fx();
-	let receive;
+	const receivers = {};
 	client.socket = {
 		on: (name, callback) => {
-			assert.equal(name, "game_response");
-			receive = callback;
+			receivers[name] = callback;
 		},
 	};
-	const game = read("js/game.js"),
-		start = game.indexOf('\tsocket.on("game_response",');
-	vm.runInContext(game.slice(start, game.indexOf("\n\tsocket.on(", start + 1)), client);
+	const game = read("js/game.js");
+	for (const event of ["game_response", "player"]) {
+		const start = game.indexOf('\tsocket.on("' + event + '",');
+		vm.runInContext(game.slice(start, game.indexOf("\n\tsocket.on(", start + 1)), client);
+	}
 	const socket = {
 		id: "test",
 		emit(event, data) {
+			data = JSON.parse(JSON.stringify(data));
 			if (event === "game_response") {
-				responses.push(JSON.parse(JSON.stringify(data)));
-				receive(data);
+				responses.push(data);
 			}
+			if (receivers[event]) receivers[event](data);
 		},
 	};
 	const player = {
@@ -108,7 +114,7 @@ function fixture() {
 		get_trade_slots: () => G.trade_slots,
 		cache_item: (item) => item && { ...item },
 		can_equip_item: (player, def, slot) => (slot === "weapon" ? "mainhand" : slot),
-		resend() {},
+		resend: (player) => socket.emit("player", { slots: player.slots }),
 		add_item: (player, item) => player.items.push(item),
 	});
 	for (const name of ["success_response", "fail_response"])
@@ -121,7 +127,8 @@ function fixture() {
 		played,
 		responses,
 		player,
-		receive,
+		receive: receivers.game_response,
+		receivePlayer: receivers.player,
 		advance: (ms = 300) => (now += ms),
 		send(name, data) {
 			server.ls_method = name;
@@ -138,12 +145,12 @@ test("successful equipment handlers play one local cue and preserve their respon
 	f.advance();
 	f.send("unequip", { slot: "mainhand" });
 	assert.equal(f.player.slots.mainhand, null);
-	assert.deepEqual(f.responses.at(-1), { slot: "mainhand", success: true, response: "data", place: "unequip" });
+	assert.deepEqual(f.responses.at(-1), { success: true, response: "data", place: "unequip" });
 	f.advance();
 	f.send("equip_batch", [{ num: 2 }, { num: 1 }]);
 	assert.deepEqual(
 		f.played.map((sound) => sound.url),
-		["/sounds/fx/equip.ogg?v=1", "/sounds/fx/unequip.ogg?v=1", "/sounds/fx/equip.ogg?v=1"],
+		["/sounds/fx/equip.ogg?v=2", "/sounds/fx/unequip.ogg?v=2", "/sounds/fx/equip.ogg?v=2"],
 	);
 	f.advance();
 	f.send("unequip", { slot: "mainhand" });
@@ -154,6 +161,26 @@ test("successful equipment handlers play one local cue and preserve their respon
 	f.player.slots.trade1 = { name: "sword" };
 	f.send("unequip", { slot: "trade1" });
 	assert.equal(f.played.length, 4, "removing a shop listing is silent");
+});
+
+test("unequip uses confirmed slot changes without depending on response metadata", () => {
+	const f = fixture();
+	f.send("equip", { num: 0 });
+	f.advance(100);
+	f.player.esize = 0;
+	f.send("unequip", { slot: "mainhand" });
+	assert.equal(f.played.length, 1, "full inventory failure is silent");
+	f.player.esize = 40;
+	f.send("unequip", { slot: "mainhand" });
+	assert.equal(f.played.length, 2, "quick equip then unequip plays both cues");
+	assert.equal(f.played[1].url, "/sounds/fx/unequip.ogg?v=2");
+	f.advance();
+	f.receive({ response: "data", success: true, place: "unequip", slot: "mainhand" });
+	f.receivePlayer({ slots: { mainhand: null } });
+	assert.equal(f.played.length, 2, "metadata and repeated state do not duplicate the cue");
+	f.client.character.slots = { mainhand: { name: "sword" }, elixir: { name: "elixirluck" }, trade1: { name: "coat" } };
+	f.receivePlayer({ slots: { elixir: null, trade1: null } });
+	assert.equal(f.played.length, 2, "omitted gear slots, elixirs and shop listings are silent");
 });
 
 test("consumables, failures and empty batches are silent; partially successful batches play once", () => {
@@ -183,10 +210,10 @@ test("equipment sounds respect rapid swaps, mute, volume and headless clients", 
 	f.receive({ ...equip });
 	assert.equal(f.played[0].volume, 0.1);
 	f.advance(100);
-	f.receive({ ...equip, place: "unequip" });
+	f.receive({ ...equip });
 	assert.equal(f.played.length, 1);
 	f.advance(150);
-	f.receive({ ...equip, place: "unequip" });
+	f.receive({ ...equip });
 	assert.equal(f.played.length, 2);
 	for (const [key, disabled] of [
 		["sound_sfx", false],
@@ -198,6 +225,8 @@ test("equipment sounds respect rapid swaps, mute, volume and headless clients", 
 		f.client[key] = disabled;
 		f.advance();
 		f.receive({ ...equip });
+		if (f.client.character) f.client.character.slots = { mainhand: { name: "sword" } };
+		f.receivePlayer({ slots: { mainhand: null } });
 		assert.equal(f.played.length, 2, key);
 		f.client[key] = previous;
 	}
@@ -205,6 +234,6 @@ test("equipment sounds respect rapid swaps, mute, volume and headless clients", 
 		const options = f.client.sounds[name].options;
 		assert.equal(options.format[0], "opus");
 		assert.equal(options.format[1], "wav");
-		assert.equal(options.src[1], "/sounds/fx/" + name + ".wav?v=1");
+		assert.equal(options.src[1], "/sounds/fx/" + name + ".wav?v=2");
 	}
 });
