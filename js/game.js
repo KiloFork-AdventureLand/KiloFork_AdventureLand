@@ -1098,6 +1098,8 @@ function showhide_quirks_logic() {
 		var c_distance = distance(character, map_npc);
 		consider_interaction_context(context.key, "npc:" + context.npc_id, c_distance, 72, context, 3, "npc");
 	}
+	var cavalry_context = get_cavalry_interaction_context();
+	if (cavalry_context) interaction_contexts.push(cavalry_context);
 	normalize_interaction_contexts();
 	var near_npc = false;
 	for (var context_index = 0; context_index < interaction_contexts.length; context_index++) {
@@ -1177,6 +1179,44 @@ function get_npc_interaction_context(npc) {
 		definition = G.docs.interactions[key];
 	if (!definition || definition.status) return null;
 	return { key: key, definition: definition, npc_id: npc_id, npc: npc };
+}
+
+function get_cavalry_interaction_context() {
+	if (!character || !(character.level < 60) || character.rip || !(character.hp > 0) || no_graphics || no_html || !proximity_guides) return null;
+	var config = G.items.tracker && G.items.tracker.cavalry,
+		definition = G.docs && G.docs.interactions && G.docs.interactions.cavalry,
+		npc = G.npcs.cavalry_warrior;
+	if (!config || !definition || !npc || !G.maps[character.map] || G.maps[character.map].generated) return null;
+	var nearby = Object.values(entities).filter(function (entity) {
+		return entity && !entity.dead && !entity.rip && entity.hp > 0 && entity.in === character.in && distance(character, entity) <= config.range + config.veteran_range;
+	});
+	for (var monster of nearby) {
+		var def = G.monsters[monster.mtype];
+		if (monster.type !== "monster" || !def || monster.level < config.min_level || !Number.isFinite(monster.level) || distance(character, monster) > config.range) continue;
+		if (monster.pet || monster.trap || monster.cave || monster.cooperative || def.special || def.cooperative || def.announce || def.good || def.peaceful || !(def.respawn >= 0 && def.respawn < 300)) continue;
+		if (monster.target && monster.target !== character.name && !(party && party[monster.target])) continue;
+		if (nearby.some(function (player) {
+			return player.type === "character" && !player.npc && player.level >= config.newcomer_level && simple_distance(player, monster) <= config.veteran_range;
+		})) continue;
+		// Use live scaled stats. This is a hint; the server still authorizes every call.
+		var physical = character.damage_type === "physical",
+			defense = physical ? monster.armor || 0 : monster.resistance || 0,
+			piercing = physical ? character.apiercing || 0 : character.rpiercing || 0,
+			hit = character.attack * damage_multiplier(defense - piercing),
+			incoming = monster.attack,
+			kind = monster.damage_type || def.damage_type;
+		if (kind !== "pure") incoming *= damage_multiplier(kind === "physical" ? (character.armor || 0) - (monster.apiercing || def.apiercing || 0) : (character.resistance || 0) - (monster.rpiercing || def.rpiercing || 0));
+		var hits = Math.ceil(monster.hp / Math.max(1, hit)),
+			seconds = hits / Math.max(0.1, character.frequency),
+			loss = Math.ceil(seconds * monster.frequency) * incoming;
+		// A few dangerous hits, or a long fight costing at least half the remaining HP.
+		if (![hit, incoming, seconds, loss].every(Number.isFinite) || hits <= 1 || (incoming * 4 < character.hp && (seconds < 8 || loss < character.hp / 2))) continue;
+		return {
+			key: "cavalry", definition: definition, npc_id: "cavalry", priority: 2, source: "combat", distance: distance(character, monster),
+			visual: { skin: npc.skin, cx: npc.cx, label: "interface.cavalry.call_short" },
+		};
+	}
+	return null;
 }
 
 var last_loader = { progress: 0 };

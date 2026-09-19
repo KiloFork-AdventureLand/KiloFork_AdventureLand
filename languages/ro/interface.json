@@ -957,5 +957,6 @@
 	"interface.cavalry.unavailable": "Cavalry nu poate răspunde acum.",
 	"interface.cavalry.location": "Cavalry nu poate intra aici.",
 	"interface.cavalry.guarded": "Un jucător de nivel 80+ se află la cel mult 150 de pixeli de acești monștri.",
-	"interface.cavalry.not_threatened": "Cel mai mare nivel de pe contul tău este {level}. Cavalry luptă doar cu monștri care te atacă deja pe tine sau grupul tău."
+	"interface.cavalry.not_threatened": "Cel mai mare nivel de pe contul tău este {level}. Cavalry luptă doar cu monștri care te atacă deja pe tine sau grupul tău.",
+	"interface.cavalry.call_short": "CHEAMĂ"
 }

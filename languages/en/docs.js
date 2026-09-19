@@ -1,5 +1,7 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Nearby guide hint, based on the current character’s level, not account level. button is the localized short CALL label. Leveled means the monster has gained levels. Only the button is hidden at level 60+, not access to the guide. Keep Cavalry.
+	"docs.cavalry.hint": "Below level 60, when a nearby leveled monster looks dangerous, you may see {button} beside the Cavalry's familiar sprite. Click it to open this guide. At level 60 and above, the button is hidden.",
 	// Saved account-wide cooldown; nearby means 150 pixels from the caller or captured monsters. The veteran check also runs at attack and impact, for all parties. Keep Cavalry.
 	"docs.cavalry.cooldown": "The account shares a cooldown across characters and servers: 10 minutes plus one minute per level, using the highest account or nearby player level. Cavalry stops attacking monsters whenever a level-80+ player is within 150 pixels.",
 	// Rescue eligibility uses the account’s highest recorded character level, including other characters and earlier calls. A lower-level character on a veteran account still has the veteran restrictions. Existing ordinary population growth is allowed; later spawns are not. Assisted newcomer kills reset a replacement spawn to level 1 after ordinary rewards; temporary monsters do not respawn. Keep Cavalry and all quantities and restrictions.

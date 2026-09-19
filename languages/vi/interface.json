@@ -952,5 +952,6 @@
 	"interface.cavalry.unavailable": "Cavalry hiện không thể đáp lại.",
 	"interface.cavalry.location": "Cavalry không thể vào nơi này.",
 	"interface.cavalry.guarded": "Có người chơi cấp 80+ trong phạm vi 150 pixel tính từ những quái vật này.",
-	"interface.cavalry.not_threatened": "Cấp cao nhất trong tài khoản của bạn là {level}. Cavalry chỉ chiến đấu với quái vật đang tấn công bạn hoặc tổ đội của bạn."
+	"interface.cavalry.not_threatened": "Cấp cao nhất trong tài khoản của bạn là {level}. Cavalry chỉ chiến đấu với quái vật đang tấn công bạn hoặc tổ đội của bạn.",
+	"interface.cavalry.call_short": "GỌI"
 }

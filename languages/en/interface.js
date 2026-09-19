@@ -1,4 +1,6 @@
 module.exports = {
+	// Compact uppercase label below the Cavalry sprite on the nearby INFO button. Opens the Cavalry guide; does not summon. Translate as calling for help.
+	"interface.cavalry.call_short": "CALL",
 	// Refusal for an account at level 80+ with ordinary level-3+ monsters nearby but none attacking the caller or party. level is the account’s highest recorded character level as a string, which can be higher than the calling character’s level. Explain that the account level sets the rule. CODE reason remains no_monsters. Keep Cavalry.
 	"interface.cavalry.not_threatened": "Your account's highest level is {level}. Cavalry only fights monsters already attacking you or your party.",
 	// Offensive assistance refuses monsters near any living connected level-80+ player, regardless of party.

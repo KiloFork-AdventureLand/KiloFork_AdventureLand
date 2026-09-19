@@ -953,5 +953,6 @@
 	"interface.cavalry.unavailable": "Cavalry не може да отговори в момента.",
 	"interface.cavalry.location": "Cavalry не може да влезе тук.",
 	"interface.cavalry.guarded": "Има играч от ниво 80+ на не повече от 150 пиксела от тези чудовища.",
-	"interface.cavalry.not_threatened": "Най-високото ниво в акаунта ти е {level}. Cavalry се бие само с чудовища, които вече нападат теб или групата ти."
+	"interface.cavalry.not_threatened": "Най-високото ниво в акаунта ти е {level}. Cavalry се бие само с чудовища, които вече нападат теб или групата ти.",
+	"interface.cavalry.call_short": "ПОВИКАЙ"
 }

@@ -953,5 +953,6 @@
 	"interface.cavalry.unavailable": "Cavalry kan ikke svare akkurat nå.",
 	"interface.cavalry.location": "Cavalry kan ikke komme inn her.",
 	"interface.cavalry.guarded": "En spiller på nivå 80+ er innenfor 150 piksler fra disse monstrene.",
-	"interface.cavalry.not_threatened": "Det høyeste nivået på kontoen din er {level}. Cavalry kjemper bare mot monstre som allerede angriper deg eller gruppen din."
+	"interface.cavalry.not_threatened": "Det høyeste nivået på kontoen din er {level}. Cavalry kjemper bare mot monstre som allerede angriper deg eller gruppen din.",
+	"interface.cavalry.call_short": "KALL"
 }

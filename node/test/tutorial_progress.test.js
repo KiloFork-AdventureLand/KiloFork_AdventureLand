@@ -641,6 +641,7 @@ test("NPC visits use service range while the smaller INFO range stays unchanged"
 		load(c, "js/game.js", [
 			"showhide_quirks_logic",
 			"get_npc_interaction_context",
+			"get_cavalry_interaction_context",
 			"consider_interaction_context",
 			"interaction_context_range",
 			"normalize_interaction_contexts",

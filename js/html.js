@@ -741,8 +741,9 @@ function render_server() {
 	for (var context_index = 0; context_index < contexts.length; context_index++) {
 		var context = contexts[context_index],
 			definition = context.definition,
+			visual = context.visual || {},
 			icon = definition.icon && G.items[definition.icon],
-			visual_icon = context.visual && G.items[context.visual.icon],
+			visual_icon = visual.icon && G.items[visual.icon],
 			npc = context.npc,
 			context_title =
 				((npc && npc.name && npc.name + ": ") || "") +
@@ -754,11 +755,12 @@ function render_server() {
 			"' style='padding: 6px 8px 6px 8px; font-size: 24px; line-height: 18px' onclick='pcs(event); open_interaction_guide(\"" +
 			context.key +
 			"\")'>";
-		if (npc && npc.skin) html += sprite(npc.skin, { cx: clone(npc.cx || {}), overflow: true });
+		if (visual.skin) html += sprite(visual.skin, { cx: clone(visual.cx || {}), scale: 2, full: true, j: 0 });
+		else if (npc && npc.skin) html += sprite(npc.skin, { cx: clone(npc.cx || {}), overflow: true });
 		else if (visual_icon) html += "<div style='margin-top: -1px; margin-left: -3px; margin-right: -3px'>" + item_container({ skin: visual_icon.skin, bcolor: "black" }) + "</div>";
 		else if (icon) html += "<div style='margin-top: -1px; margin-left: -3px; margin-right: -3px'>" + item_container({ skin: icon.skin, bcolor: "black" }) + "</div>";
 		else html += "<div style='font-size: 32px; line-height: 42px; color:#69BE86'>?</div>";
-		html += "<div style='color:#69BE86; margin-top: 1px'>" + phrase.html("interface.server.info") + "</div></div>";
+		html += "<div style='color:#69BE86; margin-top: 1px'>" + phrase.html(visual.label || "interface.server.info") + "</div></div>";
 		content = true;
 	}
 	if (proximity_guides && quirks.crypt) {

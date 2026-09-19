@@ -957,5 +957,6 @@
 	"interface.cavalry.unavailable": "Cavalry non può rispondere al momento.",
 	"interface.cavalry.location": "Cavalry non può entrare qui.",
 	"interface.cavalry.guarded": "Un giocatore di livello 80+ si trova entro 150 pixel da questi mostri.",
-	"interface.cavalry.not_threatened": "Il livello più alto del tuo account è {level}. Cavalry combatte solo i mostri che stanno già attaccando te o il tuo gruppo."
+	"interface.cavalry.not_threatened": "Il livello più alto del tuo account è {level}. Cavalry combatte solo i mostri che stanno già attaccando te o il tuo gruppo.",
+	"interface.cavalry.call_short": "CHIAMA"
 }

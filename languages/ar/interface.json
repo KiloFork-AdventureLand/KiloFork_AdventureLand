@@ -952,5 +952,6 @@
 	"interface.cavalry.unavailable": "لا تستطيع Cavalry الاستجابة الآن.",
 	"interface.cavalry.location": "لا تستطيع Cavalry دخول هذا المكان.",
 	"interface.cavalry.guarded": "يوجد لاعب بمستوى 80 أو أعلى على بُعد لا يتجاوز 150 بكسل من هذه الوحوش.",
-	"interface.cavalry.not_threatened": "أعلى مستوى في حسابك هو {level}. لا تقاتل Cavalry إلا الوحوش التي تهاجمك أنت أو مجموعتك بالفعل."
+	"interface.cavalry.not_threatened": "أعلى مستوى في حسابك هو {level}. لا تقاتل Cavalry إلا الوحوش التي تهاجمك أنت أو مجموعتك بالفعل.",
+	"interface.cavalry.call_short": "استدعاء"
 }

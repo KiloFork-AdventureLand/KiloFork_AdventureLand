@@ -952,5 +952,6 @@
 	"interface.cavalry.unavailable": "A Cavalry most nem tud válaszolni.",
 	"interface.cavalry.location": "A Cavalry nem léphet be ide.",
 	"interface.cavalry.guarded": "Egy legalább 80. szintű játékos van ezektől a szörnyektől legfeljebb 150 pixelre.",
-	"interface.cavalry.not_threatened": "A fiókod legmagasabb szintje {level}. A Cavalry csak olyan szörnyekkel harcol, amelyek már téged vagy a csapatodat támadják."
+	"interface.cavalry.not_threatened": "A fiókod legmagasabb szintje {level}. A Cavalry csak olyan szörnyekkel harcol, amelyek már téged vagy a csapatodat támadják.",
+	"interface.cavalry.call_short": "HÍVÁS"
 }

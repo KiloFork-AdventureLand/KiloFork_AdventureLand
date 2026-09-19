@@ -953,5 +953,6 @@
 	"interface.cavalry.unavailable": "A Cavalry não pode responder agora.",
 	"interface.cavalry.location": "A Cavalry não pode entrar neste local.",
 	"interface.cavalry.guarded": "Há um jogador de nível 80+ a 150 píxeis ou menos destes monstros.",
-	"interface.cavalry.not_threatened": "O nível mais alto da tua conta é {level}. A Cavalry só combate monstros que já te estejam a atacar, ou ao teu grupo."
+	"interface.cavalry.not_threatened": "O nível mais alto da tua conta é {level}. A Cavalry só combate monstros que já te estejam a atacar, ou ao teu grupo.",
+	"interface.cavalry.call_short": "CHAMAR"
 }
