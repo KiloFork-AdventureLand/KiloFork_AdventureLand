@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Citește cantitatea refăcută de fiecare abilitate de regenerare din câmpul său <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Contează și acțiunile făcute mai devreme. Când ai terminat sarcinile, alege {button} pentru a merge mai departe.",
 	"docs.tutorial.compound.optional_practice": "Poți continua fără să cumperi pergamente sau să combini obiecte. Revino când ai trei accesorii identice.",
 	"docs.tutorial.bank.example_supplies": "Ține HP Potion (hpot0) în geantă pentru acest exemplu. El depune 1 aur și pune acel teanc de poțiuni în bancă.",

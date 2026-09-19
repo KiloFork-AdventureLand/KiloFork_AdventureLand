@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Διάβασε την ποσότητα που αναπληρώνει κάθε ικανότητα αναγέννησης από το πεδίο <span class=\"dlabel\">output</span> της.",
 	"docs.tutorial.helloworld.earlier_actions": "Μετρούν και οι προηγούμενες ενέργειες. Όταν ολοκληρώσεις τις εργασίες, επίλεξε {button} για να προχωρήσεις.",
 	"docs.tutorial.compound.optional_practice": "Μπορείς να συνεχίσεις χωρίς να αγοράσεις παπύρους ή να συνδυάσεις αντικείμενα. Επίστρεψε όταν έχεις τρία ίδια αξεσουάρ.",
 	"docs.tutorial.bank.example_supplies": "Για αυτό το παράδειγμα, κράτα HP Potion (hpot0) στην τσάντα σου. Καταθέτει 1 χρυσό και αποθηκεύει εκείνη τη στοίβα φίλτρων στην τράπεζα.",

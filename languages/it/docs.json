@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Leggi la quantità ripristinata da ciascuna abilità di rigenerazione nel suo campo <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Contano anche le azioni già compiute. Una volta completati i compiti, scegli {button} per proseguire.",
 	"docs.tutorial.compound.optional_practice": "Puoi proseguire senza comprare pergamene né combinare oggetti. Torna quando avrai tre accessori uguali.",
 	"docs.tutorial.bank.example_supplies": "Per questo esempio, tieni HP Potion (hpot0) nella borsa. Deposita 1 moneta d’oro e quella pila di pozioni in banca.",

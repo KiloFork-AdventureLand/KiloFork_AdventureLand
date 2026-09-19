@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Kunkin palautumiskyvyn palauttaman määrän voit lukea sen <span class=\"dlabel\">output</span>-kentästä.",
 	"docs.tutorial.helloworld.earlier_actions": "Myös aiemmat teot lasketaan. Kun tehtävät ovat valmiit, valitse {button} ja jatka eteenpäin.",
 	"docs.tutorial.compound.optional_practice": "Voit jatkaa ostamatta kääröjä tai yhdistämättä esineitä. Palaa, kun sinulla on kolme samanlaista asustetta.",
 	"docs.tutorial.bank.example_supplies": "Pidä laukussasi HP Potion (hpot0) tätä esimerkkiä varten. Se tallettaa pankkiin 1 kultarahan ja kyseisen juomapinon.",

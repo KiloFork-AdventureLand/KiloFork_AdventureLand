@@ -31,6 +31,11 @@ use_skill("mluck", get_player("LuckyCharacter"));</div>
 <p>{{ phrase_html("docs.articles.7-using-skills.regen-hp-regen-mp-use-hp-and-use") }}</p>
 <p>{{ phrase_html("docs.articles.7-using-skills.the-action-you-use-determines-the-wait-after") }}</p>
 <p>{{ phrase_html("docs.articles.7-using-skills.in-g-skills-share-names-the-skill-whose") }}</p>
+<p>{{ phrase_html("docs.functions.use_skill.regeneration_output") }}</p>
+<div class="code" id="regeneration-output">show_json({
+	hp: G.skills.regen_hp.output,
+	mp: G.skills.regen_mp.output
+});</div>
 <div class="code">async function regenerate_once() {
 	// Choose one resource to restore. HP and MP cannot regenerate together.
 	var skill;

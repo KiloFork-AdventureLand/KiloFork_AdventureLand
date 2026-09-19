@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "각 재생 능력의 회복량은 <span class=\"dlabel\">output</span> 필드에서 확인할 수 있습니다.",
 	"docs.tutorial.helloworld.earlier_actions": "앞서 한 행동도 인정됩니다. 과제를 마치면 {button} 버튼을 선택해 다음으로 넘어가세요.",
 	"docs.tutorial.compound.optional_practice": "스크롤을 사거나 합성하지 않아도 계속할 수 있어요. 같은 장신구 세 개가 모이면 돌아오세요.",
 	"docs.tutorial.bank.example_supplies": "이 예제를 실행하려면 가방에 HP Potion (hpot0)을 준비하세요. 은행에 골드 1개와 해당 물약 묶음을 보관합니다.",

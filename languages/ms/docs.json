@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Baca jumlah yang dipulihkan oleh setiap kebolehan regenerasi daripada medan <span class=\"dlabel\">output</span>-nya.",
 	"docs.tutorial.helloworld.earlier_actions": "Tindakan terdahulu juga dikira. Setelah tugasan selesai, pilih {button} untuk meneruskan.",
 	"docs.tutorial.compound.optional_practice": "Anda boleh meneruskan tanpa membeli skrol atau menggabungkan item. Kembali apabila anda mempunyai tiga aksesori yang sama.",
 	"docs.tutorial.bank.example_supplies": "Sediakan HP Potion (hpot0) dalam beg untuk contoh ini. Contoh ini mendepositkan 1 emas dan menyimpan tindanan ramuan itu di bank.",

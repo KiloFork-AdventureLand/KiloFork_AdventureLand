@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Consulta la cantidad que recupera cada habilidad de regeneración en su campo <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Las acciones anteriores también cuentan. Cuando completes las tareas, elige {button} para avanzar.",
 	"docs.tutorial.compound.optional_practice": "Puedes continuar sin comprar pergaminos ni combinar objetos. Vuelve cuando tengas tres accesorios iguales.",
 	"docs.tutorial.bank.example_supplies": "Para este ejemplo, lleva HP Potion (hpot0) en la mochila. Deposita 1 de oro y guarda esa pila de pociones en el banco.",

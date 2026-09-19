@@ -1,5 +1,7 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// use_skill reference and Using Skills guide: numeric HP/MP regeneration output. Preserve the output CODE field and its span markup.
+	"docs.functions.use_skill.regeneration_output": "Read each regeneration ability's recovery amount from its <span class=\"dlabel\">output</span> field.",
 	// Nearby guide hint, based on the current character’s level, not account level. button is the localized short CALL label. Leveled means the monster has gained levels. Only the button is hidden at level 60+, not access to the guide. Keep Cavalry.
 	"docs.cavalry.hint": "Below level 60, when a nearby leveled monster looks dangerous, you may see {button} beside the Cavalry's familiar sprite. Click it to open this guide. At level 60 and above, the button is hidden.",
 	// Saved account-wide cooldown; nearby means 150 pixels from the caller or captured monsters. The veteran check also runs at attack and impact, for all parties. Keep Cavalry.

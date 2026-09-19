@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Množství HP nebo MP obnovené každou regenerační schopností zjistíš z jejího pole <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Počítají se i dřívější akce. Po splnění úkolů zvol {button} a pokračuj dál.",
 	"docs.tutorial.compound.optional_practice": "Můžeš pokračovat bez nákupu svitků a slučování předmětů. Vrať se, až budeš mít tři stejné doplňky.",
 	"docs.tutorial.bank.example_supplies": "Pro tento příklad měj v batohu HP Potion (hpot0). Uloží do banky 1 zlatý a tuto hromádku lektvarů.",

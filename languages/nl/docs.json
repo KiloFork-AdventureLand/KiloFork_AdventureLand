@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Lees in het veld <span class=\"dlabel\">output</span> hoeveel elke regeneratievaardigheid herstelt.",
 	"docs.tutorial.helloworld.earlier_actions": "Eerdere acties tellen ook mee. Kies {button} zodra de taken klaar zijn om verder te gaan.",
 	"docs.tutorial.compound.optional_practice": "Je kunt verder zonder rollen te kopen of voorwerpen te combineren. Kom terug zodra je drie dezelfde accessoires hebt.",
 	"docs.tutorial.bank.example_supplies": "Zorg voor HP Potion (hpot0) in je tas voor dit voorbeeld. Het stort 1 goud en slaat die stapel drankjes op in de bank.",

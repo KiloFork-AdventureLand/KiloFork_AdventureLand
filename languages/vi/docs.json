@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Đọc lượng hồi phục của từng kỹ năng tái tạo từ trường <span class=\"dlabel\">output</span> của kỹ năng đó.",
 	"docs.tutorial.helloworld.earlier_actions": "Những việc đã làm trước đó cũng được tính. Khi hoàn thành các nhiệm vụ, chọn {button} để đi tiếp.",
 	"docs.tutorial.compound.optional_practice": "Bạn có thể tiếp tục mà không cần mua cuộn giấy hay ghép đồ. Hãy quay lại khi có ba phụ kiện giống nhau.",
 	"docs.tutorial.bank.example_supplies": "Hãy để HP Potion (hpot0) trong túi để chạy ví dụ này. Ví dụ sẽ gửi 1 vàng và chồng thuốc đó vào ngân hàng.",

@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "يمكنك معرفة مقدار ما تستعيده كل قدرة تجدد من حقل <span class=\"dlabel\">output</span> الخاص بها.",
 	"docs.tutorial.helloworld.earlier_actions": "تُحتسب أفعالك السابقة أيضًا. عندما تنهي المهام، اختر {button} للمتابعة.",
 	"docs.tutorial.compound.optional_practice": "يمكنك المتابعة دون شراء لفائف أو دمج أغراض. عُد عندما يكون لديك ثلاثة إكسسوارات متطابقة.",
 	"docs.tutorial.bank.example_supplies": "احتفظ بـ HP Potion (hpot0) في حقيبتك لهذا المثال. يودع المثال قطعة ذهب واحدة ويخزّن تلك المجموعة من الجرعات في البنك.",

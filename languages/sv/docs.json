@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Läs hur mycket varje regenereringsförmåga återställer i dess <span class=\"dlabel\">output</span>-fält.",
 	"docs.tutorial.helloworld.earlier_actions": "Tidigare handlingar räknas också. Välj {button} när uppgifterna är klara för att gå vidare.",
 	"docs.tutorial.compound.optional_practice": "Du kan fortsätta utan att köpa skriftrullar eller kombinera föremål. Kom tillbaka när du har tre likadana accessoarer.",
 	"docs.tutorial.bank.example_supplies": "Ha HP Potion (hpot0) i väskan för det här exemplet. Det sätter in 1 guld och lägger den traven med drycker i banken.",

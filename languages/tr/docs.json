@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Her yenilenme yeteneğinin ne kadar can veya mana yenilediğini <span class=\"dlabel\">output</span> alanından okuyabilirsin.",
 	"docs.tutorial.helloworld.earlier_actions": "Önceden yaptıkların da sayılır. Görevler tamamlandığında ilerlemek için {button} düğmesini seç.",
 	"docs.tutorial.compound.optional_practice": "Parşömen almadan veya birleştirme yapmadan devam edebilirsin. Aynı türden üç aksesuarın olduğunda geri dön.",
 	"docs.tutorial.bank.example_supplies": "Bu örnek için çantanda HP Potion (hpot0) bulundur. Örnek bankaya 1 altın ve bu iksir yığınını koyar.",

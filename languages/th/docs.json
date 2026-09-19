@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "ดูปริมาณ HP หรือ MP ที่ฟื้นฟูได้จากฟิลด์ <span class=\"dlabel\">output</span> ของความสามารถฟื้นฟูแต่ละแบบ",
 	"docs.tutorial.helloworld.earlier_actions": "สิ่งที่ทำไปก่อนหน้านี้ก็นับด้วย เมื่อทำงานครบแล้ว ให้เลือก {button} เพื่อไปต่อ",
 	"docs.tutorial.compound.optional_practice": "คุณไปต่อได้โดยไม่ต้องซื้อสกรอลล์หรือผสมไอเทม ค่อยกลับมาเมื่อมีเครื่องประดับแบบเดียวกันครบสามชิ้น",
 	"docs.tutorial.bank.example_supplies": "เตรียม HP Potion (hpot0) ไว้ในกระเป๋าสำหรับตัวอย่างนี้ โค้ดจะฝากทอง 1 หน่วยและโพชันกองนั้นไว้ในธนาคาร",

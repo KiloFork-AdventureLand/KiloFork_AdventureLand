@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "可從每個再生能力的 <span class=\"dlabel\">output</span> 欄位讀取其恢復量。",
 	"docs.tutorial.helloworld.earlier_actions": "之前做過的操作也算數。完成任務後，選擇{button}繼續。",
 	"docs.tutorial.compound.optional_practice": "不買卷軸、不合成也可以繼續。等你湊齊三個相同的飾品後再回來。",
 	"docs.tutorial.bank.example_supplies": "執行此範例前，請在背包裡準備HP Potion (hpot0)。它會將1金幣和這疊藥水存入銀行。",

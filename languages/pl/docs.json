@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Ilość HP lub MP przywracaną przez każdą zdolność regeneracji odczytasz z jej pola <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Wcześniejsze działania też się liczą. Po wykonaniu zadań wybierz {button}, aby przejść dalej.",
 	"docs.tutorial.compound.optional_practice": "Możesz kontynuować bez kupowania zwojów i łączenia przedmiotów. Wróć, gdy będziesz mieć trzy takie same akcesoria.",
 	"docs.tutorial.bank.example_supplies": "Do tego przykładu potrzebujesz HP Potion (hpot0) w torbie. Przykład wpłaca 1 sztukę złota i odkłada ten stos mikstur w banku.",

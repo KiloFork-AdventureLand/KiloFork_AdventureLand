@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Se, hvor meget hver regenereringsevne gendanner, i dens <span class=\"dlabel\">output</span>-felt.",
 	"docs.tutorial.helloworld.earlier_actions": "Tidligere handlinger tæller også. Vælg {button}, når opgaverne er færdige, for at gå videre.",
 	"docs.tutorial.compound.optional_practice": "Du kan fortsætte uden at købe skriftruller eller kombinere genstande. Kom tilbage, når du har tre ens tilbehørsgenstande.",
 	"docs.tutorial.bank.example_supplies": "Hav HP Potion (hpot0) i tasken til dette eksempel. Det indsætter 1 guld og lægger den stak drikke i banken.",

@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "各再生アビリティの回復量は、<span class=\"dlabel\">output</span> フィールドから読み取れます。",
 	"docs.tutorial.helloworld.earlier_actions": "先に行った行動も数えられます。課題を終えたら、{button}を選んで先へ進みましょう。",
 	"docs.tutorial.compound.optional_practice": "スクロールの購入や合成をせずに続けても大丈夫です。同じアクセサリーが3つそろったら戻ってきましょう。",
 	"docs.tutorial.bank.example_supplies": "この例では、バッグにHP Potion (hpot0)を入れておいてください。銀行に1ゴールドと、そのポーションのスタックを預けます。",

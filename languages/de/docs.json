@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Im Feld <span class=\"dlabel\">output</span> kannst du ablesen, wie viel die jeweilige Regenerationsfähigkeit wiederherstellt.",
 	"docs.tutorial.helloworld.earlier_actions": "Frühere Aktionen zählen ebenfalls. Wähle nach Abschluss der Aufgaben {button}, um weiterzumachen.",
 	"docs.tutorial.compound.optional_practice": "Du kannst ohne Schriftrollenkauf oder Kombination weitermachen. Komm zurück, wenn du drei gleiche Accessoires hast.",
 	"docs.tutorial.bank.example_supplies": "Für dieses Beispiel brauchst du HP Potion (hpot0) im Inventar. Es zahlt 1 Gold ein und lagert diesen Trankstapel in der Bank.",

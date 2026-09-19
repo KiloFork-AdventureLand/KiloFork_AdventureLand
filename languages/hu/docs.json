@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Az egyes regeneráló képességek által visszaállított mennyiséget az <span class=\"dlabel\">output</span> mezőjükből olvashatod ki.",
 	"docs.tutorial.helloworld.earlier_actions": "A korábbi tetteid is számítanak. Ha kész vagy a feladatokkal, válaszd a {button} gombot a továbblépéshez.",
 	"docs.tutorial.compound.optional_practice": "Tekercsvásárlás és tárgyegyesítés nélkül is továbbléphetsz. Gyere vissza, ha van három egyforma kiegészítőd.",
 	"docs.tutorial.bank.example_supplies": "Ehhez a példához legyen HP Potion (hpot0) a táskádban. A példa 1 aranyat és ezt az italhalmot teszi a bankba.",

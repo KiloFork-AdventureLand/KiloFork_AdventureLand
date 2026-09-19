@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Кількість HP або MP, яку відновлює кожна здібність регенерації, можна дізнатися з її поля <span class=\"dlabel\">output</span>.",
 	"docs.tutorial.helloworld.earlier_actions": "Попередні дії теж зараховуються. Виконавши завдання, вибери {button}, щоб рухатися далі.",
 	"docs.tutorial.compound.optional_practice": "Можна продовжити без купівлі сувоїв та об’єднання предметів. Повернися, коли матимеш три однакові аксесуари.",
 	"docs.tutorial.bank.example_supplies": "Для цього прикладу поклади в сумку HP Potion (hpot0). Приклад кладе до банку 1 золото й цей стос зіль.",

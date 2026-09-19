@@ -1,4 +1,5 @@
 {
+	"docs.functions.use_skill.regeneration_output": "Les hvor mye hver regenereringsevne gjenoppretter, i dens <span class=\"dlabel\">output</span>-felt.",
 	"docs.tutorial.helloworld.earlier_actions": "Tidligere handlinger teller også. Velg {button} når oppgavene er ferdige, for å gå videre.",
 	"docs.tutorial.compound.optional_practice": "Du kan fortsette uten å kjøpe skriftruller eller kombinere gjenstander. Kom tilbake når du har tre like tilbehørsgjenstander.",
 	"docs.tutorial.bank.example_supplies": "Ha HP Potion (hpot0) i vesken for dette eksemplet. Det setter inn 1 gull og legger den stabelen med drikker i banken.",
