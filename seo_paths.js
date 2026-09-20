@@ -13,6 +13,7 @@ const DOCS_PATHS = [
 	"/docs/code/functions/buy",
 	"/docs/code/functions/giveaway",
 	"/docs/code/functions/equip",
+	"/docs/code/functions/equip_cx",
 	"/docs/code/functions/get_progression",
 	"/docs/code/functions/is_on_cooldown",
 	"/docs/code/functions/load_code",

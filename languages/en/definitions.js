@@ -840,14 +840,14 @@ module.exports = {
 	"item.confetti.explanation": "To celebrate good times",
 	// design/items.js; cosmo0 explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Haila"].
 	"item.cosmo0.explanation": "Give this to NPC Haila to receive a new look. Heads-up! It's random, you may or may-not like it. [Work in progress - PRICE/DROPS MIGHT CHANGE!]",
-	// design/items.js; cosmo1 explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Haila"].
-	"item.cosmo1.explanation": "Give this to NPC Haila to receive a new make-up. Heads-up! It's random, you may or may-not like it. [Work in progress - Not functional yet.]",
+	// New Make-up box: exchange with Haila for one random individual head or one complete related-head set. Proper names stay fixed.
+	"item.cosmo1.explanation": "Give this to Haila for a random unique head or a set of related head colors and faces.",
 	// design/items.js; cosmo2 explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Haila"].
 	"item.cosmo2.explanation": "Give this to NPC Haila to receive a new hairdo. Heads-up! It's random, you may or may-not like it. [Work in progress - PRICE/DROPS MIGHT CHANGE!]",
 	// design/items.js; cosmo3 explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Haila"].
 	"item.cosmo3.explanation": "Give this to NPC Haila to receive a new hat. Heads-up! It's random, you may or may-not like it. [Work in progress - PRICE/DROPS MIGHT CHANGE!]",
-	// design/items.js; cosmo4 explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Haila"].
-	"item.cosmo4.explanation": "Give this to NPC Haila to receive a unique accessory. Heads-up! It's random, you may or may-not like it. [Work in progress - Not functional yet.]",
+	// Haila exchanges this box for one random accessory, not every listed category.
+	"item.cosmo4.explanation": "Give this to Haila for a random accessory: glasses, facial hair, a mask, face markings, a backpack, wings or a tail.",
 	// design/items.js; cosmo5 explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Haila"].
 	"item.cosmo5.explanation": "Give this to Haila for a curious new flourish. It may be an emote or a gravestone.",
 	// design/items.js; critscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.

@@ -21,6 +21,9 @@
 
 <p>{{ phrase("docs.guide.looks.some-looks-have-limited-copies-equipping-one-does") }}</p>
 
+<p>{{ phrase("docs.guide.looks.head-box") }}</p>
+<p>{{ phrase("docs.guide.looks.accessory-box") }}</p>
+
 <div class="guide-items">
 	<div>{{ phrase_html("docs.guide.looks.new-armor-give-it-to-haila-for-one") }}</div>
 	<div>{{ phrase_html("docs.guide.looks.cx-jar-use-it-to-unlock-the-appearance") }}</div>
@@ -41,6 +44,11 @@ show_json(character.acx); // owned copies
 
 await equip_cx("hat", "bwhat");
 await equip_cx("hat"); // clear the hat slot
+
+await equip_cx("head", "slimehead0");
+await equip_cx("head", "lavaglasshead0");
+await equip_cx("head", "stormhead0");
+await equip_cx("back", "backpacks00");
 
 await send_cx("YourOtherCharacter", "bwhat");</div>
 

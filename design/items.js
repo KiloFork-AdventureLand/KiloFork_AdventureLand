@@ -6104,9 +6104,9 @@ var premiums={
 		"cash":459, //149
 		"g":10000000,
 		"name":"New Make-up",
-		"explanation":"Give this to NPC Haila to receive a new make-up. Heads-up! It's random, you may or may-not like it. [Work in progress - Not functional yet.]",
+		"explanation":"Give this to Haila for a random unique head or a set of related head colors and faces.",
 		"s":true,
-		//"e":1,
+		"e":1,
 		"quest":"cx",
 	},
 	"cosmo2":{
@@ -6137,9 +6137,9 @@ var premiums={
 		"cash":1399, //399
 		"g":10000000,
 		"name":"New Accessory",
-		"explanation":"Give this to NPC Haila to receive a unique accessory. Heads-up! It's random, you may or may-not like it. [Work in progress - Not functional yet.]",
+		"explanation":"Give this to Haila for a random accessory: glasses, facial hair, a mask, face markings, a backpack, wings or a tail.",
 		"s":true,
-		//"e":1,
+		"e":1,
 		"quest":"cx",
 	},
 	"cosmo5":{

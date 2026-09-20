@@ -7498,6 +7498,7 @@ function precompute_image_positions() {
 		if (in_arr(s_def.type, ["tail"])) ((col_num = 4), (s_type = s_def.type));
 		if (in_arr(s_def.type, ["v_animation", "head", "hair", "hat", "s_wings", "face", "makeup", "beard"])) ((col_num = 1), (s_type = s_def.type));
 		if (in_arr(s_def.type, ["a_makeup", "a_hat"])) ((col_num = s_def.frames || 3), (s_type = s_def.type));
+		if (s_def.type == "head" && s_def.frames) col_num = s_def.frames;
 		if (in_arr(s_def.type, ["wings", "body", "armor", "skin", "character"])) s_type = s_def.type;
 		if (in_arr(s_def.type, ["emblem", "gravestone"])) ((row_num = 1), (col_num = 1), (s_type = s_def.type));
 		var matrix = s_def.matrix;

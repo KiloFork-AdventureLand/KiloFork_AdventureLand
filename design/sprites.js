@@ -29,11 +29,27 @@ var sprites = {
 		],
 	},
 	makeup1: {
-		file: "/images/cosmetics/makeup/makeup1.png?v=6",
+		file: "/images/cosmetics/makeup/makeup1.png?v=7",
 		rows: 1,
-		columns: 42,
+		columns: 47,
 		type: "head",
 		matrix: [[]], //looped below
+	},
+	lavaglass: {
+		file: "/images/cosmetics/makeup/lavaglass_anim.png?v=1",
+		rows: 1,
+		columns: 1,
+		type: "head",
+		frames: 8,
+		matrix: [["lavaglasshead0"]],
+	},
+	stormhead: {
+		file: "/images/cosmetics/makeup/stormhead_anim.png?v=1",
+		rows: 1,
+		columns: 1,
+		type: "head",
+		frames: 6,
+		matrix: [["stormhead0"]],
 	},
 	bwhair: {
 		file: "/images/cosmetics/hairdo/bwhair.png?v=2",
@@ -1042,9 +1058,9 @@ var sprites = {
 };
 var bodysets = [
 	//skin
-	["sskin1", "skin", "small", 8, "/images/cosmetics/skins/sskin1.png"],
-	["mskin1", "skin", "normal", 8, "/images/cosmetics/skins/mskin1.png"],
-	["lskin1", "skin", "large", 4, "/images/cosmetics/skins/lskin1.png"],
+	["sskin1", "skin", "small", 8, "/images/cosmetics/skins/sskin1.png?v=2"],
+	["mskin1", "skin", "normal", 8, "/images/cosmetics/skins/mskin1.png?v=2"],
+	["lskin1", "skin", "large", 4, "/images/cosmetics/skins/lskin1.png?v=2"],
 	//body
 	["sbody1", "body", "small", 5, "/images/cosmetics/armors/sbody1.png?v=4"],
 	["mbody1", "body", "normal", 8, "/images/cosmetics/armors/mbody1.png?v=2"],
@@ -1101,6 +1117,11 @@ for (var si = 0; si < bodysets.length; si++) {
 		}
 	}
 }
+
+sprites.sskin1.rows = sprites.mskin1.rows = 3;
+sprites.sskin1.matrix.push(["sslimeskin", null, null, null]);
+sprites.mskin1.matrix.push(["mslimeskin", null, null, null]);
+sprites.lskin1.matrix[1] = ["lskin1e", "lslimeskin", null, null];
 
 var rowsets = [
 	["hairdo1", "hair", 25, 25, "/images/cosmetics/hairdo/hairdo1.png?v=7"],
@@ -1162,6 +1183,7 @@ sprites.hats4.matrix[0][13] = "aniv3";
 for (var i = 0; i < 42; i++) {
 	sprites["makeup1"]["matrix"][0].push("makeup1" + ("0" + i).slice(-2));
 }
+sprites.makeup1.matrix[0].push("cyclops0", "eyehead0", "mimichead0", "slimehead0", "lanternhead0");
 
 //for(var i=0;i<25;i++)
 //	sprites["hairdo2"]["matrix"][0].push("hair2"+("0"+i).slice(-2));

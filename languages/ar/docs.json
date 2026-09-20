@@ -1,4 +1,6 @@
 {
+  "docs.guide.looks.accessory-box": "أعطِ New Accessory إلى Haila لتحصل على زينة عشوائية. اختر النظارات واللحى والشوارب والأقنعة ونقوش الوجه وحقائب الظهر والأجنحة والذيول التي فتحتها من قائمة زينة.",
+  "docs.guide.looks.head-box": "أعطِ New Make-up إلى Haila لتحصل عشوائيًا على رأس مميز أو مجموعة من ألوان الرؤوس والوجوه المتشابهة. تفتح المجموعة جميع رؤوسها معًا، بينما تُفتح الرؤوس المميزة كلٌّ على حدة. اختر أي رأس مفتوح من قائمة زينة.",
   "docs.guide.crafting.bataxe_recipe": "أحضر إلى Leo قطعة Wooden Basher +7 وThe Crypt Key وقطعة واحدة من Essence of Life و120,000 ذهب. يستهلك التصنيع هذه المواد والذهب ويمنحك Ghastly Battle Axe +0.",
   "docs.guide.crafting.bataxe_code": "بالقرب من Leo، أو بوجود Computer، استخدم CODE للتصنيع بالمواد والذهب المطلوبين في حقيبتك:",
   "docs.functions.buy.wooden_axe": "يبيع Gabriel سلاح Wooden Axe مقابل 4,900 ذهب. افتح متجره في Mainland أو استخدم CODE وأنت بالقرب منه:",

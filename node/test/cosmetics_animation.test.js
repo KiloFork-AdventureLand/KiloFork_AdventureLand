@@ -33,8 +33,28 @@ function runtime() {
 		items: {},
 	};
 	// Exercise the actual loader grid and HTML grid against the PNG headers.
-	const sets = ["aniv2", "hats4", "gcandle", "bathat", "halo", "burningeyes1", "makeup1", "mbody4"];
+	const sets = [
+		"aniv2",
+		"hats4",
+		"gcandle",
+		"bathat",
+		"halo",
+		"burningeyes1",
+		"makeup1",
+		"mbody4",
+		"lavaglass",
+		"stormhead",
+	];
 	context.G.sprites = Object.fromEntries(sets.map((id) => [id, context.sprites[id]]));
+	// Fixture sheets exercise optional head frames without releasing draft artwork.
+	Object.assign(context.G.cosmetics.head_animation, { headfixture3: 240, headfixture6: 220 });
+	for (const [id, source, frames] of [
+		["headfixture3", "gcandle", 3],
+		["headfixture6", "aniv2", 6],
+	]) {
+		context.G.sprites[id] = { ...context.sprites[source], type: "head", frames, matrix: [[id]] };
+		context.G.cosmetics.head[id] = ["sskin1a", "mskin1a", "lskin1a"];
+	}
 	Object.assign(context, {
 		T: { initialized: true },
 		SS: {},
@@ -190,8 +210,38 @@ test("unconfigured animated hats and makeup retain their existing frame selectio
 test("animated cosmetics remain harmless with fake PIXI and no graphics", () => {
 	const { context: c, actor } = runtime();
 	const s = actor("aniv2");
+	s.cx.head = "lavaglasshead0";
 	vm.runInContext(read("js/pixi/fake/pixi.min.js"), c);
 	c.no_graphics = true;
 	assert.doesNotThrow(() => c.cosmetics_logic(s));
 	assert.equal(s.children.length, 0);
+});
+
+test("heads with frame metadata animate independently of walking in all directions", () => {
+	const { context: c, actor, at } = runtime();
+	for (const [id, frames, height, interval] of [
+		["headfixture3", 3, 30, 240],
+		["headfixture6", 6, 38, 220],
+		["lavaglasshead0", 8, 30, 160],
+		["stormhead0", 6, 30, 220],
+	]) {
+		const s = actor("gcandle");
+		s.cx.head = id;
+		assert.equal(c.T[id], "head");
+		assert.deepEqual(Array.from(c.XYWH[id]), [0, 0, 27, height, frames]);
+		assert.equal(c.IID[id][6], frames);
+		for (let j = 0; j < 4; j++)
+			for (let tick = 0; tick < frames * 2; tick++) {
+				s.j = j;
+				s.i = tick < 3 || tick > 6 ? 1 : [0, 1, 2, 1][tick % 4];
+				at(tick * interval);
+				c.cosmetics_logic(s);
+				assert.equal(s.cxc[id].texture, c.textures[id][j][tick % frames]);
+				const crop = s.cxc[id].texture.frame;
+				assert.deepEqual([crop.x, crop.y, crop.width, crop.height], [(tick % frames) * 27, j * height, 27, height]);
+				assert.equal(s.cxc[id].y, -6 + (s.i === 1 ? 0 : 1));
+			}
+	}
+	c.generate_textures("makeup117", "head");
+	assert.equal(Array.isArray(c.textures.makeup117[0]), false, "static heads retain their texture shape");
 });

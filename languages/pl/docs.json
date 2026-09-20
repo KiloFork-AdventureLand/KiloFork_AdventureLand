@@ -1,4 +1,6 @@
 {
+  "docs.guide.looks.accessory-box": "Przekaż New Accessory postaci Haila, aby otrzymać losowy dodatek. Wybieraj odblokowane okulary, zarost, maski, wzory na twarzy, plecaki, skrzydła i ogony w menu Ozdoby.",
+  "docs.guide.looks.head-box": "Przekaż New Make-up postaci Haila, aby otrzymać losową unikalną głowę albo zestaw podobnych twarzy i kolorów głowy. Zestaw odblokowuje wszystkie zawarte w nim głowy naraz; unikalne głowy odblokowuje się pojedynczo. Wybierz dowolną odblokowaną głowę w menu Ozdoby.",
   "docs.guide.crafting.bataxe_recipe": "Przynieś do Leo jeden Wooden Basher +7, The Crypt Key, jedną Essence of Life i 120 000 złota. Wytworzenie zużyje te składniki i złoto, a otrzymasz Ghastly Battle Axe +0.",
   "docs.guide.crafting.bataxe_code": "W pobliżu Leo lub z Computer użyj CODE, aby wytworzyć przedmiot z wymaganych składników i złota w ekwipunku:",
   "docs.functions.buy.wooden_axe": "Gabriel sprzedaje Wooden Axe za 4900 złota. Otwórz jego sklep na Mainland lub użyj CODE, będąc w pobliżu:",

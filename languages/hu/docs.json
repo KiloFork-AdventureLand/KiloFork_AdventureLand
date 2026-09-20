@@ -1,4 +1,6 @@
 {
+  "docs.guide.looks.accessory-box": "Haila a New Accessory tárgyért cserébe egy véletlenszerű kiegészítőt ad. A Külsők menüben választhatsz a feloldott szemüvegek, arcszőrzetek, maszkok, arcminták, hátizsákok, szárnyak és farkak közül.",
+  "docs.guide.looks.head-box": "Haila a New Make-up tárgyért cserébe véletlenszerűen ad egy egyedi fejet vagy egy hasonló fejszínekből és arcokból álló készletet. A készlet összes feje egyszerre oldódik fel; az egyedi fejek külön-külön oldódnak fel. A Külsők menüben bármelyik feloldott fejet kiválaszthatod.",
   "docs.guide.crafting.bataxe_recipe": "Vigyél Leo számára egy Wooden Basher +7-et, egy The Crypt Key-t, egy Essence of Life-ot és 120 000 aranyat. Az elkészítés felhasználja ezeket, és egy Ghastly Battle Axe +0-t kapsz.",
   "docs.guide.crafting.bataxe_code": "Leo közelében vagy egy Computer birtokában CODE-dal is elkészítheted a tárgyat a hátizsákodban lévő szükséges tárgyakból és aranyból:",
   "docs.functions.buy.wooden_axe": "Gabriel 4900 aranyért árul Wooden Axe-ot. Nyisd meg a boltját Mainland területén, vagy használd a CODE-ot a közelében:",

@@ -1,5 +1,9 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Cosmetics guide: New Accessory and Haila are proper names. Cosmetics is the existing wardrobe control; one box grants one random accessory.
+	"docs.guide.looks.accessory-box": "Give New Accessory to Haila for a random accessory. Choose your unlocked glasses, facial hair, masks, face markings, backpacks, wings and tails in Cosmetics.",
+	// Cosmetics guide: New Make-up and Haila are proper names. A set unlocks its related heads together; unique heads are individual rewards. Cosmetics is the existing wardrobe control.
+	"docs.guide.looks.head-box": "Give New Make-up to Haila for a random unique head or a set of related head colors and faces. A set unlocks all of its heads together; unique heads unlock individually. Choose any unlocked head in Cosmetics.",
 	// Crafting guide: Leo consumes exactly one Wooden Basher +7, one The Crypt Key, one Essence of Life and 120,000 gold for a Ghastly Battle Axe +0. Preserve item and NPC names and levels.
 	"docs.guide.crafting.bataxe_recipe": "Bring a Wooden Basher +7, The Crypt Key, one Essence of Life and 120,000 gold to Leo. Crafting consumes them and gives you a Ghastly Battle Axe +0.",
 	// Crafting guide CODE example: Leo proximity or a carried Computer permits ordinary crafting. Preserve Leo, Computer and CODE.

@@ -6115,7 +6115,8 @@ function cosmetics_logic(sprite) {
 				c.x = +tilt + x_disp; //,c.zy=-2*ZEPS; // new
 			else if (sprite.j == 3) ((c.x = 0 + x_disp), (c.zy = -ZEPS));
 			if (sprite.j < 3 && covers) c.zy = -2 * ZEPS;
-			if (sprite.j !== undefined) set_texture(c, sprite.j);
+			var head_interval = G.cosmetics.head_animation && G.cosmetics.head_animation[cid];
+			if (sprite.j !== undefined) set_texture(c, sprite.j, head_interval ? Math.floor(Date.now() / head_interval) : 0);
 			c.moved = false;
 		} else if (c.stype == "hair") {
 			c.y_disp = -(G.cosmetics.default_hair_place + head_dy + hair_dy) + cosmetic_head_y;
@@ -7356,6 +7357,7 @@ function load_game(c) {
 			if (in_arr(s_def.type, ["tail"])) ((col_num = 4), (s_type = s_def.type));
 			if (in_arr(s_def.type, ["v_animation", "head", "hair", "hat", "s_wings", "face", "makeup", "beard"])) ((col_num = 1), (s_type = s_def.type));
 			if (in_arr(s_def.type, ["a_makeup", "a_hat"])) ((col_num = s_def.frames || 3), (s_type = s_def.type));
+			if (s_def.type == "head" && s_def.frames) col_num = s_def.frames;
 			if (in_arr(s_def.type, ["wings", "body", "armor", "skin", "character"])) s_type = s_def.type;
 			if (in_arr(s_def.type, ["emblem", "gravestone"])) ((row_num = 1), (col_num = 1), (s_type = s_def.type));
 			var matrix = s_def.matrix;

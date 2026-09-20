@@ -1,4 +1,5 @@
 {
+  "update.20_09_26.head_cosmetics": "New Make-up y New Accessory ya están disponibles en la tienda de Mr. Dworf. Llévaselos a Haila para recibir conjuntos de cabezas, cabezas únicas o accesorios. Las nuevas cabezas incluyen Cyclops, Eyeball, Mimic, Slime, Lantern, Lava Glass y Storm; Lava Glass y Storm se animan incluso cuando el personaje está quieto.",
 	"update.13_09_26.login_recovery": "Se corrigió un error que podía dejar a los personajes conectados después de un inicio de sesión fallido e impedir que se volvieran a conectar.",
 	"update.13_09_26.tutorial_progress": "Corregimos el progreso del tutorial: ahora cuentan las acciones anteriores y más formas de completar las tareas. La práctica de combinación es opcional; reunir accesorios ya no impide avanzar a las siguientes lecciones.",
 	"update.09_09_26.steam_clients_include_game_images_and_remember_your_language": "Los clientes de Steam ahora incluyen las imágenes del juego para reducir las descargas y recuerdan tu idioma.",

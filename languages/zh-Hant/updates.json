@@ -1,4 +1,5 @@
 {
+  "update.20_09_26.head_cosmetics": "現在可向Mr. Dworf購買New Make-up和New Accessory。把它們交給Haila，即可獲得頭部外觀套組、獨特頭部外觀或配件。新增頭部外觀包含Cyclops、Eyeball、Mimic、Slime、Lantern、Lava Glass和Storm；Lava Glass和Storm即使在角色站著不動時也有動畫。",
 	"update.13_09_26.login_recovery": "修正了登入失敗後角色可能卡在在線狀態，導致無法重新連線的問題。",
 	"update.13_09_26.tutorial_progress": "修正了教學進度：之前的操作以及更多任務完成方式現在也算數。合成練習改為選做，不必湊齊飾品也能繼續後續課程。",
 	"update.09_09_26.steam_clients_include_game_images_and_remember_your_language": "Steam 用戶端現已內建遊戲圖片，減少下載量，並記住你的語言選擇。",

@@ -1,4 +1,6 @@
 {
+  "docs.guide.looks.accessory-box": "New AccessoryをHailaに渡すと、アクセサリーがランダムで手に入ります。解放済みのメガネ、ひげ、マスク、顔の模様、バックパック、翼、しっぽは「外見」で選べます。",
+  "docs.guide.looks.head-box": "New Make-upをHailaに渡すと、独自の頭部外見1種か、似た頭部の色や顔をまとめたセットがランダムで手に入ります。セット内の頭部外見はすべて同時に解放され、独自の頭部外見は1種ずつ解放されます。解放済みの頭部外見は「外見」で選べます。",
   "docs.guide.crafting.bataxe_recipe": "Wooden Basher +7を1個、The Crypt Keyを1個、Essence of Lifeを1個、120,000ゴールドをLeoに持っていこう。作成するとこれらが消費され、Ghastly Battle Axe +0を1個入手できる。",
   "docs.guide.crafting.bataxe_code": "Leoの近くにいるか、Computerを持っていれば、インベントリ内の必要なアイテムとゴールドを使ってCODEで作成できる：",
   "docs.functions.buy.wooden_axe": "GabrielはWooden Axeを4,900ゴールドで販売している。Mainlandで彼の店を開くか、近くでCODEを使おう：",

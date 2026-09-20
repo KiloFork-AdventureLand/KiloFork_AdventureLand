@@ -3683,7 +3683,7 @@ function generate_textures(name, stype) {
 			textures[name][i] = new PIXI.Texture(C[FC[name]], rectangle);
 		}
 	}
-	if (in_arr(stype, ["v_animation", "head", "hair", "hat", "s_wings", "face", "makeup", "beard"])) {
+	if (in_arr(stype, ["v_animation", "head", "hair", "hat", "s_wings", "face", "makeup", "beard"]) && !(stype == "head" && XYWH[name][4] > 1)) {
 		var d = XYWH[name];
 		textures[name] = [null, null, null, null];
 		for (var i = 0; i < 4; i++) {
@@ -3691,7 +3691,7 @@ function generate_textures(name, stype) {
 			textures[name][i] = new PIXI.Texture(C[FC[name]], rectangle);
 		}
 	}
-	if (in_arr(stype, ["a_makeup", "a_hat"])) {
+	if (in_arr(stype, ["a_makeup", "a_hat"]) || (stype == "head" && XYWH[name][4] > 1)) {
 		var d = XYWH[name];
 		textures[name] = [[], [], [], []];
 		for (var i = 0; i < 4; i++) {
@@ -3723,7 +3723,8 @@ function set_texture(sprite, i, j) {
 		sprite.texture = textures[sprite.skin][i % sprite.frames];
 	}
 	if (in_arr(sprite.stype, ["v_animation", "head", "hair", "hat", "s_wings", "face", "makeup", "beard"])) {
-		sprite.texture = textures[sprite.skin][i % sprite.frames];
+		var frame = textures[sprite.skin][i % sprite.frames];
+		sprite.texture = Array.isArray(frame) ? frame[(j || 0) % frame.length] : frame;
 	}
 	if (in_arr(sprite.stype, ["a_makeup", "a_hat"])) {
 		sprite.texture = textures[sprite.skin][i % sprite.frames][j % textures[sprite.skin][0].length];
@@ -3765,7 +3766,8 @@ function new_sprite(skin, stype, n) {
 	}
 	if (in_arr(stype, ["head", "hair", "hat", "s_wings", "face", "makeup", "beard"])) {
 		if (!textures[skin]) generate_textures(skin, stype);
-		var sprite = new PIXI.Sprite(textures[skin][0]);
+		var frame = textures[skin][0];
+		var sprite = new PIXI.Sprite(Array.isArray(frame) ? frame[0] : frame);
 		sprite.cskin = "0";
 		sprite.i = 0;
 		sprite.frames = 4;

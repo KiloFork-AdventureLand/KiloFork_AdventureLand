@@ -1,5 +1,7 @@
 // Release highlights. Dates, item/character names and CODE identifiers stay unchanged.
 module.exports = {
+	// Cosmetic boxes, seller, exchanger and the seven head names are proper names. Lava Glass and Storm animate while idle as well as walking.
+	"update.20_09_26.head_cosmetics": "New Make-up and New Accessory are now available from Mr. Dworf. Take them to Haila for head sets, unique heads or accessories. New heads include Cyclops, Eyeball, Mimic, Slime, Lantern, Lava Glass and Storm; Lava Glass and Storm animate even while standing still.",
 	// Release highlight. Cavalry and Tracktrix are fixed names.
 	"update.14_09_26.cavalry": "Call the Cavalry through Tracktrix for help with level 3+ monsters. Four sentries split between battles and help lower-level adventurers first.",
 	// Release highlight for the Tavern games. Fortune's Wheel is the wheel game, Sun and Moon its sides; Texas Hold'em is the poker variant; server tiers I to IV and PVP are server names; bet_wheel(), play_slots(), poker_join() and poker_act() are CODE.
