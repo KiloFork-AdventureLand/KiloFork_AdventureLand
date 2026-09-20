@@ -23,6 +23,8 @@
 
 <p>{{ phrase("docs.guide.looks.head-box") }}</p>
 <p>{{ phrase("docs.guide.looks.accessory-box") }}</p>
+<p>{{ phrase("docs.guide.looks.misc-box") }}</p>
+<div class="ecosmo5drops"></div>
 
 <div class="guide-items">
 	<div>{{ phrase_html("docs.guide.looks.new-armor-give-it-to-haila-for-one") }}</div>
@@ -49,6 +51,8 @@ await equip_cx("head", "slimehead0");
 await equip_cx("head", "lavaglasshead0");
 await equip_cx("head", "stormhead0");
 await equip_cx("back", "backpacks00");
+await equip_cx("hair", "hairdo600");
+await equip_cx("hat", "halo");
 
 await send_cx("YourOtherCharacter", "bwhat");</div>
 
@@ -57,6 +61,8 @@ await send_cx("YourOtherCharacter", "bwhat");</div>
 	$(".spdworf").html(sprite(G.npcs.antip2w.skin, { height: 62 }));
 	$(".ecosmo0").html(item_container({ skin: G.items.cosmo0.skin }, { name: "cosmo0" }));
 	$(".ecxjar").html(item_container({ skin: G.items.cxjar.skin }, { name: "cxjar" }));
+	var total = G.drops.cosmo5.reduce(function(sum, drop) { return sum + drop[0]; }, 0);
+	$(".ecosmo5drops").html(G.drops.cosmo5.map(function(drop) { return render_drop(drop, 1 / total, null, "percent"); }).join(""));
 </script>
 
 <style>

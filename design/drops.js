@@ -1488,10 +1488,8 @@ var drops = {
 		[1, "cxbundle", "headsoftgold"],
 		[1, "cxbundle", "headsoftred"],
 		[1, "cx", "nfmakeup11"],
-		[1, "cxbundle", "headsoftgreen"],
-		[1, "cxbundle", "headsoftpale"],
-		[1, "cxbundle", "headsoftblue"],
-		[1, "cxbundle", "headsoftslate"],
+		[1, "cxbundle", "headsoftbrightgreen"],
+		[1, "cxbundle", "headsoftmuted"],
 		[1, "cxbundle", "headbeards"],
 		[1, "cxbundle", "headaliens"],
 		[1, "cxbundle", "headorcs"],
@@ -1555,6 +1553,7 @@ var drops = {
 		[1, "cx", "mask103"],
 	],
 	cosmo4_makeup: [
+		[1, "cx", "bbeyes"],
 		[1, "cx", "facemakeup00"],
 		[1, "cx", "facemakeup01"],
 		[1, "cx", "facemakeup03"],
@@ -1587,6 +1586,7 @@ var drops = {
 		[1, "cx", "tail300"],
 	],
 	cosmo5: [
+		[0.1, "cx", "halo"],
 		[1, "cx", "gravestonea"],
 		[1, "cx", "xgravestone0"],
 		[1, "cx", "xgravestone1"],
@@ -1635,6 +1635,7 @@ var cosmo2_data = [
 	[3, 25],
 	[4, 25],
 	[5, 22],
+	[6, 6],
 ];
 for (var i = 0; i < cosmo2_data.length; i++) {
 	var n = cosmo2_data[i][0],

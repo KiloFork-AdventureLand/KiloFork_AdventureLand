@@ -45,10 +45,13 @@ var cosmetics={
 		"headsoftbrown":["nfmakeup04","nfmakeup05","nfmakeup06","nfmakeup07"],
 		"headsoftgold":["nfmakeup08","nfmakeup14"],
 		"headsoftred":["nfmakeup09","nfmakeup10"],
+		// Keep retired soft-face groups for existing owners.
 		"headsoftgreen":["nfmakeup12","nfmakeup13","nfmakeup19"],
 		"headsoftpale":["nfmakeup15","nfmakeup16","nfmakeup20"],
 		"headsoftblue":["nfmakeup17","nfmakeup18"],
 		"headsoftslate":["nfmakeup21","nfmakeup22"],
+		"headsoftbrightgreen":["nfmakeup12","nfmakeup13"],
+		"headsoftmuted":["nfmakeup15","nfmakeup16","nfmakeup17","nfmakeup18","nfmakeup19","nfmakeup20","nfmakeup21","nfmakeup22"],
 		"headaliens":["makeup101","makeup103"],
 		"headorcs":["makeup129","fmakeup05"],
 		"headmice":["makeup124","makeup126","mmakeup06","fmakeup07"],
@@ -61,6 +64,8 @@ var cosmetics={
 		"stormhead0":220,
 	},
 	"prop":{
+		"hairdo604":["no_hat"],
+		"hairdo605":["no_hat"],
 		//Sizes(SSU): "bulky", "slender"
 		//"hair": Can have hair
 		//"no_upper": Can't wear other clothes
@@ -314,6 +319,12 @@ var cosmetics={
 		"hairdo521":[0,1],
 		"hairdo522":[0,1],
 		"hairdo523":[0,1],
+		"hairdo600":[0,1],
+		"hairdo601":[0,1],
+		"hairdo602":[0,1],
+		"hairdo603":[0,1],
+		"hairdo604":[0,0],
+		"hairdo605":[0,0],
 	},
 	"hat":{ //dy
 		"hat100":0,
@@ -321,6 +332,7 @@ var cosmetics={
 	"hat_animation":{ // Milliseconds per frame; other animated hats follow the walking frame.
 		"gcandle":180,
 		"aniv2":160,
+		"halo":200,
 	},
 	//gravestones
 	"gravestone":{

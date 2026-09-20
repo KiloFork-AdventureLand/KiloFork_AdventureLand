@@ -39,6 +39,7 @@ function runtime() {
 		"gcandle",
 		"bathat",
 		"halo",
+		"hairdo6",
 		"burningeyes1",
 		"makeup1",
 		"mbody4",
@@ -168,11 +169,12 @@ test("imported hats keep native cells and six-frame grids agree in the client an
 	}
 });
 
-test("candle and bubble hats animate while idle, moving and stopped in every direction", () => {
+test("candle, bubble and halo hats animate while idle, moving and stopped in every direction", () => {
 	const { context: c, actor, at } = runtime();
 	for (const [hat, frames, interval] of [
 		["gcandle", 3, 180],
 		["aniv2", 6, 160],
+		["halo", 4, 200],
 	]) {
 		const s = actor(hat);
 		for (let direction = 0; direction < 4; direction++) {
@@ -190,7 +192,7 @@ test("candle and bubble hats animate while idle, moving and stopped in every dir
 
 test("unconfigured animated hats and makeup retain their existing frame selection", () => {
 	const { context: c, actor, at } = runtime();
-	for (const hat of ["bathat", "halo"]) {
+	for (const hat of ["bathat"]) {
 		const s = actor(hat);
 		for (let direction = 0; direction < 4; direction++)
 			for (let frame = 0; frame < 3; frame++) {
@@ -205,6 +207,23 @@ test("unconfigured animated hats and makeup retain their existing frame selectio
 	const s = { skin: "breyes", stype: "a_makeup", frames: 4 };
 	c.set_texture(s, 2, 8);
 	assert.equal(s.texture, c.textures.breyes[2][2]);
+});
+
+test("hair with a built-in hat hides a second hat and restores it when removed", () => {
+	const { context: c, actor } = runtime();
+	for (const hair of ["hairdo604", "hairdo605"]) {
+		const s = actor("gcandle");
+		s.cx.hair = hair;
+		for (let direction = 0; direction < 4; direction++) {
+			s.j = direction;
+			c.cosmetics_logic(s);
+			assert(s.cxc[hair]);
+			assert(!s.cxc.gcandle);
+		}
+		delete s.cx.hair;
+		c.cosmetics_logic(s);
+		assert(s.cxc.gcandle);
+	}
 });
 
 test("animated cosmetics remain harmless with fake PIXI and no graphics", () => {

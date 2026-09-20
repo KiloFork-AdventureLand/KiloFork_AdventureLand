@@ -1,5 +1,7 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Cosmetics guide: New Misc. rewards and the halo hat slot. Preserve Haila and New Misc.
+	"docs.guide.looks.misc-box": "Give New Misc. to Haila for an emote, a gravestone or a glowing halo. Equip the halo in the hat slot in Cosmetics.",
 	// Cosmetics guide: New Accessory and Haila are proper names. Cosmetics is the existing wardrobe control; one box grants one random accessory.
 	"docs.guide.looks.accessory-box": "Give New Accessory to Haila for a random accessory. Choose your unlocked glasses, facial hair, masks, face markings, backpacks, wings and tails in Cosmetics.",
 	// Cosmetics guide: New Make-up and Haila are proper names. A set unlocks its related heads together; unique heads are individual rewards. Cosmetics is the existing wardrobe control.

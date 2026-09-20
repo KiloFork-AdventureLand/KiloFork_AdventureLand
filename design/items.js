@@ -6148,7 +6148,7 @@ var premiums={
 		"cash":1299,
 		"g":10000000,
 		"name":"New Misc.",
-		"explanation":"Give this to Haila for a curious new flourish. It may be an emote or a gravestone.",
+		"explanation":"Give this to Haila for an emote, a gravestone or a glowing halo.",
 		"s":true,
 		"e":1,
 		"quest":"cx",

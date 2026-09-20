@@ -56,7 +56,7 @@ test("New Make-up has valid family rewards and seven individual new heads", () =
 	assert.equal(G.items.cosmo1.e, 1);
 	assert.equal(G.items.cosmo1.cash, 459);
 	assert(G.npcs.antip2w.items.includes("cosmo1"));
-	assert.equal(G.drops.cosmo1.length, 34);
+	assert.equal(G.drops.cosmo1.length, 32);
 	const members = [];
 	for (const [weight, type, id] of G.drops.cosmo1) {
 		assert.equal(weight, 1);
@@ -75,7 +75,7 @@ test("New Make-up has valid family rewards and seven individual new heads", () =
 	for (const id of heads) assert(G.drops.cosmo1.some((drop) => drop[1] === "cx" && drop[2] === id));
 });
 
-test("head rewards separate distinct anatomy and keep human color sets small", () => {
+test("head rewards separate anatomy and combine the eight muted soft faces", () => {
 	const bundle = JSON.parse(JSON.stringify(G.cosmetics.bundle));
 	assert.deepEqual(bundle.headaliens, ["makeup101", "makeup103"]);
 	assert.deepEqual(bundle.headorcs, ["makeup129", "fmakeup05"]);
@@ -84,17 +84,54 @@ test("head rewards separate distinct anatomy and keep human color sets small", (
 	assert.deepEqual(bundle.headyetis, ["makeup119", "fmakeup08"]);
 	assert.deepEqual(bundle.headbones, ["makeup132", "makeup134", "fmakeup12"]);
 	for (const [, type, id] of G.drops.cosmo1) {
-		assert(!["headcolors", "headcolorsf", "headfangs", "headhorns", "headskulls"].includes(id));
-		if (type === "cxbundle" && /^head(round|soft)/.test(id)) assert(bundle[id].length >= 2 && bundle[id].length <= 4);
+		assert(
+			![
+				"headcolors",
+				"headcolorsf",
+				"headfangs",
+				"headhorns",
+				"headskulls",
+				"headsoftgreen",
+				"headsoftpale",
+				"headsoftblue",
+				"headsoftslate",
+			].includes(id),
+		);
+		if (type === "cxbundle" && /^head(round|soft)/.test(id) && id !== "headsoftmuted")
+			assert(bundle[id].length >= 2 && bundle[id].length <= 4);
 	}
 	assert.deepEqual(bundle.headroundgreen, ["makeup100", "makeup102", "makeup114", "makeup128"]);
-	assert.deepEqual(bundle.headsoftgreen, ["nfmakeup12", "nfmakeup13", "nfmakeup19"]);
+	assert.deepEqual(bundle.headsoftbrightgreen, ["nfmakeup12", "nfmakeup13"]);
+	assert.deepEqual(bundle.headsoftmuted, [
+		"nfmakeup15",
+		"nfmakeup16",
+		"nfmakeup17",
+		"nfmakeup18",
+		"nfmakeup19",
+		"nfmakeup20",
+		"nfmakeup21",
+		"nfmakeup22",
+	]);
 	assert(G.drops.cosmo1.some((d) => d[1] === "cx" && d[2] === "makeup130"));
 	assert(G.drops.cosmo1.some((d) => d[1] === "cx" && d[2] === "nfmakeup11"));
 });
 
 test("retired head bundles still unlock and equip every previously owned member", () => {
-	for (const id of ["headcolors", "headcolorsf", "headfangs", "headhorns", "headskulls"]) {
+	assert.deepEqual(Array.from(G.cosmetics.bundle.headsoftgreen), ["nfmakeup12", "nfmakeup13", "nfmakeup19"]);
+	assert.deepEqual(Array.from(G.cosmetics.bundle.headsoftpale), ["nfmakeup15", "nfmakeup16", "nfmakeup20"]);
+	assert.deepEqual(Array.from(G.cosmetics.bundle.headsoftblue), ["nfmakeup17", "nfmakeup18"]);
+	assert.deepEqual(Array.from(G.cosmetics.bundle.headsoftslate), ["nfmakeup21", "nfmakeup22"]);
+	for (const id of [
+		"headcolors",
+		"headcolorsf",
+		"headfangs",
+		"headhorns",
+		"headskulls",
+		"headsoftgreen",
+		"headsoftpale",
+		"headsoftblue",
+		"headsoftslate",
+	]) {
 		const { c, player, equip, replies } = fixture();
 		player.p.acx[id] = 1;
 		for (const head of G.cosmetics.bundle[id]) {
@@ -145,7 +182,7 @@ test("New Accessory uses five slot tables and every reward equips through the re
 	assert.equal(G.items.cosmo4.e, 1);
 	assert.equal(G.items.cosmo4.cash, 1399);
 	assert(G.npcs.antip2w.items.includes("cosmo4"));
-	const counts = [13, 18, 7, 16, 3],
+	const counts = [13, 18, 8, 16, 3],
 		slots = ["face", "chin", "makeup", "back", "tail"];
 	const all = [];
 	assert.equal(G.drops.cosmo4.length, 5);
@@ -171,7 +208,7 @@ test("New Accessory uses five slot tables and every reward equips through the re
 			all.push(id);
 		});
 	});
-	assert.equal(new Set(all).size, 57);
+	assert.equal(new Set(all).size, 58);
 });
 
 test("accessory duplicates are suppressed inside the chosen slot without changing its chance", () => {
@@ -183,6 +220,39 @@ test("accessory duplicates are suppressed inside the chosen slot without changin
 	assert.equal(replies.at(-1).data.name, "face100");
 	assert.equal(G.drops.cosmo4_face[0][0], 1);
 	assert.equal(G.drops.cosmo4[0][0], 1);
+});
+
+test("six calibrated hair rewards unlock normally without taking over special-source hair", () => {
+	assert.equal(G.drops.cosmo2.length, 128);
+	for (let n = 0; n < 6; n++) {
+		const id = "hairdo60" + n;
+		assert(G.drops.cosmo2.some((d) => d[1] === "cx" && d[2] === id && d[0] === 1));
+		assert.deepEqual(Array.from(G.cosmetics.hair[id]), [0, n < 4 ? 1 : 0]);
+		const { c, math, player, equip } = fixture();
+		const index = G.drops.cosmo2.findIndex((d) => d[2] === id);
+		const before = G.drops.cosmo2.slice(0, index).reduce((sum, d) => sum + d[0], 0);
+		const total = G.drops.cosmo2.reduce((sum, d) => sum + d[0], 0);
+		math.random = () => (before + 0.5) / total;
+		c.exchange(player, "cosmo2");
+		assert.equal(player.p.acx[id], 1);
+		equip({ slot: "hair", name: id });
+		assert.equal(player.cx.hair, id);
+	}
+	for (const id of ["hairdo606", "hairdo607", "hairdo608", "hairdo609"])
+		assert(!G.drops.cosmo2.some((d) => d[2] === id));
+});
+
+test("the rare halo uses the existing misc exchange and hat equip path", () => {
+	assert.deepEqual(Array.from(G.drops.cosmo5.find((d) => d[2] === "halo")), [0.1, "cx", "halo"]);
+	assert.equal(G.drops.cosmo5.find((d) => d[2] === "fart")[0], 0.2);
+	assert.equal(G.drops.cosmo5.find((d) => d[2] === "xgravestone2")[0], 0.1);
+	const { c, math, player, equip } = fixture();
+	math.random = () => 0.05 / G.drops.cosmo5.reduce((sum, d) => sum + d[0], 0);
+	c.exchange(player, "cosmo5");
+	assert.equal(player.p.acx.halo, 1);
+	equip({ slot: "hat", name: "halo" });
+	assert.equal(player.cx.hat, "halo");
+	for (const id of ["marmor10e", "marmor10f", "sbody1a"]) assert(!G.drops.cosmo0.some((d) => d[2] === id));
 });
 
 module.exports = { fixture };

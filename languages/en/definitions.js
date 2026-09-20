@@ -849,7 +849,7 @@ module.exports = {
 	// Haila exchanges this box for one random accessory, not every listed category.
 	"item.cosmo4.explanation": "Give this to Haila for a random accessory: glasses, facial hair, a mask, face markings, a backpack, wings or a tail.",
 	// design/items.js; cosmo5 explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Names: ["Haila"].
-	"item.cosmo5.explanation": "Give this to Haila for a curious new flourish. It may be an emote or a gravestone.",
+	"item.cosmo5.explanation": "Give this to Haila for an emote, a gravestone or a glowing halo.",
 	// design/items.js; critscroll explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged. Stat is the armor's selectable attribute, shown as interface.item.stat in its tooltip. Use that localized label, not a generic word for all item stats.
 	"item.critscroll.explanation": "Adds Critical Hit to an armor with a Stat attribute.",
 	// design/items.js; cryptkey explanation, displayed by its existing tooltip, dialogue or announcement renderer. Keep item/NPC/map/monster names, Adventure Land and CODE symbols unchanged.

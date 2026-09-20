@@ -7696,7 +7696,7 @@ function sprite(name, args) {
 		if (cx.face) html += sprite_image(cx.face, { x: x_disp, p: head_y + G.cosmetics.default_face_position, cwidth: args.width, scale: args.scale, opacity: opacity, j: j });
 		if (cx.chin) html += sprite_image(cx.chin, { x: x_disp, p: head_y + G.cosmetics.default_beard_position, cwidth: args.width, scale: args.scale, opacity: opacity, j: j });
 		if (cx.tail) html += sprite_image(cx.tail, { p: 0, cwidth: args.width, scale: args.scale, opacity: opacity, j: j });
-		if (cx.hat) html += sprite_image(cx.hat, { x: x_disp, p: hat_y, cwidth: args.width, scale: args.scale, opacity: opacity, j: j });
+		if (cx.hat && !cx_prop.no_hat) html += sprite_image(cx.hat, { x: x_disp, p: hat_y, cwidth: args.width, scale: args.scale, opacity: opacity, j: j });
 		if (cx.makeup) html += sprite_image(cx.makeup, { x: x_disp, p: head_y + G.cosmetics.default_makeup_position, cwidth: args.width, scale: args.scale, opacity: opacity, j: j });
 		if (cx.back && j == 3) html += sprite_image(cx.back, { x: back_x, cwidth: args.width, scale: args.scale, opacity: opacity, j: j });
 		if (rip) html += sprite_image(rip, { cwidth: args.width, scale: args.scale, j: j });

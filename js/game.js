@@ -5928,6 +5928,7 @@ function cosmetics_logic(sprite) {
 			var cid = sprite.cx[place];
 			if (!cid || ["stone"].includes(place)) continue;
 			if (place == "hair" && cx_prop.no_hair) continue;
+			if (place == "hat" && cx_prop.no_hat) continue;
 			if (body_type == "full" && in_arr(place, ["head", "hair"])) continue;
 			if (body_type == "character" && in_arr(place, ["head", "hair"])) continue;
 			if (place == "upper" && (body_type == "full" || SSU[cid] != SSU[sprite.skin])) continue;

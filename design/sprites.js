@@ -87,10 +87,11 @@ var sprites = {
 		matrix: [["gcandle"]],
 	},
 	halo: {
-		file: "/images/cosmetics/hats/halo_anim.png",
+		file: "/images/cosmetics/hats/halo_anim.png?v=2",
 		rows: 1,
 		columns: 1,
 		type: "a_hat",
+		frames: 4,
 		matrix: [["halo"]],
 	},
 	aniv2: {
