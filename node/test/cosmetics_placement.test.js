@@ -252,3 +252,114 @@ test("backpack previews use the approved game placement without changing walking
 		"Move the layer, not its source crop",
 	);
 });
+
+function menu_runtime() {
+	const fixture = runtime(),
+		{ c, load } = fixture;
+	const design = require("./helpers/design");
+	for (const name of ["skills", "drops", "items", "positions", "imagesets"]) c.G[name] = design[name];
+	const phrase = (id) => id;
+	phrase.html = phrase;
+	phrase.definition = (type, id, field, fallback) => fallback;
+	phrase.language = "en";
+	Object.assign(c, {
+		phrase,
+		cxtype_to_slot: design.cxtype_to_slot,
+		min: Math.min,
+		is_array: Array.isArray,
+		to_pretty_num: String,
+		to_pretty_float: String,
+		randomStr: () => "fixture",
+		object_sort: (object) => Object.entries(object).sort(),
+		viewport_width: () => 960,
+		show_modal: (html, args) => {
+			c.modal = { html, args };
+		},
+		render_ui_panel: (selector, html) => {
+			c.menu = html;
+		},
+		character: { owner: "fixture" },
+		xtarget: null,
+		ctarget: null,
+	});
+	for (const name of ["cx_sprite", "item_container", "render_drop", "render_exchange_info", "render_cosmetics"])
+		load("js/html.js", name);
+	return fixture;
+}
+
+test("actual head exchange responses display every awarded head instead of an empty confirmation", () => {
+	const { c, load } = menu_runtime();
+	c.D = c.G;
+	c.Math = Object.create(Math);
+	c.console = { log() {} };
+	load("node/server_functions.js", "exchange");
+	c.$ = () => ({
+		length: 1,
+		html: (html) => {
+			c.confirmation = html;
+		},
+	});
+	c.refresh_cosmetic_skills = (acx) => {
+		c.acx = acx;
+	};
+	const source = read("js/game.js"),
+		marker = '} else if (response == "cx_new") {';
+	const start = source.indexOf(marker) + marker.length;
+	const handler = source.slice(start, source.indexOf('} else if (response == "cx_not_found")', start));
+	for (let index = 0; index < c.G.drops.cosmo1.length; index++) {
+		const replies = [],
+			player = { p: { acx: {} }, socket: { emit: (event, data) => replies.push({ event, data }) } };
+		c.Math.random = () => (index + 0.5) / c.G.drops.cosmo1.length;
+		c.exchange(player, "cosmo1");
+		c.data = replies.find((reply) => reply.data.response === "cx_new").data;
+		vm.runInContext(handler, c);
+		const members = c.G.cosmetics.bundle[c.data.name] || [c.data.name];
+		for (const head of members) {
+			const preview = c.cx_sprite(head);
+			assert.match(preview, /<img /, head + " has a native sprite");
+			assert(c.confirmation.includes(preview), head + " appears in its reward confirmation");
+		}
+		assert.match(c.confirmation, /game.dismiss.ok/);
+		assert.equal(c.acx[c.data.name], 1, "the confirmation preserves the granted unlock");
+	}
+});
+
+test("exchange menus bound the full drop list and let wide bundles wrap", () => {
+	const { c } = menu_runtime();
+	for (const width of [320, 960]) {
+		c.viewport_width = () => width;
+		c.render_exchange_info("cosmo1");
+		assert.equal(c.modal.args.wwidth, Math.min(460, width - 52));
+		assert.equal(c.modal.args.hideinbackground, true);
+		assert.match(c.modal.html, /max-height: calc\(100vh \* var\(--browser-zoom-inverse, 1\) - 100px\); overflow: auto/);
+		assert.equal((c.modal.html.match(/1 \/ 32<\/div>/g) || []).length, c.G.drops.cosmo1.length);
+	}
+	const bundle = c.render_drop([1, "cxbundle", "headsoftmuted"], 1);
+	assert.match(bundle, /white-space: nowrap; display: flex; flex-wrap: wrap; align-items: center/);
+	for (const head of c.G.cosmetics.bundle.headsoftmuted) assert(bundle.includes(c.cx_sprite(head, { mright: 4 })));
+	assert.doesNotMatch(c.render_drop([1, "cx", "eyehead0"], 1), /flex-wrap/);
+});
+
+test("cosmetics use square native emote tiles without changing skill actions or inventory tiles", () => {
+	const { c } = menu_runtime();
+	const player = { skin: "mabw", cx: { head: "makeup117" }, aheight: 36, me: true, acx: {} };
+	c.render_cosmetics(player);
+	assert.doesNotMatch(c.menu, /interface.emotes.emotes/);
+	for (const skill of Object.values(c.G.skills)) if (skill.emote) player.acx[skill.emote] = 1;
+	c.render_cosmetics(player);
+	assert.match(c.menu, /flex-wrap: wrap; gap: 8px; max-width: 200px/);
+	assert.match(c.menu, /margin: 0px; border: 2px solid gray; height: 40px; width: 40px; background: #504254/);
+	for (const [name, skill] of Object.entries(c.G.skills))
+		if (skill.emote) {
+			assert(c.menu.includes("data-skname='" + name + "'"), name + " retains its skill identity");
+			assert(c.menu.includes("class='loader" + name + "'"), name + " retains its cooldown indicator");
+			assert(c.menu.includes("use_skill('" + name + "'"), name + " can be played");
+		}
+	assert.match(c.menu, /draggable='true'/);
+	player.me = false;
+	c.render_cosmetics(player);
+	assert.doesNotMatch(c.menu, /use_skill\(|draggable='true'/);
+	const inventory = c.item_container({ skin: c.G.skills.fart.skin, draggable: false });
+	assert.match(inventory, /margin: 2px; border: 2px solid gray; height: 46px; width: 46px; background: black/);
+	assert.match(inventory, /padding:3px;/);
+});

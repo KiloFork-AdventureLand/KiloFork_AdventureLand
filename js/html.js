@@ -2695,7 +2695,7 @@ function render_drop(def, mult, color, format) {
 		});
 		return html;
 	}
-	html += "<div dir='ltr' style='position: relative; white-space: nowrap;'>";
+	html += "<div dir='ltr' style='position: relative; white-space: nowrap;" + (def[1] == "cxbundle" ? " display: flex; flex-wrap: wrap; align-items: center;" : "") + "'>";
 	var skin = "",
 		actual = undefined;
 	if (G.items[def[1]]) {
@@ -3166,7 +3166,7 @@ function render_monster_info(name) {
 }
 
 function render_exchange_info(name, count) {
-	var html = "<div style='font-size: 24px'>";
+	var html = "<div style='font-size: 24px; max-height: calc(100vh * var(--browser-zoom-inverse, 1) - 100px); overflow: auto'>";
 	html += render_drop([1, "open", name], 1, "#858B8E");
 	if (G.drops[name + "_bonus"]) {
 		html += "<div style='margin-top:12px;color:#AAA'>" + phrase.html("interface.exchange_info.also_receive") + "</div>";
@@ -3175,7 +3175,7 @@ function render_exchange_info(name, count) {
 		});
 	}
 	html += "</div>";
-	show_modal(html, { wwidth: 240, styles: "max-width: 460px", hideinbackground: true });
+	show_modal(html, { wwidth: min(460, viewport_width() - 52), hideinbackground: true });
 }
 
 function render_tracker() {
@@ -5883,7 +5883,8 @@ function on_drop(event) {
 function item_container(item, actual) {
 	var html = "",
 		styles = "",
-		space = 3,
+		space = item.space === undefined ? 3 : item.space,
+		background = item.bg || "black",
 		item_prop = "",
 		container_prop = "",
 		rclick = "",
@@ -5933,13 +5934,13 @@ function item_container(item, actual) {
 	html +=
 		"<div " +
 		cnum +
-		"style='position: relative; display:inline-block; margin: 2px; border: 2px solid " +
+		"style='position: relative; display:inline-block; margin: " + (item.margin === undefined ? 2 : item.margin) + "px; border: 2px solid " +
 		bcolor +
 		"; height: " +
 		(size + 2 * space) +
 		"px; width: " +
 		(size + 2 * space) +
-		"px; background: black; vertical-align: top; " +
+		"px; background: " + background + "; vertical-align: top; " +
 		xstyles +
 		"' " +
 		container_prop +
@@ -6010,7 +6011,7 @@ function item_container(item, actual) {
 		if (item.sname != undefined) rclick = "class='rclick" + classes + "' data-sname='" + item.sname + "'";
 		if (item.skname != undefined) rclick = "class='rclick" + classes + "' data-skname='" + item.skname + "'";
 		if (item.on_rclick) rclick = "class='rclick" + classes + "' data-onrclick=\"" + item.on_rclick + '"';
-		html += "<div " + rclick + " style='background: black; position: absolute; bottom: -2px; left: -2px; border: 2px solid " + bcolor + ";";
+		html += "<div " + rclick + " style='background: " + background + "; position: absolute; bottom: -2px; left: -2px; border: 2px solid " + bcolor + ";";
 		html += "padding:" + space + "px; overflow: hidden' " + ("id='" + (item.id || "rid" + randomStr(12)) + "'") + " " + item_prop + ">"; // overflow:hidden for .skidloader
 		// the "rid" / random id seems to be needed, on_drop gets elements by id - couldn't work around it without a deep re-analysis [22/06/18]
 		html += "<div style='overflow: hidden; height: " + size + "px; width: " + size + "px;'>";
@@ -7710,6 +7711,7 @@ function sprite(name, args) {
 
 function cx_sprite(name, args) {
 	if (!args) args = {};
+	if (G.cosmetics.bundle[name]) return G.cosmetics.bundle[name].map(function (id) { return cx_sprite(id, args); }).join("");
 	if (G.skills[name] && G.skills[name].emote) return item_container({ skin: G.skills[name].skin, size: 40, draggable: false });
 	function render_cosmetic(slot, rargs) {
 		if (!rargs) rargs = {};
@@ -8045,9 +8047,9 @@ function render_cosmetics(player, args) {
 		if (!emotes.length) return;
 		html += "<div style='display: inline-block; margin-left: 8px; vertical-align: top'>";
 		html += "<div style='font-size: 16px; text-align: center'>" + phrase.html("interface.emotes.emotes") + "</div>";
-		html += "<div style='background-color: #504254; border: 2px solid gray; font-size: 0px; padding: 2px'>";
+		html += "<div style='display: flex; flex-wrap: wrap; gap: 8px; max-width: 200px; font-size: 0px'>";
 		emotes.forEach(function (name) {
-			var item = { skin: G.skills[name].skin, size: 40, draggable: !!player.me, skname: name, loader: name };
+			var item = { skin: G.skills[name].skin, size: 40, space: 0, margin: 0, bg: "#504254", draggable: !!player.me, skname: name, loader: name };
 			if (player.me && G.skills[name].target) item.onclick = "use_skill('" + name + "',xtarget||ctarget||(!G.skills['" + name + "'].no_self&&character))";
 			else if (player.me) item.onclick = "use_skill('" + name + "')";
 			html += item_container(item);
