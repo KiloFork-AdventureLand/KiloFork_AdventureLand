@@ -2209,12 +2209,13 @@ function collect_signups(event) {
 var last_daily = null;
 var anniversary_controller = null;
 function anniversary_is_active() {
-	return !is_pvp && events.anniversary === true;
+	return events.anniversary === true;
 }
 
 function anniversary_reachable(player) {
 	const map = G.maps[player.map];
-	if (!map || map.instance || map.pvp || !map.spawns || !map.spawns[0] || !G.geometry[player.map]) return false;
+	if (!map || map.instance || is_in_pvp(player, true) || !map.spawns || !map.spawns[0] || !G.geometry[player.map])
+		return false;
 	const start = map.spawns[0];
 	// A direct walk from a public arrival point is a conservative, bounded proof
 	// of reachability. It excludes isolated terrain without starting a path search.

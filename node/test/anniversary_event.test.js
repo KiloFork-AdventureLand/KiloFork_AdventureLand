@@ -16,7 +16,7 @@ const design = localize(vm.createContext({ console: { log() {} } }));
 for (const name of ["multipliers", "conditions", "items", "npcs", "drops", "recipes"])
 	vm.runInContext(fs.readFileSync(path.join(root, "design", name + ".js"), "utf8"), design, { filename: name });
 
-test("seasonal tick follows the manual switch, preserves other NPCs and excludes PvP", () => {
+test("seasonal tick follows the manual switch and keeps Mira available on PvP", () => {
 	const emitted = [],
 		instance = { name: "main", map: "main", players: { Existing: { id: "Existing" } }, pmap: {}, npcs: 1 };
 	const context = {
@@ -93,8 +93,9 @@ test("seasonal tick follows the manual switch, preserves other NPCs and excludes
 	assert.equal(instance.npcs, 2);
 	context.is_pvp = true;
 	context.anniversary_tick();
-	assert.equal(instance.npcs, 1);
-	assert.equal(context.npcs.anniversary_baker, undefined);
+	assert.equal(instance.npcs, 2);
+	assert(context.npcs.anniversary_baker);
+	assert.equal(context.E.anniversary.active, true);
 	assert(instance.players.Existing);
 	assert(context.E.other_event);
 	assert.equal(emitted.at(-1)[1], "disappear");
@@ -106,12 +107,14 @@ test("reachability requires real map geometry, a public spawn and a clear bounde
 		calls = 0;
 	const context = {
 		G: { maps: { main: { spawns: [[0, 0]] } }, geometry: { main: {} } },
+		is_pvp: false,
 		can_move: () => {
 			calls++;
 			return clear;
 		},
 	};
 	localize(vm.createContext(context));
+	vm.runInContext(definition(functions, "is_in_pvp"), context);
 	vm.runInContext(definition(functions, "anniversary_reachable"), context);
 	const p = player("Host");
 	assert(context.anniversary_reachable(p));
@@ -124,6 +127,66 @@ test("reachability requires real map geometry, a public spawn and a clear bounde
 	p.x = 0;
 	delete context.G.geometry.main;
 	assert(!context.anniversary_reachable(p));
+});
+function pvpReachability() {
+	const maps = require("./helpers/design").maps;
+	const context = vm.createContext({
+		G: { maps, geometry: Object.fromEntries(Object.keys(maps).map((map) => [map, {}])) },
+		is_pvp: true,
+		can_move: () => true,
+	});
+	for (const name of ["is_in_pvp", "anniversary_reachable"]) vm.runInContext(definition(functions, name), context);
+	return context;
+}
+function moveToMap(p, map) {
+	const [x, y] = require("./helpers/design").maps[map].spawns[0];
+	Object.assign(p, { map, in: map, x, y });
+}
+test("PvP rounds wait for a safe public target and keep the original deadline after leaving safety", () => {
+	for (const map of ["hut", "woffice", "d_e"]) {
+		const context = pvpReachability();
+		const h = eventHarness({ reachable: context.anniversary_reachable });
+		assert.equal(h.start().live, false);
+		assert.equal(h.visitor.s.anniversary_visit, undefined);
+		moveToMap(h.host, map);
+		h.time(rules.INTERVAL + 60000);
+		const selected = h.event.tick();
+		assert.equal(selected.target, h.host.name, map);
+		assert.equal(selected.available, true);
+		assert.equal(selected.expires, rules.INTERVAL + 60000 + rules.WINDOW);
+		assert(h.visitor.s.anniversary_visit, "a visitor can travel to the safe target");
+		moveToMap(h.host, "main");
+		moveToMap(h.visitor, "main");
+		assert.equal(h.event.tick().available, false);
+		assert.equal(h.event.claim(h.visitor, h.host, h.deliver), false);
+		assert.equal(h.delivered.length, 0);
+		assert(h.visitor.s.anniversary_visit, "unsafe kisses do not consume the visit");
+		moveToMap(h.host, map);
+		moveToMap(h.visitor, map);
+		h.host.afk = true;
+		h.time(selected.expires - 1);
+		assert.equal(h.event.tick().expires, selected.expires);
+		assert.equal(h.event.claim(h.visitor, h.host, h.deliver), true);
+		assert.equal(h.event.claim(h.visitor, h.host, h.deliver), false);
+		assert.equal(h.delivered.length, 2);
+		h.time(selected.expires);
+		assert.equal(h.event.isTarget(h.host), false);
+	}
+});
+test("ordinary realms retain public targets; combat maps and all bank floors stay excluded", () => {
+	const context = pvpReachability();
+	context.is_pvp = false;
+	const h = eventHarness({ reachable: context.anniversary_reachable });
+	assert.equal(h.start().target, h.host.name);
+	for (const map of ["bank", "bank_b", "bank_u", "arena"]) {
+		moveToMap(h.host, map);
+		assert.equal(h.event.isTarget(h.host), false, map);
+	}
+	const empty = eventHarness({ reachable: pvpReachability().anniversary_reachable });
+	assert.equal(empty.start().live, false);
+	empty.time(rules.INTERVAL + rules.WINDOW);
+	moveToMap(empty.host, "hut");
+	assert.equal(empty.event.tick().live, false, "an empty round does not start after its selection window");
 });
 function definition(text, name) {
 	const start = text.indexOf(`function ${name}(`);
@@ -210,6 +273,8 @@ test("anniversary defaults on and has no automatic date cutoff or reactivation",
 	assert.equal(context.anniversary_is_active(), true, "no launch-date configuration is needed");
 	context.options = { anniversary: { starts_at: "2000-01-01", ends_at: "2000-01-15" } };
 	assert.equal(context.anniversary_is_active(), true, "old dates cannot end the event");
+	context.is_pvp = true;
+	assert.equal(context.anniversary_is_active(), true, "PvP cannot disable the event or its monster drops");
 	context.events.anniversary = false;
 	context.options.anniversary = { starts_at: "2000-01-01", ends_at: "2999-01-01" };
 	assert.equal(context.anniversary_is_active(), false, "dates cannot override a manual stop");
@@ -284,6 +349,17 @@ test("public global table supplies one normal chest with a Gift and only the cre
 		assert.deepEqual(plain(h.emitted[0][1].owners), [h.p.owner]);
 		assert.equal(h.emitted[0][1].x, h.monster.x);
 	}
+});
+test("PvP monster drops use the event switch independently of kiss selection", () => {
+	const h = dropHarness();
+	h.context.is_pvp = true;
+	h.context.events = { anniversary: true };
+	h.context.G.maps = require("./helpers/design").maps;
+	for (const name of ["anniversary_is_active", "is_in_pvp"]) vm.runInContext(definition(functions, name), h.context);
+	assert.deepEqual(plain(h.drop()).sort(), ["anniversarygift", rules.sliceForAccount(h.p.owner)].sort());
+	h.context.events.anniversary = false;
+	h.context.chests = {};
+	assert.deepEqual(plain(h.drop()), []);
 });
 test("anniversary global drops use the real HP, Luck, share and monster multiplier formula", () => {
 	for (const factors of [
@@ -1706,12 +1782,12 @@ test("cake bonuses use independent absolute probabilities and never apply to a n
 	);
 });
 
-function skillHarness() {
+function skillHarness(extra = {}) {
 	const emitted = [],
 		failed = [];
 	let handler;
 	const socket = { id: "visitor", emit: (...args) => emitted.push(args), on: (name, fn) => (handler = fn) };
-	const h = eventHarness();
+	const h = eventHarness(extra);
 	h.start();
 	Object.assign(h.visitor, { socket, p: { acx: {} }, last: {}, a: {}, slots: {}, type: "mage", attack_ms: 1000 });
 	const ctx = {
@@ -1757,6 +1833,24 @@ function skillHarness() {
 	vm.runInContext(source.slice(start, source.indexOf('socket.on("click",', start)), ctx);
 	return { ...h, ctx, emitted, failed, cast: (name = "ikissyou", id = "Host") => handler({ name, id }) };
 }
+test("real kiss handler rejects PvP combat locations and rewards a safe return only once", () => {
+	const context = pvpReachability();
+	context.is_pvp = false;
+	const h = skillHarness({ reachable: context.anniversary_reachable });
+	h.ctx.G.maps = context.G.maps;
+	context.is_pvp = true;
+	h.cast();
+	assert.equal(h.emitted.at(-1)[1].reason, "target_unavailable");
+	assert.equal(h.delivered.length, 0);
+	assert(h.visitor.s.anniversary_visit);
+	for (const p of [h.host, h.visitor]) moveToMap(p, "hut");
+	h.cast();
+	assert.equal(h.emitted.findLast(([event]) => event === "game_response")[1].rewarded, true);
+	assert.equal(h.delivered.length, 2);
+	h.ctx.now += 10001;
+	h.cast();
+	assert.equal(h.delivered.length, 2, "a repeated request cannot duplicate the rewards");
+});
 test("real socket handler grants only the current host's temporary kiss and honors cooldown", () => {
 	const h = skillHarness();
 	h.host.afk = true;

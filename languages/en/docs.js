@@ -4365,9 +4365,9 @@ module.exports = {
 		"Crafting needs the listed unlocked ingredients, gold, and room for the result. Stay near Mira unless you have Computer access. Mira leaves when the event ends; your items and emotes stay.",
 	// docs/guide/event-anniversary.html:27; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.event-anniversary.event-details": "Event details",
-	// docs/guide/event-anniversary.html:3; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only.
+	// Anniversary guide: all servers can start rounds, but a reachable target outside PvP is required. Only other eligible players online at selection receive a Visit. Preserve the three bold spans.
 	"docs.guide.event-anniversary.every-30-minutes-a-player-is-featured-on":
-		"Every <b>30 minutes</b>, a player is featured on each non-PvP server. Eligible players online when the round starts receive an <b>Anniversary Visit</b>. You have <b>five minutes</b> to find and kiss them.",
+		"Every <b>30 minutes</b>, each server looks for an eligible player in a reachable place where PvP is disabled. The round starts only if someone qualifies. Other eligible players online then receive an <b>Anniversary Visit</b>. You have <b>five minutes</b> to find and kiss the featured player.",
 	// docs/guide/event-anniversary.html:24; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Anniversary Gift"].
 	// Gift here means Anniversary Gift (anniversarygift), not the separate Gift item. Preserve its full item name.
 	"docs.guide.event-anniversary.gift-drops-one-prize": "Anniversary Gift drops — one prize",
@@ -4550,9 +4550,9 @@ module.exports = {
 		'Check <span class="dlabel">server.status.anniversary</span>. Its <span class="dlabel">live</span> field identifies an active visit round; <span class="dlabel">target</span>, <span class="dlabel">id</span>, <span class="dlabel">map</span>, <span class="dlabel">x</span>, and <span class="dlabel">y</span> identify the featured player. <span class="dlabel">expires</span> and <span class="dlabel">next</span> are timestamps in milliseconds. Travel normally, then use <span class="dlabel">use_skill("ikissyou", server.status.anniversary.id)</span> when nearby.',
 	// docs/guide/events-and-home.html:52; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"].
 	"docs.guide.events-and-home.code-read-before-acting": "CODE: Read Before Acting",
-	// docs/guide/events-and-home.html:33; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
+	// Events guide: the same safe-target rule applies on every realm. No qualifying target means no round; other eligible players online at selection receive a Visit.
 	"docs.guide.events-and-home.during-the-anniversary-a-non-afk-player-is":
-		"During the anniversary, a player is picked every 30 minutes on each non-PvP realm. Be online when the round starts to receive an Anniversary Visit. You have five minutes to find and kiss the featured player.",
+		"During the anniversary, each realm looks for an eligible player in a reachable place where PvP is disabled every 30 minutes. A round starts only if someone qualifies. Other eligible players online when it starts receive an Anniversary Visit. You then have five minutes to find and kiss the featured player.",
 	// docs/guide/events-and-home.html:22; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Ent"].
 	"docs.guide.events-and-home.events-enter-in-different-ways": "Events Enter in Different Ways",
 	// docs/guide/events-and-home.html:2; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.

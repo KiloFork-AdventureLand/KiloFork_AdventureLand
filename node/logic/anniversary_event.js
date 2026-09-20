@@ -12,7 +12,7 @@ const SLICES = Object.freeze([
 ]);
 const INTERVAL = 30 * 60 * 1000;
 const WINDOW = 5 * 60 * 1000;
-const PUBLIC_MAPS = new Set(["main", "winterland", "desertland", "halloween"]);
+const PUBLIC_MAPS = new Set(["main", "winterland", "desertland", "halloween", "hut", "woffice", "d_e"]);
 
 // Account ID alone determines the flavor. Never use a character ID, realm,
 // current date, mutable account fields, or a client-supplied flavor here.
