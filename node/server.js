@@ -11559,7 +11559,8 @@ function init_socket_io(socket_server) {
 				} else if (data.epl == "steam" && data.ticket) {
 					player.platform = "steam";
 					if (verify_steam_ticket(player, data.ticket)) {
-						if (await persist_tauri_steam_install(owner, entity, data.auth, player.p.steam_id)) player.pid = player.p.steam_id;
+						if (await persist_tauri_steam_install(owner, entity, data.auth, player.p.steam_id))
+							player.pid = player.p.steam_id;
 						else player.s.authfail = { ms: 900000 };
 					} else {
 						player.platform = "web";

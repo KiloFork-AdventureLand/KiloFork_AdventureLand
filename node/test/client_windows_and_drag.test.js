@@ -4,7 +4,10 @@ const vm = require("node:vm");
 const { read, extract, load } = require("./helpers/server_vm");
 
 function drag_runtime(source_data, target_data) {
-	const nodes = new Map(), packets = [], deferred = [], dialogs = [];
+	const nodes = new Map(),
+		packets = [],
+		deferred = [],
+		dialogs = [];
 	const source_parent = { html: "source" };
 	const source = { id: "citem0", data: source_data, parent: source_parent };
 	const target = { data: target_data, drop: true, html: "target" };
@@ -14,8 +17,8 @@ function drag_runtime(source_data, target_data) {
 	function $(node) {
 		return {
 			length: node ? 1 : 0,
-			attr: name => node && name === "ondrop" && node.drop ? "on_drop(event)" : undefined,
-			data: name => node && node.data && node.data[name],
+			attr: (name) => (node && name === "ondrop" && node.drop ? "on_drop(event)" : undefined),
+			data: (name) => node && node.data && node.data[name],
 			parent: () => $(node && node.parent),
 			closest(selector) {
 				assert.equal(selector, "[ondrop]");
@@ -23,25 +26,46 @@ function drag_runtime(source_data, target_data) {
 				while (ancestor && !ancestor.drop) ancestor = ancestor.parent;
 				return $(ancestor);
 			},
-			html(value) { if (value === undefined) return node && node.html; if (node) node.html = value; },
+			html(value) {
+				if (value === undefined) return node && node.html;
+				if (node) node.html = value;
+			},
 			all_html: () => node && node.id,
 			get: () => node,
 			focus() {},
 		};
 	}
 	const context = vm.createContext({
-		$, console, document: { getElementById: id => nodes.get(id) },
+		$,
+		console,
+		document: { getElementById: (id) => nodes.get(id) },
 		character: { items: [{ name: "sword" }, { name: "staff" }], slots: {} },
 		G: { items: { sword: { type: "weapon" } } },
 		socket: { emit: (name, args) => packets.push([name, JSON.parse(JSON.stringify(args))]) },
-		push_deferred: name => deferred.push(name),
-		cache_i: [], cache_slots: {}, last_rendered_items: "items0", is_mobile: false,
-		trade_slots: ["trade1"], in_arr: (value, array) => array.includes(value),
-		render_item: (selector, args) => dialogs.push([selector, args]), xtarget: null, ctarget: null,
+		push_deferred: (name) => deferred.push(name),
+		cache_i: [],
+		cache_slots: {},
+		last_rendered_items: "items0",
+		is_mobile: false,
+		trade_slots: ["trade1"],
+		in_arr: (value, array) => array.includes(value),
+		render_item: (selector, args) => dialogs.push([selector, args]),
+		xtarget: null,
+		ctarget: null,
 	});
 	vm.runInContext(extract(read("js/html.js"), "on_drop"), context);
 	function drop(id = source.id, onto = { parent: target }) {
-		context.event = { target: onto, dataTransfer: { getData: type => { assert.equal(type, "text"); return id; } }, preventDefault() {}, stopPropagation() {} };
+		context.event = {
+			target: onto,
+			dataTransfer: {
+				getData: (type) => {
+					assert.equal(type, "text");
+					return id;
+				},
+			},
+			preventDefault() {},
+			stopPropagation() {},
+		};
 		vm.runInContext("on_drop(event)", context, { timeout: 100 });
 	}
 	return { context, source, target, packets, deferred, dialogs, drop };
@@ -93,15 +117,43 @@ test("placeholder and same-slot drops remain no-ops", () => {
 });
 
 test("Deploy preserves character and realm; only Tauri overrides the normal link", () => {
-	for (const [is_tauri, is_electron] of [[true, false], [false, false], [false, true]]) {
+	for (const [is_tauri, is_electron] of [
+		[true, false],
+		[false, false],
+		[false, true],
+	]) {
 		let html;
-		const chain = { parent() { return this; }, find() { return this; }, removeClass() { return this; }, addClass() { return this; }, html(value) { html = value; } };
+		const chain = {
+			parent() {
+				return this;
+			},
+			find() {
+				return this;
+			},
+			removeClass() {
+				return this;
+			},
+			addClass() {
+				return this;
+			},
+			html(value) {
+				html = value;
+			},
+		};
 		const context = vm.createContext({
-			is_tauri, is_electron, $: () => chain, tut() {}, character: { name: "Current" }, server_region: "US", server_identifier: "II",
-			X: { characters: [
-				{ name: "MacTest", level: 4, type: "mage", party: "", online: false },
-				{ name: "AlreadyOnline", level: 7, type: "warrior", party: "", online: true },
-			] },
+			is_tauri,
+			is_electron,
+			$: () => chain,
+			tut() {},
+			character: { name: "Current" },
+			server_region: "US",
+			server_identifier: "II",
+			X: {
+				characters: [
+					{ name: "MacTest", level: 4, type: "mage", party: "", online: false },
+					{ name: "AlreadyOnline", level: 7, type: "warrior", party: "", online: true },
+				],
+			},
 		});
 		load(context, "js/html.js", ["load_character_list"]);
 		context.load_character_list();
@@ -114,11 +166,19 @@ test("Deploy preserves character and realm; only Tauri overrides the normal link
 });
 
 test("Deploy calls the URL-aware native command; /window remains the original blank window", async () => {
-	const calls = [], alerts = [];
+	const calls = [],
+		alerts = [];
 	const context = vm.createContext({ console, Date });
 	context.window = context;
-	context.__TAURI__ = { core: { invoke(command, args) { calls.push([command, args]); return Promise.resolve(); } } };
-	context.show_alert = text => alerts.push(text);
+	context.__TAURI__ = {
+		core: {
+			invoke(command, args) {
+				calls.push([command, args]);
+				return Promise.resolve();
+			},
+		},
+	};
+	context.show_alert = (text) => alerts.push(text);
 	load(context, "js/tauri_functions.js", ["tauri_create_subwindow"]);
 	context.tauri_invoke = context.__TAURI__.core.invoke;
 	context.tauri_debug = () => {};
@@ -139,7 +199,12 @@ test("main and both secondary-window commands retain the native drag/drop fix an
 	const source = read("tauri/src-tauri/src/lib.rs");
 	assert.equal((source.match(/\.disable_drag_drop_handler\(\)/g) || []).length, 2);
 	assert.match(source, /async fn create_subwindow[\s\S]*?open_subwindow\(app, &state/);
-	assert.match(source, /async fn create_character_window[\s\S]*?open_subwindow\(app, &state, character_window_url\(&url\)\?\)/);
+	assert.match(
+		source,
+		/async fn create_character_window[\s\S]*?open_subwindow\(app, &state, character_window_url\(&url\)\?\)/,
+	);
 	assert.match(source, /if open_subwindows >= 4/);
-	assert.ok(JSON.parse(read("tauri/src-tauri/capabilities/default.json")).permissions.includes("allow-create-character-window"));
+	assert.ok(
+		JSON.parse(read("tauri/src-tauri/capabilities/default.json")).permissions.includes("allow-create-character-window"),
+	);
 });
