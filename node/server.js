@@ -5622,10 +5622,10 @@ function init_socket_io(socket_server) {
 				if (player.items[0].b || player.items[0].v) {
 					return fail_response("item_blocked");
 				}
-				if (player.gold < 350000) {
+				if (player.gold < 360000) {
 					return fail_response("gold_not_enough");
 				}
-				player.gold -= 350000;
+				player.gold -= 360000;
 				item = JSON.stringify(player.items[0]);
 				player.items[0] = player.citems[0] = null;
 				retries = 3;
