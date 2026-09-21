@@ -5615,7 +5615,6 @@ function init_socket_io(socket_server) {
 			if (player.gold < 48000) {
 				return fail_response("gold_not_enough");
 			}
-			player.gold -= 48000;
 			if (data.item && player.items[0] && player.items[0].name != "placeholder") {
 				if (player.items[0].l) {
 					return fail_response("item_locked");
@@ -5623,13 +5622,15 @@ function init_socket_io(socket_server) {
 				if (player.items[0].b || player.items[0].v) {
 					return fail_response("item_blocked");
 				}
-				if (player.gold < 312000) {
+				if (player.gold < 350000) {
 					return fail_response("gold_not_enough");
 				}
-				player.gold -= 312000;
+				player.gold -= 350000;
 				item = JSON.stringify(player.items[0]);
 				player.items[0] = player.citems[0] = null;
 				retries = 3;
+			} else {
+				player.gold -= 48000;
 			}
 			(async function () {
 				try {
