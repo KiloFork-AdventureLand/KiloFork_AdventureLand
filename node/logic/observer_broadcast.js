@@ -16,6 +16,36 @@ function broadcast_observer_in_town(player) {
 	);
 }
 
+function broadcast_observer_active(player) {
+	if (player.rip) return false;
+	if (player.last.attack && ssince(player.last.attack) < 3) return true;
+	var channels = player.c || {},
+		queues = player.q || {};
+	if (
+		[channels.fishing, channels.mining].some(function (action) {
+			return action && action.ms > 0;
+		})
+	)
+		return true;
+	if (player.map !== "tavern") return false;
+	if (
+		[queues.slots, queues.wheel].some(function (action) {
+			return action && action.ms > 0;
+		})
+	)
+		return true;
+	for (var id in player.bets) if (player.bets[id].state === "bet") return true;
+	// Inspect only participation in the current hand; never send wagers or cards.
+	var hand = tavern.poker && tavern.poker.table && tavern.poker.table.hand;
+	return !!(
+		hand &&
+		!hand.over &&
+		hand.entries.some(function (seat) {
+			return seat.id === player.real_id && !seat.folded && !seat.dc;
+		})
+	);
+}
+
 function update_broadcast_observer(observer, now) {
 	var state = observer.broadcast;
 	if (!state || observer.player) return;
@@ -50,7 +80,7 @@ function update_broadcast_observer(observer, now) {
 		)
 			groups.delete(entry[0]);
 	var town_group = "town:" + merchant_map,
-		town_ready = town_players >= 8;
+		town_ready = town_players >= 6;
 	var members = groups.get(state.group);
 	var previous = state.group;
 	var changed =
@@ -63,9 +93,7 @@ function update_broadcast_observer(observer, now) {
 		});
 		if (!choices.length && members) choices = [state.group];
 		var active = choices.filter(function (key) {
-			return groups.get(key).some(function (player) {
-				return !player.rip && player.last.attack && ssince(player.last.attack) < 3;
-			});
+			return groups.get(key).some(broadcast_observer_active);
 		});
 		if (active.length) choices = active;
 		state.group =
@@ -90,9 +118,7 @@ function update_broadcast_observer(observer, now) {
 		});
 	if (!anchor && candidates)
 		anchor =
-			candidates.find(function (player) {
-				return !player.rip && player.last.attack && ssince(player.last.attack) < 3;
-			}) ||
+			candidates.find(broadcast_observer_active) ||
 			candidates.find(function (player) {
 				return !player.rip;
 			}) ||

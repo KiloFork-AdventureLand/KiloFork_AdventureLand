@@ -12,6 +12,7 @@ function fixture(query = { broadcast: "1" }) {
 		floor: Math.floor,
 		players: {},
 		observers: {},
+		tavern: {},
 		is_pvp: false,
 		gameplay: "normal",
 		G: require("./helpers/design"),
@@ -136,11 +137,11 @@ test("party movement updates the subscription without repeated map loads or priv
 	assert.equal(maps(), 1, "empty realms must not transport to an empty town fallback");
 });
 
-test("town selection requires eight visible live players inside the shot and leaves as soon as the crowd drops", () => {
+test("town selection requires six visible live players inside the shot and leaves as soon as the crowd drops", () => {
 	const f = fixture();
 	f.c.Math.random = () => 0;
 	f.add("Fighter", { x: 700 });
-	for (let i = 0; i < 7; i++) f.add("Merchant" + i, { x: i * 20, y: 0, ctype: "merchant", p: { stand: true } });
+	for (let i = 0; i < 5; i++) f.add("Merchant" + i, { x: i * 20, y: 0, ctype: "merchant", p: { stand: true } });
 	for (const [name, extra] of Object.entries({
 		NPC: { npc: true },
 		Gone: { dc: true },
@@ -153,28 +154,28 @@ test("town selection requires eight visible live players inside the shot and lea
 	}))
 		f.add(name, { x: 0, y: 0, ...extra });
 	const observer = f.load();
-	assert.equal(f.scene().town_players, 7);
+	assert.equal(f.scene().town_players, 5);
 	assert.equal(f.scene().kind, "group");
-	f.add("Eighth", { x: -288, y: -144 });
+	f.add("Sixth", { x: -288, y: -144 });
 	f.c.update_broadcast_observer(observer, 30000);
 	assert.equal(f.scene().kind, "town");
-	assert.equal(f.scene().town_players, 8);
+	assert.equal(f.scene().town_players, 6);
 	assert.equal(f.scene().x, 0);
 	assert.equal(f.scene().y, 0);
 	assert.deepEqual(Object.keys(f.scene().party), []);
 	assert.equal(f.scene().focus.length, 0);
 	f.c.update_broadcast_observer(observer, 59999);
 	assert.equal(f.scene().kind, "town");
-	f.c.players.Eighth.x = -289;
+	f.c.players.Sixth.x = -289;
 	f.c.update_broadcast_observer(observer, 60000 - 0.5);
-	assert.equal(f.scene().town_players, 7);
+	assert.equal(f.scene().town_players, 5);
 	assert.equal(f.scene().kind, "group");
 });
 
 test("eligible town shots use a thirty-percent slot chance alongside ordinary groups", () => {
 	const f = fixture();
 	f.add("Fighter", { x: 700 });
-	for (let i = 0; i < 8; i++) f.add("Merchant" + i, { x: i * 20, y: 0 });
+	for (let i = 0; i < 6; i++) f.add("Merchant" + i, { x: i * 20, y: 0 });
 	const observer = f.load();
 	let towns = 0;
 	for (let i = 0; i < 10; i++) {
@@ -187,14 +188,14 @@ test("eligible town shots use a thirty-percent slot chance alongside ordinary gr
 
 test("town-only populations never bypass the crowd gate and far-away party members retain their native roster", () => {
 	const f = fixture();
-	for (let i = 0; i < 7; i++) f.add("Merchant" + i, { x: i * 20, y: 0 });
+	for (let i = 0; i < 5; i++) f.add("Merchant" + i, { x: i * 20, y: 0 });
 	const observer = f.load();
 	assert.equal(f.scene().available, false);
-	f.add("Eighth", { x: 0, y: 0 });
+	f.add("Sixth", { x: 0, y: 0 });
 	f.c.update_broadcast_observer(observer, 250);
 	assert.equal(f.scene().kind, "town");
 	assert.equal(f.scene().available, true);
-	f.c.players.Eighth.dc = true;
+	f.c.players.Sixth.dc = true;
 	f.c.update_broadcast_observer(observer, 500);
 	assert.equal(f.scene().available, false);
 	f.add("Fighter", { x: 700, party: "Team" });
@@ -203,4 +204,59 @@ test("town-only populations never bypass the crowd gate and far-away party membe
 	assert.equal(f.scene().kind, "group");
 	assert.deepEqual(Object.keys(f.scene().party).sort(), ["Fighter", "Merchant0"]);
 	assert.deepEqual(Array.from(f.scene().focus), ["Fighter"]);
+});
+
+test("gathering and live Tavern games prioritize the active group and its active character", () => {
+	for (const action of ["fishing", "mining", "dice", "roulette", "wheel", "slots", "poker"]) {
+		const f = fixture();
+		f.c.Math.random = () => 0;
+		f.add("Idle", { last: {} });
+		const map = ["fishing", "mining"].includes(action) ? "main" : "tavern";
+		f.c.instances[map] ||= { map, observers: {}, info: {} };
+		f.add("PartyIdle", { last: {}, party: "Crew", map, in: map });
+		const player = f.add("Active", {
+			last: {},
+			party: "Crew",
+			map,
+			in: map,
+			real_id: "active-id",
+			x: 500,
+			c: {},
+			q: {},
+			bets: {},
+		});
+		if (["fishing", "mining"].includes(action)) player.c[action] = { ms: 20000, drop: "test-drop" };
+		else if (["wheel", "slots"].includes(action)) player.q[action] = { ms: 4000, result: "private-result" };
+		else if (action === "poker")
+			f.c.tavern.poker = { table: { hand: { entries: [{ id: player.real_id, cards: ["private-card"] }] } } };
+		else player.bets.test = { type: action, state: "bet", gold: 10000 };
+		const before = JSON.stringify({ player, tavern: f.c.tavern });
+		f.load();
+		assert.equal(f.scene().group, "party:Crew", action);
+		assert.deepEqual(Array.from(f.scene().focus), ["Active"], action + " anchors the shot");
+		assert.equal(f.scene().x, 500);
+		assert.equal(JSON.stringify({ player, tavern: f.c.tavern }), before, "observation is read-only");
+		assert.doesNotMatch(JSON.stringify(f.scene()), /private-result|private-card|test-drop/);
+	}
+});
+
+test("expired channels, settled bets and inactive poker seats do not get activity priority", () => {
+	for (const extra of [
+		{ c: { fishing: { ms: 0 }, mining: { ms: -1 } } },
+		{ q: { slots: { ms: 0 }, wheel: { ms: -1 } } },
+		{ bets: { test: { type: "dice", state: "settled" } } },
+		{ hand: { over: true, entries: [{ id: "active-id" }] } },
+		{ hand: { entries: [{ id: "active-id", folded: true }] } },
+		{ hand: { entries: [{ id: "active-id", dc: true }] } },
+		{ hand: { entries: [{ id: "somebody-else" }] } },
+	]) {
+		const f = fixture();
+		f.c.Math.random = () => 0;
+		f.c.instances.tavern = { map: "tavern", observers: {}, info: {} };
+		f.add("Idle", { last: {} });
+		f.add("Inactive", { last: {}, map: "tavern", in: "tavern", real_id: "active-id", ...extra });
+		if (extra.hand) f.c.tavern.poker = { table: { hand: extra.hand } };
+		f.load();
+		assert.equal(f.scene().group, "solo:Idle");
+	}
 });
