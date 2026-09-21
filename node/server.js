@@ -90,6 +90,7 @@ eval("" + fs.readFileSync(path.resolve(__dirname, "logic/market_patron_runtime.j
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/encouragement.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/cavalry.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/character_sessions.js")));
+eval("" + fs.readFileSync(path.resolve(__dirname, "logic/observer_broadcast.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/chat.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/generated_maps.js")));
 eval("" + fs.readFileSync(path.resolve(__dirname, "logic/instance_pause.js")));
@@ -4928,6 +4929,10 @@ function init_socket_io(socket_server) {
 			resume_instance(instances[observer.in]);
 			instances[observer.in].observers[observer.id] = observer;
 			send_all_xy(observer);
+			if (broadcast_observer_enabled(socket)) {
+				observer.broadcast = {};
+				update_broadcast_observer(observer, performance.now());
+			}
 		});
 		socket.on("o:home", function (data) {
 			var observer = observers[socket.id];
@@ -15634,11 +15639,13 @@ setTimeout(npc_loop, 10);
 setTimeout(instance_loop, 10);
 setTimeout(aura_loop, 10);
 setInterval(count_unique_users, 6000);
+setInterval(broadcast_observer_loop, 250);
 
 setInterval(function () {
 	try {
 		for (var id in observers) {
 			var observer = observers[id];
+			if (observer.broadcast) continue;
 			if (observer.player && get_player(observer.player.name)) {
 				var player = get_player(observer.player.name);
 				if (simple_distance(observer, player) > 200) {

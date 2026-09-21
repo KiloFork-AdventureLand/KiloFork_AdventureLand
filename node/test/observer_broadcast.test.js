@@ -1,0 +1,206 @@
+const assert = require("node:assert/strict");
+const test = require("node:test");
+const vm = require("node:vm");
+const { read, extract, socketHandler } = require("./helpers/server_vm");
+
+function fixture(query = { broadcast: "1" }) {
+	const events = [];
+	const c = vm.createContext({
+		Math: Object.assign(Object.create(Math), { random: () => 0.5 }),
+		Map,
+		performance: { now: () => 0 },
+		floor: Math.floor,
+		players: {},
+		observers: {},
+		is_pvp: false,
+		gameplay: "normal",
+		G: require("./helpers/design"),
+		B: { vision: [700, 500] },
+		instances: { main: { map: "main", observers: {}, info: {} } },
+		generated_maps: {},
+		merchant_map: "main",
+		merchant_x: 0,
+		merchant_y: 0,
+		resume_instance() {},
+		send_generated_maps() {},
+		send_all_xy: () => ({}),
+		is_invis: (p) => !!p.invisible,
+		ssince: () => 1,
+		simple_distance: (a, b) => (a.in === b.in ? Math.hypot(a.x - b.x, a.y - b.y) : Infinity),
+	});
+	c.socket = {
+		id: "viewer",
+		connected: true,
+		handshake: { query },
+		first_map: "main",
+		first_in: "main",
+		first_x: 0,
+		first_y: 120,
+		emit: (event, data) => events.push({ event, data }),
+	};
+	vm.runInContext(read("node/logic/observer_broadcast.js"), c);
+	for (const name of ["player_to_summary", "transport_observer_to"])
+		vm.runInContext(extract(read("node/server.js"), name), c);
+	const add = (name, extra = {}) =>
+		(c.players[name] = {
+			name,
+			id: name,
+			map: "main",
+			in: "main",
+			x: 100,
+			y: 400,
+			skin: "male",
+			cx: {},
+			last: { attack: 1 },
+			...extra,
+		});
+	const load = () => {
+		socketHandler(c, "loaded")({ success: 1, width: 1280, height: 720, scale: 2 });
+		return c.observers.viewer;
+	};
+	const scene = () => events.filter((e) => e.event === "observer_broadcast").at(-1)?.data;
+	return { c, events, add, load, scene };
+}
+
+test("the real loaded handler opts in only public graphical anonymous observers", () => {
+	for (const changes of [
+		{ query: {} },
+		{ query: { broadcast: "1", no_graphics: "1" } },
+		{ private: true },
+		{ pvp: true },
+		{ gameplay: "hardcore" },
+	]) {
+		const f = fixture(changes.query);
+		if (changes.private) f.c.socket.player = { name: "Owner" };
+		if (changes.pvp) f.c.is_pvp = true;
+		if (changes.gameplay) f.c.gameplay = changes.gameplay;
+		const observer = f.load();
+		assert.equal(observer.broadcast, undefined);
+		assert.equal(f.scene(), undefined);
+		assert.equal(observer.y, 120);
+	}
+	const f = fixture();
+	f.add("A");
+	assert.ok(f.load().broadcast);
+	assert.equal(f.scene().group, "solo:A");
+	assert.equal(f.events.at(-1).event, "new_map");
+	assert.equal(f.events.at(-1).data.y, 400);
+	const count = f.events.length;
+	socketHandler(f.c, "o:home")({});
+	socketHandler(f.c, "o:command")({ command: "1+1" });
+	assert.equal(f.events.length, count, "broadcast viewers gain no private observer controls");
+});
+
+test("a whole party stays featured for 30 seconds, then a different group is selected", () => {
+	const f = fixture();
+	f.add("A", { party: "A", x: 100 });
+	f.add("B", { party: "A", x: 200 });
+	const observer = f.load();
+	assert.deepEqual(Object.keys(f.scene().party), ["A", "B"]);
+	assert.equal(f.scene().x, 150);
+	f.add("C", { x: 500 });
+	f.c.update_broadcast_observer(observer, 29999);
+	assert.equal(f.scene().group, "party:A");
+	f.c.update_broadcast_observer(observer, 30000);
+	assert.equal(f.scene().group, "solo:C");
+	assert.deepEqual(Object.keys(f.scene().party), ["C"]);
+	f.c.update_broadcast_observer(observer, 60000);
+	assert.equal(f.scene().group, "party:A");
+});
+
+test("party movement updates the subscription without repeated map loads or private information", () => {
+	const f = fixture();
+	const a = f.add("A", { secret: "private", owner: "private", party: "A", cx: { hair: "hair1" } });
+	f.add("B", { party: "A", in: "private-instance" });
+	f.add("C", { invisible: true });
+	f.add("D", { stealth: true });
+	const observer = f.load(),
+		maps = () => f.events.filter((e) => e.event === "new_map").length;
+	assert.deepEqual(Object.keys(f.scene().party), ["A"]);
+	assert.equal(f.scene().online, 4);
+	assert.equal(f.scene().party.A.secret, undefined);
+	assert.equal(f.scene().party.A.owner, undefined);
+	a.x += 50;
+	f.c.update_broadcast_observer(observer, 1000);
+	assert.equal(observer.x, 150);
+	assert.equal(maps(), 1);
+	assert.deepEqual(Array.from(observer.push), [100, 400]);
+	f.c.update_broadcast_observer(observer, 30000);
+	assert.equal(maps(), 1, "a lone remaining group should not reload the map each slot");
+	delete f.c.players.A;
+	f.c.update_broadcast_observer(observer, 1100);
+	assert.equal(f.scene().group, null);
+	assert.deepEqual(Object.keys(f.scene().party), []);
+	assert.equal(f.scene().available, false);
+	f.c.update_broadcast_observer(observer, 1200);
+	assert.equal(maps(), 1, "empty realms must not transport to an empty town fallback");
+});
+
+test("town selection requires eight visible live players inside the shot and leaves as soon as the crowd drops", () => {
+	const f = fixture();
+	f.c.Math.random = () => 0;
+	f.add("Fighter", { x: 700 });
+	for (let i = 0; i < 7; i++) f.add("Merchant" + i, { x: i * 20, y: 0, ctype: "merchant", p: { stand: true } });
+	for (const [name, extra] of Object.entries({
+		NPC: { npc: true },
+		Gone: { dc: true },
+		Hidden: { invisible: true },
+		Stealth: { stealth: true },
+		Dead: { rip: true },
+		Private: { in: "private-instance" },
+		Edge: { x: 289 },
+		Far: { y: 145 },
+	}))
+		f.add(name, { x: 0, y: 0, ...extra });
+	const observer = f.load();
+	assert.equal(f.scene().town_players, 7);
+	assert.equal(f.scene().kind, "group");
+	f.add("Eighth", { x: -288, y: -144 });
+	f.c.update_broadcast_observer(observer, 30000);
+	assert.equal(f.scene().kind, "town");
+	assert.equal(f.scene().town_players, 8);
+	assert.equal(f.scene().x, 0);
+	assert.equal(f.scene().y, 0);
+	assert.deepEqual(Object.keys(f.scene().party), []);
+	assert.equal(f.scene().focus.length, 0);
+	f.c.update_broadcast_observer(observer, 59999);
+	assert.equal(f.scene().kind, "town");
+	f.c.players.Eighth.x = -289;
+	f.c.update_broadcast_observer(observer, 60000 - 0.5);
+	assert.equal(f.scene().town_players, 7);
+	assert.equal(f.scene().kind, "group");
+});
+
+test("eligible town shots use a thirty-percent slot chance alongside ordinary groups", () => {
+	const f = fixture();
+	f.add("Fighter", { x: 700 });
+	for (let i = 0; i < 8; i++) f.add("Merchant" + i, { x: i * 20, y: 0 });
+	const observer = f.load();
+	let towns = 0;
+	for (let i = 0; i < 10; i++) {
+		f.c.Math.random = () => (i + 0.5) / 10;
+		f.c.update_broadcast_observer(observer, (i + 1) * 30000);
+		if (f.scene().kind === "town") towns++;
+	}
+	assert.equal(towns, 3);
+});
+
+test("town-only populations never bypass the crowd gate and far-away party members retain their native roster", () => {
+	const f = fixture();
+	for (let i = 0; i < 7; i++) f.add("Merchant" + i, { x: i * 20, y: 0 });
+	const observer = f.load();
+	assert.equal(f.scene().available, false);
+	f.add("Eighth", { x: 0, y: 0 });
+	f.c.update_broadcast_observer(observer, 250);
+	assert.equal(f.scene().kind, "town");
+	assert.equal(f.scene().available, true);
+	f.c.players.Eighth.dc = true;
+	f.c.update_broadcast_observer(observer, 500);
+	assert.equal(f.scene().available, false);
+	f.add("Fighter", { x: 700, party: "Team" });
+	f.c.players.Merchant0.party = "Team";
+	f.c.update_broadcast_observer(observer, 750);
+	assert.equal(f.scene().kind, "group");
+	assert.deepEqual(Object.keys(f.scene().party).sort(), ["Fighter", "Merchant0"]);
+	assert.deepEqual(Array.from(f.scene().focus), ["Fighter"]);
+});
