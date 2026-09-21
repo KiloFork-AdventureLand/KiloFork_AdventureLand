@@ -11558,11 +11558,12 @@ function init_socket_io(socket_server) {
 					verify_mas_receipt(player, data.receipt);
 				} else if (data.epl == "steam" && data.ticket) {
 					player.platform = "steam";
-					verify_steam_ticket(player, data.ticket);
-					if (player.p.steam_id && !(await persist_tauri_steam_install(owner, entity, data.auth, player.p.steam_id))) {
-						player.s.authfail = { ms: 900000 };
+					if (verify_steam_ticket(player, data.ticket)) {
+						if (await persist_tauri_steam_install(owner, entity, data.auth, player.p.steam_id)) player.pid = player.p.steam_id;
+						else player.s.authfail = { ms: 900000 };
+					} else {
+						player.platform = "web";
 					}
-					if (player.p.steam_id && !player.s.authfail) player.pid = player.p.steam_id;
 				} else if (data.epl == "tauri_steam") {
 					try {
 						await verify_tauri_steam_auth(player, owner, entity, data, socket);

@@ -1,6 +1,6 @@
 var crypto = require("crypto");
+var SteamAppTicket = require("steam-appticket");
 var protobuf = require("protobufjs");
-var ByteBuffer = require("bytebuffer"); // Steam decryption
 var false_socket = {
 	emit: function (a, b) {
 		if (Dev && !server.shutdown) {
@@ -810,48 +810,28 @@ function quick_hash(str) {
 }
 
 function verify_steam_ticket(player, ticket) {
-	// Thanks: https://github.com/DoctorMcKay/node-steam-user
-	var outer = EncryptedAppTicket.decode(Buffer.from(ticket, "hex"));
-	var char_name = player.name || "unknown";
-
-	// Try current key first
 	try {
-		var decrypted = symmetricDecrypt(outer.encryptedTicket, Buffer.from(keys.steam_key, "hex"));
-		var result = _parse_steam_ticket(player, outer, decrypted);
-		if (result) console.log("#A new_steam_key_worked: " + char_name);
-		return;
-	} catch (e) {}
-
-	// Fallback to old key if set
-	if (keys.old_steam_key) {
-		try {
-			var decrypted = symmetricDecrypt(outer.encryptedTicket, Buffer.from(keys.old_steam_key, "hex"));
-			var result = _parse_steam_ticket(player, outer, decrypted);
-			if (result) console.log("#A old_steam_key_worked: " + char_name);
-			return;
-		} catch (e) {}
-	}
-
-	console.log("#A steam_key_didnt_work: " + char_name);
-}
-
-function _parse_steam_ticket(player, outer, decrypted) {
-	let userData = decrypted.slice(0, outer.cbEncrypteduserdata);
-	let ownershipTicketLength = decrypted.readUInt32LE(outer.cbEncrypteduserdata);
-	let ownershipTicket = parseAppTicket(
-		decrypted.slice(outer.cbEncrypteduserdata, outer.cbEncrypteduserdata + ownershipTicketLength),
-	);
-	if (ownershipTicket) {
-		ownershipTicket.userData = userData.toString();
-	}
-	if (ownershipTicket.appID == 777150 && ownershipTicket.steamID) {
+		if (typeof ticket !== "string" || ticket.length > 8192 || !/^(?:[0-9a-f]{2})+$/i.test(ticket)) return false;
+		if (!/^[0-9a-f]{64}$/i.test(keys.steam_key || "")) return false;
+		var encoded = Buffer.from(ticket, "hex");
+		// Reject bad padding synchronously before the library's stream-based decryptor runs.
+		symmetricDecrypt(EncryptedAppTicket.decode(encoded).encryptedTicket, Buffer.from(keys.steam_key, "hex"));
+		var parsed = SteamAppTicket.parseEncryptedAppTicket(encoded, keys.steam_key);
+		if (!parsed || parsed.appID !== 777150) return false;
+		var steam_id = parsed.steamID.getSteamID64();
+		var issued = +parsed.ownershipTicketGenerated;
+		var now = Date.now();
+		// Encrypted app tickets expire 21 days after issue. Allow small clock differences.
+		if (!/^[0-9]{16,20}$/.test(steam_id) || !(issued > 0 && issued <= now + 300000 && now - issued < 21 * 86400000))
+			return false;
 		player.auth_type = "steam";
-		player.auth_id = ownershipTicket.steamID;
-		player.p.steam_id = ownershipTicket.steamID;
+		player.auth_id = steam_id;
+		player.p.steam_id = steam_id;
 		delete player.s.authfail;
 		return true;
+	} catch (e) {
+		return false;
 	}
-	return false;
 }
 
 function persisted_tauri_steam_id(owner, entity) {
@@ -5242,7 +5222,7 @@ function get_call_cost(socket) {
 
 function set_direction() {} // compatibility
 
-function symmetricDecrypt(input, key, checkHmac) {
+function symmetricDecrypt(input, key) {
 	var aesIv = crypto.createDecipheriv("aes-256-ecb", key, "");
 	aesIv.setAutoPadding(false);
 	var iv = Buffer.concat([aesIv.update(input.slice(0, 16)), aesIv.final()]);
@@ -5250,131 +5230,7 @@ function symmetricDecrypt(input, key, checkHmac) {
 	var aesData = crypto.createDecipheriv("aes-256-cbc", key, iv);
 	var plaintext = Buffer.concat([aesData.update(input.slice(16)), aesData.final()]);
 
-	if (checkHmac) {
-		// The last 3 bytes of the IV are a random value, and the remainder are a partial HMAC
-		var remotePartialHmac = iv.slice(0, iv.length - 3);
-		var random = iv.slice(iv.length - 3, iv.length);
-		var hmac = crypto.createHmac("sha1", key.slice(0, 16));
-		hmac.update(random);
-		hmac.update(plaintext);
-		if (!remotePartialHmac.equals(hmac.digest().slice(0, remotePartialHmac.length))) {
-			throw new Error("Received invalid HMAC from remote host.");
-		}
-	}
-
 	return plaintext;
-}
-
-function parseAppTicket(ticket) {
-	// https://github.com/SteamRE/SteamKit/blob/master/Resources/Structs/steam3_appticket.hsl
-
-	// console.log(ticket);
-	if (!ByteBuffer.isByteBuffer(ticket)) {
-		ticket = ByteBuffer.wrap(ticket, ByteBuffer.LITTLE_ENDIAN);
-	}
-
-	let details = {};
-
-	try {
-		let initialLength = ticket.readUint32();
-		// console.log(initialLength);
-		if (initialLength == 20) {
-			// This is a full appticket, with a GC token and session header (in addition to ownership ticket)
-			details.authTicket = ticket.slice(ticket.offset - 4, ticket.offset - 4 + 52).toBuffer(); // this is the part that's passed back to Steam for validation
-
-			details.gcToken = ticket.readUint64().toString();
-			//details.steamID = new SteamID(ticket.readUint64().toString());
-			ticket.skip(8); // the SteamID gets read later on
-			details.tokenGenerated = new Date(ticket.readUint32() * 1000);
-
-			if (ticket.readUint32() != 24) {
-				// SESSIONHEADER should be 24 bytes.
-				return null;
-			}
-
-			ticket.skip(8); // unknown 1 and unknown 2
-			details.sessionExternalIP = Helpers.ipIntToString(ticket.readUint32());
-			ticket.skip(4); // filler
-			details.clientConnectionTime = ticket.readUint32(); // time the client has been connected to Steam in ms
-			details.clientConnectionCount = ticket.readUint32(); // how many servers the client has connected to
-
-			if (ticket.readUint32() + ticket.offset != ticket.limit) {
-				// OWNERSHIPSECTIONWITHSIGNATURE sectlength
-				return null;
-			}
-		} else {
-			ticket.skip(-4);
-		}
-
-		// Start reading the ownership ticket
-		let ownershipTicketOffset = ticket.offset;
-		let ownershipTicketLength = ticket.readUint32(); // including itself, for some reason
-		if (
-			ownershipTicketOffset + ownershipTicketLength != ticket.limit &&
-			ownershipTicketOffset + ownershipTicketLength + 128 != ticket.limit
-		) {
-			return null;
-		}
-
-		let i;
-		let j;
-		let dlc;
-
-		details.version = ticket.readUint32();
-		details.steamID = ticket.readUint64().toString();
-		details.appID = ticket.readUint32();
-		details.ownershipTicketExternalIP = ticket.readUint32();
-		details.ownershipTicketInternalIP = ticket.readUint32(); // Helpers.ipIntToString(
-		details.ownershipFlags = ticket.readUint32();
-		details.ownershipTicketGenerated = new Date(ticket.readUint32() * 1000);
-		details.ownershipTicketExpires = new Date(ticket.readUint32() * 1000);
-		details.licenses = [];
-		// return details;
-
-		let licenseCount = ticket.readUint16();
-		for (i = 0; i < licenseCount; i++) {
-			details.licenses.push(ticket.readUint32());
-		}
-
-		details.dlc = [];
-
-		let dlcCount = ticket.readUint16();
-		for (i = 0; i < dlcCount; i++) {
-			dlc = {};
-			dlc.appID = ticket.readUint32();
-			dlc.licenses = [];
-
-			licenseCount = ticket.readUint16();
-
-			for (j = 0; j < licenseCount; j++) {
-				dlc.licenses.push(ticket.readUint32());
-			}
-
-			details.dlc.push(dlc);
-		}
-
-		ticket.readUint16(); // reserved
-		if (ticket.offset + 128 == ticket.limit) {
-			// Has signature
-			details.signature = ticket.slice(ticket.offset, ticket.offset + 128).toBuffer();
-		}
-
-		let date = new Date();
-		details.isExpired = details.ownershipTicketExpires < date;
-		details.hasValidSignature =
-			!!details.signature &&
-			SteamCrypto.verifySignature(
-				ticket.slice(ownershipTicketOffset, ownershipTicketOffset + ownershipTicketLength).toBuffer(),
-				details.signature,
-			);
-		details.isValid = !details.isExpired && (!details.signature || details.hasValidSignature);
-	} catch (ex) {
-		console.log("parseAppTicket: " + ex);
-		return details;
-		return null; // not a valid ticket
-	}
-
-	return details;
 }
 
 var proto = {
