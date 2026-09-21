@@ -96,13 +96,17 @@ function update_broadcast_observer(observer, now) {
 			return groups.get(key).some(broadcast_observer_active);
 		});
 		if (active.length) choices = active;
+		// Three evenly spaced town shots per ten half-minute slots. Use the
+		// shared clock so reconnecting or rotating servers cannot reset the mix.
+		var time = Date.now(),
+			town_slot = [1, 4, 7].indexOf(floor(time / 30000) % 10) !== -1;
 		state.group =
-			town_ready && (!choices.length || Math.random() < 0.3)
+			town_ready && (!choices.length || town_slot)
 				? town_group
 				: choices.length
 					? choices[floor(Math.random() * choices.length)]
 					: null;
-		state.next = now + 30000;
+		state.next = now + 30000 - (time % 30000);
 		members = groups.get(state.group);
 		state.anchor = null;
 	}
