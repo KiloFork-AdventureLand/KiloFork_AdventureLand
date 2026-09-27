@@ -1,0 +1,26 @@
+schema: gsv.project/v1
+id: kilofork-adventureland
+name: KiloFork_AdventureLand
+repo: KiloFork-AdventureLand/KiloFork_AdventureLand
+domain: application
+maturity: experimental
+build_profile: node
+os: [windows, linux, macos]
+privacy: public
+agent_policy: supervised
+release: manual
+authority: local Adventure Land MongoDB-port adaptation, local development configuration, guarded seed flow, and fork-specific integration changes
+notes: >
+  Downstream fork/adaptation lane. Preserve the upstream Adventure Land family,
+  its repository split, attribution, and AdventureLandOnlyUse license. This repo
+  must not absorb secrets, production databases, or sibling source by copy. The
+  local MongoDB seed path is intentionally fresh-database-only and must remain
+  bounded to local development.
+upstream:
+  - {name: kaansoral/adventureland_mongodb, via: git lineage, required: true, note: "Main game/server source lineage"}
+  - {name: kaansoral/common_engine, via: common symlink/adjacent checkout, required: true, note: "Shared engine lineage; do not vendor silently"}
+  - {name: kaansoral/adventureland_secretsandconfig, via: secretsandconfig symlink/adjacent checkout, required: true, note: "Configuration template lineage; real secrets remain local"}
+downstream:
+  - {name: web-backend, surface: main.js, consumers: [browser]}
+  - {name: game-server, surface: node/server.js, consumers: [game-client]}
+  - {name: local-map-seed, surface: scripts/seed_mongodb.js, consumers: [fresh-local-mongodb]}
