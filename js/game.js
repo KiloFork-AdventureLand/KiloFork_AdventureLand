@@ -84,6 +84,8 @@ var ch_disp_x = 0,
 var head_x = 0,
 	head_y = 0; // For head gestures [25/09/18]
 var tints = [];
+var entities_map = null,
+	entities_in = null; // map+instance the entity table was filled from [26/09/26]
 var entities = {},
 	future_entities = { players: {}, monsters: {} },
 	pull_all_next = false,
@@ -557,10 +559,11 @@ function handle_entities(data, args) {
 function draw_entities() {
 	for (entity in entities) {
 		var current = entities[entity];
-		if ((character && !within_xy_range(character, current)) || (!character && !within_xy_range({ map: current_map, in: current_in, vision: [700, 500], x: map.real_x, y: map.real_y }, current))) {
+		// !current.dead: one on_disappear per exit, it used to fire every frame while the entity faded out [26/09/26]
+		if (!current.dead && ((character && !within_xy_range(character, current)) || (!character && !within_xy_range({ map: current_map, in: current_in, vision: [700, 500], x: map.real_x, y: map.real_y }, current)))) {
 			// console.log("character x,y: "+round(character.real_x)+","+round(character.real_y)+" entity moving outside range: ["+current.id+"] x,y: "+round(current.x)+","+round(current.y));
-			call_code_function("on_disappear", current, { outside: true });
 			//console.log("mark dead within_xy: "+current.id+" "+(character['in']==current['in'])+" "+character.vision+" "+get_xy(current));
+			call_code_function("on_disappear", current, { outside: true });
 			current.dead = "vision";
 		}
 		if (current.dead || clean_house) {
@@ -1125,6 +1128,7 @@ function consider_interaction_context(key, id, c_distance, range, context, prior
 	candidate.priority = priority;
 	candidate.source = source;
 	if (visual) candidate.visual = visual;
+	else if (definition.skin) candidate.visual = { skin: definition.skin };
 	interaction_contexts.push(candidate);
 	if (interaction_context && (interaction_context.priority > priority || (interaction_context.priority == priority && interaction_context.distance <= c_distance))) return;
 	interaction_context = candidate;
@@ -1620,6 +1624,20 @@ function init_socket(args) {
 			data.redraw = true;
 		}
 		// Player packets can update current_map before new_map arrives.
+		// then create is false and the entity table was never cleared - the previous map's entities stayed as phantoms
+		// the table is keyed to the map+instance it was filled from instead [26/09/26]
+		if (entities_map !== data.name || entities_in !== data["in"]) {
+			for (var stale_id in entities) {
+				if (!entities[stale_id].dead) {
+					call_code_function("on_disappear", entities[stale_id], { outside: true });
+					entities[stale_id].dead = "vision";
+				}
+			}
+			// clean_house before the snapshot, so an entity on both maps (a party member) is recreated instead of staying dead
+			clean_house = true;
+			entities_map = data.name;
+			entities_in = data["in"];
+		}
 		if (tutorial_map && tutorial_map !== data.name && character) tut("travel");
 		tutorial_map = data.name;
 		current_map = data.name;
@@ -1770,6 +1788,8 @@ function init_socket(args) {
 		reposition_ui();
 		update_overlays();
 		current_in = character["in"];
+		entities_map = character.map;
+		entities_in = character["in"];
 		if (character.map != current_map) {
 			current_map = character.map;
 			reflect_music();
@@ -2377,7 +2397,10 @@ function init_socket(args) {
 			} else if (response == "distance") ui_log(phrase.html("response.distance"), "gray");
 			else if (response == "trade_bspace") {
 				ui_log(phrase.html("response.trade_bspace"), "gray");
-			} else if (response == "bank_restrictions") {
+			} else if (response == "trade_offer_invalid") ui_log(phrase.html("response.trade_offer_invalid"), "gray");
+			else if (response == "trade_swap_match") ui_log(phrase.html("response.trade_swap_match"), "gray");
+			else if (response == "trade_swap_space") ui_log(phrase.html("response.trade_swap_space"), "gray");
+			else if (response == "bank_restrictions") {
 				ui_log(phrase.html("response.bank_restrictions"), "gray");
 			} else if (response == "tavern_too_late") ui_log(phrase.html("response.tavern_too_late"), "gray");
 			else if (response == "tavern_not_yet") ui_log(phrase.html("response.tavern_not_yet"), "gray");
@@ -2669,6 +2692,7 @@ function init_socket(args) {
 			if (data.type == "route_marks") citizen_draw_route_marks(data);
 			else if (data.type == "repair") citizen_draw_repair(data);
 			else if (data.type == "lamp") citizen_draw_lamp(data);
+			else if (data.type == "dealer") poker_dealer_act(data);
 		});
 	});
 	function paladin_support_animation(name, targets) {
@@ -2720,6 +2744,11 @@ function init_socket(args) {
 				if (buyer) d_text("-$$", buyer, { color: colors.white_negative });
 				call_code_function("trigger_event", "trade", { seller: data.seller, buyer: data.buyer, item: data.item, num: data.num, slot: data.slot });
 				if (seller.me) call_code_function("trigger_event", "sale", { buyer: data.buyer, item: data.item, num: data.num, slot: data.slot });
+			} else if (data.type == "swap") {
+				// The "swap" CODE event comes from data.event; the items cross like a sent item
+				var seller = get_player(data.seller),
+					buyer = get_player(data.buyer);
+				if (seller && buyer) d_line(seller, buyer, { color: "item" });
 			} else if (data.type == "gold_sent") {
 				var sender = get_player(data.sender),
 					receiver = get_player(data.receiver);
@@ -3501,6 +3530,8 @@ function init_socket(args) {
 				html += "<div>" + phrase.html("game.trade_history.bought", { quantity: prefix, item: item, player: h[1], gold: to_pretty_num(h[3]) }) + "</div>";
 			} else if (h[0] == "giveaway") {
 				html += "<div>" + phrase.html("game.trade_history.gave_away", { quantity: prefix, item: item, player: h[1] }) + "</div>";
+			} else if (h[0] == "swap") {
+				html += "<div>" + phrase.html("game.trade_history.traded", { item: trade_lot_name(h[2]), player: h[1], received: trade_lot_name(h[4]) }) + "</div>";
 			} else {
 				html += "<div>" + phrase.html("game.trade_history.sold", { quantity: prefix, item: item, player: h[1], gold: to_pretty_num(h[3]) }) + "</div>";
 			}
@@ -3550,6 +3581,7 @@ function npc_right_click(event) {
 	if (this.role == "secondhands") {
 		socket.emit("secondhands");
 	}
+	if (this.role == "pokerdealer") render_poker();
 	if (this.role == "lostandfound") {
 		socket.emit("lostandfound", "info");
 	}
@@ -6442,7 +6474,7 @@ function add_character(data, me) {
 	else if (npc && npc.type != "fullstatic") stype = "emote";
 	if (log_flags.entities) console.log("add character " + data.id);
 	// "me" is added directly to stage (not the scaled "map" container, see manual_centering), so it needs to match "scale" manually
-	var cscale = (me && manual_centering && scale) || 1;
+	var cscale = (me && manual_centering && Number(scale)) || 1;
 	if (!XYWH[data.skin]) data.skin = "naked";
 	var sprite = new_sprite(data.skin, stype);
 	if (cscale != 1) sprite.scale = new PIXI.Point(cscale, cscale);
@@ -6691,6 +6723,7 @@ function add_quirk(quirk) {
 		var quirk_text = phrase.definition("map", current_map, "quirks." + quirk_index + ".5", quirk[5]);
 		if (quirk[4] == "sign") add_log(phrase.html("game.sign_reads", { value: quirk_text }), "gray");
 		else if (quirk[4] == "note") add_log(phrase.html("game.note_reads", { value: quirk_text }), "gray");
+		else if (quirk[4] == "comic") open_guide(quirk[5], get_guide_url(quirk[5]));
 		else if (quirk[4] == "tavern_info") socket.emit("tavern", { event: "info" });
 		else if (quirk[4] == "mainframe") render_mainframe();
 		else if (quirk[4] == "the_lever") the_lever();

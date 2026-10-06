@@ -1,4 +1,5 @@
 const assert = require("node:assert/strict");
+const { DueQueue } = require("../logic/due_queue.js");
 const test = require("node:test");
 const vm = require("node:vm");
 const fs = require("node:fs");
@@ -49,6 +50,7 @@ function fixture() {
 		db: {},
 		instances: {},
 		projectiles: {},
+		projectiles_due: new DueQueue(),
 		freeze_instance() {},
 		resume_frozen_instance() {},
 		cave_publish() {},
@@ -552,6 +554,7 @@ test("Cave Info follows proximity and map changes without waiting for another ev
 		anniversary_visible_skill: false,
 		anniversary_live_event: () => null,
 		anniversary_can_visit: () => false,
+		release_update_button_html: () => "",
 		render_event_announcements() {},
 		reposition_ui() {},
 		item_container: () => "<span></span>",

@@ -466,6 +466,39 @@ function can_add_items(player,items,args)
 	return false;
 }
 
+function trade_want_normalize(want) // what a trade offer asks for: name, level (the lowest accepted), p, q - an unset level or title accepts any
+{
+	if(is_string(want)) want={name:want};
+	if(!want || !is_string(want.name) || !Object.prototype.hasOwnProperty.call(G.items,want.name) || want.name=="placeholder") return null;
+	var def=G.items[want.name],result={name:want.name},level=parseInt(want.level);
+	if((def.upgrade || def.compound) && level>0) result.level=min(12,level);
+	if(want.p!==undefined && want.p!==null && want.p!=="")
+	{
+		if(!is_string(want.p) || !G.titles || !Object.prototype.hasOwnProperty.call(G.titles,want.p)) return null;
+		result.p=want.p;
+	}
+	if(def.s) result.q=min(def.s===true&&9999||def.s,max(1,parseInt(want.q)||1));
+	return result;
+}
+
+function trade_want_matches(want,item) // the server and the stand UI accept the same items: a higher level, or any title when none is set
+{
+	if(!want || !item || item.name!=want.name) return false;
+	if(want.level && (item.level||0)<want.level) return false;
+	if(want.p && item.p!=want.p) return false;
+	if((item.q||1)<(want.q||1)) return false;
+	return true;
+}
+
+function trade_lot_name(item) // "Shiny Staff +8" or "20 Candy Pop"
+{
+	var name=G.items[item.name].name;
+	if(item.p && G.titles && Object.prototype.hasOwnProperty.call(G.titles,item.p)) name=G.titles[item.p].title+" "+name;
+	if(item.level) name+=" +"+item.level;
+	if((item.q||1)>1) name=item.q+" "+name;
+	return name;
+}
+
 var RESOLVE_ALL=false;
 var deferreds={},current_deferred=null;
 function deferred()
@@ -655,6 +688,22 @@ function within_xy_range(observer,entity)
 	return false;
 }
 
+// Combat bounds use the monster type, not its visual skin or sprite dimensions.
+function get_monster_dimensions(type) {
+	var dimensions = G.dimensions[type] || [24, 24];
+	var width = dimensions[0], height = dimensions[1];
+	if (G.monsters[type].size) {
+		width = Math.round(width * G.monsters[type].size);
+		height = Math.round(height * G.monsters[type].size);
+	}
+	return [width, height];
+}
+
+function get_combat_dimensions(entity) {
+	if (entity.type === "monster" && typeof entity.mtype === "string" && Object.prototype.hasOwnProperty.call(G.monsters, entity.mtype)) return get_monster_dimensions(entity.mtype);
+	return [get_width(entity), get_height(entity)];
+}
+
 function distance(a, b) {
 	// https://discord.com/channels/238332476743745536/1025784763958693958
 	if (!a || !b) return 99999999;
@@ -666,10 +715,12 @@ function distance(a, b) {
 	const b_x = get_x(b);
 	const b_y = get_y(b);
 
-	const aHalfWidth = get_width(a) / 2;
-	const aHeight = get_height(a);
-	const bHalfWidth = get_width(b) / 2;
-	const bHeight = get_height(b);
+	const aDimensions = get_combat_dimensions(a);
+	const bDimensions = get_combat_dimensions(b);
+	const aHalfWidth = aDimensions[0] / 2;
+	const aHeight = aDimensions[1];
+	const bHalfWidth = bDimensions[0] / 2;
+	const bHeight = bDimensions[1];
 
 	// Compute bounds of each rectangle
 	const aLeft = a_x - aHalfWidth;
