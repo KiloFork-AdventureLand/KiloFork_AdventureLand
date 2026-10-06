@@ -3,6 +3,7 @@ const test = require("node:test");
 const vm = require("node:vm");
 const G = require("./helpers/design");
 const { load, read, socketHandler } = require("./helpers/server_vm");
+const { DueQueue } = require("../logic/due_queue.js");
 
 function fixture(storage = { marks: new Map(), levels: new Map() }) {
 	let now = 100000;
@@ -27,10 +28,12 @@ function fixture(storage = { marks: new Map(), levels: new Map() }) {
 		Dev: true,
 		is_pvp: false,
 		players: {},
+		observers: {},
 		name_to_id: {},
 		npcs: {},
 		instances: {},
 		projectiles: {},
+		projectiles_due: new DueQueue(),
 		mode: {},
 		total_moves: 1,
 		db: {
@@ -126,6 +129,7 @@ function fixture(storage = { marks: new Map(), levels: new Map() }) {
 	load(c, "node/server_functions.js", [
 		"weapon_stat_attack",
 		"transport_npc_to",
+		"remove_entity_emit",
 		"create_npc",
 		"cache_item",
 		"get_player",
@@ -247,7 +251,11 @@ function fixture(storage = { marks: new Map(), levels: new Map() }) {
 				if (fraction === 1) npc.moving = false;
 			}
 		c.cavalry_tick();
-		for (const p of Object.values(c.projectiles)) p.eta = new Clock(now);
+		// land everything in flight now; the loop reads the due queue, so it has to hear about it too
+		for (const [id, p] of Object.entries(c.projectiles)) {
+			p.eta = new Clock(now);
+			c.projectiles_due.push(now, id);
+		}
 		c.projectiles_loop();
 	}
 	return { c, packets, drops, player, monster, call, advance, storage, now: () => now };

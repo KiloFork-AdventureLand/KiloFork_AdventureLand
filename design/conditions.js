@@ -556,7 +556,8 @@ var conditions = {
 	},
 	stoned: {
 		name: "Stoned",
-		skin: "condition_neutral",
+		skin: "condition_stoned",
+		ui: true,
 		duration: 4000,
 		blocked: true,
 		debuff: true,
@@ -691,7 +692,8 @@ var conditions = {
 	},
 	cursed: {
 		name: "Cursed",
-		skin: "condition_bad",
+		skin: "skill_curse",
+		ui: true,
 		output: -20,
 		incdmgamp: 20,
 		speed: -20,
@@ -699,6 +701,41 @@ var conditions = {
 		debuff: true,
 		// "defense":"bmresistance",
 		explanation: "Reduces damage output by 20% and movement speed by 20. Increases damage taken by 20%.",
+	},
+	exposed: {
+		name: "Exposed",
+		skin: "condition_exposed",
+		resistance: -240,
+		duration: 5000,
+		ui: true,
+		debuff: true,
+		explanation: "Resistance is reduced by 240 for 5 seconds.",
+	},
+	sundered: {
+		name: "Sundered",
+		skin: "condition_sundered",
+		armor: -200,
+		duration: 5000,
+		ui: true,
+		debuff: true,
+		explanation: "Armor is reduced by 200 for 5 seconds.",
+	},
+	frenzied: {
+		name: "Primal Frenzy",
+		skin: "condition_frenzied",
+		frequency: 40,
+		duration: 6000,
+		ui: true,
+		buff: true,
+		explanation: "Attack speed is increased by 40 for 6 seconds.",
+	},
+	// Hidden crumble window after a Stonegaze stone: not a buff or debuff, so Status Resistance,
+	// Purify and Cleansing Light leave it alone.
+	stonebreak: {
+		name: "Crumbling",
+		skin: "condition_stoned",
+		duration: 14000,
+		explanation: "Recently turned to stone. It can't be petrified again until this fades.",
 	},
 	dampened: {
 		name: "Dampened",
@@ -823,7 +860,7 @@ var conditions = {
 for (var cleansable of [
 	"tangled","weakness","woven","eburn","stunned","deepfreezed","frozen",
 	"burned","shocked","fingered","stoned","slowness","poisoned","cursed",
-	"dampened","charmed","marked","sleeping",
+	"dampened","charmed","marked","sleeping","exposed","sundered",
 ]) conditions[cleansable].cleansable=true;
 
 // The tarot card condition generation block below was disabled in the original Python (if 0:)

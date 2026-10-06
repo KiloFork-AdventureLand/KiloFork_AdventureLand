@@ -643,14 +643,15 @@ function open_event_announcement(key) {
 
 function event_announcement_html(args) {
 	if (no_html) return "";
-	var interactive = !!args.key,
+	var interactive = !!(args.key || args.open),
 		item = G.items[args.sprite],
+		classes = "event-announcement" + (args.classes ? " " + args.classes : ""),
 		html =
-			(interactive ? "<button type='button' class='gamebutton event-announcement'" : "<article class='event-announcement'") +
+			(interactive ? "<button type='button' class='gamebutton " + classes + "'" : "<article class='" + classes + "'") +
 			" data-effect='" + html_escape(args.effect) +
 			"' style='--event-color:" + args.color + ";--event-accent:" + args.accent + "'";
 	if (interactive)
-		html += " onclick='pcs(event);open_event_announcement(\"" + args.key + "\")' aria-haspopup='dialog'";
+		html += " onclick='pcs(event);" + (args.open || "open_event_announcement(\"" + args.key + "\")") + "' aria-haspopup='dialog'";
 	html += ">";
 	if (interactive) html += "<span class='event-announcement-arrow' aria-hidden='true'>&lt;</span>";
 	if (!no_graphics) {
@@ -697,16 +698,18 @@ function render_event_announcements() {
 				return (G.events[b].type == "seasonal") - (G.events[a].type == "seasonal");
 			})
 			.slice(0, 2),
+		release = release_card_html(),
 		signature = JSON.stringify(
 			keys
 				.map(function (key) {
 					return [key, G.events[key]];
 				})
-				.concat([!!no_graphics]),
+				.concat([!!no_graphics, release]),
 		);
 	if (banner.data("events") === signature) return;
 	banner.data("events", signature);
-	var html = "";
+	// An unread update post comes first, then live events.
+	var html = release;
 	keys.forEach(function (key) {
 		var event = G.events[key],
 			theme = event.announcement;
@@ -722,7 +725,7 @@ function render_event_announcements() {
 		});
 	});
 	banner.html(html);
-	if (keys.length) banner.show();
+	if (html) banner.show();
 	else banner.hide();
 }
 
@@ -731,7 +734,10 @@ function render_server() {
 	var html = "",
 		content = false,
 		featured = anniversary_live_event(),
-		contexts = proximity_guides ? (interaction_contexts.length ? interaction_contexts : interaction_context ? [interaction_context] : []) : [];
+		contexts = proximity_guides ? (interaction_contexts.length ? interaction_contexts : interaction_context ? [interaction_context] : []) : [],
+		update_button = release_update_button_html();
+	// An unread update post: first in the strip, so removing it moves no other button.
+	if (update_button) ((html += update_button), (content = true));
 	if (!no_html && featured && featured.skin) {
 		html += " <div class='gamebutton' title='" + html_escape(featured.target) + "' style='padding:6px 8px;font-size:24px;line-height:18px' onclick='pcs(event);render_anniversary_event()'>";
 		html += sprite(featured.skin, { cx: clone(featured.cx || {}), overflow: true });
@@ -3121,6 +3127,8 @@ function render_monster_info(name) {
 	}
 	html += render_item("html", { pure: true, item: G.monsters[name], prop: G.monsters[name], monster: name, count: count, mcount: mcount, score: count + diff, mowner: mowner });
 	if (name === "rimedjinn") html += "<div class='textbutton' onclick=\"open_guide('rime-djinn','/docs/guide/world/rime-djinn')\">" + phrase.html("interface.item.info") + "</div>";
+	var monster_guide = G.docs && G.docs.interactions && G.docs.interactions[name];
+	if (monster_guide && monster_guide.skin === name) html += "<div class='textbutton' onclick=\"open_interaction_guide('" + name + "')\">" + phrase.html("interface.item.info") + "</div>";
 	if (MR && MR[name] && MR[name].length) {
 		html += "<div style='margin-top: 6px; margin-bottom: 3px; color:#2A9A3D'>" + phrase.html("interface.monster_info.drops") + "</div>";
 		MR[name].forEach(function (drop) {
@@ -3515,6 +3523,21 @@ function load_documentation(name) {
 function open_article(name, url) {
 	api_call("load_article", { name: name, url: url });
 }
+
+// In the game, a docs link opens that page in the game; a middle or modified click still opens the link itself
+function docs_link_click(event) {
+	if (window.inside != "game" || event.defaultPrevented || event.button || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+	var link = event.target && event.target.closest && event.target.closest("a[href]"),
+		url = link && link.getAttribute("href"),
+		match = url && url.match(/^\/docs\/(?:code\/functions|guide(?:\/[\w-]+)*)\/([\w-]+)$/);
+	if (url == "/docs/code/monster/reference") open_article("data-monster", url);
+	else if (match && url.indexOf("/docs/code/functions/") == 0) load_documentation(match[1]);
+	else if (match && get_guide_url(match[1]) == url) open_guide(match[1], url);
+	else return;
+	event.preventDefault();
+}
+
+if (typeof document != "undefined") document.addEventListener("click", docs_link_click, true);
 
 function open_guide(name, url) {
 	if (name === "events-and-home" || (typeof name === "string" && name.indexOf("event-") === 0)) tut("events");
@@ -4023,6 +4046,26 @@ function render_all_items() {
 	});
 	html += "</div>";
 	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/guide/all/items" });
+}
+
+// A monster in the monster list's tile, facing j (0 front, 1 left, 2 right, 3 back); opens its info window
+function guide_monster_tile(name, j) {
+	return (
+		"<div class='clickable' style='display:inline-block;vertical-align:bottom;background-color:#575983;border:2px solid #9F9FB0;line-height:0' onclick='pcs(event); render_monster_info(\"" +
+		name +
+		"\")'>" +
+		sprite(name, { full: true, scale: 3, j: j || 0 }) +
+		"</div>"
+	);
+}
+
+// The monster seen from the front, left, right and back, each tile labelled
+function guide_monster_views(name) {
+	return ["front", "left", "right", "back"]
+		.map(function (side, j) {
+			return "<div class='guide-view'>" + guide_monster_tile(name, j) + "<div class='guide-view-label'>" + phrase.html("interface.monster_views." + side) + "</div></div>";
+		})
+		.join("");
 }
 
 function render_all_monsters() {
@@ -4644,13 +4687,26 @@ function render_others() {
 	show_modal(html, { wrap: false, hideinbackground: true, url: "/docs/ref" });
 }
 
-function render_wishlist(num, page) {
-	var html = "<div style='background-color: black; border: 5px solid gray; padding: 12px 20px 20px 20px; font-size: 24px; display: inline-block'>";
+var wishlist_search = "";
+function render_wishlist(num, page, offer, typing) {
+	// offer: the same item picker chooses what a trade offer asks for; SEARCH narrows it by item name
+	var query = wishlist_search.toLowerCase(),
+		html = "<div style='background-color: black; border: 5px solid gray; padding: 12px 20px 20px 20px; font-size: 24px; display: inline-block'>";
 	html +=
-		"<div style='color: #f1c054; border-bottom: 2px dashed #C7CACA; margin-bottom: 3px; margin-left: 3px; margin-right: 3px' class='cbold'>" + phrase.html("interface.wishlist.wishlist") + "</div>";
+		"<div style='color: #f1c054; border-bottom: 2px dashed #C7CACA; margin-bottom: 3px; margin-left: 3px; margin-right: 3px' class='cbold'>" +
+		phrase.html(offer ? "interface.trade_offer.trade_for" : "interface.wishlist.wishlist") +
+		"</div>";
+	html +=
+		"<div style='margin: 0 3px 3px 3px'><span style='color:#37DBC1'>" +
+		phrase.html("interface.code_docs.search") +
+		"</span> <input type='text' class='wsearchi' style='font-family:var(--pixel-font, pixel); font-size:24px; margin-bottom: -8px; width: 150px; margin-left: 5px' oninput='wishlist_search=this.value; render_wishlist(" +
+		num +
+		",0," +
+		!!offer +
+		",true)'></div>";
 	var items = [],
 		last = 0;
-	for (var name in G.items) if (!G.items[name].ignore) items.push([name, G.items[name], G.items[name].g || 0]);
+	for (var name in G.items) if (!G.items[name].ignore && (!query || G.items[name].name.toLowerCase().indexOf(query) != -1)) items.push([name, G.items[name], G.items[name].g || 0]);
 	items.sort(function (a, b) {
 		return b[2] - a[2];
 	});
@@ -4658,13 +4714,15 @@ function render_wishlist(num, page) {
 	for (var i = 0; i < 4; i++) {
 		html += "<div>";
 		for (var j = 0; j < 5; j++) {
-			if (i == 3 && j == 0 && page != 0) html += item_container({ skin: "left", onclick: "render_wishlist(" + num + "," + (page - 1) + ");" }, { q: page, left: true });
-			else if (i == 3 && j == 4 && last < items.length - 1) html += item_container({ skin: "right", onclick: "render_wishlist(" + num + "," + (page + 1) + ");" }, { q: page + 2, left: true });
+			if (i == 3 && j == 0 && page != 0) html += item_container({ skin: "left", onclick: "render_wishlist(" + num + "," + (page - 1) + "," + !!offer + ");" }, { q: page, left: true });
+			else if (i == 3 && j == 4 && last < items.length - 1)
+				html += item_container({ skin: "right", onclick: "render_wishlist(" + num + "," + (page + 1) + "," + !!offer + ");" }, { q: page + 2, left: true });
 			else if (last < items.length && items[last++]) {
 				var id = "wishlist" + (last - 1),
 					item = items[last - 1][1],
 					name = items[last - 1][0];
-				html += item_container({ skin: item.skin, onclick: "wishlist_item_click('" + name + "'," + num + ")", def: item, id: id, draggable: false, droppable: false }, null);
+				var onclick = offer ? "trade_offer_item_click('" + name + "')" : "wishlist_item_click('" + name + "'," + num + ")";
+				html += item_container({ skin: item.skin, onclick: onclick, def: item, id: id, draggable: false, droppable: false }, null);
 			} else {
 				html += item_container({ size: 40, draggable: false, droppable: false });
 			}
@@ -4674,6 +4732,9 @@ function render_wishlist(num, page) {
 	html += "</div>";
 	render_ui_panel("#topleftcornerdialog", html);
 	dialogs_target = character;
+	// typing rebuilds the picker, so the new SEARCH field keeps the focus, even once it is empty
+	var input = $(".wsearchi").val(wishlist_search)[0];
+	if (typing && input) (input.focus(), input.setSelectionRange(input.value.length, input.value.length));
 }
 
 var last_selector = "";
@@ -4930,6 +4991,22 @@ function render_item(selector, args) {
 			} else if (item.ability == "restore_mp") {
 				html += bold_prop_line(phrase.html("interface.item.ability"), phrase.html("interface.item.restore_mp"), "#5D9ED9");
 				html += "<div style='color: #C3C3C3'>" + phrase.html("interface.item.instead_of_using_mp_skills_restore_2x_the_amount_with", { value: prop.attr0 }) + "</div>";
+				if (prop.attr1) html += "<div style='color: #C3C3C3'>" + phrase.html("interface.item.restore_mp_share_capped_at_20") + "</div>";
+			} else if (item.ability == "petrify") {
+				html += bold_prop_line(phrase.html("interface.item.ability"), phrase.html("interface.item.petrify"), "#A7A7AD");
+				html += "<div style='color: #C3C3C3'>" + phrase.html("interface.item.turns_the_opponent_to_stone_with_a_chance", { value: prop.attr0 }) + "</div>";
+			} else if (item.ability == "hex") {
+				html += bold_prop_line(phrase.html("interface.item.ability"), phrase.html("interface.item.hex"), "#9B4DDB");
+				html += "<div style='color: #C3C3C3'>" + phrase.html("interface.item.curses_the_opponent_with_a_chance", { value: prop.attr0 }) + "</div>";
+			} else if (item.ability == "shatter") {
+				html += bold_prop_line(phrase.html("interface.item.ability"), phrase.html("interface.item.shatter"), "#5E7CE2");
+				html += "<div style='color: #C3C3C3'>" + phrase.html("interface.item.magical_hits_expose_the_opponent_with_a_chance", { value: prop.attr0 }) + "</div>";
+			} else if (item.ability == "sunder") {
+				html += bold_prop_line(phrase.html("interface.item.ability"), phrase.html("interface.item.sunder"), "#C87533");
+				html += "<div style='color: #C3C3C3'>" + phrase.html("interface.item.physical_hits_sunder_the_opponent_with_a_chance", { value: prop.attr0 }) + "</div>";
+			} else if (item.ability == "frenzy") {
+				html += bold_prop_line(phrase.html("interface.item.ability"), phrase.html("interface.item.primal_frenzy"), "#E0302F");
+				html += "<div style='color: #C3C3C3'>" + phrase.html("interface.item.hits_trigger_a_primal_frenzy_with_a_chance", { value: prop.attr0 }) + "</div>";
 			} else if (G.skills[item.ability]) {
 				html += bold_prop_line(phrase.html("interface.item.ability"), phrase.definition("skill", item.ability, "name", G.skills[item.ability].name), "#E1924D");
 				if (prop.attr0) html += bold_prop_line(phrase.html("interface.item.chance"), "%" + prop.attr0);
@@ -5125,6 +5202,14 @@ function render_item(selector, args) {
 				'",$(".sellprice").shtml(),$(".tradenum").shtml())\'>' +
 				phrase.html("interface.item.put_up_for_sale") +
 				"</span></div>"; // style='color:#A99A5B'
+			html +=
+				"<div><span class='clickable iou' onclick='trade_offer_pick(\"" +
+				args.slot +
+				'","' +
+				args.num +
+				'",$(".tradenum").shtml())\'>' +
+				phrase.html("interface.item.offer_for_trade") +
+				"</span></div>";
 			html += "</div>";
 		}
 		if (actual && actual.name == "cxjar") {
@@ -5137,7 +5222,7 @@ function render_item(selector, args) {
 				html += "<div class='clickable' onclick='render_cx_info(\"" + actual.data + "\")'>" + cx_sprite(actual.data) + "</div>";
 			}
 		}
-		if (in_arr(args.slot, trade_slots) && actual && actual.price && args.from_player && !actual.b && !actual.giveaway) {
+		if (in_arr(args.slot, trade_slots) && actual && actual.price && args.from_player && !actual.b && !actual.giveaway && !actual.want) {
 			trade_item = true;
 			if ((actual.q || 1) > 1) {
 				html +=
@@ -5173,6 +5258,45 @@ function render_item(selector, args) {
 				"\")'>" +
 				phrase.html("interface.item.join") +
 				"</span></div>";
+		}
+		if (in_arr(args.slot, trade_slots) && actual && args.from_player && actual.want && !actual.b && !actual.giveaway) {
+			trade_item = true;
+			html += trade_want_html(actual.want);
+			// Only a nearby stand can trade; your own offer and the online merchants list show the request
+			if (selector == "#topleftcornerdialog" && character && args.from_player != character.id) {
+				var matches = [];
+				character.items.forEach(function (current, inum) {
+					if (current && !current.l && !current.b && !current.v && !current.acl && trade_want_matches(actual.want, current)) matches.push(inum);
+				});
+				// A choice survives a re-render only while that bag slot still holds the same item
+				var view = trade_offer_view;
+				if (!view || view.slot != args.slot || view.rid != actual.rid || !in_arr(view.num, matches) || JSON.stringify(view.item) != JSON.stringify(character.items[view.num]))
+					trade_offer_view = { slot: args.slot, rid: actual.rid, num: matches.length == 1 ? matches[0] : null };
+				if (trade_offer_view.num !== null) trade_offer_view.item = trade_offer_view.item || clone(character.items[trade_offer_view.num]);
+				trade_offer_view.args = args;
+				// A stack shows what the trade takes from it, not all of it
+				var given = G.items[actual.want.name].s ? { q: actual.want.q || 1 } : {};
+				trade_offer_view.given = given;
+				if (!matches.length) html += "<div class='gray'>" + phrase.html("interface.trade_offer.no_match") + "</div>";
+				else {
+					html += "<div><span class='gray'>" + phrase.html("interface.trade_offer.give") + "</span></div><div style='margin-left:-2px'>";
+					matches.forEach(function (inum) {
+						html += item_container(
+							{ skin: G.items[character.items[inum].name].skin, draggable: false, sbcolor: trade_offer_view.num === inum ? "#3E9ACD" : undefined, onclick: "trade_offer_select(" + inum + ")" },
+							Object.assign({}, character.items[inum], given),
+						);
+					});
+					html += "</div>";
+					if (trade_offer_view.num === null) html += "<div class='gray'>" + phrase.html("interface.trade_offer.choose") + "</div>";
+					else
+						html +=
+							"<div class='clickable' onclick='trade_offer_inspect()'>" +
+							html_escape(trade_lot_name(Object.assign({}, trade_offer_view.item, given))) +
+							"</div><div><span class='clickable iou' onclick='trade_offer_give()'>" +
+							phrase.html("interface.trade_offer.trade") +
+							"</span></div>";
+				}
+			}
 		}
 		if (in_arr(args.slot, trade_slots) && actual && actual.price && args.from_player && actual.b) {
 			var q = false;
@@ -5494,6 +5618,69 @@ function render_wishlist_item(name, num) {
 	html += "</div>";
 	render_ui_panel("#topleftcornerdialog", html);
 	dialogs_target = character;
+}
+
+function render_trade_offer() {
+	// The Wishlist form for a trade offer: LEVEL and TITLE stay ANY unless set
+	var state = trade_offer_state,
+		def = G.items[state.name],
+		offered = character.items[state.num],
+		html = "";
+	html += "<div style='background-color: black; border: 5px solid gray; font-size: 24px; display: inline-block; padding: 20px; line-height: 24px; max-width: 240px; min-width:200px;' class='buyitem'>";
+	html += "<div style='margin-left:-2px; display:inline-block; vertical-align:middle'>" + item_container({ skin: def.skin, def: def }) + "</div>";
+	html += "<div style='display:inline-block; vertical-align:top; margin-left: 4px'>";
+	html +=
+		"<div style='color: #f1c054; border-bottom: 2px dashed #C7CACA; margin-bottom: 3px; margin-left: 3px; margin-right: 3px; display: inline-block' class='cbold'>" +
+		phrase.html("interface.trade_offer.trade_offer") +
+		"</div>";
+	html += "<div></div>";
+	html += "<div style='color: #E4E4E4; border-bottom: 2px dashed gray; margin-bottom: 3px; display: inline-block' class='cbold'>" + def.name + "</div>";
+	html += "</div>";
+	if (def.compound || def.upgrade)
+		html +=
+			"<div><span style='color:#9E7BCA' class='clickable' onclick='$(\".tolevel\").focus()'>" +
+			phrase.html("interface.trade_offer.min_level") +
+			"</span> <div class='inline-block tolevel editable' contenteditable=true onfocus='trade_offer_level_focus(this)' onblur='trade_offer_level_blur(this)'>" +
+			phrase.html("interface.trade_offer.any") +
+			"</div></div>";
+	html +=
+		"<div><span class='gray clickable' onclick='trade_offer_title()'>" +
+		phrase.html("interface.trade_offer.title") +
+		"</span> <span class='clickable totitle' onclick='trade_offer_title()'>" +
+		phrase.html("interface.trade_offer.any") +
+		"</span></div>";
+	if (def.s)
+		html +=
+			"<div><span class='gray clickable' onclick='$(\".toq\").cfocus()'>" + phrase.html("interface.item.quantity_short") + "</span> <div class='inline-block toq' contenteditable=true>1</div></div>";
+	if (offered) html += "<div><span class='gray'>" + phrase.html("interface.trade_offer.give") + "</span> " + html_escape(trade_lot_name(Object.assign({}, offered, { q: state.q }))) + "</div>";
+	html += "<div><span class='clickable iou' onclick='trade_offer_form()'>" + phrase.html("interface.item.offer_for_trade") + "</span></div>";
+	html += "</div>";
+	render_ui_panel("#topleftcornerdialog", html);
+	dialogs_target = character;
+}
+
+function trade_want_html(want) {
+	// What a trade offer asks for, on the stand and in the online merchants list: a set level is the lowest accepted
+	var def = G.items[want.name],
+		any = "",
+		html = "<div style='margin-top: 5px'><span class='cbold iou'>" + phrase.html("interface.trade_offer.wants") + "</span></div>";
+	if (!def) return "";
+	if (want.level) any = want.p ? "interface.trade_offer.or_higher" : "interface.trade_offer.or_higher_any_title";
+	else if (def.upgrade || def.compound) any = want.p ? "interface.trade_offer.any_level" : "interface.trade_offer.any_level_title";
+	else if (!want.p) any = "interface.trade_offer.any_title";
+	// a long "or higher" line wraps beside the item instead of dropping below it
+	html +=
+		"<div style='display:flex; align-items:center'><div style='flex:none; margin-left:-2px'>" +
+		item_container(
+			{ skin: def.skin, def: def, draggable: false, onclick: "render_item_popup('" + want.name + "'," + (want.level || 0) + ")" },
+			{ name: want.name, level: want.level, q: (want.q || 1) > 1 ? want.q : undefined },
+		) +
+		"</div>";
+	html += "<div style='margin-left: 4px'>";
+	html += "<div>" + html_escape(trade_lot_name(want)) + "</div>";
+	if (any) html += "<div class='gray'>" + phrase.html(any) + "</div>";
+	html += "</div></div>";
+	return html;
 }
 
 function render_set(name) {
@@ -5905,6 +6092,7 @@ function item_container(item, actual) {
 		}
 	}
 	if (def && actual && def.type == "booster" && actual.level) bcolor = xbcolor;
+	if (item.sbcolor) bcolor = item.sbcolor; // a selection shows over the rarity border
 
 	if (item.draggable || !("draggable" in item)) {
 		item_prop += " draggable='true' ondragstart='on_drag_start(event)'";
@@ -6090,6 +6278,7 @@ function item_container(item, actual) {
 		if ((item.slot && in_arr(item.slot, trade_slots)) || item.trade_for_ui) {
 			if (actual && actual.giveaway) html += "<div class='truui igu' style='border-color: " + bcolor + ";'>@</div>";
 			else if (actual && actual.b) html += "<div class='truui ibu' style='border-color: " + bcolor + ";'>?</div>";
+			else if (actual && actual.want) html += "<div class='truui iou' style='border-color: " + bcolor + ";'>&amp;</div>";
 			else html += "<div class='truui itu' style='border-color: " + bcolor + ";'>$</div>"; //€
 		} else if (actual && actual.l && !item.slot) {
 			if (actual.l == "s") html += "<div class='truui ilsu' style='border-color: " + bcolor + ";'>S</div>";
