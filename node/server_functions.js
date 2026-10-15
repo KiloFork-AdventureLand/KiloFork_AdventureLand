@@ -339,6 +339,11 @@ function calculate_xvalue(arr, rec, divide, mult) {
 	return value;
 }
 
+function trade_price(value) {
+	if (typeof value === "string" && /^\d+$/.test(value.trim())) value = Number(value.trim());
+	return Number.isSafeInteger(value) && value >= 1 && value <= 99999999999 ? value : null;
+}
+
 function add_to_trade_history(player, event, name, item, price, received) {
 	if (!player.p.trade_history) {
 		player.p.trade_history = [];
@@ -3327,10 +3332,10 @@ function add_condition(target, condition, args) {
 		C.s = min((target.is_monster && 20) || 5, (target.s.woven && target.s.woven.s + 1) || 1);
 		C.speed = -3 * C.s;
 	}
-	duration = max((target.s[condition] && target.s[condition].ms) || 0, duration);
 	if (target.stresistance && def && def.debuff) {
 		duration *= (100 - target.stresistance) / 100.0;
 	}
+	duration = max((target.s[condition] && target.s[condition].ms) || 0, duration);
 	target.s[condition] = C;
 	C.ms = response.duration = duration;
 	server_log(C);

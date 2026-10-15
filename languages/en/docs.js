@@ -1,5 +1,29 @@
 // English documentation catalog. IDs identify source meaning and usage.
 module.exports = {
+	// Items guide and upgrade CODE reference. Preserve Primling, CODE, null and grace_added. A preview consumes nothing.
+	"docs.upgrading.grace_only": "At the upgrade shrine, use an offering such as Primling without a scroll to add 0.5 grace. The offering is consumed; the item keeps its level. In CODE, pass null for the scroll. Calculation mode consumes nothing and returns grace_added.",
+	// Entry CODE reference. Preserve CODE, transport_cant_item and items; the keys in items are executable item IDs.
+	"docs.functions.enter.missing_key": "If an entrance requires a key, the error names the missing key. In CODE, a transport_cant_item rejection includes items, mapping each required item ID to its quantity.",
+	// Monster reference. Preserve boundary and boundaries, the two CODE data fields. Definitions do not prove current sightings.
+	"docs.articles.data-monster.spawn_boundaries": "A spawn pack can use boundary for one rectangle on its map, or boundaries for rectangles that include their own map names. Scan every map when looking for a monster’s spawn areas: one pack can span several maps. These are possible spawn areas, not live sightings.",
+	// Item use and recovery requests during stun, in the Items guide and CODE references. Preserve HP/MP, CODE, reason and "disabled". Passive recovery continues.
+	"docs.items.stunned_use": "Consumables, item activations, thrown items, and HP/MP recovery requests are blocked while you are stunned. These CODE actions reject with reason: \"disabled\".",
+	// CODE trade and wishlist price limits. Preserve price, reason and the failure reason "invalid".
+	"docs.trade.valid_price": "Use a whole gold amount from 1 to 99,999,999,999 for price. Invalid prices reject with reason: \"invalid\".",
+	// Items guide, beside PvP item markings. Self-inflicted splash still hurts, but never counts as an opponent or awards a self-kill or self-loot. Preserve PvP.
+	"docs.guide.items.self_damage": "Your own splash damage can hurt you in PvP areas. It does not count as another player attacking you, give you a PvP kill or let you loot your own death.",
+	// Cave return: preserve the current floor, progress, health and fallen state.
+	"docs.cave.safe_return": "If a wall blocks your saved position, returning places you at a safe point on the same floor, or at that floor’s entrance. Your cave progress and health are kept; fallen characters remain fallen.",
+	// Banking guide: Bank Key and Underground Key each grant their floor's first pack as well as its entrance. This does not describe Diamond Key or purchasing a pack.
+	"docs.guide.banking.key_pack": "Each floor key also unlocks its first item pack, which is available immediately.",
+	// Banking and anniversary guides, plus bank_store reference: overflow keeps real reward items without increasing capacity. Keep bank_store() unchanged. Index means the zero-based position in character.items.
+	"docs.guide.banking.overflow_items": "Rewards can appear in an extra inventory row when your bag is full. These items are kept, but the row does not add capacity. At the bank, drag an item from that row into a pack, or use bank_store() with its inventory index.",
+	// Encouragement guide introduction. Existing merchants can move between realms without interrupting other characters' bonuses; normal account eligibility and character limits still apply.
+	"docs.guide.encouragement.merchant_realms": "Merchants can change realms without interrupting your other characters’ encouragement bonuses.",
+	// Mail tutorial and send_mail/take_mail_item references. Receiving account owns the attachment, including self-mail; deletion hides only the caller's copy.
+	"docs.mail.ownership": "Only the receiving account can collect an attachment. Senders cannot take it back. Deleting mail removes only your copy.",
+	// Bank gold response metadata. Preserve operation, deposit, withdraw and gold as CODE.
+	"docs.functions.bank_gold.operation": "The result's <span class='dlabel'>operation</span> is <span class='dlabel'>\"deposit\"</span> or <span class='dlabel'>\"withdraw\"</span>; <span class='dlabel'>gold</span> is the amount moved.",
 	// Golden Bat guide paragraph after its spawn line; the drop list with exact rates follows. Item names fixed; 24,000 exact.
 	"docs.guide.golden-bat.intro": "It flies around the cave until someone catches it. With 24,000 HP, it only sometimes attacks and never hits back.",
 	// Cute Bee guide paragraph after its spawn line; the drop list follows. Fun Token is a fixed name; 300 and 16 exact.
@@ -71,13 +95,13 @@ module.exports = {
 	// Home guide. condition is the translated Hop Sickness name. Keep XP, PvP and Bean. Level 60+, non-PvP, 12 online minutes; reconnect preserves time and returning/changing home clears it.
 	"docs.guide.events-and-home.hop-sickness": "{condition} lowers XP, gold, luck and attack power after a character of level 60 or above enters another non-PvP server away from home. The base duration is 12 minutes of online play. Reconnecting to that server preserves the remaining time. Returning to the saved home or changing home with Bean clears it immediately.",
 	// Public CODE requirements and Promise fields. Preserve Tracktrix, Cavalry, Cave of Many Dreams, assigned, queued, next_call, cooldown_ms, reason and 0–4.
-	"docs.cavalry.code": "Carry Tracktrix and follow the rescue rules. Call once. Results include assigned (0–4), queued, next_call and cooldown_ms; failures reject with reason. Cavalry cannot enter the Cave of Many Dreams.",
+	"docs.cavalry.code": "Carry Tracktrix or Super Computer and follow the rescue rules. Call interact(\"cavalry\") once. Results include assigned (0–4), queued, next_call and cooldown_ms; failures reject with reason. Cavalry cannot be called from generated maps, including Cave of Many Dreams.",
 	// Four Cavalry NPCs shared per game server, distributed 4 / 2+2 / 2+1+1 / 1+1+1+1. Calls within 160 normal game range share a fight. Priority uses current caller character level, then call age; lower-level calls can take sentries from higher-level ones.
 	"docs.cavalry.dispatch": "Four sentries are shared per server. Separate fights split them 4, 2+2, 2+1+1 or 1+1+1+1. Calls within 160 game range share one fight. Lower CURRENT character level gets priority; older calls break ties. Extra fights wait, and sentries may move to a lower-level caller.",
 	// Cavalry guide class behavior and unchanged rewards. Translate class names using established terms. Keep Cavalry, Tracktrix and XP; monsters do not target Cavalry.
 	"docs.cavalry.combat": "The Warrior stays charged. The Mage fires up to three projectiles and sometimes blinks. The Priest heals wounded nearby players; the Paladin heals and protects nearby allies. Monsters never target Cavalry. Assisted kills keep normal XP, loot and Tracktrix credit.",
 	// Cavalry guide manual action. Tracktrix must be in inventory; action is the translated call label including its exclamation mark. Keep Tracktrix, Cavalry and Cave of Many Dreams.
-	"docs.cavalry.manual": "Carry Tracktrix, click it, and choose {action} You must be alive and connected. Cavalry cannot be called from generated maps, including Cave of Many Dreams.",
+	"docs.cavalry.manual": "Carry Tracktrix or Super Computer, click it, and choose {action} You must be alive and connected. Cavalry cannot be called from generated maps, including Cave of Many Dreams.",
 	// Guide introduction; preserve Wizard's Crib, translate class labels using established terms.
 	"docs.cavalry.intro": "Four sentries wait in Wizard's Crib: a Paladin, Mage, Warrior and Priest. Click one to inspect their equipment.",
 	// Guide introduction. Rime Djinn, Frozen Cove and Harpy are fixed game names. Ordinary aggro=1 permits passing attacks without target acquisition.
@@ -4431,8 +4455,8 @@ module.exports = {
 	"docs.guide.event-anniversary.cake-drops-one-prize": "Cake drops — one prize",
 	// docs/guide/event-anniversary.html:110; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.event-anniversary.check-inventory-gold-and-cosmetics-for-your-rewards": "Check inventory, gold and cosmetics for your rewards; not all rewards appear in the returned result.",
-	// docs/guide/event-anniversary.html:68; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE","Mira"].
-	"docs.guide.event-anniversary.code-craft-with-mira": "CODE: Craft with Mira",
+	// Anniversary guide heading. The CODE example chooses Mira or Cole from server.status.anniversary. Preserve CODE.
+	"docs.guide.event-anniversary.code-craft-with-mira": "CODE: Craft anniversary recipes",
 	// docs/guide/event-anniversary.html:36; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE"].
 	"docs.guide.event-anniversary.code-find-and-kiss": "CODE: Find and kiss",
 	// docs/guide/event-anniversary.html:95; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["CODE","Anniversary Gift"].
@@ -4441,9 +4465,9 @@ module.exports = {
 	// docs/guide/event-anniversary.html:111; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["smart_move","auto_craft","exchange","compound","upgrade","use_skill"]. Keep names: ["CODE"].
 	"docs.guide.event-anniversary.code-reference-smart-move-auto-craft-exchange-compound":
 		'CODE reference: <span class="rlabel" onclick="render_function_reference($(this).html())">smart_move</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">auto_craft</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">exchange</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">compound</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">upgrade</span>, <span class="rlabel" onclick="render_function_reference($(this).html())">use_skill</span>.',
-	// docs/guide/event-anniversary.html:32; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Mira"].
+	// Anniversary crafting requirements, during and after the event. Preserve Mira, Cole and Computer.
 	"docs.guide.event-anniversary.crafting-needs-the-listed-unlocked-ingredients-gold-and":
-		"Crafting needs the listed unlocked ingredients, gold, and room for the result. Stay near Mira unless you have Computer access. Mira leaves when the event ends; your items and emotes stay.",
+		"Crafting needs the listed unlocked ingredients, gold and room for the result. Stay near Mira during the event, or Cole afterward, unless you have Computer access. Your items and emotes stay.",
 	// docs/guide/event-anniversary.html:27; Documentation div prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.event-anniversary.event-details": "Event details",
 	// Anniversary guide: all servers can start rounds, but a reachable target outside PvP is required. Only other eligible players online at selection receive a Visit. Preserve the three bold spans.
@@ -4459,9 +4483,9 @@ module.exports = {
 	// docs/guide/event-anniversary.html:30; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged.
 	"docs.guide.event-anniversary.if-the-featured-player-disconnects-or-becomes-unreachable":
 		"If the featured player disconnects or becomes unreachable, their place stays reserved until the round ends. They can return during the same five minutes. The timer does not restart.",
-	// docs/guide/event-anniversary.html:88; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Fixed HTML: preserve every tag, attribute, handler and URL exactly; translate visible prose only. Locked inline code: ["show_json(G.craft)","find_npc(\"anniversary_baker\")"]. Keep names: ["Mira"].
+	// CODE ingredient inspection. Preserve the span markup and show_json(G.craft) exactly.
 	"docs.guide.event-anniversary.inspect-ingredients-with-show-json-g-craft-find":
-		'Inspect ingredients with <span class="dlabel">show_json(G.craft)</span>. Find Mira with <span class="dlabel">find_npc("anniversary_baker")</span>.',
+		"Inspect ingredients with <span class=\"dlabel\">show_json(G.craft)</span>.",
 	// docs/guide/event-anniversary.html:34; Documentation p prose block. Keep Adventure Land, CODE symbols, and item/NPC/map/monster names unchanged. Keep names: ["Mira"].
 	"docs.guide.event-anniversary.make-a-wish-s-jar-costs-one-cake":
 		"Make a Wish's jar costs one cake + 250,000 gold at Mira. The emote uses 50 MP and has a four-minute cooldown. The rare I Kiss You jar unlocks kisses outside the event. Kisses without an Anniversary Visit give no rewards or buff.",

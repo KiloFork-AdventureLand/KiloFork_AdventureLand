@@ -2,11 +2,24 @@ const PUBLIC_PATHS = ["/", "/docs", "/linux", "/mainframe", "/vscode", "/hub"];
 // /steam-signup and its callbacks are private, noindex account routes, not sitemap entries.
 
 const DOCS_PATHS = [
+	"/docs/code/functions/activate",
+	"/docs/code/functions/consume",
+	"/docs/code/functions/enter",
+	"/docs/code/functions/send_mail",
+	"/docs/code/functions/take_mail_item",
+	"/docs/code/functions/throw_item",
+	"/docs/code/functions/upgrade",
+	"/docs/code/functions/use",
+	"/docs/code/functions/use_hp_or_mp",
+	"/docs/code/functions/wishlist",
+	"/docs/guide/items",
 	"/docs/code",
 	"/docs/code/character/events", // Includes loot events for encouragement rewards.
 	"/docs/code/character/reference",
 	"/docs/code/data",
 	"/docs/code/functions",
+	"/docs/code/functions/bank_deposit",
+	"/docs/code/functions/bank_withdraw",
 	"/docs/code/functions/bank_store",
 	"/docs/code/functions/bank_retrieve",
 	"/docs/code/functions/auto_craft",
