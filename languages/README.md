@@ -98,6 +98,8 @@ Tauri reads the selected Steam game language once off the UI thread, with a 750 
 
 ## Catalog status
 
+Anniversary event shutdown (October 6): ten UI, guide and release phrases are translated and proofread in all 32 languages. Cole's fallback, Computer access, NPC names, placeholders and CODE markup were checked.
+
 Character slots: the slot notice and shell-charge release note are translated and proofread in all 32 languages. Slot entitlements, existing prices and negative-balance wording were checked on 2026-10-02.
 
 Monster combat range: the geometry paragraph and release note are translated and proofread in all 32 languages. The default bounds, optional size multiplier, rounding and CODE identifiers were checked on 2026-10-02.
@@ -169,3 +171,13 @@ All 32 languages include the required current-game phrases. The remaining histor
 | Filipino | 701 | 386 |
 
 The earlier twelve languages have no missing archive translations. Historical translation can resume by language and section without changing the current-game completion status.
+
+October 6 PR fixes: six release notes and the shared bank-result paragraph are translated and proofread in all 32 languages. Deposit and withdrawal fields, the 25% healing value, stun terminology and fixed cape names were checked. Both bank examples pass native CODE and Mainframe checks.
+
+Button casing (October 6): the grace action uses uppercase in every language with letter case, including ADD GRACE and Turkish LÜTUF EKLE. Existing translations and uncased scripts are preserved. The Cavalry action is CALL IN CAVALRY! in English; other translations retain their meaning.
+
+October 5 bug fixes: 15 phrases covering Super Computer cavalry access, movement buttons, documentation links, numeric character names, Alchemy gold output, stunned item use, scroll consumption and merchant price validation are translated and proofread in all 32 languages. Fixed names, CODE identifiers, placeholders and the existing release entries are preserved.
+
+Stunned item use (October 5): the revised condition tooltip, replacement fix note and shared Items/CODE paragraph are translated and proofread in all 32 languages. The existing disabled response, passive recovery and ordinary equipment swaps remain unchanged.
+
+Super Computer menus (October 5): the revised release note is translated and proofread in all 32 languages. Both Network entry paths reuse existing translated controls; the selected item, Tracker and Cavalry actions were checked in every language.
